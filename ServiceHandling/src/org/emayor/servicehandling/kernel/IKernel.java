@@ -83,4 +83,12 @@ public interface IKernel {
 	 * @throws KernelException
 	 */
 	public ServiceInfo[] listAllAvailableServices() throws KernelException;
+	
+	/**
+	 * 
+	 * @param asid
+	 * @return
+	 * @throws KernelException
+	 */
+	public String getUserIdByASID(String asid) throws KernelException;
 }

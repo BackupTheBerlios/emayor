@@ -191,6 +191,11 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
+	public synchronized String getUserIdByASID(String asid)
+			throws KernelException {
+		return "defid";
+	}
+
 	private void initTestData() {
 		try {
 			ServiceInfo serviceInfo = new ServiceInfo();

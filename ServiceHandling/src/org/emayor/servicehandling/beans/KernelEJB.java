@@ -29,6 +29,7 @@ public class KernelEJB implements SessionBean, IKernel {
 	private static Logger log = Logger.getLogger(KernelEJB.class);
 
 	private Kernel kernel;
+
 	private SessionContext ctx;
 
 	/**
@@ -166,13 +167,24 @@ public class KernelEJB implements SessionBean, IKernel {
 	}
 
 	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public String getUserIdByASID(String asid) throws KernelException {
+		log.debug("-> start processing ...");
+		return this.kernel.getUserIdByASID(asid);
+	}
+
+	/**
 	 * Default create method
 	 * 
 	 * @throws CreateException
 	 * @ejb.create-method
 	 */
 	public void ejbCreate() throws CreateException {
-		
+
 	}
 
 }

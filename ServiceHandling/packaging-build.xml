@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N10084"/>
+<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N10084,N100B5"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -38,7 +38,24 @@
 <zipfileset dir="jsp-src"/>
 </jar>
 </target>
-<target name="N10084" description="eMayorApp.ear">
+<target name="N10084" description="WorklistManager-client.jar">
+<jar destfile="WorklistManager-client.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="application-client.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss-client.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jaxrpc-mapping.xml"/>
+</zipfileset>
+<zipfileset dir="wsdl" prefix="META-INF/wsdl">
+<include name="WorklistManager.wsdl"/>
+</zipfileset>
+<zipfileset dir="classes" includes="com/oracle/services/bpel/task/*.class"/>
+</jar>
+</target>
+<target name="N100B5" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -48,6 +65,9 @@
 </zipfileset>
 <zipfileset dir=".">
 <include name="eMayorWeb.war"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="WorklistManager-client.jar"/>
 </zipfileset>
 </jar>
 </target>

@@ -5,6 +5,8 @@ package org.emayor.servicehandling.kernel;
 
 import java.io.Serializable;
 
+import com.oracle.services.bpel.task._task;
+
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
  *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
@@ -47,4 +49,8 @@ public interface ITask extends Serializable {
 	 * @param xmlDocument
 	 */
 	public void setXMLDocument(String xmlDocument);
+
+	public _task getOriginalTask();
+
+	public void setOriginalTask(_task task);
 }

@@ -12,9 +12,9 @@
 			Start site of the test gui for service handling!
 		</h1>
 		<br/>
-		<a href="ServiceHandlingTest?action=welcome">lets go :-)</a> 
-
-
+		<a href="ServiceHandlingTest?action=welcome">service listing :-)</a> 
+		<br/>
+		<a href="ServiceHandlingTest?action=listMyTasks">my tasks listing :-)</a>
 </body>
 
 </html>

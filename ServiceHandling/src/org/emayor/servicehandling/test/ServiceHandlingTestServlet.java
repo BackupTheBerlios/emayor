@@ -80,6 +80,11 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			LogoutProcessor p = new LogoutProcessor();
 			p.process(req, resp);
 			resp.sendRedirect("index.jsp");
+		} else if (action.equalsIgnoreCase("listMyTasks")) {
+			log.debug("processing the listMyTasks request");
+			ListMyTasksProcessor p = new ListMyTasksProcessor();
+			p.process(req, resp);
+			resp.sendRedirect("listTasks.jsp");
 		} else {
 			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");
