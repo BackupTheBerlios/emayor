@@ -381,6 +381,12 @@ public class Kernel implements IKernel {
 		IUserProfile ret = null;
 		try {
 			ret = this.repository.getUserProfile(userId);
+			// for testing purposes the email address has been 
+			// stored in the certificate has to be replaced 
+			// by a local one
+			if (ret != null) {
+			    ret.getPEUserProfile().setUserEmail("eMayor.User@localhost");
+			}
 		} catch (KernelRepositoryException krex) {
 			log.error("caught ex: " + krex.toString());
 			throw new KernelException(
