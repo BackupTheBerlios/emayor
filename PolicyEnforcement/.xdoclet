@@ -149,6 +149,58 @@
 <attribute name="currentField" value="" used="false"/>
 <attribute name="currentClass" value="" used="false"/>
 </element>
+<element name="localhomeinterface" used="true">
+<attribute name="pattern" value="" used="false"/>
+<attribute name="acceptInterfaces" value="" used="false"/>
+<attribute name="acceptAbstractClasses" value="" used="false"/>
+<attribute name="packageSubstitutions" value="" used="false"/>
+<attribute name="packageSubstitutionInheritanceSupported" value="" used="false"/>
+<attribute name="subTaskClassName" value="" used="false"/>
+<attribute name="prefixWithPackageStructure" value="" used="false"/>
+<attribute name="destinationFile" value="" used="false"/>
+<attribute name="templateURL" value="" used="false"/>
+<attribute name="templateFile" value="" used="false"/>
+<attribute name="Extent" value="" used="false"/>
+<attribute name="havingClassTag" value="" used="false"/>
+<attribute name="ofType" value="" used="false"/>
+<attribute name="subTaskName" value="" used="false"/>
+<attribute name="destDir" value="" used="false"/>
+<attribute name="mergeDir" value="" used="false"/>
+<attribute name="currentMethodTag" value="" used="false"/>
+<attribute name="currentClassTag" value="" used="false"/>
+<attribute name="currentFieldTag" value="" used="false"/>
+<attribute name="currentPackage" value="" used="false"/>
+<attribute name="currentMethod" value="" used="false"/>
+<attribute name="currentConstructor" value="" used="false"/>
+<attribute name="currentField" value="" used="false"/>
+<attribute name="currentClass" value="" used="false"/>
+</element>
+<element name="localinterface" used="true">
+<attribute name="pattern" value="" used="false"/>
+<attribute name="acceptInterfaces" value="" used="false"/>
+<attribute name="acceptAbstractClasses" value="" used="false"/>
+<attribute name="packageSubstitutions" value="" used="false"/>
+<attribute name="packageSubstitutionInheritanceSupported" value="" used="false"/>
+<attribute name="subTaskClassName" value="" used="false"/>
+<attribute name="prefixWithPackageStructure" value="" used="false"/>
+<attribute name="destinationFile" value="" used="false"/>
+<attribute name="templateURL" value="" used="false"/>
+<attribute name="templateFile" value="" used="false"/>
+<attribute name="Extent" value="" used="false"/>
+<attribute name="havingClassTag" value="" used="false"/>
+<attribute name="ofType" value="" used="false"/>
+<attribute name="subTaskName" value="" used="false"/>
+<attribute name="destDir" value="" used="false"/>
+<attribute name="mergeDir" value="" used="false"/>
+<attribute name="currentMethodTag" value="" used="false"/>
+<attribute name="currentClassTag" value="" used="false"/>
+<attribute name="currentFieldTag" value="" used="false"/>
+<attribute name="currentPackage" value="" used="false"/>
+<attribute name="currentMethod" value="" used="false"/>
+<attribute name="currentConstructor" value="" used="false"/>
+<attribute name="currentField" value="" used="false"/>
+<attribute name="currentClass" value="" used="false"/>
+</element>
 </task>
 </configuration>
 <configuration name="Web" used="true">

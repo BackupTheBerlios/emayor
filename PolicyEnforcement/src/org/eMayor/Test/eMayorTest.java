@@ -118,8 +118,6 @@ public class eMayorTest extends HttpServlet {
 				out.println("<p>");
 				out.println("<br>");
 				
-				String myMap = System.getenv("JBOSSHOME"); 
-				int stop=0;
 				
 			}
 			

@@ -17,6 +17,8 @@
 
          <home>org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementHome</home>
          <remote>org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement</remote>
+         <local-home>org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocalHome</local-home>
+         <local>org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal</local>
          <ejb-class>org.eMayor.PolicyEnforcement.PolicyEnforcementBean</ejb-class>
          <session-type>Stateless</session-type>
          <transaction-type>Container</transaction-type>

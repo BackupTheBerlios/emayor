@@ -38,7 +38,7 @@
 <include name="xdoclet-module-jboss-net-${jboss.net.version}*.jar"/>
 </fileset>
 </path>
-<target name="_xdoclet_generation_" depends="N10004,N102D0"/>
+<target name="_xdoclet_generation_" depends="N10004,N103CA"/>
 <target name="N10004" description="EJB">
 <taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.ejb.EjbDocletTask" name="ejbdoclet"/><ejbdoclet ejbSpec="2.0"  destDir="src" >
 
@@ -188,8 +188,60 @@
 
 
 </homeinterface>
+<localhomeinterface>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</localhomeinterface>
+<localinterface>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</localinterface>
 </ejbdoclet></target>
-<target name="N102D0" description="Web">
+<target name="N103CA" description="Web">
 <taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.web.WebDocletTask" name="webdoclet"/><webdoclet destDir="src/WEB-INF" >
 
 

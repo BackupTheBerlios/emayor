@@ -7,6 +7,7 @@
 package org.eMayor.PolicyEnforcement;
 
 
+import java.io.Serializable;
 import java.io.StringReader;
 import java.security.cert.X509Certificate;
 
@@ -25,7 +26,7 @@ import org.xml.sax.InputSource;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class C_UserProfile {
+public class C_UserProfile implements Serializable{
 
 private String m_S_UserName;
 private String m_S_UserEmail;

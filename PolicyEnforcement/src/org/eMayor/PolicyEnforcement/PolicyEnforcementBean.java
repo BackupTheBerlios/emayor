@@ -23,7 +23,7 @@ import java.security.cert.X509Certificate;
  *           description="Description for PolicyEnforcement"
  *           jndi-name="ejb/PolicyEnforcement"
  *           type="Stateless"
- *           view-type="remote"
+ *           view-type="both"
  */
 public class PolicyEnforcementBean implements SessionBean {
 
@@ -82,7 +82,7 @@ public class PolicyEnforcementBean implements SessionBean {
 
 	/**
 	 * Business method
-	 * @ejb.interface-method  view-type = "remote"
+	 * @ejb.interface-method  view-type = "both"
 	 */
 	public C_UserProfile F_getUserProfile(X509Certificate x509_CertChain[]) {
 		// TODO Auto-generated method stub
@@ -119,7 +119,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	}
 	/**
 	 * Business method
-	 * @ejb.interface-method  view-type = "remote"
+	 * @ejb.interface-method  view-type = "both"
 	 */
 	public boolean F_AuthenticateUser(C_UserProfile UserProfile) {
 		// TODO Auto-generated method stub
@@ -128,7 +128,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	}
 	/**
 	 * Business method
-	 * @ejb.interface-method  view-type = "remote"
+	 * @ejb.interface-method  view-type = "both"
 	 */
 	public boolean F_VerifyXMLSignature(String xmlDocument) {
 		// TODO Auto-generated method stub
@@ -136,7 +136,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	}
 	/**
 	 * Business method
-	 * @ejb.interface-method  view-type = "remote"
+	 * @ejb.interface-method  view-type = "both"
 	 */
 	public String F_TimeStampXMLDocument(String xmlDocumentDoc) {
 		// TODO Auto-generated method stub
@@ -144,7 +144,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	}
 	/**
 	 * Business method
-	 * @ejb.interface-method  view-type = "remote"
+	 * @ejb.interface-method  view-type = "both"
 	 */
 	public boolean F_VerifyXMLTimeStampedDocument(String xmlDocument) {
 		// TODO Auto-generated method stub
@@ -152,7 +152,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	}
 	/**
 	 * Business method
-	 * @ejb.interface-method  view-type = "remote"
+	 * @ejb.interface-method  view-type = "both"
 	 */
 	public boolean F_AuthorizeService(
 		C_UserProfile UserProfile,
@@ -162,7 +162,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	}
 	/**
 	 * Business method
-	 * @ejb.interface-method  view-type = "remote"
+	 * @ejb.interface-method  view-type = "both"
 	 */
 	public boolean F_AuthorizeServiceStep(
 		C_UserProfile UserProfile,

@@ -15,6 +15,7 @@
       <session>
          <ejb-name>PolicyEnforcement</ejb-name>
          <jndi-name>ejb/PolicyEnforcement</jndi-name>
+         <local-jndi-name>PolicyEnforcementLocal</local-jndi-name>
 
         <method-attributes>
         </method-attributes>
