@@ -53,7 +53,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		AccessManagerLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("AccessManagerLocal");
+			Object ref = this.initialContext
+					.lookup(AccessManagerLocalHome.JNDI_NAME);
 			AccessManagerLocalHome home = (AccessManagerLocalHome) PortableRemoteObject
 					.narrow(ref, AccessManagerLocalHome.class);
 			ret = home.create();
@@ -74,7 +75,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		UserTaskManagerLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("UserTaskManagerLocal");
+			Object ref = this.initialContext
+					.lookup(UserTaskManagerLocalHome.JNDI_NAME);
 			UserTaskManagerLocalHome home = (UserTaskManagerLocalHome) PortableRemoteObject
 					.narrow(ref, UserTaskManagerLocalHome.class);
 			ret = home.create();

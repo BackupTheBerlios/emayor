@@ -151,8 +151,12 @@ public class Kernel implements IKernel {
 				log.debug("the new ssid = " + ret.getSessionId());
 			IServiceInfo serviceInfo = this.repository
 					.getServiceInfo(serviceId);
+			log.debug("set service id into service session instance");
+			ret.setServiceId(serviceId);
+			log.debug("get the factory for the given service");
 			IeMayorServiceFactory factory = this.repository
 					.getServiceFactory(serviceId);
+			log.debug("create the service instance using got factory");
 			IeMayorService service = factory.createService(serviceId, ret
 					.getSessionId());
 			log.debug("call setup method on the service instance");

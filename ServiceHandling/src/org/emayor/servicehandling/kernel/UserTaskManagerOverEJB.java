@@ -60,7 +60,7 @@ public class UserTaskManagerOverEJB implements IService {
 	 * 
 	 * @see org.emayor.servicehandling.kernel.IService#getMyTasks(java.lang.String)
 	 */
-	public Tasks getMyTasks(String accessSessionId) throws ServiceException {
+	public synchronized Tasks getMyTasks(String accessSessionId) throws ServiceException {
 		log.debug("-> start processing ...");
 		Tasks ret = new Tasks();
 		if (log.isDebugEnabled())
@@ -95,7 +95,7 @@ public class UserTaskManagerOverEJB implements IService {
 	 * @see org.emayor.servicehandling.kernel.IService#completeTask(java.lang.String,
 	 *      org.emayor.servicehandling.kernel.Task)
 	 */
-	public void completeTask(String accessSessionId, Task task)
+	public synchronized void completeTask(String accessSessionId, Task task)
 			throws ServiceException {
 		log.debug("-> start processing ...");
 		try {
@@ -115,7 +115,7 @@ public class UserTaskManagerOverEJB implements IService {
 	 * 
 	 * @see org.emayor.servicehandling.kernel.IService#lookupTask(java.lang.String)
 	 */
-	public Task lookupTask(String taskId) throws ServiceException {
+	public synchronized Task lookupTask(String taskId) throws ServiceException {
 		log.debug("-> start processing ...");
 		Task ret = new Task();
 		if (log.isDebugEnabled())
@@ -139,7 +139,7 @@ public class UserTaskManagerOverEJB implements IService {
 	 * @see org.emayor.servicehandling.kernel.IService#lookupTaskByServiceSession(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public Task lookupTaskByServiceSession(String asid, String ssid)
+	public synchronized Task lookupTaskByServiceSession(String asid, String ssid)
 			throws ServiceException {
 		log.debug("-> start processing ...");
 		Task ret = null;

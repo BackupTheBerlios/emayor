@@ -13,8 +13,8 @@ import org.emayor.servicehandling.kernel.UserTaskException;
 public class InputDataCollector extends UserTaskAbstractClient {
 	private static Logger log = Logger.getLogger(InputDataCollector.class);
 
-	// per def set to 10 seconds
-	public static final long DEF_SLEEP_PERIOD = 30000;
+	// per def set to 15 seconds
+	public static final long DEF_SLEEP_PERIOD = 15000;
 
 	public static final byte DEF_REPEAT_NUMBER = 3;
 

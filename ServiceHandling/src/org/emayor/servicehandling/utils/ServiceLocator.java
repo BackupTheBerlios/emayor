@@ -71,7 +71,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		AccessManagerLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("AccessManagerLocal");
+			Object ref = this.initialContext
+					.lookup(AccessManagerLocalHome.JNDI_NAME);
 			AccessManagerLocalHome home = (AccessManagerLocalHome) PortableRemoteObject
 					.narrow(ref, AccessManagerLocalHome.class);
 			ret = home.create();
@@ -97,7 +98,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		AccessSessionLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("AccessSessionLocal");
+			Object ref = this.initialContext
+					.lookup(AccessSessionLocalHome.JNDI_NAME);
 			AccessSessionLocalHome home = (AccessSessionLocalHome) PortableRemoteObject
 					.narrow(ref, AccessSessionLocalHome.class);
 			ret = home.create();
@@ -118,7 +120,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		SimpleIdGeneratorLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("SimpleIdGeneratorLocal");
+			Object ref = this.initialContext
+					.lookup(SimpleIdGeneratorLocalHome.JNDI_NAME);
 			SimpleIdGeneratorLocalHome home = (SimpleIdGeneratorLocalHome) PortableRemoteObject
 					.narrow(ref, SimpleIdGeneratorLocalHome.class);
 			ret = home.create();
@@ -139,7 +142,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		ServiceSessionLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("ServiceSessionLocal");
+			Object ref = this.initialContext
+					.lookup(ServiceSessionLocalHome.JNDI_NAME);
 			ServiceSessionLocalHome home = (ServiceSessionLocalHome) PortableRemoteObject
 					.narrow(ref, ServiceSessionLocalHome.class);
 			ret = home.create(accessSessionId);
@@ -160,7 +164,7 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		KernelLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("KernelLocal");
+			Object ref = this.initialContext.lookup(KernelLocalHome.JNDI_NAME);
 			KernelLocalHome home = (KernelLocalHome) PortableRemoteObject
 					.narrow(ref, KernelLocalHome.class);
 			ret = home.create();
@@ -181,7 +185,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		UserTaskManagerLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("UserTaskManagerLocal");
+			Object ref = this.initialContext
+					.lookup(UserTaskManagerLocalHome.JNDI_NAME);
 			UserTaskManagerLocalHome home = (UserTaskManagerLocalHome) PortableRemoteObject
 					.narrow(ref, UserTaskManagerLocalHome.class);
 			ret = home.create();
