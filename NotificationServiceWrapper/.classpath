@@ -7,10 +7,6 @@
 	<classpathentry kind="lib" path="C:/Dokumente und Einstellungen/mxs/Eigene Dateien/logging-log4j-1.2.9/dist/lib/log4j-1.2.9.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse/workspace/NotificationService/lib/javamail.jar"/>
 	<classpathentry kind="src" path="/NotificationService"/>
-	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb-impl.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb-libs.jar"/>
-	<classpathentry kind="lib" path="lib/eMayor-jaxb.jar"/>
 	<classpathentry kind="src" path="/ServiceHandling"/>
 	<classpathentry kind="src" path="/PolicyEnforcement"/>
 	<classpathentry kind="src" path="/PrintingUtility"/>
