@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
+import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
@@ -30,6 +31,7 @@ public class Kernel implements IKernel {
 	private KernelRepository repository;
 
 	private PolicyEnforcement pe;
+	//private PolicyEnforcementLocal pe;
 
 	private static Kernel _self = null;
 
@@ -39,9 +41,15 @@ public class Kernel implements IKernel {
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			this.idGen = locator.getSimpleIdGeneratorLocal();
+			if (this.idGen == null)
+				log.warn("the ref to the id gen is NULL!!!!");
+			else
+				log.debug("got the id gen ref");
 			this.pe = locator.getPolicyEnforcement();
 			if (pe == null)
-				log.error("the re to the policy enforcer is NULL!!!!");
+				log.warn("--------------->the re to the policy enforcer is NULL!!!!");
+			else
+				log.warn("--------------->the pe reference: " + pe.toString());
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex:" + ex.toString());
 		}
@@ -52,6 +60,7 @@ public class Kernel implements IKernel {
 	}
 
 	public static final Kernel getInstance() throws KernelException {
+		log.debug("-> start processing ...");
 		if (_self == null)
 			_self = new Kernel();
 		return _self;
@@ -410,7 +419,8 @@ public class Kernel implements IKernel {
 	public String authenticateUser(X509Certificate[] certificates)
 			throws KernelException {
 		log.debug("-> start processing ...");
-		String ret = null;
+		String ret = "defid";
+		/*
 		try {
 			log.debug("try to get the user profile from policy enforcer");
 			C_UserProfile userProfile = this.pe.F_getUserProfile(certificates);
@@ -433,7 +443,7 @@ public class Kernel implements IKernel {
 			throw new KernelException(rex.toString());
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
+		}*/
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}

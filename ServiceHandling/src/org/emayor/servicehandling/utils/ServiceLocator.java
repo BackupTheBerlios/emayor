@@ -15,6 +15,8 @@ import javax.rmi.PortableRemoteObject;
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementHome;
+import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
+import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocalHome;
 import org.eMayor.ServiceHandling.PrintingUtility.interfaces.Printer;
 import org.eMayor.ServiceHandling.PrintingUtility.interfaces.PrinterHome;
 import org.emayor.servicehandling.interfaces.AccessManagerLocal;
@@ -215,6 +217,28 @@ public class ServiceLocator {
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceLocatorException(rex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public synchronized PolicyEnforcementLocal getPolicyEnforcementLocal()
+			throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		PolicyEnforcementLocal ret = null;
+		try {
+			Object ref = this.initialContext
+					.lookup(PolicyEnforcementLocalHome.JNDI_NAME);
+			PolicyEnforcementLocalHome home = (PolicyEnforcementLocalHome) PortableRemoteObject
+					.narrow(ref, PolicyEnforcementLocalHome.class);
+			ret = home.create();
+			log.debug("got the reference!");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		} catch (CreateException cex) {
+			log.error("caught ex: " + cex.toString());
+			throw new ServiceLocatorException(cex);
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

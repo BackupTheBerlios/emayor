@@ -33,12 +33,18 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  * @web.servlet-mapping url-pattern = "/ServiceHandlingTest"
  * 
  * 
- * @web.ejb-local-ref name = "ejb/AccessManager" type = "Session" home =
- *                    "org.emayor.servicehandling.interfaces.AccessManagerLocalHome"
- *                    local =
- *                    "org.emayor.servicehandling.interfaces.AccessManagerLocal"
- *                    description = "Reference to the AccessManager EJB" link =
- *                    "AccessManager"
+ * @web.ejb-local-ref name = "ejb/AccessManager" 
+ * 		type = "Session" 
+ * 		home = "org.emayor.servicehandling.interfaces.AccessManagerLocalHome"
+ *     	local = "org.emayor.servicehandling.interfaces.AccessManagerLocal"
+ *      description = "Reference to the AccessManager EJB" 
+ * 		link = "AccessManager"
+ * @web.ejb-ref name = "ejb/PolicyEnforcement"
+ * 		type = "Session"
+ * 		home = "org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementHome"
+ * 		remote = "org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement"
+ * 		description = "nnnn"
+ * 		link = "PolicyEnforcement"
  *  
  */
 public class ServiceHandlingTestServlet extends HttpServlet {
