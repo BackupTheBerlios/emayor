@@ -117,8 +117,11 @@ public class eMayorTest extends HttpServlet {
 				out.println(myUserProfile.getX509_CertChain()[0].toString());
 				out.println("<p>");
 				out.println("<br>");
+// Code to test the to Streang anf From Streang Method				
+				String myDocument = myUserProfile.F_getUserProfileasString();
+				C_UserProfile mynewUP = new C_UserProfile(myDocument);
 				
-				
+				int aaa=0;
 			}
 			
 				

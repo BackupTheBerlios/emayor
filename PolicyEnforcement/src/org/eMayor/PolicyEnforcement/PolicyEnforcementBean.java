@@ -86,35 +86,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	 */
 	public C_UserProfile F_getUserProfile(X509Certificate x509_CertChain[]) {
 		// TODO Auto-generated method stub
-		if (x509_CertChain == null) {
-			return null;
-		} else {
-			C_UserProfile newUserProfile = new C_UserProfile();
-			newUserProfile.setX509_CertChain(x509_CertChain);
-			java.security.Principal newPrincipal = x509_CertChain[0].getSubjectDN();		
-			
-			C_ParseX509DN myX509DNParser = new C_ParseX509DN(newPrincipal.getName());
-			newUserProfile.setUserName(myX509DNParser.m_S_CN);
-			newUserProfile.setUserEmail(myX509DNParser.m_S_Email);
-			newUserProfile.setOrganisationUnit(myX509DNParser.m_S_OU);
-			newUserProfile.setUserOrganisation(myX509DNParser.m_S_O);
-			newUserProfile.setUserST(myX509DNParser.m_S_ST);
-			newUserProfile.setUserCountry( myX509DNParser.m_S_C);
-			byte[] b = x509_CertChain[0].getExtensionValue("1.2.3.4");
-			if (b != null && b.length > 4) {
-				if (b[2] == 19) {
-					String myRole = (new String(b)).toString();
-					newUserProfile.setUserRole(myRole.substring(4));
-
-				}
-
-			} else {
-				newUserProfile.setUserRole("Guest");
-
-			}
-			
-			return newUserProfile;
-		}
+	return new C_UserProfile(x509_CertChain);
 
 	}
 	/**

@@ -9,10 +9,15 @@ package org.eMayor.PolicyEnforcement;
 
 import java.io.Serializable;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.security.cert.X509Certificate;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.xml.security.keys.content.x509.XMLX509Certificate;
 import org.w3c.dom.*;
@@ -104,13 +109,44 @@ public class E_UserProfileException extends Exception
    }
 }
 
-public C_UserProfile() {
-	super();
+public C_UserProfile(X509Certificate[] x509_CertChain) {
+	if (x509_CertChain == null) {
+		
+	} else {
+		
+		this.setX509_CertChain(x509_CertChain);
+		java.security.Principal newPrincipal = x509_CertChain[0].getSubjectDN();		
+		
+		C_ParseX509DN myX509DNParser = new C_ParseX509DN(newPrincipal.getName());
+		this.setUserName(myX509DNParser.m_S_CN);
+		this.setUserEmail(myX509DNParser.m_S_Email);
+		this.setOrganisationUnit(myX509DNParser.m_S_OU);
+		this.setUserOrganisation(myX509DNParser.m_S_O);
+		this.setUserST(myX509DNParser.m_S_ST);
+		this.setUserCountry( myX509DNParser.m_S_C);
+		byte[] b = x509_CertChain[0].getExtensionValue("1.2.3.4");
+		if (b != null && b.length > 4) {
+			if (b[2] == 19) {
+				String myRole = (new String(b)).toString();
+				this.setUserRole(myRole.substring(4));
+
+			}
+
+		} else {
+			this.setUserRole("Guest");
+
+		}
+		
+		
+	}
 }
 
-
-
 public C_UserProfile(Document InputDocument) throws
+E_UserProfileException {
+	F_CreateUserProfile(InputDocument);
+}
+
+private boolean F_CreateUserProfile(Document InputDocument) throws
 E_UserProfileException {
 	
 	try {
@@ -180,16 +216,14 @@ private X509Certificate m_X509_CertChain[];
 			
 			
 			
-	
+	return true;
 	
 	}
 	catch (Exception e){
 		throw new E_UserProfileException("C_UserProfile::Parce Error \n" + e.toString());
 	}
 	}
-	
-public C_UserProfile(String myXMLDocument) throws E_UserProfileException{
-	
+private Document F_StringtoDocument(String myXMLDocument) throws E_UserProfileException{
 	try {
 		DocumentBuilderFactory myFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder myDocBuilder = myFactory.newDocumentBuilder();
@@ -197,16 +231,23 @@ public C_UserProfile(String myXMLDocument) throws E_UserProfileException{
 		InputSource myInputSource = new InputSource(myStrReader);
 	
 		Document myDocument = myDocBuilder.parse(myInputSource);
-		//C_UserProfile(myDocument);
+		
+		return myDocument;
 	}
 	catch (Exception e)
 	{
 		throw new E_UserProfileException("C_UserProfile(String)::Error \n  " + e.toString());
 	}
 	
+}
+	
+public C_UserProfile(String myXMLDocument) throws E_UserProfileException{
+	
+   this.F_CreateUserProfile(F_StringtoDocument(myXMLDocument));
+	
 	
 }
-public Document getUserProfileasDomDocument() throws
+public Document F_getUserProfileasDomDocument() throws
 E_UserProfileException {
 	Document myDocument = null;
 	try {
@@ -291,5 +332,22 @@ E_UserProfileException {
 	}
 	
 	}
-	
+	public String F_getUserProfileasString() throws
+	E_UserProfileException{
+		try{
+			Document myDocument = this.F_getUserProfileasDomDocument();
+			TransformerFactory myFactory = TransformerFactory.newInstance();
+			Transformer myTransformer = myFactory.newTransformer();
+			DOMSource mySource =new DOMSource(myDocument);
+			StringWriter mySW = new StringWriter();
+			StreamResult myResult = new StreamResult(mySW);
+			myTransformer.transform(mySource, myResult);
+			return mySW.toString();
+			//return myResult.toString();
+		} catch (Exception e)
+		{
+			throw new E_UserProfileException("C_UserProfile::F_GetUserProfileasString:: Error \n "+ e.toString());
+		}
+		
+	}
 }
