@@ -13,6 +13,7 @@
 <!--
 .style2 {font-size: 14px}
 .style3 {font-size: 12px}
+.style5 {font-size: 12px; font-weight: bold; }
 -->
         </style>
 </head>
@@ -41,52 +42,55 @@
     <th width="410" scope="col"><div align="center" class="style2">Property value </div></th>
   </tr>
   <tr>
-    <td><span class="style3">Document type </span></td>
+    <td><span class="style5">Document type </span></td>
     <td><div align="right" class="style3">
       <div align="left"><%= task.getExtraInfo() %></div>
     </div></td>
   </tr>
-  <tr>
-    <td><span class="style3">Document status </span></td>
+  <tr bgcolor="#CCCCCC">
+    <td><span class="style5">Document status </span></td>
     <td><span class="style3"><%= task.getStatus() %></span></td>
   </tr>
   <tr>
-    <td><div align="left" class="style3">Requester forename </div></td>
+    <td><div align="left" class="style5">Requester forename </div></td>
     <td><div align="right" class="style3">
       <div align="left"><%= session.getAttribute("REQ_FORENAME") %></div>
     </div></td>
   </tr>
-  <tr>
-    <td><div align="left" class="style3">Requester surname </div></td>
+  <tr bgcolor="#CCCCCC">
+    <td><div align="left" class="style5">Requester surname </div></td>
     <td><div align="right" class="style3">
       <div align="left"><%= session.getAttribute("REQ_SURNAME") %></div>
     </div></td>
   </tr>
   <tr>
-    <td><div align="left" class="style3">Requester email </div></td>
+    <td><div align="left" class="style5">Requester email </div></td>
     <td><div align="right" class="style3">
       <div align="left"><%= session.getAttribute("REQ_EMAIL") %></div>
     </div></td>
   </tr>
-  <tr>
-    <td><span class="style3">Incoming date </span></td>
+  <tr bgcolor="#CCCCCC">
+    <td><span class="style5">Incoming date </span></td>
     <td><div align="right" class="style3">
       <div align="left"><%= incoming %></div>
     </div></td>
   </tr>
   <tr>
-    <td><span class="style3">Deadline</span></td>
+    <td><span class="style5">Deadline</span></td>
     <td><div align="right" class="style3">
       <div align="left"><%= deadline %></div>
     </div></td>
   </tr>
-  <tr>
-    <td><span class="style3">Dig. signature</span></td>
+  <tr bgcolor="#CCCCCC">
+    <td><span class="style5">Dig. signature</span></td>
     <td><div align="right" class="style3">
       <div align="left"><%= sigStatus %></div>
     </div></td>
   </tr>
-  <tr>
+  <tr bgcolor="#CCCC66">
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr bgcolor="#CCCCFF">
     <td colspan="2"><div align="left"></div>      
       <div align="center">
         <input type="submit" name="Submit" value="Approve" />

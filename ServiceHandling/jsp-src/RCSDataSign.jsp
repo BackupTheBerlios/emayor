@@ -5,6 +5,17 @@
 
 <head>
 	<title>Residence Certification Service - Sign Data</title>
+	<meta http-equiv="PRAGMA" content="NO-CACHE" />
+	<meta http-equiv="EXPIRES" content="-1" />
+    <style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+.style4 {font-size: 12px; font-weight: bold; }
+-->
+    </style>
 </head>
 <%
 	Task task = (Task)session.getAttribute("CURR_TASK");
@@ -14,48 +25,54 @@
 	String email = (String)session.getAttribute("REQ_EMAIL");
 %>
 <body bgcolor="#FFFFFF">
-
+<p><span class="style2"><font color="red">Current Access Session id = <%= session.getAttribute("ASID") %> </font></span>
+  <br/>
+    <span class="style2"><font color="blue">Your role is: <%= session.getAttribute("ROLE") %> </font></span>
+  <br/>
+</p>
 <h2>Signing Site for the Residence Certification Service</h2>
-
 <form method="post" action="ServiceHandlingTest">
-	<table width="800" border="2" cellspacing="5" cellpadding="5">
-		  <tr bgcolor="#999999">
-			<th width="175" scope="col"><div align="center"><strong>Name</strong></div></th>
-			<th width="582" scope="col"><div align="center"><strong>Value</strong></div></th>
-		  </tr>
+	<table width="600" border="1" cellspacing="2" cellpadding="2">
+		  <tr bgcolor="#CCCC66">
+			<th width="175" scope="col"><div align="center" class="style1">Name</div></th>
+			<th width="582" scope="col"><div align="center" class="style1">Value</div></th>
+	  </tr>
 		  <tr>
-		  	<td>Task Id</td>
+		  	<td><span class="style4">Task Id</span></td>
 			<td><%= task.getTaskId() %></td>
 		  </tr>
-		  <tr>
-		  	<td>Task Status</td>
+		  <tr bordercolor="#CCCCCC" bgcolor="#CCCCCC">
+		  	<td><span class="style4">Task Status</span></td>
 			<td><%= task.getStatus() %></td>
 		  </tr>
 		  <tr>
-		  	<td>Request docuemnt</td>
+		  	<td><span class="style4">Request document</span></td>
 			<td>
 				<%= task.getXMLDocument() %>
 			</td>
 		  </tr>
-		  <tr>
-		  	<td>Requester forename: </td>
+		  <tr bgcolor="#CCCCCC">
+		  	<td><span class="style4">Requester forename: </span></td>
 			<td>
 		    	<%= forename %>
 			</td>
 		  </tr>
 		  <tr>
-		  	<td>Requester surname: </td>
+		  	<td><span class="style4">Requester surname: </span></td>
 			<td>
 				<%= surname %>
 			</td>
 		  </tr>
-		  <tr>
-		  	<td>Requester email: </td>
+		  <tr bgcolor="#CCCCCC">
+		  	<td><span class="style4">Requester email: </span></td>
 			<td>
 				<%= email %>
 			</td>
 		  </tr>
-		  <tr>
+		  <tr bgcolor="#CCCC66">
+		    <td colspan="2">&nbsp;</td>
+      </tr>
+		  <tr bgcolor="#CCCCFF">
 			<td colspan="2">
 				<div align="center">
 				  <input type="submit" name="submit" value="Sign and post request"/>
@@ -64,9 +81,11 @@
 			    </div>
 			</td>
 		  </tr>
-  		</table>
+  </table>
 </form>
-
+<br/>
+<hr/>
+<a href="ServiceHandlingTest?action=Logout" class="style2"> LOGOUT </a>
 </body>
 
 </html>

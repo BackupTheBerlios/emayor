@@ -25,11 +25,11 @@
 </p>
 <table width="800" border="1" cellspacing="0" cellpadding="0">
   <tr bgcolor="#CCCC99">
-    <th width="40" scope="col"><div align="center" class="style1">#</div></th>
-    <th width="347" scope="col"><span class="style1">Document type </span></th>
-    <th width="125" scope="col"><div align="center" class="style1">Incoming date </div></th>
-    <th width="121" scope="col"><div align="center" class="style1">Deadline</div></th>
-    <th width="139" scope="col"><div align="center" class="style1">Action</div></th>
+    <th width="40" scope="col"><div align="center" class="style2">#</div></th>
+    <th width="347" scope="col"><span class="style2">Document type </span></th>
+    <th width="125" scope="col"><div align="center" class="style2">Incoming date </div></th>
+    <th width="121" scope="col"><div align="center" class="style2">Deadline</div></th>
+    <th width="139" scope="col"><div align="center" class="style2">Action</div></th>
   </tr>
 <%
 	Task[] tasks = (Task[])session.getAttribute("MY_TASKS");
@@ -53,10 +53,10 @@
 		}
 		%>
     <td><div align="center" class="style1"><%= (i+1) %></div></td>
-    <td><div align="right" class="style1"><%= docType %></div></td>
+    <td><div align="center" class="style1"><strong><%= docType %></strong></div></td>
     <td><div align="center" class="style1"><%= incoming %></div></td>
     <td><div align="center" class="style1"><%= deadline %></div></td>
-    <td align="center" valign="middle">
+    <td align="center" valign="middle" bgcolor="#CCCCFF">
 		<form action="ServiceHandlingTest" method="post" class="style1">
 			<input type="hidden" name="action" value="CVDisplayTask"/>
 			<input name="taskId" type="hidden" value="<%= taskId %>"/>
@@ -74,8 +74,6 @@
 
 <hr/>
 <a href="ServiceHandlingTest?action=Logout" class="style2"> LOGOUT </a>
-</body>
-
 </body>
 
 </html>
