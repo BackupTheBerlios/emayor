@@ -31,7 +31,7 @@ public class ResidenceCertificationService implements IeMayorService {
 
 	//private ResidenceCertifcationRequest_v10_Port port = null;
 
-	public static final String DEF_ENDPOINT = "";
+	public static final String DEF_ENDPOINT = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
 	public static final String DEF_XMLFILE = "org.emayor.rcs.SampleResidenceCertificationRequestDocument.xml";
 
@@ -147,9 +147,10 @@ public class ResidenceCertificationService implements IeMayorService {
 		String ret = "";
 		try {
 			//InputStream is = ClassLoader.getSystemResourceAsStream(DEF_XMLFILE);
-			InputStream is = ResidenceCertificationService.class.getResourceAsStream(DEF_XMLFILE);
-			ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-			//InputStream is = classLoader.getResourceAsStream(DEF_XMLFILE);
+			//InputStream is = ResidenceCertificationService.class.getResourceAsStream(DEF_XMLFILE);
+			//ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			InputStream is = classLoader.getResourceAsStream(DEF_XMLFILE);
 			URL url = classLoader.getResource(DEF_XMLFILE);
 			if (url != null)
 				log.debug("got url for resource: " + url.toString());
