@@ -8,6 +8,7 @@ import java.security.cert.X509Certificate;
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
+import org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
@@ -436,8 +437,9 @@ public class Kernel implements IKernel {
 		String ret = null;
 		String userId = null;
 		log.debug("try to get the user profile from policy enforcer");
-		C_UserProfile userProfile = this.pe.F_getUserProfile(certificates);
 		try {
+			String cUserProfileStr = this.pe.F_getUserProfile(certificates);
+			C_UserProfile userProfile = new C_UserProfile(cUserProfileStr);
 			userId = String.valueOf(certificates[0].hashCode());
 			if (!this.repository.existUserProfile(userId)) {
 				IUserProfile up = new UserProfile();
@@ -447,24 +449,30 @@ public class Kernel implements IKernel {
 			} else {
 				log.debug("the user already exists in the repository");
 			}
+			log.debug("try to authenticate the user!");
+			if (this.pe.F_AuthenticateUser(cUserProfileStr)) {
+				if (certificates != null) {
+					log.debug(">>>>>>>>>>> got user name: "
+							+ userProfile.getUserName());
+					log.debug(">>>>>>>>>>> got user mail: "
+							+ userProfile.getUserEmail());
+				}
+				ret = userId;
+				if (log.isDebugEnabled())
+					log.debug("returning the user id : " + ret);
+			} else {
+				ret = null;
+			}
 		} catch (KernelRepositoryException krex) {
 			log.error("caught ex: " + krex.toString());
 			throw new KernelException(
 					"problem with repository by handling user profile");
-		}
-		log.debug("try to authenticate the user!");
-		if (this.pe.F_AuthenticateUser(userProfile)) {
-			if (certificates != null) {
-				log.debug(">>>>>>>>>>> got user name: "
-						+ userProfile.getUserName());
-				log.debug(">>>>>>>>>>> got user mail: "
-						+ userProfile.getUserEmail());
-			}
-			ret = userId;
-			if (log.isDebugEnabled())
-				log.debug("returning the user id : " + ret);
-		} else {
-			ret = null;
+		} catch (E_PolicyEnforcementException pex) {
+			log.error("caught ex: " + pex.toString());
+			throw new KernelException("problem with policy enforcer");
+		} catch(C_UserProfile.E_UserProfileException upex) {
+			log.error("caught ex: " + upex.toString());
+			throw new KernelException("problem with user profile transformation");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
