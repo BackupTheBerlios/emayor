@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Packaging Generator" default="_packaging_generation_">
+<target name="_packaging_generation_" depends="N65540,N65581,N65598,N65649"/>
+<target name="N65540" description="ContentRouting-ejb.jar">
+<jar destfile="ContentRouting-ejb.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="bin" prefix="org/emayor/ContentRouting/ejb">
+<include name="ContentRouting.conf"/>
+</zipfileset>
+<zipfileset dir="bin" includes="org/emayor/ContentRouting/ejb/*.class,org/emayor/ContentRouting/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N65581" description="ContentRouting-ejb-client.jar">
+<jar destfile="ContentRouting-ejb-client.jar">
+<zipfileset dir="bin" includes="org/emayor/ContentRouting/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N65598" description="ContentRouting-web.war">
+<jar destfile="ContentRouting-web.war">
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="web.xml"/>
+</zipfileset>
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="jboss-web.xml"/>
+</zipfileset>
+<zipfileset dir="." prefix="WEB-INF/lib">
+<include name="ContentRouting-ejb-client.jar"/>
+</zipfileset>
+<zipfileset dir="bin" prefix="WEB-INF/classes" includes="org/emayor/ContentRouting/web/*.class"/>
+<zipfileset dir="docroot"/>
+</jar>
+</target>
+<target name="N65649" description="ContentRouting.ear">
+<jar destfile="ContentRouting.ear">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="application.xml"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="ContentRouting-ejb.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="ContentRouting-web.war"/>
+</zipfileset>
+</jar>
+</target>
+</project>

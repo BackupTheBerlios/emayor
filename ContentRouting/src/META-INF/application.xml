@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+   <display-name>eMayor Content Routing</display-name>
+   <module>
+      <ejb>ContentRouting-ejb.jar</ejb>
+   </module>
+   <module>
+      <web>
+         <web-uri>ContentRouting-web.war</web-uri>
+         <context-root>/ContentRouter</context-root>
+      </web>
+   </module>
+</application>

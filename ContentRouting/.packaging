@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="" exploded="false" name="ContentRouting-ejb.jar" used="true">
+<folder excludes="" includes="org/emayor/ContentRouting/ejb/*.class,org/emayor/ContentRouting/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<file location="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" used="true"/>
+<file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" used="true"/>
+<file location="bin/ContentRouting.conf" name="ContentRouting.conf" prefix="org/emayor/ContentRouting/ejb" project="" projectLocation="bin/ContentRouting.conf" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="ContentRouting-ejb-client.jar" used="true">
+<folder excludes="" includes="org/emayor/ContentRouting/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="ContentRouting-web.war" used="true">
+<folder excludes="" includes="org/emayor/ContentRouting/web/*.class" location="bin" name="bin" prefix="WEB-INF/classes" project="" projectLocation="bin" used="true"/>
+<file location="src/WEB-INF/web.xml" name="web.xml" prefix="WEB-INF" project="" projectLocation="src/WEB-INF/web.xml" used="true"/>
+<file location="src/WEB-INF/jboss-web.xml" name="jboss-web.xml" prefix="WEB-INF" project="" projectLocation="src/WEB-INF/jboss-web.xml" used="true"/>
+<file location="ContentRouting-ejb-client.jar" name="ContentRouting-ejb-client.jar" prefix="WEB-INF/lib" project="" projectLocation="ContentRouting-ejb-client.jar" used="true"/>
+<folder excludes="" includes="" location="docroot" name="docroot" prefix="" project="" projectLocation="docroot" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="ContentRouting.ear" used="true">
+<file location="src/META-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" used="true"/>
+<file location="ContentRouting-ejb.jar" name="ContentRouting-ejb.jar" prefix="" project="" projectLocation="ContentRouting-ejb.jar" used="true"/>
+<file location="ContentRouting-web.war" name="ContentRouting-web.war" prefix="" project="" projectLocation="ContentRouting-web.war" used="true"/>
+</archive>
+</configurations>
