@@ -17,12 +17,11 @@ Current Access Session id = <%= session.getAttribute("ASID") %>
 
 <h1>List of all available services!</h1>
 
-<table width="579" border="2" cellspacing="5" cellpadding="5">
-  <tr bgcolor="#999999"> 
-    <th width="150" scope="col"><span class="style13">Service Name </span></th>
-    <th width="230" scope="col"><span class="style13">Service Description </span></th>
-    <th width="61" scope="col">*</th>
-    <th width="61" scope="col"><span class="style14">action</span></th>
+<table width="600" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCC66"> 
+    <th width="176" scope="col"><span class="style13">Service Name </span></th>
+    <th width="255" scope="col"><span class="style13">Service Description </span></th>
+    <th width="88" scope="col">action</th>
   </tr>
   <%
 	ServiceInfo[] infos = (ServiceInfo[])session.getAttribute("SERVICES_INFO");
@@ -33,11 +32,9 @@ Current Access Session id = <%= session.getAttribute("ASID") %>
 		String serviceId = info.getServiceId();
 %>
   <tr> 
-    <td width="150"><%= serviceName %></td>
-    <td width="230"><%= serviceDescription %></td>
-    <td width="61"><a href="ServiceHandlingTest?action=StartServiceNew&ServiceName=<%= serviceId %>">NEW START</a></td>
-    <td width="61"><a href="ServiceHandlingTest?action=StartService&ServiceName=<%= serviceId %>">start 
-      it</a></td>
+    <td width="176"><%= serviceName %></td>
+    <td width="255"><%= serviceDescription %></td>
+    <td width="88"><div align="center"><a href="ServiceHandlingTest?action=StartServiceNew&ServiceName=<%= serviceId %>">START IT</a></div></td>
   </tr>
   <%
 	}

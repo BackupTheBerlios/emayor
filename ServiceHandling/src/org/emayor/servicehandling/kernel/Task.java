@@ -29,6 +29,12 @@ public class Task implements ITask {
 	private Calendar deadline;
 	
 	private Calendar incoming;
+	
+	private String ssid;
+	
+	private String documentResponse;
+	
+	private String documentResponseDigSig;
 
 	/**
 	 * @return Returns the incoming.
@@ -167,4 +173,40 @@ public class Task implements ITask {
 	public void setSignatureStatus(boolean signatureStatus) {
 		this.signatureStatus = signatureStatus;
 	}
+    /**
+     * @return Returns the documentResponse.
+     */
+    public String getDocumentResponse() {
+        return documentResponse;
+    }
+    /**
+     * @param documentResponse The documentResponse to set.
+     */
+    public void setDocumentResponse(String documentResponse) {
+        this.documentResponse = documentResponse;
+    }
+    /**
+     * @return Returns the documentResponseDigSig.
+     */
+    public String getDocumentResponseDigSig() {
+        return documentResponseDigSig;
+    }
+    /**
+     * @param documentResponseDigSig The documentResponseDigSig to set.
+     */
+    public void setDocumentResponseDigSig(String documentResponseDigSig) {
+        this.documentResponseDigSig = documentResponseDigSig;
+    }
+    /**
+     * @return Returns the ssid.
+     */
+    public String getSsid() {
+        return ssid;
+    }
+    /**
+     * @param ssid The ssid to set.
+     */
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
+    }
 }
