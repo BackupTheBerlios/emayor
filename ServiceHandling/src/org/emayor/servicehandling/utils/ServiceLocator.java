@@ -20,6 +20,8 @@ import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocalHome;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocalHome;
+import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
+import org.emayor.servicehandling.interfaces.UserTaskManagerLocalHome;
 
 /**
  * @author tku
@@ -147,6 +149,27 @@ public class ServiceLocator {
 			Object ref = this.initialContext.lookup("KernelLocal");
 			KernelLocalHome home = (KernelLocalHome) PortableRemoteObject
 					.narrow(ref, KernelLocalHome.class);
+			ret = home.create();
+			log.debug("got the reference!");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		} catch (CreateException cex) {
+			log.error("caught ex: " + cex.toString());
+			throw new ServiceLocatorException(cex);
+		}
+		log.info("-> ... processing DONE!");
+		return ret;
+	}
+
+	public synchronized UserTaskManagerLocal getUserTaskManagerLocal()
+			throws ServiceLocatorException {
+		log.info("-> starting processing ...");
+		UserTaskManagerLocal ret = null;
+		try {
+			Object ref = this.initialContext.lookup("UserTaskManagerLocal");
+			UserTaskManagerLocalHome home = (UserTaskManagerLocalHome) PortableRemoteObject
+					.narrow(ref, UserTaskManagerLocalHome.class);
 			ret = home.create();
 			log.debug("got the reference!");
 		} catch (NamingException nex) {

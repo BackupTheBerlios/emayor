@@ -3,23 +3,20 @@
  */
 package org.emayor.servicehandling.test;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.rmi.PortableRemoteObject;
-import javax.servlet.http.HttpServlet;
-
-import org.apache.log4j.Logger;
-import org.emayor.servicehandling.interfaces.AccessManager;
-import org.emayor.servicehandling.interfaces.AccessManagerHome;
-import org.emayor.servicehandling.interfaces.AccessManagerLocalHome;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletConfig;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.rmi.PortableRemoteObject;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.emayor.servicehandling.interfaces.AccessManagerLocalHome;
 
 /**
  * Servlet Class
