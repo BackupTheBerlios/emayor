@@ -2,6 +2,7 @@
 
 <java-wsdl-mapping xmlns="http://java.sun.com/xml/ns/j2ee"
   xmlns:impl="http://emayor.org/ResidenceCertifcationRequest_v10"
+  xmlns:impl2="http://www.emayor.org/eMayorServiceRequest.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
   http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd"
@@ -13,6 +14,11 @@
     <namespaceURI>http://emayor.org/ResidenceCertifcationRequest_v10</namespaceURI>
   </package-mapping>
   
+  <package-mapping>
+  	<package-type>org.emayor.www.eMayorServiceRequest_xsd</package-type>
+  	<namespaceURI>http://www.emayor.org/eMayorServiceRequest.xsd</namespaceURI>
+  </package-mapping>
+  
   <java-xml-type-mapping>
   	<java-type>org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request</java-type>
   	<root-type-qname>impl:ResidenceCertifcationRequest_v10Request</root-type-qname>
@@ -22,6 +28,18 @@
   <java-xml-type-mapping>
   	<java-type>org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Response</java-type>
   	<root-type-qname>impl:ResidenceCertifcationRequest_v10Response</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestStructure</java-type>
+  	<root-type-qname>impl2:eMayorServiceRequestStructure</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType</java-type>
+  	<root-type-qname>impl2:eMayorServiceRequestType</root-type-qname>
   	<qname-scope>element</qname-scope>
   </java-xml-type-mapping>
   

@@ -36,6 +36,8 @@ import javax.ejb.CreateException;
 public class AccessSessionEJB implements SessionBean, IAccessSession {
 	private static Logger log = Logger.getLogger(AccessSessionEJB.class);
 
+	private boolean isSessionActive = false;
+	
 	private String asid;
 
 	private SessionContext ctx;
@@ -50,6 +52,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	public AccessSessionEJB() {
 		super();
 		this.repository = new AccessSessionSSRepository();
+		this.isSessionActive = false;
 	}
 
 	/*
@@ -101,7 +104,8 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	public boolean authenticateUser(X509Certificate certificate)
 			throws AccessSessionException {
 		// TODO Auto-generated method stub
-		return false;
+		this.isSessionActive = true;
+		return true;
 	}
 
 	/**
@@ -148,29 +152,35 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public String startServiceSession(String serviceName)
+	public String startServiceSession(String serviceId, boolean isForwarded)
 			throws AccessSessionException {
 		log.debug("-> start processing ...");
 		if (log.isDebugEnabled())
-			log.debug("startServiceSession -> input: serviceName="
-					+ serviceName);
+			log.debug("input: serviceId=" + serviceId);
 		String ret = null;
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
-			/*
-			 * KernelLocal kernel = locator.getKernelLocal();
-			 * ServiceSessionLocal serviceSessionLocal = kernel
-			 * .createServiceSession(this.accessSessionId, serviceName);
-			 * 
-			 * ret = serviceSessionLocal.getSessionId(); if
-			 * (log.isDebugEnabled()) log .debug("startServiceSession -> got
-			 * ssid from kernel: " + ret);
-			 * this.serviceSessionsIds.put(serviceName, ret);
-			 * this.serviceSessions.put(ret, serviceSessionLocal);
-			 */
-		} catch (Exception ex) {
-			log.error("-> caught ex: " + ex.toString());
-			throw new AccessSessionException();
+
+			KernelLocal kernel = locator.getKernelLocal();
+			ServiceSessionLocal serviceSessionLocal = kernel
+					.createServiceSession(this.asid, serviceId);
+			ret = serviceSessionLocal.getSessionId();
+			if (log.isDebugEnabled())
+				log.debug("got ssid from kernel: " + ret);
+			this.repository.put(serviceSessionLocal);
+			log.debug("start the service");
+			serviceSessionLocal.startService(isForwarded);
+		} catch (ServiceLocatorException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new AccessSessionException("problems with locator service");
+		} catch (KernelException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new AccessSessionException(
+					"Couldn't create a new service session");
+		} catch (SessionException sex) {
+			log.error("caught ex: " + sex.toString());
+			throw new AccessSessionException(
+					"Couldn't obtain the ssid of the new service session");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

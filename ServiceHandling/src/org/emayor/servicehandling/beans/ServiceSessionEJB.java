@@ -11,11 +11,14 @@ import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.kernel.IServiceSession;
 import org.emayor.servicehandling.kernel.IeMayorService;
+import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceSessionException;
 import org.emayor.servicehandling.kernel.SessionException;
+import org.emayor.servicehandling.kernel.eMayorServiceException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -31,10 +34,10 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 
 	private String ssid;
 
-	private String serviceName;
+	private String serviceId;
 
 	private SessionContext ctx;
-	
+
 	private IeMayorService eMayorService;
 
 	/**
@@ -113,9 +116,9 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public String getServiceName() throws ServiceSessionException {
+	public String getServiceId() throws ServiceSessionException {
 		log.debug("getting service name");
-		return this.serviceName;
+		return this.serviceId;
 	}
 
 	/**
@@ -124,9 +127,9 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public String getAccessURLString() throws ServiceSessionException {
-		// TODO Auto-generated method stub
-		return null;
+	public void setServiceId(String serviceId) throws ServiceSessionException {
+		log.debug("getting service name");
+		this.serviceId = serviceId;
 	}
 
 	/**
@@ -171,6 +174,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 			if (log.isDebugEnabled())
 				log.debug("generated following ssid : " + ssid);
 		} catch (ServiceLocatorException slex) {
+			log.error("caught ex: " + slex.toString());
 			throw new CreateException(slex.toString());
 		}
 		log.debug("-> ... processing DONE!");
@@ -183,11 +187,8 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 *  
 	 */
 	public IeMayorService geteMayorService() throws ServiceSessionException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-
-		log.debug("-> ... processing DONE!");
-		return null;
+		return this.eMayorService;
 	}
 
 	/**
@@ -196,11 +197,41 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public void seteMayorService(IeMayorService emayorService) throws ServiceSessionException {
-		// TODO Auto-generated method stub
+	public void seteMayorService(IeMayorService emayorService)
+			throws ServiceSessionException {
 		log.debug("-> start processing ...");
-		
+		this.eMayorService = emayorService;
 		log.debug("-> ... processing DONE!");
 	}
 
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public void startService(boolean isForwarded)
+			throws ServiceSessionException {
+		log.debug("-> start processing ...");
+		try {
+			ServiceLocator locator = ServiceLocator.getInstance();
+			KernelLocal kernel = locator.getKernelLocal();
+			String uid = kernel.getUserIdByASID(this.asid);
+			log.debug("starting the service :-)");
+			if (isForwarded)
+				this.eMayorService.forward(uid, this.ssid, "", "");
+			else
+				this.eMayorService.startService(uid, this.ssid);
+		} catch (ServiceLocatorException slex) {
+			log.error("caught ex: " + slex.toString());
+			throw new ServiceSessionException("problems with service locator");
+		} catch (KernelException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new ServiceSessionException("Couldn't map the asid to uid");
+		} catch (eMayorServiceException emsex) {
+			log.error("caught ex: " + emsex.toString());
+			throw new ServiceSessionException("Couldn't start the service :-(");
+		}
+		log.debug("-> ... processing DONE!");
+	}
 }

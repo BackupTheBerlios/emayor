@@ -5,6 +5,7 @@ package org.emayor.servicehandling.test;
 
 import java.io.IOException;
 
+import javax.security.cert.X509Certificate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,10 @@ public class WelcomeProcessor {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			AccessManagerLocal access = serviceLocator.getAccessManager();
 			String asid = access.createAccessSession();
+			log.debug("try to authenticate the user");
+			X509Certificate certificate = null;
+			boolean ret = access.startAccessSession(asid, certificate);
+			log.debug("user authenticated? : " + ret);
 			session.setAttribute("ASID", asid);
 			if (log.isDebugEnabled())
 				log.debug("got following asid=" + asid);

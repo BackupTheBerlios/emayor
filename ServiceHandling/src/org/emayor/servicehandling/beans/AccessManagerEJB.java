@@ -15,6 +15,7 @@ import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.AccessException;
 import org.emayor.servicehandling.kernel.AccessSessionException;
+import org.emayor.servicehandling.kernel.ForwardMessage;
 import org.emayor.servicehandling.kernel.IAccess;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
@@ -24,6 +25,7 @@ import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
 import javax.ejb.CreateException;
+import javax.security.cert.X509Certificate;
 
 /**
  * @ejb.bean name="AccessManager" display-name="Name for AccessManager"
@@ -118,7 +120,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public String startService(String accessSessionId, String serviceName)
+	public String startService(String accessSessionId, String serviceId)
 			throws AccessException {
 		log.debug("-> start processing ...");
 		String ret = "";
@@ -128,7 +130,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 					.getAccessSession(accessSessionId);
 			if (log.isDebugEnabled())
 				log.debug("got access session with id: " + as.getSessionId());
-			ret = as.startServiceSession(serviceName);
+			ret = as.startServiceSession(serviceId, false);
 			if (log.isDebugEnabled())
 				log.debug("started service ssid = " + ret);
 		} catch (KernelException ex) {
@@ -138,7 +140,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 		} catch (AccessSessionException aex) {
 			log.error("caught ex: " + aex.toString());
 			throw new AccessException("Unable to start the service: "
-					+ serviceName);
+					+ serviceId);
 		} catch (SessionException sex) {
 			log.error("caught ex: " + sex.toString());
 		}
@@ -275,6 +277,45 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 			log.error("caught ex: " + rex.toString());
 		} catch (SessionException sex) {
 			log.error("caught ex: " + sex.toString());
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public String startForwardedService(String accessSessionId,
+			String serviceId, ForwardMessage message) throws AccessException {
+		log.debug("-> start processing ...");
+		String ret = "";
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public boolean startAccessSession(String asid, X509Certificate certificate)
+			throws AccessException {
+		log.debug("-> start processing ...");
+		boolean ret = false;
+		try {
+			AccessSessionLocal as = this.kernel.getAccessSession(asid);
+			ret = as.authenticateUser(certificate);
+		} catch (KernelException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new AccessException(
+					"specified access session probably doesn't exist");
+		} catch (AccessSessionException asex) {
+			log.error("caught ex: " + asex.toString());
+			throw new AccessException("user authentication failed");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

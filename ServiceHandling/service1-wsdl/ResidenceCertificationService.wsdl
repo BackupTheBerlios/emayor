@@ -1,106 +1,86 @@
-<definitions
-     name="ResidenceCertifcationRequest_v10"
-     targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10"
-     xmlns="http://schemas.xmlsoap.org/wsdl/"
-     xmlns:tns="http://emayor.org/ResidenceCertifcationRequest_v10"
-     xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing"
-     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
-     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-     xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd"
-    >
-    <types>
-        <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10"
-             xmlns="http://www.w3.org/2001/XMLSchema">
-            <import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
-            <element name="ResidenceCertifcationRequest_v10Request">
-                <complexType>
-                    <sequence>
-                        <element name="input" type="request:eMayorServiceRequestType"/>
-                    </sequence>
-
-                </complexType>
-            </element>
-            <element name="ResidenceCertifcationRequest_v10Response">
-                <complexType>
-                    <sequence>
-                        <element name="result" type="request:eMayorServiceRequestType"/>
-                    </sequence>
-                </complexType>
-            </element>
-
-        </schema>
-        <schema targetNamespace="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema"
-             elementFormDefault="qualified" attributeFormDefault="qualified">
-            <import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="http://koralin:9700/orabpel/xmllib/ws-addressing.xsd"/>
-        </schema>
-    </types>
-    <message name="ContinueHeader">
-        <part name="RelatesTo" element="wsa:RelatesTo"/>
-    </message>
-    <message name="StartHeader">
-
-        <part name="MessageID" element="wsa:MessageID"/>
-        <part name="ReplyTo" element="wsa:ReplyTo"/>
-    </message>
-    <message name="ResidenceCertifcationRequest_v10ResponseMessage">
-        <part name="payload" element="tns:ResidenceCertifcationRequest_v10Response"/>
-    </message>
-    <message name="ResidenceCertifcationRequest_v10RequestMessage">
-        <part name="payload" element="tns:ResidenceCertifcationRequest_v10Request"/>
-    </message>
-
-    <portType name="ResidenceCertifcationRequest_v10Callback">
-        <operation name="onResult">
-            <input message="tns:ResidenceCertifcationRequest_v10ResponseMessage"/>
-        </operation>
-    </portType>
-    <portType name="ResidenceCertifcationRequest_v10">
-        <operation name="initiate">
-            <input message="tns:ResidenceCertifcationRequest_v10RequestMessage"/>
-        </operation>
-
-    </portType>
-    <binding name="ResidenceCertifcationRequest_v10CallbackBinding" type="tns:ResidenceCertifcationRequest_v10Callback">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="onResult">
-            <soap:operation style="document" soapAction="onResult"/>
-            <input>
-                <soap:header message="tns:ContinueHeader" part="RelatesTo" use="literal" encodingStyle=""/>
-                <soap:body use="literal"/>
-            </input>
-
-        </operation>
-    </binding>
-    <binding name="ResidenceCertifcationRequest_v10Binding" type="tns:ResidenceCertifcationRequest_v10">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="initiate">
-            <soap:operation style="document" soapAction="initiate"/>
-            <input>
-                <soap:header message="tns:StartHeader" part="MessageID" use="literal" encodingStyle=""/>
-                <soap:header message="tns:StartHeader" part="ReplyTo" use="literal" encodingStyle=""/>
-
-                <soap:body use="literal"/>
-            </input>
-        </operation>
-    </binding>
-    <service name="ResidenceCertifcationRequest_v10CallbackService">
-        <port name="ResidenceCertifcationRequest_v10CallbackPort" binding="tns:ResidenceCertifcationRequest_v10CallbackBinding">
-            <soap:address location="http://set.by.caller"/>
-        </port>
-    </service>
-
-    <service name="ResidenceCertifcationRequest_v10">
-        <port name="ResidenceCertifcationRequest_v10Port" binding="tns:ResidenceCertifcationRequest_v10Binding">
-            <soap:address location="http://koralin:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0"/>
-        </port>
-    </service>
-  <plnk:partnerLinkType name="ResidenceCertifcationRequest_v10">
-    <plnk:role name="ResidenceCertifcationRequest_v10Requester">
-      <plnk:portType name="tns:ResidenceCertifcationRequest_v10Callback"/>
-    </plnk:role>
-
-    <plnk:role name="ResidenceCertifcationRequest_v10Provider">
-      <plnk:portType name="tns:ResidenceCertifcationRequest_v10"/>
-    </plnk:role>
-  </plnk:partnerLinkType>
+<definitions name="ResidenceCertifcationRequest_v10" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd">
+	<types>
+		<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+			<element name="ResidenceCertifcationRequest_v10Request">
+				<complexType>
+					<sequence>
+						<element name="input" type="request:eMayorServiceRequestType"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="ResidenceCertifcationRequest_v10Response">
+				<complexType>
+					<sequence>
+						<element name="result" type="request:eMayorServiceRequestType"/>
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+		<schema targetNamespace="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+			<import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="xsd/ws-addressing.xsd"/>
+		</schema>
+	</types>
+	<message name="ContinueHeader">
+		<part name="RelatesTo" element="wsa:RelatesTo"/>
+	</message>
+	<message name="StartHeader">
+		<part name="MessageID" element="wsa:MessageID"/>
+		<part name="ReplyTo" element="wsa:ReplyTo"/>
+	</message>
+	<message name="ResidenceCertifcationRequest_v10ResponseMessage">
+		<part name="payload" element="tns:ResidenceCertifcationRequest_v10Response"/>
+	</message>
+	<message name="ResidenceCertifcationRequest_v10RequestMessage">
+		<part name="payload" element="tns:ResidenceCertifcationRequest_v10Request"/>
+	</message>
+	<portType name="ResidenceCertifcationRequest_v10Callback">
+		<operation name="onResult">
+			<input message="tns:ResidenceCertifcationRequest_v10ResponseMessage"/>
+		</operation>
+	</portType>
+	<portType name="ResidenceCertifcationRequest_v10">
+		<operation name="initiate">
+			<input message="tns:ResidenceCertifcationRequest_v10RequestMessage"/>
+		</operation>
+	</portType>
+	<binding name="ResidenceCertifcationRequest_v10CallbackBinding" type="tns:ResidenceCertifcationRequest_v10Callback">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="onResult">
+			<soap:operation style="document" soapAction="onResult"/>
+			<input>
+				<soap:header message="tns:ContinueHeader" part="RelatesTo" use="literal" encodingStyle=""/>
+				<soap:body use="literal"/>
+			</input>
+		</operation>
+	</binding>
+	<binding name="ResidenceCertifcationRequest_v10Binding" type="tns:ResidenceCertifcationRequest_v10">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="initiate">
+			<soap:operation style="document" soapAction="initiate"/>
+			<input>
+				<soap:header message="tns:StartHeader" part="MessageID" use="literal" encodingStyle=""/>
+				<soap:header message="tns:StartHeader" part="ReplyTo" use="literal" encodingStyle=""/>
+				<soap:body use="literal"/>
+			</input>
+		</operation>
+	</binding>
+	<service name="ResidenceCertifcationRequest_v10CallbackService">
+		<port name="ResidenceCertifcationRequest_v10CallbackPort" binding="tns:ResidenceCertifcationRequest_v10CallbackBinding">
+			<soap:address location="http://set.by.caller"/>
+		</port>
+	</service>
+	<service name="ResidenceCertifcationRequest_v10">
+		<port name="ResidenceCertifcationRequest_v10Port" binding="tns:ResidenceCertifcationRequest_v10Binding">
+			<soap:address location="http://koralin:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0"/>
+		</port>
+	</service>
+	<plnk:partnerLinkType name="ResidenceCertifcationRequest_v10">
+		<plnk:role name="ResidenceCertifcationRequest_v10Requester">
+			<plnk:portType name="tns:ResidenceCertifcationRequest_v10Callback"/>
+		</plnk:role>
+		<plnk:role name="ResidenceCertifcationRequest_v10Provider">
+			<plnk:portType name="tns:ResidenceCertifcationRequest_v10"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
 </definitions>

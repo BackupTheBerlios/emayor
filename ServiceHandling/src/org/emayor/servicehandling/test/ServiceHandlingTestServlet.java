@@ -95,6 +95,11 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			CompleteTaskProcessor p = new CompleteTaskProcessor();
 			p.process(req, resp);
 			resp.sendRedirect("index.jsp");
+		} else if (action.equalsIgnoreCase("StartService")) {
+			log.debug("processing the StartService request");
+			StartServiceProcessor p = new StartServiceProcessor();
+			p.process(req, resp);
+			resp.sendRedirect("index.jsp");
 		} else {
 			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");

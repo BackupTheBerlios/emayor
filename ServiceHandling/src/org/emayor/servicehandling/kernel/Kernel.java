@@ -121,8 +121,7 @@ public class Kernel implements IKernel {
 	 *      java.lang.String)
 	 */
 	public synchronized ServiceSessionLocal createServiceSession(String asid,
-			String serviceName) throws KernelException {
-		// TODO Auto-generated method stub
+			String serviceId) throws KernelException {
 		log.debug("-> start processing ...");
 		ServiceSessionLocal ret = null;
 		try {
@@ -133,8 +132,15 @@ public class Kernel implements IKernel {
 			if (log.isDebugEnabled() && ret != null)
 				log.debug("the new ssid = " + ret.getSessionId());
 			IServiceInfo serviceInfo = this.repository
-					.getServiceInfo(serviceName);
-
+					.getServiceInfo(serviceId);
+			IeMayorServiceFactory factory = this.repository
+					.getServiceFactory(serviceId);
+			IeMayorService service = factory.createService(serviceId, ret
+					.getSessionId());
+			log.debug("call setup method on the service instance");
+			service.setup();
+			log.debug("assign the service to the service session");
+			ret.seteMayorService(service);
 		} catch (ServiceLocatorException slex) {
 			log.error("caught ex: " + slex.toString());
 			throw new KernelException(slex.toString());
@@ -142,6 +148,8 @@ public class Kernel implements IKernel {
 			log.error("caught ex: " + sex.toString());
 		} catch (KernelRepositoryException krex) {
 			log.error("caught ex: " + krex.toString());
+		} catch(eMayorServiceException emsex) {
+			log.error("caught ex: " + emsex.toString());
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -258,9 +266,9 @@ public class Kernel implements IKernel {
 		try {
 			ServiceInfo[] services = this.listAllAvailableServices();
 			for (int i = 0; i < services.length; i++) {
-				String serviceName = services[i].getServiceName();
+				String serviceId = services[i].getServiceId();
 				if (log.isDebugEnabled())
-					log.debug("got service name: " + serviceName);
+					log.debug("got service name: " + serviceId);
 				String className = services[i].getServiceFactoryClassName();
 				if (log.isDebugEnabled())
 					log.debug("create factory: " + className);
@@ -272,7 +280,7 @@ public class Kernel implements IKernel {
 				if (factory != null)
 					log.debug("factroy reference is NOT null");
 				factory.setup();
-				this.repository.addServiceFactory(serviceName, factory);
+				this.repository.addServiceFactory(serviceId, factory);
 			}
 		} catch (ClassNotFoundException cnfex) {
 			log.error("caught ex: " + cnfex.toString());

@@ -20,8 +20,8 @@ public class AccessSessionSSRepository implements Serializable {
 	private static Logger log = Logger
 			.getLogger(AccessSessionSSRepository.class);
 
-	// serviceName -> a list of ssids
-	private HashMap serviceName2ssids;
+	// serviceId -> a list of ssids
+	private HashMap serviceId2ssids;
 
 	// ssid -> ServiceSessionLocal
 	private HashMap ssid2ssLocal;
@@ -30,7 +30,7 @@ public class AccessSessionSSRepository implements Serializable {
 	 * Default constructor - prepares the internal data structures.
 	 */
 	public AccessSessionSSRepository() {
-		this.serviceName2ssids = new HashMap();
+		this.serviceId2ssids = new HashMap();
 		this.ssid2ssLocal = new HashMap();
 	}
 
@@ -41,20 +41,20 @@ public class AccessSessionSSRepository implements Serializable {
 	 */
 	public void put(ServiceSessionLocal ssLocal) {
 		String key = null;
-		String serviceName = null;
+		String serviceId = null;
 		try {
 			key = ssLocal.getSessionId();
-			serviceName = ssLocal.getServiceName();
+			serviceId = ssLocal.getServiceId();
 		} catch (SessionException ex) {
 			log.error("caught exception: " + ex.toString());
 			return;
 		}
-		Object obj = this.serviceName2ssids.get(serviceName);
+		Object obj = this.serviceId2ssids.get(serviceId);
 		List ssids = (obj == null) ? new ArrayList() : (ArrayList) obj;
 		if (!ssids.contains(key)) {
 			ssids.add(key);
-			this.serviceName2ssids.remove(serviceName);
-			this.serviceName2ssids.put(serviceName, ssids);
+			this.serviceId2ssids.remove(serviceId);
+			this.serviceId2ssids.put(serviceId, ssids);
 		} else {
 			log
 					.debug("such key already exists in the serviceName2ssids repository!");
@@ -73,10 +73,10 @@ public class AccessSessionSSRepository implements Serializable {
 	 * @param serviceName
 	 * @return
 	 */
-	public String[] getAllServiceSessionIds(String serviceName) {
+	public String[] getAllServiceSessionIds(String serviceId) {
 		String[] ret = new String[0];
-		if (this.serviceName2ssids.containsKey(serviceName)) {
-			List ssids = (List) this.serviceName2ssids.get(serviceName);
+		if (this.serviceId2ssids.containsKey(serviceId)) {
+			List ssids = (List) this.serviceId2ssids.get(serviceId);
 			int index = 0;
 			ret = new String[ssids.size()];
 			for (Iterator i = ssids.iterator(); i.hasNext();)
@@ -108,19 +108,19 @@ public class AccessSessionSSRepository implements Serializable {
 		if (ssid != null && ssid.length() != 0) {
 			ServiceSessionLocal ssLocal = this.getServiceSessionLocal(ssid);
 			if (ssid != null) {
-				String serviceName = null;
+				String serviceId = null;
 				try {
-					serviceName = ssLocal.getServiceName();
+					serviceId = ssLocal.getServiceId();
 				} catch (SessionException ex) {
 					log.error("caught ex: couldn't remove service session: "
 							+ ex.toString());
 					return false;
 				}
-				List ssids = this.getServiceSessionIdsList(serviceName);
+				List ssids = this.getServiceSessionIdsList(serviceId);
 				if (ssids != null && ssids.contains(ssid)) {
 					ssids.remove(ssid);
-					this.serviceName2ssids.remove(serviceName);
-					this.serviceName2ssids.put(serviceName, ssids);
+					this.serviceId2ssids.remove(serviceId);
+					this.serviceId2ssids.put(serviceId, ssids);
 					ret = true;
 				}
 			}
@@ -128,10 +128,10 @@ public class AccessSessionSSRepository implements Serializable {
 		return ret;
 	}
 
-	public List getServiceSessionIdsList(String serviceName) {
+	public List getServiceSessionIdsList(String serviceId) {
 		List ret = null;
-		if (this.serviceName2ssids.containsKey(serviceName)) {
-			ret = (List) this.serviceName2ssids.get(serviceName);
+		if (this.serviceId2ssids.containsKey(serviceId)) {
+			ret = (List) this.serviceId2ssids.get(serviceId);
 		}
 		return ret;
 	}

@@ -12,9 +12,12 @@ public interface IServiceSession extends ISession {
 
 	public void setAccessSessionId(String asid) throws ServiceSessionException;
 
-	public String getServiceName() throws ServiceSessionException;
+	public String getServiceId() throws ServiceSessionException;
 
-	public String getAccessURLString() throws ServiceSessionException;
+	public void setServiceId(String serviceId) throws ServiceSessionException;
+
+	public void startService(boolean isForwarded)
+			throws ServiceSessionException;
 
 	public void stopService() throws ServiceSessionException;
 

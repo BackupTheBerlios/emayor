@@ -53,13 +53,6 @@ public class ResidenceCertifcationRequest_v10BindingStub extends org.apache.axis
             java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
             java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
             java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
-            qName = new javax.xml.namespace.QName("http://www.emayor.org/eMayorServiceRequest.xsd", "eMayorServiceRequestType");
-            cachedSerQNames.add(qName);
-            cls = org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType.class;
-            cachedSerClasses.add(cls);
-            cachedSerFactories.add(beansf);
-            cachedDeserFactories.add(beandf);
-
             qName = new javax.xml.namespace.QName("http://www.emayor.org/eMayorServiceRequest.xsd", "eMayorServiceRequestStructure");
             cachedSerQNames.add(qName);
             cls = org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestStructure.class;
@@ -70,6 +63,13 @@ public class ResidenceCertifcationRequest_v10BindingStub extends org.apache.axis
             qName = new javax.xml.namespace.QName("http://emayor.org/ResidenceCertifcationRequest_v10", ">ResidenceCertifcationRequest_v10Request");
             cachedSerQNames.add(qName);
             cls = org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://www.emayor.org/eMayorServiceRequest.xsd", "eMayorServiceRequestType");
+            cachedSerQNames.add(qName);
+            cls = org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);

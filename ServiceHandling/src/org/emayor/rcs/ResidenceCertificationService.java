@@ -47,7 +47,7 @@ public class ResidenceCertificationService implements IeMayorService {
 			if (this.port != null)
 				log.debug("the port reference is NOT null");
 		} catch (NamingException nex) {
-			log.debug("caught ex: " + nex.toString());
+			log.error("caught ex: " + nex.toString());
 			throw new eMayorServiceException(
 					"General problem with naming service");
 		} catch (javax.xml.rpc.ServiceException ex) {

@@ -3,6 +3,8 @@
  */
 package org.emayor.servicehandling.kernel;
 
+import javax.security.cert.X509Certificate;
+
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
  *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
@@ -18,6 +20,9 @@ public interface IAccess {
 
 	// start access session
 
+	public boolean startAccessSession(String accessSessionId,
+			X509Certificate certificate) throws AccessException;
+
 	/**
 	 *  
 	 */
@@ -27,11 +32,14 @@ public interface IAccess {
 	/**
 	 * 
 	 * @param accessSessionId
-	 * @param serviceName
+	 * @param serviceId
 	 * @return
 	 */
-	public String startService(String accessSessionId, String serviceName)
+	public String startService(String accessSessionId, String serviceId)
 			throws AccessException;
+
+	public String startForwardedService(String accessSessionId,
+			String serviceId, ForwardMessage message) throws AccessException;
 
 	/**
 	 * 

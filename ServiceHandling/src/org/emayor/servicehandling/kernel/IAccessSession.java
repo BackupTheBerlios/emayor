@@ -52,12 +52,12 @@ public interface IAccessSession extends ISession {
 	 * A services session for the service specified by the input parameter will
 	 * be started.
 	 * 
-	 * @param serviceName
-	 *            the name of the required service
+	 * @param serviceId
+	 *            the id of the required service
 	 * @return the service session id
 	 * @throws AccessSessionException
 	 */
-	public String startServiceSession(String serviceName)
+	public String startServiceSession(String serviceId, boolean isForwarded)
 			throws AccessSessionException;
 
 	/**
@@ -72,8 +72,8 @@ public interface IAccessSession extends ISession {
 			throws AccessSessionException;
 
 	/**
-	 * All running service session belonging to current user 
-	 * will be stoped.
+	 * All running service session belonging to current user will be stoped.
+	 * 
 	 * @return
 	 * @throws AccessSessionException
 	 */
@@ -81,14 +81,16 @@ public interface IAccessSession extends ISession {
 
 	/**
 	 * A list of all available service for current user will be returned.
+	 * 
 	 * @return
 	 * @throws AccessSessionException
 	 */
 	public ServiceInfo[] listAvailableServices() throws AccessSessionException;
 
 	/**
-	 * The current access session will be stoped. (it means the user
-	 * has logged out)
+	 * The current access session will be stoped. (it means the user has logged
+	 * out)
+	 * 
 	 * @return
 	 * @throws AccessSessionException
 	 */
@@ -96,6 +98,7 @@ public interface IAccessSession extends ISession {
 
 	/**
 	 * The profile of the current user will be returned
+	 * 
 	 * @return the user profile
 	 * @throws AccessSessionException
 	 */

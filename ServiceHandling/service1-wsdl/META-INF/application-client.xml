@@ -9,7 +9,9 @@
 
   <service-ref>
     <service-ref-name>service/ResidenceCertifcationServiceJSE</service-ref-name>
-    <service-interface>org.emayor.ResidenceCertifcationRequest_v10.ResidenceCertifcationRequest_v10_Service</service-interface>
+    <service-interface>
+    	org.emayor.ResidenceCertifcationRequest_v10.ResidenceCertifcationRequest_v10_Service
+    </service-interface>
     <wsdl-file>META-INF/wsdl/ResidenceCertificationService.wsdl</wsdl-file>
     <jaxrpc-mapping-file>META-INF/jaxrpc-mapping.xml</jaxrpc-mapping-file>
   </service-ref>

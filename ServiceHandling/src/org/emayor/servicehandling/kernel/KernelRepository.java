@@ -26,12 +26,12 @@ public class KernelRepository {
 	private HashMap userId2ssids;
 
 	///// ---- service management -----
-	// serviceName -> serviceInfo
-	private HashMap serviceName2serviceInfo;
+	// service id -> serviceInfo
+	private HashMap serviceId2serviceInfo;
 
-	// factory name -> factory
-	private HashMap serviceName2serviceFactory;
-	
+	// service id -> factory
+	private HashMap serviceId2serviceFactory;
+
 	/**
 	 *  
 	 */
@@ -40,8 +40,8 @@ public class KernelRepository {
 		this.asid2accessSession = new HashMap();
 		this.ssid2serviceSession = new HashMap();
 		this.userId2ssids = new HashMap();
-		this.serviceName2serviceInfo = new HashMap();
-		this.serviceName2serviceFactory = new HashMap();
+		this.serviceId2serviceInfo = new HashMap();
+		this.serviceId2serviceFactory = new HashMap();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -95,48 +95,47 @@ public class KernelRepository {
 	public void addServiceInfo(ServiceInfo serviceInfo)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		String serviceName = serviceInfo.getServiceName();
-		if (this.serviceName2serviceInfo.containsKey(serviceName)) {
+		String id = serviceInfo.getServiceId();
+		if (this.serviceId2serviceInfo.containsKey(id)) {
 			log.error("ServiceInfo already exist in the repository");
 			throw new KernelRepositoryException(
 					"Couldn't add ServiceInfo into repository - already exists!");
 		} else {
-			this.serviceName2serviceInfo.put(serviceName, serviceInfo);
+			this.serviceId2serviceInfo.put(id, serviceInfo);
 		}
 		log.debug("-> ... processing DONE!");
 	}
 
-	public void removeServiceInfo(String serviceName)
+	public void removeServiceInfo(String serviceId)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		if (serviceName == null || serviceName.length() == 0)
-			throw new KernelRepositoryException("invalid service name");
-		if (this.serviceName2serviceInfo.containsKey(serviceName)) {
+		if (serviceId == null || serviceId.length() == 0)
+			throw new KernelRepositoryException("invalid service id");
+		if (this.serviceId2serviceInfo.containsKey(serviceId)) {
 			if (log.isDebugEnabled())
-				log.debug("removing the info for the serviceName = "
-						+ serviceName);
-			this.serviceName2serviceInfo.remove(serviceName);
+				log.debug("removing the info for the serviceId = " + serviceId);
+			this.serviceId2serviceInfo.remove(serviceId);
 		} else {
-			log.error("info for specified service name doesn't exist!");
+			log.error("info for specified service id doesn't exist!");
 			throw new KernelRepositoryException(
-					"info for specified service name doesn't exist!");
+					"info for specified service id doesn't exist!");
 		}
 		log.debug("-> ... processing DONE!");
 	}
 
-	public ServiceInfo getServiceInfo(String serviceName)
+	public ServiceInfo getServiceInfo(String serviceId)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		if (serviceName == null || serviceName.length() == 0)
-			throw new KernelRepositoryException("invalid service name");
+		if (serviceId == null || serviceId.length() == 0)
+			throw new KernelRepositoryException("invalid service id");
 		ServiceInfo ret = null;
-		if (this.serviceName2serviceInfo.containsKey(serviceName)) {
+		if (this.serviceId2serviceInfo.containsKey(serviceId)) {
 			log.debug("found the right info");
-			ret = (ServiceInfo) this.serviceName2serviceInfo.get(serviceName);
+			ret = (ServiceInfo) this.serviceId2serviceInfo.get(serviceId);
 		} else {
-			log.error("info for specified service name doesn't exist!");
+			log.error("info for specified service id doesn't exist!");
 			throw new KernelRepositoryException(
-					"info for specified service name doesn't exist!");
+					"info for specified service id doesn't exist!");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -145,11 +144,11 @@ public class KernelRepository {
 	public ServiceInfo[] listServicesInfo() throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		ServiceInfo[] ret = null;
-		ret = new ServiceInfo[this.serviceName2serviceInfo.size()];
+		ret = new ServiceInfo[this.serviceId2serviceInfo.size()];
 		if (log.isDebugEnabled())
 			log.debug("found " + ret.length + " items!");
 		int index = 0;
-		for (Iterator i = this.serviceName2serviceInfo.values().iterator(); i
+		for (Iterator i = this.serviceId2serviceInfo.values().iterator(); i
 				.hasNext();) {
 			if (log.isDebugEnabled())
 				log.debug("working with index = " + index);
@@ -159,55 +158,55 @@ public class KernelRepository {
 		return ret;
 	}
 
-	public void addServiceFactory(String serviceName,
+	public void addServiceFactory(String serviceId,
 			IeMayorServiceFactory serviceFactory)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		if (serviceName == null || serviceName.length() == 0)
-			throw new KernelRepositoryException("invalid service name");
+		if (serviceId == null || serviceId.length() == 0)
+			throw new KernelRepositoryException("invalid service id");
 		if (serviceFactory == null)
 			throw new KernelRepositoryException("invalid factory reference");
-		if (this.serviceName2serviceFactory.containsKey(serviceName)) {
+		if (this.serviceId2serviceFactory.containsKey(serviceId)) {
 			log.error("mapping already exists!");
 			throw new KernelRepositoryException(
 					"Couldn't add the factory to the repository - already exists there!");
 		} else {
-			this.serviceName2serviceFactory.put(serviceName, serviceFactory);
+			this.serviceId2serviceFactory.put(serviceId, serviceFactory);
 		}
 		log.debug("-> ... processing DONE!");
 	}
 
-	public void removeServiceFactory(String serviceName)
+	public void removeServiceFactory(String serviceId)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		if (serviceName == null || serviceName.length() == 0)
-			throw new KernelRepositoryException("invalid service name");
-		if (this.serviceName2serviceFactory.containsKey(serviceName)) {
+		if (serviceId == null || serviceId.length() == 0)
+			throw new KernelRepositoryException("invalid service id");
+		if (this.serviceId2serviceFactory.containsKey(serviceId)) {
 			if (log.isDebugEnabled())
-				log.debug("removing the factory for the serviceName = "
-						+ serviceName);
-			this.serviceName2serviceFactory.remove(serviceName);
+				log.debug("removing the factory for the serviceId = "
+						+ serviceId);
+			this.serviceId2serviceFactory.remove(serviceId);
 		} else {
-			log.error("factory for specified service name doesn't exist!");
+			log.error("factory for specified service id doesn't exist!");
 			throw new KernelRepositoryException(
-					"factory for specified service name doesn't exist!");
+					"factory for specified service id doesn't exist!");
 		}
 		log.debug("-> ... processing DONE!");
 	}
 
-	public IeMayorServiceFactory getServiceFactory(String serviceName)
+	public IeMayorServiceFactory getServiceFactory(String serviceId)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		IeMayorServiceFactory ret = null;
-		if (serviceName == null || serviceName.length() == 0)
-			throw new KernelRepositoryException("invalid service name");
-		if (this.serviceName2serviceFactory.containsKey(serviceName)) {
-			ret = (IeMayorServiceFactory) this.serviceName2serviceFactory
-					.get(serviceName);
+		if (serviceId == null || serviceId.length() == 0)
+			throw new KernelRepositoryException("invalid service id");
+		if (this.serviceId2serviceFactory.containsKey(serviceId)) {
+			ret = (IeMayorServiceFactory) this.serviceId2serviceFactory
+					.get(serviceId);
 		} else {
-			log.error("factory for specified service name doesn't exist!");
+			log.error("factory for specified service id doesn't exist!");
 			throw new KernelRepositoryException(
-					"factory for specified service name doesn't exist!");
+					"factory for specified service id doesn't exist!");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
