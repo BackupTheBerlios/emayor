@@ -51,7 +51,7 @@ import javax.swing.text.html.StyleSheet;
  *
  */
 
-public class MyImageView extends View implements ImageObserver, MouseListener, MouseMotionListener {
+public class PrinterImageView extends View implements ImageObserver, MouseListener, MouseMotionListener {
     
     // --- Attribute Values ------------------------------------------
     
@@ -72,7 +72,7 @@ public class MyImageView extends View implements ImageObserver, MouseListener, M
      *
      * @param elem the element to create a view for
      */
-    public MyImageView(Element elem) {
+    public PrinterImageView(Element elem) {
         super(elem);
         initialize(elem);
         StyleSheet sheet = getStyleSheet();
@@ -86,7 +86,7 @@ public class MyImageView extends View implements ImageObserver, MouseListener, M
      * @param Url the URL rendered in the JEditorPane component (required to process relative image paths)
      * @param cmp the JEditorPane component (required to Instantiate a MediaTracker object for ensuring that all images are completelly loaded on rendering)
      */
-    public MyImageView(Element elem, String Url, Component cmp) {
+    public PrinterImageView(Element elem, String Url, Component cmp) {
         super(elem);
         url = Url;
         comp = cmp;
@@ -792,10 +792,10 @@ public class MyImageView extends View implements ImageObserver, MouseListener, M
          * Class.getResourceAsStream just returns raw
          * bytes, which we can convert to an image.
          */
-        InputStream resource = MyImageView.class.getResourceAsStream(gifFile);
+        InputStream resource = PrinterImageView.class.getResourceAsStream(gifFile);
         
         if (resource == null) {
-            System.err.println(MyImageView.class.getName() + "/" +
+            System.err.println(PrinterImageView.class.getName() + "/" +
                     gifFile + " not found.");
             return null;
         }

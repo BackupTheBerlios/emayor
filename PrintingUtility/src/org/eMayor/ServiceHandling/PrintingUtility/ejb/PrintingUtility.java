@@ -690,7 +690,7 @@ public class PrintingUtility {
                 }
             });
             jep.setDocument(new HTMLDocument());
-            MyHTMLEditorKit kit1 = new MyHTMLEditorKit(url, jep);
+            PrinterHTMLEditorKit kit1 = new PrinterHTMLEditorKit(url, jep);
             jep.setEditorKit(kit1);
             if (url == null) {
                 try {

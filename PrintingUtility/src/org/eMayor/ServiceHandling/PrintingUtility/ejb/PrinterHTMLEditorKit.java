@@ -22,10 +22,10 @@ import javax.swing.text.html.StyleSheet;
  *
  */
 
-public class MyHTMLEditorKit extends HTMLEditorKit {
+public class PrinterHTMLEditorKit extends HTMLEditorKit {
     public String url = null;
     public Component comp = null;
-    public MyHTMLEditorKit(String Url, Component cmp) {
+    public PrinterHTMLEditorKit(String Url, Component cmp) {
         super();
         url = Url;
         comp = cmp;
@@ -77,7 +77,7 @@ public class MyHTMLEditorKit extends HTMLEditorKit {
                 HTML.Tag kind = (HTML.Tag) o;
                 if (kind == HTML.Tag.IMG)
                     //        System.out.println("new MyImageView(elem, url): "+url);
-                    return new MyImageView(elem, url, comp);
+                    return new PrinterImageView(elem, url, comp);
                 //          return new MyImageView(elem);
             }
             return super.create( elem );

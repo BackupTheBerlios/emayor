@@ -10,7 +10,7 @@ public interface Printer
    extends javax.ejb.EJBObject
 {
    /**
-    * Business method
+    * Print is a business method for the remote interface of PrinterBean
     */
    public void print( java.lang.String url,java.lang.String filetypeName )
       throws java.rmi.RemoteException;
