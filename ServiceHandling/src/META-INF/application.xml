@@ -18,6 +18,9 @@
 		<ejb>NotificationWrapperEJB.jar</ejb>
 	</module>
 	<module>
+		<ejb>TransformerEJB.jar</ejb>
+	</module>
+	<module>
 		<web>
 			<web-uri>eMayorWeb.war</web-uri>
 			<context-root>/sh</context-root>

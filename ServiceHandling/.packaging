@@ -59,5 +59,6 @@
 <file prefix="" project="PrintingUtility" projectLocation="PrinterEJB.jar" name="PrinterEJB.jar" location="../PrintingUtility/PrinterEJB.jar" used="true"/>
 <file prefix="" project="NotificationService" projectLocation="NotificationEJB.jar" name="NotificationEJB.jar" location="../NotificationService/NotificationEJB.jar" used="true"/>
 <file prefix="" project="NotificationServiceWrapper" projectLocation="NotificationWrapperEJB.jar" name="NotificationWrapperEJB.jar" location="../NotificationServiceWrapper/NotificationWrapperEJB.jar" used="true"/>
+<file prefix="" project="FormatTransformation" projectLocation="TransformerEJB.jar" name="TransformerEJB.jar" location="../FormatTransformation/TransformerEJB.jar" used="true"/>
 </archive>
 </configurations>

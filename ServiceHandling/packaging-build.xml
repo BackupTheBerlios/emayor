@@ -127,6 +127,9 @@
 <zipfileset dir="../NotificationServiceWrapper">
 <include name="NotificationWrapperEJB.jar"/>
 </zipfileset>
+<zipfileset dir="../FormatTransformation">
+<include name="TransformerEJB.jar"/>
+</zipfileset>
 </jar>
 </target>
 </project>
