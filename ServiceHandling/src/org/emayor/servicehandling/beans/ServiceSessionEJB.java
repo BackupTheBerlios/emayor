@@ -13,6 +13,7 @@ import javax.ejb.SessionContext;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.kernel.IServiceSession;
+import org.emayor.servicehandling.kernel.IeMayorService;
 import org.emayor.servicehandling.kernel.ServiceSessionException;
 import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.utils.ServiceLocator;
@@ -34,7 +35,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 
 	private SessionContext ctx;
 	
-	
+	private IeMayorService eMayorService;
 
 	/**
 	 *  
@@ -172,6 +173,33 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 		} catch (ServiceLocatorException slex) {
 			throw new CreateException(slex.toString());
 		}
+		log.debug("-> ... processing DONE!");
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public IeMayorService geteMayorService() throws ServiceSessionException {
+		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+
+		log.debug("-> ... processing DONE!");
+		return null;
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public void seteMayorService(IeMayorService emayorService) throws ServiceSessionException {
+		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		
 		log.debug("-> ... processing DONE!");
 	}
 

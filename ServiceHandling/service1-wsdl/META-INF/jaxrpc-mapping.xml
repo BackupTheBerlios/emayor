@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<java-wsdl-mapping xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:impl="http://emayor.org/ResidenceCertifcationRequest_v10"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+  http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd"
+  version="1.1">
+  
+  
+  <package-mapping>
+    <package-type>org.emayor.ResidenceCertifcationRequest_v10</package-type>
+    <namespaceURI>http://emayor.org/ResidenceCertifcationRequest_v10</namespaceURI>
+  </package-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request</java-type>
+  	<root-type-qname>impl:ResidenceCertifcationRequest_v10Request</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Response</java-type>
+  	<root-type-qname>impl:ResidenceCertifcationRequest_v10Response</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+</java-wsdl-mapping>

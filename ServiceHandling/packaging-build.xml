@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N10084,N100B5"/>
+<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N10084,N100B5,N100E6"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -55,7 +55,24 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N100B5" description="eMayorApp.ear">
+<target name="N100B5" description="ResicenceCertificationService-client.jar">
+<jar destfile="ResicenceCertificationService-client.jar">
+<zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
+<include name="application-client.xml"/>
+</zipfileset>
+<zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
+<include name="jboss-client.xml"/>
+</zipfileset>
+<zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
+<include name="jaxrpc-mapping.xml"/>
+</zipfileset>
+<zipfileset dir="service1-wsdl" prefix="META-INF/wsdl">
+<include name="ResidenceCertificationService.wsdl"/>
+</zipfileset>
+<zipfileset dir="classes" includes="org/emayor/www/eMayorServiceRequest_xsd/*.class,org/emayor/ResidenceCertifcationRequest_v10/*.class"/>
+</jar>
+</target>
+<target name="N100E6" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -68,6 +85,9 @@
 </zipfileset>
 <zipfileset dir=".">
 <include name="WorklistManager-client.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="ResicenceCertificationService-client.jar"/>
 </zipfileset>
 </jar>
 </target>

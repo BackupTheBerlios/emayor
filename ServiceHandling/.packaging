@@ -26,10 +26,18 @@
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jaxrpc-mapping.xml" name="jaxrpc-mapping.xml" location="src/META-INF/jaxrpc-mapping.xml" used="true"/>
 <file prefix="META-INF/wsdl" project="" projectLocation="wsdl/MyWorklistManager.wsdl" name="MyWorklistManager.wsdl" location="wsdl/MyWorklistManager.wsdl" used="true"/>
 </archive>
+<archive name="ResicenceCertificationService-client.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/emayor/www/eMayorServiceRequest_xsd/*.class,org/emayor/ResidenceCertifcationRequest_v10/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
+<file prefix="META-INF" project="" projectLocation="service1-wsdl/META-INF/application-client.xml" name="application-client.xml" location="service1-wsdl/META-INF/application-client.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="service1-wsdl/META-INF/jboss-client.xml" name="jboss-client.xml" location="service1-wsdl/META-INF/jboss-client.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="service1-wsdl/META-INF/jaxrpc-mapping.xml" name="jaxrpc-mapping.xml" location="service1-wsdl/META-INF/jaxrpc-mapping.xml" used="true"/>
+<file prefix="META-INF/wsdl" project="" projectLocation="service1-wsdl/ResidenceCertificationService.wsdl" name="ResidenceCertificationService.wsdl" location="service1-wsdl/ResidenceCertificationService.wsdl" used="true"/>
+</archive>
 <archive name="eMayorApp.ear" destination="" used="true" exploded="false">
 <file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
 <file prefix="" project="" projectLocation="eMayorEJB.jar" name="eMayorEJB.jar" location="eMayorEJB.jar" used="true"/>
 <file prefix="" project="" projectLocation="eMayorWeb.war" name="eMayorWeb.war" location="eMayorWeb.war" used="true"/>
 <file prefix="" project="" projectLocation="WorklistManager-client.jar" name="WorklistManager-client.jar" location="WorklistManager-client.jar" used="true"/>
+<file prefix="" project="" projectLocation="ResicenceCertificationService-client.jar" name="ResicenceCertificationService-client.jar" location="ResicenceCertificationService-client.jar" used="true"/>
 </archive>
 </configurations>

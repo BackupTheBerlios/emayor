@@ -15,5 +15,8 @@
 	<module>
 		<java>WorklistManager-client.jar</java>
 	</module>
+	<module>
+		<java>ResicenceCertificationService-client.jar</java>
+	</module>
 	
 </application>

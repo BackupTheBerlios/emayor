@@ -44,7 +44,7 @@ public class UserTaskManager implements IService {
 				log.debug("the service is NOT null");
 			this.worklistManager = service.getMyWorklistManagerPort();
 			if (this.worklistManager != null)
-				log.debug("worklistManager rference is NOT null");
+				log.debug("the port reference is NOT null");
 		} catch (javax.xml.rpc.ServiceException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new UserTaskException(
