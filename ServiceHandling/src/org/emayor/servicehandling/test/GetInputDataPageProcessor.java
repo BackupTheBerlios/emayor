@@ -40,11 +40,11 @@ public class GetInputDataPageProcessor extends AbstractProcessor {
     public String process(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String ret = "Error.jsp";
-        HttpSession session = req.getSession();
-        String asid = (String) session.getAttribute("ASID");
-        String ssid = (String) session.getAttribute("SSID");
-        String role = (String) session.getAttribute("ROLE");
         try {
+            HttpSession session = req.getSession();
+            String asid = (String) session.getAttribute("ASID");
+            String ssid = (String) session.getAttribute("SSID");
+            String role = (String) session.getAttribute("ROLE");
             if (log.isDebugEnabled()) {
                 log.debug("got asid: " + asid);
                 log.debug("got ssid: " + ssid);

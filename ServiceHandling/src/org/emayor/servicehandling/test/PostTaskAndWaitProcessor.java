@@ -44,6 +44,7 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
      */
     public String process(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        log.debug("-> start processing ...");
         String ret = "Error.jsp";
         try {
             HttpSession session = req.getSession();
@@ -104,12 +105,12 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
                 log.debug("got after transformation: " + xmlString);
             task.setXMLDocument(xmlString);
             userTaskServiceClient.completeTask(asid, task);
-            session.setAttribute("SLEEP_TIME", "5");
+            session.setAttribute("SLEEP_TIME", "10");
             session.setAttribute("REDIRECTION_URL",
                     "ServiceHandlingTest?action=GetTask");
             session.setAttribute("PAGE_TITLE", "Waiting for response ...");
             session.setAttribute("REDIRECTION_TEXT",
-                    "Please wait 5 sec - we are working for you!");
+                    "Please wait a while - we are working for you!");
             session.setAttribute("REDIRECTION_CANCEL_ACTION", "Welcome");
             session.setAttribute("REDIRECTION_ACTION", "ServiceHandlingTest");
             ret = "JustWait.jsp";
@@ -126,6 +127,7 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             log.error("caught ex: " + utex.toString());
             // TODO handle ex
         }
+        log.debug("-> ... processing DONE!");
         return ret;
     }
 }

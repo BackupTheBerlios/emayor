@@ -54,7 +54,7 @@ public class StartServiceNewProcessor extends AbstractProcessor {
             session.setAttribute("SLEEP_TIME", "10");
             session.setAttribute("REDIRECTION_URL", "ServiceHandlingTest?action=GetInputDataPage");
             session.setAttribute("PAGE_TITLE", "Waiting for input data page!");
-            session.setAttribute("REDIRECTION_TEXT", "Please wait 10 sec - we are working for you!");
+            session.setAttribute("REDIRECTION_TEXT", "Please wait a while - we are working for you!");
             session.setAttribute("REDIRECTION_CANCEL_ACTION", "Welcome");
             session.setAttribute("REDIRECTION_ACTION", "ServiceHandlingTest");
             access.remove();

@@ -90,7 +90,7 @@ public class ServiceHandlingTestServlet extends HttpServlet {
             processor = new CVDisplayTaskProcessor();
         } else if (action.equalsIgnoreCase("CVHandleTask")) {
             log.debug("processing the CVHandleTask request");
-            processor = new ErrorProcessor();
+            processor = new CVHandleTaskProcessor();
         } else {
             log.debug("processing unknown request");
             processor = new ErrorProcessor();

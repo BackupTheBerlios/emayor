@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
-import org.emayor.servicehandling.utclient.CVDocumentTypes;
+import org.emayor.servicehandling.test.utils.Utils;
 import org.emayor.servicehandling.utclient.CivilServantTaskServiceClient;
 import org.emayor.servicehandling.utclient.UserTaskServiceClient;
 
@@ -43,26 +43,8 @@ public class ListMyTasksProcessor extends AbstractProcessor {
 				tasks = client.getMyTasks(asid);
 				ret = "CVListTasks.jsp";
 			}
+			tasks = Utils.setTypeToTasks(tasks);
 			session.setAttribute("MY_TASKS", tasks);
-			for (int i = 0; i < tasks.length; i++) {
-				switch (tasks[i].getTaskType()) {
-				case CVDocumentTypes.CV_BANK_ACCOUNT_CHANGE_REQUEST:
-					tasks[i].setExtraInfo("Bank account change request");
-					break;
-				case CVDocumentTypes.CV_FAMILY_RESIDENCE_CERTIFICATE_REQUEST:
-					tasks[i].setExtraInfo("Family residence certification request");
-					break;
-				case CVDocumentTypes.CV_RESIDENCE_CERTIFICATE_REQUEST:
-					tasks[i].setExtraInfo("Residence certification request");
-					break;
-				case CVDocumentTypes.CV_RESIDENCE_DOCUMENT:
-					tasks[i].setExtraInfo("Residence document");
-					break;
-				case CVDocumentTypes.CV_TAXES_MANAGEMENT_ACTIVATION_REQUEST:
-					tasks[i].setExtraInfo("Tax management activation request");
-					break;
-				}
-			}
 		} catch (UserTaskException ex) {
 			log.error("caught ex: " + ex.toString());
 			// TODO hadle exception

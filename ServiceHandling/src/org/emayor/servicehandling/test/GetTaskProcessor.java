@@ -38,6 +38,7 @@ public class GetTaskProcessor extends AbstractProcessor {
      */
     public String process(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        log.debug("-> start processing ...");
         String ret = "Error.jsp";
         try {
             HttpSession session = req.getSession();
@@ -101,6 +102,7 @@ public class GetTaskProcessor extends AbstractProcessor {
             log.error("caught ex: " + tex.toString());
             // TODO handle ex
         }
+        log.debug("-> ... processing DONE!");
         return ret;
     }
 }
