@@ -4,24 +4,14 @@
 package org.emayor.servicehandling.test;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.rmi.PortableRemoteObject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.eMayor.ServiceHandling.PrintingUtility.interfaces.Printer;
-import org.emayor.servicehandling.interfaces.AccessManagerLocalHome;
-import org.emayor.servicehandling.utils.ServiceLocator;
-import org.emayor.servicehandling.utils.ServiceLocatorException;
-
 
 /**
  * Servlet Class
@@ -31,27 +21,12 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  *              ServiceHandlingTest"
  * 
  * @web.servlet-mapping url-pattern = "/ServiceHandlingTest"
- * 
- * 
- * @web.ejb-local-ref name = "ejb/AccessManager" 
- * 		type = "Session" 
- * 		home = "org.emayor.servicehandling.interfaces.AccessManagerLocalHome"
- *     	local = "org.emayor.servicehandling.interfaces.AccessManagerLocal"
- *      description = "Reference to the AccessManager EJB" 
- * 		link = "AccessManager"
- * @web.ejb-ref name = "ejb/PolicyEnforcement"
- * 		type = "Session"
- * 		home = "org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementHome"
- * 		remote = "org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement"
- * 		description = "nnnn"
- * 		link = "PolicyEnforcement"
  *  
  */
 public class ServiceHandlingTestServlet extends HttpServlet {
 	private static Logger log = Logger
 			.getLogger(ServiceHandlingTestServlet.class);
 
-	private AccessManagerLocalHome home;
 
 	/**
 	 *  
@@ -62,90 +37,51 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		try {
-			Context context = new InitialContext();
-			Object ref = context.lookup("AccessManagerLocal");
-			home = (AccessManagerLocalHome) PortableRemoteObject.narrow(ref,
-					AccessManagerLocalHome.class);
-		} catch (Exception e) {
-			throw new ServletException("Lookup of java:/comp/env/ failed");
-		}
-		log.debug("access manager successful lookuped");
 	}
 
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String action = req.getParameter("action");
+		String page = "index.jsp";
+		IProcessor processor = null;
 		if (log.isDebugEnabled())
 			log.debug("got following action from request: " + action);
 
-		if (action.equalsIgnoreCase("welcome")) {
+		if (action.equalsIgnoreCase("login")) {
 			log.debug("processing welcome request");
-			WelcomeProcessor p = new WelcomeProcessor();
-			p.process(req, resp);
-			log.debug("sending redirection to ServiceListing.jsp");
-			resp.sendRedirect("ServiceListing.jsp");
+			processor = new LoginProcessor();
+		} else if (action.equalsIgnoreCase("welcome")) {
+			log.debug("processing welcome request");
+			processor = new WelcomeProcessor();
 		} else if (action.equalsIgnoreCase("Logout")) {
 			log.debug("processing Logout request");
-			LogoutProcessor p = new LogoutProcessor();
-			p.process(req, resp);
-			resp.sendRedirect("index.jsp");
+			processor = new LogoutProcessor();
 		} else if (action.equalsIgnoreCase("listMyTasks")) {
 			log.debug("processing the listMyTasks request");
-			ListMyTasksProcessor p = new ListMyTasksProcessor();
-			p.process(req, resp);
-			resp.sendRedirect("listTasks.jsp");
+			processor = new ListMyTasksProcessor();
 		} else if (action.equalsIgnoreCase("showTaskDetails")) {
 			log.debug("processing the showTaskDetails request");
-			ShowTaskDetailsProcessor p = new ShowTaskDetailsProcessor();
-			p.process(req, resp);
-			resp.sendRedirect("ShowTaskDetails.jsp");
+			processor = new ShowTaskDetailsProcessor();
 		} else if (action.equalsIgnoreCase("completeTask")) {
 			log.debug("processing the completeTask request");
-			CompleteTaskProcessor p = new CompleteTaskProcessor();
-			p.process(req, resp);
-			resp.sendRedirect("index.jsp");
+			processor = new CompleteTaskProcessor();
 		} else if (action.equalsIgnoreCase("StartService")) {
 			log.debug("processing the StartService request");
-			StartServiceProcessor p = new StartServiceProcessor();
-			p.process(req, resp);
-			resp.sendRedirect("RCSDataPage.jsp");
+			processor = new StartServiceProcessor();
 		} else if (action.equalsIgnoreCase("ValidateInputData")) {
 			log.debug("processing the StartService request");
-			RCSDisplayDataFormProcessor p = new RCSDisplayDataFormProcessor();
-			p.process(req, resp);
-			resp.sendRedirect("RCSDataPage.jsp");
+			processor = new RCSDisplayDataFormProcessor();
 		} else if (action.equalsIgnoreCase("ServiceHandlingPostSignRequest")) {
 			log.debug("processing the StartService request");
-			RCSPostSignRequestProcessor p = new RCSPostSignRequestProcessor();
-			p.process(req, resp);
-			resp.sendRedirect("index.jsp");
+			processor = new RCSPostSignRequestProcessor();
 		} else if (action.equalsIgnoreCase("testPrintService")) {
-			try {
-				ServiceLocator locator = ServiceLocator.getInstance();
-				Printer printer = locator.getPrinter();
-				printer.print("http://www.fokus.fraunhofer.de", "text/html");
-			} catch(ServiceLocatorException slex) {
-				log.error("caught ex: " + slex.toString());
-			}
-			resp.sendRedirect("index.jsp");
+			log.debug("processing the testPrintService request");
+			processor = new TestPrintServiceProcessor();
 		} else {
-			HttpSession session = req.getSession(false);
-			resp.setContentType("text/html");
-			PrintWriter out = resp.getWriter();
-			out
-					.println("<html><head><title>After after welcome!</title></head>");
-			out.println("<body>");
-			out
-					.println("<a href=\"ServiceHandlingTest?action=welcome1\">test it again</a>");
-			out.println("<p/>");
-			out.println("current access session id = ");
-			out.println((String) session.getAttribute("ASID"));
-			out.println("<br/>");
-			out.println("</body>");
-			out.println("</html>");
-			out.close();
+			processor = new ErrorProcessor();
 		}
+		page = processor.process(req, resp);
+		resp.sendRedirect(page);
 	}
 
 	public String getServletInfo() {

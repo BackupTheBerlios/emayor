@@ -18,7 +18,7 @@ import org.emayor.servicehandling.utclient.UserTaskServiceClient;
 /**
  * @author tku
  */
-public class CompleteTaskProcessor {
+public class CompleteTaskProcessor extends AbstractProcessor {
 	private static Logger log = Logger.getLogger(CompleteTaskProcessor.class);
 
 	/**
@@ -28,23 +28,26 @@ public class CompleteTaskProcessor {
 		super();
 	}
 
-	public void process(HttpServletRequest req, HttpServletResponse resp)
+	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
+		String ret = "Error.jsp";
 		try {
 			HttpSession session = req.getSession(false);
-			Task task = (Task)session.getAttribute("CURRENT_TASK");
-			String asid = (String)session.getAttribute("ASID");
-			
+			Task task = (Task) session.getAttribute("CURRENT_TASK");
+			String asid = (String) session.getAttribute("ASID");
+
 			// do a lot with data !!!!
-			
+
 			UserTaskServiceClient client = new UserTaskServiceClient();
 			client.completeTask(asid, task);
 			log.debug("DONE");
+			ret = "MainMenu.jsp";
 		} catch (UserTaskException ex) {
 			log.error("caught ex: " + ex.toString());
 			// TODO hadle exception
-		} 
+		}
 		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 }

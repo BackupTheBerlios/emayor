@@ -23,6 +23,7 @@ import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
 import org.emayor.servicehandling.kernel.ServicesInfo;
 import org.emayor.servicehandling.kernel.SessionException;
+import org.emayor.servicehandling.kernel.UserProfile;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -129,7 +130,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 					.getAccessSession(accessSessionId);
 			if (log.isDebugEnabled())
 				log.debug("got access session with id: " + as.getSessionId());
-			ret = as.startServiceSession(serviceId, false);
+			ret = as.startServiceSession(serviceId, false, "", "");
 			if (log.isDebugEnabled())
 				log.debug("started service ssid = " + ret);
 		} catch (KernelException ex) {
@@ -301,13 +302,37 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public boolean startAccessSession(String asid, X509Certificate[] certificates)
-			throws AccessException {
+	public boolean startAccessSession(String asid,
+			X509Certificate[] certificates) throws AccessException {
 		log.debug("-> start processing ...");
 		boolean ret = false;
 		try {
 			AccessSessionLocal as = this.kernel.getAccessSession(asid);
 			ret = as.authenticateUser(certificates);
+		} catch (KernelException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new AccessException(
+					"specified access session probably doesn't exist");
+		} catch (AccessSessionException asex) {
+			log.error("caught ex: " + asex.toString());
+			throw new AccessException("user authentication failed");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public UserProfile getUserProfile(String asid) throws AccessException {
+		log.debug("-> start processing ...");
+		UserProfile ret = null;
+		try {
+			AccessSessionLocal as = this.kernel.getAccessSession(asid);
+			ret = (UserProfile)this.kernel.getUserProfile(as.getUserId());
 		} catch (KernelException kex) {
 			log.error("caught ex: " + kex.toString());
 			throw new AccessException(

@@ -89,15 +89,23 @@ public class ResidenceCertificationService implements IeMayorService {
 
 	private void startIt(String forward, String uid, String ssid, String req,
 			String reqDigSig) throws eMayorServiceException {
+		log.debug("-> start processing ...");
 		try {
 			VMID guid = new VMID();
 			String conversationId = guid.toString();
 			if (log.isDebugEnabled())
-				log.debug("got new converation id: " + conversationId);
+				log.debug("got new conversation id: " + conversationId);
 			log.debug("creating the input data structure");
 			EMayorServiceRequestType type = new EMayorServiceRequestType();
 			if (type == null)
 				log.error("the type ref is NULL");
+			if (log.isDebugEnabled()) {
+				StringBuffer b = new StringBuffer();
+				b.append("forward   : ").append(forward);
+				b.append("\nuid       : ").append(uid);
+				b.append("\nssid      : ").append(ssid);
+				log.debug("\n" + b.toString());
+			}
 			type.setForwarded(forward);
 			type.setReqestDocument(req);
 			type.setReqDocDigSig(reqDigSig);
@@ -117,6 +125,7 @@ public class ResidenceCertificationService implements IeMayorService {
 			log.error("caught ex: " + ex.toString());
 			throw new eMayorServiceException("");
 		}
+		log.debug("-> ... processing DONE!");
 	}
 
 	/*

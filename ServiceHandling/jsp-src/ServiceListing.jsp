@@ -5,7 +5,9 @@
 <html>
 
 <head>
-	<title>List of the available services!</title>
+	<title>eMayor: list all services</title>
+	<meta http-equiv="PRAGMA" content="NO-CACHE" />
+	<meta http-equiv="EXPIRES" content="-1" />
 </head>
 
 <body bgcolor="#FFFFFF">

@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 /**
  * @author tku
  */
-public class RCSDisplayDataFormProcessor {
+public class RCSDisplayDataFormProcessor extends AbstractProcessor {
 	private static Logger log = Logger
 			.getLogger(RCSDisplayDataFormProcessor.class);
 
@@ -44,9 +44,10 @@ public class RCSDisplayDataFormProcessor {
 		super();
 	}
 
-	public void process(HttpServletRequest req, HttpServletResponse resp)
+	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
+		String ret = "Error.jsp";
 		try {
 			HttpSession session = req.getSession(false);
 			String asid = (String) session.getAttribute("ASID");
@@ -102,7 +103,7 @@ public class RCSDisplayDataFormProcessor {
 			if (log.isDebugEnabled())
 				log.debug("got after transformation: " + xmlString);
 			task.setXMLDocument(xmlString);
-			
+
 			InputDataCollector collector = new InputDataCollector();
 			Task taskNew = collector.validateInputData(task, asid, ssid);
 			xmldoc = taskNew.getXMLDocument();
@@ -134,7 +135,7 @@ public class RCSDisplayDataFormProcessor {
 			session.setAttribute("REQ_FORENAME", reqForename);
 			session.setAttribute("REQ_SURNAME", reqSurname);
 			session.setAttribute("REQ_EMAIL", reqEmail);
-
+			ret = "RCSDataPage.jsp";
 		} catch (ParserConfigurationException pcex) {
 			log.error("caught ex: " + pcex.toString());
 			// TODO handle ex
@@ -148,7 +149,7 @@ public class RCSDisplayDataFormProcessor {
 			log.error("caught ex: " + utex.toString());
 			// TODO handle ex
 		}
-
 		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 }

@@ -7,15 +7,14 @@ import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
+import javax.ejb.RemoveException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
-import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.kernel.IServiceSession;
 import org.emayor.servicehandling.kernel.IeMayorService;
-import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceSessionException;
 import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.kernel.eMayorServiceException;
@@ -171,11 +170,15 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 			SimpleIdGeneratorLocal simpleIdGeneratorLocal = serviceLocator
 					.getSimpleIdGeneratorLocal();
 			this.ssid = simpleIdGeneratorLocal.generateId();
+			simpleIdGeneratorLocal.remove();
 			if (log.isDebugEnabled())
 				log.debug("generated following ssid : " + ssid);
 		} catch (ServiceLocatorException slex) {
 			log.error("caught ex: " + slex.toString());
 			throw new CreateException(slex.toString());
+		} catch (RemoveException rex) {
+			log.error("caught ex: " + rex.toString());
+			throw new CreateException("internal error");
 		}
 		log.debug("-> ... processing DONE!");
 	}
@@ -210,25 +213,16 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public void startService(boolean isForwarded)
-			throws ServiceSessionException {
+	public void startService(String userId, boolean isForwarded, String xmlDoc,
+			String docSig) throws ServiceSessionException {
 		log.debug("-> start processing ...");
 		try {
-			ServiceLocator locator = ServiceLocator.getInstance();
-			KernelLocal kernel = locator.getKernelLocal();
-			String uid = kernel.getUserIdByASID(this.asid);
 			log.debug("starting the service :-)");
 			if (isForwarded)
-				this.eMayorService.forward(uid, this.ssid, "", "");
+				this.eMayorService.forward(userId, this.ssid, xmlDoc, docSig);
 			else {
-				this.eMayorService.startService(uid, this.ssid);
+				this.eMayorService.startService(userId, this.ssid);
 			}
-		} catch (ServiceLocatorException slex) {
-			log.error("caught ex: " + slex.toString());
-			throw new ServiceSessionException("problems with service locator");
-		} catch (KernelException kex) {
-			log.error("caught ex: " + kex.toString());
-			throw new ServiceSessionException("Couldn't map the asid to uid");
 		} catch (eMayorServiceException emsex) {
 			log.error("caught ex: " + emsex.toString());
 			throw new ServiceSessionException("Couldn't start the service :-(");

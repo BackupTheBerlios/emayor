@@ -57,8 +57,8 @@ public interface IAccessSession extends ISession {
 	 * @return the service session id
 	 * @throws AccessSessionException
 	 */
-	public String startServiceSession(String serviceId, boolean isForwarded)
-			throws AccessSessionException;
+	public String startServiceSession(String serviceId, boolean isForwarded,
+			String xmlDoc, String docSig) throws AccessSessionException;
 
 	/**
 	 * A specified session wil be stoped.
@@ -103,4 +103,8 @@ public interface IAccessSession extends ISession {
 	 * @throws AccessSessionException
 	 */
 	public C_UserProfile getUserProfile() throws AccessSessionException;
+
+	public String getUserId() throws AccessSessionException;
+
+	public void setUserId(String userId) throws AccessSessionException;
 }

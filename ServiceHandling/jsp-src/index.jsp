@@ -3,7 +3,9 @@
 <html>
 
 <head>
-	<title>List of all available services!</title>
+	<title>eMayor: SH login page</title>
+	<meta http-equiv="PRAGMA" content="NO-CACHE" />
+	<meta http-equiv="EXPIRES" content="-1" />
 </head>
 
 <body bgcolor="#FFFFFF">
@@ -12,11 +14,7 @@
 			Start site of the test gui for service handling!
 		</h1>
 		<br/>
-		<a href="ServiceHandlingTest?action=welcome">service listing :-)</a> 
-		<br/>
-		<a href="ServiceHandlingTest?action=listMyTasks">my tasks listing :-)</a>
-		<br/>
-		<a href="ServiceHandlingTest?action=testPrintService">print something</a>
+		<a href="ServiceHandlingTest?action=login">LOGIN :-)</a> 
 </body>
 
 </html>

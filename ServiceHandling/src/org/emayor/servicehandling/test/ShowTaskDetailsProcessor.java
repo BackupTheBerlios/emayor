@@ -20,7 +20,7 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 /**
  * @author tku
  */
-public class ShowTaskDetailsProcessor {
+public class ShowTaskDetailsProcessor extends AbstractProcessor {
 	private static Logger log = Logger
 			.getLogger(ShowTaskDetailsProcessor.class);
 
@@ -31,9 +31,10 @@ public class ShowTaskDetailsProcessor {
 		super();
 	}
 
-	public void process(HttpServletRequest req, HttpServletResponse resp)
+	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
+		String ret = "Error.jsp";
 		try {
 			HttpSession session = req.getSession(false);
 			String taskId = req.getParameter("taskId");
@@ -43,6 +44,7 @@ public class ShowTaskDetailsProcessor {
 			UserTaskManagerLocal utm = serviceLocator.getUserTaskManagerLocal();
 			Task task = utm.lookupTask(taskId);
 			session.setAttribute("CURRENT_TASK", task);
+			ret = "ShowTaskDetails.jsp";
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			// TODO hadle exception
@@ -51,6 +53,7 @@ public class ShowTaskDetailsProcessor {
 			// TODO hadle exception
 		}
 		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 
 }

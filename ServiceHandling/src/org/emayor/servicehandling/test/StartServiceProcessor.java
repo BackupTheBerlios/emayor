@@ -6,6 +6,7 @@ package org.emayor.servicehandling.test;
 import java.io.IOException;
 import java.io.StringReader;
 
+import javax.ejb.RemoveException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,7 @@ import org.xml.sax.SAXException;
 /**
  * @author tku
  */
-public class StartServiceProcessor {
+public class StartServiceProcessor extends AbstractProcessor {
 	private static Logger log = Logger.getLogger(StartServiceProcessor.class);
 
 	/**
@@ -41,9 +42,10 @@ public class StartServiceProcessor {
 		super();
 	}
 
-	public void process(HttpServletRequest req, HttpServletResponse resp)
+	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
+		String ret = "Error.jsp";
 		HttpSession session = req.getSession();
 		String asid = (String) session.getAttribute("ASID");
 		if (log.isDebugEnabled())
@@ -75,7 +77,7 @@ public class StartServiceProcessor {
 			Document root = builder.parse(inputSource);
 			if (root != null)
 				log.debug("root: " + root.toString());
-			else 
+			else
 				log.debug("root is NULL");
 			String reqForename = XPathAPI
 					.selectSingleNode(
@@ -96,7 +98,8 @@ public class StartServiceProcessor {
 			session.setAttribute("REQ_FORENAME", reqForename);
 			session.setAttribute("REQ_SURNAME", reqSurname);
 			session.setAttribute("REQ_EMAIL", reqEMail);
-
+			access.remove();
+			ret = "RCSDataPage.jsp";
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			// TODO hadle exception
@@ -115,7 +118,11 @@ public class StartServiceProcessor {
 		} catch (TransformerException tex) {
 			log.error("caught ex: " + tex.toString());
 			// TODO handle ex
+		} catch(RemoveException rex) {
+			log.error("caught ex: " + rex.toString());
+			// TODO handle ex
 		}
 		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 }

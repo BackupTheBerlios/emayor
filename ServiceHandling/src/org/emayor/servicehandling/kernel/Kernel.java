@@ -256,8 +256,16 @@ public class Kernel implements IKernel {
 
 	public synchronized String getUserIdByASID(String asid)
 			throws KernelException {
-		// TODO
-		return "defid";
+		log.debug("-> start processing ...");
+		String ret = "defid";
+		try {
+			ret = this.getAccessSession(asid).getUserId();
+		} catch (AccessSessionException asex) {
+			log.error("caught ex: " + asex.toString());
+			throw new KernelException("problem with getting user id");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 
 	private void initTestData() {
@@ -433,7 +441,7 @@ public class Kernel implements IKernel {
 				up.setPEUserProfile(userProfile);
 				repository.addUserProfile(up);
 			} else {
-				log.debug("the user already exiss in the repository");
+				log.debug("the user already exists in the repository");
 			}
 		} catch (KernelRepositoryException krex) {
 			log.error("caught ex: " + krex.toString());
@@ -449,6 +457,8 @@ public class Kernel implements IKernel {
 						+ userProfile.getUserEmail());
 			}
 			ret = userId;
+			if (log.isDebugEnabled())
+				log.debug("returning the user id : " + ret);
 		} else {
 			ret = null;
 		}

@@ -69,4 +69,6 @@ public interface IAccess {
 	 */
 	public RunningServicesInfo listRunningServices(String accessSessionId)
 			throws AccessException;
+
+	public UserProfile getUserProfile(String asid) throws AccessException;
 }

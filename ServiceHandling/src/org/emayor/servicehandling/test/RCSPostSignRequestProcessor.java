@@ -20,7 +20,7 @@ import org.emayor.servicehandling.utclient.InputDataCollector;
  *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
  *         </font>
  */
-public class RCSPostSignRequestProcessor {
+public class RCSPostSignRequestProcessor extends AbstractProcessor {
 	private static Logger log = Logger
 			.getLogger(RCSPostSignRequestProcessor.class);
 
@@ -31,9 +31,10 @@ public class RCSPostSignRequestProcessor {
 		super();
 	}
 
-	public void process(HttpServletRequest req, HttpServletResponse resp)
+	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
+		String ret = "Error.jsp";
 		try {
 			HttpSession session = req.getSession(false);
 			String asid = (String) session.getAttribute("ASID");
@@ -48,13 +49,16 @@ public class RCSPostSignRequestProcessor {
 
 			InputDataCollector collector = new InputDataCollector();
 			collector.postInputData(task, asid, ssid);
-			
+
 			session.removeAttribute("SSID");
 			session.removeAttribute("CURR_TASK");
+			
+			ret = "MainMenu.jsp";
 		} catch (UserTaskException utex) {
 			log.error("caught ex: " + utex.toString());
 			// TODO handle ex
 		}
 		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 }

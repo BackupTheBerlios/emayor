@@ -16,8 +16,8 @@ public interface IServiceSession extends ISession {
 
 	public void setServiceId(String serviceId) throws ServiceSessionException;
 
-	public void startService(boolean isForwarded)
-			throws ServiceSessionException;
+	public void startService(String userId, boolean isForwarded, String xmlDoc,
+			String docSig) throws ServiceSessionException;
 
 	public void stopService() throws ServiceSessionException;
 
