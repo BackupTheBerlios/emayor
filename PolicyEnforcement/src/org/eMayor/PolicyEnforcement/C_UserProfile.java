@@ -166,6 +166,7 @@ E_UserProfileException {
 		eUserRole.setNodeValue(this.m_S_UserRole);
 		newRoot.appendChild(eUserRole);
 		
+		
 
 		
 		
