@@ -16,7 +16,7 @@
 		<tr bgcolor="#999999">
 		  <th><div align="center"><strong>TaskId</strong></div></th>
 			<th><div align="center"><strong>Status</strong></div></th>
-			<th><div align="center"><strong>xml doc</strong></div></th>
+			<th><div align="center"><strong>Type</strong></div></th>
 			<th><div align="center"><strong>ACTION</strong></div></th>
 	  </tr>
 <%
