@@ -36,13 +36,11 @@ public interface IService {
 			throws ServiceException;
 
 	/**
-	 * By using this method all tasks created by particular process (serviceSessionid) 
-	 * and addressing particular user (accessSessionId) can be found.
-	 * @param accessSessionId
-	 * @param serviceSessionId
+	 * 
+	 * @param taskId
 	 * @return
 	 * @throws ServiceException
 	 */
-	public Task lookupTask(String accessSessionId, String serviceSessionId)
+	public Task lookupTask(String taskId)
 			throws ServiceException;
 }

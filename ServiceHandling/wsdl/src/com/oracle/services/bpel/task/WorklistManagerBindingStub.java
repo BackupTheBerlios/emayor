@@ -96,19 +96,19 @@ public class WorklistManagerBindingStub extends org.apache.axis.client.Stub impl
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">whereCondition>status");
-            cachedSerQNames.add(qName);
-            cls = com.oracle.services.bpel.task._whereCondition_status.class;
-            cachedSerClasses.add(cls);
-            cachedSerFactories.add(enumsf);
-            cachedDeserFactories.add(enumdf);
-
             qName = new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">task");
             cachedSerQNames.add(qName);
             cls = com.oracle.services.bpel.task._task.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">whereCondition>status");
+            cachedSerQNames.add(qName);
+            cls = com.oracle.services.bpel.task._whereCondition_status.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(enumsf);
+            cachedDeserFactories.add(enumdf);
 
             qName = new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">tasklist");
             cachedSerQNames.add(qName);

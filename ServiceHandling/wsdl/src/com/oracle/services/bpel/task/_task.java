@@ -23,7 +23,7 @@ public class _task  implements java.io.Serializable {
     private java.lang.String template;
     private java.lang.String customKey;
     private java.lang.String conclusion;
-    private java.lang.Object attachment;
+    private java.lang.String attachment;
 
     public _task() {
     }
@@ -148,11 +148,11 @@ public class _task  implements java.io.Serializable {
         this.conclusion = conclusion;
     }
 
-    public java.lang.Object getAttachment() {
+    public java.lang.String getAttachment() {
         return attachment;
     }
 
-    public void setAttachment(java.lang.Object attachment) {
+    public void setAttachment(java.lang.String attachment) {
         this.attachment = attachment;
     }
 
@@ -378,7 +378,7 @@ public class _task  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("attachment");
         elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "attachment"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "anyType"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         typeDesc.addFieldDesc(elemField);
     }
 

@@ -10,7 +10,7 @@ package com.oracle.services.bpel.task;
 public class WorklistManager_ServiceLocator extends org.apache.axis.client.Service implements com.oracle.services.bpel.task.WorklistManager_Service {
 
     // Use to get a proxy class for WorklistManagerPort
-    private final java.lang.String WorklistManagerPort_address = "http://koralin:9700/orabpel/default/WorklistManager/1.0";
+    private final java.lang.String WorklistManagerPort_address = "http://localhost:9700/orabpel/default/WorklistManager/1.0";
 
     public java.lang.String getWorklistManagerPortAddress() {
         return WorklistManagerPort_address;

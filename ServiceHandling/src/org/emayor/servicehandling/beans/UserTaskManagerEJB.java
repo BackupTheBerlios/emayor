@@ -106,10 +106,10 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public Task lookupTask(String accessSessionId, String serviceSessionId)
+	public Task lookupTask(String taskId)
 			throws ServiceException {
 		log.debug("-> start processing ...");
-		return this.userTaskManager.lookupTask(accessSessionId, serviceSessionId);
+		return this.userTaskManager.lookupTask(taskId);
 	}
 
 	/**

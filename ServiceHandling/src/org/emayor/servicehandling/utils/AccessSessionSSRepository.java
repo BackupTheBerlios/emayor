@@ -3,6 +3,7 @@
  */
 package org.emayor.servicehandling.utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ import org.emayor.servicehandling.kernel.SessionException;
 /**
  * @author tku
  */
-public class AccessSessionSSRepository {
+public class AccessSessionSSRepository implements Serializable {
 	private static Logger log = Logger
 			.getLogger(AccessSessionSSRepository.class);
 

@@ -85,6 +85,16 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			ListMyTasksProcessor p = new ListMyTasksProcessor();
 			p.process(req, resp);
 			resp.sendRedirect("listTasks.jsp");
+		} else if (action.equalsIgnoreCase("showTaskDetails")) {
+			log.debug("processing the showTaskDetails request");
+			ShowTaskDetailsProcessor p = new ShowTaskDetailsProcessor();
+			p.process(req, resp);
+			resp.sendRedirect("ShowTaskDetails.jsp");
+		} else if (action.equalsIgnoreCase("completeTask")) {
+			log.debug("processing the completeTask request");
+			CompleteTaskProcessor p = new CompleteTaskProcessor();
+			p.process(req, resp);
+			resp.sendRedirect("index.jsp");
 		} else {
 			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");
