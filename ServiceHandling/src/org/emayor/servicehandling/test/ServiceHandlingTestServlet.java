@@ -74,9 +74,12 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			log.debug("processing the GetInputDataPage request");
 			processor = new GetInputDataPageProcessor();
 		} else if (action.equalsIgnoreCase("ValidateInputData")) {
-            log.debug("processing the StartService request");
-            processor = new RCSDisplayDataFormProcessor();
-        } else if (action.equalsIgnoreCase("ServiceHandlingPostSignRequest")) {
+            log.debug("processing the ValidateInputData request");
+            processor = new PostTaskAndWaitProcessor();
+        } else if (action.equalsIgnoreCase("GetTask")) {
+            log.debug("processing the GetTask request");
+            processor = new GetTaskProcessor();
+        }else if (action.equalsIgnoreCase("ServiceHandlingPostSignRequest")) {
             log.debug("processing the StartService request");
             processor = new RCSPostSignRequestProcessor();
         } else if (action.equalsIgnoreCase("testPrintService")) {

@@ -13,141 +13,131 @@ import org.emayor.servicehandling.kernel.UserTaskException;
  * @author tku
  */
 public class InputDataCollector extends UserTaskAbstractClient {
-	private static Logger log = Logger.getLogger(InputDataCollector.class);
+    private static Logger log = Logger.getLogger(InputDataCollector.class);
 
-	// per def set to 15 seconds
-	public static final long DEF_SLEEP_PERIOD = 15000;
+    // per def set to 15 seconds
+    public static final long DEF_SLEEP_PERIOD = 15000;
 
-	public static final byte DEF_REPEAT_NUMBER = 3;
+    public static final byte DEF_REPEAT_NUMBER = 3;
 
-	private UserTaskServiceClient serviceClient = null;
+    private UserTaskServiceClient serviceClient = null;
 
-	private long sleepPeriod;
+    private long sleepPeriod;
 
-	private byte repeatNumber;
+    private byte repeatNumber;
 
-	public InputDataCollector() {
-		this(DEF_SLEEP_PERIOD, DEF_REPEAT_NUMBER);
-	}
+    public InputDataCollector() {
+        this(DEF_SLEEP_PERIOD, DEF_REPEAT_NUMBER);
+    }
 
-	public InputDataCollector(long sleepPeriod) {
-		this(sleepPeriod, DEF_REPEAT_NUMBER);
-	}
+    public InputDataCollector(long sleepPeriod) {
+        this(sleepPeriod, DEF_REPEAT_NUMBER);
+    }
 
-	public InputDataCollector(long sleepPeriod, byte repeatNumber) {
-		super();
-		log.debug("-> start processing ...");
-		this.sleepPeriod = sleepPeriod;
-		this.repeatNumber = repeatNumber;
-		this.serviceClient = new UserTaskServiceClient();
-		log.debug("-> ... processing DONE!");
-	}
+    public InputDataCollector(long sleepPeriod, byte repeatNumber) {
+        super();
+        log.debug("-> start processing ...");
+        this.sleepPeriod = sleepPeriod;
+        this.repeatNumber = repeatNumber;
+        this.serviceClient = new UserTaskServiceClient();
+        log.debug("-> ... processing DONE!");
+    }
 
-	public Task validateInputData(Task task, String asid, String ssid)
-			throws UserTaskException {
-		log.debug("-> start processing ...");
-		Task ret = null;
-		try {
-			log.debug("send complete request");
-			this.serviceClient.completeTask(asid, task);
-			byte index = 0;
-			while (index < this.repeatNumber) {
-				log
-						.debug("continue in the loop - waiting a while before get the validated data");
-				//Thread.sleep(this.sleepPeriod);
-				this._wait(this.sleepPeriod);
-				log.debug("GO AHEAD !");
-				ret = this.serviceClient.lookupTask(asid, ssid);
-				if (ret != null) {
-					index = this.repeatNumber;
-				}
-				else {
-					log.debug("GOT NULL REFERENCE - TRY IT AGAIN");
-					++index;
-				}
-				log.debug("current index after loop is = " + index);
-			}
-		} catch (Exception ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new UserTaskException(ex);
-		}
-		log.debug("-> ... processing DONE!");
-		return ret;
-	}
+    public Task validateInputData(Task task, String asid, String ssid)
+            throws UserTaskException {
+        log.debug("-> start processing ...");
+        Task ret = null;
+        try {
+            log.debug("send complete request");
+            this.serviceClient.completeTask(asid, task);
+            byte index = 0;
+            while (index < this.repeatNumber) {
+                log
+                        .debug("continue in the loop - waiting a while before get the validated data");
+                //Thread.sleep(this.sleepPeriod);
+                this._wait(this.sleepPeriod);
+                log.debug("GO AHEAD !");
+                ret = this.serviceClient.lookupTask(asid, ssid);
+                if (ret != null) {
+                    index = this.repeatNumber;
+                } else {
+                    log.debug("GOT NULL REFERENCE - TRY IT AGAIN");
+                    ++index;
+                }
+                log.debug("current index after loop is = " + index);
+            }
+        } catch (Exception ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new UserTaskException(ex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
 
-	public Task getInputDataForm(String asid, String ssid)
-			throws UserTaskException {
-		log.debug("-> start processing ...");
-		Task ret = null;
-		try {
-			byte index = 0;
-			while (index < this.repeatNumber) {
-				if (log.isDebugEnabled())
-					log
-							.debug("continue in the loop - iteration number "
-									+ index);
-				//Thread.sleep(this.sleepPeriod);
-				//Thread thread = Thread.currentThread();
-				//log.debug("current thread: " + thread.getName());
-				//ThreadGroup threadGroup = thread.getThreadGroup();
-				//threadGroup.list();
-				//thread.wait(this.sleepPeriod);
-				this._wait(this.sleepPeriod);
-				ret = this.serviceClient.lookupTask(asid, ssid);
-				if (ret != null) {
-					index = this.repeatNumber;
-				}
-				else {
-					log.debug("GOT NULL REFERENCE - TRY IT AGAIN");
-					++index;
-				}
-				if (log.isDebugEnabled())
-					log.debug("current index after loop is = " + index);
-			}
-		} catch (Exception ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new UserTaskException(ex);
-		}
-		log.debug("-> ... processing DONE!");
-		return ret;
-	}
+    public Task getInputDataForm(String asid, String ssid)
+            throws UserTaskException {
+        log.debug("-> start processing ...");
+        Task ret = null;
+        try {
+            byte index = 0;
+            while (index < this.repeatNumber) {
+                if (log.isDebugEnabled())
+                    log.debug("continue in the loop - iteration number "
+                            + index);
+                this._wait(this.sleepPeriod);
+                ret = this.serviceClient.lookupTask(asid, ssid);
+                if (ret != null) {
+                    index = this.repeatNumber;
+                } else {
+                    log.debug("GOT NULL REFERENCE - TRY IT AGAIN");
+                    ++index;
+                }
+                if (log.isDebugEnabled())
+                    log.debug("current index after loop is = " + index);
+            }
+        } catch (Exception ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new UserTaskException(ex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
 
-	/**
-	 * 
-	 * @param task
-	 *            task to be posted
-	 * @param asid
-	 *            access session id
-	 * @param ssid
-	 *            service session id
-	 * @return true if successful posted, otherwise false
-	 * @throws UserTaskException
-	 */
-	public boolean postInputData(Task task, String asid, String ssid)
-			throws UserTaskException {
-		log.debug("-> start processing ...");
-		boolean ret = false;
-		try {
-			this.serviceClient.completeTask(asid, task);
-			ret = true;
-		} catch (Exception ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new UserTaskException(ex);
-		}
-		log.debug("-> ... processing DONE!");
-		return ret;
-	}
-	
-	
-	private void _wait(long amount) {
-	    Date nowd = new Date();
-	    long now = nowd.getTime();
-	    while (true) {
-	        nowd = new Date();
-	        long tmp = nowd.getTime();
-	        if ((tmp - now) >= amount)
-	            break;
-	    }
-	}
+    /**
+     * 
+     * @param task
+     *            task to be posted
+     * @param asid
+     *            access session id
+     * @param ssid
+     *            service session id
+     * @return true if successful posted, otherwise false
+     * @throws UserTaskException
+     */
+    public boolean postInputData(Task task, String asid, String ssid)
+            throws UserTaskException {
+        log.debug("-> start processing ...");
+        boolean ret = false;
+        try {
+            this.serviceClient.completeTask(asid, task);
+            ret = true;
+        } catch (Exception ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new UserTaskException(ex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    private void _wait(long amount) {
+        Date nowd = new Date();
+        long now = nowd.getTime();
+        while (true) {
+            nowd = new Date();
+            long tmp = nowd.getTime();
+            if ((tmp - now) >= amount)
+                break;
+        }
+    }
 
 }

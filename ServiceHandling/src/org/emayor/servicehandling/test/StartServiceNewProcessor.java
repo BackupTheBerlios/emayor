@@ -57,34 +57,6 @@ public class StartServiceNewProcessor extends AbstractProcessor {
             session.setAttribute("REDIRECTION_TEXT", "Please wait 10 sec - we are working for you!");
             session.setAttribute("REDIRECTION_CANCEL_ACTION", "Welcome");
             session.setAttribute("REDIRECTION_ACTION", "ServiceHandlingTest");
-
-            /*
-             * 
-             * InputDataCollector collector = new InputDataCollector(); Task
-             * task = collector.getInputDataForm(asid, ssid);
-             * 
-             * if (log.isDebugEnabled()) log.debug("got request xml: " +
-             * task.getXMLDocument()); DocumentBuilderFactory factory =
-             * DocumentBuilderFactory .newInstance(); DocumentBuilder builder =
-             * factory.newDocumentBuilder(); String xmldoc =
-             * task.getXMLDocument(); StringReader reader = new
-             * StringReader(xmldoc); InputSource inputSource = new
-             * InputSource(reader); Document root = builder.parse(inputSource);
-             * if (root != null) log.debug("root: " + root.toString()); else
-             * log.debug("root is NULL"); String reqForename = XPathAPI
-             * .selectSingleNode( root,
-             * "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()")
-             * .getNodeValue(); String reqSurname = XPathAPI .selectSingleNode(
-             * root,
-             * "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()")
-             * .getNodeValue(); String reqEMail = XPathAPI .selectSingleNode(
-             * root,
-             * "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
-             * .getNodeValue(); session.setAttribute("CURR_TASK", task);
-             * session.setAttribute("REQ_FORENAME", reqForename);
-             * session.setAttribute("REQ_SURNAME", reqSurname);
-             * session.setAttribute("REQ_EMAIL", reqEMail);
-             */
             access.remove();
             ret = "JustWait.jsp";
         } catch (ServiceLocatorException ex) {

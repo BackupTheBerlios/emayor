@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_ServiceStep;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
+import org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.BPELPolicyEnforcerException;
@@ -115,6 +116,9 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new BPELPolicyEnforcerException(rex.toString());
+		} catch (E_PolicyEnforcementException pex) {
+			log.error("caught ex: " + pex.toString());
+			throw new BPELPolicyEnforcerException(pex.toString());
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -134,6 +138,9 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new BPELPolicyEnforcerException(rex.toString());
+		} catch (E_PolicyEnforcementException pex) {
+			log.error("caught ex: " + pex.toString());
+			throw new BPELPolicyEnforcerException(pex.toString());
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -154,6 +161,9 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new BPELPolicyEnforcerException(rex.toString());
+		} catch (E_PolicyEnforcementException pex) {
+			log.error("caught ex: " + pex.toString());
+			throw new BPELPolicyEnforcerException(pex.toString());
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -185,8 +195,8 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 			C_ServiceProfile serviceProfile = _serviceProfile
 					.getPEServiceProfile();
 			C_ServiceStep _serviceStep = new C_ServiceStep();
-			ret = this.policyEnforcement.F_AuthorizeServiceStep(userProfile,
-					serviceProfile, _serviceStep);
+			ret = this.policyEnforcement.F_AuthorizeServiceStep(userProfile
+					.F_getUserProfileasString(), "", "");
 			if (log.isDebugEnabled())
 				log.debug("got from policy enforcer: " + ret);
 		} catch (ServiceLocatorException slex) {
@@ -199,6 +209,12 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new BPELPolicyEnforcerException(rex.toString());
+		} catch (E_PolicyEnforcementException pex) {
+			log.error("caught ex: " + pex.toString());
+			throw new BPELPolicyEnforcerException(pex.toString());
+		} catch (C_UserProfile.E_UserProfileException upex) {
+			log.error("caught ex: " + upex.toString());
+			throw new BPELPolicyEnforcerException(upex.toString());
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

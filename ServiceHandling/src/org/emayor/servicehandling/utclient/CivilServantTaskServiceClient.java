@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.utclient;
 
 import org.apache.log4j.Logger;
+import org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
@@ -42,6 +43,9 @@ public class CivilServantTaskServiceClient extends UserTaskServiceClient {
 			} catch (ServiceLocatorException slex) {
 				log.error("caught ex: " + slex.toString());
 				throw new UserTaskException("problem with service locator");
+			} catch (E_PolicyEnforcementException pex) {
+				log.error("caught ex: " + pex.toString());
+				throw new UserTaskException("problem with policy enforcer");
 			}
 		}
 		log.debug("-> ... processing DONE!");

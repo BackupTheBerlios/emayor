@@ -431,6 +431,7 @@ public class Kernel implements IKernel {
 	 * 
 	 * @see org.emayor.servicehandling.kernel.IKernel#authenticateUser(javax.security.cert.X509Certificate[])
 	 */
+	
 	public String authenticateUser(X509Certificate[] certificates)
 			throws KernelException {
 		log.debug("-> start processing ...");
@@ -439,6 +440,9 @@ public class Kernel implements IKernel {
 		log.debug("try to get the user profile from policy enforcer");
 		try {
 			String cUserProfileStr = this.pe.F_getUserProfile(certificates);
+			if (log.isDebugEnabled())
+				log.debug("got C_UserProfile as string: \n" + cUserProfileStr);
+			log.debug("trying to get C_UserProfile as object");
 			C_UserProfile userProfile = new C_UserProfile(cUserProfileStr);
 			userId = String.valueOf(certificates[0].hashCode());
 			if (!this.repository.existUserProfile(userId)) {
@@ -470,9 +474,10 @@ public class Kernel implements IKernel {
 		} catch (E_PolicyEnforcementException pex) {
 			log.error("caught ex: " + pex.toString());
 			throw new KernelException("problem with policy enforcer");
-		} catch(C_UserProfile.E_UserProfileException upex) {
+		} catch (C_UserProfile.E_UserProfileException upex) {
 			log.error("caught ex: " + upex.toString());
-			throw new KernelException("problem with user profile transformation");
+			throw new KernelException(
+					"problem with user profile transformation");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
