@@ -57,7 +57,7 @@ public class ServiceLocator {
 		log.info("-> starting processing ...");
 		AccessManagerLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("AccessManager");
+			Object ref = this.initialContext.lookup("AccessManagerLocal");
 			AccessManagerLocalHome home = (AccessManagerLocalHome) PortableRemoteObject
 					.narrow(ref, AccessManagerLocalHome.class);
 			ret = home.create();

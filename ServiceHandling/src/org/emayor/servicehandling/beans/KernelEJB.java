@@ -73,20 +73,22 @@ public class KernelEJB implements SessionBean, IKernel {
 	public void ejbPassivate() throws EJBException, RemoteException {
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#createAccessSession()
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public String createAccessSession() throws KernelException {
 		log.debug("-> start processing ...");
 		return this.kernel.createAccessSession();
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getAccessSession(java.lang.String)
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public AccessSessionLocal getAccessSession(String asid)
 			throws KernelException {
@@ -94,21 +96,22 @@ public class KernelEJB implements SessionBean, IKernel {
 		return this.kernel.getAccessSession(asid);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#deleteAccessSession(java.lang.String)
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public boolean deleteAccessSession(String asid) throws KernelException {
 		log.debug("-> start processing ...");
 		return this.kernel.deleteAccessSession(asid);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#createServiceSession(java.lang.String,
-	 *      java.lang.String)
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public ServiceSessionLocal createServiceSession(String asid,
 			String serviceName) throws KernelException {
@@ -116,10 +119,11 @@ public class KernelEJB implements SessionBean, IKernel {
 		return this.kernel.createServiceSession(asid, serviceName);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceSession(java.lang.String)
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public ServiceSessionLocal getServiceSession(String ssid)
 			throws KernelException {
@@ -127,20 +131,22 @@ public class KernelEJB implements SessionBean, IKernel {
 		return this.kernel.getServiceSession(ssid);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#deleteServiceSession(java.lang.String)
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public boolean deleteServiceSession(String ssid) throws KernelException {
 		log.debug("-> start processing ...");
 		return this.kernel.deleteServiceSession(ssid);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listAvailableServices(org.emayor.policyenforcer.C_UserProfile)
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public ServiceInfo[] listAvailableServices(C_UserProfile userProfile)
 			throws KernelException {
@@ -148,10 +154,11 @@ public class KernelEJB implements SessionBean, IKernel {
 		return this.kernel.listAvailableServices(userProfile);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Business Method
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listAllAvailableServices()
+	 * @ejb.interface-method view-type = "local"
+	 *  
 	 */
 	public ServiceInfo[] listAllAvailableServices() throws KernelException {
 		// TODO Auto-generated method stub

@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessManagerLocalHome;
@@ -72,6 +73,7 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			WelcomeProcessor p = new WelcomeProcessor();
 			p.process(req, resp);
 		} else {
+			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");
 			PrintWriter out = resp.getWriter();
 			out
@@ -79,6 +81,10 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			out.println("<body>");
 			out
 					.println("<a href=\"ServiceHandlingTest?action=welcome1\">test it again</a>");
+			out.println("<p/>");
+			out.println("current access session id = ");
+			out.println((String)session.getAttribute("ASID"));
+			out.println("<br/>");
 			out.println("</body>");
 			out.println("</html>");
 			out.close();

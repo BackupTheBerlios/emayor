@@ -10,10 +10,14 @@ import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.AccessException;
 import org.emayor.servicehandling.kernel.IAccess;
+import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
 import org.emayor.servicehandling.kernel.ServicesInfo;
+import org.emayor.servicehandling.utils.ServiceLocator;
+import org.emayor.servicehandling.utils.ServiceLocatorException;
 
 import javax.ejb.CreateException;
 
@@ -27,12 +31,21 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	private static Logger log = Logger.getLogger(AccessManagerEJB.class);
 
 	private SessionContext ctx;
+	
+	private KernelLocal kernel;
 
 	/**
 	 *  
 	 */
 	public AccessManagerEJB() {
 		super();
+		try {
+			ServiceLocator locator = ServiceLocator.getInstance();
+			this.kernel = locator.getKernelLocal();
+		}
+		catch(ServiceLocatorException ex) {
+			log.error("caught ex: " + ex.toString());
+		}
 	}
 
 	/*
@@ -78,11 +91,17 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 *  
 	 */
 	public String createAccessSession() throws AccessException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		
+		String ret = "12ee34";
+		try {
+			ret = kernel.createAccessSession();
+		}
+		catch(KernelException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new AccessException("Kernel couldn't create a new access session!");
+		}
 		log.debug("-> ... processing DONE!");
-		return null;
+		return ret;
 	}
 
 	/**

@@ -19,13 +19,13 @@
 </target>
 <target name="N10036" description="eMayorSH-GUI-client.jar">
 <jar destfile="eMayorSH-GUI-client.jar">
-<zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class"/>
+<zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/utclient*.class"/>
 </jar>
 </target>
 <target name="N10047" description="eMayorWeb.war">
 <jar destfile="eMayorWeb.war">
 <zipfileset dir="." prefix="WEB-INF/lib">
-<include name="eMayorEJB-client.jar"/>
+<include name="eMayorSH-GUI-client.jar"/>
 </zipfileset>
 <zipfileset dir="src/WEB-INF" prefix="WEB-INF">
 <include name="web.xml"/>
