@@ -18,7 +18,7 @@ import javax.swing.text.html.StyleSheet;
  * <br/>
  * complete rendering of an HTMLDocument's images
  * <br/>
- * by using <a href="MyHTMLEditorKit.MyHTMLFactory.html">MyHTMLEditorKit.MyHTMLFactory</a>
+ * by using <a href="PrinterHTMLEditorKit.PrinterHTMLFactory.html">PrinterHTMLEditorKit.PrinterHTMLFactory</a>
  *
  */
 
@@ -45,7 +45,7 @@ public class PrinterHTMLEditorKit extends HTMLEditorKit {
     }
     
     public ViewFactory getViewFactory() {
-        return new MyHTMLFactory(url, comp);
+        return new PrinterHTMLFactory(url, comp);
     }
     
     
@@ -55,14 +55,14 @@ public class PrinterHTMLEditorKit extends HTMLEditorKit {
  * <br/>
  * complete rendering of an HTMLDocument's images
  * <br/>
- * by using <a href="MyImageView.html">MyImageView</a>
+ * by using <a href="PrinterImageView.html">PrinterImageView</a>
  *
  */
-    public static class MyHTMLFactory extends HTMLFactory
+    public static class PrinterHTMLFactory extends HTMLFactory
             implements ViewFactory {
         public String url = null;
         public Component comp = null;
-        public MyHTMLFactory(String Url, Component cmp) {
+        public PrinterHTMLFactory(String Url, Component cmp) {
             super();
             url = Url;
             //        System.out.println("MyHTMLFactory(url): "+url);
