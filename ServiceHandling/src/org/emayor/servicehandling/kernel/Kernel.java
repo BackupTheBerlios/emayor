@@ -7,6 +7,9 @@ import org.apache.log4j.Logger;
 import org.emayor.policyenforcer.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
+import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
+import org.emayor.servicehandling.utils.ServiceLocator;
+import org.emayor.servicehandling.utils.ServiceLocatorException;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
@@ -16,9 +19,23 @@ import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 public class Kernel implements IKernel {
 	private static Logger log = Logger.getLogger(Kernel.class);
 	
+	private SimpleIdGeneratorLocal idGen = null;
+	private KernelRepository repository;
+	
 	private static Kernel _self = null;
 	
-	private Kernel() {}
+	private Kernel() {
+		log.debug("-> start processing ...");
+		this.repository = new KernelRepository();
+		try {
+			ServiceLocator locator = ServiceLocator.getInstance();
+			this.idGen = locator.getSimpleIdGeneratorLocal();
+		}
+		catch(ServiceLocatorException ex) {
+			log.error("caught ex:" + ex.toString());
+		}
+		log.debug("-> ... processing DONE!");
+	}
 	
 	public static final Kernel getInstance() {
 		if (_self == null)
@@ -32,7 +49,7 @@ public class Kernel implements IKernel {
 	public synchronized String createAccessSession() throws KernelException {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		String ret = null;
+		String ret = this.idGen.generateId();
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}

@@ -31,9 +31,9 @@ public class ServiceLocator {
 	 * @throws ServiceLocatorException
 	 */
 	private ServiceLocator() throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		this.initInitialContext();
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 	}
 
 	/**
@@ -50,10 +50,10 @@ public class ServiceLocator {
 
 	public synchronized AccessManagerLocal getAccessManager()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		AccessManagerLocal ret = null;
 		try {
-			Object ref = this.initialContext.lookup("AccessManager");
+			Object ref = this.initialContext.lookup("AccessManagerLocal");
 			AccessManagerLocalHome home = (AccessManagerLocalHome) PortableRemoteObject
 					.narrow(ref, AccessManagerLocalHome.class);
 			ret = home.create();
@@ -65,13 +65,13 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
 	public synchronized UserTaskManagerLocal getUserTaskManagerLocal()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		UserTaskManagerLocal ret = null;
 		try {
 			Object ref = this.initialContext.lookup("UserTaskManagerLocal");
@@ -86,18 +86,18 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
 	private void initInitialContext() throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		try {
 			this.initialContext = new InitialContext();
 		} catch (NamingException ex) {
 			log.error("initInitialContext - ex: " + ex.toString());
 			throw new ServiceLocatorException(ex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 	}
 }

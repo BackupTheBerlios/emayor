@@ -15,7 +15,9 @@ public class KernelRepository {
 	 *  
 	 */
 	public KernelRepository() {
-		super();
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
 	}
 
 }

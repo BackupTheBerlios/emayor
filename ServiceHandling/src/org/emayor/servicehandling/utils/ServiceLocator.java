@@ -34,9 +34,9 @@ public class ServiceLocator {
 	private Context initialContext = null;
 
 	private ServiceLocator() throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		this.initInitialContext();
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class ServiceLocator {
 	 */
 	public static synchronized final ServiceLocator getInstance()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		if (_self == null)
 			_self = new ServiceLocator();
 		return _self;
@@ -54,7 +54,7 @@ public class ServiceLocator {
 
 	public synchronized AccessManagerLocal getAccessManager()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		AccessManagerLocal ret = null;
 		try {
 			Object ref = this.initialContext.lookup("AccessManagerLocal");
@@ -69,7 +69,7 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
@@ -80,7 +80,7 @@ public class ServiceLocator {
 	 */
 	public synchronized AccessSessionLocal getAccessSessionLocal()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		AccessSessionLocal ret = null;
 		try {
 			Object ref = this.initialContext.lookup("AccessSessionLocal");
@@ -95,13 +95,13 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
 	public synchronized SimpleIdGeneratorLocal getSimpleIdGeneratorLocal()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		SimpleIdGeneratorLocal ret = null;
 		try {
 			Object ref = this.initialContext.lookup("SimpleIdGeneratorLocal");
@@ -116,13 +116,13 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
 	public synchronized ServiceSessionLocal getServiceSessionLocal(
 			String accessSessionId) throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		ServiceSessionLocal ret = null;
 		try {
 			Object ref = this.initialContext.lookup("ServiceSessionLocal");
@@ -137,13 +137,13 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
 	public synchronized KernelLocal getKernelLocal()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		KernelLocal ret = null;
 		try {
 			Object ref = this.initialContext.lookup("KernelLocal");
@@ -158,13 +158,13 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
 	public synchronized UserTaskManagerLocal getUserTaskManagerLocal()
 			throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		UserTaskManagerLocal ret = null;
 		try {
 			Object ref = this.initialContext.lookup("UserTaskManagerLocal");
@@ -179,23 +179,23 @@ public class ServiceLocator {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
 	public Context getInitialContext() {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		return this.initialContext;
 	}
 
 	private void initInitialContext() throws ServiceLocatorException {
-		log.info("-> starting processing ...");
+		log.debug("-> starting processing ...");
 		try {
 			this.initialContext = new InitialContext();
 		} catch (NamingException ex) {
 			log.error("initInitialContext - ex: " + ex.toString());
 			throw new ServiceLocatorException(ex);
 		}
-		log.info("-> ... processing DONE!");
+		log.debug("-> ... processing DONE!");
 	}
 }
