@@ -5,27 +5,27 @@
  * by the Apache Axis WSDL2Java emitter.
  */
 
-package com.oracle.services.bpel.task;
+package org.emayor.servicehandling.bpel.task;
 
 public class _tasklist  implements java.io.Serializable {
-    private com.oracle.services.bpel.task._task[] task;
+    private org.emayor.servicehandling.bpel.task._task[] task;
 
     public _tasklist() {
     }
 
-    public com.oracle.services.bpel.task._task[] getTask() {
+    public org.emayor.servicehandling.bpel.task._task[] getTask() {
         return task;
     }
 
-    public void setTask(com.oracle.services.bpel.task._task[] task) {
+    public void setTask(org.emayor.servicehandling.bpel.task._task[] task) {
         this.task = task;
     }
 
-    public com.oracle.services.bpel.task._task getTask(int i) {
+    public org.emayor.servicehandling.bpel.task._task getTask(int i) {
         return task[i];
     }
 
-    public void setTask(int i, com.oracle.services.bpel.task._task value) {
+    public void setTask(int i, org.emayor.servicehandling.bpel.task._task value) {
         this.task[i] = value;
     }
 
@@ -75,11 +75,11 @@ public class _tasklist  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(_tasklist.class);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">tasklist"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">tasklist"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("task");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "task"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">task"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "task"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">task"));
         typeDesc.addFieldDesc(elemField);
     }
 

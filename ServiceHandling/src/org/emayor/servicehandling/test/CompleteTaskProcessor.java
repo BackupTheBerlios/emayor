@@ -17,7 +17,7 @@ import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.utclient.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
-import com.oracle.services.bpel.task._task;
+import org.emayor.servicehandling.bpel.task._task;
 
 /**
  * @author tku

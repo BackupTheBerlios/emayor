@@ -5,7 +5,7 @@
  * by the Apache Axis WSDL2Java emitter.
  */
 
-package com.oracle.services.bpel.task;
+package org.emayor.servicehandling.bpel.task;
 
 public class _task  implements java.io.Serializable {
     private java.lang.String taskId;
@@ -15,7 +15,7 @@ public class _task  implements java.io.Serializable {
     private java.util.Calendar modifyDate;
     private java.lang.String modifier;
     private java.lang.String assignee;
-    private com.oracle.services.bpel.task._task_status status;
+    private org.emayor.servicehandling.bpel.task._task_status status;
     private java.lang.Boolean expired;
     private java.util.Calendar expirationDate;
     private org.apache.axis.types.Duration duration;
@@ -84,11 +84,11 @@ public class _task  implements java.io.Serializable {
         this.assignee = assignee;
     }
 
-    public com.oracle.services.bpel.task._task_status getStatus() {
+    public org.emayor.servicehandling.bpel.task._task_status getStatus() {
         return status;
     }
 
-    public void setStatus(com.oracle.services.bpel.task._task_status status) {
+    public void setStatus(org.emayor.servicehandling.bpel.task._task_status status) {
         this.status = status;
     }
 
@@ -284,100 +284,100 @@ public class _task  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(_task.class);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">task"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">task"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("taskId");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "taskId"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "taskId"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("title");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "title"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "title"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("creationDate");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "creationDate"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "creationDate"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("creator");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "creator"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "creator"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("modifyDate");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "modifyDate"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "modifyDate"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("modifier");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "modifier"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "modifier"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("assignee");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "assignee"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "assignee"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("status");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "status"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", ">task>status"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "status"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">task>status"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("expired");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "expired"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "expired"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "boolean"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("expirationDate");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "expirationDate"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "expirationDate"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("duration");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "duration"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "duration"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "duration"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("priority");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "priority"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "priority"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "int"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("template");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "template"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "template"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("customKey");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "customKey"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "customKey"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("conclusion");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "conclusion"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "conclusion"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("attachment");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://services.oracle.com/bpel/task", "attachment"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "attachment"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         typeDesc.addFieldDesc(elemField);
     }

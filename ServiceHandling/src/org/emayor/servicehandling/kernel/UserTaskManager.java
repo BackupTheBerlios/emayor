@@ -12,11 +12,11 @@ import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
-import com.oracle.services.bpel.task.WorklistManager_Port;
-import com.oracle.services.bpel.task.WorklistManager_Service;
-import com.oracle.services.bpel.task._task;
-import com.oracle.services.bpel.task._tasklist;
-import com.oracle.services.bpel.task._whereCondition;
+import org.emayor.servicehandling.bpel.task.MyWorklistManager_Port;
+import org.emayor.servicehandling.bpel.task.MyWorklistManager_Service;
+import org.emayor.servicehandling.bpel.task._task;
+import org.emayor.servicehandling.bpel.task._tasklist;
+//import org.emayor.servicehandling.bpel.task._whereCondition;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
@@ -30,7 +30,7 @@ public class UserTaskManager implements IService {
 
 	private Kernel kernel;
 
-	private WorklistManager_Port worklistManager;
+	private MyWorklistManager_Port worklistManager;
 
 	private UserTaskManager() throws UserTaskException {
 		log.debug("-> start processing ...");
@@ -38,11 +38,11 @@ public class UserTaskManager implements IService {
 			InitialContext initialContext = this.getInitialContext();
 			if (initialContext != null)
 				log.debug("the initial context is NOT null");
-			WorklistManager_Service service = (WorklistManager_Service) initialContext
-					.lookup("java:comp/env/service/WorklistManagerJSE");
+			MyWorklistManager_Service service = (MyWorklistManager_Service) initialContext
+					.lookup("java:comp/env/service/MyWorklistManagerJSE");
 			if (service != null)
 				log.debug("the service is NOT null");
-			this.worklistManager = service.getWorklistManagerPort();
+			this.worklistManager = service.getMyWorklistManagerPort();
 			if (this.worklistManager != null)
 				log.debug("worklistManager rference is NOT null");
 		} catch (javax.xml.rpc.ServiceException ex) {
@@ -82,11 +82,8 @@ public class UserTaskManager implements IService {
 			String uid = this.kernel.getUserIdByASID(accessSessionId);
 			if (log.isDebugEnabled())
 				log.debug("got the uid: " + uid);
-			log.debug("creating an instance of condition");
-			_whereCondition condition = new _whereCondition();
-			condition.setAssignee(uid);
 			log.debug("try to call the listTasks operation");
-			_tasklist _list = this.worklistManager.listTasks(condition);
+			_tasklist _list = this.worklistManager.listTasksByAssignee(uid);
 			Task[] tasks = new Task[0];
 			if (_list != null) {
 				_task[] _tasks = _list.getTask();

@@ -1,7 +1,7 @@
 <%@page contentType="text/html" %>
 <%@page import="org.emayor.servicehandling.kernel.Task" %>
-<%@page import="com.oracle.services.bpel.task._task" %>
-<%@page import="com.oracle.services.bpel.task._task_status" %>
+<%@page import="org.emayor.servicehandling.bpel.task._task" %>
+<%@page import="org.emayor.servicehandling.bpel.task._task_status" %>
 <%@page import="java.util.Calendar" %>
 <%@page import="java.text.SimpleDateFormat" %>
 <%@page import="org.apache.axis.types.Duration" %>

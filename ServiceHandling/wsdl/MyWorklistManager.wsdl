@@ -1,0 +1,114 @@
+<definitions name="MyWorklistManager" targetNamespace="http://emayor.org/servicehandling/bpel/task" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://emayor.org/servicehandling/bpel/task" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+	<types>
+		<schema targetNamespace="http://emayor.org/servicehandling/bpel/task" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" blockDefault="#all">
+			<element name="task">
+				<complexType>
+					<sequence>
+						<element name="taskId" type="string" minOccurs="0"/>
+						<element name="title" type="string" minOccurs="0"/>
+						<element name="creationDate" type="dateTime" minOccurs="0"/>
+						<element name="creator" type="string" minOccurs="0"/>
+						<element name="modifyDate" type="dateTime" minOccurs="0"/>
+						<element name="modifier" type="string" minOccurs="0"/>
+						<element name="assignee" type="string" minOccurs="0"/>
+						<element name="status" minOccurs="0">
+							<simpleType>
+								<restriction base="string">
+									<enumeration value="active"/>
+									<enumeration value="completed"/>
+								</restriction>
+							</simpleType>
+						</element>
+						<element name="expired" type="boolean" minOccurs="0"/>
+						<element name="expirationDate" type="dateTime" minOccurs="0"/>
+						<element name="duration" type="duration" minOccurs="0"/>
+						<element name="priority" type="int" minOccurs="0"/>
+						<element name="template" type="string" minOccurs="0"/>
+						<element name="customKey" type="string" minOccurs="0"/>
+						<element name="conclusion" type="string" minOccurs="0"/>
+						<element name="attachment" type="string"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="tasklist">
+				<complexType>
+					<sequence>
+						<element ref="tns:task" maxOccurs="unbounded"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="taskId" type="string"/>
+			<element name="assignee" type="string"/>
+		</schema>
+	</types>
+	<message name="listTasksRequestMessage">
+		<part name="payload" element="tns:assignee"/>
+	</message>
+	<message name="lookupTaskResponseMessage">
+		<part name="payload" element="tns:task"/>
+	</message>
+	<message name="taskRequestMessage">
+		<part name="payload" element="tns:task"/>
+	</message>
+	<message name="listTasksResponseMessage">
+		<part name="payload" element="tns:tasklist"/>
+	</message>
+	<message name="lookupTaskRequestMessage">
+		<part name="payload" element="tns:taskId"/>
+	</message>
+	<message name="taskResponseMessage"/>
+	<portType name="MyWorklistManager">
+		<operation name="completeTask">
+			<input message="tns:taskRequestMessage"/>
+			<output message="tns:taskResponseMessage"/>
+		</operation>
+		<operation name="lookupTask">
+			<input message="tns:lookupTaskRequestMessage"/>
+			<output message="tns:lookupTaskResponseMessage"/>
+		</operation>
+		<operation name="listTasksByAssignee">
+			<input message="tns:listTasksRequestMessage"/>
+			<output message="tns:listTasksResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="MyWorklistManagerBinding" type="tns:MyWorklistManager">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="completeTask">
+			<soap:operation style="document" soapAction="completeTask"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="lookupTask">
+			<soap:operation style="document" soapAction="lookupTask"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="listTasksByAssignee">
+			<soap:operation style="document" soapAction="listTasksByAssignee"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="MyWorklistManager">
+		<port name="MyWorklistManagerPort" binding="tns:MyWorklistManagerBinding">
+			<soap:address location="http://localhost:9700/orabpel/default/MyWorklistManager/1.0"/>
+		</port>
+	</service>
+	<plnk:partnerLinkType name="MyWorklistManager">
+		<plnk:role name="MyWorklistManagerProvider">
+			<plnk:portType name="tns:MyWorklistManager"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

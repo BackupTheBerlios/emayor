@@ -5,7 +5,7 @@
  * by the Apache Axis WSDL2Java emitter.
  */
 
-package com.oracle.services.bpel.task;
+package org.emayor.servicehandling.bpel.task;
 
 public class _task_status implements java.io.Serializable {
     private java.lang.String _value_;

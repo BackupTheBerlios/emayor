@@ -8,9 +8,9 @@
   <display-name>webservice client app</display-name>
 
   <service-ref>
-    <service-ref-name>service/WorklistManagerJSE</service-ref-name>
-    <service-interface>com.oracle.services.bpel.task.WorklistManager_Service</service-interface>
-    <wsdl-file>META-INF/wsdl/WorklistManager.wsdl</wsdl-file>
+    <service-ref-name>service/MyWorklistManagerJSE</service-ref-name>
+    <service-interface>org.emayor.servicehandling.bpel.task.MyWorklistManager_Service</service-interface>
+    <wsdl-file>META-INF/wsdl/MyWorklistManager.wsdl</wsdl-file>
     <jaxrpc-mapping-file>META-INF/jaxrpc-mapping.xml</jaxrpc-mapping-file>
   </service-ref>
 

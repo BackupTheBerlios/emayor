@@ -5,7 +5,7 @@ package org.emayor.servicehandling.kernel;
 
 import java.io.Serializable;
 
-import com.oracle.services.bpel.task._task;
+import org.emayor.servicehandling.bpel.task._task;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font

@@ -5,7 +5,7 @@ package org.emayor.servicehandling.kernel;
 
 import org.apache.log4j.Logger;
 
-import com.oracle.services.bpel.task._task;
+import org.emayor.servicehandling.bpel.task._task;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font

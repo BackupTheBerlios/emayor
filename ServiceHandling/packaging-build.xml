@@ -19,7 +19,7 @@
 </target>
 <target name="N10036" description="eMayorSH-GUI-client.jar">
 <jar destfile="eMayorSH-GUI-client.jar">
-<zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/utclient*.class,org/emayor/servicehandling/kernel/IServiceInfo.class,org/emayor/servicehandling/kernel/ServiceInfo.class,org/emayor/servicehandling/kernel/ServicesInfo.class,com/oracle/services/bpel/task/_task.class,,com/oracle/services/bpel/task/_task_status.class"/>
+<zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/utclient*.class,org/emayor/servicehandling/kernel/IServiceInfo.class,org/emayor/servicehandling/kernel/ServiceInfo.class,org/emayor/servicehandling/kernel/ServicesInfo.class,org/emayor/servicehandling/bpel/task/_task.class,org/emayor/servicehandling/bpel/task/_task_status.class"/>
 </jar>
 </target>
 <target name="N10047" description="eMayorWeb.war">
@@ -49,10 +49,10 @@
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="jaxrpc-mapping.xml"/>
 </zipfileset>
-<zipfileset dir="wsdl" prefix="META-INF/wsdl">
-<include name="WorklistManager.wsdl"/>
+<zipfileset dir="wsdl2" prefix="META-INF/wsdl">
+<include name="MyWorklistManager.wsdl"/>
 </zipfileset>
-<zipfileset dir="classes" includes="com/oracle/services/bpel/task/*.class,org/emayor/servicehandling/kernel/BPELTaskDeserializer.class"/>
+<zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
 <target name="N100B5" description="eMayorApp.ear">
