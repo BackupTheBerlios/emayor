@@ -49,7 +49,7 @@
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="jaxrpc-mapping.xml"/>
 </zipfileset>
-<zipfileset dir="wsdl2" prefix="META-INF/wsdl">
+<zipfileset dir="wsdl" prefix="META-INF/wsdl">
 <include name="MyWorklistManager.wsdl"/>
 </zipfileset>
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>

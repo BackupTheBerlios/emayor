@@ -136,7 +136,8 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public void stopService() throws ServiceSessionException {
 		// TODO Auto-generated method stub
-
+		log.debug("-> start processing ...");
+		throw new ServiceSessionException("NOT IMPLEMENTED !!!");
 	}
 
 	/**
@@ -146,6 +147,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 *  
 	 */
 	public String getSessionId() throws SessionException {
+		log.debug("-> start processing ...");
 		return this.ssid;
 	}
 
@@ -156,7 +158,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * @ejb.create-method
 	 */
 	public void ejbCreate(String asid) throws CreateException {
-		log.info("processing: ejbCreate ...");
+		log.debug("-> start processing ...");
 		if (asid == null || asid.length() == 0)
 			throw new CreateException("the given asid has to be a valid value!");
 		this.asid = asid;
@@ -165,10 +167,12 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 			SimpleIdGeneratorLocal simpleIdGeneratorLocal = serviceLocator
 					.getSimpleIdGeneratorLocal();
 			this.ssid = simpleIdGeneratorLocal.generateId();
+			if (log.isDebugEnabled())
+				log.debug("generated following ssid : " + ssid);
 		} catch (ServiceLocatorException slex) {
 			throw new CreateException(slex.toString());
 		}
-		log.info("ended processing: ejbCreate ...");
+		log.debug("-> ... processing DONE!");
 	}
 
 }

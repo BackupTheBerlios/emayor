@@ -18,6 +18,11 @@
 <pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/saaj-api.jar"/>
 <pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/xml-api.jar"/>
 <pathelement location="E:/lib/log4j/dist/lib/log4j-1.2.8.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/axis.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/commons-discovery.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/commons-logging.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/log4j-1.2.8.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/wsdl4j.jar"/>
 </path>
 <path id="xdoclet.classpath">
 <path refid="project.classpath"/>

@@ -43,12 +43,14 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 */
 	public AccessManagerEJB() {
 		super();
+		log.debug("-> start processing ...");
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			this.kernel = locator.getKernelLocal();
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 		}
+		log.debug("-> ... processing DONE!");
 	}
 
 	/*

@@ -24,7 +24,7 @@
 <file prefix="META-INF" project="" projectLocation="src/META-INF/application-client.xml" name="application-client.xml" location="src/META-INF/application-client.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jboss-client.xml" name="jboss-client.xml" location="src/META-INF/jboss-client.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jaxrpc-mapping.xml" name="jaxrpc-mapping.xml" location="src/META-INF/jaxrpc-mapping.xml" used="true"/>
-<file prefix="META-INF/wsdl" project="" projectLocation="wsdl2/MyWorklistManager.wsdl" name="MyWorklistManager.wsdl" location="wsdl2/MyWorklistManager.wsdl" used="true"/>
+<file prefix="META-INF/wsdl" project="" projectLocation="wsdl/MyWorklistManager.wsdl" name="MyWorklistManager.wsdl" location="wsdl/MyWorklistManager.wsdl" used="true"/>
 </archive>
 <archive name="eMayorApp.ear" destination="" used="true" exploded="false">
 <file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
