@@ -9,6 +9,7 @@ import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
+import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.AccessException;
 import org.emayor.servicehandling.kernel.IAccess;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
@@ -25,6 +26,7 @@ import javax.ejb.CreateException;
  *           view-type="local"
  */
 public class AccessManagerEJB implements SessionBean, IAccess {
+	private static Logger log = Logger.getLogger(AccessManagerEJB.class);
 
 	/**
 	 * 

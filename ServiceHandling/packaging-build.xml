@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10045"/>
+<target name="N10004" description="eMayorEJB.jar">
+<jar destfile="eMayorEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="classes" includes="**/*.class"/>
+</jar>
+</target>
+<target name="N10025" description="eMayorEJB-client.jar">
+<jar destfile="eMayorEJB-client.jar">
+<zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N10036" description="eMayorWeb.war">
+<jar destfile="eMayorWeb.war">
+<zipfileset dir="." prefix="WEB-INF/lib">
+<include name="eMayorEJB-client.jar"/>
+</zipfileset>
+</jar>
+</target>
+<target name="N10045" description="eMayorApp.ear">
+<jar destfile="eMayorApp.ear">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="application.xml"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="eMayorEJB.jar"/>
+</zipfileset>
+</jar>
+</target>
+</project>
