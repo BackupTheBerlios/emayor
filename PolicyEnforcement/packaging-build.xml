@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Packaging Generator" default="_packaging_generation_">
+<target name="_packaging_generation_" depends="N65540,N65573,N65590,N65639"/>
+<target name="N65540" description="eMayor_PolicyEnforcementEJB.jar">
+<jar destfile="eMayor_PolicyEnforcementEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N65573" description="eMayor_PolicyEnforcementEJB-client.jar">
+<jar destfile="eMayor_PolicyEnforcementEJB-client.jar">
+<zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N65590" description="eMayor_PolicyEnforcementWeb.war">
+<jar destfile="eMayor_PolicyEnforcementWeb.war">
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="web.xml"/>
+</zipfileset>
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="jboss-web.xml"/>
+</zipfileset>
+<zipfileset dir="." prefix="WEB-INF/lib">
+<include name="eMayor_PolicyEnforcementEJB-client.jar"/>
+</zipfileset>
+<zipfileset dir="docroot">
+<include name="index.html"/>
+</zipfileset>
+<zipfileset dir="bin" prefix="WEB-INF/classes" includes="org/eMayor/Test/*.class"/>
+</jar>
+</target>
+<target name="N65639" description="eMayor_PolicyEnforcementApp.ear">
+<jar destfile="eMayor_PolicyEnforcementApp.ear">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="application.xml"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="eMayor_PolicyEnforcementEJB.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="eMayor_PolicyEnforcementWeb.war"/>
+</zipfileset>
+</jar>
+</target>
+</project>
