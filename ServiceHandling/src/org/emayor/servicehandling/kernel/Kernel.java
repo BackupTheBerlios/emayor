@@ -420,9 +420,9 @@ public class Kernel implements IKernel {
 					log.debug(">>>>>>>>>>> got hash:      "
 							+ certificates[0].hashCode());
 					log.debug(">>>>>>>>>>> got user name: "
-							+ userProfile.m_S_UserName);
+							+ userProfile.getUserName());
 					log.debug(">>>>>>>>>>> got user mail: "
-							+ userProfile.m_S_UserEmail);
+							+ userProfile.getUserEmail());
 				}
 				ret = "defid";
 			} else {
