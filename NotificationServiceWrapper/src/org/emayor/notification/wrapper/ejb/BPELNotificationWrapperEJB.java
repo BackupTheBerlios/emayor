@@ -86,64 +86,84 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "remote"
 	 */
-	public void sendNotificationMessage(String medium, String userId, String subject, String body, String message)
+	public void sendNotificationMessage(String medium, String[] args)
 	throws NotificationException {
 		Logger log = Logger.getLogger(this.getClass());
 		log.debug("medium  : "+medium);
-		log.debug("userId  : "+userId);
-		log.debug("subject : "+subject);
-		log.debug("body    : "+body);
-		log.debug("message : "+message);
-		log.debug("mailhost: "+System.getProperty("mail.smtp.host"));
 		
-
-		if (userId == null) {
-			throw new NotificationException("No UserID submitted, request failed.");
-		}
-			            	
-    	/* get email address */
-		
-		String sessionId = null;
-		String address = null;
-		
-		try {
-			ServiceLocator sloc = ServiceLocator.getInstance();
-			KernelLocal kern = sloc.getKernelLocal();
-			address = kern.getUserProfile(userId).getPEUserProfile().getUserEmail();
-			sessionId = sloc.getAccessSessionLocal().getSessionId();
-			
-		} catch (ServiceLocatorException e1) {
-			throw new NotificationException(e1);
-		} catch (KernelException e1) {
-			throw new NotificationException(e1);
-		} catch (SessionException e1) {
-			throw new NotificationException(e1);
-		}
-
-		if (address == null) {
-			throw new NotificationException("User has no valid email address.");
-		} else {
-			log.debug("address = "+address);
-		}
-		
-    		
-		log.debug("setting up mail properties ...");
 		/*
-		 * set properties according to local mail-system settings
+		 * generic properties for producer
 		 */
 		Properties prop = System.getProperties();
-
-		// TODO delete!
-		address = "mxs@straleb";
-		//String host = "192.168.73.2";
 		
-		//prop.put("mail.smtp.host",host);
-		prop.put("address",address);
-		prop.put("body",body);
-		prop.put("subject",subject);
-		prop.put("message",message);
 		prop.put("type",medium);
 		
+		int i;
+		for (i = 0; i<args.length; i++) {
+			prop.put("property"+i,args[i]);
+		}
+		
+		/*
+		 * append special properties if necessary or rename existing properties
+		 * and check for correctness of the given arguments (args)
+		 */
+		if (medium.equals("email")) {
+			if (args.length < 4) throw new NotificationException("wrapper for email messaging requires more arguments!");
+			String userId = args[0];
+			String subject = args[1];
+			String body = args[2];
+			String message = args[3];
+			log.debug("userId  : "+userId);
+			log.debug("subject : "+subject);
+			log.debug("body    : "+body);
+			log.debug("message : "+message);
+			
+			if (userId == null) {
+				throw new NotificationException("No UserID submitted, request failed.");
+			}
+				            	
+	    	/* get email address */
+			
+			String sessionId = null;
+			String address = null;
+			
+			try {
+				ServiceLocator sloc = ServiceLocator.getInstance();
+				KernelLocal kern = sloc.getKernelLocal();
+				address = kern.getUserProfile(userId).getPEUserProfile().getUserEmail();
+				sessionId = sloc.getAccessSessionLocal().getSessionId();
+				
+			} catch (ServiceLocatorException e1) {
+				throw new NotificationException(e1);
+			} catch (KernelException e1) {
+				throw new NotificationException(e1);
+			} catch (SessionException e1) {
+				throw new NotificationException(e1);
+			}
+
+			if (address == null) {
+				throw new NotificationException("User has no valid email address.");
+			} else {
+				log.debug("address = "+address);
+			}
+			
+	    		
+			log.debug("setting up mail properties ...");
+
+			// TODO delete!
+			//address = "mxs@fokus.fraunhofer.de";
+			//String host = "192.168.73.2";
+			
+			//prop.put("mail.smtp.host",host);
+			prop.put("address",address);
+			prop.put("body",body);
+			prop.put("subject",subject);
+			prop.put("message",message);
+			prop.put("type",medium);
+		}
+		
+
+				
 		
 		log.debug("looking up NotificationManager ...");
 		Context context;

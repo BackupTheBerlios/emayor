@@ -12,7 +12,7 @@ public interface BPELNotificationWrapper
    /**
     * Business method
     */
-   public void sendNotificationMessage( java.lang.String medium,java.lang.String userId,java.lang.String subject,java.lang.String body,java.lang.String message )
+   public void sendNotificationMessage( java.lang.String medium,java.lang.String[] args )
       throws org.emayor.notification.exception.NotificationException, java.rmi.RemoteException;
 
 }
