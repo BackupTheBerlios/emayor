@@ -75,15 +75,18 @@ public class InputDataCollector extends UserTaskAbstractClient {
 		try {
 			byte index = 0;
 			while (index < this.repeatNumber) {
-				log
-						.debug("continue in the loop - waiting a while before get the validated data");
+				if (log.isDebugEnabled())
+					log
+							.debug("continue in the loop - iteration number"
+									+ index);
 				Thread.sleep(this.sleepPeriod);
 				ret = this.serviceClient.lookupTask(asid, ssid);
 				if (ret != null)
 					index = this.repeatNumber;
 				else
 					++index;
-				log.debug("current index after loop is = " + index);
+				if (log.isDebugEnabled())
+					log.debug("current index after loop is = " + index);
 			}
 		} catch (Exception ex) {
 			log.error("caught ex: " + ex.toString());

@@ -117,10 +117,10 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public Tasks lookupTasksByAssigneeAndCustomKey(String asid, String ssid)
+	public Task lookupTaskByAssigneeAndCustomKey(String asid, String ssid)
 			throws ServiceException {
 		log.debug("-> start processing ...");
-		return this.userTaskManager.lookupTasksByAssigneeAndCustomKey(asid,
+		return this.userTaskManager.lookupTaskByAssigneeAndCustomKey(asid,
 				ssid);
 	}
 

@@ -33,7 +33,7 @@ public class ResidenceCertificationService implements IeMayorService {
 
 	public static final String DEF_ENDPOINT = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
-	public static final String DEF_XMLFILE = "org.emayor.rcs.SampleResidenceCertificationRequestDocument.xml";
+	public static final String DEF_XMLFILE = "SampleResidenceCertificationRequestDocument.xml";
 
 	//private String endpoint =
 	// "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
@@ -83,7 +83,7 @@ public class ResidenceCertificationService implements IeMayorService {
 			throws eMayorServiceException {
 		log.debug("-> start processing ...");
 		this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
-				.getXMLDocument(), "");
+				.getXMLDocument(), "-");
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -146,16 +146,9 @@ public class ResidenceCertificationService implements IeMayorService {
 		log.debug("-> start processing ...");
 		String ret = "";
 		try {
-			//InputStream is = ClassLoader.getSystemResourceAsStream(DEF_XMLFILE);
-			//InputStream is = ResidenceCertificationService.class.getResourceAsStream(DEF_XMLFILE);
-			//ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			InputStream is = classLoader.getResourceAsStream(DEF_XMLFILE);
-			URL url = classLoader.getResource(DEF_XMLFILE);
-			if (url != null)
-				log.debug("got url for resource: " + url.toString());
-			else
-				log.error("DUPA");
+			URL url = this.getClass().getResource(DEF_XMLFILE);
+			InputStream is = url.openStream();
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			StringBuffer b = new StringBuffer();
 			String line = null;

@@ -5,11 +5,11 @@
 ..\xsd\emayor\RequestDocument-v0.2.xsd">
 	<RequesterDetails>
 		<ed:CitizenName>
-			<aapd:CitizenNameTitle>A</aapd:CitizenNameTitle>
-			<aapd:CitizenNameForename>A</aapd:CitizenNameForename>
-			<aapd:CitizenNameSurname>A</aapd:CitizenNameSurname>
-			<aapd:CitizenNameSuffix>A</aapd:CitizenNameSuffix>
-			<aapd:CitizenNameRequestedName>A</aapd:CitizenNameRequestedName>
+			<aapd:CitizenNameTitle>-</aapd:CitizenNameTitle>
+			<aapd:CitizenNameForename>-</aapd:CitizenNameForename>
+			<aapd:CitizenNameSurname>-</aapd:CitizenNameSurname>
+			<aapd:CitizenNameSuffix>-</aapd:CitizenNameSuffix>
+			<aapd:CitizenNameRequestedName>-</aapd:CitizenNameRequestedName>
 		</ed:CitizenName>
 		<ed:PreferredLanguages>en</ed:PreferredLanguages>
 		<ed:ContactDetails>

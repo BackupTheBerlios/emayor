@@ -50,7 +50,7 @@ public class UserTaskServiceClient extends UserTaskAbstractClient {
 			UserTaskManagerLocal utm = serviceLocator.getUserTaskManagerLocal();
 
 			utm.completeTask(asid, task);
-		}catch (ServiceLocatorException ex) {
+		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new UserTaskException("Couldn't get ref to service locator");
 		} catch (ServiceException sex) {
@@ -67,11 +67,10 @@ public class UserTaskServiceClient extends UserTaskAbstractClient {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			UserTaskManagerLocal utm = serviceLocator.getUserTaskManagerLocal();
 
-			Tasks tasks = utm.lookupTasksByAssigneeAndCustomKey(asid,ssid);
-			Task[] _tasks = tasks.getTasks();
-			if (log.isDebugEnabled())
-				log.debug("got tasks from service - number = " + _tasks.length);
-			ret = _tasks[0];
+			ret = utm.lookupTaskByAssigneeAndCustomKey(asid, ssid);
+			if (ret == null) {
+				log.debug("Couldn't find any tasks, so create an empty array");
+			}
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new UserTaskException("Couldn't get ref to service locator");

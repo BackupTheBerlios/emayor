@@ -155,15 +155,16 @@ public class UserTaskManager implements IService {
 		try {
 			log.debug("try to lookup the required task");
 			_task __task = this.worklistManager.lookupTask(taskId);
-			if (__task != null)
+			if (__task != null) {
 				log.debug("the returned task is NOT null!");
-			log.debug("set up the return value");
-			ret.setStatus(__task.getConclusion());
-			ret.setTaskId(__task.getTaskId());
-			String att = __task.getAttachment().toString();
-			ret.setXMLDocument(att.substring(1, att.length() - 1));
-			ret.setOriginalTask(__task);
-			log.debug("processing OK");
+				log.debug("set up the return value");
+				ret.setStatus(__task.getConclusion());
+				ret.setTaskId(__task.getTaskId());
+				String att = __task.getAttachment().toString();
+				ret.setXMLDocument(att.substring(1, att.length() - 1));
+				ret.setOriginalTask(__task);
+				log.debug("processing OK");
+			}
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceException(
@@ -173,12 +174,14 @@ public class UserTaskManager implements IService {
 		return ret;
 	}
 
-	public Tasks lookupTasksByAssigneeAndCustomKey(String asid, String ssid)
+	public Task lookupTaskByAssigneeAndCustomKey(String asid, String ssid)
 			throws ServiceException {
 		log.debug("-> start processing ...");
-		Tasks ret = new Tasks();
-		if (log.isDebugEnabled())
+		Task ret = null;
+		if (log.isDebugEnabled()) {
 			log.debug("working with asid = " + asid);
+			log.debug("working with ssid = " + ssid);
+		}
 		try {
 			String uid = this.kernel.getUserIdByASID(asid);
 			_assigneeAndCustomKey req = new _assigneeAndCustomKey();
@@ -189,28 +192,11 @@ public class UserTaskManager implements IService {
 			log.debug("try to call the listTasks operation");
 			_tasklist _list = this.worklistManager
 					.lookupTasksByAssigneeAndCustomKey(req);
-			Task[] tasks = new Task[0];
-			if (_list != null) {
-				_task[] _tasks = _list.getTask();
-				if (_tasks == null) {
-					log.debug("the arry of _task is null");
-					_tasks = new _task[0];
-				}
-				tasks = new Task[_tasks.length];
-				for (int i = 0; i < tasks.length; i++) {
-					Task task = new Task();
-					// default is set to "open"
-					task.setStatus(_tasks[i].getConclusion());
-					task.setTaskId(_tasks[i].getTaskId());
-					task.setXMLDocument(_tasks[i].getAttachment());
-					task.setOriginalTask(_tasks[i]);
-					tasks[i] = task;
-				}
-			} else {
-				log.debug("got null ref from WS");
-				tasks = new Task[0];
+			_task[] _tasks = _list.getTask();
+			if (_tasks != null && _tasks.length > 0) {
+				_task task = _tasks[0];
+				ret = this.lookupTask(task.getTaskId());
 			}
-			ret.setTasks(tasks);
 		} catch (KernelException kex) {
 			log.error("caught ex: " + kex.toString());
 		} catch (RemoteException rex) {
