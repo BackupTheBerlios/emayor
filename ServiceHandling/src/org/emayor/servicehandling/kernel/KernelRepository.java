@@ -90,5 +90,31 @@ public class KernelRepository {
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
+	
+	public void addServiceInfo(ServiceInfo serviceInfo) throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		String serviceName = serviceInfo.getServiceName();
+		if (this.serviceName2serviceInfo.containsKey(serviceInfo)) {
+			
+		}
+		else {
+			this.serviceName2serviceInfo.put(serviceName, serviceInfo);
+		}
+		log.debug("-> ... processing DONE!");
+	}
+	
+	public void removeServiceInfo(String serviceName) throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
+	}
+	
+	public ServiceInfo getServiceInfo(String serviceInfo) throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		ServiceInfo ret = null;
+		
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
 
 }

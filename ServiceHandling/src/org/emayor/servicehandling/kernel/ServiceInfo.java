@@ -15,6 +15,8 @@ public class ServiceInfo implements IServiceInfo {
 	private String serviceFactoryClassName;
 
 	private String serviceClassName;
+	
+	private String serviceDescription;
 
 	public String getServiceName() {
 		return this.serviceName;
@@ -52,6 +54,18 @@ public class ServiceInfo implements IServiceInfo {
 	 */
 	public void setServiceFactoryClassName(String serviceFactoryClassName) {
 		this.serviceFactoryClassName = serviceFactoryClassName;
+	}
+	/**
+	 * @return Returns the serviceDescription.
+	 */
+	public String getServiceDescription() {
+		return serviceDescription;
+	}
+	/**
+	 * @param serviceDescription The serviceDescription to set.
+	 */
+	public void setServiceDescription(String serviceDescription) {
+		this.serviceDescription = serviceDescription;
 	}
 }
 

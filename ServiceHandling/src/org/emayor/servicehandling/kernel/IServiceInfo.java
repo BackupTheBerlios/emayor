@@ -17,4 +17,6 @@ public interface IServiceInfo extends Serializable {
 	public String getServiceClassName();
 
 	public String getServiceFactoryClassName();
+	
+	public String getServiceDescription();
 }

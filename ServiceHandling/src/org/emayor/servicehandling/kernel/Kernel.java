@@ -34,6 +34,7 @@ public class Kernel implements IKernel {
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex:" + ex.toString());
 		}
+		this.initTestData();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -43,21 +44,19 @@ public class Kernel implements IKernel {
 		return _self;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#createAccessSession()
+	/**
+	 *  
 	 */
 	public synchronized String createAccessSession() throws KernelException {
 		log.debug("-> start processing ...");
-		String ret = this.idGen.generateId();
+		String ret = null;
 		try {
 			log.debug("getting instance of ServiceLocator");
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			log.debug("getting instance of AccessSessionLocal");
 			AccessSessionLocal accessSessionLocal = serviceLocator
 					.getAccessSessionLocal();
-			log.debug("saving current instance of AccessSessionHome");
+			log.debug("saving current instance of AccessSessionLocal");
 			this.repository.addAccessSession(accessSessionLocal);
 			ret = accessSessionLocal.getSessionId();
 		} catch (ServiceLocatorException slex) {
@@ -75,30 +74,41 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getAccessSession(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized AccessSessionLocal getAccessSession(String asid)
 			throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		AccessSessionLocal ret = null;
+		try {
+			ret = this.repository.getAccessSession(asid);
+			log.debug("got the access session from repository");
+		} catch (KernelRepositoryException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new KernelException(
+					"Couldn' store the new access session into repository!");
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#deleteAccessSession(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized boolean deleteAccessSession(String asid)
 			throws KernelException {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		boolean ret = false;
+		try {
+			this.repository.removeAccessSession(asid);
+			ret = true;
+		} catch (KernelRepositoryException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new KernelException(
+					"Couldn' remove the access session from repository!");
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -172,6 +182,32 @@ public class Kernel implements IKernel {
 		ServiceInfo[] ret = new ServiceInfo[0];
 		log.debug("-> ... processing DONE!");
 		return ret;
+	}
+
+	private void initTestData() {
+		try {
+			ServiceInfo serviceInfo = new ServiceInfo();
+			serviceInfo.setServiceName("service 1");
+			serviceInfo.setServiceFactoryClassName("service factory 1");
+			serviceInfo.setServiceClassName("org.emayor.service.Service1");
+			serviceInfo.setServiceDescription("Description of the service 1.");
+			this.repository.addServiceInfo(serviceInfo);
+			serviceInfo = new ServiceInfo();
+			serviceInfo.setServiceName("service 2");
+			serviceInfo.setServiceFactoryClassName("service factory 2");
+			serviceInfo.setServiceClassName("org.emayor.service.Service2");
+			serviceInfo.setServiceDescription("Description of the service 2.");
+			this.repository.addServiceInfo(serviceInfo);
+			serviceInfo = new ServiceInfo();
+			serviceInfo.setServiceName("service 3");
+			serviceInfo.setServiceFactoryClassName("service factory 3");
+			serviceInfo.setServiceClassName("org.emayor.service.Service3");
+			serviceInfo.setServiceDescription("Description of the service 3.");
+			this.repository.addServiceInfo(serviceInfo);
+			
+		} catch (KernelRepositoryException kex) {
+			log.error("caught ex:" + kex.toString());
+		}
 	}
 
 }
