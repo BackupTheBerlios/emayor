@@ -88,7 +88,7 @@ public class EmailNotificationProducerBean
 	 * @see org.emayor.notification.interfaces.INotificationProducer#configure(java.util.Properties)
 	 */
 	public void configure(Properties config) throws NotificationException {
-		//log.warning("where: configure()");
+		log.debug("configuring ...");
 		this.config = config;
 		emailAddress = config.getProperty("address");
 		if (emailAddress == null)
@@ -115,8 +115,6 @@ public class EmailNotificationProducerBean
 				ProducerTimerJob.class);
 			/* get a datamap and store a reference, so we can access it from within the job (ProducerTimerJob)*/
 			jobDetail.getJobDataMap().put("producer", this);
-			/* if we would like to handle the different producers */
-			//jobDetail.getJobDataMap().put("type", "1");
 			/* set up a trigger for the given time */
 			SimpleTrigger jobTrigger = new SimpleTrigger(
 				expire.toString(),
@@ -153,7 +151,7 @@ public class EmailNotificationProducerBean
 	 * @see org.emayor.notification.interfaces.INotificationProducer#notifyViaMail(javax.mail.Message)
 	 */
 	public void send() throws NotificationException {
-		log.debug("notifyViaMail reached ...");
+		log.debug("send() reached ...");
 		try {
 			/*
 			 * get a new session for the message
@@ -162,21 +160,20 @@ public class EmailNotificationProducerBean
 			
 			log.info("setting up mail message ...");
 			
-			String sessionId = config.getProperty("sessionId");
-			String directory = System.getProperty("jboss.server.temp.dir");
-			String message = config.getProperty("message");
-			String subject = config.getProperty("subject");
-			String body = config.getProperty("body");
+			// get properties from configuration
+			String directory 	= System.getProperty("jboss.server.temp.dir");
+			String sessionId 	= config.getProperty("sessionId");
+			String message 		= config.getProperty("message");
+			String subject 		= config.getProperty("subject");
+			String body 		= config.getProperty("body");
 			
-			if (body == null) body = "";
-			if (subject == null) subject = "no subject";
+			// set defaults if not present
+			if (body == null) 		body 		= "";
+			if (subject == null) 	subject 	= "no subject";
+			if (directory == null) 	directory 	= "";
+			if (sessionId == null) 	sessionId 	= Long.toString(System.currentTimeMillis());
 			
-			if (directory == null) directory = "";
-			
-			if (sessionId == null) {
-				sessionId = Long.toString(System.currentTimeMillis());
-			}
-			
+			// create file for attachment
 			log.info("creating attachment ...");
 			FileOutputStream out = new FileOutputStream(directory+"\\"+sessionId);
 			PrintStream p = new PrintStream( out );
@@ -196,33 +193,37 @@ public class EmailNotificationProducerBean
 			log.debug("set recipient: "+emailAddress);
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
 			
+			// use attachment or send directly
 			if (message != null) {
 				log.info("attaching body parts ....");
+				MimeMultipart mp = new MimeMultipart();
+				// real body
 				BodyPart bp = new MimeBodyPart();
 				bp.setText(body);
-				MimeMultipart mp = new MimeMultipart();
+				// attachment
 				BodyPart attach = new MimeBodyPart();
 				FileDataSource fds = new FileDataSource(directory+"\\"+sessionId);
 				attach.setDataHandler(new DataHandler(fds));
 				attach.setFileName("document.xml");
 				attach.setDescription("document.xml");
 				attach.setDisposition("attachment; filename=document.xml");
+				// add body + attachment
 				mp.addBodyPart(bp);
 				mp.addBodyPart(attach);
 				msg.setContent(mp);
 				
-//				 send it out
+				// send it out
 				log.debug("get gateway ...");
 				EmailGateway.getInstance().sendEmail(msg,config);
 				log.debug("delete temporary file ...");
 				fds.getFile().delete();
 			} else {
-//				 send it out
+				// send it out
 				log.debug("get gateway ...");
 				EmailGateway.getInstance().sendEmail(msg,config);
 				log.debug("delete temporary file ...");
-			
 			}
+			
 		} catch (MessagingException e) {
 			throw new NotificationException(e);
 		} catch (FileNotFoundException e) {

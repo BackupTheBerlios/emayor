@@ -28,8 +28,7 @@ public class ProducerTimerJob implements StatefulJob {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		JobDataMap map = arg0.getJobDetail().getJobDataMap();
 		INotificationProducer prod = (INotificationProducer) map.get("producer");
-		/* if we would like to handle the different producers */
-		// int type = Integer.getInteger((String)map.get("type"),1).intValue();
+
 		try {
 			prod.stop();
 			prod.remove();

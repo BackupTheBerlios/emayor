@@ -60,12 +60,15 @@ public class EmailGateway {
 		 * (falling back to localhost is NOT an option)
 		 */
 		if (host == null) {
+			// set up new properties
 			config = new Properties();
 			try {
+				// access jboss configuration file
 				String configuration = System.getProperty("jboss.server.home.dir")+"\\conf\\mail.properties";
 				File conffile = new File(configuration);
 				if (conffile.exists()) {
 					log.debug("loading configuration from file: "+configuration);
+					// load configuration
 					config.load(new FileInputStream(conffile));
 				} else {
 					throw new NotificationException("Gateway: Host not specified and no config available");
@@ -73,11 +76,14 @@ public class EmailGateway {
 			} catch (Exception e1) {
 				throw new NotificationException("Gateway: Host not specified and loading config from file failed");
 			}
-			/* reread config */
+			
+			/* reread properties */
 			host = config.getProperty("mail.smtp.host");
 			user = config.getProperty("mail.smtp.user");
 			pass = config.getProperty("mail.smtp.pass");
 			auth = config.getProperty("mail.smtp.auth");
+			
+			/* check whether configuration complete */
 			if (host == null) {
 				throw new NotificationException("Gateway: Host not specified");
 			}
@@ -98,6 +104,7 @@ public class EmailGateway {
 		} catch (NoSuchProviderException e2) {
 			throw new NotificationException(e2);
 		}
+		
 		try {
 			/*
 			 * check for authentication parameters
@@ -110,6 +117,7 @@ public class EmailGateway {
 				/*
 				 * transport authorization
 				 */
+				log.debug("connect ....");
 				trans.connect(host,user,pass);
 				/*
 				 * send out
@@ -118,36 +126,28 @@ public class EmailGateway {
 				trans.sendMessage(msg,msg.getAllRecipients());
 			} else {
 				/*
-				 * no authentication -> no transport layer needed
-				 * hostname obtained from properties
+				 * no authentication -> user and password left empty
 				 */
-				log.debug("sending message ....");
 				log.debug("connect ....");
 				trans.connect(host,null,null);
-				log.debug("send ....");
-				trans.sendMessage(msg,msg.getAllRecipients());
 				/*
-				log.debug("properties ....");
-				System.setProperties(config);
-				log.debug("sending message, host = "+System.getProperty("mail.smtp.host"));
-				log.debug("sending message, address = "+msg.getAllRecipients()[0].toString());
-				Transport.send(msg);
-				*/
+				 * send out
+				 */
+				log.debug("sending message out ....");
+				trans.sendMessage(msg,msg.getAllRecipients());
 			}
 			log.debug("message send out ....");
 			
 		} catch (MessagingException e) {
 			/*
 			 * if send failed, return to sender
+			 * !! this one is pure evil - until reciepent == sender we may get a loop !!
 			 */
-			try {
+			/*try {
 				if (msg.getReplyTo() != null)
 					msg.setRecipients(Message.RecipientType.TO,msg.getReplyTo());
 				else if (msg.getFrom() != null)
-					msg.setRecipients(Message.RecipientType.TO,msg.getFrom());
-			/*
-			 * set new subject according to type of error
-			 */
+					msg.setRecipients(Message.RecipientType.TO,msg.getFrom());/
 				msg.setSubject("SEND failed: " + msg.getSubject());
 				trans.connect(host,null,null);
 				log.debug("send ....");
@@ -155,6 +155,8 @@ public class EmailGateway {
 			} catch (Exception e1) {
 				throw new NotificationException(e1);
 			} 
+			*/
+			throw new NotificationException(e);
 		} finally {
 			try {
 				/*
@@ -162,7 +164,6 @@ public class EmailGateway {
 				 */
 				trans.close();
 			} catch (MessagingException e1) {
-				e1.getStackTrace();
 				throw new NotificationException(e1);
 			}
 		}

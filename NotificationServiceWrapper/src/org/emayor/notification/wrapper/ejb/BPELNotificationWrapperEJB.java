@@ -88,11 +88,16 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 	 */
 	public void sendNotificationMessage(String medium, String[] args)
 	throws NotificationException {
+		
+		/* debugging */
 		Logger log = Logger.getLogger(this.getClass());
 		log.debug("medium  : "+medium);
 		
 		/*
 		 * generic properties for producer
+		 * 
+		 * type = medium
+		 * propertyX = args[X]
 		 */
 		Properties prop = System.getProperties();
 		
@@ -108,6 +113,7 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 		 * and check for correctness of the given arguments (args)
 		 */
 		if (medium.equals("email")) {
+			// we need at least these 4 field
 			if (args.length < 4) throw new NotificationException("wrapper for email messaging requires more arguments!");
 			String userId = args[0];
 			String subject = args[1];
@@ -153,8 +159,11 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 			// TODO delete!
 			//address = "mxs@fokus.fraunhofer.de";
 			//String host = "192.168.73.2";
-			
 			//prop.put("mail.smtp.host",host);
+			
+			/*
+			 * set properties for producer configuration
+			 */
 			prop.put("address",address);
 			prop.put("body",body);
 			prop.put("subject",subject);
@@ -162,12 +171,12 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 			prop.put("type",medium);
 		}
 		
-
-				
-		
+		/* get manager */
 		log.debug("looking up NotificationManager ...");
+		
 		Context context;
 		Object ref = null;
+		
 		try {
 			context = new InitialContext();
 			ref = context.lookup("ejb/NotificationManager");
@@ -178,11 +187,13 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 		log.debug("getting home interface ...");
 		NotificationManagerHome home = (NotificationManagerHome) javax.rmi.PortableRemoteObject.narrow(ref,NotificationManagerHome.class);
 		
-		log.debug("creating manager instance ...");
 		/*
 		 * set up our manager
 		 */
+		log.debug("creating manager instance ...");
+		
 		INotificationManager manager = null;
+		
 		try {
 			manager = home.create();
 		} catch (RemoteException e3) {
@@ -210,6 +221,7 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 		} catch (NotificationException e4) {
 			throw new NotificationException(e4);
 		} finally {
+
 			try {
 				log.info("removing manager ...");
 				/* remove manager */

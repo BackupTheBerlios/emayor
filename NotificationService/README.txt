@@ -29,9 +29,10 @@ NOT UP TO DATE, WILL BE REWRITTEN SOON
    mentioning the mail-host.
    
    When using together with the eMayor-app you should peform step 5 as well.
-   When using together with the eMayor-app and BPEL backend you should also perform step 6.
+   When using together with the eMayor-app and BPEL backend you should also perform steps 6/7
    
 5. deploy the eMayor package (eMayor.ear) with the BPELNotificationWrapper.jar inside
+6. place NotificationWrapperEJB-client.jar in ORABPEL_HOME\system\appserver\oc4j\j2ee\home\applib
 6. start a local BPEL PM-Server and deploy the NotificationRequest
 
 --testing--
