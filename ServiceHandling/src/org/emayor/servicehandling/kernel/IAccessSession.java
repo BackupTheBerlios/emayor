@@ -5,7 +5,7 @@ package org.emayor.servicehandling.kernel;
 
 import javax.security.cert.X509Certificate;
 
-import org.emayor.policyenforcer.C_UserProfile;
+import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 
 /**

@@ -7,13 +7,14 @@ import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 import javax.security.cert.X509Certificate;
 
 import org.apache.log4j.Logger;
-import org.emayor.policyenforcer.C_UserProfile;
+import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
@@ -25,8 +26,6 @@ import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.utils.AccessSessionSSRepository;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
-
-import javax.ejb.CreateException;
 
 /**
  * @ejb.bean name="AccessSession" display-name="Name for AccessSession"

@@ -5,20 +5,19 @@ package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
 
+import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
-import org.emayor.policyenforcer.C_UserProfile;
+import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.kernel.IKernel;
 import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
-
-import javax.ejb.CreateException;
 
 /**
  * @ejb.bean name="Kernel" display-name="Name for Kernel"

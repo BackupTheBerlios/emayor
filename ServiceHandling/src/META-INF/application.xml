@@ -5,7 +5,9 @@
 	<module>
 		<ejb>eMayorEJB.jar</ejb>
 	</module>
-	
+	<module>
+		<ejb>eMayor_PolicyEnforcementEJB.jar</ejb>
+	</module>
 	<module>
 		<web>
 			<web-uri>eMayorWeb.war</web-uri>

@@ -4,7 +4,7 @@
 package org.emayor.servicehandling.kernel;
 
 import org.apache.log4j.Logger;
-import org.emayor.policyenforcer.C_UserProfile;
+import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;

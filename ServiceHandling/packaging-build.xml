@@ -107,6 +107,9 @@
 <zipfileset dir=".">
 <include name="WorklistManager-client.jar"/>
 </zipfileset>
+<zipfileset dir="../PolicyEnforcement">
+<include name="eMayor_PolicyEnforcementEJB.jar"/>
+</zipfileset>
 </jar>
 </target>
 </project>
