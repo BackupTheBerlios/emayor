@@ -109,7 +109,7 @@ public class eMayorServiceFactoryEJB implements SessionBean, IeMayorServiceFacto
 	 * 
 	 * @ejb.interface-method view-type = "local"
 	 */
-	public IeMayorService startService(String serviceName, String ssid) throws eMayorServiceException {
+	public IeMayorService createService(String serviceName, String ssid) throws eMayorServiceException {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		

@@ -37,7 +37,11 @@ public class KernelEJB implements SessionBean, IKernel {
 	 */
 	public KernelEJB() {
 		super();
-		this.kernel = Kernel.getInstance();
+		try {
+			this.kernel = Kernel.getInstance();
+		} catch (KernelException kex) {
+
+		}
 	}
 
 	/*
@@ -185,6 +189,18 @@ public class KernelEJB implements SessionBean, IKernel {
 	 */
 	public void ejbCreate() throws CreateException {
 
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public String getServiceClassNameByServiceName(String serviceName)
+			throws KernelException {
+		log.debug("-> start processing ...");
+		return this.kernel.getServiceClassNameByServiceName(serviceName);
 	}
 
 }

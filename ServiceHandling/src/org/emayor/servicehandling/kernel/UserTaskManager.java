@@ -16,6 +16,7 @@ import org.emayor.servicehandling.bpel.task.MyWorklistManager_Port;
 import org.emayor.servicehandling.bpel.task.MyWorklistManager_Service;
 import org.emayor.servicehandling.bpel.task._task;
 import org.emayor.servicehandling.bpel.task._tasklist;
+
 //import org.emayor.servicehandling.bpel.task._whereCondition;
 
 /**
@@ -45,14 +46,16 @@ public class UserTaskManager implements IService {
 			this.worklistManager = service.getMyWorklistManagerPort();
 			if (this.worklistManager != null)
 				log.debug("the port reference is NOT null");
+			this.kernel = Kernel.getInstance();
 		} catch (javax.xml.rpc.ServiceException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new UserTaskException(
 					"Couldn't connect to the Worklist Manager WS!");
 		} catch (NamingException nex) {
-			log.debug("caught ex: " + nex.toString());
+			log.error("caught ex: " + nex.toString());
+		} catch (KernelException kex) {
+			log.error("caught ex: " + kex.toString());
 		}
-		this.kernel = Kernel.getInstance();
 		log.debug("-> ... processing DONE!");
 	}
 

@@ -25,7 +25,7 @@ public class Kernel implements IKernel {
 
 	private static Kernel _self = null;
 
-	private Kernel() {
+	private Kernel() throws KernelException {
 		log.debug("-> start processing ...");
 		this.repository = new KernelRepository();
 		try {
@@ -35,10 +35,12 @@ public class Kernel implements IKernel {
 			log.error("caught ex:" + ex.toString());
 		}
 		this.initTestData();
+		log.debug("intialize the factories ...");
+		this.initializeServiceFactories();
 		log.debug("-> ... processing DONE!");
 	}
 
-	public static final Kernel getInstance() {
+	public static final Kernel getInstance() throws KernelException {
 		if (_self == null)
 			_self = new Kernel();
 		return _self;
@@ -123,6 +125,24 @@ public class Kernel implements IKernel {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		ServiceSessionLocal ret = null;
+		try {
+			log.debug("getting instance of ServiceLocator");
+			ServiceLocator serviceLocator = ServiceLocator.getInstance();
+			log.debug("a new service session");
+			ret = serviceLocator.getServiceSessionLocal(asid);
+			if (log.isDebugEnabled() && ret != null)
+				log.debug("the new ssid = " + ret.getSessionId());
+			IServiceInfo serviceInfo = this.repository
+					.getServiceInfo(serviceName);
+
+		} catch (ServiceLocatorException slex) {
+			log.error("caught ex: " + slex.toString());
+			throw new KernelException(slex.toString());
+		} catch (SessionException sex) {
+			log.error("caught ex: " + sex.toString());
+		} catch (KernelRepositoryException krex) {
+			log.error("caught ex: " + krex.toString());
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -185,7 +205,8 @@ public class Kernel implements IKernel {
 		try {
 			ret = this.repository.listServicesInfo();
 		} catch (KernelRepositoryException ex) {
-
+			log.error("caught ex: " + ex.toString());
+			throw new KernelException("listing of serices info failed");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -199,18 +220,21 @@ public class Kernel implements IKernel {
 	private void initTestData() {
 		try {
 			ServiceInfo serviceInfo = new ServiceInfo();
-			serviceInfo.setServiceId("Service1/v10");
+			serviceInfo.setServiceId("ResidenceCertificationService/v10");
 			serviceInfo.setServiceVersion("1.0");
-			serviceInfo.setServiceName("service 1");
-			serviceInfo.setServiceFactoryClassName("service factory 1");
-			serviceInfo.setServiceClassName("org.emayor.service.Service1");
+			serviceInfo.setServiceName("Residence Certification Service");
+			serviceInfo
+					.setServiceFactoryClassName("org.emayor.servicehandling.kernel.eMayorServiceFactory");
+			serviceInfo
+					.setServiceClassName("org.emayor.rcs.ResidenceCertificationService");
 			serviceInfo.setServiceDescription("Description of the service 1.");
 			this.repository.addServiceInfo(serviceInfo);
 			serviceInfo = new ServiceInfo();
 			serviceInfo.setServiceId("Service2/v10");
 			serviceInfo.setServiceVersion("1.0");
 			serviceInfo.setServiceName("service 2");
-			serviceInfo.setServiceFactoryClassName("service factory 2");
+			serviceInfo
+					.setServiceFactoryClassName("org.emayor.servicehandling.kernel.eMayorServiceFactory");
 			serviceInfo.setServiceClassName("org.emayor.service.Service2");
 			serviceInfo.setServiceDescription("Description of the service 2.");
 			this.repository.addServiceInfo(serviceInfo);
@@ -218,7 +242,8 @@ public class Kernel implements IKernel {
 			serviceInfo.setServiceId("Service3/v10");
 			serviceInfo.setServiceVersion("1.0");
 			serviceInfo.setServiceName("service 3");
-			serviceInfo.setServiceFactoryClassName("service factory 3");
+			serviceInfo
+					.setServiceFactoryClassName("org.emayor.servicehandling.kernel.eMayorServiceFactory");
 			serviceInfo.setServiceClassName("org.emayor.service.Service3");
 			serviceInfo.setServiceDescription("Description of the service 3.");
 			this.repository.addServiceInfo(serviceInfo);
@@ -226,6 +251,68 @@ public class Kernel implements IKernel {
 		} catch (KernelRepositoryException kex) {
 			log.error("caught ex:" + kex.toString());
 		}
+	}
+
+	private void initializeServiceFactories() throws KernelException {
+		log.debug("-> start processing ...");
+		try {
+			ServiceInfo[] services = this.listAllAvailableServices();
+			for (int i = 0; i < services.length; i++) {
+				String serviceName = services[i].getServiceName();
+				if (log.isDebugEnabled())
+					log.debug("got service name: " + serviceName);
+				String className = services[i].getServiceFactoryClassName();
+				if (log.isDebugEnabled())
+					log.debug("create factory: " + className);
+				Class _class = Class.forName(className);
+				if (_class != null)
+					log.debug("forName called successful - class NOT null");
+				IeMayorServiceFactory factory = (IeMayorServiceFactory) _class
+						.newInstance();
+				if (factory != null)
+					log.debug("factroy reference is NOT null");
+				factory.setup();
+				this.repository.addServiceFactory(serviceName, factory);
+			}
+		} catch (ClassNotFoundException cnfex) {
+			log.error("caught ex: " + cnfex.toString());
+			throw new KernelException(
+					"the specified class not found in classpath");
+		} catch (IllegalAccessException iaex) {
+			log.error("caught ex: " + iaex.toString());
+			throw new KernelException("illegal access to the class instance");
+		} catch (InstantiationException iex) {
+			log.error("caught ex: " + iex.toString());
+			throw new KernelException("cannot get an instance");
+		} catch (eMayorServiceException emsex) {
+			log.error("caught ex: " + emsex.toString());
+			throw new KernelException("factory setup failed");
+		} catch (KernelRepositoryException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new KernelException(
+					"the new factory couldn't be saved into repository");
+		}
+		log.debug("-> ... processing DONE!");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceClassNameByServiceName(java.lang.String)
+	 */
+	public synchronized String getServiceClassNameByServiceName(
+			String serviceName) throws KernelException {
+		log.debug("-> start processing ...");
+		String ret = null;
+		try {
+			ServiceInfo info = this.repository.getServiceInfo(serviceName);
+			ret = info.getServiceClassName();
+		} catch (KernelRepositoryException kex) {
+			log.debug("caght ex: " + kex.toString());
+			throw new KernelException("unknown service name");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 
 }

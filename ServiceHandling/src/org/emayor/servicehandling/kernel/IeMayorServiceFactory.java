@@ -14,5 +14,5 @@ public interface IeMayorServiceFactory extends Serializable {
 	
 	public void cleanup() throws eMayorServiceException;
 	
-	public IeMayorService startService(String serviceName, String ssid) throws eMayorServiceException;
+	public IeMayorService createService(String serviceName, String ssid) throws eMayorServiceException;
 }

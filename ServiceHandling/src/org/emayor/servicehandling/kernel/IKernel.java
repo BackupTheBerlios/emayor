@@ -55,6 +55,7 @@ public interface IKernel {
 	 */
 	public ServiceSessionLocal getServiceSession(String ssid)
 			throws KernelException;
+
 	/**
 	 * 
 	 * @param ssid
@@ -67,11 +68,11 @@ public interface IKernel {
 	 * public boolean checkAuthorization(I_Credentials credentials) throws
 	 * KernelException;
 	 */
-	
+
 	/**
 	 * 
 	 * @param userProfile
-	 * @return 
+	 * @return
 	 * @throws KernelException
 	 */
 	public ServiceInfo[] listAvailableServices(C_UserProfile userProfile)
@@ -83,7 +84,7 @@ public interface IKernel {
 	 * @throws KernelException
 	 */
 	public ServiceInfo[] listAllAvailableServices() throws KernelException;
-	
+
 	/**
 	 * 
 	 * @param asid
@@ -91,4 +92,13 @@ public interface IKernel {
 	 * @throws KernelException
 	 */
 	public String getUserIdByASID(String asid) throws KernelException;
+
+	/**
+	 * 
+	 * @param serviceName
+	 * @return
+	 * @throws KernelException
+	 */
+	public String getServiceClassNameByServiceName(String serviceName)
+			throws KernelException;
 }

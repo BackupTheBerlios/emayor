@@ -55,8 +55,8 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N100B5" description="ResicenceCertificationService-client.jar">
-<jar destfile="ResicenceCertificationService-client.jar">
+<target name="N100B5" description="ResidenceCertificationService-client.jar">
+<jar destfile="ResidenceCertificationService-client.jar">
 <zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
 </zipfileset>
@@ -87,7 +87,7 @@
 <include name="WorklistManager-client.jar"/>
 </zipfileset>
 <zipfileset dir=".">
-<include name="ResicenceCertificationService-client.jar"/>
+<include name="ResidenceCertificationService-client.jar"/>
 </zipfileset>
 </jar>
 </target>
