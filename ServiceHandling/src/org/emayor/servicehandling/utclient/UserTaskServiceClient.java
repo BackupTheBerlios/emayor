@@ -67,18 +67,18 @@ public class UserTaskServiceClient extends UserTaskAbstractClient {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			UserTaskManagerLocal utm = serviceLocator.getUserTaskManagerLocal();
 
-			Tasks tasks = null;
-			Task[] _tasks = new Task[0];
-			//ret = _tasks.getTasks();
+			Tasks tasks = utm.lookupTasksByAssigneeAndCustomKey(asid,ssid);
+			Task[] _tasks = tasks.getTasks();
 			if (log.isDebugEnabled())
 				log.debug("got tasks from service - number = " + _tasks.length);
+			ret = _tasks[0];
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new UserTaskException("Couldn't get ref to service locator");
-		} /*catch (ServiceException sex) {
+		} catch (ServiceException sex) {
 			log.error("caught ex: " + sex.toString());
 			throw new UserTaskException("problem with user task service");
-		}*/
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
