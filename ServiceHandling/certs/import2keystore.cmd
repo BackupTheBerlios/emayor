@@ -5,11 +5,9 @@ if %JAVA_HOME%\\\\\\==\\\\\\ goto NO_JAVA_HOME
 
 if %1\\\\\==\\\\\ goto NO_KEYSTORE
 
-@set KEYTOOL=%JAVA_HOME\bin\keytool.exe
+@set KEYTOOL=%JAVA_HOME%\bin\keytool.exe
 
-echo %1
-
-%KEYTOOL% -import -trustcacerts -alias aMayor -file ca-cert.pem -keytore %1 
+%KEYTOOL% -import -trustcacerts -alias aMayor -file ca-cert.pem -keystore %1 
 
 goto END
 
