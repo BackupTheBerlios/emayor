@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004,N1002D"/>
+<target name="N10004" description="NotificationWrapperEJB.jar">
+<jar destfile="NotificationWrapperEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="../NotificationService" prefix="WEB-INF/lib">
+<include name="NotificationEJB-client.jar"/>
+</zipfileset>
+<zipfileset dir="bin" includes="org/emayor/notification/wrapper/ejb/*.class,org/emayor/notification/wrapper/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N1002D" description="NotificationWrapperEJB-client.jar">
+<jar destfile="NotificationWrapperEJB-client.jar">
+<zipfileset dir="bin" includes="org/emayor/notification/wrapper/interfaces/*.class"/>
+<zipfileset dir="../NotificationService/bin" includes="org/emayor/notification/exception/NotificationException.class"/>
+</jar>
+</target>
+</project>

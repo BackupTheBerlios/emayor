@@ -1,0 +1,4 @@
+NotificationApp.ear
+NotificationEJB.jar
+NotificationEJB-client.jar
+NotificationWeb.war

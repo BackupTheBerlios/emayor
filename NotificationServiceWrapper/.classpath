@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
+	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
+	<classpathentry kind="lib" path="C:/Dokumente und Einstellungen/mxs/Eigene Dateien/logging-log4j-1.2.9/dist/lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/workspace/NotificationService/lib/javamail.jar"/>
+	<classpathentry kind="src" path="/NotificationService"/>
+	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-libs.jar"/>
+	<classpathentry kind="lib" path="lib/eMayor-jaxb.jar"/>
+	<classpathentry kind="src" path="/ServiceHandling"/>
+	<classpathentry kind="src" path="/PolicyEnforcement"/>
+	<classpathentry kind="src" path="/PrintingUtility"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

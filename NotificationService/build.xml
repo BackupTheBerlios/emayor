@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project name="Notification" default="compile" basedir=".">
+     <property name="src" value="src/"/>
+     <property name="build" value="bin/"/>
+	   <property name="lib" value="lib/"/>
+
+     <target name="init">
+          <mkdir dir="${build}"/>
+     </target>
+
+     <target name="compile" depends="init">
+          <!-- Compile the java code -->
+          
+          <javac srcdir="${src}" destdir="${build}">
+            <classpath>
+              <fileset dir="${lib}">
+                <include name="*.jar"/>
+              </fileset>
+            </classpath>
+		     	</javac>
+     </target>
+</project>

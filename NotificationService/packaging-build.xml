@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004,N10025,N10036,N1006F"/>
+<target name="N10004" description="NotificationEJB.jar">
+<jar destfile="NotificationEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="bin" includes="org/emayor/notification/producer/*.class,org/emayor/notification/interfaces/*.class,org/emayor/notification/manager/*.class,org/emayor/notification/gateway/*.class,org/emayor/notification/exception/*.class"/>
+</jar>
+</target>
+<target name="N10025" description="NotificationEJB-client.jar">
+<jar destfile="NotificationEJB-client.jar">
+<zipfileset dir="bin" includes="org/emayor/notification/interfaces/*.class,org/emayor/notification/manager/*.class,org/emayor/notification/producer/*.class,org/emayor/notification/exception/*.class"/>
+</jar>
+</target>
+<target name="N10036" description="NotificationWeb.war">
+<jar destfile="NotificationWeb.war">
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="web.xml"/>
+</zipfileset>
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="jboss-web.xml"/>
+</zipfileset>
+<zipfileset dir="." prefix="WEB-INF/lib">
+<include name="NotificationEJB-client.jar"/>
+</zipfileset>
+<zipfileset dir="properties" prefix="WEB-INF/lib">
+<include name="jndi.properties"/>
+</zipfileset>
+<zipfileset dir="properties" prefix="WEB-INF/lib">
+<include name="mail.properties"/>
+</zipfileset>
+<zipfileset dir="docroot"/>
+</jar>
+</target>
+<target name="N1006F" description="NotificationApp.ear">
+<jar destfile="NotificationApp.ear">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="application.xml"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="NotificationEJB.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="NotificationWeb.war"/>
+</zipfileset>
+</jar>
+</target>
+</project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive name="NotificationEJB.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/emayor/notification/producer/*.class,org/emayor/notification/interfaces/*.class,org/emayor/notification/manager/*.class,org/emayor/notification/gateway/*.class,org/emayor/notification/exception/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+<file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
+</archive>
+<archive name="NotificationEJB-client.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/emayor/notification/interfaces/*.class,org/emayor/notification/manager/*.class,org/emayor/notification/producer/*.class,org/emayor/notification/exception/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+</archive>
+<archive name="NotificationWeb.war" destination="" used="true" exploded="false">
+<file prefix="WEB-INF" project="" projectLocation="src/WEB-INF/web.xml" name="web.xml" location="src/WEB-INF/web.xml" used="true"/>
+<file prefix="WEB-INF" project="" projectLocation="src/WEB-INF/jboss-web.xml" name="jboss-web.xml" location="src/WEB-INF/jboss-web.xml" used="true"/>
+<file prefix="WEB-INF/lib" project="" projectLocation="NotificationEJB-client.jar" name="NotificationEJB-client.jar" location="NotificationEJB-client.jar" used="true"/>
+<folder prefix="" includes="" excludes="" project="" projectLocation="docroot" name="docroot" location="docroot" used="true"/>
+<file prefix="WEB-INF/lib" project="" projectLocation="properties/jndi.properties" name="jndi.properties" location="properties/jndi.properties" used="true"/>
+<file prefix="WEB-INF/lib" project="" projectLocation="properties/mail.properties" name="mail.properties" location="properties/mail.properties" used="true"/>
+</archive>
+<archive name="NotificationApp.ear" destination="" used="true" exploded="false">
+<file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
+<file prefix="" project="" projectLocation="NotificationEJB.jar" name="NotificationEJB.jar" location="NotificationEJB.jar" used="true"/>
+<file prefix="" project="" projectLocation="NotificationWeb.war" name="NotificationWeb.war" location="NotificationWeb.war" used="true"/>
+</archive>
+</configurations>
