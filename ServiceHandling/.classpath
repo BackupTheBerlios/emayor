@@ -9,5 +9,7 @@
 	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.axis-1.2"/>
 	<classpathentry kind="lib" path="lib/otn-jaxrpc.jar"/>
 	<classpathentry kind="lib" path="lib/UTWrapper-client.jar"/>
+	<classpathentry kind="src" path="/PolicyEnforcement"/>
+	<classpathentry kind="src" path="/PrintingUtility"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
