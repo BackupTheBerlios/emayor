@@ -13,6 +13,10 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
 import org.apache.log4j.Logger;
+import org.eMayor.FormatTransformation.interfaces.TemplateManager;
+import org.eMayor.FormatTransformation.interfaces.TemplateManagerHome;
+import org.eMayor.FormatTransformation.interfaces.Transformer;
+import org.eMayor.FormatTransformation.interfaces.TransformerHome;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementHome;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
@@ -307,6 +311,56 @@ public class ServiceLocator {
                     .lookup(BPELNotificationWrapperHome.JNDI_NAME);
             BPELNotificationWrapperHome home = (BPELNotificationWrapperHome) PortableRemoteObject
                     .narrow(ref, BPELNotificationWrapperHome.class);
+            ret = home.create();
+            log.debug("got the reference!");
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        } catch (CreateException cex) {
+            log.error("caught ex: " + cex.toString());
+            throw new ServiceLocatorException(cex);
+        } catch (RemoteException rex) {
+            log.error("caught ex: " + rex.toString());
+            throw new ServiceLocatorException(rex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public synchronized Transformer getTransfromer()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        Transformer ret = null;
+        try {
+            Object ref = this.bpelInitialContext
+                    .lookup(TransformerHome.JNDI_NAME);
+            TransformerHome home = (TransformerHome) PortableRemoteObject
+                    .narrow(ref, TransformerHome.class);
+            ret = home.create();
+            log.debug("got the reference!");
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        } catch (CreateException cex) {
+            log.error("caught ex: " + cex.toString());
+            throw new ServiceLocatorException(cex);
+        } catch (RemoteException rex) {
+            log.error("caught ex: " + rex.toString());
+            throw new ServiceLocatorException(rex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public synchronized TemplateManager getTemplateManager()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        TemplateManager ret = null;
+        try {
+            Object ref = this.bpelInitialContext
+                    .lookup(TemplateManagerHome.JNDI_NAME);
+            TemplateManagerHome home = (TemplateManagerHome) PortableRemoteObject
+                    .narrow(ref, TemplateManagerHome.class);
             ret = home.create();
             log.debug("got the reference!");
         } catch (NamingException nex) {
