@@ -10,7 +10,9 @@
 
 <body bgcolor="#FFFFFF">
 <font color="red">Current Access Session id = <%= session.getAttribute("ASID") %> </font>
-<br>
+<br/>
+<font color="blue">Your role is: <%= session.getAttribute("ROLE") %> </font>
+<br/>
 
 <h2>Main Menu Page</h2>
 

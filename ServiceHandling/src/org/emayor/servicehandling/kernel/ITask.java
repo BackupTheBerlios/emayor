@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.kernel;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
@@ -56,5 +57,19 @@ public interface ITask extends Serializable {
 	
 	public void setExtraInfo(String extraInfo);
 	
+	public boolean isSignatureStatus();
 	
+	public void setSignatureStatus(boolean signatureStatus);
+	
+	public int getTaskType();
+	
+	public void setTaskType(int taskType);
+	
+	public Calendar getDeadline();
+	
+	public void setDeadline(Calendar deadline);
+	
+	public Calendar getIncoming();
+	
+	public void setIncoming(Calendar incoming);
 }

@@ -56,10 +56,10 @@ public class LoginProcessor extends AbstractProcessor {
 				log.debug("got following asid=" + asid);
 			if (access.getUserProfile(asid).getPEUserProfile().getUserRole()
 					.equalsIgnoreCase("Citizen")) {
-				session.setAttribute("SYSTEM_ROLE", "citizen");
+				session.setAttribute("ROLE", "citizen");
 				ret = "MainMenu.jsp";
 			} else {
-				session.setAttribute("SYSTEM_ROLE", "civilservant");
+				session.setAttribute("ROLE", "civilservant");
 				ret = "CVMainMenu.jsp";
 			}
 			access.remove();

@@ -60,18 +60,29 @@ public class UserTaskManagerOverEJB implements IService {
 	 * 
 	 * @see org.emayor.servicehandling.kernel.IService#getMyTasks(java.lang.String)
 	 */
-	public synchronized Tasks getMyTasks(String accessSessionId) throws ServiceException {
+	public synchronized Tasks getMyTasks(String asid) throws ServiceException {
 		log.debug("-> start processing ...");
 		Tasks ret = new Tasks();
 		if (log.isDebugEnabled())
-			log.debug("working with asid = " + accessSessionId);
+			log.debug("working with asid = " + asid);
 		try {
-			log.debug("getting the uid from the kernel");
-			String uid = this.kernel.getUserIdByASID(accessSessionId);
+			log.debug("get the uid from the kernel");
+			String uid = this.kernel.getUserIdByASID(asid);
 			if (log.isDebugEnabled())
 				log.debug("got the uid: " + uid);
-			log.debug("try to call the listTasks operation");
-			ret = this.wrapper.listTasksByAssignee(uid);
+			log.debug("get the role");
+			String role = this.kernel.getUserProfile(uid).getPEUserProfile()
+					.getUserRole();
+			if (log.isDebugEnabled())
+				log.debug("got following role: " + role);
+			if (role.equalsIgnoreCase("citizen")) {
+				log.debug("try to call the listTasks operation for citizen");
+				ret = this.wrapper.listTasksByAssignee(uid);
+			} else {
+				log
+						.debug("try to call the listTasks operation for civil servant");
+				ret = this.wrapper.listTasksByAssignee("CivilServant");
+			}
 			if (log.isDebugEnabled())
 				log.debug("got following number of tasks: "
 						+ ret.getTasks().length);
@@ -95,7 +106,7 @@ public class UserTaskManagerOverEJB implements IService {
 	 * @see org.emayor.servicehandling.kernel.IService#completeTask(java.lang.String,
 	 *      org.emayor.servicehandling.kernel.Task)
 	 */
-	public synchronized void completeTask(String accessSessionId, Task task)
+	public synchronized void completeTask(String asid, Task task)
 			throws ServiceException {
 		log.debug("-> start processing ...");
 		try {

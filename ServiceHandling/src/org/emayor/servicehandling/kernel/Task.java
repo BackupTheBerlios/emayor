@@ -3,6 +3,8 @@
  */
 package org.emayor.servicehandling.kernel;
 
+import java.util.Calendar;
+
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
  *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
@@ -19,7 +21,51 @@ public class Task implements ITask {
 	private String docDigSig;
 	
 	private String extraInfo;
+	
+	private boolean signatureStatus;
+	
+	private int taskType;
+	
+	private Calendar deadline;
+	
+	private Calendar incoming;
 
+	/**
+	 * @return Returns the incoming.
+	 */
+	public Calendar getIncoming() {
+		return incoming;
+	}
+	/**
+	 * @param incoming The incoming to set.
+	 */
+	public void setIncoming(Calendar incoming) {
+		this.incoming = incoming;
+	}
+	/**
+	 * @return Returns the deadline.
+	 */
+	public Calendar getDeadline() {
+		return deadline;
+	}
+	/**
+	 * @param deadline The deadline to set.
+	 */
+	public void setDeadline(Calendar deadline) {
+		this.deadline = deadline;
+	}
+	/**
+	 * @return Returns the taskType.
+	 */
+	public int getTaskType() {
+		return taskType;
+	}
+	/**
+	 * @param taskType The taskType to set.
+	 */
+	public void setTaskType(int taskType) {
+		this.taskType = taskType;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -109,4 +155,16 @@ public class Task implements ITask {
 		this.extraInfo = extraInfo;
 	}
 
+	/**
+	 * @return Returns the signatureStatus.
+	 */
+	public boolean isSignatureStatus() {
+		return signatureStatus;
+	}
+	/**
+	 * @param signatureStatus The signatureStatus to set.
+	 */
+	public void setSignatureStatus(boolean signatureStatus) {
+		this.signatureStatus = signatureStatus;
+	}
 }
