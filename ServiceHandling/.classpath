@@ -17,5 +17,6 @@
 	<classpathentry kind="src" path="/NotificationService"/>
 	<classpathentry kind="src" path="/NotificationServiceWrapper"/>
 	<classpathentry kind="src" path="/FormatTransformation"/>
+	<classpathentry kind="src" path="/ContentRouting"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

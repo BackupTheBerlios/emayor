@@ -23,6 +23,10 @@ import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocalHome;
 import org.eMayor.ServiceHandling.PrintingUtility.interfaces.Printer;
 import org.eMayor.ServiceHandling.PrintingUtility.interfaces.PrinterHome;
+import org.emayor.ContentRouting.interfaces.ContentRouter;
+import org.emayor.ContentRouting.interfaces.ContentRouterHome;
+import org.emayor.ContentRouting.interfaces.ContentRouterLocal;
+import org.emayor.ContentRouting.interfaces.ContentRouterLocalHome;
 import org.emayor.notification.wrapper.interfaces.BPELNotificationWrapper;
 import org.emayor.notification.wrapper.interfaces.BPELNotificationWrapperHome;
 import org.emayor.servicehandling.interfaces.AccessManagerLocal;
@@ -372,6 +376,53 @@ public class ServiceLocator {
         } catch (RemoteException rex) {
             log.error("caught ex: " + rex.toString());
             throw new ServiceLocatorException(rex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public synchronized ContentRouter getContentRouter()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        ContentRouter ret = null;
+        try {
+            Object ref = this.bpelInitialContext
+                    .lookup(ContentRouterHome.JNDI_NAME);
+            ContentRouterHome home = (ContentRouterHome) PortableRemoteObject
+                    .narrow(ref, ContentRouterHome.class);
+            ret = home.create();
+            log.debug("got the reference!");
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        } catch (CreateException cex) {
+            log.error("caught ex: " + cex.toString());
+            throw new ServiceLocatorException(cex);
+        } catch (RemoteException rex) {
+            log.error("caught ex: " + rex.toString());
+            throw new ServiceLocatorException(rex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public synchronized ContentRouterLocal getContentRouterLocal()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        ContentRouterLocal ret = null;
+        try {
+            Object ref = this.bpelInitialContext
+                    .lookup(ContentRouterLocalHome.JNDI_NAME);
+            ContentRouterLocalHome home = (ContentRouterLocalHome) PortableRemoteObject
+                    .narrow(ref, ContentRouterLocalHome.class);
+            ret = home.create();
+            log.debug("got the reference!");
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        } catch (CreateException cex) {
+            log.error("caught ex: " + cex.toString());
+            throw new ServiceLocatorException(cex);
         }
         log.debug("-> ... processing DONE!");
         return ret;
