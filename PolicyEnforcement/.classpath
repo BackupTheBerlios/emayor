@@ -4,8 +4,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
-	<classpathentry kind="lib" path="/eMayor/jboss-4.0.0/lib/xmlsec-1.2RC2.jar"/>
-	<classpathentry kind="lib" path="/eMayor/jboss-4.0.0/lib/xalan.jar"/>
-	<classpathentry kind="lib" path="/eMayor/jboss-4.0.0/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/xmlsec-1.2RC2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
