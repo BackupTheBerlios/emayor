@@ -6,21 +6,27 @@
 	<title>eMayor: Civil servant main menu page</title>
 	<meta http-equiv="PRAGMA" content="NO-CACHE" />
 	<meta http-equiv="EXPIRES" content="-1" />
+    <style type="text/css">
+<!--
+.style1 {font-size: 12px}
+.style2 {font-size: 14px}
+-->
+    </style>
 </head>
 
 <body bgcolor="#FFFFFF">
-<font color="red">Current Access Session id = <%= session.getAttribute("ASID") %> </font>
+<span class="style1"><font color="red">Current Access Session id = <%= session.getAttribute("ASID") %> </font></span>
 <br/>
-<font color="blue">Your role is: <%= session.getAttribute("ROLE") %> </font>
+<span class="style1"><font color="blue">Your role is: <%= session.getAttribute("ROLE") %> </font></span>
 <br/>
 
 <h2>Main Menu Page</h2>
 
-<a href="ServiceHandlingTest?action=listMyTasks">my tasks listing :-)</a>
+<a href="ServiceHandlingTest?action=listMyTasks" class="style2">my tasks listing :-)</a>
 		<br/>
 
 <hr/>
-<a href="ServiceHandlingTest?action=Logout"> LOGOUT </a>
+<a href="ServiceHandlingTest?action=Logout" class="style2"> LOGOUT </a>
 </body>
 
 </body>

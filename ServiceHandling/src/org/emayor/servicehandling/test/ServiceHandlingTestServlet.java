@@ -27,7 +27,6 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 	private static Logger log = Logger
 			.getLogger(ServiceHandlingTestServlet.class);
 
-
 	/**
 	 *  
 	 */
@@ -77,7 +76,14 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 		} else if (action.equalsIgnoreCase("testPrintService")) {
 			log.debug("processing the testPrintService request");
 			processor = new TestPrintServiceProcessor();
+		} else if (action.equalsIgnoreCase("CVDisplayTask")) {
+			log.debug("processing the CVDisplayTask request");
+			processor = new CVDisplayTaskProcessor();
+		} else if (action.equalsIgnoreCase("CVHandleTask")) {
+			log.debug("processing the CVHandleTask request");
+			processor = new ErrorProcessor();
 		} else {
+			log.debug("processing unknown request");
 			processor = new ErrorProcessor();
 		}
 		page = processor.process(req, resp);

@@ -53,6 +53,7 @@ public class StartServiceProcessor extends AbstractProcessor {
 		String serviceName = req.getParameter("ServiceName");
 		if (log.isDebugEnabled())
 			log.debug("got service name: " + serviceName);
+		String role = (String) session.getAttribute("ROLE");
 		try {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			AccessManagerLocal access = serviceLocator.getAccessManager();
@@ -60,6 +61,7 @@ public class StartServiceProcessor extends AbstractProcessor {
 			if (log.isDebugEnabled()) {
 				log.debug("got asid: " + asid);
 				log.debug("got ssid: " + ssid);
+				log.debug("got role: " + role);
 			}
 			session.setAttribute("SSID", ssid);
 
@@ -118,7 +120,7 @@ public class StartServiceProcessor extends AbstractProcessor {
 		} catch (TransformerException tex) {
 			log.error("caught ex: " + tex.toString());
 			// TODO handle ex
-		} catch(RemoveException rex) {
+		} catch (RemoveException rex) {
 			log.error("caught ex: " + rex.toString());
 			// TODO handle ex
 		}
