@@ -11,11 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
-import org.emayor.servicehandling.kernel.ServiceException;
-import org.emayor.servicehandling.kernel.Tasks;
-import org.emayor.servicehandling.utclient.ServiceLocator;
-import org.emayor.servicehandling.utils.ServiceLocatorException;
+import org.emayor.servicehandling.kernel.UserTaskException;
+import org.emayor.servicehandling.utclient.UserTaskServiceClient;
 
 /**
  * @author tku
@@ -29,18 +26,13 @@ public class ListMyTasksProcessor {
 		try {
 			HttpSession session = req.getSession(false);
 			String asid = (String) session.getAttribute("ASID");
-
-			ServiceLocator serviceLocator = ServiceLocator.getInstance();
-			UserTaskManagerLocal utm = serviceLocator.getUserTaskManagerLocal();
-			Tasks _tasks = utm.getMyTasks(asid);
-			session.setAttribute("MY_TASKS", _tasks.getTasks());
-		} catch (ServiceLocatorException ex) {
+			UserTaskServiceClient client = new UserTaskServiceClient();
+			session.setAttribute("MY_TASKS", client.getMyTasks(asid));
+			
+		} catch (UserTaskException ex) {
 			log.error("caught ex: " + ex.toString());
 			// TODO hadle exception
-		} catch (ServiceException sex) {
-			log.error("caught ex: " + sex.toString());
-			// TODO hadle exception
-		}
+		} 
 		log.debug("-> ... processing DONE!");
 	}
 }

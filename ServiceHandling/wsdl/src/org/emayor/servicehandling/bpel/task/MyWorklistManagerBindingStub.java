@@ -16,7 +16,7 @@ public class MyWorklistManagerBindingStub extends org.apache.axis.client.Stub im
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[3];
+        _operations = new org.apache.axis.description.OperationDesc[4];
         org.apache.axis.description.OperationDesc oper;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("completeTask");
@@ -46,6 +46,16 @@ public class MyWorklistManagerBindingStub extends org.apache.axis.client.Stub im
         oper.setUse(org.apache.axis.enum.Use.LITERAL);
         _operations[2] = oper;
 
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("lookupTasksByAssigneeAndCustomKey");
+        oper.addParameter(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "assigneeAndCustomKey"), new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">assigneeAndCustomKey"), org.emayor.servicehandling.bpel.task._assigneeAndCustomKey.class, org.apache.axis.description.ParameterDesc.IN, false, false);
+        oper.setReturnType(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">tasklist"));
+        oper.setReturnClass(org.emayor.servicehandling.bpel.task._tasklist.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", "tasklist"));
+        oper.setStyle(org.apache.axis.enum.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.enum.Use.LITERAL);
+        _operations[3] = oper;
+
     }
 
     public MyWorklistManagerBindingStub() throws org.apache.axis.AxisFault {
@@ -73,16 +83,23 @@ public class MyWorklistManagerBindingStub extends org.apache.axis.client.Stub im
             java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
             java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
             java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
-            qName = new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">task");
+            qName = new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">tasklist");
             cachedSerQNames.add(qName);
-            cls = org.emayor.servicehandling.bpel.task._task.class;
+            cls = org.emayor.servicehandling.bpel.task._tasklist.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">tasklist");
+            qName = new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">assigneeAndCustomKey");
             cachedSerQNames.add(qName);
-            cls = org.emayor.servicehandling.bpel.task._tasklist.class;
+            cls = org.emayor.servicehandling.bpel.task._assigneeAndCustomKey.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://emayor.org/servicehandling/bpel/task", ">task");
+            cachedSerQNames.add(qName);
+            cls = org.emayor.servicehandling.bpel.task._task.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -219,6 +236,37 @@ public class MyWorklistManagerBindingStub extends org.apache.axis.client.Stub im
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("", "listTasksByAssignee"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {payload});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (org.emayor.servicehandling.bpel.task._tasklist) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (org.emayor.servicehandling.bpel.task._tasklist) org.apache.axis.utils.JavaUtils.convert(_resp, org.emayor.servicehandling.bpel.task._tasklist.class);
+            }
+        }
+    }
+
+    public org.emayor.servicehandling.bpel.task._tasklist lookupTasksByAssigneeAndCustomKey(org.emayor.servicehandling.bpel.task._assigneeAndCustomKey payload) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[3]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("lookupTasksByAssigneeAndCustomKey");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "lookupTasksByAssigneeAndCustomKey"));
 
         setRequestHeaders(_call);
         setAttachments(_call);

@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import org.emayor.servicehandling.bpel.task.MyWorklistManager_Port;
 import org.emayor.servicehandling.bpel.task.MyWorklistManager_Service;
+import org.emayor.servicehandling.bpel.task._assigneeAndCustomKey;
 import org.emayor.servicehandling.bpel.task._task;
 import org.emayor.servicehandling.bpel.task._tasklist;
 
@@ -163,6 +164,55 @@ public class UserTaskManager implements IService {
 			ret.setXMLDocument(att.substring(1, att.length() - 1));
 			ret.setOriginalTask(__task);
 			log.debug("processing OK");
+		} catch (RemoteException rex) {
+			log.error("caught ex: " + rex.toString());
+			throw new ServiceException(
+					"Couldn't get the list of open tasks from WorklistManager!");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public Tasks lookupTasksByAssigneeAndCustomKey(String asid, String ssid)
+			throws ServiceException {
+		log.debug("-> start processing ...");
+		Tasks ret = new Tasks();
+		if (log.isDebugEnabled())
+			log.debug("working with asid = " + asid);
+		try {
+			String uid = this.kernel.getUserIdByASID(asid);
+			_assigneeAndCustomKey req = new _assigneeAndCustomKey();
+			req.setAssignee(uid);
+			req.setCustomKey(ssid);
+			if (log.isDebugEnabled())
+				log.debug("got the uid: " + uid);
+			log.debug("try to call the listTasks operation");
+			_tasklist _list = this.worklistManager
+					.lookupTasksByAssigneeAndCustomKey(req);
+			Task[] tasks = new Task[0];
+			if (_list != null) {
+				_task[] _tasks = _list.getTask();
+				if (_tasks == null) {
+					log.debug("the arry of _task is null");
+					_tasks = new _task[0];
+				}
+				tasks = new Task[_tasks.length];
+				for (int i = 0; i < tasks.length; i++) {
+					Task task = new Task();
+					// default is set to "open"
+					task.setStatus(_tasks[i].getConclusion());
+					task.setTaskId(_tasks[i].getTaskId());
+					task.setXMLDocument(_tasks[i].getAttachment());
+					task.setOriginalTask(_tasks[i]);
+					tasks[i] = task;
+				}
+			} else {
+				log.debug("got null ref from WS");
+				tasks = new Task[0];
+			}
+			ret.setTasks(tasks);
+		} catch (KernelException kex) {
+			log.error("caught ex: " + kex.toString());
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceException(

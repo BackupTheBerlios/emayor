@@ -24,8 +24,26 @@
   </java-xml-type-mapping>
   
   <java-xml-type-mapping>
+  	<java-type>org.emayor.servicehandling.bpel.task._assigneeAndCustomKey</java-type>
+  	<root-type-qname>impl:assigneeAndCustomKey</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
   	<java-type>java.lang.String</java-type>
   	<root-type-qname>impl:taskId</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:assignee</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:customKey</root-type-qname>
   	<qname-scope>element</qname-scope>
   </java-xml-type-mapping>
   

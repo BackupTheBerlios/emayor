@@ -220,8 +220,9 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 			log.debug("starting the service :-)");
 			if (isForwarded)
 				this.eMayorService.forward(uid, this.ssid, "", "");
-			else
+			else {
 				this.eMayorService.startService(uid, this.ssid);
+			}
 		} catch (ServiceLocatorException slex) {
 			log.error("caught ex: " + slex.toString());
 			throw new ServiceSessionException("problems with service locator");

@@ -15,8 +15,9 @@
 	<module>
 		<java>WorklistManager-client.jar</java>
 	</module>
+	<!--
 	<module>
 		<java>ResidenceCertificationService-client.jar</java>
 	</module>
-	
+	-->
 </application>

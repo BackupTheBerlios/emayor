@@ -23,7 +23,7 @@ import javax.ejb.CreateException;
  * @ejb.bean name="UserTaskManager" display-name="Name for UserTaskManager"
  *           description="Description for UserTaskManager"
  *           jndi-name="ejb/UserTaskManager" type="Stateless" view-type="local"
- *
+ *  
  */
 public class UserTaskManagerEJB implements SessionBean, IService {
 	private static Logger log = Logger.getLogger(UserTaskManagerEJB.class);
@@ -44,7 +44,7 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 */
 	public void setSessionContext(SessionContext ctx) throws EJBException,
 			RemoteException {
-		
+
 	}
 
 	/*
@@ -106,10 +106,22 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public Task lookupTask(String taskId)
-			throws ServiceException {
+	public Task lookupTask(String taskId) throws ServiceException {
 		log.debug("-> start processing ...");
 		return this.userTaskManager.lookupTask(taskId);
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public Tasks lookupTasksByAssigneeAndCustomKey(String asid, String ssid)
+			throws ServiceException {
+		log.debug("-> start processing ...");
+		return this.userTaskManager.lookupTasksByAssigneeAndCustomKey(asid,
+				ssid);
 	}
 
 	/**

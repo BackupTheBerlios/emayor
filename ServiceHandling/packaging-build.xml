@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N10084,N100B5,N100F6"/>
+<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N10084,N100B5,N100FE"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -78,7 +78,7 @@
 <zipfileset dir="classes" includes="org/emayor/www/eMayorServiceRequest_xsd/*.class,org/emayor/ResidenceCertifcationRequest_v10/*.class"/>
 </jar>
 </target>
-<target name="N100F6" description="eMayorApp.ear">
+<target name="N100FE" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -91,9 +91,6 @@
 </zipfileset>
 <zipfileset dir=".">
 <include name="WorklistManager-client.jar"/>
-</zipfileset>
-<zipfileset dir=".">
-<include name="ResidenceCertificationService-client.jar"/>
 </zipfileset>
 </jar>
 </target>

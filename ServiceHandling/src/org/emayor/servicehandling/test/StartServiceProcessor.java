@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessManagerLocal;
 import org.emayor.servicehandling.kernel.AccessException;
+import org.emayor.servicehandling.kernel.Task;
+import org.emayor.servicehandling.kernel.UserTaskException;
+import org.emayor.servicehandling.utclient.InputDataCollector;
 import org.emayor.servicehandling.utclient.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -46,11 +49,20 @@ public class StartServiceProcessor {
 			if (log.isDebugEnabled())
 				log.debug("got ssid: " + ssid);
 			session.setAttribute("SSID", ssid);
+			
+			InputDataCollector collector = new InputDataCollector();
+			Task task = collector.getInputDataForm(asid, ssid);
+			
+			session.setAttribute("CURR_TASK", task);
+			
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			// TODO hadle exception
 		} catch (AccessException aex) {
 			log.error("caught ex: " + aex.toString());
+			// TODO handle ex
+		} catch(UserTaskException utex) {
+			log.error("caught ex: " + utex.toString());
 			// TODO handle ex
 		}
 		log.debug("-> ... processing DONE!");

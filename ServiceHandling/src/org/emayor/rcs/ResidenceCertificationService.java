@@ -3,7 +3,7 @@
  */
 package org.emayor.rcs;
 
-import java.rmi.RemoteException;
+import java.rmi.dgc.VMID;
 import java.util.Properties;
 
 import javax.naming.Context;
@@ -11,13 +11,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
-import org.emayor.ResidenceCertifcationRequest_v10.ResidenceCertifcationRequest_v10_Port;
-import org.emayor.ResidenceCertifcationRequest_v10.ResidenceCertifcationRequest_v10_Service;
-import org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request;
 import org.emayor.servicehandling.kernel.IeMayorService;
 import org.emayor.servicehandling.kernel.eMayorServiceException;
-import org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestStructure;
 import org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType;
+import org.xmlsoap.schemas.ws.addressing.MessageID;
+import org.xmlsoap.schemas.ws.addressing.ReplyTo;
 
 /**
  * @author tku
@@ -26,7 +24,9 @@ public class ResidenceCertificationService implements IeMayorService {
 	private static Logger log = Logger
 			.getLogger(ResidenceCertificationService.class);
 
-	private ResidenceCertifcationRequest_v10_Port port = null;
+	//private ResidenceCertifcationRequest_v10_Port port = null;
+
+	private String endpoint = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
 	/*
 	 * (non-Javadoc)
@@ -35,26 +35,7 @@ public class ResidenceCertificationService implements IeMayorService {
 	 */
 	public void setup() throws eMayorServiceException {
 		log.debug("-> start processing ...");
-		try {
-			InitialContext initialContext = this.getInitialContext();
-			if (initialContext != null)
-				log.debug("the initial context is NOT null");
-			ResidenceCertifcationRequest_v10_Service service = (ResidenceCertifcationRequest_v10_Service) initialContext
-					.lookup("java:comp/env/service/ResidenceCertifcationServiceJSE");
-			if (service != null)
-				log.debug("the service is NOT null");
-			this.port = service.getResidenceCertifcationRequest_v10Port();
-			if (this.port != null)
-				log.debug("the port reference is NOT null");
-		} catch (NamingException nex) {
-			log.error("caught ex: " + nex.toString());
-			throw new eMayorServiceException(
-					"General problem with naming service");
-		} catch (javax.xml.rpc.ServiceException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new eMayorServiceException(
-					"Couldn't connect to the residence certification service!");
-		}
+
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -65,7 +46,7 @@ public class ResidenceCertificationService implements IeMayorService {
 	 */
 	public void cleanup() throws eMayorServiceException {
 		log.debug("-> start processing ...");
-		this.port = null;
+		//this.port = null;
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -91,28 +72,41 @@ public class ResidenceCertificationService implements IeMayorService {
 	public void startService(String uid, String ssid)
 			throws eMayorServiceException {
 		log.debug("-> start processing ...");
+		// TODO - request document!
+
+		this.startIt(IeMayorService.FORWARD_NO, uid, ssid,
+				"<doc><req></req></doc>", "");
+		log.debug("-> ... processing DONE!");
+	}
+
+	private void startIt(String forward, String uid, String ssid, String req,
+			String reqDigSig) throws eMayorServiceException {
 		try {
+			VMID guid = new VMID();
+			String conversationId = guid.toString();
 			log.debug("creating the input data structure");
-			_ResidenceCertifcationRequest_v10Request request = new _ResidenceCertifcationRequest_v10Request();
 			EMayorServiceRequestType type = new EMayorServiceRequestType();
-			EMayorServiceRequestStructure struct = new EMayorServiceRequestStructure();
-			struct.setForwarded(IeMayorService.FORWARD_NO);
-			// TODO - request document!
-			struct.setReqestDocument("<doc><req></req></doc>");
-			struct.setSsid(ssid);
-			struct.setUid(uid);
-			struct.setStatus(IeMayorService.STATUS_NO);
-			type.setRequestData(struct);
-			request.setInput(type);
-			log.debug("the input data structure done!");
-			log.debug("starting the request !");
-			this.port.initiate(request);
-			log.debug("the request has been sent !");
-		} catch (RemoteException rex) {
-			log.error("caught ex: " + rex.toString());
+			if (type == null)
+				log.error("the type ref is NULL");
+			type.setForwarded(forward);
+			type.setReqestDocument(req);
+			type.setReqDocDigSig(reqDigSig);
+			type.setSsid(ssid);
+			type.setUid(uid);
+			type.setStatus(IeMayorService.STATUS_NO);
+
+			MessageID messageID = new MessageID(conversationId);
+
+			ReplyTo replyTo = new ReplyTo(
+					"http://localhost:8080/axis/services/LoanFlowClientCallback",
+					"LoanFlowCallback", "LoanFlowCallbackService");
+			RCSInvoker client = new RCSInvoker(this.endpoint, messageID,
+					replyTo, type);
+			client.call();
+		} catch (Exception ex) {
+			log.error("caught ex: " + ex.toString());
 			throw new eMayorServiceException("");
 		}
-		log.debug("-> ... processing DONE!");
 	}
 
 	/*
@@ -124,27 +118,7 @@ public class ResidenceCertificationService implements IeMayorService {
 	public void forward(String uid, String ssid, String req, String reqDigSig)
 			throws eMayorServiceException {
 		log.debug("-> start processing ...");
-		try {
-			log.debug("creating the input data structure");
-			_ResidenceCertifcationRequest_v10Request request = new _ResidenceCertifcationRequest_v10Request();
-			EMayorServiceRequestType type = new EMayorServiceRequestType();
-			EMayorServiceRequestStructure struct = new EMayorServiceRequestStructure();
-			struct.setForwarded(IeMayorService.FORWARD_YES);
-			struct.setReqestDocument(req);
-			struct.setReqDocDigSig(reqDigSig);
-			struct.setSsid(ssid);
-			struct.setUid(uid);
-			struct.setStatus(IeMayorService.STATUS_NO);
-			type.setRequestData(struct);
-			request.setInput(type);
-			log.debug("the input data structure done!");
-			log.debug("starting the request !");
-			this.port.initiate(request);
-			log.debug("the request has been sent !");
-		} catch (RemoteException rex) {
-			log.error("caught ex: " + rex.toString());
-			throw new eMayorServiceException("");
-		}
+		this.startIt(IeMayorService.FORWARD_YES, uid, ssid, req, reqDigSig);
 		log.debug("-> ... processing DONE!");
 	}
 

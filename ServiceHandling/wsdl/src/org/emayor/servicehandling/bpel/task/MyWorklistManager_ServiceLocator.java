@@ -10,7 +10,7 @@ package org.emayor.servicehandling.bpel.task;
 public class MyWorklistManager_ServiceLocator extends org.apache.axis.client.Service implements org.emayor.servicehandling.bpel.task.MyWorklistManager_Service {
 
     // Use to get a proxy class for MyWorklistManagerPort
-    private final java.lang.String MyWorklistManagerPort_address = "http://localhost:9700/orabpel/default/MyWorklistManager/1.0";
+    private final java.lang.String MyWorklistManagerPort_address = "http://koralin:9700/orabpel/default/MyWorklistManager/1.0";
 
     public java.lang.String getMyWorklistManagerPortAddress() {
         return MyWorklistManagerPort_address;

@@ -1,21 +1,9 @@
-<definitions name="ResidenceCertifcationRequest_v10" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10" name="ResidenceCertifcationRequest_v10">
 	<types>
 		<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns="http://www.w3.org/2001/XMLSchema">
 			<import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
-			<element name="ResidenceCertifcationRequest_v10Request">
-				<complexType>
-					<sequence>
-						<element name="input" type="request:eMayorServiceRequestType"/>
-					</sequence>
-				</complexType>
-			</element>
-			<element name="ResidenceCertifcationRequest_v10Response">
-				<complexType>
-					<sequence>
-						<element name="result" type="request:eMayorServiceRequestType"/>
-					</sequence>
-				</complexType>
-			</element>
+			<element name="ResidenceCertifcationRequest_v10Request" type="request:eMayorServiceRequestType"/>
+			<element name="ResidenceCertifcationRequest_v10Response" type="request:eMayorServiceRequestType"/>
 		</schema>
 		<schema targetNamespace="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
 			<import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="xsd/ws-addressing.xsd"/>
@@ -47,9 +35,9 @@
 	<binding name="ResidenceCertifcationRequest_v10CallbackBinding" type="tns:ResidenceCertifcationRequest_v10Callback">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="onResult">
-			<soap:operation style="document" soapAction="onResult"/>
+			<soap:operation soapAction="onResult" style="document"/>
 			<input>
-				<soap:header message="tns:ContinueHeader" part="RelatesTo" use="literal" encodingStyle=""/>
+				<soap:header message="tns:ContinueHeader" part="RelatesTo" use="literal"/>
 				<soap:body use="literal"/>
 			</input>
 		</operation>
@@ -57,10 +45,10 @@
 	<binding name="ResidenceCertifcationRequest_v10Binding" type="tns:ResidenceCertifcationRequest_v10">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="initiate">
-			<soap:operation style="document" soapAction="initiate"/>
+			<soap:operation soapAction="initiate" style="document"/>
 			<input>
-				<soap:header message="tns:StartHeader" part="MessageID" use="literal" encodingStyle=""/>
-				<soap:header message="tns:StartHeader" part="ReplyTo" use="literal" encodingStyle=""/>
+				<soap:header message="tns:StartHeader" part="MessageID" use="literal"/>
+				<soap:header message="tns:StartHeader" part="ReplyTo" use="literal"/>
 				<soap:body use="literal"/>
 			</input>
 		</operation>
@@ -72,7 +60,7 @@
 	</service>
 	<service name="ResidenceCertifcationRequest_v10">
 		<port name="ResidenceCertifcationRequest_v10Port" binding="tns:ResidenceCertifcationRequest_v10Binding">
-			<soap:address location="http://koralin:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0"/>
+			<soap:address location="http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="ResidenceCertifcationRequest_v10">

@@ -1,4 +1,4 @@
-<definitions name="MyWorklistManager" targetNamespace="http://emayor.org/servicehandling/bpel/task" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://emayor.org/servicehandling/bpel/task" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<definitions name="MyWorklistManager" targetNamespace="http://emayor.org/servicehandling/bpel/task" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://emayor.org/servicehandling/bpel/task" xmlns:ns0="http://services.oracle.com/bpel/task" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 	<types>
 		<schema targetNamespace="http://emayor.org/servicehandling/bpel/task" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" blockDefault="#all">
 			<element name="task">
@@ -39,6 +39,15 @@
 			</element>
 			<element name="taskId" type="string"/>
 			<element name="assignee" type="string"/>
+			<element name="customKey" type="string"/>
+			<element name="assigneeAndCustomKey">
+				<complexType>
+					<sequence>
+						<element ref="tns:assignee"/>
+						<element ref="tns:customKey"/>
+					</sequence>
+				</complexType>
+			</element>
 		</schema>
 	</types>
 	<message name="listTasksRequestMessage">
@@ -56,6 +65,9 @@
 	<message name="lookupTaskRequestMessage">
 		<part name="payload" element="tns:taskId"/>
 	</message>
+	<message name="lookupTasksByAssigneeAndCustomKeyRequestMessage">
+		<part name="payload" element="tns:assigneeAndCustomKey"/>
+	</message>
 	<message name="taskResponseMessage"/>
 	<portType name="MyWorklistManager">
 		<operation name="completeTask">
@@ -68,6 +80,10 @@
 		</operation>
 		<operation name="listTasksByAssignee">
 			<input message="tns:listTasksRequestMessage"/>
+			<output message="tns:listTasksResponseMessage"/>
+		</operation>
+		<operation name="lookupTasksByAssigneeAndCustomKey">
+			<input message="tns:lookupTasksByAssigneeAndCustomKeyRequestMessage"/>
 			<output message="tns:listTasksResponseMessage"/>
 		</operation>
 	</portType>
@@ -100,10 +116,19 @@
 				<soap:body use="literal"/>
 			</output>
 		</operation>
+		<operation name="lookupTasksByAssigneeAndCustomKey">
+			<soap:operation style="document" soapAction="lookupTasksByAssigneeAndCustomKey"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
 	</binding>
 	<service name="MyWorklistManager">
 		<port name="MyWorklistManagerPort" binding="tns:MyWorklistManagerBinding">
-			<soap:address location="http://localhost:9700/orabpel/default/MyWorklistManager/1.0"/>
+			<soap:address location="http://koralin:9700/orabpel/default/MyWorklistManager/1.0"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="MyWorklistManager">
