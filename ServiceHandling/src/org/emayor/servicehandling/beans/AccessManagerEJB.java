@@ -19,6 +19,7 @@ import org.emayor.servicehandling.kernel.IAccess;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
 import org.emayor.servicehandling.kernel.ServicesInfo;
+import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -96,7 +97,10 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 		log.debug("-> start processing ...");
 		String ret = "12ee34";
 		try {
+			log.debug("starting the access session -> kernel");
 			ret = kernel.createAccessSession();
+			if (log.isDebugEnabled())
+				log.debug("got from kernel asid = " + ret);
 		} catch (KernelException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new AccessException(
@@ -114,11 +118,30 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 */
 	public String startService(String accessSessionId, String serviceName)
 			throws AccessException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-
+		String ret = "";
+		try {
+			log.debug("getting the current access session from kernel");
+			AccessSessionLocal as = this.kernel
+					.getAccessSession(accessSessionId);
+			if (log.isDebugEnabled())
+				log.debug("got access session with id: " + as.getSessionId());
+			ret = as.startServiceSession(serviceName);
+			if (log.isDebugEnabled())
+				log.debug("started service ssid = " + ret);
+		} catch (KernelException ex) {
+			log.error("caught ex: " + ex);
+			throw new AccessException(
+					"Unable to get the list of available services!");
+		} catch (AccessSessionException aex) {
+			log.error("caught ex: " + aex.toString());
+			throw new AccessException("Unable to start the service: "
+					+ serviceName);
+		} catch (SessionException sex) {
+			log.error("caught ex: " + sex.toString());
+		}
 		log.debug("-> ... processing DONE!");
-		return null;
+		return ret;
 	}
 
 	/**
@@ -129,11 +152,27 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 */
 	public boolean stopService(String accessSessionId, String serviceSessionId)
 			throws AccessException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-
+		boolean ret = false;
+		try {
+			log.debug("getting the current access session from kernel");
+			AccessSessionLocal as = this.kernel
+					.getAccessSession(accessSessionId);
+			if (log.isDebugEnabled())
+				log.debug("got access session with id: " + as.getSessionId());
+			ret = as.stopServiceSession(serviceSessionId);
+		} catch (KernelException ex) {
+			log.error("caught ex: " + ex);
+			throw new AccessException(
+					"Unable to get the list of available services!");
+		} catch (AccessSessionException aex) {
+			log.error("caught ex: " + aex.toString());
+			throw new AccessException("Unable to stop the service!");
+		} catch (SessionException sex) {
+			log.error("caught ex: " + sex.toString());
+		}
 		log.debug("-> ... processing DONE!");
-		return false;
+		return ret;
 	}
 
 	/**
@@ -214,9 +253,14 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 		log.debug("-> start processing ...");
 		boolean ret = false;
 		try {
+			log.debug("getting the current access session from kernel");
 			AccessSessionLocal as = this.kernel
 					.getAccessSession(accessSessionId);
+			if (log.isDebugEnabled())
+				log.debug("got access session with id: " + as.getSessionId());
+			log.debug("stop the access session!");
 			ret = as.stop();
+			log.debug("remove the AccessSessionEJB");
 			as.remove();
 		} catch (KernelException ex) {
 			log.error("caught ex: " + ex.toString());
@@ -227,6 +271,8 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 			throw new AccessException("Couldn't stop the access session");
 		} catch (RemoveException rex) {
 			log.error("caught ex: " + rex.toString());
+		} catch (SessionException sex) {
+			log.error("caught ex: " + sex.toString());
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
