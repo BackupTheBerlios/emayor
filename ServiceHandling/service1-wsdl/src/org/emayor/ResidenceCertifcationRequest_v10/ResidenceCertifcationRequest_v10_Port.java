@@ -8,5 +8,5 @@
 package org.emayor.ResidenceCertifcationRequest_v10;
 
 public interface ResidenceCertifcationRequest_v10_Port extends java.rmi.Remote {
-    public void initiate(org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request payload) throws java.rmi.RemoteException;
+    public void initiate(org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType payload) throws java.rmi.RemoteException;
 }

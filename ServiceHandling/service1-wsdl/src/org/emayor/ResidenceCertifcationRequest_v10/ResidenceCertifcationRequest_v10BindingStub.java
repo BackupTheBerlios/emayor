@@ -20,7 +20,7 @@ public class ResidenceCertifcationRequest_v10BindingStub extends org.apache.axis
         org.apache.axis.description.OperationDesc oper;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("initiate");
-        oper.addParameter(new javax.xml.namespace.QName("http://emayor.org/ResidenceCertifcationRequest_v10", "ResidenceCertifcationRequest_v10Request"), new javax.xml.namespace.QName("http://emayor.org/ResidenceCertifcationRequest_v10", ">ResidenceCertifcationRequest_v10Request"), org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request.class, org.apache.axis.description.ParameterDesc.IN, false, false);
+        oper.addParameter(new javax.xml.namespace.QName("http://emayor.org/ResidenceCertifcationRequest_v10", "ResidenceCertifcationRequest_v10Request"), new javax.xml.namespace.QName("http://www.emayor.org/eMayorServiceRequest.xsd", "eMayorServiceRequestType"), org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType.class, org.apache.axis.description.ParameterDesc.IN, false, false);
         oper.setReturnType(org.apache.axis.encoding.XMLType.AXIS_VOID);
         oper.setStyle(org.apache.axis.enum.Style.DOCUMENT);
         oper.setUse(org.apache.axis.enum.Use.LITERAL);
@@ -56,13 +56,6 @@ public class ResidenceCertifcationRequest_v10BindingStub extends org.apache.axis
             qName = new javax.xml.namespace.QName("http://www.emayor.org/eMayorServiceRequest.xsd", "eMayorServiceRequestStructure");
             cachedSerQNames.add(qName);
             cls = org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestStructure.class;
-            cachedSerClasses.add(cls);
-            cachedSerFactories.add(beansf);
-            cachedDeserFactories.add(beandf);
-
-            qName = new javax.xml.namespace.QName("http://emayor.org/ResidenceCertifcationRequest_v10", ">ResidenceCertifcationRequest_v10Request");
-            cachedSerQNames.add(qName);
-            cls = org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -131,7 +124,7 @@ public class ResidenceCertifcationRequest_v10BindingStub extends org.apache.axis
         }
     }
 
-    public void initiate(org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Request payload) throws java.rmi.RemoteException {
+    public void initiate(org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType payload) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }

@@ -60,16 +60,16 @@ public class ResidenceCertifcationRequest_v10CallbackBindingStub extends org.apa
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://emayor.org/ResidenceCertifcationRequest_v10", ">ResidenceCertifcationRequest_v10Response");
+            qName = new javax.xml.namespace.QName("http://www.emayor.org/eMayorServiceRequest.xsd", "eMayorServiceRequestType");
             cachedSerQNames.add(qName);
-            cls = org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Response.class;
+            cls = org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://www.emayor.org/eMayorServiceRequest.xsd", "eMayorServiceRequestType");
+            qName = new javax.xml.namespace.QName("http://emayor.org/ResidenceCertifcationRequest_v10", ">ResidenceCertifcationRequest_v10Response");
             cachedSerQNames.add(qName);
-            cls = org.emayor.www.eMayorServiceRequest_xsd.EMayorServiceRequestType.class;
+            cls = org.emayor.ResidenceCertifcationRequest_v10._ResidenceCertifcationRequest_v10Response.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);

@@ -10,7 +10,7 @@ package org.emayor.ResidenceCertifcationRequest_v10;
 public class ResidenceCertifcationRequest_v10_ServiceLocator extends org.apache.axis.client.Service implements org.emayor.ResidenceCertifcationRequest_v10.ResidenceCertifcationRequest_v10_Service {
 
     // Use to get a proxy class for ResidenceCertifcationRequest_v10Port
-    private final java.lang.String ResidenceCertifcationRequest_v10Port_address = "http://koralin:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
+    private final java.lang.String ResidenceCertifcationRequest_v10Port_address = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
     public java.lang.String getResidenceCertifcationRequest_v10PortAddress() {
         return ResidenceCertifcationRequest_v10Port_address;
