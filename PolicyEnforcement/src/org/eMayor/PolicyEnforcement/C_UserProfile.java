@@ -102,11 +102,11 @@ public C_UserProfile(Document InputDocument){
 	
 	}
 	catch (Exception e){
-		System.out.println(e.printStackTrace());
+		e.printStackTrace();
 	}
 	}
 	
 }
 //	public static void main(String[] args) {
 //	}
-}
+
