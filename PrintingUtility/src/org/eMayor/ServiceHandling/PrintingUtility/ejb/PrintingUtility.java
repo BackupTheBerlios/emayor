@@ -274,15 +274,15 @@ public class PrintingUtility {
             if (props.getProperty("PAGING") == null) throw new PrintException("property \"PAGING\" does not exist in properties file");
             if (props.getProperty("PAGING").equals("")) throw new PrintException("property \"PAGING\" is empty in properties file");
             if (!(props.getProperty("PAGING").equalsIgnoreCase("TRUE") || props.getProperty("PAGING").equalsIgnoreCase("FALSE"))) throw new PrintException("property \"PAGING\" should be TRUE or FALSE in properties file");
-            paging  = Boolean.parseBoolean(props.getProperty("PAGING"));
+            paging  = Boolean.getBoolean(props.getProperty("PAGING"));
             if (props.getProperty("USEDIALOG") == null) throw new PrintException("property \"USEDIALOG\" does not exist in properties file");
             if (props.getProperty("USEDIALOG").equals("")) throw new PrintException("property \"USEDIALOG\" is empty in properties file");
             if (!(props.getProperty("USEDIALOG").equalsIgnoreCase("TRUE") || props.getProperty("USEDIALOG").equalsIgnoreCase("FALSE"))) throw new PrintException("property \"USEDIALOG\" should be TRUE or FALSE in properties file");
-            useDialog  = Boolean.parseBoolean(props.getProperty("USEDIALOG"));
+            useDialog  = Boolean.getBoolean(props.getProperty("USEDIALOG"));
             if (props.getProperty("PREVIEW") == null) throw new PrintException("property \"PREVIEW\" does not exist in properties file");
             if (props.getProperty("PREVIEW").equals("")) throw new PrintException("property \"PREVIEW\" is empty in properties file");
             if (!(props.getProperty("PREVIEW").equalsIgnoreCase("TRUE") || props.getProperty("PREVIEW").equalsIgnoreCase("FALSE"))) throw new PrintException("property \"PREVIEW\" should be TRUE or FALSE in properties file");
-            preview  = Boolean.parseBoolean(props.getProperty("PREVIEW"));
+            preview  = Boolean.getBoolean(props.getProperty("PREVIEW"));
             
         } catch(FileNotFoundException fnne) {
             throw new PrintException("Properties file not found", fnne);

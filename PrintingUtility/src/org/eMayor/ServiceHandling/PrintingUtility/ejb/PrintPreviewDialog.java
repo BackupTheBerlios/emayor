@@ -129,7 +129,7 @@ public class PrintPreviewDialog extends javax.swing.JFrame implements ActionList
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Print Preview");
-        setLocationByPlatform(true);
+        //setLocationByPlatform(true);
         setResizable(false);
         pack();
     }//GEN-END:initComponents

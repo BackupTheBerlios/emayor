@@ -7,6 +7,9 @@
 package org.eMayor.PolicyEnforcement;
 import java.security.cert.X509Certificate;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.*;
 
 /**
@@ -85,28 +88,109 @@ public void setX509_CertChain(X509Certificate[] newChain){
 
 
 // Constructors For XML and XML String
+public class E_UserProfileException extends Exception
+{
+   public E_UserProfileException(String s)
+   {
+      super(s);
+   }
+}
 
-public C_UserProfile(Document InputDocument){
+public C_UserProfile() {
+	super();
+}
+
+public C_UserProfile(Document InputDocument) throws
+E_UserProfileException {
 	
 	try {
+		
+		// Chek if this document is an User Profile Docuemnt
+		Element myRoot= InputDocument.getDocumentElement();
+		if (myRoot.getNodeName()!="User Profile")
+		{
+			throw new E_UserProfileException("C_UserProfile:: Invaild Input Dom Document");
+		}
+		
+//		 Get The UserName
 		NodeList MyNodeList = InputDocument.getElementsByTagName("UserName");
 		if  (MyNodeList.getLength() == 1)
 		{ 
 			Node MyNode = MyNodeList.item(0);
 			String sUserName =MyNode.getNodeValue();
+			this.setUserName(sUserName);
 			
 		}
 		else {
 			// Generate an parce exception
+			throw new E_UserProfileException("C_UserProfile :: Unable to Get User Name");
 		}
+		
+		
 	
 	}
 	catch (Exception e){
-		e.printStackTrace();
+		throw new E_UserProfileException("C_UserProfile::Parce Error \n" + e.toString());
 	}
 	}
 	
-}
-//	public static void main(String[] args) {
-//	}
 
+public Document getUserProfileasDomDocument() throws
+E_UserProfileException {
+	Document myDocument = null;
+	try {
+		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+	    
+		myDocument = db.newDocument();
+		//Create The root
+		Element newRoot = myDocument.createElement("User Profile");
+		myDocument.appendChild(newRoot);
+		
+		// Create the User Name Element
+		
+		Element eUserName = myDocument.createElement("UserName");
+		eUserName.setNodeValue(this.m_S_UserName);
+		newRoot.appendChild(eUserName);
+		
+		// Create the User Email Element
+		
+		Element eUserEmail = myDocument.createElement("UserEmail");
+		eUserEmail.setNodeValue(this.m_S_UserEmail);
+		newRoot.appendChild(eUserEmail);
+		
+//		 Create the User Role Element
+		
+		Element eUserRole = myDocument.createElement("UserRole");
+		eUserRole.setNodeValue(this.m_S_UserRole);
+		newRoot.appendChild(eUserRole);
+		
+		
+
+		
+		
+		// Get The UserName
+		/*NodeList MyNodeList = InputDocument.getElementsByTagName("UserName");
+		if  (MyNodeList.getLength() == 1)
+		{ 
+			Node MyNode = MyNodeList.item(0);
+			String sUserName =MyNode.getNodeValue();
+			this.setUserName(sUserName);
+			
+		}
+		else {
+			// Generate an parce exception
+			throw new E_UserProfile("C_UserProfile :: Unable to Get User Name");
+		}
+		
+		
+	*/
+	}
+	catch (Exception e){
+		throw new E_UserProfileException("C_UserProfile:getUserProfileasDomDocument:Error \n" + e.toString());
+	}
+	return myDocument;
+	}
+	
+}
