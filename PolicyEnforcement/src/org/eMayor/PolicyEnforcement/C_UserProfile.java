@@ -227,27 +227,25 @@ private X509Certificate m_X509_CertChain[];
 	}
 	}
 private Document F_StringtoDocument(String myXMLDocument) throws E_UserProfileException{
-	String myDebug = "";
+
 	try {
 		
 		
 		DocumentBuilderFactory myFactory = DocumentBuilderFactory.newInstance();
-		myDebug = myDebug + ":: Created DocumentBuilderFactory";
+		
 		myFactory.setNamespaceAware(true);
 
 		
 		
 		DocumentBuilder myDocBuilder = myFactory.newDocumentBuilder();
-		myDebug = myDebug + ":: Created DocumentBuilder";
+	
 				
 		StringReader myStrReader = new StringReader(myXMLDocument);
-		myDebug = myDebug + ":: Created Streang Reader";
+		
 		
 		InputSource myInputSource = new InputSource(myStrReader);
-		myDebug = myDebug + ":: Created Input Source";
-	
+		
 		Document myDocument = myDocBuilder.parse(myInputSource);
-		myDebug = myDebug + ":: Document Parced";
 		
 		
 		
@@ -255,45 +253,44 @@ private Document F_StringtoDocument(String myXMLDocument) throws E_UserProfileEx
 		
 		//Reparce the Document
 		Document myNewDocument = myDocBuilder.newDocument();
-		myDebug = myDebug + ":: Created new Document";
 		
 		Element myRoot = myDocument.getDocumentElement();
-		myDebug = myDebug + ":: get Root from Old Document";
+	
 		Element myNewRoot = (Element) myNewDocument.importNode(myRoot, false);
-		myDebug = myDebug + ":: Inport Root to new Document";
+		
 		NodeList MyCertChainList = myDocument.getElementsByTagName("X509CertChain");
-		myDebug = myDebug + ":: get Cert Chain Node List";
+		
 		Element myCertChain = (Element) MyCertChainList.item(0);
-		myDebug = myDebug + ":: get the first Element";
+		
 		Element myNewCertChain = (Element)myNewDocument.importNode(myCertChain, false);
-		myDebug = myDebug + ":: import into the new Document ";
+		
 		int iCerts = Integer.parseInt(myCertChain.getAttribute("Length"));
-		myDebug = myDebug + ":: get Length of the Chain";
+		
 		NodeList MyCertsList = myDocument.getElementsByTagName("X509Certificate");
-		myDebug = myDebug + ":: get list of certificates";
+		
 		for (int i = 0; i< iCerts; i++)
 		{
 			Node myCert = MyCertsList.item(i);
-			myDebug = myDebug + ":: get cert i in the list";
+		
 			
 			Node myNewCert = myNewDocument.importNode(myCert, true);
-			myDebug = myDebug + ":: inport cert to the new document ";
+		
 			
 			
 			myNewCertChain.appendChild(myNewCert);
-			myDebug = myDebug + ":: Append the cert to the chain";
+		
 		}
 		myNewRoot.appendChild(myNewCertChain);
-		myDebug = myDebug + ":: Append the cert chain";
+		
 		myNewDocument.appendChild(myNewRoot);
-		myDebug = myDebug + ":: Append the Root";
+		
 		
 		 
 		return myNewDocument;
 	}
 	catch (Exception e)
 	{
-		throw new E_UserProfileException("C_UserProfile(String)::Error \n  " + e.toString() + "::::" + myDebug);
+		throw new E_UserProfileException("C_UserProfile(String)::Error \n  " + e.toString());
 	}
 	
 }
