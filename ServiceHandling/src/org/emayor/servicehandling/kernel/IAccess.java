@@ -19,6 +19,12 @@ public interface IAccess {
 	// start access session
 
 	/**
+	 *  
+	 */
+	public boolean stopAccessSession(String accessSessionId)
+			throws AccessException;
+
+	/**
 	 * 
 	 * @param accessSessionId
 	 * @param serviceName
@@ -30,10 +36,11 @@ public interface IAccess {
 	/**
 	 * 
 	 * @param accessSessionId
-	 * @param serviceSessionId - the service session id points the an instance
-	 * of the service session which contains only one running service. (The service
-	 * name would be not enough here, because the user can start several time the
-	 * same service)
+	 * @param serviceSessionId -
+	 *            the service session id points the an instance of the service
+	 *            session which contains only one running service. (The service
+	 *            name would be not enough here, because the user can start
+	 *            several time the same service)
 	 * @return
 	 */
 	public boolean stopService(String accessSessionId, String serviceSessionId)

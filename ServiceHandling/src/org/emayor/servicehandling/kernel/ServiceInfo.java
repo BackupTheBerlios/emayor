@@ -10,6 +10,11 @@ package org.emayor.servicehandling.kernel;
  *         </font>
  */
 public class ServiceInfo implements IServiceInfo {
+	
+	private String serviceId;
+	
+	private String serviceVersion;
+	
 	private String serviceName;
 
 	private String serviceFactoryClassName;
@@ -66,6 +71,30 @@ public class ServiceInfo implements IServiceInfo {
 	 */
 	public void setServiceDescription(String serviceDescription) {
 		this.serviceDescription = serviceDescription;
+	}
+	/**
+	 * @return Returns the serviceId.
+	 */
+	public String getServiceId() {
+		return serviceId;
+	}
+	/**
+	 * @param serviceId The serviceId to set.
+	 */
+	public void setServiceId(String serviceId) {
+		this.serviceId = serviceId;
+	}
+	/**
+	 * @return Returns the serviceVersion.
+	 */
+	public String getServiceVersion() {
+		return serviceVersion;
+	}
+	/**
+	 * @param serviceVersion The serviceVersion to set.
+	 */
+	public void setServiceVersion(String serviceVersion) {
+		this.serviceVersion = serviceVersion;
 	}
 }
 

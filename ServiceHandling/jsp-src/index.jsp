@@ -3,10 +3,13 @@
 <html>
 
 <head>
-	<title>JSP Page</title>\n\
+	<title>List of all available services!</title>\n\
 </head>
 
 <body bgcolor="#FFFFFF">
+
+
+
 
 </body>
 

@@ -10,8 +10,10 @@ import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.AccessException;
+import org.emayor.servicehandling.kernel.AccessSessionException;
 import org.emayor.servicehandling.kernel.IAccess;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
@@ -31,7 +33,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	private static Logger log = Logger.getLogger(AccessManagerEJB.class);
 
 	private SessionContext ctx;
-	
+
 	private KernelLocal kernel;
 
 	/**
@@ -42,8 +44,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			this.kernel = locator.getKernelLocal();
-		}
-		catch(ServiceLocatorException ex) {
+		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 		}
 	}
@@ -95,10 +96,10 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 		String ret = "12ee34";
 		try {
 			ret = kernel.createAccessSession();
-		}
-		catch(KernelException ex) {
+		} catch (KernelException ex) {
 			log.error("caught ex: " + ex.toString());
-			throw new AccessException("Kernel couldn't create a new access session!");
+			throw new AccessException(
+					"Kernel couldn't create a new access session!");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -114,7 +115,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 			throws AccessException {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		
+
 		log.debug("-> ... processing DONE!");
 		return null;
 	}
@@ -129,7 +130,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 			throws AccessException {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		
+
 		log.debug("-> ... processing DONE!");
 		return false;
 	}
@@ -142,11 +143,34 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 */
 	public ServicesInfo listAvailableServices(String accessSessionId)
 			throws AccessException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		
+		ServicesInfo ret = new ServicesInfo();
+		if (accessSessionId.equals("-1001")) {
+			log.debug("anonymous login - list of services");
+			try {
+				ret.setServicesInfo(this.kernel.listAllAvailableServices());
+			} catch (KernelException ex) {
+				log.error("caught ex: " + ex);
+				throw new AccessException(
+						"Unable to get the default list of available services!");
+			}
+		} else {
+			try {
+				AccessSessionLocal as = this.kernel
+						.getAccessSession(accessSessionId);
+				ret.setServicesInfo(as.listAvailableServices());
+			} catch (KernelException ex) {
+				log.error("caught ex: " + ex);
+				throw new AccessException(
+						"Unable to get the list of available services!");
+			} catch (AccessSessionException asex) {
+				log.error("caught ex: " + asex);
+				throw new AccessException(
+						"Unable to get the list of available services!");
+			}
+		}
 		log.debug("-> ... processing DONE!");
-		return null;
+		return ret;
 	}
 
 	/**
@@ -159,9 +183,10 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 			throws AccessException {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		
+		RunningServicesInfo ret = new RunningServicesInfo();
+
 		log.debug("-> ... processing DONE!");
-		return null;
+		return ret;
 	}
 
 	/**
@@ -173,8 +198,33 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	public void ejbCreate() throws CreateException {
 		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		
+
 		log.debug("-> ... processing DONE!");
 	}
 
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public boolean stopAccessSession(String accessSessionId)
+			throws AccessException {
+		log.debug("-> start processing ...");
+		boolean ret = false;
+		try {
+			AccessSessionLocal as = this.kernel
+					.getAccessSession(accessSessionId);
+			ret = as.stop();
+		} catch (KernelException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new AccessException(
+					"Couldn't obtain the right Access Session instance!");
+		} catch (AccessSessionException asex) {
+			log.error("caught ex: " + asex.toString());
+			throw new AccessException("Couldn't stop the access session");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
 }

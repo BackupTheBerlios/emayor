@@ -12,6 +12,10 @@ import java.io.Serializable;
  */
 public interface IServiceInfo extends Serializable {
 
+	public String getServiceId();
+	
+	public String getServiceVersion();
+	
 	public String getServiceName();
 
 	public String getServiceClassName();

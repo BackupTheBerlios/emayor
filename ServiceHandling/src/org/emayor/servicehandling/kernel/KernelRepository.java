@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.kernel;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
@@ -90,29 +91,50 @@ public class KernelRepository {
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
-	
-	public void addServiceInfo(ServiceInfo serviceInfo) throws KernelRepositoryException {
+
+	public void addServiceInfo(ServiceInfo serviceInfo)
+			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		String serviceName = serviceInfo.getServiceName();
-		if (this.serviceName2serviceInfo.containsKey(serviceInfo)) {
-			
-		}
-		else {
+		if (this.serviceName2serviceInfo.containsKey(serviceName)) {
+			log.error("ServiceInfo already exist in the repository");
+			throw new KernelRepositoryException(
+					"Couldn't add ServiceInfo into repository - already exists!");
+		} else {
 			this.serviceName2serviceInfo.put(serviceName, serviceInfo);
 		}
 		log.debug("-> ... processing DONE!");
 	}
-	
-	public void removeServiceInfo(String serviceName) throws KernelRepositoryException {
+
+	public void removeServiceInfo(String serviceName)
+			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		
+
 		log.debug("-> ... processing DONE!");
 	}
-	
-	public ServiceInfo getServiceInfo(String serviceInfo) throws KernelRepositoryException {
+
+	public ServiceInfo getServiceInfo(String serviceInfo)
+			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		ServiceInfo ret = null;
-		
+
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public ServiceInfo[] listServicesInfo() throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		ServiceInfo[] ret = null;
+		ret = new ServiceInfo[this.serviceName2serviceInfo.size()];
+		if (log.isDebugEnabled())
+			log.debug("found " + ret.length + " items!");
+		int index = 0;
+		for (Iterator i = this.serviceName2serviceInfo.values().iterator(); i
+				.hasNext();) {
+			if (log.isDebugEnabled())
+				log.debug("working with index = " + index);
+			ret[index++] = (ServiceInfo) i.next();
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}

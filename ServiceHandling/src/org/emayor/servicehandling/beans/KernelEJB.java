@@ -161,7 +161,6 @@ public class KernelEJB implements SessionBean, IKernel {
 	 *  
 	 */
 	public ServiceInfo[] listAllAvailableServices() throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		return this.kernel.listAllAvailableServices();
 	}

@@ -207,6 +207,10 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public ServiceInfo[] listAvailableServices() throws AccessSessionException {
 		// TODO Auto-generated method stub
+		log.debug("-> starting processing ...");
+		ServiceInfo[] ret = new ServiceInfo[0];
+		
+		log.debug("-> ... processing DONE!");
 		return null;
 	}
 
@@ -218,6 +222,9 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public boolean stop() throws AccessSessionException {
 		// TODO Auto-generated method stub
+		log.debug("-> starting processing ...");
+		
+		log.debug("-> ... processing DONE!");
 		return false;
 	}
 

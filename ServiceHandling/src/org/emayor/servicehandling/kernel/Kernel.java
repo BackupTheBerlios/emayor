@@ -98,7 +98,6 @@ public class Kernel implements IKernel {
 	 */
 	public synchronized boolean deleteAccessSession(String asid)
 			throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		boolean ret = false;
 		try {
@@ -163,9 +162,13 @@ public class Kernel implements IKernel {
 	 */
 	public synchronized ServiceInfo[] listAvailableServices(
 			C_UserProfile userProfile) throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		ServiceInfo[] ret = new ServiceInfo[0];
+		try {
+			ret = this.repository.listServicesInfo();
+		} catch (KernelRepositoryException ex) {
+
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -177,9 +180,13 @@ public class Kernel implements IKernel {
 	 */
 	public synchronized ServiceInfo[] listAllAvailableServices()
 			throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		ServiceInfo[] ret = new ServiceInfo[0];
+		try {
+			ret = this.repository.listServicesInfo();
+		} catch (KernelRepositoryException ex) {
+
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -187,24 +194,30 @@ public class Kernel implements IKernel {
 	private void initTestData() {
 		try {
 			ServiceInfo serviceInfo = new ServiceInfo();
+			serviceInfo.setServiceId("Service1/v10");
+			serviceInfo.setServiceVersion("1.0");
 			serviceInfo.setServiceName("service 1");
 			serviceInfo.setServiceFactoryClassName("service factory 1");
 			serviceInfo.setServiceClassName("org.emayor.service.Service1");
 			serviceInfo.setServiceDescription("Description of the service 1.");
 			this.repository.addServiceInfo(serviceInfo);
 			serviceInfo = new ServiceInfo();
+			serviceInfo.setServiceId("Service2/v10");
+			serviceInfo.setServiceVersion("1.0");
 			serviceInfo.setServiceName("service 2");
 			serviceInfo.setServiceFactoryClassName("service factory 2");
 			serviceInfo.setServiceClassName("org.emayor.service.Service2");
 			serviceInfo.setServiceDescription("Description of the service 2.");
 			this.repository.addServiceInfo(serviceInfo);
 			serviceInfo = new ServiceInfo();
+			serviceInfo.setServiceId("Service3/v10");
+			serviceInfo.setServiceVersion("1.0");
 			serviceInfo.setServiceName("service 3");
 			serviceInfo.setServiceFactoryClassName("service factory 3");
 			serviceInfo.setServiceClassName("org.emayor.service.Service3");
 			serviceInfo.setServiceDescription("Description of the service 3.");
 			this.repository.addServiceInfo(serviceInfo);
-			
+
 		} catch (KernelRepositoryException kex) {
 			log.error("caught ex:" + kex.toString());
 		}

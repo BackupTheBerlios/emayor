@@ -70,8 +70,16 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			log.debug("got following action from request: " + action);
 
 		if (action.equalsIgnoreCase("welcome")) {
+			log.debug("processing welcome request");
 			WelcomeProcessor p = new WelcomeProcessor();
 			p.process(req, resp);
+			log.debug("sending redirection to ServiceListing.jsp");
+			resp.sendRedirect("ServiceListing.jsp");
+		} else if (action.equalsIgnoreCase("Logout")) {
+			log.debug("processing Logout request");
+			LogoutProcessor p = new LogoutProcessor();
+			p.process(req, resp);
+			resp.sendRedirect("login.jsp");
 		} else {
 			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");
@@ -83,7 +91,7 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 					.println("<a href=\"ServiceHandlingTest?action=welcome1\">test it again</a>");
 			out.println("<p/>");
 			out.println("current access session id = ");
-			out.println((String)session.getAttribute("ASID"));
+			out.println((String) session.getAttribute("ASID"));
 			out.println("<br/>");
 			out.println("</body>");
 			out.println("</html>");
