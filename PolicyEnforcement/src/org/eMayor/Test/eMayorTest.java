@@ -77,7 +77,7 @@ public class eMayorTest extends HttpServlet {
 		
 		try {
 			PolicyEnforcement bean = home.create();
-			C_UserProfile myUserProfile = bean.F_getUserProfile(certChain);
+			C_UserProfile myUserProfile = new C_UserProfile(bean.F_getUserProfile(certChain));
 			bean.remove();
 			if (myUserProfile==null){
 				out.println("<h1>You did not provide a certificate!</h1>");
@@ -118,10 +118,7 @@ public class eMayorTest extends HttpServlet {
 				out.println("<p>");
 				out.println("<br>");
 // Code to test the to Streang anf From Streang Method				
-				String myDocument = myUserProfile.F_getUserProfileasString();
-				C_UserProfile mynewUP = new C_UserProfile(myDocument);
 				
-				int aaa=0;
 			}
 			
 				

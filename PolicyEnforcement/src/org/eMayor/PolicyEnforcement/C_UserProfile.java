@@ -8,8 +8,8 @@ package org.eMayor.PolicyEnforcement;
 
 
 import java.io.Serializable;
-import java.io.StringReader;
-import java.io.StringWriter;
+
+import java.io.*;
 import java.security.cert.X509Certificate;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,9 +19,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+
+
 import org.apache.xml.security.keys.content.x509.XMLX509Certificate;
 import org.w3c.dom.*;
-import org.xml.sax.InputSource;
+import org.xml.sax.*;
+//import InputSource;
 
 
 
@@ -225,14 +228,52 @@ private X509Certificate m_X509_CertChain[];
 	}
 private Document F_StringtoDocument(String myXMLDocument) throws E_UserProfileException{
 	try {
+		
+		//java.io.File myFile = new java.io.File("test.xml");
 		DocumentBuilderFactory myFactory = DocumentBuilderFactory.newInstance();
+		myFactory.setNamespaceAware(true);
+
+		
+		
 		DocumentBuilder myDocBuilder = myFactory.newDocumentBuilder();
+		
+				
 		StringReader myStrReader = new StringReader(myXMLDocument);
+		
 		InputSource myInputSource = new InputSource(myStrReader);
+		
 	
 		Document myDocument = myDocBuilder.parse(myInputSource);
 		
-		return myDocument;
+		
+		
+		
+		
+		
+		//Reparce the Document
+		Document myNewDocument = myDocBuilder.newDocument();
+		
+		Element myRoot = myDocument.getDocumentElement();
+		Element myNewRoot = (Element) myNewDocument.importNode(myRoot, false);
+		NodeList MyCertChainList = myDocument.getElementsByTagName("X509CertChain");
+		Element myCertChain = (Element) MyCertChainList.item(0);
+		Element myNewCertChain = (Element)myNewDocument.importNode(myCertChain, false);
+		int iCerts = Integer.parseInt(myCertChain.getAttribute("Length"));
+		NodeList MyCertsList = myDocument.getElementsByTagName("X509Certificate");
+		for (int i = 0; i< iCerts; i++)
+		{
+			Node myCert = MyCertsList.item(i);
+			
+			Node myNewCert = myNewDocument.importNode(myCert, true);
+			
+			
+			myNewCertChain.appendChild(myNewCert);
+		}
+		myNewRoot.appendChild(myNewCertChain);
+		myNewDocument.appendChild(myNewRoot);
+		
+		
+		return myNewDocument;
 	}
 	catch (Exception e)
 	{
@@ -301,21 +342,22 @@ E_UserProfileException {
 		{
 			X509Certificate myCert =  m_X509_CertChain[i];
 			// Create an Dom Element containg the certificate
-			Document myXMLDocument=db.newDocument();
+			//Document myXMLDocument=db.newDocument();
 			
-			XMLX509Certificate myXMLCert = new XMLX509Certificate(myXMLDocument, myCert);
+			XMLX509Certificate myXMLCert = new XMLX509Certificate(myDocument, myCert);
 			Element myCertElement = myXMLCert.getElement();
+			myCertElement.setAttribute("ChainOrder",String.valueOf(i));
 			
 			
 			
 			
-			Node myImportedNode =  myDocument.importNode(myCertElement,true);
+			//Node myImportedNode =  myDocument.importNode(myCertElement,true);
 			
 			
-			((Element) myImportedNode).setAttribute("ChainOrder", String.valueOf(i));			
+			//((Element) myImportedNode).setAttribute("ChainOrder", String.valueOf(i));			
 			
 			
-			eCertChain.appendChild(myImportedNode);
+			eCertChain.appendChild(myCertElement);
 			
 	
 			
@@ -337,7 +379,9 @@ E_UserProfileException {
 		try{
 			Document myDocument = this.F_getUserProfileasDomDocument();
 			TransformerFactory myFactory = TransformerFactory.newInstance();
+			
 			Transformer myTransformer = myFactory.newTransformer();
+			
 			DOMSource mySource =new DOMSource(myDocument);
 			StringWriter mySW = new StringWriter();
 			StreamResult myResult = new StreamResult(mySW);

@@ -30,6 +30,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	/**
 	 * 
 	 */
+	
 	public PolicyEnforcementBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -84,16 +85,20 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public C_UserProfile F_getUserProfile(X509Certificate x509_CertChain[]) {
+	public String F_getUserProfile(X509Certificate x509_CertChain[]) throws  E_PolicyEnforcementException{
 		// TODO Auto-generated method stub
-	return new C_UserProfile(x509_CertChain);
-
+		try
+		{
+			return (new C_UserProfile(x509_CertChain)).F_getUserProfileasString();
+		} catch (C_UserProfile.E_UserProfileException e) {
+			throw new E_PolicyEnforcementException ("PolicyEnforcement::F_getUserProfile:: Exception \n" +e.toString());
+		}
 	}
 	/**
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_AuthenticateUser(C_UserProfile UserProfile) {
+	public boolean F_AuthenticateUser(String UserProfile) throws  E_PolicyEnforcementException{
 		// TODO Auto-generated method stub
 
 		return true;
@@ -102,7 +107,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_VerifyXMLSignature(String xmlDocument) {
+	public boolean F_VerifyXMLSignature(String xmlDocument) throws  E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		return true;
 	}
@@ -110,7 +115,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public String F_TimeStampXMLDocument(String xmlDocumentDoc) {
+	public String F_TimeStampXMLDocument(String xmlDocumentDoc) throws  E_PolicyEnforcementException{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -118,7 +123,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_VerifyXMLTimeStampedDocument(String xmlDocument) {
+	public boolean F_VerifyXMLTimeStampedDocument(String xmlDocument) throws  E_PolicyEnforcementException{
 		// TODO Auto-generated method stub
 		return true;
 	}
@@ -126,9 +131,9 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_AuthorizeService(
-		C_UserProfile UserProfile,
-		C_ServiceProfile ServiceProfile) {
+	public boolean F_AuthorizeService  (
+		String UserProfile,
+		String ServiceProfile) throws  E_PolicyEnforcementException{
 		// TODO Auto-generated method stub
 		return true;
 	}
@@ -137,9 +142,9 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * @ejb.interface-method  view-type = "both"
 	 */
 	public boolean F_AuthorizeServiceStep(
-		C_UserProfile UserProfile,
-		C_ServiceProfile ServiceProfile,
-		C_ServiceStep ServiceStep) {
+		String UserProfile,
+		String ServiceProfile,
+		String ServiceStep) throws  E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		return true;
 	}

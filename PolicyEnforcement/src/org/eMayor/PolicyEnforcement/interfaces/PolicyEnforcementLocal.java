@@ -12,36 +12,36 @@ public interface PolicyEnforcementLocal
    /**
     * Business method
     */
-   public org.eMayor.PolicyEnforcement.C_UserProfile F_getUserProfile( java.security.cert.X509Certificate[] x509_CertChain ) ;
+   public java.lang.String F_getUserProfile( java.security.cert.X509Certificate[] x509_CertChain ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
    /**
     * Business method
     */
-   public boolean F_AuthenticateUser( org.eMayor.PolicyEnforcement.C_UserProfile UserProfile ) ;
+   public boolean F_AuthenticateUser( java.lang.String UserProfile ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
    /**
     * Business method
     */
-   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument ) ;
+   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
    /**
     * Business method
     */
-   public java.lang.String F_TimeStampXMLDocument( java.lang.String xmlDocumentDoc ) ;
+   public java.lang.String F_TimeStampXMLDocument( java.lang.String xmlDocumentDoc ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
    /**
     * Business method
     */
-   public boolean F_VerifyXMLTimeStampedDocument( java.lang.String xmlDocument ) ;
+   public boolean F_VerifyXMLTimeStampedDocument( java.lang.String xmlDocument ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
    /**
     * Business method
     */
-   public boolean F_AuthorizeService( org.eMayor.PolicyEnforcement.C_UserProfile UserProfile,org.eMayor.PolicyEnforcement.C_ServiceProfile ServiceProfile ) ;
+   public boolean F_AuthorizeService( java.lang.String UserProfile,java.lang.String ServiceProfile ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
    /**
     * Business method
     */
-   public boolean F_AuthorizeServiceStep( org.eMayor.PolicyEnforcement.C_UserProfile UserProfile,org.eMayor.PolicyEnforcement.C_ServiceProfile ServiceProfile,org.eMayor.PolicyEnforcement.C_ServiceStep ServiceStep ) ;
+   public boolean F_AuthorizeServiceStep( java.lang.String UserProfile,java.lang.String ServiceProfile,java.lang.String ServiceStep ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
 }
