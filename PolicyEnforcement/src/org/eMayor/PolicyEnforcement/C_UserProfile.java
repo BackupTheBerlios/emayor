@@ -5,12 +5,16 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package org.eMayor.PolicyEnforcement;
+
 import java.security.cert.X509Certificate;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.xml.security.keys.content.x509.XMLX509Certificate;
 import org.w3c.dom.*;
+
+
 
 /**
  * @author root
@@ -196,6 +200,17 @@ E_UserProfileException {
 		
 		for (int i = 0; i< m_X509_CertChain.length; i++)
 		{
+			X509Certificate myCert =  m_X509_CertChain[i];
+			// Create an Dom Element containg the certificate
+			Document myXMLDocument=null;
+			
+			XMLX509Certificate myXMLCert = new XMLX509Certificate(myXMLDocument, myCert);
+			Element myCertElement = myXMLCert.getElement();
+			String ElementName =  myCertElement.getNodeName();
+			String ElementValue = myCertElement.getNodeValue();
+			
+			int j = 0;
+			
 			
 			
 		}
