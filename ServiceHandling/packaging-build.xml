@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N10084,N100B5,N100FE"/>
+<target name="_packaging_generation_" depends="N10004,N1002D,N1003E,N1004F,N1008C,N100BD,N10106"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -9,20 +9,23 @@
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="jboss.xml"/>
 </zipfileset>
+<zipfileset dir="xml" prefix="org/emayor/rcs">
+<include name="SampleResidenceCertificationRequestDocument.xml"/>
+</zipfileset>
 <zipfileset dir="classes" includes="**/*.class"/>
 </jar>
 </target>
-<target name="N10025" description="eMayorEJB-client.jar">
+<target name="N1002D" description="eMayorEJB-client.jar">
 <jar destfile="eMayorEJB-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N10036" description="eMayorSH-GUI-client.jar">
+<target name="N1003E" description="eMayorSH-GUI-client.jar">
 <jar destfile="eMayorSH-GUI-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/utclient*.class,org/emayor/servicehandling/kernel/IServiceInfo.class,org/emayor/servicehandling/kernel/ServiceInfo.class,org/emayor/servicehandling/kernel/ServicesInfo.class,org/emayor/servicehandling/bpel/task/_task.class,org/emayor/servicehandling/bpel/task/_task_status.class"/>
 </jar>
 </target>
-<target name="N10047" description="eMayorWeb.war">
+<target name="N1004F" description="eMayorWeb.war">
 <jar destfile="eMayorWeb.war">
 <zipfileset dir="." prefix="WEB-INF/lib">
 <include name="eMayorSH-GUI-client.jar"/>
@@ -38,7 +41,7 @@
 <zipfileset dir="jsp-src"/>
 </jar>
 </target>
-<target name="N10084" description="WorklistManager-client.jar">
+<target name="N1008C" description="WorklistManager-client.jar">
 <jar destfile="WorklistManager-client.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -55,7 +58,7 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N100B5" description="ResidenceCertificationService-client.jar">
+<target name="N100BD" description="ResidenceCertificationService-client.jar">
 <jar destfile="ResidenceCertificationService-client.jar">
 <zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -78,7 +81,7 @@
 <zipfileset dir="classes" includes="org/emayor/www/eMayorServiceRequest_xsd/*.class,org/emayor/ResidenceCertifcationRequest_v10/*.class"/>
 </jar>
 </target>
-<target name="N100FE" description="eMayorApp.ear">
+<target name="N10106" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -91,6 +94,9 @@
 </zipfileset>
 <zipfileset dir=".">
 <include name="WorklistManager-client.jar"/>
+</zipfileset>
+<zipfileset dir="xml" prefix="xml">
+<include name="SampleResidenceCertificationRequestDocument.xml"/>
 </zipfileset>
 </jar>
 </target>

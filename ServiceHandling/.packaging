@@ -4,6 +4,7 @@
 <folder prefix="" includes="**/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
+<file prefix="org/emayor/rcs" project="" projectLocation="xml/SampleResidenceCertificationRequestDocument.xml" name="SampleResidenceCertificationRequestDocument.xml" location="xml/SampleResidenceCertificationRequestDocument.xml" used="true"/>
 </archive>
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
@@ -41,6 +42,6 @@
 <file prefix="" project="" projectLocation="eMayorEJB.jar" name="eMayorEJB.jar" location="eMayorEJB.jar" used="true"/>
 <file prefix="" project="" projectLocation="eMayorWeb.war" name="eMayorWeb.war" location="eMayorWeb.war" used="true"/>
 <file prefix="" project="" projectLocation="WorklistManager-client.jar" name="WorklistManager-client.jar" location="WorklistManager-client.jar" used="true"/>
-<file prefix="" project="" projectLocation="ResidenceCertificationService-client.jar" name="ResidenceCertificationService-client.jar" location="ResidenceCertificationService-client.jar" used="false"/>
+<file prefix="xml" project="" projectLocation="xml/SampleResidenceCertificationRequestDocument.xml" name="SampleResidenceCertificationRequestDocument.xml" location="xml/SampleResidenceCertificationRequestDocument.xml" used="true"/>
 </archive>
 </configurations>

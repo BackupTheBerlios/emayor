@@ -3,6 +3,11 @@
  */
 package org.emayor.rcs;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.rmi.dgc.VMID;
 import java.util.Properties;
 
@@ -26,7 +31,12 @@ public class ResidenceCertificationService implements IeMayorService {
 
 	//private ResidenceCertifcationRequest_v10_Port port = null;
 
-	private String endpoint = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
+	public static final String DEF_ENDPOINT = "";
+
+	public static final String DEF_XMLFILE = "org.emayor.rcs.SampleResidenceCertificationRequestDocument.xml";
+
+	//private String endpoint =
+	// "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
 	/*
 	 * (non-Javadoc)
@@ -72,10 +82,8 @@ public class ResidenceCertificationService implements IeMayorService {
 	public void startService(String uid, String ssid)
 			throws eMayorServiceException {
 		log.debug("-> start processing ...");
-		// TODO - request document!
-
-		this.startIt(IeMayorService.FORWARD_NO, uid, ssid,
-				"<doc><req></req></doc>", "");
+		this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
+				.getXMLDocument(), "");
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -84,6 +92,8 @@ public class ResidenceCertificationService implements IeMayorService {
 		try {
 			VMID guid = new VMID();
 			String conversationId = guid.toString();
+			if (log.isDebugEnabled())
+				log.debug("got new converation id: " + conversationId);
 			log.debug("creating the input data structure");
 			EMayorServiceRequestType type = new EMayorServiceRequestType();
 			if (type == null)
@@ -100,7 +110,7 @@ public class ResidenceCertificationService implements IeMayorService {
 			ReplyTo replyTo = new ReplyTo(
 					"http://localhost:8080/axis/services/LoanFlowClientCallback",
 					"LoanFlowCallback", "LoanFlowCallbackService");
-			RCSInvoker client = new RCSInvoker(this.endpoint, messageID,
+			RCSInvoker client = new RCSInvoker(DEF_ENDPOINT, messageID,
 					replyTo, type);
 			client.call();
 		} catch (Exception ex) {
@@ -130,6 +140,35 @@ public class ResidenceCertificationService implements IeMayorService {
 		env.setProperty(Context.PROVIDER_URL, "jnp://localhost:1099");
 		env.setProperty("j2ee.clientName", "ws4ee-client");
 		return new InitialContext(env);
+	}
+
+	private String getXMLDocument() throws eMayorServiceException {
+		log.debug("-> start processing ...");
+		String ret = "";
+		try {
+			//InputStream is = ClassLoader.getSystemResourceAsStream(DEF_XMLFILE);
+			InputStream is = ResidenceCertificationService.class.getResourceAsStream(DEF_XMLFILE);
+			ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+			//InputStream is = classLoader.getResourceAsStream(DEF_XMLFILE);
+			URL url = classLoader.getResource(DEF_XMLFILE);
+			if (url != null)
+				log.debug("got url for resource: " + url.toString());
+			else
+				log.error("DUPA");
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			StringBuffer b = new StringBuffer();
+			String line = null;
+			while ((line = br.readLine()) != null)
+				b.append(line.trim());
+			ret = b.toString();
+			if (log.isDebugEnabled())
+				log.debug("got xml: " + ret);
+		} catch (IOException ioex) {
+			log.error("caught ex: " + ioex.toString());
+			throw new eMayorServiceException("");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 
 }
