@@ -11,5 +11,8 @@
 	<classpathentry kind="lib" path="lib/UTWrapper-client.jar"/>
 	<classpathentry kind="src" path="/PolicyEnforcement"/>
 	<classpathentry kind="src" path="/PrintingUtility"/>
+	<classpathentry kind="lib" path="lib/eMayor-jaxb.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-libs.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

@@ -9,6 +9,11 @@
 <file prefix="" project="" projectLocation="lib/oc4jclient.jar" name="oc4jclient.jar" location="lib/oc4jclient.jar" used="true"/>
 <file prefix="" project="" projectLocation="lib/ojdl.jar" name="ojdl.jar" location="lib/ojdl.jar" used="true"/>
 <file prefix="" project="" projectLocation="lib/otn-jaxrpc.jar" name="otn-jaxrpc.jar" location="lib/otn-jaxrpc.jar" used="true"/>
+<file prefix="" project="" projectLocation="lib/jaxb-api.jar" name="jaxb-api.jar" location="lib/jaxb-api.jar" used="false"/>
+<file prefix="" project="" projectLocation="lib/jaxb-libs.jar" name="jaxb-libs.jar" location="lib/jaxb-libs.jar" used="false"/>
+<file prefix="" project="" projectLocation="lib/eMayor-jaxb.jar" name="eMayor-jaxb.jar" location="lib/eMayor-jaxb.jar" used="false"/>
+<file prefix="" project="" projectLocation="lib/jaxb-impl.jar" name="jaxb-impl.jar" location="lib/jaxb-impl.jar" used="false"/>
+<file prefix="" project="" projectLocation="lib/xsdlib.jar" name="xsdlib.jar" location="lib/xsdlib.jar" used="false"/>
 </archive>
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>

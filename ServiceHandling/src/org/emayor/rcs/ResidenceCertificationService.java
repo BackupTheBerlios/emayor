@@ -91,6 +91,22 @@ public class ResidenceCertificationService implements IeMayorService {
 			String reqDigSig) throws eMayorServiceException {
 		log.debug("-> start processing ...");
 		try {
+			/*
+			if (forward.equals(FORWARD_NO)) {
+				JAXBContext jaxbContext = JAXBContext
+						.newInstance("org.emayor.businessdocument");
+				Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+				ResidenceCertificationRequestDocument doc = (ResidenceCertificationRequestDocument) unmarshaller
+						.unmarshal(new InputSource(new StringReader(req)));
+				ServiceLocator locator = ServiceLocator.getInstance();
+				KernelLocal kernel = locator.getKernelLocal();
+				IUserProfile userProfile = kernel.getUserProfile(uid);
+				kernel.remove();
+				String ueserName = userProfile.getPEUserProfile().getUserName();
+				doc.getRequesterDetails().getContactDetails().getEmail().add(
+						userProfile.getPEUserProfile().getUserEmail());
+			}
+			*/
 			VMID guid = new VMID();
 			String conversationId = guid.toString();
 			if (log.isDebugEnabled())
