@@ -14,6 +14,7 @@
 <file prefix="" project="" projectLocation="lib/eMayor-jaxb.jar" name="eMayor-jaxb.jar" location="lib/eMayor-jaxb.jar" used="false"/>
 <file prefix="" project="" projectLocation="lib/jaxb-impl.jar" name="jaxb-impl.jar" location="lib/jaxb-impl.jar" used="false"/>
 <file prefix="" project="" projectLocation="lib/xsdlib.jar" name="xsdlib.jar" location="lib/xsdlib.jar" used="false"/>
+<file prefix="" project="" projectLocation="lib/quartz.jar" name="quartz.jar" location="lib/quartz.jar" used="true"/>
 </archive>
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
@@ -56,5 +57,7 @@
 <file prefix="" project="" projectLocation="WorklistManager-client.jar" name="WorklistManager-client.jar" location="WorklistManager-client.jar" used="true"/>
 <file prefix="" project="PolicyEnforcement" projectLocation="eMayor_PolicyEnforcementEJB.jar" name="eMayor_PolicyEnforcementEJB.jar" location="../PolicyEnforcement/eMayor_PolicyEnforcementEJB.jar" used="true"/>
 <file prefix="" project="PrintingUtility" projectLocation="PrinterEJB.jar" name="PrinterEJB.jar" location="../PrintingUtility/PrinterEJB.jar" used="true"/>
+<file prefix="" project="NotificationService" projectLocation="NotificationEJB.jar" name="NotificationEJB.jar" location="../NotificationService/NotificationEJB.jar" used="true"/>
+<file prefix="" project="NotificationServiceWrapper" projectLocation="NotificationWrapperEJB.jar" name="NotificationWrapperEJB.jar" location="../NotificationServiceWrapper/NotificationWrapperEJB.jar" used="true"/>
 </archive>
 </configurations>

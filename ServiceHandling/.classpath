@@ -14,5 +14,7 @@
 	<classpathentry kind="lib" path="lib/eMayor-jaxb.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-libs.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
+	<classpathentry kind="src" path="/NotificationService"/>
+	<classpathentry kind="src" path="/NotificationServiceWrapper"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

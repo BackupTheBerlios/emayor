@@ -12,6 +12,12 @@
 		<ejb>PrinterEJB.jar</ejb>
 	</module>
 	<module>
+		<ejb>NotificationEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>NotificationWrapperEJB.jar</ejb>
+	</module>
+	<module>
 		<web>
 			<web-uri>eMayorWeb.war</web-uri>
 			<context-root>/sh</context-root>
