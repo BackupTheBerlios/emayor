@@ -32,20 +32,22 @@ public class RCSDataChecker {
 	}
 
 	public boolean checkData(String xmlDocument) throws DataCheckerException {
-		log.debug("-> start processing ...");
+		log.debug("checkData -> start processing ...");
 		boolean ret = false;
-		log.debug("get the document root");
+		log.debug("checkData -> get the document root");
+		if (log.isDebugEnabled())
+			log.debug("got xml:\n " + xmlDocument);
 		Document root = this.getRootDocument(xmlDocument);
-		log.debug("checking the data");
+		log.debug("checkData -> checking the data");
 		ret = this.checkRequesterDetails(root)
-				&& this.chackConcernedPersonDetails(root);
-		log.debug("-> ... processing DONE!");
+				&& this.checkConcernedPersonDetails(root);
+		log.debug("checkData-> ... processing DONE!");
 		return ret;
 	}
 
 	private Document getRootDocument(String xmlDocument)
 			throws DataCheckerException {
-		log.debug("-> start processing ...");
+		log.debug("getRootDocument -> start processing ...");
 		Document ret = null;
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory
@@ -54,27 +56,27 @@ public class RCSDataChecker {
 			StringReader stringReader = new StringReader(xmlDocument);
 			InputSource inputSource = new InputSource(stringReader);
 			ret = documentBuilder.parse(inputSource);
-			log.debug("the xml has been parsed");
+			log.debug("getRootDocument -> the xml has been parsed");
 		} catch (FactoryConfigurationError fcer) {
-			log.error("caught ex: " + fcer.toString());
+			log.error("getRootDocument -> caught ex: " + fcer.toString());
 			throw new DataCheckerException("");
 		} catch (ParserConfigurationException pcex) {
-			log.error("caught ex: " + pcex.toString());
+			log.error("getRootDocument -> caught ex: " + pcex.toString());
 			throw new DataCheckerException("");
 		} catch (IOException ioex) {
-			log.error("caught ex: " + ioex.toString());
+			log.error("getRootDocument -> caught ex: " + ioex.toString());
 			throw new DataCheckerException("");
 		} catch (SAXException saxex) {
-			log.error("caught ex: " + saxex.toString());
+			log.error("getRootDocument -> caught ex: " + saxex.toString());
 			throw new DataCheckerException("");
 		}
-		log.debug("-> ... processing DONE!");
+		log.debug("getRootDocument -> ... processing DONE!");
 		return ret;
 	}
 
 	private boolean checkRequesterDetails(Document root)
 			throws DataCheckerException {
-		log.debug("-> start processing ...");
+		log.debug("checkRequesterDetails -> start processing ...");
 		boolean ret = false;
 		final String XP_FORNAME = "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()";
 		final String XP_SURNAME = "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()";
@@ -87,24 +89,24 @@ public class RCSDataChecker {
 			String emailAddress = XPathAPI.selectSingleNode(root, XP_EMAILADR)
 					.getNodeValue();
 			if (log.isDebugEnabled()) {
-				log.debug("got forename: " + forename);
-				log.debug("got surname : " + surname);
-				log.debug("got email   : " + emailAddress);
+				log.debug("checkRequesterDetails -> got forename: " + forename);
+				log.debug("checkRequesterDetails -> got surname : " + surname);
+				log.debug("checkRequesterDetails -> got email   : " + emailAddress);
 			}
 			ret = (forename != null && forename.length() != 0 && !forename.trim().equals("-"))
 					&& (surname != null && surname.length() != 0 && !surname.trim().equals("-"))
 					&& (emailAddress != null && emailAddress.length() != 0 && !emailAddress.trim().equals("-"));
 		} catch (TransformerException tex) {
-			log.error("caught ex: " + tex.toString());
+			log.error("checkRequesterDetails -> caught ex: " + tex.toString());
 			throw new DataCheckerException("");
 		}
-		log.debug("-> ... processing DONE!");
+		log.debug("checkRequesterDetails -> ... processing DONE!");
 		return ret;
 	}
 
-	private boolean chackConcernedPersonDetails(Document root)
+	private boolean checkConcernedPersonDetails(Document root)
 			throws DataCheckerException {
-		log.debug("-> start processing ...");
+		log.debug("checkConcernedPersonDetails -> start processing ...");
 		boolean ret = false;
 		final String XP_FORNAME = "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameForename/text()";
 		final String XP_SURNAME = "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameSurname/text()";
@@ -117,18 +119,18 @@ public class RCSDataChecker {
 			String emailAddress = XPathAPI.selectSingleNode(root, XP_EMAILADR)
 					.getNodeValue();
 			if (log.isDebugEnabled()) {
-				log.debug("got forename: " + forename);
-				log.debug("got surname : " + surname);
-				log.debug("got email   : " + emailAddress);
+				log.debug("checkConcernedPersonDetails -> got forename: " + forename);
+				log.debug("checkConcernedPersonDetails -> got surname : " + surname);
+				log.debug("checkConcernedPersonDetails -> got email   : " + emailAddress);
 			}
 			ret = (forename != null && forename.length() != 0)
 					&& (surname != null && surname.length() != 0)
 					&& (emailAddress != null && emailAddress.length() != 0);
 		} catch (TransformerException tex) {
-			log.error("caught ex: " + tex.toString());
+			log.error("checkConcernedPersonDetails -> caught ex: " + tex.toString());
 			throw new DataCheckerException("");
 		}
-		log.debug("-> ... processing DONE!");
+		log.debug("checkConcernedPersonDetails -> ... processing DONE!");
 		return ret;
 	}
 }
