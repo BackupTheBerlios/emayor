@@ -23,6 +23,10 @@
 <pathelement location="${eclipse.home}/workspace/NotificationService/lib/mail.jar"/>
 <pathelement location="${eclipse.home}/workspace/NotificationService/lib/activation.jar"/>
 <pathelement location="${eclipse.home}/workspace/NotificationService/lib/quartz.jar"/>
+<pathelement location="lib/jaxb-api.jar"/>
+<pathelement location="lib/jaxb-impl.jar"/>
+<pathelement location="lib/jaxb-libs.jar"/>
+<pathelement location="lib/eMayor-jaxb.jar"/>
 <pathelement location="../ServiceHandling/classes"/>
 <pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/axis.jar"/>
 <pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/commons-discovery.jar"/>
