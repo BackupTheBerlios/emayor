@@ -3,27 +3,22 @@
  */
 package org.emayor.servicehandling.kernel;
 
-import org.apache.log4j.Logger;
-
-import org.emayor.servicehandling.bpel.task._task;
-
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
  *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
  *         </font>
  */
 public class Task implements ITask {
-	private static Logger log = Logger.getLogger(Task.class);
 
 	private String taskId;
 
 	private String status;
 
 	private String xMLDocument;
-
-	private _task originalTask;
 	
 	private String docDigSig;
+	
+	private String extraInfo;
 
 	/*
 	 * (non-Javadoc)
@@ -78,28 +73,6 @@ public class Task implements ITask {
 	public void setXMLDocument(String xmlDocument) {
 		this.xMLDocument = xmlDocument;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.ITask#getOriginalTask()
-	 */
-	public _task getOriginalTask() {
-		log.debug("-> start processing ...");
-		return this.originalTask;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.ITask#setOriginalTask(com.oracle.services.bpel.task._task)
-	 */
-	public void setOriginalTask(_task task) {
-		// TODO Auto-generated method stub
-		log.debug("-> start processing ...");
-		this.originalTask = task;
-		log.debug("-> ... processing DONE!");
-	}
 	
 	public String toString() {
 		StringBuffer b = new StringBuffer();
@@ -112,7 +85,6 @@ public class Task implements ITask {
 	 * @see org.emayor.servicehandling.kernel.ITask#getDocDigSig()
 	 */
 	public String getDocDigSig() {
-		log.debug("-> start processing ...");
 		return this.docDigSig;
 	}
 
@@ -120,8 +92,21 @@ public class Task implements ITask {
 	 * @see org.emayor.servicehandling.kernel.ITask#setDocDigSig(java.lang.String)
 	 */
 	public void setDocDigSig(String docDigSig) {
-		log.debug("-> start processing ...");
 		this.docDigSig = docDigSig;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.emayor.servicehandling.kernel.ITask#getExtraInfo()
+	 */
+	public String getExtraInfo() {
+		return this.extraInfo;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.emayor.servicehandling.kernel.ITask#setExtraInfo()
+	 */
+	public void setExtraInfo(String extraInfo) {
+		this.extraInfo = extraInfo;
 	}
 
 }

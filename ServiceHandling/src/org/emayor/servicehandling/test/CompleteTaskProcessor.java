@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.emayor.servicehandling.bpel.task._task;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
 import org.emayor.servicehandling.utclient.UserTaskServiceClient;
@@ -39,9 +38,6 @@ public class CompleteTaskProcessor {
 			
 			// do a lot with data !!!!
 			
-			_task t = task.getOriginalTask();
-			t.setCustomKey("the custom key");
-			task.setOriginalTask(t);
 			UserTaskServiceClient client = new UserTaskServiceClient();
 			client.completeTask(asid, task);
 			log.debug("DONE");

@@ -102,7 +102,8 @@ public class UserTaskManager implements IService {
 					task.setStatus(_tasks[i].getConclusion());
 					task.setTaskId(_tasks[i].getTaskId());
 					task.setXMLDocument("def xml document");
-					task.setOriginalTask(_tasks[i]);
+					//task.setOriginalTask(_tasks[i]);
+					//task.setOrigTaskId(_tasks[i].getTaskId());
 					tasks[i] = task;
 				}
 			} else {
@@ -129,7 +130,7 @@ public class UserTaskManager implements IService {
 			throws ServiceException {
 		log.debug("-> start processing ...");
 		try {
-			_task __task = task.getOriginalTask();
+			_task __task = this.worklistManager.lookupTask(task.getTaskId());
 			log.debug("attach the changed xml document");
 			if (log.isDebugEnabled())
 				log.debug("the doc content: " + task.getXMLDocument());
@@ -180,7 +181,8 @@ public class UserTaskManager implements IService {
 					ret.setDocDigSig(digSig.substring(1, digSig.length() - 1));
 				} else
 					ret.setDocDigSig(digSig);
-				ret.setOriginalTask(__task);
+				//ret.setOriginalTask(__task);
+				//ret.setOrigTaskId(__task.getTaskId());
 				log.debug("processing OK");
 			}
 		} catch (RemoteException rex) {
@@ -192,7 +194,7 @@ public class UserTaskManager implements IService {
 		return ret;
 	}
 
-	public Task lookupTaskByAssigneeAndCustomKey(String asid, String ssid)
+	public Task lookupTaskByServiceSession(String asid, String ssid)
 			throws ServiceException {
 		log.debug("-> start processing ...");
 		Task ret = null;

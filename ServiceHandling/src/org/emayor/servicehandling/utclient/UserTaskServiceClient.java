@@ -67,9 +67,9 @@ public class UserTaskServiceClient extends UserTaskAbstractClient {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			UserTaskManagerLocal utm = serviceLocator.getUserTaskManagerLocal();
 
-			ret = utm.lookupTaskByAssigneeAndCustomKey(asid, ssid);
+			ret = utm.lookupTaskByServiceSession(asid, ssid);
 			if (ret == null) {
-				log.debug("Couldn't find any tasks, so create an empty array");
+				log.debug("Couldn't find any tasks !!!");
 			}
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());

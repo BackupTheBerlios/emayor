@@ -3,6 +3,9 @@
  */
 package org.emayor.servicehandling.utils;
 
+import java.rmi.RemoteException;
+import java.util.Hashtable;
+
 import javax.ejb.CreateException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -22,6 +25,8 @@ import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocalHome;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocalHome;
+import org.emayor.servicehandling.model.UTWrapperEJB;
+import org.emayor.servicehandling.model.UTWrapperEJBHome;
 
 /**
  * @author tku
@@ -33,9 +38,12 @@ public class ServiceLocator {
 
 	private Context initialContext = null;
 
+	private Context bpelInitialContext = null;
+
 	private ServiceLocator() throws ServiceLocatorException {
 		log.debug("-> starting processing ...");
 		this.initInitialContext();
+		this.initBpelInitialContext();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -183,7 +191,31 @@ public class ServiceLocator {
 		return ret;
 	}
 
-	public Context getInitialContext() {
+	public synchronized UTWrapperEJB getUTWrapperRemoteInterface()
+			throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		UTWrapperEJB ret = null;
+		try {
+			Object ref = this.bpelInitialContext.lookup("UTWrapperEJB");
+			UTWrapperEJBHome home = (UTWrapperEJBHome) PortableRemoteObject
+					.narrow(ref, UTWrapperEJBHome.class);
+			ret = home.create();
+			log.debug("got the reference!");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		} catch (CreateException cex) {
+			log.error("caught ex: " + cex.toString());
+			throw new ServiceLocatorException(cex);
+		} catch (RemoteException rex) {
+			log.error("caught ex: " + rex.toString());
+			throw new ServiceLocatorException(rex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public synchronized Context getInitialContext() {
 		log.debug("-> starting processing ...");
 		return this.initialContext;
 	}
@@ -193,7 +225,25 @@ public class ServiceLocator {
 		try {
 			this.initialContext = new InitialContext();
 		} catch (NamingException ex) {
-			log.error("initInitialContext - ex: " + ex.toString());
+			log.error("caught ex: " + ex.toString());
+			throw new ServiceLocatorException(ex);
+		}
+		log.debug("-> ... processing DONE!");
+	}
+
+	private void initBpelInitialContext() throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		try {
+			Hashtable env = new Hashtable();
+			// Standalone OC4J connection details
+			env.put(Context.INITIAL_CONTEXT_FACTORY,
+					"com.evermind.server.rmi.RMIInitialContextFactory");
+			env.put(Context.SECURITY_PRINCIPAL, "admin");
+			env.put(Context.SECURITY_CREDENTIALS, "welcome");
+			env.put(Context.PROVIDER_URL, "ormi://localhost/UTWrapperApp");
+			this.bpelInitialContext = new InitialContext(env);
+		} catch (NamingException ex) {
+			log.error("caught ex: " + ex.toString());
 			throw new ServiceLocatorException(ex);
 		}
 		log.debug("-> ... processing DONE!");

@@ -16,6 +16,7 @@ import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.Tasks;
 import org.emayor.servicehandling.kernel.UserTaskException;
 import org.emayor.servicehandling.kernel.UserTaskManager;
+import org.emayor.servicehandling.kernel.UserTaskManagerOverEJB;
 
 import javax.ejb.CreateException;
 
@@ -28,7 +29,11 @@ import javax.ejb.CreateException;
 public class UserTaskManagerEJB implements SessionBean, IService {
 	private static Logger log = Logger.getLogger(UserTaskManagerEJB.class);
 
-	private UserTaskManager userTaskManager;
+	public static final Integer WS_WRAPPER = new Integer(1);
+
+	public static final Integer EJB_WRAPPER = new Integer(2);
+
+	private IService service;
 
 	/**
 	 *  
@@ -85,7 +90,7 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 */
 	public Tasks getMyTasks(String accessSessionId) throws ServiceException {
 		log.debug("-> start processing ...");
-		return this.userTaskManager.getMyTasks(accessSessionId);
+		return this.service.getMyTasks(accessSessionId);
 	}
 
 	/**
@@ -97,7 +102,7 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	public void completeTask(String accessSessionId, Task task)
 			throws ServiceException {
 		log.debug("-> start processing ...");
-		this.userTaskManager.completeTask(accessSessionId, task);
+		this.service.completeTask(accessSessionId, task);
 	}
 
 	/**
@@ -108,7 +113,7 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 */
 	public Task lookupTask(String taskId) throws ServiceException {
 		log.debug("-> start processing ...");
-		return this.userTaskManager.lookupTask(taskId);
+		return this.service.lookupTask(taskId);
 	}
 
 	/**
@@ -117,11 +122,10 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public Task lookupTaskByAssigneeAndCustomKey(String asid, String ssid)
+	public Task lookupTaskByServiceSession(String asid, String ssid)
 			throws ServiceException {
 		log.debug("-> start processing ...");
-		return this.userTaskManager.lookupTaskByAssigneeAndCustomKey(asid,
-				ssid);
+		return this.service.lookupTaskByServiceSession(asid, ssid);
 	}
 
 	/**
@@ -132,8 +136,19 @@ public class UserTaskManagerEJB implements SessionBean, IService {
 	 */
 	public void ejbCreate() throws CreateException {
 		log.debug("-> start processing ...");
+		this.ejbCreateIt(EJB_WRAPPER);
+	}
+
+	private void ejbCreateIt(Integer userTaskType) throws CreateException {
+		log.debug("-> start processing ...");
 		try {
-			this.userTaskManager = UserTaskManager.getInstance();
+			if (userTaskType.equals(WS_WRAPPER)) {
+				log.debug("do it over WS interface");
+				this.service = UserTaskManager.getInstance();
+			} else {
+				log.debug("do it over EJB interface");
+				this.service = UserTaskManagerOverEJB.getInstance();
+			}
 		} catch (UserTaskException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new CreateException(

@@ -14,7 +14,7 @@ public class InputDataCollector extends UserTaskAbstractClient {
 	private static Logger log = Logger.getLogger(InputDataCollector.class);
 
 	// per def set to 10 seconds
-	public static final long DEF_SLEEP_PERIOD = 15000;
+	public static final long DEF_SLEEP_PERIOD = 30000;
 
 	public static final byte DEF_REPEAT_NUMBER = 3;
 
@@ -55,10 +55,13 @@ public class InputDataCollector extends UserTaskAbstractClient {
 				Thread.sleep(this.sleepPeriod);
 				log.debug("GO AHEAD !");
 				ret = this.serviceClient.lookupTask(asid, ssid);
-				if (ret != null)
+				if (ret != null) {
 					index = this.repeatNumber;
-				else
+				}
+				else {
+					log.debug("GOT NULL REFERENCE - TRY IT AGAIN");
 					++index;
+				}
 				log.debug("current index after loop is = " + index);
 			}
 		} catch (Exception ex) {
@@ -82,10 +85,13 @@ public class InputDataCollector extends UserTaskAbstractClient {
 									+ index);
 				Thread.sleep(this.sleepPeriod);
 				ret = this.serviceClient.lookupTask(asid, ssid);
-				if (ret != null)
+				if (ret != null) {
 					index = this.repeatNumber;
-				else
+				}
+				else {
+					log.debug("GOT NULL REFERENCE - TRY IT AGAIN");
 					++index;
+				}
 				if (log.isDebugEnabled())
 					log.debug("current index after loop is = " + index);
 			}
