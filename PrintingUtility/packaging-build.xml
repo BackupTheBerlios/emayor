@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Packaging Generator" default="_packaging_generation_">
+<target name="_packaging_generation_" depends="N65540,N65573,N65590"/>
+<target name="N65540" description="PrinterEJB.jar">
+<jar destfile="PrinterEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="bin" includes="org/eMayor/ServiceHandling/PrintingUtility/ejb/*.class, org/eMayor/ServiceHandling/PrintingUtility/interfaces/*.class, org/eMayor/ServiceHandling/PrintingUtility/ejb/*.properties"/>
+</jar>
+</target>
+<target name="N65573" description="PrinterEJB-client.jar">
+<jar destfile="PrinterEJB-client.jar">
+<zipfileset dir="bin" includes="org/eMayor/ServiceHandling/PrintingUtility/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N65590" description="PrinterApp.ear">
+<jar destfile="PrinterApp.ear">
+<zipfileset dir="bin/META-INF" prefix="META-INF">
+<include name="application.xml"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="PrinterEJB.jar"/>
+</zipfileset>
+</jar>
+</target>
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="" exploded="false" name="PrinterEJB.jar" used="true">
+<folder excludes="" includes="org/eMayor/ServiceHandling/PrintingUtility/ejb/*.class, org/eMayor/ServiceHandling/PrintingUtility/interfaces/*.class, org/eMayor/ServiceHandling/PrintingUtility/ejb/*.properties" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<file location="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" used="true"/>
+<file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="PrinterEJB-client.jar" used="true">
+<folder excludes="" includes="org/eMayor/ServiceHandling/PrintingUtility/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="PrinterApp.ear" used="true">
+<file location="bin/META-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="bin/META-INF/application.xml" used="true"/>
+<file location="PrinterEJB.jar" name="PrinterEJB.jar" prefix="" project="" projectLocation="PrinterEJB.jar" used="true"/>
+</archive>
+</configurations>
