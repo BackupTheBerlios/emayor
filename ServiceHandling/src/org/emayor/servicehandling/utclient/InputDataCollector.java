@@ -14,7 +14,7 @@ public class InputDataCollector extends UserTaskAbstractClient {
 	private static Logger log = Logger.getLogger(InputDataCollector.class);
 
 	// per def set to 10 seconds
-	public static final long DEF_SLEEP_PERIOD = 10000;
+	public static final long DEF_SLEEP_PERIOD = 15000;
 
 	public static final byte DEF_REPEAT_NUMBER = 3;
 
@@ -53,6 +53,7 @@ public class InputDataCollector extends UserTaskAbstractClient {
 				log
 						.debug("continue in the loop - waiting a while before get the validated data");
 				Thread.sleep(this.sleepPeriod);
+				log.debug("GO AHEAD !");
 				ret = this.serviceClient.lookupTask(asid, ssid);
 				if (ret != null)
 					index = this.repeatNumber;
@@ -77,7 +78,7 @@ public class InputDataCollector extends UserTaskAbstractClient {
 			while (index < this.repeatNumber) {
 				if (log.isDebugEnabled())
 					log
-							.debug("continue in the loop - iteration number"
+							.debug("continue in the loop - iteration number "
 									+ index);
 				Thread.sleep(this.sleepPeriod);
 				ret = this.serviceClient.lookupTask(asid, ssid);

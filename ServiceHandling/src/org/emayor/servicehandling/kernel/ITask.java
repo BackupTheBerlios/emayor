@@ -53,4 +53,9 @@ public interface ITask extends Serializable {
 	public _task getOriginalTask();
 
 	public void setOriginalTask(_task task);
+	
+	public String getDocDigSig();
+	
+	public void setDocDigSig(String docDigSig);
+	
 }

@@ -42,6 +42,5 @@
 <file prefix="" project="" projectLocation="eMayorEJB.jar" name="eMayorEJB.jar" location="eMayorEJB.jar" used="true"/>
 <file prefix="" project="" projectLocation="eMayorWeb.war" name="eMayorWeb.war" location="eMayorWeb.war" used="true"/>
 <file prefix="" project="" projectLocation="WorklistManager-client.jar" name="WorklistManager-client.jar" location="WorklistManager-client.jar" used="true"/>
-<file prefix="xml" project="" projectLocation="xml/SampleResidenceCertificationRequestDocument.xml" name="SampleResidenceCertificationRequestDocument.xml" location="xml/SampleResidenceCertificationRequestDocument.xml" used="true"/>
 </archive>
 </configurations>

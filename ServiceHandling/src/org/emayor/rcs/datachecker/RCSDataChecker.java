@@ -89,11 +89,11 @@ public class RCSDataChecker {
 			if (log.isDebugEnabled()) {
 				log.debug("got forename: " + forename);
 				log.debug("got surname : " + surname);
-				log.debug("got emial   : " + emailAddress);
+				log.debug("got email   : " + emailAddress);
 			}
-			ret = (forename != null && forename.length() != 0)
-					&& (surname != null && surname.length() != 0)
-					&& (emailAddress != null && emailAddress.length() != 0);
+			ret = (forename != null && forename.length() != 0 && !forename.trim().equals("-"))
+					&& (surname != null && surname.length() != 0 && !surname.trim().equals("-"))
+					&& (emailAddress != null && emailAddress.length() != 0 && !emailAddress.trim().equals("-"));
 		} catch (TransformerException tex) {
 			log.error("caught ex: " + tex.toString());
 			throw new DataCheckerException("");
@@ -119,7 +119,7 @@ public class RCSDataChecker {
 			if (log.isDebugEnabled()) {
 				log.debug("got forename: " + forename);
 				log.debug("got surname : " + surname);
-				log.debug("got emial   : " + emailAddress);
+				log.debug("got email   : " + emailAddress);
 			}
 			ret = (forename != null && forename.length() != 0)
 					&& (surname != null && surname.length() != 0)

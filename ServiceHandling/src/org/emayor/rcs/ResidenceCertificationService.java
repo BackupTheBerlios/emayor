@@ -83,7 +83,7 @@ public class ResidenceCertificationService implements IeMayorService {
 			throws eMayorServiceException {
 		log.debug("-> start processing ...");
 		this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
-				.getXMLDocument(), "-");
+				.getXMLDocument(), "<empty/>");
 		log.debug("-> ... processing DONE!");
 	}
 

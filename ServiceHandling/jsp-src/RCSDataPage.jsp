@@ -8,6 +8,10 @@
 </head>
 <%
 	Task task = (Task)session.getAttribute("CURR_TASK");
+	boolean status = task.getStatus().equals("YES");
+	String forename = (String)session.getAttribute("REQ_FORENAME");
+	String surname = (String)session.getAttribute("REQ_SURNAME");
+	String email = (String)session.getAttribute("REQ_EMAIL");
 %>
 <body bgcolor="#FFFFFF">
 	Current Access Session id = <%= session.getAttribute("ASID") %>
@@ -29,7 +33,30 @@
 		  </tr>
 		  <tr>
 		  	<td>Request docuemnt</td>
-			<td><textarea name="textarea" cols="60" rows="10"><%= task.getXMLDocument() %></textarea></td>
+			<td>
+				<textarea name="XML_DOCUMENT" cols="60" rows="10"><%= task.getXMLDocument() %></textarea>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td>Requester forename: </td>
+			<td>
+		    	<input name="REQ_FORENAME" type="text" value="<%= forename %>" size="60" />
+		    	<font color="#FF0000">*</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td>Requester surname: </td>
+			<td>
+				<input name="REQ_SURNAME" type="text" value="<%= surname %>" size="60" />
+				<font color="#FF0000">*</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td>Requester email: </td>
+			<td>
+				<input name="REQ_EMAIL" type="text" value="<%= email %>" size="60" />
+				<font color="#FF0000">*</font>
+			</td>
 		  </tr>
 		  <tr>
 			<td colspan="2">
@@ -37,7 +64,8 @@
 				  <input type="submit" name="submit" value="validate data"/>
 				  <input type="hidden" name="taskid" value="<%= task.getTaskId() %>"/>
 				  <input type="hidden" name="action" value="ValidateInputData"/>
-			      </div></td>
+			    </div>
+			</td>
 		  </tr>
   		</table>
 	</form>

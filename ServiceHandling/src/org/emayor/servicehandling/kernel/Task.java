@@ -22,6 +22,8 @@ public class Task implements ITask {
 	private String xMLDocument;
 
 	private _task originalTask;
+	
+	private String docDigSig;
 
 	/*
 	 * (non-Javadoc)
@@ -104,6 +106,22 @@ public class Task implements ITask {
 		b.append("task id: ").append(this.taskId).append("\n");
 		b.append("status : ").append(this.status);
 		return b.toString();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.emayor.servicehandling.kernel.ITask#getDocDigSig()
+	 */
+	public String getDocDigSig() {
+		log.debug("-> start processing ...");
+		return this.docDigSig;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.emayor.servicehandling.kernel.ITask#setDocDigSig(java.lang.String)
+	 */
+	public void setDocDigSig(String docDigSig) {
+		log.debug("-> start processing ...");
+		this.docDigSig = docDigSig;
 	}
 
 }

@@ -95,9 +95,6 @@
 <zipfileset dir=".">
 <include name="WorklistManager-client.jar"/>
 </zipfileset>
-<zipfileset dir="xml" prefix="xml">
-<include name="SampleResidenceCertificationRequestDocument.xml"/>
-</zipfileset>
 </jar>
 </target>
 </project>

@@ -134,6 +134,9 @@ public class UserTaskManager implements IService {
 			if (log.isDebugEnabled())
 				log.debug("the doc content: " + task.getXMLDocument());
 			__task.setAttachment(task.getXMLDocument());
+			if (log.isDebugEnabled())
+				log.debug("the digSig part: " + task.getDocDigSig());
+			__task.setCustomKey(task.getDocDigSig());
 			log.debug("try to call complete task operation");
 			this.worklistManager.completeTask(__task);
 		} catch (RemoteException rex) {
@@ -145,7 +148,10 @@ public class UserTaskManager implements IService {
 	}
 
 	/**
-	 *  
+	 * 
+	 * @param taskId
+	 *            the internal task id attached to this task by BPEL engine
+	 * @return the task structure or empty task if no task found
 	 */
 	public Task lookupTask(String taskId) throws ServiceException {
 		log.debug("-> start processing ...");
@@ -158,10 +164,22 @@ public class UserTaskManager implements IService {
 			if (__task != null) {
 				log.debug("the returned task is NOT null!");
 				log.debug("set up the return value");
+				// initialy the conclusion is NO
 				ret.setStatus(__task.getConclusion());
 				ret.setTaskId(__task.getTaskId());
 				String att = __task.getAttachment().toString();
-				ret.setXMLDocument(att.substring(1, att.length() - 1));
+				// remove the '-' chars at the front and the end of the string
+				if (att.startsWith("-")) {
+					log.debug("attachment starts with '-'");
+					ret.setXMLDocument(att.substring(1, att.length() - 1));
+				} else
+					ret.setXMLDocument(att);
+				String digSig = __task.getCustomKey();
+				if (digSig.startsWith("-")) {
+					log.debug("digSig starts with '-'");
+					ret.setDocDigSig(digSig.substring(1, digSig.length() - 1));
+				} else
+					ret.setDocDigSig(digSig);
 				ret.setOriginalTask(__task);
 				log.debug("processing OK");
 			}
@@ -194,8 +212,12 @@ public class UserTaskManager implements IService {
 					.lookupTasksByAssigneeAndCustomKey(req);
 			_task[] _tasks = _list.getTask();
 			if (_tasks != null && _tasks.length > 0) {
-				_task task = _tasks[0];
+				if (log.isDebugEnabled())
+					log.debug("found some tasks, number: " + _tasks.length);
+				_task task = _tasks[_tasks.length - 1];
 				ret = this.lookupTask(task.getTaskId());
+				if (log.isDebugEnabled())
+					log.debug("got task with taskId: " + ret.getTaskId());
 			}
 		} catch (KernelException kex) {
 			log.error("caught ex: " + kex.toString());

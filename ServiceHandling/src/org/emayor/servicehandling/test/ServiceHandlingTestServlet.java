@@ -102,9 +102,9 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			resp.sendRedirect("RCSDataPage.jsp");
 		} else if (action.equalsIgnoreCase("ValidateInputData")) {
 			log.debug("processing the StartService request");
-			//StartServiceProcessor p = new StartServiceProcessor();
-			//p.process(req, resp);
-			resp.sendRedirect("index.jsp");
+			RCSDisplayDataFormProcessor p = new RCSDisplayDataFormProcessor();
+			p.process(req, resp);
+			resp.sendRedirect("RCSDataPage.jsp");
 		} else {
 			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");
