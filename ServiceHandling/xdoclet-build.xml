@@ -29,7 +29,7 @@
 <include name="xdoclet-module-jboss-net-${jboss.net.version}*.jar"/>
 </fileset>
 </path>
-<target name="_xdoclet_generation_" depends="N10004"/>
+<target name="_xdoclet_generation_" depends="N10004,N103CA"/>
 <target name="N10004" description="EJB">
 <taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.ejb.EjbDocletTask" name="ejbdoclet"/><ejbdoclet ejbSpec="2.0"  destDir="src" >
 
@@ -232,4 +232,90 @@
 
 </localinterface>
 </ejbdoclet></target>
+<target name="N103CA" description="Web">
+<taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.web.WebDocletTask" name="webdoclet"/><webdoclet destDir="src/WEB-INF" >
+
+
+
+
+
+
+<fileset dir="src"  includes="**/*Servlet.java" >
+
+
+
+</fileset>
+<deploymentdescriptor Servletspec="2.3" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</deploymentdescriptor>
+<jbosswebxml Version="3.0" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</jbosswebxml>
+</webdoclet></target>
 </project>

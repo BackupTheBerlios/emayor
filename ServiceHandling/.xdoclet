@@ -203,4 +203,91 @@
 </element>
 </task>
 </configuration>
+<configuration name="Web" used="true">
+<task name="webdoclet" used="true" className="xdoclet.modules.web.WebDocletTask">
+<attribute name="excludedTags" value="" used="false"/>
+<attribute name="destDir" value="src/WEB-INF" used="true"/>
+<attribute name="mergeDir" value="" used="false"/>
+<attribute name="force" value="" used="false"/>
+<attribute name="verbose" value="" used="false"/>
+<attribute name="addedTags" value="" used="false"/>
+<element name="fileset" used="true">
+<attribute name="dir" value="src" used="true"/>
+<attribute name="includes" value="**/*Servlet.java" used="true"/>
+<attribute name="excludes" value="" used="false"/>
+</element>
+<element name="deploymentdescriptor" used="true">
+<attribute name="Servletspec" value="2.3" used="true"/>
+<attribute name="smallicon" value="" used="false"/>
+<attribute name="largeicon" value="" used="false"/>
+<attribute name="displayname" value="" used="false"/>
+<attribute name="description" value="" used="false"/>
+<attribute name="distributable" value="" used="false"/>
+<attribute name="sessiontimeout" value="" used="false"/>
+<attribute name="tagLibs" value="" used="false"/>
+<attribute name="welcomeFiles" value="" used="false"/>
+<attribute name="contextParams" value="" used="false"/>
+<attribute name="useIds" value="" used="false"/>
+<attribute name="xmlencoding" value="" used="false"/>
+<attribute name="schema" value="" used="false"/>
+<attribute name="validateXML" value="" used="false"/>
+<attribute name="acceptInterfaces" value="" used="false"/>
+<attribute name="acceptAbstractClasses" value="" used="false"/>
+<attribute name="packageSubstitutions" value="" used="false"/>
+<attribute name="packageSubstitutionInheritanceSupported" value="" used="false"/>
+<attribute name="subTaskClassName" value="" used="false"/>
+<attribute name="prefixWithPackageStructure" value="" used="false"/>
+<attribute name="destinationFile" value="" used="false"/>
+<attribute name="templateURL" value="" used="false"/>
+<attribute name="templateFile" value="" used="false"/>
+<attribute name="Extent" value="" used="false"/>
+<attribute name="havingClassTag" value="" used="false"/>
+<attribute name="ofType" value="" used="false"/>
+<attribute name="subTaskName" value="" used="false"/>
+<attribute name="destDir" value="" used="false"/>
+<attribute name="mergeDir" value="" used="false"/>
+<attribute name="currentMethodTag" value="" used="false"/>
+<attribute name="currentClassTag" value="" used="false"/>
+<attribute name="currentFieldTag" value="" used="false"/>
+<attribute name="currentPackage" value="" used="false"/>
+<attribute name="currentMethod" value="" used="false"/>
+<attribute name="currentConstructor" value="" used="false"/>
+<attribute name="currentField" value="" used="false"/>
+<attribute name="currentClass" value="" used="false"/>
+</element>
+<element name="jbosswebxml" used="true">
+<attribute name="securitydomain" value="" used="false"/>
+<attribute name="contextroot" value="" used="false"/>
+<attribute name="virtualhost" value="" used="false"/>
+<attribute name="Version" value="3.0" used="true"/>
+<attribute name="useIds" value="" used="false"/>
+<attribute name="xmlencoding" value="" used="false"/>
+<attribute name="schema" value="" used="false"/>
+<attribute name="validateXML" value="" used="false"/>
+<attribute name="acceptInterfaces" value="" used="false"/>
+<attribute name="acceptAbstractClasses" value="" used="false"/>
+<attribute name="packageSubstitutions" value="" used="false"/>
+<attribute name="packageSubstitutionInheritanceSupported" value="" used="false"/>
+<attribute name="subTaskClassName" value="" used="false"/>
+<attribute name="prefixWithPackageStructure" value="" used="false"/>
+<attribute name="destinationFile" value="" used="false"/>
+<attribute name="templateURL" value="" used="false"/>
+<attribute name="templateFile" value="" used="false"/>
+<attribute name="Extent" value="" used="false"/>
+<attribute name="havingClassTag" value="" used="false"/>
+<attribute name="ofType" value="" used="false"/>
+<attribute name="subTaskName" value="" used="false"/>
+<attribute name="destDir" value="" used="false"/>
+<attribute name="mergeDir" value="" used="false"/>
+<attribute name="currentMethodTag" value="" used="false"/>
+<attribute name="currentClassTag" value="" used="false"/>
+<attribute name="currentFieldTag" value="" used="false"/>
+<attribute name="currentPackage" value="" used="false"/>
+<attribute name="currentMethod" value="" used="false"/>
+<attribute name="currentConstructor" value="" used="false"/>
+<attribute name="currentField" value="" used="false"/>
+<attribute name="currentClass" value="" used="false"/>
+</element>
+</task>
+</configuration>
 </configurations>
