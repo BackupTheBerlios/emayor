@@ -51,7 +51,7 @@ public class EmailGateway {
 		 */
 		String host = config.getProperty("mail.smtp.host");
 		String user = config.getProperty("mail.smtp.user");
-		String pass = config.getProperty("mail.smtp.password");
+		String pass = config.getProperty("mail.smtp.pass");
 		String auth = config.getProperty("mail.smtp.auth");
 		
 		/*
@@ -76,7 +76,7 @@ public class EmailGateway {
 			/* reread config */
 			host = config.getProperty("mail.smtp.host");
 			user = config.getProperty("mail.smtp.user");
-			pass = config.getProperty("mail.smtp.password");
+			pass = config.getProperty("mail.smtp.pass");
 			auth = config.getProperty("mail.smtp.auth");
 			if (host == null) {
 				throw new NotificationException("Gateway: Host not specified");
@@ -103,9 +103,10 @@ public class EmailGateway {
 			 * check for authentication parameters
 			 */
 			if (auth != null) {
+				log.debug("user = "+user);
 				if (user == null || pass == null) throw new NotificationException("Gateway: user or pass not specified");
 				
-				log.debug("user = "+user);
+				
 				/*
 				 * transport authorization
 				 */
@@ -122,7 +123,7 @@ public class EmailGateway {
 				 */
 				log.debug("sending message ....");
 				log.debug("connect ....");
-				trans.connect();
+				trans.connect(host,null,null);
 				log.debug("send ....");
 				trans.sendMessage(msg,msg.getAllRecipients());
 				/*
@@ -148,7 +149,9 @@ public class EmailGateway {
 			 * set new subject according to type of error
 			 */
 				msg.setSubject("SEND failed: " + msg.getSubject());
-				Transport.send(msg);
+				trans.connect(host,null,null);
+				log.debug("send ....");
+				trans.sendMessage(msg,msg.getAllRecipients());
 			} catch (Exception e1) {
 				throw new NotificationException(e1);
 			} 

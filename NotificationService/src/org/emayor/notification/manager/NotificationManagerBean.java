@@ -80,7 +80,10 @@ public class NotificationManagerBean implements SessionBean, INotificationManage
 		/* get the remote interface */
 		Context context;
 		
-		if (config.getProperty("type").equals("email")) {
+		/* get type of producer requested */
+		String type = config.getProperty("type");
+		
+		if (type.equals("email")) {
 			try {
 				context = new InitialContext();
 				Object ref = context.lookup("ejb/EmailNotificationProducer");
@@ -96,6 +99,20 @@ public class NotificationManagerBean implements SessionBean, INotificationManage
 			} catch (Exception e) {
 				throw new NotificationException("manager: general exception",e);
 			}
+		/*
+		} else if(type.equals("dummy")) {
+			// use generic property names
+			int i = 0;
+			while (! config.getProperty("property"+i).equals(0)) {
+				// do something with property or just leave as it is
+			}
+			// get producer´s home
+			context = new InitialContext();
+			Object ref = context.lookup("ejb/<type>NotificationProducer");
+			<type>NotificationProducerHome home = (<type>NotificationProducerHome) javax.rmi.PortableRemoteObject.narrow(ref,<type>NotificationProducerHome.class);
+			// and use it create a producer
+			producer = home.create();
+		*/
 		} else {
 			throw new NotificationException("NotificationProducer of type "+config.getProperty("type")+" not implemented ...");
 		}

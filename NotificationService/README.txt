@@ -12,43 +12,36 @@ NOT UP TO DATE, WILL BE REWRITTEN SOON
 --installing--
 1. start the JBOSS
    %JBOSS_HOME%/bin/run.{bat,sh}
-2. drag and drop the NotificationApp.ear into deploy dir of the 
+2. drag and drop the NotificationEJB.jar into deploy dir of the 
    running JBOSS server - normally it's default server
    JBOSS_HOME/server/default/deploy/
+3. start a mail server somewhere
+4. place configuration for sending mails in
+   JBOSS_HOME/server/default/conf/mail.properties
+   Here an example:
+   -------8<--------
+   mail.smtp.host=mailhub.fokus.fraunhofer.de
+   mail.smtp.user=mxs
+   mail.smtp.pass=password
+   mail.smtp.auth=true
+   -------8<--------
+   When using a mailserver that doesn´t require authentication you need only the first line,
+   mentioning the mail-host.
    
-NOTE: for deploying in the eMayor platform we only need NotificationEJB.jar 
-serverside and NotificationEJB-client.jar clientside
+   When using together with the eMayor-app you should peform step 5 as well.
+   When using together with the eMayor-app and BPEL backend you should also perform step 6.
+   
+5. deploy the eMayor package (eMayor.ear) with the BPELNotificationWrapper.jar inside
+6. start a local BPEL PM-Server and deploy the NotificationRequest
 
 --testing--
-1. connect to your JBOSS http://localhost:8080/notification
-2. fill out the form and submit
-3. check your mailbox
+1.  connect to your JBOSS http://localhost:8443/sh
+2.  check the jboss output for the userId
+2.  connect to your BPEL Console and fill out the form
+2a. enter "email" as NotificationMedium and the correct userId
+2b. submit
+3.  check the mailaccount specified in your browsers certificate
 
---using--
-have a look notification.web.TestServlet for an example:
-
-			/* create a mail message */
-			Message msg = ... 
-			
-			/* get context & lookup for service */
-			Context context = new InitialContext();
-			Object ref = context.lookup("ejb/NotificationManager");
-			NotificationManagerHome home = (NotificationManagerHome) javax.rmi.PortableRemoteObject.narrow(ref,NotificationManagerHome.class);
-			
-			/* set up the manager */
-			INotificationManager manager = home.create();
-			
-			/* create a new notification producer for mails */
-			Integer key = manager.createEmailNotificationProducer(prop);
-			
-			/* get the producer and use it for notification */
-			(manager.getNotificationProducer(key)).notifyViaMail(msg);
-			
-			/* delete the producer */
-			manager.deleteNotificationProducer(key);
-			
-			/* remove the manager */
-			manager.remove();
 
 NOTE:
 If you consider changing something in the implementation concerning the xdoclet environment, you
@@ -56,8 +49,8 @@ should recognize, that the JBoss-IDE plugin for eclipse has still some nasty bug
 you should check the content of all generated .xml files as well as the produced local/remote
 interfaces.
 
-In fact sometimes WEB-INF/*.xml does only contain one of several ejb-references, so youÂ´ll have
-to add the others manually to each file. Also in my implementation for casting issues iÂ´ve made 
+In fact sometimes WEB-INF/*.xml does only contain one of several ejb-references, so you´ll have
+to add the others manually to each file. Also in my implementation for casting issues i´ve made 
 the remote interface of an EJB extend the interface of the specific manager/producer 
 (INotificationManager/INotificationProducer) to have casting between several implementations 
 (e.g. different producers) done comfortable.

@@ -164,6 +164,13 @@ public class EmailNotificationProducerBean
 			
 			String sessionId = config.getProperty("sessionId");
 			String directory = System.getProperty("jboss.server.temp.dir");
+			String message = config.getProperty("message");
+			String subject = config.getProperty("subject");
+			String body = config.getProperty("body");
+			
+			if (body == null) body = "";
+			if (subject == null) subject = "no subject";
+			
 			if (directory == null) directory = "";
 			
 			if (sessionId == null) {
@@ -173,7 +180,7 @@ public class EmailNotificationProducerBean
 			log.info("creating attachment ...");
 			FileOutputStream out = new FileOutputStream(directory+"\\"+sessionId);
 			PrintStream p = new PrintStream( out );
-			p.println (config.getProperty("message"));
+			p.println (message);
 			p.close();
 			out.close();
 			
@@ -182,33 +189,40 @@ public class EmailNotificationProducerBean
 			 */
 			Message msg = new MimeMessage(sess);
 			msg.setFrom(new InternetAddress(emailAddress));
-			msg.setSubject(config.getProperty("subject"));
-			msg.setText(config.getProperty("body"));
+			msg.setSubject(subject);
+			msg.setText(body);
 			log.debug("set message date ...");
 			msg.setSentDate(new Date());
 			log.debug("set recipient: "+emailAddress);
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
 			
+			if (message != null) {
+				log.info("attaching body parts ....");
+				BodyPart bp = new MimeBodyPart();
+				bp.setText(body);
+				MimeMultipart mp = new MimeMultipart();
+				BodyPart attach = new MimeBodyPart();
+				FileDataSource fds = new FileDataSource(directory+"\\"+sessionId);
+				attach.setDataHandler(new DataHandler(fds));
+				attach.setFileName("document.xml");
+				attach.setDescription("document.xml");
+				attach.setDisposition("attachment; filename=document.xml");
+				mp.addBodyPart(bp);
+				mp.addBodyPart(attach);
+				msg.setContent(mp);
+				
+//				 send it out
+				log.debug("get gateway ...");
+				EmailGateway.getInstance().sendEmail(msg,config);
+				log.debug("delete temporary file ...");
+				fds.getFile().delete();
+			} else {
+//				 send it out
+				log.debug("get gateway ...");
+				EmailGateway.getInstance().sendEmail(msg,config);
+				log.debug("delete temporary file ...");
 			
-			log.info("attaching body parts ....");
-			BodyPart bp = new MimeBodyPart();
-			bp.setText(config.getProperty("body"));
-			MimeMultipart mp = new MimeMultipart();
-			BodyPart attach = new MimeBodyPart();
-			FileDataSource fds = new FileDataSource(directory+"\\"+sessionId);
-			attach.setDataHandler(new DataHandler(fds));
-			attach.setFileName("document.xml");
-			attach.setDescription("document.xml");
-			attach.setDisposition("attachment; filename=document.xml");
-			mp.addBodyPart(bp);
-			mp.addBodyPart(attach);
-			
-			msg.setContent(mp);
-			// send it out
-			log.debug("get gateway ...");
-			EmailGateway.getInstance().sendEmail(msg,config);
-			log.debug("delete temporary file ...");
-			fds.getFile().delete();
+			}
 		} catch (MessagingException e) {
 			throw new NotificationException(e);
 		} catch (FileNotFoundException e) {
