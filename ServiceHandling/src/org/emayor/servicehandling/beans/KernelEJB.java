@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
+import java.security.cert.X509Certificate;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
@@ -224,6 +225,17 @@ public class KernelEJB implements SessionBean, IKernel {
 	public IServiceProfile getServiceProfile(String ssid) throws KernelException {
 		log.debug("-> start processing ...");
 		return this.kernel.getServiceProfile(ssid);
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public String authenticateUser(X509Certificate[] certificates) throws KernelException {
+		log.debug("-> start processing ...");
+		return this.kernel.authenticateUser(certificates);
 	}
 
 }

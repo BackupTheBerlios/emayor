@@ -3,7 +3,7 @@
  */
 package org.emayor.servicehandling.kernel;
 
-import javax.security.cert.X509Certificate;
+import java.security.cert.X509Certificate;
 
 import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
@@ -21,7 +21,7 @@ public interface IAccessSession extends ISession {
 	 * @return true in case the user has been authenticated, otherwise false
 	 * @throws AccessSessionException
 	 */
-	public boolean authenticateUser(X509Certificate certificate)
+	public boolean authenticateUser(X509Certificate[] certificates)
 			throws AccessSessionException;
 
 	/**

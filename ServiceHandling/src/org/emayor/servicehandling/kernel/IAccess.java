@@ -3,7 +3,7 @@
  */
 package org.emayor.servicehandling.kernel;
 
-import javax.security.cert.X509Certificate;
+import java.security.cert.X509Certificate;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
@@ -21,7 +21,7 @@ public interface IAccess {
 	// start access session
 
 	public boolean startAccessSession(String accessSessionId,
-			X509Certificate certificate) throws AccessException;
+			X509Certificate[] certificates) throws AccessException;
 
 	/**
 	 *  

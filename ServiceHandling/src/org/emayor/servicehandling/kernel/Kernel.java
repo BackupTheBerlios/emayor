@@ -3,9 +3,14 @@
  */
 package org.emayor.servicehandling.kernel;
 
+import java.rmi.RemoteException;
+
+import java.security.cert.X509Certificate;
+
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
+import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
@@ -24,6 +29,8 @@ public class Kernel implements IKernel {
 
 	private KernelRepository repository;
 
+	private PolicyEnforcement pe;
+
 	private static Kernel _self = null;
 
 	private Kernel() throws KernelException {
@@ -32,6 +39,9 @@ public class Kernel implements IKernel {
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			this.idGen = locator.getSimpleIdGeneratorLocal();
+			this.pe = locator.getPolicyEnforcement();
+			if (pe == null)
+				log.error("the re to the policy enforcer is NULL!!!!");
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex:" + ex.toString());
 		}
@@ -387,6 +397,42 @@ public class Kernel implements IKernel {
 		} catch (KernelRepositoryException krex) {
 			log.error("caught ex: " + krex.toString());
 			throw new KernelException("couldn't obtain the service profile");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.emayor.servicehandling.kernel.IKernel#authenticateUser(javax.security.cert.X509Certificate[])
+	 */
+	public String authenticateUser(X509Certificate[] certificates)
+			throws KernelException {
+		log.debug("-> start processing ...");
+		String ret = null;
+		try {
+			log.debug("try to get the user profile from policy enforcer");
+			C_UserProfile userProfile = this.pe.F_getUserProfile(certificates);
+			log.debug("try to authenticate the user!");
+			if (this.pe.F_AuthenticateUser(userProfile)) {
+				if (certificates != null) {
+					log.debug(">>>>>>>>>>> got hash:      "
+							+ certificates[0].hashCode());
+					log.debug(">>>>>>>>>>> got user name: "
+							+ userProfile.m_S_UserName);
+					log.debug(">>>>>>>>>>> got user mail: "
+							+ userProfile.m_S_UserEmail);
+				}
+				ret = "defid";
+			} else {
+				ret = null;
+			}
+		} catch (RemoteException rex) {
+			log.error("caught ex: " + rex.toString());
+			throw new KernelException(rex.toString());
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

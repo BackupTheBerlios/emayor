@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
+import java.security.cert.X509Certificate;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-import javax.security.cert.X509Certificate;
 
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
@@ -38,6 +38,8 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	private boolean isSessionActive = false;
 	
 	private String asid;
+	
+	private String userId;
 
 	private SessionContext ctx;
 
@@ -100,11 +102,34 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public boolean authenticateUser(X509Certificate certificate)
+	public boolean authenticateUser(X509Certificate[] certificates)
 			throws AccessSessionException {
-		// TODO Auto-generated method stub
-		this.isSessionActive = true;
-		return true;
+		log.debug("-> start processing ...");
+		boolean ret = false;
+		try {
+			ServiceLocator locator = ServiceLocator.getInstance();
+			KernelLocal kernel = locator.getKernelLocal();
+			String str = kernel.authenticateUser(certificates);
+			if (str != null) {
+				log.debug("the user has been authenticated!");
+				this.userId = str;
+				if (log.isDebugEnabled())
+					log.debug("the user id = " + this.userId);
+				this.isSessionActive = true;
+			}
+			else {
+				log.debug("the user has NOT been authenticated!");
+				ret = false;
+			}
+		} catch(ServiceLocatorException slex) {
+			log.error("caught ex: " + slex.toString());
+			throw new AccessSessionException("Internal error - service locator problem");
+		} catch(KernelException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new AccessSessionException("Internal error - kernel problem");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 
 	/**
@@ -159,7 +184,6 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		String ret = null;
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
-
 			KernelLocal kernel = locator.getKernelLocal();
 			ServiceSessionLocal serviceSessionLocal = kernel
 					.createServiceSession(this.asid, serviceId);
@@ -288,5 +312,4 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		}
 		log.debug("-> ... processing DONE!");
 	}
-
 }

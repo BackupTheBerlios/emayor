@@ -3,6 +3,8 @@
  */
 package org.emayor.servicehandling.kernel;
 
+import java.security.cert.X509Certificate;
+
 import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
@@ -100,6 +102,15 @@ public interface IKernel {
 	 * @throws KernelException
 	 */
 	public IUserProfile getUserProfile(String userId) throws KernelException;
+
+	/**
+	 * 
+	 * @param certificates
+	 * @return system unique user id 
+	 * @throws KernelException
+	 */
+	public String authenticateUser(X509Certificate[] certificates)
+			throws KernelException;
 
 	/**
 	 * 

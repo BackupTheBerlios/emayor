@@ -4,7 +4,9 @@
 package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
+import java.security.cert.X509Certificate;
 
+import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.RemoveException;
 import javax.ejb.SessionBean;
@@ -23,9 +25,6 @@ import org.emayor.servicehandling.kernel.ServicesInfo;
 import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
-
-import javax.ejb.CreateException;
-import javax.security.cert.X509Certificate;
 
 /**
  * @ejb.bean name="AccessManager" display-name="Name for AccessManager"
@@ -302,13 +301,13 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public boolean startAccessSession(String asid, X509Certificate certificate)
+	public boolean startAccessSession(String asid, X509Certificate[] certificates)
 			throws AccessException {
 		log.debug("-> start processing ...");
 		boolean ret = false;
 		try {
 			AccessSessionLocal as = this.kernel.getAccessSession(asid);
-			ret = as.authenticateUser(certificate);
+			ret = as.authenticateUser(certificates);
 		} catch (KernelException kex) {
 			log.error("caught ex: " + kex.toString());
 			throw new AccessException(

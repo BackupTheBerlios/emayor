@@ -5,7 +5,7 @@ package org.emayor.servicehandling.test;
 
 import java.io.IOException;
 
-import javax.security.cert.X509Certificate;
+import java.security.cert.X509Certificate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,33 +35,26 @@ public class WelcomeProcessor {
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
 		HttpSession session = req.getSession();
-//		resp.setContentType("text/html");
-//		PrintWriter out = resp.getWriter();
-//		out.println("<html><head><title>After welcome!</title></head>");
-//		out.println("<body>");
 		try {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			AccessManagerLocal access = serviceLocator.getAccessManager();
 			String asid = access.createAccessSession();
 			log.debug("try to authenticate the user");
-			X509Certificate certificate = null;
-			boolean ret = access.startAccessSession(asid, certificate);
+			X509Certificate[] certificates = (X509Certificate[]) req.getAttribute("javax.servlet.request.X509Certificate");
+			if (certificates != null) {
+				log.debug("certificates.length = " + certificates.length);
+				for (int i = 0; i < certificates.length; i++)
+					log.debug("certificates["+i+"] = " + certificates[i].toString());
+			}
+			else 
+				log.debug("certificates are NULL");
+			boolean ret = access.startAccessSession(asid, certificates);
 			log.debug("user authenticated? : " + ret);
 			session.setAttribute("ASID", asid);
 			if (log.isDebugEnabled())
 				log.debug("got following asid=" + asid);
 			ServicesInfo servicesInfo = access.listAvailableServices("-1001");
 			session.setAttribute("SERVICES_INFO", servicesInfo.getServicesInfo());
-//			out.println("current access session id = ");
-//			out.println("<br/>");
-//			out.println("<h1>");
-//			out.println("List of the available services:");
-//			out.println("</h1><br/>");
-//			out.println("");
-//			ServiceInfo[] infoArray = servicesInfo.getServicesInfo();
-//			for (int i = 0; i < infoArray.length; i++) {
-//				
-//			}
 		}
 		catch(ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
@@ -71,12 +64,6 @@ public class WelcomeProcessor {
 			log.error("caught ex: " + aex.toString());
 			// TODO handle ex
 		}
-		
-//		out
-//				.println("<a href=\"ServiceHandlingTest?action=welcome1\">test it again</a>");
-//		out.println("</body>");
-//		out.println("</html>");
-//		out.close();
 		log.debug("-> ... processing DONE!");
 	}
 
