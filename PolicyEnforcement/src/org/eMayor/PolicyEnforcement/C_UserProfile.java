@@ -194,7 +194,10 @@ E_UserProfileException {
 		newRoot.appendChild(eCertChain);
 		// Create lelements for each certificate
 		
-		for (int i = 1)
+		for (int i = 0; i< m_X509_CertChain.length; i++)
+		{
+			
+		}
 		
 		
 		
