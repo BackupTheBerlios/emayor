@@ -31,7 +31,7 @@ public class ResidenceCertificationService implements IeMayorService {
 
 	//private ResidenceCertifcationRequest_v10_Port port = null;
 
-	public static final String DEF_ENDPOINT = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
+	public static final String DEF_ENDPOINT = "http://koralin.fokus.fraunhofer.de:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
 	public static final String DEF_XMLFILE = "SampleResidenceCertificationRequestDocument.xml";
 

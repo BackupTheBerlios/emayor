@@ -240,7 +240,7 @@ public class ServiceLocator {
 					"com.evermind.server.rmi.RMIInitialContextFactory");
 			env.put(Context.SECURITY_PRINCIPAL, "admin");
 			env.put(Context.SECURITY_CREDENTIALS, "welcome");
-			env.put(Context.PROVIDER_URL, "ormi://localhost/UTWrapperApp");
+			env.put(Context.PROVIDER_URL, "ormi://koralin.fokus.fraunhofer.de/UTWrapperApp");
 			this.bpelInitialContext = new InitialContext(env);
 		} catch (NamingException ex) {
 			log.error("caught ex: " + ex.toString());
