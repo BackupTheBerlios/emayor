@@ -73,7 +73,14 @@
 </p>
 
 <hr/>
-<a href="ServiceHandlingTest?action=Logout" class="style2"> LOGOUT </a>
+<table width="600">
+<tr></tr>
+<td>
+<a href="ServiceHandlingTest?action=Logout" class="style2"> LOGOUT </a> 
+</td>
+<td><div align="right"><a href="ServiceHandlingTest?action=listMyTasks" class="style2">RELOAD LIST OF TASKS</a></div></td>
+</tr>
+</table>
 </body>
 
 </html>

@@ -86,6 +86,9 @@
     </tr>
   </table>
 	</form>
+	<br/>
+<hr/>
+<a href="ServiceHandlingTest?action=Logout" class="style2"> LOGOUT </a>
 </body>
 
 </html>
