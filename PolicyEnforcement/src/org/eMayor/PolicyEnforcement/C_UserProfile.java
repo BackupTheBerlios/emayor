@@ -135,7 +135,7 @@ E_UserProfileException {
 	}
 	
 
-public Document getUserProfileasDomDocument()throws
+public Document getUserProfileasDomDocument() throws
 E_UserProfileException {
 	Document myDocument = null;
 	try {
@@ -167,28 +167,40 @@ E_UserProfileException {
 		newRoot.appendChild(eUserRole);
 		
 		
+//		OrganisationUnit Element
+		Element eOrganisationUnit = myDocument.createElement("OrganisationUnit");
+		eOrganisationUnit.setNodeValue(this.m_S_OrganisationUnit);
+		newRoot.appendChild(eOrganisationUnit);
+		
+// 		UserOrganisation Element		
+		Element eUserOrganisation = myDocument.createElement("UserOrganisation");
+		eUserOrganisation.setNodeValue(this.m_S_UserOrganisation);
+		newRoot.appendChild(eUserOrganisation);
 
 		
+//		UserST Element		
+		Element eUserST = myDocument.createElement("UserST");
+		eUserST.setNodeValue(this.m_S_UserST);
+		newRoot.appendChild(eUserST);
 		
-		// Get The UserName
-		/*NodeList MyNodeList = InputDocument.getElementsByTagName("UserName");
-		if  (MyNodeList.getLength() == 1)
-		{ 
-			Node MyNode = MyNodeList.item(0);
-			String sUserName =MyNode.getNodeValue();
-			this.setUserName(sUserName);
-			
-		}
-		else {
-			// Generate an parce exception
-			throw new E_UserProfile("C_UserProfile :: Unable to Get User Name");
-		}
+//		UserCountry Element		
+		Element eUserCountry = myDocument.createElement("UserCountry");
+		eUserCountry.setNodeValue(this.m_S_UserCountry);
+		newRoot.appendChild(eUserCountry);
+		
+//      X509 Certificates Chain Elelemt
+		
+		Element eCertChain = myDocument.createElement("X509_CertChain");
+		newRoot.appendChild(eCertChain);
+		// Create lelements for each certificate
+		
+		for (int i = 1)
 		
 		
-	*/
+		
 	}
 	catch (Exception e){
-		throw new E_UserProfile("C_UserProfile:getUserProfileasDomDocument:Error \n" + e.toString());
+		throw new E_UserProfileException("C_UserProfile:getUserProfileasDomDocument:Error \n" + e.toString());
 	}
 	return myDocument;
 	}
