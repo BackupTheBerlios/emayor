@@ -14,7 +14,6 @@ import javax.ejb.SessionContext;
 
 import javax.ejb.CreateException;
 
-import org.w3c.dom.Document;
 
 import java.security.cert.X509Certificate;
 
@@ -113,13 +112,7 @@ public class PolicyEnforcementBean implements SessionBean {
 				newUserProfile.setUserRole("Guest");
 
 			}
-			try {
-				Document MyTestDocument = newUserProfile.getUserProfileasDomDocument();
-			}
-			catch (C_UserProfile.E_UserProfileException e)
-			{
-				e.printStackTrace();
-			}
+			
 			return newUserProfile;
 		}
 

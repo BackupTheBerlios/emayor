@@ -6,6 +6,8 @@
  */
 package org.eMayor.PolicyEnforcement;
 
+
+import java.io.StringReader;
 import java.security.cert.X509Certificate;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -13,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.xml.security.keys.content.x509.XMLX509Certificate;
 import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 
 
 
@@ -104,6 +107,8 @@ public C_UserProfile() {
 	super();
 }
 
+
+
 public C_UserProfile(Document InputDocument) throws
 E_UserProfileException {
 	
@@ -111,26 +116,70 @@ E_UserProfileException {
 		
 		// Chek if this document is an User Profile Docuemnt
 		Element myRoot= InputDocument.getDocumentElement();
-		if (myRoot.getNodeName()!="User Profile")
+		if (myRoot.getNodeName()!="UserProfile")
 		{
 			throw new E_UserProfileException("C_UserProfile:: Invaild Input Dom Document");
 		}
 		
 //		 Get The UserName
-		NodeList MyNodeList = InputDocument.getElementsByTagName("UserName");
-		if  (MyNodeList.getLength() == 1)
-		{ 
-			Node MyNode = MyNodeList.item(0);
-			String sUserName =MyNode.getNodeValue();
-			this.setUserName(sUserName);
+		
+			this.setUserName(myRoot.getAttribute("UserName"));
 			
-		}
-		else {
-			// Generate an parce exception
-			throw new E_UserProfileException("C_UserProfile :: Unable to Get User Name");
-		}
 		
+//		 Get The UserEmail
 		
+			this.setUserEmail(myRoot.getAttribute("UserEmail"));
+		
+		/*rivate String m_S_UserRole;
+private X509Certificate m_X509_CertChain[];
+*/
+		
+//			 Get The UserRole
+			
+			this.setUserRole(myRoot.getAttribute("UserRole"));
+				
+//			 Get The OrganisationUnit
+			
+			this.setOrganisationUnit(myRoot.getAttribute("OrganisationUnit"));
+
+//			 Get The UserOrganisation
+			
+			this.setUserOrganisation(myRoot.getAttribute("UserOrganisation"));
+
+//			 Get The UserST
+			
+			this.setUserST(myRoot.getAttribute("UserST"));
+			
+//			 Get The UserCountry
+			
+			this.setUserCountry(myRoot.getAttribute("UserCountry"));
+
+//			Get The cerificates Chain
+			
+			
+			
+			NodeList MyNodeList = myRoot.getElementsByTagName("X509CertChain");
+			Element MyCerificatesChain = (Element)(MyNodeList).item(0);
+			int iNumberOfCerts = Integer.parseInt(MyCerificatesChain.getAttribute("Length"));
+			Element MyFirstChiald = (Element) MyCerificatesChain.getFirstChild();
+			this.m_X509_CertChain = new X509Certificate[iNumberOfCerts];			
+			while (MyFirstChiald!=null)
+			{
+				int ChainOrder = Integer.parseInt(MyFirstChiald.getAttribute("ChainOrder"));
+				
+				XMLX509Certificate MyXMLCert = new XMLX509Certificate(MyFirstChiald, "");
+				
+				this.m_X509_CertChain[ChainOrder] = MyXMLCert.getX509Certificate();
+				
+				MyFirstChiald = (Element) MyFirstChiald.getNextSibling();
+			}
+			
+			
+			
+			
+			
+			
+	
 	
 	}
 	catch (Exception e){
@@ -138,7 +187,24 @@ E_UserProfileException {
 	}
 	}
 	
-
+public C_UserProfile(String myXMLDocument) throws E_UserProfileException{
+	
+	try {
+		DocumentBuilderFactory myFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder myDocBuilder = myFactory.newDocumentBuilder();
+		StringReader myStrReader = new StringReader(myXMLDocument);
+		InputSource myInputSource = new InputSource(myStrReader);
+	
+		Document myDocument = myDocBuilder.parse(myInputSource);
+		//C_UserProfile(myDocument);
+	}
+	catch (Exception e)
+	{
+		throw new E_UserProfileException("C_UserProfile(String)::Error \n  " + e.toString());
+	}
+	
+	
+}
 public Document getUserProfileasDomDocument() throws
 E_UserProfileException {
 	Document myDocument = null;
@@ -149,52 +215,43 @@ E_UserProfileException {
 	    
 		myDocument = db.newDocument();
 		//Create The root
-		Element newRoot = myDocument.createElement("User Profile");
-		myDocument.appendChild(newRoot);
+		Element newRoot = myDocument.createElement("UserProfile");
+		
 		
 		// Create the User Name Element
 		
-		Element eUserName = myDocument.createElement("UserName");
-		eUserName.setNodeValue(this.m_S_UserName);
-		newRoot.appendChild(eUserName);
+		newRoot.setAttribute("UserName", this.m_S_UserName);
+		
 		
 		// Create the User Email Element
+		newRoot.setAttribute("UserEmail", this.m_S_UserEmail);
 		
-		Element eUserEmail = myDocument.createElement("UserEmail");
-		eUserEmail.setNodeValue(this.m_S_UserEmail);
-		newRoot.appendChild(eUserEmail);
 		
 //		 Create the User Role Element
+		newRoot.setAttribute("UserRole", this.m_S_UserRole);
 		
-		Element eUserRole = myDocument.createElement("UserRole");
-		eUserRole.setNodeValue(this.m_S_UserRole);
-		newRoot.appendChild(eUserRole);
 		
 		
 //		OrganisationUnit Element
-		Element eOrganisationUnit = myDocument.createElement("OrganisationUnit");
-		eOrganisationUnit.setNodeValue(this.m_S_OrganisationUnit);
-		newRoot.appendChild(eOrganisationUnit);
+		newRoot.setAttribute("OrganisationUnit", this.m_S_OrganisationUnit);
+		
 		
 // 		UserOrganisation Element		
-		Element eUserOrganisation = myDocument.createElement("UserOrganisation");
-		eUserOrganisation.setNodeValue(this.m_S_UserOrganisation);
-		newRoot.appendChild(eUserOrganisation);
-
+		newRoot.setAttribute("UserOrganisation", this.m_S_UserOrganisation);
+		
 		
 //		UserST Element		
-		Element eUserST = myDocument.createElement("UserST");
-		eUserST.setNodeValue(this.m_S_UserST);
-		newRoot.appendChild(eUserST);
+		newRoot.setAttribute("UserST", this.m_S_UserST);
 		
-//		UserCountry Element		
-		Element eUserCountry = myDocument.createElement("UserCountry");
-		eUserCountry.setNodeValue(this.m_S_UserCountry);
-		newRoot.appendChild(eUserCountry);
+		
+//		UserCountry Element
+		newRoot.setAttribute("UserCountry", this.m_S_UserCountry);
+		
 		
 //      X509 Certificates Chain Elelemt
 		
-		Element eCertChain = myDocument.createElement("X509_CertChain");
+		Element eCertChain = myDocument.createElement("X509CertChain");
+		eCertChain.setAttribute("Length", String.valueOf(m_X509_CertChain.length));
 		newRoot.appendChild(eCertChain);
 		// Create lelements for each certificate
 		
@@ -202,26 +259,36 @@ E_UserProfileException {
 		{
 			X509Certificate myCert =  m_X509_CertChain[i];
 			// Create an Dom Element containg the certificate
-			Document myXMLDocument=null;
+			Document myXMLDocument=db.newDocument();
 			
 			XMLX509Certificate myXMLCert = new XMLX509Certificate(myXMLDocument, myCert);
 			Element myCertElement = myXMLCert.getElement();
-			String ElementName =  myCertElement.getNodeName();
-			String ElementValue = myCertElement.getNodeValue();
 			
-			int j = 0;
 			
+			
+			
+			Node myImportedNode =  myDocument.importNode(myCertElement,true);
+			
+			
+			((Element) myImportedNode).setAttribute("ChainOrder", String.valueOf(i));			
+			
+			
+			eCertChain.appendChild(myImportedNode);
+			
+	
 			
 			
 		}
+		myDocument.appendChild(newRoot);
 		
-		
+		return myDocument;
 		
 	}
 	catch (Exception e){
 		throw new E_UserProfileException("C_UserProfile:getUserProfileasDomDocument:Error \n" + e.toString());
+		
 	}
-	return myDocument;
+	
 	}
 	
 }
