@@ -9,6 +9,9 @@
 		<ejb>eMayor_PolicyEnforcementEJB.jar</ejb>
 	</module>
 	<module>
+		<ejb>PrinterEJB.jar</ejb>
+	</module>
+	<module>
 		<web>
 			<web-uri>eMayorWeb.war</web-uri>
 			<context-root>/sh</context-root>

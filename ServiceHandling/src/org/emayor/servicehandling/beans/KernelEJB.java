@@ -15,6 +15,8 @@ import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.kernel.IKernel;
+import org.emayor.servicehandling.kernel.IServiceProfile;
+import org.emayor.servicehandling.kernel.IUserProfile;
 import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
@@ -200,6 +202,28 @@ public class KernelEJB implements SessionBean, IKernel {
 			throws KernelException {
 		log.debug("-> start processing ...");
 		return this.kernel.getServiceClassNameByServiceName(serviceName);
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public IUserProfile getUserProfile(String userId) throws KernelException {
+		log.debug("-> start processing ...");
+		return this.kernel.getUserProfile(userId);
+	}
+
+	/**
+	 * Business Method
+	 * 
+	 * @ejb.interface-method view-type = "local"
+	 *  
+	 */
+	public IServiceProfile getServiceProfile(String ssid) throws KernelException {
+		log.debug("-> start processing ...");
+		return this.kernel.getServiceProfile(ssid);
 	}
 
 }

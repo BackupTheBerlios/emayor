@@ -15,6 +15,8 @@
 		<a href="ServiceHandlingTest?action=welcome">service listing :-)</a> 
 		<br/>
 		<a href="ServiceHandlingTest?action=listMyTasks">my tasks listing :-)</a>
+		<br/>
+		<a href="ServiceHandlingTest?action=testPrintService">print something</a>
 </body>
 
 </html>

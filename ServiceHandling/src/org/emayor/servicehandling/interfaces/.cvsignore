@@ -14,3 +14,7 @@ AccessManager.java
 AccessManagerHome.java
 eMayorServiceFactoryLocal.java
 eMayorServiceFactoryLocalHome.java
+BPELPolicyEnforcer.java
+BPELPolicyEnforcerHome.java
+BPELPolicyEnforcerLocal.java
+BPELPolicyEnforcerLocalHome.java

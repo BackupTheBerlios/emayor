@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.kernel;
 
 import org.apache.log4j.Logger;
+import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
@@ -86,10 +87,10 @@ public class Kernel implements IKernel {
 		try {
 			ret = this.repository.getAccessSession(asid);
 			log.debug("got the access session from repository");
-		} catch (KernelRepositoryException kex) {
-			log.error("caught ex: " + kex.toString());
+		} catch (KernelRepositoryException krex) {
+			log.error("caught ex: " + krex.toString());
 			throw new KernelException(
-					"Couldn' store the new access session into repository!");
+					"Couldn' get the specified access session from repository!");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -141,6 +142,8 @@ public class Kernel implements IKernel {
 			service.setup();
 			log.debug("assign the service to the service session");
 			ret.seteMayorService(service);
+			log.debug("save the curren tinstance into repository");
+			this.repository.addServiceSession(ret);
 		} catch (ServiceLocatorException slex) {
 			log.error("caught ex: " + slex.toString());
 			throw new KernelException(slex.toString());
@@ -148,7 +151,7 @@ public class Kernel implements IKernel {
 			log.error("caught ex: " + sex.toString());
 		} catch (KernelRepositoryException krex) {
 			log.error("caught ex: " + krex.toString());
-		} catch(eMayorServiceException emsex) {
+		} catch (eMayorServiceException emsex) {
 			log.error("caught ex: " + emsex.toString());
 		}
 		log.debug("-> ... processing DONE!");
@@ -162,9 +165,16 @@ public class Kernel implements IKernel {
 	 */
 	public synchronized ServiceSessionLocal getServiceSession(String ssid)
 			throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		ServiceSessionLocal ret = null;
+		try {
+			ret = this.repository.getServiceSession(ssid);
+			log.debug("got the access session from repository");
+		} catch (KernelRepositoryException krex) {
+			log.error("caught ex: " + krex.toString());
+			throw new KernelException(
+					"Couldn' get the specified service session from repository!");
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -176,9 +186,16 @@ public class Kernel implements IKernel {
 	 */
 	public synchronized boolean deleteServiceSession(String ssid)
 			throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
 		boolean ret = false;
+		try {
+			this.repository.removeServiceSession(ssid);
+			ret = true;
+		} catch (KernelRepositoryException kex) {
+			log.error("caught ex: " + kex.toString());
+			throw new KernelException(
+					"Couldn' remove the service session from repository!");
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -222,6 +239,7 @@ public class Kernel implements IKernel {
 
 	public synchronized String getUserIdByASID(String asid)
 			throws KernelException {
+		// TODO
 		return "defid";
 	}
 
@@ -318,6 +336,57 @@ public class Kernel implements IKernel {
 		} catch (KernelRepositoryException kex) {
 			log.debug("caght ex: " + kex.toString());
 			throw new KernelException("unknown service name");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.emayor.servicehandling.kernel.IKernel#getUserProfile(java.lang.String)
+	 */
+	public IUserProfile getUserProfile(String userId) throws KernelException {
+		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		IUserProfile ret = new UserProfile();
+		ret.setUserId(userId);
+		ret.setPEUserProfile(new C_UserProfile());
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceProfile(java.lang.String)
+	 */
+	public IServiceProfile getServiceProfile(String ssid)
+			throws KernelException {
+		// TODO
+		log.debug("-> start processing ...");
+		IServiceProfile ret = null;
+		try {
+			log.debug("get the service session");
+			ServiceSessionLocal serviceSession = this.getServiceSession(ssid);
+			String serviceId = serviceSession.getServiceId();
+			if (log.isDebugEnabled())
+				log.debug("got the service id = " + serviceId);
+			log.debug("get the service info from repository");
+			IServiceInfo serviceInfo = this.repository
+					.getServiceInfo(serviceId);
+			log.debug("create the policy enforcer service profile");
+			C_ServiceProfile serviceProfile = new C_ServiceProfile();
+
+			ret = new ServiceProfile();
+			ret.setServiceInfo(serviceInfo);
+			ret.setPEServiceProfile(serviceProfile);
+		} catch (ServiceSessionException ssex) {
+			log.error("caught ex: " + ssex.toString());
+			throw new KernelException("couldn't obtain the service profile");
+		} catch (KernelRepositoryException krex) {
+			log.error("caught ex: " + krex.toString());
+			throw new KernelException("couldn't obtain the service profile");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

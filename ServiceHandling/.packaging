@@ -47,5 +47,6 @@
 <file prefix="" project="" projectLocation="eMayorWeb.war" name="eMayorWeb.war" location="eMayorWeb.war" used="true"/>
 <file prefix="" project="" projectLocation="WorklistManager-client.jar" name="WorklistManager-client.jar" location="WorklistManager-client.jar" used="true"/>
 <file prefix="" project="PolicyEnforcement" projectLocation="eMayor_PolicyEnforcementEJB.jar" name="eMayor_PolicyEnforcementEJB.jar" location="../PolicyEnforcement/eMayor_PolicyEnforcementEJB.jar" used="true"/>
+<file prefix="" project="PrintingUtility" projectLocation="PrinterEJB.jar" name="PrinterEJB.jar" location="../PrintingUtility/PrinterEJB.jar" used="true"/>
 </archive>
 </configurations>

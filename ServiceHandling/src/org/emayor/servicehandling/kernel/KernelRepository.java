@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
+import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 
 /**
  * @author tku
@@ -87,6 +88,53 @@ public class KernelRepository {
 		} else {
 			log.error("trying to get access session doesen't exist!");
 			throw new KernelRepositoryException("Unknown asid: " + asid);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public void addServiceSession(ServiceSessionLocal serviceSession)
+			throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		try {
+			String ssid = serviceSession.getSessionId();
+			if (!this.ssid2serviceSession.containsKey(ssid)) {
+				this.ssid2serviceSession.put(ssid, serviceSession);
+			} else {
+				log.error("The ssid " + ssid
+						+ " already exists in the repository!");
+				throw new KernelRepositoryException(
+						"The asid already exists in the repository!");
+			}
+		} catch (SessionException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new KernelRepositoryException(
+					"Couldn't get the ssid from session object!");
+		}
+		log.debug("-> ... processing DONE!");
+	}
+
+	public void removeServiceSession(String ssid)
+			throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		if (this.ssid2serviceSession.containsKey(ssid)) {
+			this.ssid2serviceSession.remove(ssid);
+		} else {
+			log.error("service session to be removed doesn't exist!");
+			throw new KernelRepositoryException("Unknown asid: " + ssid);
+		}
+		log.debug("-> ... processing DONE!");
+	}
+
+	public ServiceSessionLocal getServiceSession(String ssid)
+			throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		ServiceSessionLocal ret = null;
+		if (this.ssid2serviceSession.containsKey(ssid)) {
+			ret = (ServiceSessionLocal) this.ssid2serviceSession.get(ssid);
+		} else {
+			log.error("trying to get service session, which doesen't exist!");
+			throw new KernelRepositoryException("Unknown ssid: " + ssid);
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

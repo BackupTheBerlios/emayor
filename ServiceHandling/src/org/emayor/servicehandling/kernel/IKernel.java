@@ -95,6 +95,23 @@ public interface IKernel {
 
 	/**
 	 * 
+	 * @param userId
+	 * @return
+	 * @throws KernelException
+	 */
+	public IUserProfile getUserProfile(String userId) throws KernelException;
+
+	/**
+	 * 
+	 * @param ssid
+	 * @return
+	 * @throws KernelException
+	 */
+	public IServiceProfile getServiceProfile(String ssid)
+			throws KernelException;
+
+	/**
+	 * 
 	 * @param serviceName
 	 * @return
 	 * @throws KernelException

@@ -17,7 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.eMayor.ServiceHandling.PrintingUtility.interfaces.Printer;
 import org.emayor.servicehandling.interfaces.AccessManagerLocalHome;
+import org.emayor.servicehandling.utils.ServiceLocator;
+import org.emayor.servicehandling.utils.ServiceLocatorException;
+
 
 /**
  * Servlet Class
@@ -109,6 +113,15 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			log.debug("processing the StartService request");
 			RCSPostSignRequestProcessor p = new RCSPostSignRequestProcessor();
 			p.process(req, resp);
+			resp.sendRedirect("index.jsp");
+		} else if (action.equalsIgnoreCase("testPrintService")) {
+			try {
+				ServiceLocator locator = ServiceLocator.getInstance();
+				Printer printer = locator.getPrinter();
+				printer.print("http://www.fokus.fraunhofer.de", "text/html");
+			} catch(ServiceLocatorException slex) {
+				log.error("caught ex: " + slex.toString());
+			}
 			resp.sendRedirect("index.jsp");
 		} else {
 			HttpSession session = req.getSession(false);

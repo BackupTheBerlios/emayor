@@ -110,6 +110,9 @@
 <zipfileset dir="../PolicyEnforcement">
 <include name="eMayor_PolicyEnforcementEJB.jar"/>
 </zipfileset>
+<zipfileset dir="../PrintingUtility">
+<include name="PrinterEJB.jar"/>
+</zipfileset>
 </jar>
 </target>
 </project>

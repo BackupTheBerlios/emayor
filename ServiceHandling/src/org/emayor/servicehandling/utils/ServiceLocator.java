@@ -13,6 +13,10 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
 import org.apache.log4j.Logger;
+import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
+import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementHome;
+import org.eMayor.ServiceHandling.PrintingUtility.interfaces.Printer;
+import org.eMayor.ServiceHandling.PrintingUtility.interfaces.PrinterHome;
 import org.emayor.servicehandling.interfaces.AccessManagerLocal;
 import org.emayor.servicehandling.interfaces.AccessManagerLocalHome;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
@@ -186,6 +190,54 @@ public class ServiceLocator {
 		} catch (CreateException cex) {
 			log.error("caught ex: " + cex.toString());
 			throw new ServiceLocatorException(cex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public synchronized PolicyEnforcement getPolicyEnforcement()
+			throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		PolicyEnforcement ret = null;
+		try {
+			Object ref = this.initialContext
+					.lookup(PolicyEnforcementHome.JNDI_NAME);
+			PolicyEnforcementHome home = (PolicyEnforcementHome) PortableRemoteObject
+					.narrow(ref, PolicyEnforcementHome.class);
+			ret = home.create();
+			log.debug("got the reference!");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		} catch (CreateException cex) {
+			log.error("caught ex: " + cex.toString());
+			throw new ServiceLocatorException(cex);
+		} catch (RemoteException rex) {
+			log.error("caught ex: " + rex.toString());
+			throw new ServiceLocatorException(rex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public synchronized Printer getPrinter() throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		Printer ret = null;
+		try {
+			Object ref = this.initialContext.lookup(PrinterHome.JNDI_NAME);
+			PrinterHome home = (PrinterHome) PortableRemoteObject.narrow(ref,
+					PrinterHome.class);
+			ret = home.create();
+			log.debug("got the reference!");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		} catch (CreateException cex) {
+			log.error("caught ex: " + cex.toString());
+			throw new ServiceLocatorException(cex);
+		} catch (RemoteException rex) {
+			log.error("caught ex: " + rex.toString());
+			throw new ServiceLocatorException(rex);
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
