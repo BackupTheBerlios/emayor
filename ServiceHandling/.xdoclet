@@ -255,7 +255,7 @@
 <attribute name="currentField" value="" used="false"/>
 <attribute name="currentClass" value="" used="false"/>
 </element>
-<element name="jbosswebxml" used="true">
+<element name="jbosswebxml" used="false">
 <attribute name="securitydomain" value="" used="false"/>
 <attribute name="contextroot" value="" used="false"/>
 <attribute name="virtualhost" value="" used="false"/>

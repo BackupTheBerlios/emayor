@@ -5,10 +5,12 @@
 	<module>
 		<ejb>eMayorEJB.jar</ejb>
 	</module>
+	
 	<module>
 		<web>
 			<web-uri>eMayorWeb.war</web-uri>
 			<context-root>/sh</context-root>
 		</web>
 	</module>
+	
 </application>

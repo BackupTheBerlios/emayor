@@ -10,3 +10,5 @@ SimpleIdGeneratorLocal.java
 SimpleIdGeneratorLocalHome.java
 UserTaskManagerLocal.java
 UserTaskManagerLocalHome.java
+AccessManager.java
+AccessManagerHome.java

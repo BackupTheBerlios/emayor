@@ -24,6 +24,7 @@ import javax.ejb.CreateException;
  *           jndi-name="ejb/AccessManager"
  *           type="Stateless"
  *           view-type="local"
+ * 
  */
 public class AccessManagerEJB implements SessionBean, IAccess {
 	private static Logger log = Logger.getLogger(AccessManagerEJB.class);

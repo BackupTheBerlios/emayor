@@ -284,38 +284,6 @@
 
 
 </deploymentdescriptor>
-<jbosswebxml Version="3.0" >
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</jbosswebxml>
 </webdoclet></target>
 </project>
