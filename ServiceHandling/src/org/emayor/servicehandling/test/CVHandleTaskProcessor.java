@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
-import org.emayor.servicehandling.test.utils.Utils;
 import org.emayor.servicehandling.utclient.CivilServantTaskServiceClient;
 
 /**
@@ -59,10 +58,21 @@ public class CVHandleTaskProcessor extends AbstractProcessor {
             log.debug("try to complete task");
             utm.completeTask(asid, task);
 
+            session.setAttribute("SLEEP_TIME", "5");
+            session.setAttribute("REDIRECTION_URL",
+                    "ServiceHandlingTest?action=listMyTasks");
+            session.setAttribute("PAGE_TITLE", "Waiting for response ...");
+            session.setAttribute("REDIRECTION_TEXT",
+                    "The chosen task has been successfull finished!");
+            session.setAttribute("REDIRECTION_CANCEL_ACTION", "Welcome");
+            session.setAttribute("REDIRECTION_ACTION", "ServiceHandlingTest");
+            ret = "JustWait.jsp";
+            /**
             Task[] tasks = utm.getMyTasks(asid);
             tasks = Utils.setTypeToTasks(tasks);
             session.setAttribute("MY_TASKS", tasks);
             ret = "CVListTasks.jsp";
+            */
         } catch (UserTaskException utex) {
             log.error("caught ex: " + utex.toString());
             // handle exception

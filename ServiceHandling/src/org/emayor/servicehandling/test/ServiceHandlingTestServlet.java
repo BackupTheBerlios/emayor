@@ -3,6 +3,7 @@
  */
 package org.emayor.servicehandling.test;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -27,6 +28,8 @@ public class ServiceHandlingTestServlet extends HttpServlet {
     private static Logger log = Logger
             .getLogger(ServiceHandlingTestServlet.class);
 
+    public static String CWD_PATH = "";
+
     /**
      *  
      */
@@ -36,6 +39,14 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        CWD_PATH = config.getServletContext().getRealPath(".");
+        if (log.isDebugEnabled())
+            log.debug("CWD_PATH = " + CWD_PATH);
+        StringBuffer b = new StringBuffer();
+        b.append(CWD_PATH).append(File.separator).append("temp");
+        File file = new File(b.toString());
+        if (!file.exists())
+            file.mkdir();
     }
 
     protected void service(HttpServletRequest req, HttpServletResponse resp)
@@ -71,15 +82,15 @@ public class ServiceHandlingTestServlet extends HttpServlet {
             log.debug("processing the StartServiceNew request");
             processor = new StartServiceNewProcessor();
         } else if (action.equalsIgnoreCase("GetInputDataPage")) {
-			log.debug("processing the GetInputDataPage request");
-			processor = new GetInputDataPageProcessor();
-		} else if (action.equalsIgnoreCase("ValidateInputData")) {
+            log.debug("processing the GetInputDataPage request");
+            processor = new GetInputDataPageProcessor();
+        } else if (action.equalsIgnoreCase("ValidateInputData")) {
             log.debug("processing the ValidateInputData request");
             processor = new PostTaskAndWaitProcessor();
         } else if (action.equalsIgnoreCase("GetTask")) {
             log.debug("processing the GetTask request");
             processor = new GetTaskProcessor();
-        }else if (action.equalsIgnoreCase("ServiceHandlingPostSignRequest")) {
+        } else if (action.equalsIgnoreCase("ServiceHandlingPostSignRequest")) {
             log.debug("processing the StartService request");
             processor = new RCSPostSignRequestProcessor();
         } else if (action.equalsIgnoreCase("testPrintService")) {
@@ -91,6 +102,9 @@ public class ServiceHandlingTestServlet extends HttpServlet {
         } else if (action.equalsIgnoreCase("CVHandleTask")) {
             log.debug("processing the CVHandleTask request");
             processor = new CVHandleTaskProcessor();
+        } else if (action.equalsIgnoreCase("AfterDownload")) {
+            log.debug("processing the AfterDownload request");
+            processor = new AfterDownloadCompletedDocumentProcessor();
         } else {
             log.debug("processing unknown request");
             processor = new ErrorProcessor();

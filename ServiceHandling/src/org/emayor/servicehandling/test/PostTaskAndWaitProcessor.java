@@ -34,7 +34,8 @@ import org.xml.sax.SAXException;
  * @author tku
  */
 public class PostTaskAndWaitProcessor extends AbstractProcessor {
-    private static final Logger log = Logger.getLogger(PostTaskAndWaitProcessor.class);
+    private static final Logger log = Logger
+            .getLogger(PostTaskAndWaitProcessor.class);
 
     /*
      * (non-Javadoc)
@@ -51,11 +52,11 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             String asid = (String) session.getAttribute("ASID");
             String ssid = (String) session.getAttribute("SSID");
             String role = (String) session.getAttribute("ROLE");
-			if (log.isDebugEnabled()) {
-				log.debug("got asid: " + asid);
-				log.debug("got ssid: " + ssid);
-				log.debug("got role: " + role);
-			}
+            if (log.isDebugEnabled()) {
+                log.debug("got asid: " + asid);
+                log.debug("got ssid: " + ssid);
+                log.debug("got role: " + role);
+            }
             UserTaskServiceClient userTaskServiceClient = new UserTaskServiceClient();
             Task task = (Task) session.getAttribute("CURR_TASK");
             String taskId = req.getParameter("taskid");
@@ -63,6 +64,8 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             String reqForename = req.getParameter("REQ_FORENAME");
             String reqSurname = req.getParameter("REQ_SURNAME");
             String reqEmail = req.getParameter("REQ_EMAIL");
+            String reqServingMunicipality = req
+                    .getParameter("REQ_SERVING_MUNICIPALITY");
             DocumentBuilderFactory factory = DocumentBuilderFactory
                     .newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -94,6 +97,12 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             node
                     .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
                             : ("-"));
+            node = XPathAPI
+                    .selectSingleNode(root,
+                            "/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()");
+            node
+                    .setNodeValue((reqServingMunicipality != null && reqServingMunicipality
+                            .length() != 0) ? (reqServingMunicipality) : ("-"));
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(root);
