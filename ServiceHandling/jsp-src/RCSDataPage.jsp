@@ -9,6 +9,8 @@
 <%
 	Task task = (Task)session.getAttribute("CURR_TASK");
 	boolean status = task.getStatus().equals("YES");
+	if (status) 
+		response.sendRedirect("RCSDataSign.jsp");
 	String forename = (String)session.getAttribute("REQ_FORENAME");
 	String surname = (String)session.getAttribute("REQ_SURNAME");
 	String email = (String)session.getAttribute("REQ_EMAIL");

@@ -105,6 +105,11 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			RCSDisplayDataFormProcessor p = new RCSDisplayDataFormProcessor();
 			p.process(req, resp);
 			resp.sendRedirect("RCSDataPage.jsp");
+		} else if (action.equalsIgnoreCase("ServiceHandlingPostSignRequest")) {
+			log.debug("processing the StartService request");
+			RCSPostSignRequestProcessor p = new RCSPostSignRequestProcessor();
+			p.process(req, resp);
+			resp.sendRedirect("index.jsp");
 		} else {
 			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");

@@ -145,7 +145,8 @@ public class RCSDisplayDataFormProcessor {
 			log.error("caught ex: " + tex.toString());
 			// TODO handle ex
 		} catch (UserTaskException utex) {
-
+			log.error("caught ex: " + utex.toString());
+			// TODO handle ex
 		}
 
 		log.debug("-> ... processing DONE!");
