@@ -3,6 +3,8 @@
  */
 package org.emayor.servicehandling.utclient;
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
@@ -52,7 +54,8 @@ public class InputDataCollector extends UserTaskAbstractClient {
 			while (index < this.repeatNumber) {
 				log
 						.debug("continue in the loop - waiting a while before get the validated data");
-				Thread.sleep(this.sleepPeriod);
+				//Thread.sleep(this.sleepPeriod);
+				this._wait(this.sleepPeriod);
 				log.debug("GO AHEAD !");
 				ret = this.serviceClient.lookupTask(asid, ssid);
 				if (ret != null) {
@@ -83,7 +86,13 @@ public class InputDataCollector extends UserTaskAbstractClient {
 					log
 							.debug("continue in the loop - iteration number "
 									+ index);
-				Thread.sleep(this.sleepPeriod);
+				//Thread.sleep(this.sleepPeriod);
+				//Thread thread = Thread.currentThread();
+				//log.debug("current thread: " + thread.getName());
+				//ThreadGroup threadGroup = thread.getThreadGroup();
+				//threadGroup.list();
+				//thread.wait(this.sleepPeriod);
+				this._wait(this.sleepPeriod);
 				ret = this.serviceClient.lookupTask(asid, ssid);
 				if (ret != null) {
 					index = this.repeatNumber;
@@ -127,6 +136,18 @@ public class InputDataCollector extends UserTaskAbstractClient {
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
+	}
+	
+	
+	private void _wait(long amount) {
+	    Date nowd = new Date();
+	    long now = nowd.getTime();
+	    while (true) {
+	        nowd = new Date();
+	        long tmp = nowd.getTime();
+	        if ((tmp - now) >= amount)
+	            break;
+	    }
 	}
 
 }

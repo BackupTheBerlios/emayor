@@ -3,6 +3,8 @@
  */
 package org.emayor.servicehandling.utclient;
 
+import javax.ejb.RemoveException;
+
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
 import org.emayor.servicehandling.kernel.ServiceException;
@@ -71,11 +73,15 @@ public class UserTaskServiceClient extends UserTaskAbstractClient {
 			if (ret == null) {
 				log.debug("Couldn't find any tasks !!!");
 			}
+			utm.remove();
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new UserTaskException("Couldn't get ref to service locator");
 		} catch (ServiceException sex) {
 			log.error("caught ex: " + sex.toString());
+			throw new UserTaskException("problem with user task service");
+		} catch(RemoveException rex) {
+		    log.error("caught ex: " + rex.toString());
 			throw new UserTaskException("problem with user task service");
 		}
 		log.debug("-> ... processing DONE!");
