@@ -1,0 +1,10 @@
+<transformerConfiguration>
+	<documentType>
+		<ResidenceCertificationDocument>
+			<EUFtoELF>C:/eMayor/xsl/EUFtoItalianGermanELFv0.1.xsl</EUFtoELF>
+			<ELFtoEUF>C:/eMayor/xsl/ItalianGermanELFtoEUFv0.1.xsl</ELFtoEUF>
+			<ELFtoEPF>C:/eMayor/xsl/BolzanoELFtoEPFv0.1.xsl</ELFtoEPF>
+			<EUFtoEPF>Not required.</EUFtoEPF>
+		</ResidenceCertificationDocument>
+	</documentType>
+</transformerConfiguration>
