@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="XDoclet Generator" default="_xdoclet_generation_">
+<project default="_xdoclet_generation_" name="XDoclet Generator">
 <property file="xdoclet-build.properties"/>
-<property name="eclipse.home" value=""/>
-<property name="xdoclet.basedir" value="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.xdoclet.core_1.4.0/"/>
-<property name="jboss.net.version" value=""/>
+<property name="eclipse.home" value="/eMayor/eclipse"/>
+<property name="xdoclet.basedir" value="${eclipse.home}/plugins/org.jboss.ide.eclipse.xdoclet.core_1.4.1"/>
+<property name="jboss.net.version" value="4.0"/>
 <path id="project.classpath"><pathelement location="bin"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jacc-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/sql-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jta-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/servlet-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/ejb-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jsp-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jms-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jca-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/jaxr-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/saaj-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/jaxrpc-api.jar"/>
-<pathelement location="/eMayorSoft/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/xml-api.jar"/>
+<pathelement location="/eMayor/java/jre/lib/rt.jar"/>
+<pathelement location="/eMayor/java/jre/lib/sunrsasign.jar"/>
+<pathelement location="/eMayor/java/jre/lib/jsse.jar"/>
+<pathelement location="/eMayor/java/jre/lib/jce.jar"/>
+<pathelement location="/eMayor/java/jre/lib/charsets.jar"/>
+<pathelement location="/eMayor/java/jre/lib/ext/dnsns.jar"/>
+<pathelement location="/eMayor/java/jre/lib/ext/sunjce_provider.jar"/>
+<pathelement location="/eMayor/java/jre/lib/ext/ldapsec.jar"/>
+<pathelement location="/eMayor/java/jre/lib/ext/localedata.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jacc-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/sql-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jta-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/servlet-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/ejb-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jsp-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jms-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jca-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/jaxr-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/saaj-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/jaxrpc-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/xml-api.jar"/>
+<pathelement location="/eMayor/jboss-4.0.0/lib/xmlsec-1.2RC2.jar"/>
 </path>
 <path id="xdoclet.classpath">
 <path refid="project.classpath"/>
@@ -28,9 +38,9 @@
 <include name="xdoclet-module-jboss-net-${jboss.net.version}*.jar"/>
 </fileset>
 </path>
-<target name="_xdoclet_generation_" depends="N65540,N66256"/>
-<target name="N65540" description="EJB">
-<taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="xdoclet.classpath"/><ejbdoclet ejbSpec="2.0"  destDir="src" >
+<target name="_xdoclet_generation_" depends="N10004,N102D0"/>
+<target name="N10004" description="EJB">
+<taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.ejb.EjbDocletTask" name="ejbdoclet"/><ejbdoclet ejbSpec="2.0"  destDir="src" >
 
 
 
@@ -179,8 +189,8 @@
 
 </homeinterface>
 </ejbdoclet></target>
-<target name="N66256" description="Web">
-<taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask" classpathref="xdoclet.classpath"/><webdoclet destDir="src/WEB-INF" >
+<target name="N102D0" description="Web">
+<taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.web.WebDocletTask" name="webdoclet"/><webdoclet destDir="src/WEB-INF" >
 
 
 
