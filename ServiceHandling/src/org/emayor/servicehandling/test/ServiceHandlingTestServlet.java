@@ -21,25 +21,25 @@ import org.emayor.servicehandling.interfaces.AccessManagerLocalHome;
 /**
  * Servlet Class
  * 
- * @web.servlet name="ServiceHandlingTest" 
- * 				display-name="Name for ServiceHandlingTest" 
- * 				description="Description for ServiceHandlingTest"
+ * @web.servlet name="ServiceHandlingTest" display-name="Name for
+ *              ServiceHandlingTest" description="Description for
+ *              ServiceHandlingTest"
  * 
  * @web.servlet-mapping url-pattern = "/ServiceHandlingTest"
  * 
  * 
- * @web.ejb-local-ref  	name = "ejb/AccessManager"
- * 						type = "Session"
- * 						home = "org.emayor.servicehandling.interfaces.AccessManagerLocalHome"
- * 						local = "org.emayor.servicehandling.interfaces.AccessManagerLocal"
- * 						description = "Reference to the AccessManager EJB"
- * 						link = "AccessManager"
- *
+ * @web.ejb-local-ref name = "ejb/AccessManager" type = "Session" home =
+ *                    "org.emayor.servicehandling.interfaces.AccessManagerLocalHome"
+ *                    local =
+ *                    "org.emayor.servicehandling.interfaces.AccessManagerLocal"
+ *                    description = "Reference to the AccessManager EJB" link =
+ *                    "AccessManager"
+ *  
  */
 public class ServiceHandlingTestServlet extends HttpServlet {
 	private static Logger log = Logger
 			.getLogger(ServiceHandlingTestServlet.class);
-	
+
 	private AccessManagerLocalHome home;
 
 	/**
@@ -54,7 +54,8 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 		try {
 			Context context = new InitialContext();
 			Object ref = context.lookup("AccessManagerLocal");
-			home = (AccessManagerLocalHome) PortableRemoteObject.narrow(ref, AccessManagerLocalHome.class);
+			home = (AccessManagerLocalHome) PortableRemoteObject.narrow(ref,
+					AccessManagerLocalHome.class);
 		} catch (Exception e) {
 			throw new ServletException("Lookup of java:/comp/env/ failed");
 		}
@@ -66,16 +67,13 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		if (log.isDebugEnabled())
 			log.debug("got following action from request: " + action);
-		resp.setContentType("text/html");
-		PrintWriter out = resp.getWriter();
+
 		if (action.equalsIgnoreCase("welcome")) {
-			out.println("<html><head><title>After welcome!</title></head>");
-			out.println("<body>");
-			out
-					.println("<a href=\"ServiceHandlingTest?action=welcome1\">test it again</a>");
-			out.println("</body>");
-			out.println("</html>");
+			WelcomeProcessor p = new WelcomeProcessor();
+			p.process(req, resp);
 		} else {
+			resp.setContentType("text/html");
+			PrintWriter out = resp.getWriter();
 			out
 					.println("<html><head><title>After after welcome!</title></head>");
 			out.println("<body>");
@@ -83,8 +81,8 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 					.println("<a href=\"ServiceHandlingTest?action=welcome1\">test it again</a>");
 			out.println("</body>");
 			out.println("</html>");
+			out.close();
 		}
-		out.close();
 	}
 
 	public String getServletInfo() {

@@ -58,17 +58,32 @@ public class DataValidatorClient extends UserTaskAbstractClient {
 				log.debug("current index after loop is = " + index);
 			}
 		} catch (Exception ex) {
+			log.error("caught ex: " + ex.toString());
 			throw new UserTaskException(ex);
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @param task task to be posted
+	 * @param asid access session id
+	 * @param ssid service session id
+	 * @return tru if successful posted, otherwise false
+	 * @throws UserTaskException
+	 */
 	public boolean postInputData(Task task, String asid, String ssid)
 			throws UserTaskException {
 		log.debug("-> start processing ...");
 		boolean ret = false;
-
+		try {
+			this.serviceClient.completeTask(task);
+			ret = true;
+		} catch (Exception ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new UserTaskException(ex);
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}

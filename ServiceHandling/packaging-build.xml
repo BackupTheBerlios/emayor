@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10069"/>
+<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047,N1007A"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -17,7 +17,12 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N10036" description="eMayorWeb.war">
+<target name="N10036" description="eMayorSH-GUI-client.jar">
+<jar destfile="eMayorSH-GUI-client.jar">
+<zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class"/>
+</jar>
+</target>
+<target name="N10047" description="eMayorWeb.war">
 <jar destfile="eMayorWeb.war">
 <zipfileset dir="." prefix="WEB-INF/lib">
 <include name="eMayorEJB-client.jar"/>
@@ -28,11 +33,11 @@
 <zipfileset dir="src/WEB-INF" prefix="WEB-INF">
 <include name="jboss-web.xml"/>
 </zipfileset>
-<zipfileset dir="classes" prefix="WEB-INF/classes" includes="org/emayor/servicehandling/test/*.class"/>
+<zipfileset dir="classes" prefix="WEB-INF/classes" includes="org/emayor/servicehandling/test/*.class,org/emayor/servicehandling/*Task*.class"/>
 <zipfileset dir="docroot"/>
 </jar>
 </target>
-<target name="N10069" description="eMayorApp.ear">
+<target name="N1007A" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>

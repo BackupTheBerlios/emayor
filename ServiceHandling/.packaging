@@ -8,9 +8,12 @@
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
 </archive>
+<archive name="eMayorSH-GUI-client.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
+</archive>
 <archive name="eMayorWeb.war" destination="" used="true" exploded="false">
 <file prefix="WEB-INF/lib" project="" projectLocation="eMayorEJB-client.jar" name="eMayorEJB-client.jar" location="eMayorEJB-client.jar" used="true"/>
-<folder prefix="WEB-INF/classes" includes="org/emayor/servicehandling/test/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
+<folder prefix="WEB-INF/classes" includes="org/emayor/servicehandling/test/*.class,org/emayor/servicehandling/*Task*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
 <file prefix="WEB-INF" project="" projectLocation="src/WEB-INF/web.xml" name="web.xml" location="src/WEB-INF/web.xml" used="true"/>
 <file prefix="WEB-INF" project="" projectLocation="src/WEB-INF/jboss-web.xml" name="jboss-web.xml" location="src/WEB-INF/jboss-web.xml" used="true"/>
 <folder prefix="" includes="" excludes="" project="" projectLocation="docroot" name="docroot" location="docroot" used="true"/>

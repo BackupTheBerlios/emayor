@@ -33,12 +33,12 @@ public class WelcomeProcessor {
 		PrintWriter out = resp.getWriter();
 		out.println("<html><head><title>After welcome!</title></head>");
 		out.println("<body>");
-		try {
-			
-		}
-		catch(ServiceLocatorException ex) {
-			
-		}
+//		try {
+//			
+//		}
+//		catch(ServiceLocatorException ex) {
+//			
+//		}
 		
 		out
 				.println("<a href=\"ServiceHandlingTest?action=welcome1\">test it again</a>");

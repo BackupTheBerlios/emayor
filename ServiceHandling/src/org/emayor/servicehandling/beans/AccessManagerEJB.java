@@ -18,57 +18,57 @@ import org.emayor.servicehandling.kernel.ServicesInfo;
 import javax.ejb.CreateException;
 
 /**
- * @ejb.bean name="AccessManager"
- *           display-name="Name for AccessManager"
+ * @ejb.bean name="AccessManager" display-name="Name for AccessManager"
  *           description="Description for AccessManager"
- *           jndi-name="ejb/AccessManager"
- *           type="Stateless"
- *           view-type="local"
- * 
+ *           jndi-name="ejb/AccessManager" type="Stateless" view-type="local"
+ *  
  */
 public class AccessManagerEJB implements SessionBean, IAccess {
 	private static Logger log = Logger.getLogger(AccessManagerEJB.class);
 
+	private SessionContext ctx;
+
 	/**
-	 * 
+	 *  
 	 */
 	public AccessManagerEJB() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
 	 */
-	public void setSessionContext(SessionContext ctx)
-		throws EJBException,
-		RemoteException {
-		// TODO Auto-generated method stub
-
+	public void setSessionContext(SessionContext ctx) throws EJBException,
+			RemoteException {
+		log.debug("-> start processing ...");
+		this.ctx = ctx;
+		log.debug("-> ... processing DONE!");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.SessionBean#ejbRemove()
 	 */
 	public void ejbRemove() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.SessionBean#ejbActivate()
 	 */
 	public void ejbActivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.SessionBean#ejbPassivate()
 	 */
 	public void ejbPassivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -79,6 +79,9 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 */
 	public String createAccessSession() throws AccessException {
 		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
 		return null;
 	}
 
@@ -89,8 +92,11 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 *  
 	 */
 	public String startService(String accessSessionId, String serviceName)
-		throws AccessException {
+			throws AccessException {
 		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
 		return null;
 	}
 
@@ -101,8 +107,11 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 *  
 	 */
 	public boolean stopService(String accessSessionId, String serviceSessionId)
-		throws AccessException {
+			throws AccessException {
 		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
 		return false;
 	}
 
@@ -113,8 +122,11 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 *  
 	 */
 	public ServicesInfo listAvailableServices(String accessSessionId)
-		throws AccessException {
+			throws AccessException {
 		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
 		return null;
 	}
 
@@ -125,8 +137,11 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 *  
 	 */
 	public RunningServicesInfo listRunningServices(String accessSessionId)
-		throws AccessException {
+			throws AccessException {
 		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
 		return null;
 	}
 
@@ -138,6 +153,9 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 */
 	public void ejbCreate() throws CreateException {
 		// TODO Auto-generated method stub
+		log.debug("-> start processing ...");
+		
+		log.debug("-> ... processing DONE!");
 	}
 
 }
