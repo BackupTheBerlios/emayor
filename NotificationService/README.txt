@@ -1,7 +1,5 @@
 $ 11.02.2005 $
 
-NOT UP TO DATE, WILL BE REWRITTEN SOON
-
 ---prerequisites---
 1.Installed JBOSS application server version 4.0
 2. libraries that should be available to JBOSS:
