@@ -14,10 +14,12 @@ import javax.security.cert.X509Certificate;
 
 import org.apache.log4j.Logger;
 import org.emayor.policyenforcer.C_UserProfile;
+import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.kernel.AccessSessionException;
 import org.emayor.servicehandling.kernel.IAccessSession;
+import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
 import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.utils.AccessSessionSSRepository;
@@ -67,7 +69,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public void ejbRemove() throws EJBException, RemoteException {
 		// TODO Auto-generated method stub
-
+		log.debug("-> start processing ...");
 	}
 
 	/*
@@ -77,7 +79,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public void ejbActivate() throws EJBException, RemoteException {
 		// TODO Auto-generated method stub
-
+		log.debug("-> start processing ...");
 	}
 
 	/*
@@ -87,7 +89,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public void ejbPassivate() throws EJBException, RemoteException {
 		// TODO Auto-generated method stub
-
+		log.debug("-> start processing ...");
 	}
 
 	/**
@@ -159,15 +161,13 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 			 * KernelLocal kernel = locator.getKernelLocal();
 			 * ServiceSessionLocal serviceSessionLocal = kernel
 			 * .createServiceSession(this.accessSessionId, serviceName);
-			 
-			ret = serviceSessionLocal.getSessionId();
-			if (log.isDebugEnabled())
-				log
-						.debug("startServiceSession -> got ssid from kernel: "
-								+ ret);
-			this.serviceSessionsIds.put(serviceName, ret);
-			this.serviceSessions.put(ret, serviceSessionLocal);
-			*/
+			 * 
+			 * ret = serviceSessionLocal.getSessionId(); if
+			 * (log.isDebugEnabled()) log .debug("startServiceSession -> got
+			 * ssid from kernel: " + ret);
+			 * this.serviceSessionsIds.put(serviceName, ret);
+			 * this.serviceSessions.put(ret, serviceSessionLocal);
+			 */
 		} catch (Exception ex) {
 			log.error("-> caught ex: " + ex.toString());
 			throw new AccessSessionException();
@@ -209,7 +209,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		// TODO Auto-generated method stub
 		log.debug("-> starting processing ...");
 		ServiceInfo[] ret = new ServiceInfo[0];
-		
+
 		log.debug("-> ... processing DONE!");
 		return null;
 	}
@@ -223,9 +223,22 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	public boolean stop() throws AccessSessionException {
 		// TODO Auto-generated method stub
 		log.debug("-> starting processing ...");
-		
+		boolean ret = false;
+		try {
+			ServiceLocator locator = ServiceLocator.getInstance();
+			KernelLocal kernel = locator.getKernelLocal();
+			ret = kernel.deleteAccessSession(this.asid);
+		} catch (ServiceLocatorException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new AccessSessionException(
+					"Couldn't get reference to the kernel!");
+		} catch (KernelException kex) {
+			log.debug("caught ex: " + kex.toString());
+			throw new AccessSessionException(
+					"removing the access session from kernel failed");
+		}
 		log.debug("-> ... processing DONE!");
-		return false;
+		return ret;
 	}
 
 	/**

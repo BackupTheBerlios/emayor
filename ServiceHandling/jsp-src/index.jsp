@@ -3,12 +3,16 @@
 <html>
 
 <head>
-	<title>List of all available services!</title>\n\
+	<title>List of all available services!</title>
 </head>
 
 <body bgcolor="#FFFFFF">
 
-
+<h1>
+			Start site of the test gui for service handling!
+		</h1>
+		<br/>
+		<a href="ServiceHandlingTest?action=welcome">lets go :-)</a> 
 
 
 </body>

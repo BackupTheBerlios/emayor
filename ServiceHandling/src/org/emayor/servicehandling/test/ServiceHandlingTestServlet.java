@@ -79,7 +79,7 @@ public class ServiceHandlingTestServlet extends HttpServlet {
 			log.debug("processing Logout request");
 			LogoutProcessor p = new LogoutProcessor();
 			p.process(req, resp);
-			resp.sendRedirect("login.jsp");
+			resp.sendRedirect("index.jsp");
 		} else {
 			HttpSession session = req.getSession(false);
 			resp.setContentType("text/html");

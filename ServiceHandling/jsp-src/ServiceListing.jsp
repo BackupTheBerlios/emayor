@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<title>JSP Page</title>
+	<title>List of the available services!</title>
 </head>
 
 <body bgcolor="#FFFFFF">

@@ -27,7 +27,6 @@ public class LogoutProcessor {
 	 */
 	public LogoutProcessor() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void process(HttpServletRequest req, HttpServletResponse resp)

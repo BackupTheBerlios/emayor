@@ -6,6 +6,7 @@ package org.emayor.servicehandling.beans;
 import java.rmi.RemoteException;
 
 import javax.ejb.EJBException;
+import javax.ejb.RemoveException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
@@ -216,6 +217,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 			AccessSessionLocal as = this.kernel
 					.getAccessSession(accessSessionId);
 			ret = as.stop();
+			as.remove();
 		} catch (KernelException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new AccessException(
@@ -223,6 +225,8 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 		} catch (AccessSessionException asex) {
 			log.error("caught ex: " + asex.toString());
 			throw new AccessException("Couldn't stop the access session");
+		} catch (RemoveException rex) {
+			log.error("caught ex: " + rex.toString());
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
