@@ -3,14 +3,11 @@
  */
 package org.emayor.servicehandling.kernel;
 
-import java.rmi.RemoteException;
-
 import java.security.cert.X509Certificate;
 
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
-import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
@@ -30,8 +27,8 @@ public class Kernel implements IKernel {
 
 	private KernelRepository repository;
 
-	private PolicyEnforcement pe;
-	//private PolicyEnforcementLocal pe;
+	//private PolicyEnforcement pe;
+	private PolicyEnforcementLocal pe;
 
 	private static Kernel _self = null;
 
@@ -45,9 +42,10 @@ public class Kernel implements IKernel {
 				log.warn("the ref to the id gen is NULL!!!!");
 			else
 				log.debug("got the id gen ref");
-			this.pe = locator.getPolicyEnforcement();
+			this.pe = locator.getPolicyEnforcementLocal();
 			if (pe == null)
-				log.warn("--------------->the re to the policy enforcer is NULL!!!!");
+				log
+						.warn("--------------->the re to the policy enforcer is NULL!!!!");
 			else
 				log.warn("--------------->the pe reference: " + pe.toString());
 		} catch (ServiceLocatorException ex) {
@@ -419,31 +417,23 @@ public class Kernel implements IKernel {
 	public String authenticateUser(X509Certificate[] certificates)
 			throws KernelException {
 		log.debug("-> start processing ...");
-		String ret = "defid";
-		/*
-		try {
-			log.debug("try to get the user profile from policy enforcer");
-			C_UserProfile userProfile = this.pe.F_getUserProfile(certificates);
-			log.debug("try to authenticate the user!");
-			if (this.pe.F_AuthenticateUser(userProfile)) {
-				if (certificates != null) {
-					log.debug(">>>>>>>>>>> got hash:      "
-							+ certificates[0].hashCode());
-					log.debug(">>>>>>>>>>> got user name: "
-							+ userProfile.getUserName());
-					log.debug(">>>>>>>>>>> got user mail: "
-							+ userProfile.getUserEmail());
-				}
-				ret = "defid";
-			} else {
-				ret = null;
+		String ret = null;
+		log.debug("try to get the user profile from policy enforcer");
+		C_UserProfile userProfile = this.pe.F_getUserProfile(certificates);
+		log.debug("try to authenticate the user!");
+		if (this.pe.F_AuthenticateUser(userProfile)) {
+			if (certificates != null) {
+				log.debug(">>>>>>>>>>> got hash:      "
+						+ certificates[0].hashCode());
+				log.debug(">>>>>>>>>>> got user name: "
+						+ userProfile.getUserName());
+				log.debug(">>>>>>>>>>> got user mail: "
+						+ userProfile.getUserEmail());
 			}
-		} catch (RemoteException rex) {
-			log.error("caught ex: " + rex.toString());
-			throw new KernelException(rex.toString());
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}*/
+			ret = "defid";
+		} else {
+			ret = null;
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}

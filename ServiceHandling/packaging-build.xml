@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N1004D,N1005E,N1006F,N100AC,N100DD,N10126"/>
+<target name="_packaging_generation_" depends="N10004,N1004D,N1005E,N1006F,N100AC,N100DD,N10126,N1013F"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -93,7 +93,15 @@
 <zipfileset dir="classes" includes="org/emayor/www/eMayorServiceRequest_xsd/*.class,org/emayor/ResidenceCertifcationRequest_v10/*.class"/>
 </jar>
 </target>
-<target name="N10126" description="eMayorApp.ear">
+<target name="N10126" description="BPELPolicyEnforcer-client.jar">
+<jar destfile="BPELPolicyEnforcer-client.jar">
+<zipfileset dir="../PolicyEnforcement/bin/org/eMayor/PolicyEnforcement" prefix="org/eMayor/PolicyEnforcement">
+<include name="C_ServiceStep.class"/>
+</zipfileset>
+<zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/BPELPolicyEnforcer*.class,org/emayor/servicehandling/kernel/*BPELPolicyEnforcer*.class"/>
+</jar>
+</target>
+<target name="N1013F" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>

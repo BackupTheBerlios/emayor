@@ -41,6 +41,10 @@
 <file prefix="META-INF/wsdl/xsd" project="" projectLocation="service1-wsdl/xsd/ws-addressing.xsd" name="ws-addressing.xsd" location="service1-wsdl/xsd/ws-addressing.xsd" used="true"/>
 <file prefix="" project="" projectLocation="lib/otn-jaxrpc.jar" name="otn-jaxrpc.jar" location="lib/otn-jaxrpc.jar" used="false"/>
 </archive>
+<archive name="BPELPolicyEnforcer-client.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/emayor/servicehandling/interfaces/BPELPolicyEnforcer*.class,org/emayor/servicehandling/kernel/*BPELPolicyEnforcer*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
+<file prefix="org/eMayor/PolicyEnforcement" project="PolicyEnforcement" projectLocation="bin/org/eMayor/PolicyEnforcement/C_ServiceStep.class" name="C_ServiceStep.class" location="../PolicyEnforcement/bin/org/eMayor/PolicyEnforcement/C_ServiceStep.class" used="true"/>
+</archive>
 <archive name="eMayorApp.ear" destination="" used="true" exploded="false">
 <file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
 <file prefix="" project="" projectLocation="eMayorEJB.jar" name="eMayorEJB.jar" location="eMayorEJB.jar" used="true"/>
