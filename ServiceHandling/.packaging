@@ -8,6 +8,7 @@
 <file prefix="" project="" projectLocation="lib/UTWrapper-client.jar" name="UTWrapper-client.jar" location="lib/UTWrapper-client.jar" used="true"/>
 <file prefix="" project="" projectLocation="lib/oc4jclient.jar" name="oc4jclient.jar" location="lib/oc4jclient.jar" used="true"/>
 <file prefix="" project="" projectLocation="lib/ojdl.jar" name="ojdl.jar" location="lib/ojdl.jar" used="true"/>
+<file prefix="" project="" projectLocation="lib/otn-jaxrpc.jar" name="otn-jaxrpc.jar" location="lib/otn-jaxrpc.jar" used="true"/>
 </archive>
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
