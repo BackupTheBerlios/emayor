@@ -33,6 +33,9 @@ public class KernelRepository {
 	// service id -> factory
 	private HashMap serviceId2serviceFactory;
 
+	// userdId -> UserProfile
+	private HashMap userId2UserProfile;
+
 	/**
 	 *  
 	 */
@@ -43,6 +46,7 @@ public class KernelRepository {
 		this.userId2ssids = new HashMap();
 		this.serviceId2serviceInfo = new HashMap();
 		this.serviceId2serviceFactory = new HashMap();
+		this.userId2UserProfile = new HashMap();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -256,6 +260,66 @@ public class KernelRepository {
 			throw new KernelRepositoryException(
 					"factory for specified service id doesn't exist!");
 		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public void addUserProfile(IUserProfile userProfile)
+			throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		String id = userProfile.getUserId();
+		if (this.userId2UserProfile.containsKey(id)) {
+			log.error("UserProfile already exist in the repository");
+			throw new KernelRepositoryException(
+					"Couldn't add UserProfile into repository - already exists!");
+		} else {
+			this.userId2UserProfile.put(id, userProfile);
+		}
+		log.debug("-> ... processing DONE!");
+	}
+
+	public void removeUserProfile(String userId)
+			throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		if (userId == null || userId.length() == 0)
+			throw new KernelRepositoryException("invalid user id");
+		if (this.userId2UserProfile.containsKey(userId)) {
+			if (log.isDebugEnabled())
+				log.debug("removing the info for the userId = " + userId);
+			this.userId2UserProfile.remove(userId);
+		} else {
+			log.error("info for specified user id doesn't exist!");
+			throw new KernelRepositoryException(
+					"info for specified user id doesn't exist!");
+		}
+		log.debug("-> ... processing DONE!");
+	}
+
+	public IUserProfile getUserProfile(String userId)
+			throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		if (userId == null || userId.length() == 0)
+			throw new KernelRepositoryException("invalid user id");
+		IUserProfile ret = null;
+		if (this.userId2UserProfile.containsKey(userId)) {
+			log.debug("found the right info");
+			ret = (IUserProfile) this.userId2UserProfile.get(userId);
+		} else {
+			log.error("info for specified user id doesn't exist!");
+			throw new KernelRepositoryException(
+					"info for specified user id doesn't exist!");
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public boolean existUserProfile(String userId)
+			throws KernelRepositoryException {
+		log.debug("-> start processing ...");
+		boolean ret = false;
+		if (userId == null || userId.length() == 0)
+			throw new KernelRepositoryException("invalid user id");
+		ret = this.userId2UserProfile.containsKey(userId);
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}

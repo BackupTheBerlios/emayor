@@ -364,11 +364,15 @@ public class Kernel implements IKernel {
 	 * @see org.emayor.servicehandling.kernel.IKernel#getUserProfile(java.lang.String)
 	 */
 	public IUserProfile getUserProfile(String userId) throws KernelException {
-		// TODO Auto-generated method stub
 		log.debug("-> start processing ...");
-		IUserProfile ret = new UserProfile();
-		ret.setUserId(userId);
-		ret.setPEUserProfile(new C_UserProfile());
+		IUserProfile ret = null;
+		try {
+			ret = this.repository.getUserProfile(userId);
+		} catch (KernelRepositoryException krex) {
+			log.error("caught ex: " + krex.toString());
+			throw new KernelException(
+					"problem with obtaining the user profile from repository");
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -418,19 +422,33 @@ public class Kernel implements IKernel {
 			throws KernelException {
 		log.debug("-> start processing ...");
 		String ret = null;
+		String userId = null;
 		log.debug("try to get the user profile from policy enforcer");
 		C_UserProfile userProfile = this.pe.F_getUserProfile(certificates);
+		try {
+			userId = String.valueOf(certificates[0].hashCode());
+			if (!this.repository.existUserProfile(userId)) {
+				IUserProfile up = new UserProfile();
+				up.setUserId(String.valueOf(certificates[0].hashCode()));
+				up.setPEUserProfile(userProfile);
+				repository.addUserProfile(up);
+			} else {
+				log.debug("the user already exiss in the repository");
+			}
+		} catch (KernelRepositoryException krex) {
+			log.error("caught ex: " + krex.toString());
+			throw new KernelException(
+					"problem with repository by handling user profile");
+		}
 		log.debug("try to authenticate the user!");
 		if (this.pe.F_AuthenticateUser(userProfile)) {
 			if (certificates != null) {
-				log.debug(">>>>>>>>>>> got hash:      "
-						+ certificates[0].hashCode());
 				log.debug(">>>>>>>>>>> got user name: "
 						+ userProfile.getUserName());
 				log.debug(">>>>>>>>>>> got user mail: "
 						+ userProfile.getUserEmail());
 			}
-			ret = "defid";
+			ret = userId;
 		} else {
 			ret = null;
 		}

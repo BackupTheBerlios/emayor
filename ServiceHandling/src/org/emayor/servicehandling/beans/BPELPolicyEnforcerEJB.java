@@ -29,6 +29,7 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  *           BPELPolicyEnforcer" description="Description for
  *           BPELPolicyEnforcer" jndi-name="ejb/BPELPolicyEnforcer"
  *           type="Stateless" view-type="both"
+ * 
  */
 public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 	private static final Logger log = Logger
@@ -164,7 +165,7 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 	 * @ejb.interface-method view-type = "both"
 	 */
 	public boolean F_AuthorizeServiceStep(String userId, String ssid,
-			C_ServiceStep ServiceStep) throws BPELPolicyEnforcerException {
+			String serviceStepId) throws BPELPolicyEnforcerException {
 		log.debug("-> start processing ...");
 		boolean ret = false;
 		try {
@@ -176,8 +177,9 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 			IServiceProfile _serviceProfile = kernel.getServiceProfile(ssid);
 			C_ServiceProfile serviceProfile = _serviceProfile
 					.getPEServiceProfile();
+			C_ServiceStep _serviceStep = new C_ServiceStep();
 			ret = this.policyEnforcement.F_AuthorizeServiceStep(userProfile,
-					serviceProfile, ServiceStep);
+					serviceProfile, _serviceStep);
 		} catch (ServiceLocatorException slex) {
 			log.error("caught ex: " + slex.toString());
 			throw new BPELPolicyEnforcerException(

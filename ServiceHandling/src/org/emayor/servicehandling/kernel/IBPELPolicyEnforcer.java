@@ -3,8 +3,6 @@
  */
 package org.emayor.servicehandling.kernel;
 
-import org.eMayor.PolicyEnforcement.C_ServiceStep;
-
 /**
  * @author tku
  */
@@ -20,5 +18,5 @@ public interface IBPELPolicyEnforcer {
 			throws BPELPolicyEnforcerException;
 
 	public boolean F_AuthorizeServiceStep(String userId, String ssid,
-			C_ServiceStep ServiceStep) throws BPELPolicyEnforcerException;
+			String serviceStepID) throws BPELPolicyEnforcerException;
 }
