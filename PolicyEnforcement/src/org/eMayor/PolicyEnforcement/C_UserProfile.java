@@ -135,7 +135,7 @@ E_UserProfileException {
 	}
 	
 
-public Document getUserProfileasDomDocument() throws
+public Document getUserProfileasDomDocument()throws
 E_UserProfileException {
 	Document myDocument = null;
 	try {
@@ -166,7 +166,6 @@ E_UserProfileException {
 		eUserRole.setNodeValue(this.m_S_UserRole);
 		newRoot.appendChild(eUserRole);
 		
-		
 
 		
 		
@@ -188,7 +187,7 @@ E_UserProfileException {
 	*/
 	}
 	catch (Exception e){
-		throw new E_UserProfileException("C_UserProfile:getUserProfileasDomDocument:Error \n" + e.toString());
+		throw new E_UserProfile("C_UserProfile:getUserProfileasDomDocument:Error \n" + e.toString());
 	}
 	return myDocument;
 	}
