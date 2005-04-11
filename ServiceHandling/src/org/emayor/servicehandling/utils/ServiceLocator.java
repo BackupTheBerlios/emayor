@@ -35,6 +35,8 @@ import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionLocalHome;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.interfaces.KernelLocalHome;
+import org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocal;
+import org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocalHome;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocalHome;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
@@ -415,6 +417,27 @@ public class ServiceLocator {
                     .lookup(ContentRouterLocalHome.JNDI_NAME);
             ContentRouterLocalHome home = (ContentRouterLocalHome) PortableRemoteObject
                     .narrow(ref, ContentRouterLocalHome.class);
+            ret = home.create();
+            log.debug("got the reference!");
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        } catch (CreateException cex) {
+            log.error("caught ex: " + cex.toString());
+            throw new ServiceLocatorException(cex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public synchronized ServiceCallbackManagerLocal getServiceCallbackManagerLocal()
+            throws ServiceLocatorException {
+        ServiceCallbackManagerLocal ret = null;
+        try {
+            Object ref = this.bpelInitialContext
+                    .lookup(ServiceCallbackManagerLocalHome.JNDI_NAME);
+            ServiceCallbackManagerLocalHome home = (ServiceCallbackManagerLocalHome) PortableRemoteObject
+                    .narrow(ref, ServiceCallbackManagerLocalHome.class);
             ret = home.create();
             log.debug("got the reference!");
         } catch (NamingException nex) {

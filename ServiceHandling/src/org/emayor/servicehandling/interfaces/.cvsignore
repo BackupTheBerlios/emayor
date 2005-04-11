@@ -18,3 +18,5 @@ BPELPolicyEnforcer.java
 BPELPolicyEnforcerHome.java
 BPELPolicyEnforcerLocal.java
 BPELPolicyEnforcerLocalHome.java
+ServiceCallbackManagerLocal.java
+ServiceCallbackManagerLocalHome.java

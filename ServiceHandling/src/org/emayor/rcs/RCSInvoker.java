@@ -30,7 +30,11 @@ public class RCSInvoker extends AsyncInvoker {
 	private static String STYLE;
 
 	private static Parameter[] SERVICE_PARAMETERS;
-
+	/*
+	 * There is a problem on the BPEL side to use the request data by specifing
+	 * the xpath with NS. Somehow the NS of the request data is not correct.
+	 * Current working workaround is to use the query without the NS.
+	 */
 	static {
 		String THIS_NAMESPACE = "http://emayor.org/ResidenceCertifcationRequest_v10";
 		String PARAMETER_NAMESPACE = "http://www.emayor.org/eMayorServiceRequest.xsd";

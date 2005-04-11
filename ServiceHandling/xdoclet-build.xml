@@ -34,7 +34,26 @@
 <pathelement location="E:/java/j2sdk1.4.2/jre/lib/ext/ldapsec.jar"/>
 <pathelement location="E:/java/j2sdk1.4.2/jre/lib/ext/localedata.jar"/>
 <pathelement location="E:/java/j2sdk1.4.2/jre/lib/ext/sunjce_provider.jar"/>
+<pathelement location="../PolicyEnforcement/lib/xmlsec-1.2RC2.jar"/>
 <pathelement location="../PrintingUtility/bin"/>
+<pathelement location="E:/lib/log4j/dist/lib/log4j-1.2.8.jar"/>
+<pathelement location="lib/eMayor-jaxb.jar"/>
+<pathelement location="lib/jaxb-libs.jar"/>
+<pathelement location="lib/jaxb-api.jar"/>
+<pathelement location="../NotificationService/bin"/>
+<pathelement location="../NotificationService/lib/activation.jar"/>
+<pathelement location="../NotificationService/lib/log4j-1.2.9.jar"/>
+<pathelement location="../NotificationService/lib/mail.jar"/>
+<pathelement location="../NotificationService/lib/quartz.jar"/>
+<pathelement location="../NotificationServiceWrapper/bin"/>
+<pathelement location="../NotificationServiceWrapper/lib/javamail.jar"/>
+<pathelement location="../NotificationServiceWrapper/lib/log4j-1.2.9.jar"/>
+<pathelement location="../NotificationServiceWrapper/lib/eMayorEJB.jar"/>
+<pathelement location="../FormatTransformation/bin"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.eclipse.tomcat_4.1.30/servlet.jar"/>
+<pathelement location="E:/Programme/eMayor/jboss/lib/endorsed/xalan.jar"/>
+<pathelement location="../ContentRouting/bin"/>
+<pathelement location="../ContentRouting/uddi4j/uddi4j.jar"/>
 </path>
 <path id="xdoclet.classpath">
 <path refid="project.classpath"/>
