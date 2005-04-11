@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" 
+			xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" 
+			xmlns:soap="http://schemas.xmlsoap.org/soap/encoding/" 
+			xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <typeMapping qname="ns1:result" 
+				 xmlns:ns1="http://emayor.org/ServiceCallbackManager" 
+				 type="java:org.emayor.servicehandling.kernel.ServiceCallbackData" 
+				 serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" 
+				 deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" 
+				 encodingStyle="">
+    </typeMapping>
+</deployment>
+

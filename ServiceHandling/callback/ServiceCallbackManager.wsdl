@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://emayor.org/ServiceCallbackManager" xmlns:intf="http://emayor.org/ServiceCallbackManager" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://emayor.org/ServiceCallbackManager">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://emayor.org/ServiceCallbackManager">
+			<complexType name="ServiceCallbackProperty">
+				<sequence>
+					<element name="propertyName" nillable="true" type="xsd:string"/>
+					<element name="propertyValue" nillable="true" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<complexType name="ServiceCallbackData">
+				<sequence>
+					<element name="property1" nillable="true" type="impl:ServiceCallbackProperty"/>
+					<element name="property2" nillable="true" type="impl:ServiceCallbackProperty"/>
+					<element name="property3" nillable="true" type="impl:ServiceCallbackProperty"/>
+					<element name="property4" nillable="true" type="impl:ServiceCallbackProperty"/>
+					<element name="requestDocument" nillable="true" type="xsd:string"/>
+					<element name="resultDocument" nillable="true" type="xsd:string"/>
+					<element name="ssid" nillable="true" type="xsd:string"/>
+					<element name="uid" nillable="true" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<element name="result" type="impl:ServiceCallbackData"/>
+			<element name="onResultReturn" type="xsd:string"/>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="onResultResponse">
+		<wsdl:part name="onResultReturn" element="impl:onResultReturn"/>
+	</wsdl:message>
+	<wsdl:message name="onResultRequest">
+		<wsdl:part name="result" element="impl:result"/>
+	</wsdl:message>
+	<wsdl:portType name="IServiceCallbackManager">
+		<wsdl:operation name="onResult" parameterOrder="result">
+			<wsdl:input name="onResultRequest" message="impl:onResultRequest"/>
+			<wsdl:output name="onResultResponse" message="impl:onResultResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ServiceCallbackManagerSoapBinding" type="impl:IServiceCallbackManager">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="onResult">
+			<wsdlsoap:operation/>
+			<wsdl:input>
+				<wsdlsoap:body use="literal" namespace="http://emayor.org/ServiceCallbackManager"/>
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" namespace="http://emayor.org/ServiceCallbackManager"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IServiceCallbackManagerService">
+		<wsdl:port name="ServiceCallbackManager" binding="impl:ServiceCallbackManagerSoapBinding">
+			<wsdlsoap:address location="http://localhost:8080/eMayorEJB/ServiceCallbackManager"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
