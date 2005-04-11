@@ -16,6 +16,10 @@
 <file prefix="" project="" projectLocation="lib/xsdlib.jar" name="xsdlib.jar" location="lib/xsdlib.jar" used="false"/>
 <file prefix="" project="" projectLocation="lib/quartz.jar" name="quartz.jar" location="lib/quartz.jar" used="true"/>
 <file prefix="" project="" projectLocation="lib/uddi4j.jar" name="uddi4j.jar" location="lib/uddi4j.jar" used="true"/>
+<file prefix="META-INF" project="" projectLocation="callback/callback_mapping.xml" name="callback_mapping.xml" location="callback/callback_mapping.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="callback/webservices.xml" name="webservices.xml" location="callback/webservices.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="callback/ws4ee-deployment.xml" name="ws4ee-deployment.xml" location="callback/ws4ee-deployment.xml" used="true"/>
+<file prefix="META-INF/wsdl" project="" projectLocation="callback/ServiceCallbackManager.wsdl" name="ServiceCallbackManager.wsdl" location="callback/ServiceCallbackManager.wsdl" used="true"/>
 </archive>
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>

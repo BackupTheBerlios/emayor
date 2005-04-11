@@ -112,7 +112,6 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
             ServiceLocator locator = ServiceLocator.getInstance();
             KernelLocal kernel = locator.getKernelLocal();
             String str = kernel.authenticateUser(certificates);
-            kernel.remove();
             if (str != null && str.length() != 0) {
                 log.debug("the user has been authenticated!");
                 this.userId = str;
@@ -120,20 +119,33 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
                     log.debug("the user id = " + this.userId);
                 this.isSessionActive = true;
                 ret = true;
+                ServiceSessionLocal[] serviceSessions = kernel
+                        .getUsersServiceSessions(str);
+                for (int i = 0; i < serviceSessions.length; i++) {
+                    serviceSessions[i].setAccessSessionId(this.asid);
+                    this.repository.put(serviceSessions[i]);
+                }
             } else {
                 log.debug("the user has NOT been authenticated!");
                 ret = false;
             }
+            kernel.remove();
         } catch (ServiceLocatorException slex) {
             log.error("caught ex: " + slex.toString());
             throw new AccessSessionException(
-                    "Internal error - service locator problem");
+                    "authenticateUser failed: Internal error - service locator problem");
         } catch (KernelException kex) {
             log.error("caught ex: " + kex.toString());
-            throw new AccessSessionException("Internal error - kernel problem");
+            throw new AccessSessionException(
+                    "authenticateUser failed: Internal error - kernel problem");
         } catch (RemoveException rex) {
             log.error("caught ex: " + rex.toString());
-            throw new AccessSessionException("internal error");
+            throw new AccessSessionException(
+                    "authenticateUser failed: internal error");
+        } catch (ServiceSessionException ssex) {
+            log.error("caught ex: " + ssex.toString());
+            throw new AccessSessionException(
+                    "authenticateUser failed: couldn't assign the new asid to running the service session");
         }
         log.debug("-> ... processing DONE!");
         return ret;
