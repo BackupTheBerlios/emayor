@@ -244,7 +244,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
         try {
             ServiceLocator locator = ServiceLocator.getInstance();
             KernelLocal kernel = locator.getKernelLocal();
-            kernel.deleteServiceSession(ssid);
+            kernel.deleteServiceSession(this.asid, this.ssid);
             kernel.remove();
         } catch (ServiceLocatorException slex) {
             log.error("cannot get an instance of the service locator");

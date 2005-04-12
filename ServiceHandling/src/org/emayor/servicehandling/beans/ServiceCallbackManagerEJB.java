@@ -5,6 +5,7 @@ package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
 
+import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.RemoveException;
 import javax.ejb.SessionBean;
@@ -13,16 +14,12 @@ import javax.ejb.SessionContext;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.KernelLocal;
-import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.kernel.AccessSessionException;
 import org.emayor.servicehandling.kernel.IServiceCallbackManager;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceCallbackData;
-import org.emayor.servicehandling.kernel.ServiceSessionException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
-
-import javax.ejb.CreateException;
 
 /**
  * @ejb.bean name="ServiceCallbackManager" display-name="Name for
@@ -43,7 +40,6 @@ public class ServiceCallbackManagerEJB implements SessionBean,
      */
     public ServiceCallbackManagerEJB() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /*
@@ -63,7 +59,6 @@ public class ServiceCallbackManagerEJB implements SessionBean,
      * @see javax.ejb.SessionBean#ejbRemove()
      */
     public void ejbRemove() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -73,7 +68,6 @@ public class ServiceCallbackManagerEJB implements SessionBean,
      * @see javax.ejb.SessionBean#ejbActivate()
      */
     public void ejbActivate() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -83,7 +77,6 @@ public class ServiceCallbackManagerEJB implements SessionBean,
      * @see javax.ejb.SessionBean#ejbPassivate()
      */
     public void ejbPassivate() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -98,23 +91,30 @@ public class ServiceCallbackManagerEJB implements SessionBean,
         String ret = "NOT_OK";
         String ssid = "";
         String asid = "";
+        String userId = "";
         try {
             ssid = result.getSsid();
+            userId = result.getUid();
             ServiceLocator locator = ServiceLocator.getInstance();
             KernelLocal kernel = locator.getKernelLocal();
-            ServiceSessionLocal serviceSession = kernel.getServiceSession(ssid);
-            asid = serviceSession.getAccessSessionId();
+            log.debug("got the kernel");
+            asid = kernel.getAsidByUserID(userId);
+            if (log.isDebugEnabled()) {
+                log.debug("ssid = " + ssid);
+                log.debug("asid = " + asid);
+                log.debug("uid  = " + userId);
+            }
+            log.debug("get the access session !");
             AccessSessionLocal accessSession = kernel.getAccessSession(asid);
+            log.debug("remove the kernel");
             kernel.remove();
+            log.debug("stop the service session");
             accessSession.stopServiceSession(ssid);
             ret = "OK";
         } catch (ServiceLocatorException slex) {
             log.error("problem with the service locator");
         } catch (KernelException kex) {
             log.error("problem with the kernel");
-        } catch (ServiceSessionException ssex) {
-            log.error("couldn't get the asid from service session: ssid="
-                    + ssid);
         } catch (AccessSessionException asex) {
             log.error("couldn't stop the ended service session: ssid=" + ssid
                     + " asid=" + asid);

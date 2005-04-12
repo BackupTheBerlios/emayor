@@ -111,7 +111,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
         try {
             ServiceLocator locator = ServiceLocator.getInstance();
             KernelLocal kernel = locator.getKernelLocal();
-            String str = kernel.authenticateUser(certificates);
+            String str = kernel.authenticateUser(this.asid, certificates);
             if (str != null && str.length() != 0) {
                 log.debug("the user has been authenticated!");
                 this.userId = str;
@@ -205,7 +205,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
             ServiceLocator locator = ServiceLocator.getInstance();
             KernelLocal kernel = locator.getKernelLocal();
             ServiceSessionLocal serviceSessionLocal = kernel
-                    .createServiceSession(this.asid, serviceId);
+                    .createServiceSession(this.asid, serviceId, this.userId);
             kernel.remove();
             ret = serviceSessionLocal.getSessionId();
             if (log.isDebugEnabled())
@@ -244,9 +244,14 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
         log.debug("-> start processing ...");
         boolean ret = false;
         try {
+            log
+                    .debug("obtain the service session instance reference from local repository");
             ServiceSessionLocal serviceSession = this.getServiceSession(ssid);
-            serviceSession.endService();
+            log.debug("remove service session instance from local repository");
             this.repository.remove(ssid);
+            log.debug("en the service session");
+            serviceSession.endService();
+            log.debug("remove the service session ejb instance");
             serviceSession.remove();
         } catch (ServiceSessionException ssex) {
             log.error("caught ex: " + ssex.toString());

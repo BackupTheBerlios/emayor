@@ -121,9 +121,9 @@ public class KernelEJB implements SessionBean, IKernel {
      *  
      */
     public ServiceSessionLocal createServiceSession(String asid,
-            String serviceName) throws KernelException {
+            String serviceName, String userId) throws KernelException {
         log.debug("-> start processing ...");
-        return this.kernel.createServiceSession(asid, serviceName);
+        return this.kernel.createServiceSession(asid, serviceName, userId);
     }
 
     /**
@@ -144,9 +144,9 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public boolean deleteServiceSession(String ssid) throws KernelException {
+    public boolean deleteServiceSession(String asid, String ssid) throws KernelException {
         log.debug("-> start processing ...");
-        return this.kernel.deleteServiceSession(ssid);
+        return this.kernel.deleteServiceSession(asid, ssid);
     }
 
     /**
@@ -234,10 +234,10 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public String authenticateUser(X509Certificate[] certificates)
+    public String authenticateUser(String asid, X509Certificate[] certificates)
             throws KernelException {
         log.debug("-> start processing ...");
-        return this.kernel.authenticateUser(certificates);
+        return this.kernel.authenticateUser(asid, certificates);
     }
 
     /**
@@ -250,6 +250,17 @@ public class KernelEJB implements SessionBean, IKernel {
             throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.getUsersServiceSessions(userId);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public String getAsidByUserID(String userId) throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.getAsidByUserID(userId);
     }
 
 }

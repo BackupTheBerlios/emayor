@@ -47,7 +47,7 @@ public interface IKernel {
      * @throws KernelException
      */
     public ServiceSessionLocal createServiceSession(String asid,
-            String serviceName) throws KernelException;
+            String serviceName, String userId) throws KernelException;
 
     /**
      * 
@@ -60,14 +60,17 @@ public interface IKernel {
 
     /**
      * 
-     * @param ssid
+     * @param asid current access session id
+     * @param ssid service session id
      * @return
      * @throws KernelException
      */
-    public boolean deleteServiceSession(String ssid) throws KernelException;
+    public boolean deleteServiceSession(String asid, String ssid)
+            throws KernelException;
 
     /**
      * Get all runing service sessions started by given user.
+     * 
      * @param userId
      * @return
      * @throws KernelException
@@ -104,6 +107,8 @@ public interface IKernel {
      */
     public String getUserIdByASID(String asid) throws KernelException;
 
+    public String getAsidByUserID(String userId) throws KernelException;
+
     /**
      * 
      * @param userId
@@ -118,7 +123,7 @@ public interface IKernel {
      * @return system unique user id
      * @throws KernelException
      */
-    public String authenticateUser(X509Certificate[] certificates)
+    public String authenticateUser(String asid, X509Certificate[] certificates)
             throws KernelException;
 
     /**

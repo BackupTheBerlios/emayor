@@ -38,6 +38,12 @@ public class KernelRepository {
     // userdId -> UserProfile
     private HashMap userId2UserProfile;
 
+    // userId -> asid
+    private HashMap userId2asid;
+
+    // asid -> userId
+    private HashMap asid2userId;
+
     /**
      *  
      */
@@ -49,6 +55,8 @@ public class KernelRepository {
         this.serviceId2serviceInfo = new HashMap();
         this.serviceId2serviceFactory = new HashMap();
         this.userId2UserProfile = new HashMap();
+        this.userId2asid = new HashMap();
+        this.asid2userId = new HashMap();
         log.debug("-> ... processing DONE!");
     }
 
@@ -57,6 +65,7 @@ public class KernelRepository {
         log.debug("-> start processing ...");
         try {
             String asid = accessSession.getSessionId();
+            String uid = accessSession.getUserId();
             if (!this.asid2accessSession.containsKey(asid)) {
                 this.asid2accessSession.put(asid, accessSession);
             } else {
@@ -77,7 +86,10 @@ public class KernelRepository {
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
         if (this.asid2accessSession.containsKey(asid)) {
+            String uid = (String) this.asid2userId.get(asid);
             this.asid2accessSession.remove(asid);
+            this.userId2asid.remove(uid);
+            this.asid2userId.remove(asid);
         } else {
             log.error("access session to be removed doesn't exist!");
             throw new KernelRepositoryException("Unknown asid: " + asid);
@@ -221,12 +233,8 @@ public class KernelRepository {
             ret = new ServiceSessionLocal[ssids.size()];
             int index = 0;
             for (Iterator i = ssids.iterator(); i.hasNext();) {
-                ret[index++] = (ServiceSessionLocal)i.next();
+                ret[index++] = (ServiceSessionLocal) i.next();
             }
-        } else {
-            log.error("user doesn't have a list of ssids assigned");
-            throw new KernelRepositoryException(
-                    "getAllServiceSessions failed: user doesn't have a list of ssids assigned");
         }
         log.debug("-> ... processing DONE!");
         return ret;
@@ -408,6 +416,38 @@ public class KernelRepository {
         if (userId == null || userId.length() == 0)
             throw new KernelRepositoryException("invalid user id");
         ret = this.userId2UserProfile.containsKey(userId);
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public void updateAccessSessionData(String userId, String asid) {
+        this.userId2asid.put(userId, asid);
+        this.asid2userId.put(asid, userId);
+    }
+
+    public String getAsidByUserId(String userId)
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        String ret = "";
+        if (this.userId2asid.containsKey(userId)) {
+            ret = (String) this.userId2asid.get(userId);
+        } else {
+            throw new KernelRepositoryException(
+                    "mapping to asid for specified user id doesn't exist");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public String getUserIdByAsid(String asid) throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        String ret = "";
+        if (this.asid2userId.containsKey(asid)) {
+            ret = (String) this.asid2userId.get(asid);
+        } else {
+            throw new KernelRepositoryException(
+                    "mapping to user id for specified asid doesn't exist");
+        }
         log.debug("-> ... processing DONE!");
         return ret;
     }

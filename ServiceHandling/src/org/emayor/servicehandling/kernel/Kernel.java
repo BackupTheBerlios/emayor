@@ -140,7 +140,7 @@ public class Kernel implements IKernel {
      *      java.lang.String)
      */
     public synchronized ServiceSessionLocal createServiceSession(String asid,
-            String serviceId) throws KernelException {
+            String serviceId, String userId) throws KernelException {
         log.debug("-> start processing ...");
         ServiceSessionLocal ret = null;
         try {
@@ -164,7 +164,6 @@ public class Kernel implements IKernel {
             service.setup();
             log.debug("assign the service to the service session");
             ret.seteMayorService(service);
-            String userId = this.getUserIdByASID(asid);
             log.debug("save the current instance into repository");
             this.repository.addServiceSession(ret, userId);
         } catch (ServiceLocatorException slex) {
@@ -207,23 +206,18 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#deleteServiceSession(java.lang.String)
      */
-    public synchronized boolean deleteServiceSession(String ssid)
+    public synchronized boolean deleteServiceSession(String asid, String ssid)
             throws KernelException {
         log.debug("-> start processing ...");
         boolean ret = false;
         try {
-            String userId = this.getUserIdByASID(this.getServiceSession(ssid)
-                    .getAccessSessionId());
+            String userId = this.getUserIdByASID(asid);
             this.repository.removeServiceSession(ssid, userId);
             ret = true;
         } catch (KernelRepositoryException kex) {
             log.error("caught ex: " + kex.toString());
             throw new KernelException(
                     "deleteServiceSession failed: problem with kernel repository");
-        } catch (ServiceSessionException ssex) {
-            log.error("caught ex: " + ssex.toString());
-            throw new KernelException(
-                    "deleteServiceSession failed: couldn't obtain the user id");
         }
         log.debug("-> ... processing DONE!");
         return ret;
@@ -271,9 +265,9 @@ public class Kernel implements IKernel {
         log.debug("-> start processing ...");
         String ret = "defid";
         try {
-            ret = this.getAccessSession(asid).getUserId();
-        } catch (AccessSessionException asex) {
-            log.error("caught ex: " + asex.toString());
+            ret = this.repository.getUserIdByAsid(asid);
+        } catch (KernelRepositoryException krex) {
+            log.error("caught ex: " + krex.toString());
             throw new KernelException("problem with getting user id");
         }
         log.debug("-> ... processing DONE!");
@@ -444,7 +438,7 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#authenticateUser(javax.security.cert.X509Certificate[])
      */
-    public String authenticateUser(X509Certificate[] certificates)
+    public String authenticateUser(String asid, X509Certificate[] certificates)
             throws KernelException {
         log.debug("-> start processing ...");
         String ret = null;
@@ -478,6 +472,7 @@ public class Kernel implements IKernel {
                 ret = userId;
                 if (log.isDebugEnabled())
                     log.debug("returning the user id : " + ret);
+                this.repository.updateAccessSessionData(userId, asid);
             } else {
                 ret = null;
             }
@@ -518,4 +513,21 @@ public class Kernel implements IKernel {
         return ret;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#getAsidByUserID(java.lang.String)
+     */
+    public String getAsidByUserID(String userId) throws KernelException {
+        log.debug("-> start processing ...");
+        String ret = "defid";
+        try {
+            ret = this.repository.getAsidByUserId(userId);
+        } catch (KernelRepositoryException krex) {
+            log.error("caught ex: " + krex.toString());
+            throw new KernelException("problem with getting asid");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
 }
