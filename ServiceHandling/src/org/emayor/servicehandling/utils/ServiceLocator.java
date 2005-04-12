@@ -429,7 +429,26 @@ public class ServiceLocator {
         log.debug("-> ... processing DONE!");
         return ret;
     }
-
+/*
+    public synchronized UserProfileLocalHome getUserProfileLocalHome()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        UserProfileLocalHome ret = null;
+        try {
+            Object ref = this.bpelInitialContext
+                    .lookup("UserProfileLocal");
+            UserProfileLocalHome home = (UserProfileLocalHome) PortableRemoteObject
+                    .narrow(ref, UserProfileLocalHome.class);
+            ret = home;
+            log.debug("got the reference!");
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+*/
     public synchronized ServiceCallbackManagerLocal getServiceCallbackManagerLocal()
             throws ServiceLocatorException {
         ServiceCallbackManagerLocal ret = null;

@@ -5,9 +5,6 @@ package org.emayor.servicehandling.kernel;
 
 import java.security.cert.X509Certificate;
 
-import javax.ejb.CreateException;
-import javax.ejb.FinderException;
-
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
@@ -16,8 +13,6 @@ import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
-import org.emayor.servicehandling.interfaces.UserProfileLocal;
-import org.emayor.servicehandling.interfaces.UserProfileLocalHome;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -478,6 +473,7 @@ public class Kernel implements IKernel {
                 if (log.isDebugEnabled())
                     log.debug("returning the user id : " + ret);
                 this.repository.updateAccessSessionData(userId, asid);
+                /*
                 log.debug("try to handle the entity bean!");
                 ServiceLocator locator = ServiceLocator.getInstance();
                 UserProfileLocalHome upHome = locator.getUserProfileLocalHome();
@@ -489,7 +485,7 @@ public class Kernel implements IKernel {
                     log.debug("caught finder exception: " + fex.toString());
                     userProfileLocal = upHome.create(userId, cUserProfileStr);
                     log.debug("the record has been new created !");
-                }
+                }*/
             } else {
                 ret = null;
             }
@@ -505,11 +501,11 @@ public class Kernel implements IKernel {
             log.error("caught ex: " + upex.toString());
             throw new KernelException(
                     "authenticateUser failed: problem with user profile transformation");
-        } catch (ServiceLocatorException slex) {
+        } /*catch (ServiceLocatorException slex) {
             log.error("caught ex: " + slex.toString());
         } catch (CreateException cex) {
             log.error("caught ex: " + cex.toString());
-        }
+        }*/
         log.debug("-> ... processing DONE!");
         return ret;
     }

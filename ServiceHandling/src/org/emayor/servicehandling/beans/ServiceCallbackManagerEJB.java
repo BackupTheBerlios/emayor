@@ -26,7 +26,7 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  *           ServiceCallbackManager" description="Description for
  *           ServiceCallbackManager"
  *           jndi-name="ejb/eMayor/ServiceCallbackManager" type="Stateless"
- *           view-type="local"
+ *           view-type="local" 
  */
 public class ServiceCallbackManagerEJB implements SessionBean,
         IServiceCallbackManager {
