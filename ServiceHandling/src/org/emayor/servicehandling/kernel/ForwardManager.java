@@ -11,7 +11,7 @@ public class ForwardManager implements IForward {
 	/* (non-Javadoc)
 	 * @see org.emayor.servicehandling.kernel.IForward#forwardRequest(org.emayor.servicehandling.kernel.IForwardMessage)
 	 */
-	public void forwardRequest(IForwardMessage forwardMessage)
+	public void forwardRequest(ForwardMessage forwardMessage)
 			throws ForwardException {
 		// TODO Auto-generated method stub
 
@@ -20,7 +20,7 @@ public class ForwardManager implements IForward {
 	/* (non-Javadoc)
 	 * @see org.emayor.servicehandling.kernel.IForward#forwardReplay(org.emayor.servicehandling.kernel.IForwardMessage)
 	 */
-	public void forwardReplay(IForwardMessage forwardMessage)
+	public void forwardReplay(ForwardMessage forwardMessage)
 			throws ForwardException {
 		// TODO Auto-generated method stub
 
