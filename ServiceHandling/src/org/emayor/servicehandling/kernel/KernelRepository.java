@@ -22,7 +22,7 @@ public class KernelRepository {
     // asid -> accessSession
     private HashMap asid2accessSession;
 
-    // ssid -> serviceSession
+    // ssid -> serviceSessionLocal
     private HashMap ssid2serviceSession;
 
     // userID -> set{ssid1, ssid2, ssid3 ...}
@@ -233,7 +233,8 @@ public class KernelRepository {
             ret = new ServiceSessionLocal[ssids.size()];
             int index = 0;
             for (Iterator i = ssids.iterator(); i.hasNext();) {
-                ret[index++] = (ServiceSessionLocal) i.next();
+                String ssid = (String) i.next();
+                ret[index++] = this.getServiceSession(ssid);
             }
         }
         log.debug("-> ... processing DONE!");
