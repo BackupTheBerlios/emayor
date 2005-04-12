@@ -12,5 +12,5 @@ public interface IForward extends Remote {
 	
 	public void forwardRequest(ForwardMessage forwardMessage) throws ForwardException;
 	
-	public void forwardReplay(ForwardMessage forwardMessage) throws ForwardException;
+	public void forwardResponse(ForwardMessage forwardMessage) throws ForwardException;
 }
