@@ -147,8 +147,9 @@
      -->
 
       <!-- Entity Beans -->
+         <!--
       <entity >
-      <!--
+
          <description><![CDATA[Description for UserProfile]]></description>
          <display-name>Name for UserProfile</display-name>
 
@@ -172,9 +173,8 @@
             <field-name>peUserProfile</field-name>
          </cmp-field>
           <primkey-field>userId</primkey-field>
-	-->
-	  <!-- Write a file named ejb-finders-UserProfileEJB.xml if you want to define extra finders. -->
-      </entity>
+      	-->
+
 
      <!--
        To add entity beans that you have deployment descriptor info for, add

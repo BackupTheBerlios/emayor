@@ -12,12 +12,6 @@
        markup for those beans.
      -->
 
-      <entity>
-         <ejb-name>UserProfile</ejb-name>
-         <local-jndi-name>UserProfileLocal</local-jndi-name>
-
-      </entity>
-
       <session>
          <ejb-name>ServiceCallbackManager</ejb-name>
          <local-jndi-name>ServiceCallbackManagerLocal</local-jndi-name>
