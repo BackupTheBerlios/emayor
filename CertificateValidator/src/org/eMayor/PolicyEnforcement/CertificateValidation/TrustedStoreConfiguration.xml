@@ -1,0 +1,4 @@
+<TrustedStoreConfiguration>
+	<StorePath>C:\\openssl\\lab\\store.jks</StorePath>
+	<StorePass>alexkjes7</StorePass>
+</TrustedStoreConfiguration>
