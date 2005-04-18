@@ -12,11 +12,11 @@ public interface ForwardManagerBPELLocal
    /**
     * Business Method
     */
-   public void forwardRequest( org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL message ) throws java.rmi.RemoteException;
+   public void forwardRequest( org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL message ) ;
 
    /**
     * Business Method
     */
-   public void forwardResponse( org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL message ) throws java.rmi.RemoteException;
+   public void forwardResponse( org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL message ) ;
 
 }

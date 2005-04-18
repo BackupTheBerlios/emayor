@@ -14,7 +14,7 @@
          <display-name>Name for ServiceCallbackManager</display-name>
 
          <ejb-name>ServiceCallbackManager</ejb-name>
-<service-endpoint>
+		 <service-endpoint>
 		 	org.emayor.servicehandling.kernel.IServiceCallbackManager
 		 </service-endpoint>
          <local-home>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocalHome</local-home>
@@ -24,7 +24,6 @@
          <transaction-type>Container</transaction-type>
 
       </session>
-
 
       <session >
          <description><![CDATA[Description for ServiceSession]]></description>
@@ -51,6 +50,22 @@
          <local-home>org.emayor.servicehandling.interfaces.BPELPolicyEnforcerLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.BPELPolicyEnforcerLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.BPELPolicyEnforcerEJB</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
+      <session >
+         <description><![CDATA[Description for ForwardManagerBPEL]]></description>
+         <display-name>Name for ForwardManagerBPEL</display-name>
+
+         <ejb-name>ForwardManagerBPEL</ejb-name>
+		 <service-endpoint>
+		 	org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
+		 </service-endpoint>
+         <local-home>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocal</local>
+         <ejb-class>org.emayor.servicehandling.beans.ForwardManagerBPEL_EJB</ejb-class>
          <session-type>Stateless</session-type>
          <transaction-type>Container</transaction-type>
 
@@ -147,35 +162,6 @@
      -->
 
       <!-- Entity Beans -->
-         <!--
-      <entity >
-
-         <description><![CDATA[Description for UserProfile]]></description>
-         <display-name>Name for UserProfile</display-name>
-
-         <ejb-name>UserProfile</ejb-name>
-
-         <local-home>org.emayor.servicehandling.interfaces.UserProfileLocalHome</local-home>
-         <local>org.emayor.servicehandling.interfaces.UserProfileLocal</local>
-
-         <ejb-class>org.emayor.servicehandling.beans.UserProfileCMP</ejb-class>
-         <persistence-type>Container</persistence-type>
-         <prim-key-class>java.lang.String</prim-key-class>
-         <reentrant>False</reentrant>
-         <cmp-version>2.x</cmp-version>
-         <abstract-schema-name>UserProfile</abstract-schema-name>
-         <cmp-field >
-            <description><![CDATA[Getter for CMP Field userId]]></description>
-            <field-name>userId</field-name>
-         </cmp-field>
-         <cmp-field >
-            <description><![CDATA[Getter for CMP Field peUserProfile]]></description>
-            <field-name>peUserProfile</field-name>
-         </cmp-field>
-          <primkey-field>userId</primkey-field>
-      	-->
-
-
      <!--
        To add entity beans that you have deployment descriptor info for, add
        a file to your XDoclet merge directory called entity-beans.xml that contains

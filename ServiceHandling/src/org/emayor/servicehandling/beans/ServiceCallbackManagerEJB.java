@@ -25,7 +25,7 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  * @ejb.bean name="ServiceCallbackManager" display-name="Name for
  *           ServiceCallbackManager" description="Description for
  *           ServiceCallbackManager"
- *           jndi-name="ejb/eMayor/ServiceCallbackManager" type="Stateless"
+ *           jndi-name="ejb/eMayor/servicehandling/ServiceCallbackManager" type="Stateless"
  *           view-type="local" 
  */
 public class ServiceCallbackManagerEJB implements SessionBean,
@@ -132,7 +132,7 @@ public class ServiceCallbackManagerEJB implements SessionBean,
      * @ejb.create-method
      */
     public void ejbCreate() throws CreateException {
-        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
     }
 
 }

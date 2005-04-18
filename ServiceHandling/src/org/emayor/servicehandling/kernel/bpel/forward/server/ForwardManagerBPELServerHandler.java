@@ -1,7 +1,7 @@
 /*
  * Created on Apr 18, 2005
  */
-package org.emayor.servicehandling.kernel.bpel;
+package org.emayor.servicehandling.kernel.bpel.forward.server;
 
 import javax.xml.namespace.QName;
 import javax.xml.rpc.handler.GenericHandler;

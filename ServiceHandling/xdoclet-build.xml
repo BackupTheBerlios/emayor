@@ -268,32 +268,7 @@
 
 </localinterface>
 
-<entitypk>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</entitypk>
 </ejbdoclet></target>
 <target name="N104C9" description="Web">
 <taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.web.WebDocletTask" name="webdoclet"/><webdoclet destDir="src/WEB-INF" >
