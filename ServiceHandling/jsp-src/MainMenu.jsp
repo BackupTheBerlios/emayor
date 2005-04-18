@@ -20,6 +20,8 @@
 		<a href="ServiceHandlingTest?action=listMyTasks">my tasks listing :-)</a>
 		<br/>
 		<a href="ServiceHandlingTest?action=testPrintService">print something</a>
+		<br/>
+		<a href="ServiceHandlingTest?action=ShowInvokeBPELCallbackPage">invoke BPEL callback</a>
 
 <hr/>
 <a href="ServiceHandlingTest?action=Logout"> LOGOUT </a>

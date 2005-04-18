@@ -17,7 +17,7 @@
 	</wsdl:message>
 	<wsdl:message name="forwardResponseResponse">
 	</wsdl:message>
-	<wsdl:portType name="IForwardManagerBPELCallback">
+	<wsdl:portType name="IForwardManagerBPELCallback"> 
 		<wsdl:operation name="onResult">
 			<wsdl:input name="forwardResponseRequest" message="impl:forwardResponseRequest"/>
 			<wsdl:output name="forwardResponseResponse" message="impl:forwardResponseResponse"/>

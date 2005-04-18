@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
+import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData;
 
 /**
  * @author tku
@@ -44,6 +45,9 @@ public class KernelRepository {
     // asid -> userId
     private HashMap asid2userId;
 
+    // ssid -> bpelCallbackData
+    private HashMap ssid2bpelForwardCallbackData;
+
     /**
      *  
      */
@@ -57,6 +61,7 @@ public class KernelRepository {
         this.userId2UserProfile = new HashMap();
         this.userId2asid = new HashMap();
         this.asid2userId = new HashMap();
+        this.ssid2bpelForwardCallbackData = new HashMap();
         log.debug("-> ... processing DONE!");
     }
 
@@ -448,6 +453,40 @@ public class KernelRepository {
         } else {
             throw new KernelRepositoryException(
                     "mapping to user id for specified asid doesn't exist");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public void addForwardBPELCallbackData(ForwardBPELCallbackData data)
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        String ssid = data.getSsid();
+        if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
+            log.error("Callback data already exists in the repository");
+            throw new KernelRepositoryException(
+                    "Couldn't add data into repository - already exists!");
+        } else {
+            this.ssid2bpelForwardCallbackData.put(ssid, data);
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        if (ssid == null || ssid.length() == 0)
+            throw new KernelRepositoryException("invalid service session id");
+        ForwardBPELCallbackData ret = null;
+        if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
+            log.debug("found the right data");
+            ret = (ForwardBPELCallbackData) this.ssid2bpelForwardCallbackData
+                    .get(ssid);
+            this.ssid2bpelForwardCallbackData.remove(ssid);
+        } else {
+            log.error("data record for specified ssid doesn't exist!");
+            throw new KernelRepositoryException(
+                    "data record for specified ssid doesn't exist!");
         }
         log.debug("-> ... processing DONE!");
         return ret;

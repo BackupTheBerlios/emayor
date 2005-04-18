@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10095,N100A6,N100B7,N100F4,N10125,N1016E,N1017F"/>
+<target name="_packaging_generation_" depends="N10004,N1009D,N100AE,N100BF,N100FC,N1012D,N10176,N10187,N101C8"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -51,20 +51,23 @@
 <zipfileset dir="BPEL-forward/server" prefix="META-INF/wsdl">
 <include name="ws-addressing.xsd"/>
 </zipfileset>
+<zipfileset dir="BPEL-forward/server" prefix="META-INF/wsdl">
+<include name="ForwardMessageBPEL.xsd"/>
+</zipfileset>
 <zipfileset dir="classes" includes="**/*.class"/>
 </jar>
 </target>
-<target name="N10095" description="eMayorEJB-client.jar">
+<target name="N1009D" description="eMayorEJB-client.jar">
 <jar destfile="eMayorEJB-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N100A6" description="eMayorSH-GUI-client.jar">
+<target name="N100AE" description="eMayorSH-GUI-client.jar">
 <jar destfile="eMayorSH-GUI-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/utclient*.class,org/emayor/servicehandling/kernel/IServiceInfo.class,org/emayor/servicehandling/kernel/ServiceInfo.class,org/emayor/servicehandling/kernel/ServicesInfo.class,org/emayor/servicehandling/bpel/task/_task.class,org/emayor/servicehandling/bpel/task/_task_status.class"/>
 </jar>
 </target>
-<target name="N100B7" description="eMayorWeb.war">
+<target name="N100BF" description="eMayorWeb.war">
 <jar destfile="eMayorWeb.war">
 <zipfileset dir="." prefix="WEB-INF/lib">
 <include name="eMayorSH-GUI-client.jar"/>
@@ -80,7 +83,7 @@
 <zipfileset dir="jsp-src"/>
 </jar>
 </target>
-<target name="N100F4" description="WorklistManager-client.jar">
+<target name="N100FC" description="WorklistManager-client.jar">
 <jar destfile="WorklistManager-client.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -97,7 +100,7 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N10125" description="ResidenceCertificationService-client.jar">
+<target name="N1012D" description="ResidenceCertificationService-client.jar">
 <jar destfile="ResidenceCertificationService-client.jar">
 <zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -120,12 +123,35 @@
 <zipfileset dir="classes" includes="org/emayor/www/eMayorServiceRequest_xsd/*.class,org/emayor/ResidenceCertifcationRequest_v10/*.class"/>
 </jar>
 </target>
-<target name="N1016E" description="BPELPolicyEnforcer-client.jar">
+<target name="N10176" description="BPELPolicyEnforcer-client.jar">
 <jar destfile="BPELPolicyEnforcer-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/BPELPolicyEnforcer*.class,org/emayor/servicehandling/kernel/*BPELPolicyEnforcer*.class"/>
 </jar>
 </target>
-<target name="N1017F" description="eMayorApp.ear">
+<target name="N10187" description="ForwardMgrBPEL-client.jar">
+<jar destfile="ForwardMgrBPEL-client.jar">
+<zipfileset dir="BPEL-forward/client" prefix="META-INF">
+<include name="application-client.xml"/>
+</zipfileset>
+<zipfileset dir="BPEL-forward/client" prefix="META-INF">
+<include name="forward_BPEL_client_mapping.xml"/>
+</zipfileset>
+<zipfileset dir="BPEL-forward/client" prefix="META-INF/wsdl">
+<include name="ForwardManagerBPEL_client.wsdl"/>
+</zipfileset>
+<zipfileset dir="BPEL-forward/client" prefix="META-INF">
+<include name="jboss-client.xml"/>
+</zipfileset>
+<zipfileset dir="BPEL-forward/client" prefix="META-INF/wsdl">
+<include name="ws-addressing.xsd"/>
+</zipfileset>
+<zipfileset dir="BPEL-forward/client" prefix="META-INF/wsdl">
+<include name="ForwardMessageBPEL.xsd"/>
+</zipfileset>
+<zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/bpel/forward/client/*.class,org/emayor/servicehandling/kernel/bpel/forward/data/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
+</jar>
+</target>
+<target name="N101C8" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -156,6 +182,9 @@
 </zipfileset>
 <zipfileset dir="../ContentRouting">
 <include name="ContentRouting-ejb.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="ForwardMgrBPEL-client.jar"/>
 </zipfileset>
 </jar>
 </target>

@@ -105,6 +105,15 @@ public class ServiceHandlingTestServlet extends HttpServlet {
         } else if (action.equalsIgnoreCase("AfterDownload")) {
             log.debug("processing the AfterDownload request");
             processor = new AfterDownloadCompletedDocumentProcessor();
+        } else if (action.equalsIgnoreCase("MainMenu")) {
+            log.debug("processing the AfterDownload request");
+            processor = new MainMenuProcessor();
+        } else if (action.equalsIgnoreCase("ShowInvokeBPELCallbackPage")) {
+            log.debug("processing the AfterDownload request");
+            processor = new ShowInvokeBPELCallbackPageProcessor();
+        } else if (action.equalsIgnoreCase("InvokeBPELCallback")) {
+            log.debug("processing the AfterDownload request");
+            processor = new InvokeBPELCallbackProcessor();
         } else {
             log.debug("processing unknown request");
             processor = new ErrorProcessor();

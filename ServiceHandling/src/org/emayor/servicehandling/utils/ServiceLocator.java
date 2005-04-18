@@ -5,6 +5,7 @@ package org.emayor.servicehandling.utils;
 
 import java.rmi.RemoteException;
 import java.util.Hashtable;
+import java.util.Properties;
 
 import javax.ejb.CreateException;
 import javax.naming.Context;
@@ -43,6 +44,7 @@ import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocalHome;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocalHome;
+import org.emayor.servicehandling.kernel.bpel.forward.client.IForwardManagerBPELCallbackService;
 import org.emayor.servicehandling.model.UTWrapperEJB;
 import org.emayor.servicehandling.model.UTWrapperEJBHome;
 
@@ -429,28 +431,21 @@ public class ServiceLocator {
         log.debug("-> ... processing DONE!");
         return ret;
     }
-/*
-    public synchronized UserProfileLocalHome getUserProfileLocalHome()
-            throws ServiceLocatorException {
-        log.debug("-> starting processing ...");
-        UserProfileLocalHome ret = null;
-        try {
-            Object ref = this.bpelInitialContext
-                    .lookup("UserProfileLocal");
-            UserProfileLocalHome home = (UserProfileLocalHome) PortableRemoteObject
-                    .narrow(ref, UserProfileLocalHome.class);
-            ret = home;
-            log.debug("got the reference!");
-        } catch (NamingException nex) {
-            log.error("caught ex: " + nex.toString());
-            throw new ServiceLocatorException(nex);
-        }
-        log.debug("-> ... processing DONE!");
-        return ret;
-    }
-*/
+
+    /*
+     * public synchronized UserProfileLocalHome getUserProfileLocalHome() throws
+     * ServiceLocatorException { log.debug("-> starting processing ...");
+     * UserProfileLocalHome ret = null; try { Object ref =
+     * this.bpelInitialContext .lookup("UserProfileLocal"); UserProfileLocalHome
+     * home = (UserProfileLocalHome) PortableRemoteObject .narrow(ref,
+     * UserProfileLocalHome.class); ret = home; log.debug("got the reference!"); }
+     * catch (NamingException nex) { log.error("caught ex: " + nex.toString());
+     * throw new ServiceLocatorException(nex); } log.debug("-> ... processing
+     * DONE!"); return ret; }
+     */
     public synchronized ServiceCallbackManagerLocal getServiceCallbackManagerLocal()
             throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
         ServiceCallbackManagerLocal ret = null;
         try {
             Object ref = this.bpelInitialContext
@@ -470,6 +465,23 @@ public class ServiceLocator {
         return ret;
     }
 
+    public synchronized IForwardManagerBPELCallbackService getIForwardManagerBPELCallbackService()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        IForwardManagerBPELCallbackService ret = null;
+        InitialContext initialContext = this
+                .getInitialContextForWSClient("ForwardManagerBPELClient");
+        try {
+            ret = (IForwardManagerBPELCallbackService) initialContext
+                    .lookup("java:comp/env/service/ForwardManagerBPELClient");
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
     public synchronized Context getInitialContext() {
         log.debug("-> starting processing ...");
         return this.initialContext;
@@ -484,6 +496,28 @@ public class ServiceLocator {
             throw new ServiceLocatorException(ex);
         }
         log.debug("-> ... processing DONE!");
+    }
+
+    private InitialContext getInitialContextForWSClient(String clientName)
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        InitialContext ret = null;
+        try {
+            Properties env = new Properties();
+            env.setProperty(Context.INITIAL_CONTEXT_FACTORY,
+                    "org.jnp.interfaces.NamingContextFactory");
+            env
+                    .setProperty(Context.URL_PKG_PREFIXES,
+                            "org.jboss.naming.client");
+            env.setProperty(Context.PROVIDER_URL, "jnp://localhost:1099");
+            env.setProperty("j2ee.clientName", clientName);
+            ret = new InitialContext(env);
+        } catch (NamingException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new ServiceLocatorException(ex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     private void initBpelInitialContext() throws ServiceLocatorException {

@@ -21,6 +21,7 @@ import org.emayor.servicehandling.kernel.IUserProfile;
 import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
+import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData;
 
 /**
  * @ejb.bean name="Kernel" display-name="Name for Kernel"
@@ -261,6 +262,28 @@ public class KernelEJB implements SessionBean, IKernel {
     public String getAsidByUserID(String userId) throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.getAsidByUserID(userId);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void addForwardBPELCallbackData(ForwardBPELCallbackData data) throws KernelException {
+        log.debug("-> start processing ...");
+        this.kernel.addForwardBPELCallbackData(data);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid) throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.getForwardBPELCallbackData(ssid);
     }
 
 }

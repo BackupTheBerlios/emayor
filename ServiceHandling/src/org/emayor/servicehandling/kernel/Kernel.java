@@ -13,6 +13,7 @@ import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
+import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -377,7 +378,7 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#getUserProfile(java.lang.String)
      */
-    public IUserProfile getUserProfile(String userId) throws KernelException {
+    public synchronized IUserProfile getUserProfile(String userId) throws KernelException {
         log.debug("-> start processing ...");
         IUserProfile ret = null;
         try {
@@ -402,7 +403,7 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#getServiceProfile(java.lang.String)
      */
-    public IServiceProfile getServiceProfile(String ssid)
+    public synchronized IServiceProfile getServiceProfile(String ssid)
             throws KernelException {
         // TODO
         log.debug("-> start processing ...");
@@ -438,7 +439,7 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#authenticateUser(javax.security.cert.X509Certificate[])
      */
-    public String authenticateUser(String asid, X509Certificate[] certificates)
+    public synchronized String authenticateUser(String asid, X509Certificate[] certificates)
             throws KernelException {
         log.debug("-> start processing ...");
         String ret = null;
@@ -474,18 +475,16 @@ public class Kernel implements IKernel {
                     log.debug("returning the user id : " + ret);
                 this.repository.updateAccessSessionData(userId, asid);
                 /*
-                log.debug("try to handle the entity bean!");
-                ServiceLocator locator = ServiceLocator.getInstance();
-                UserProfileLocalHome upHome = locator.getUserProfileLocalHome();
-                UserProfileLocal userProfileLocal = null;
-                try {
-                    userProfileLocal = upHome.findByPrimaryKey(userId);
-                    log.debug("found the record in database");
-                } catch (FinderException fex) {
-                    log.debug("caught finder exception: " + fex.toString());
-                    userProfileLocal = upHome.create(userId, cUserProfileStr);
-                    log.debug("the record has been new created !");
-                }*/
+                 * log.debug("try to handle the entity bean!"); ServiceLocator
+                 * locator = ServiceLocator.getInstance(); UserProfileLocalHome
+                 * upHome = locator.getUserProfileLocalHome(); UserProfileLocal
+                 * userProfileLocal = null; try { userProfileLocal =
+                 * upHome.findByPrimaryKey(userId); log.debug("found the record
+                 * in database"); } catch (FinderException fex) {
+                 * log.debug("caught finder exception: " + fex.toString());
+                 * userProfileLocal = upHome.create(userId, cUserProfileStr);
+                 * log.debug("the record has been new created !"); }
+                 */
             } else {
                 ret = null;
             }
@@ -501,11 +500,11 @@ public class Kernel implements IKernel {
             log.error("caught ex: " + upex.toString());
             throw new KernelException(
                     "authenticateUser failed: problem with user profile transformation");
-        } /*catch (ServiceLocatorException slex) {
-            log.error("caught ex: " + slex.toString());
-        } catch (CreateException cex) {
-            log.error("caught ex: " + cex.toString());
-        }*/
+        } /*
+           * catch (ServiceLocatorException slex) { log.error("caught ex: " +
+           * slex.toString()); } catch (CreateException cex) { log.error("caught
+           * ex: " + cex.toString()); }
+           */
         log.debug("-> ... processing DONE!");
         return ret;
     }
@@ -515,7 +514,7 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#getUsersServiceSessions(java.lang.String)
      */
-    public ServiceSessionLocal[] getUsersServiceSessions(String userId)
+    public synchronized ServiceSessionLocal[] getUsersServiceSessions(String userId)
             throws KernelException {
         log.debug("-> start processing ...");
         ServiceSessionLocal[] ret = new ServiceSessionLocal[0];
@@ -535,7 +534,7 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#getAsidByUserID(java.lang.String)
      */
-    public String getAsidByUserID(String userId) throws KernelException {
+    public synchronized String getAsidByUserID(String userId) throws KernelException {
         log.debug("-> start processing ...");
         String ret = "defid";
         try {
@@ -543,6 +542,45 @@ public class Kernel implements IKernel {
         } catch (KernelRepositoryException krex) {
             log.error("caught ex: " + krex.toString());
             throw new KernelException("problem with getting asid");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#addForwardBPELCallbackData(org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData)
+     */
+    public synchronized void addForwardBPELCallbackData(ForwardBPELCallbackData data)
+            throws KernelException {
+        log.debug("-> start processing ...");
+        try {
+            this.repository.addForwardBPELCallbackData(data);
+        } catch (KernelRepositoryException krex) {
+            log.error("caught ex: " + krex.toString());
+            throw new KernelException(
+                    "Couldn't add the specified callback data to repository!");
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#getForwardBPELCallbackData(java.lang.String)
+     */
+    public synchronized ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
+            throws KernelException {
+        log.debug("-> start processing ...");
+        ForwardBPELCallbackData ret = null;
+        try {
+            ret = this.repository.getForwardBPELCallbackData(ssid);
+            log.debug("got the callback data from repository");
+        } catch (KernelRepositoryException krex) {
+            log.error("caught ex: " + krex.toString());
+            throw new KernelException(
+                    "Couldn't get the specified callback data from repository!");
         }
         log.debug("-> ... processing DONE!");
         return ret;

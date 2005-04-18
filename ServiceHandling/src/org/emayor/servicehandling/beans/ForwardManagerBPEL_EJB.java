@@ -84,7 +84,7 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
      */
     public void forwardRequest(ForwardMessageBPEL message) {
         log.debug("-> start processing ...");
-
+        ForwardMessageBPEL.printForwardMessage(message);
         log.debug("-> ... processing DONE!");
     }
 
@@ -96,7 +96,7 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
      */
     public void forwardResponse(ForwardMessageBPEL message) {
         log.debug("-> start processing ...");
-
+        ForwardMessageBPEL.printForwardMessage(message);
         log.debug("-> ... processing DONE!");
     }
 

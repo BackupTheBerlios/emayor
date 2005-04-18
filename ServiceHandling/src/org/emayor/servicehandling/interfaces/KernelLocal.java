@@ -84,4 +84,14 @@ public interface KernelLocal
     */
    public java.lang.String getAsidByUserID( java.lang.String userId ) throws org.emayor.servicehandling.kernel.KernelException;
 
+   /**
+    * Business Method
+    */
+   public void addForwardBPELCallbackData( org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData data ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData getForwardBPELCallbackData( java.lang.String ssid ) throws org.emayor.servicehandling.kernel.KernelException;
+
 }
