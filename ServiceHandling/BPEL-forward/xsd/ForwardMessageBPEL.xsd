@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://eMayor.org/sh/bpel/forward/data" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://eMayor.org/sh/bpel/forward/data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="ForwardMessageBPEL">
+		<xs:sequence>
+			<xs:element name="document" nillable="true" type="xs:string"/>
+			<xs:element name="document1" nillable="true" type="xs:string"/>
+			<xs:element name="document2" nillable="true" type="xs:string"/>
+			<xs:element name="document3" nillable="true" type="xs:string"/>
+			<xs:element name="document4" nillable="true" type="xs:string"/>
+			<xs:element name="ssid" nillable="true" type="xs:string"/>
+			<xs:element name="uid" nillable="true" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
