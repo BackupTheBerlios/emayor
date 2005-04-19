@@ -1,7 +1,9 @@
 package org.eMayor.PolicyEnforcement.CertificateValidation;
 
-import java.net.*;
 import iaik.x509.X509CRL;
+
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * <p>Title: CRLFetcher </p>

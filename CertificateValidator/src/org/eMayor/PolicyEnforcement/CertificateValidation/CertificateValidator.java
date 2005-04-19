@@ -1,16 +1,14 @@
 package org.eMayor.PolicyEnforcement.CertificateValidation;
 
-import iaik.x509.X509CRL;
-import iaik.x509.V3Extension;
-import java.util.Enumeration;
-
 import iaik.asn1.ObjectID;
+import iaik.x509.V3Extension;
+import iaik.x509.X509CRL;
 
 import java.io.File;
-
 import java.security.KeyStore;
-import java.util.Vector;
+import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Vector;
 
 
 /**
