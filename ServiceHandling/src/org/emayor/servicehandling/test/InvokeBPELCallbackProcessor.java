@@ -45,6 +45,10 @@ public class InvokeBPELCallbackProcessor extends AbstractProcessor {
             msg.setSsid(_ssid);
             msg.setUid("tku");
             msg.setDocument("test");
+            msg.setDocument1("empty");
+            msg.setDocument2("empty");
+            msg.setDocument3("empty");
+            msg.setDocument4("empty");
             invoker.invoke(msg);
             ret = "MainMenu.jsp";
         } catch (Exception ex) {

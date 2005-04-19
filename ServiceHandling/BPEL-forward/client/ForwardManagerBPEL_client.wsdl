@@ -6,21 +6,21 @@
 		</schema>
 		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://eMayor.org/sh/bpel/forward/service">
 			<import namespace="http://eMayor.org/sh/bpel/forward/data" schemaLocation="ForwardMessageBPEL.xsd"/>
-			<element name="fResponse" type="tns2:ForwardMessageBPEL"/>
+			<element name="fOnResult" type="tns2:ForwardMessageBPEL"/>
 		</schema>
 	</wsdl:types>
 	<message name="ContinueHeader">
 		<part name="RelatesTo" element="wsa:RelatesTo"/>
 	</message>
-	<wsdl:message name="forwardResponseRequest">
-		<wsdl:part name="fResponse" element="impl:fResponse"/>
+	<wsdl:message name="forwardResponseRequestMessage">
+		<wsdl:part name="payload" element="impl:fOnResult"/>
 	</wsdl:message>
-	<wsdl:message name="forwardResponseResponse">
+	<wsdl:message name="forwardResponseResponseMessage">
 	</wsdl:message>
-	<wsdl:portType name="IForwardManagerBPELCallback"> 
-		<wsdl:operation name="onResult">
-			<wsdl:input name="forwardResponseRequest" message="impl:forwardResponseRequest"/>
-			<wsdl:output name="forwardResponseResponse" message="impl:forwardResponseResponse"/>
+	<wsdl:portType name="IForwardManagerBPELCallback">
+		<wsdl:operation name="onResult" parameterOrder="payload">
+			<wsdl:input name="onResultRequest" message="impl:forwardResponseRequestMessage"/>
+			<wsdl:output name="onResultResponseResponse" message="impl:forwardResponseResponseMessage"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="ForwardManagerBPELCallbackSoapBinding" type="impl:IForwardManagerBPELCallback">
@@ -28,7 +28,7 @@
 		<wsdl:operation name="onResult">
 			<wsdlsoap:operation soapAction="onResult" style="document"/>
 			<wsdl:input>
-				<wsdlsoap:header message="impl:ContinueHeader" part="RelatesTo" use="literal"/>
+				<wsdlsoap:header message="impl:ContinueHeader" part="RelatesTo" use="literal" encodingStyle=""/>
 				<wsdlsoap:body use="literal" namespace="http://eMayor.org/sh/bpel/forward/service"/>
 			</wsdl:input>
 			<wsdl:output>

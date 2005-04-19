@@ -14,7 +14,7 @@
 	</package-mapping>
 	<java-xml-type-mapping>
     	<java-type>org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL</java-type>
-    	<root-type-qname xmlns:typeNS="http://eMayor.org/sh/bpel/forward/service">typeNS:fResponse</root-type-qname>
+    	<root-type-qname xmlns:typeNS="http://eMayor.org/sh/bpel/forward/service">typeNS:fOnResult</root-type-qname>
     	<qname-scope>complexType</qname-scope>
   	</java-xml-type-mapping>
 </java-wsdl-mapping>

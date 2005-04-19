@@ -8,4 +8,9 @@
 		<package-type>org.emayor.servicehandling.kernel</package-type>
 		<namespaceURI>http://emayor.org/ServiceCallbackManager</namespaceURI>
 	</package-mapping>
+	<java-xml-type-mapping>
+    	<java-type>java.lang.String</java-type>
+    	<root-type-qname xmlns:typeNS="http://emayor.org/ServiceCallbackManager">typeNS:onResultReturn</root-type-qname>
+    	<qname-scope>complexType</qname-scope>
+  	</java-xml-type-mapping>
 </java-wsdl-mapping>
