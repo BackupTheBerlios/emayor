@@ -10,6 +10,9 @@ import java.rmi.Remote;
  */
 public interface IForward extends Remote {
 	
+	public static final int REQUEST = 1;
+	public static final int RESPONSE = 2;
+	
 	public void forwardRequest(ForwardMessage forwardMessage) throws ForwardException;
 	
 	public void forwardResponse(ForwardMessage forwardMessage) throws ForwardException;

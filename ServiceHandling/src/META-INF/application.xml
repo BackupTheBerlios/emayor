@@ -35,4 +35,10 @@
 	<module>
 		<java>ForwardMgrBPEL-client.jar</java>
 	</module>
+	<module>
+		<java>ForwardEJB-client.jar</java>
+	</module>
+	<module>
+		<java>ForwardEJB.jar</java>
+	</module>
 </application>

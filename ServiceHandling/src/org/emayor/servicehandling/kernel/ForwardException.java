@@ -6,35 +6,82 @@ package org.emayor.servicehandling.kernel;
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"><font size="-1">Tomasz Kusber</font></a><font size="-1"> FHI FOKUS (C)</font>
  */
-public class ForwardException extends Exception {
+public class ForwardException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	public ForwardException() {
-		super();
-	}
+    public ForwardException() {
+    }
 
-	/**
-	 * @param arg0
-	 */
-	public ForwardException(String arg0) {
-		super(arg0);
-	}
+    private java.lang.Object __equalsCalc = null;
+    public synchronized boolean equals(java.lang.Object obj) {
+        if (!(obj instanceof ForwardException)) return false;
+        ForwardException other = (ForwardException) obj;
+        if (obj == null) return false;
+        if (this == obj) return true;
+        if (__equalsCalc != null) {
+            return (__equalsCalc == obj);
+        }
+        __equalsCalc = obj;
+        boolean _equals;
+        _equals = true;
+        __equalsCalc = null;
+        return _equals;
+    }
 
-	/**
-	 * @param arg0
-	 */
-	public ForwardException(Throwable arg0) {
-		super(arg0);
-	}
+    private boolean __hashCodeCalc = false;
+    public synchronized int hashCode() {
+        if (__hashCodeCalc) {
+            return 0;
+        }
+        __hashCodeCalc = true;
+        int _hashCode = 1;
+        __hashCodeCalc = false;
+        return _hashCode;
+    }
 
-	/**
-	 * @param arg0
-	 * @param arg1
-	 */
-	public ForwardException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-	}
+    // Type metadata
+    private static org.apache.axis.description.TypeDesc typeDesc =
+        new org.apache.axis.description.TypeDesc(ForwardException.class);
 
+    static {
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://sh.forward.emayor.org", "ForwardException"));
+    }
+
+    /**
+     * Return type metadata object
+     */
+    public static org.apache.axis.description.TypeDesc getTypeDesc() {
+        return typeDesc;
+    }
+
+    /**
+     * Get Custom Serializer
+     */
+    public static org.apache.axis.encoding.Serializer getSerializer(
+           java.lang.String mechType, 
+           java.lang.Class _javaType,  
+           javax.xml.namespace.QName _xmlType) {
+        return 
+          new  org.apache.axis.encoding.ser.BeanSerializer(
+            _javaType, _xmlType, typeDesc);
+    }
+
+    /**
+     * Get Custom Deserializer
+     */
+    public static org.apache.axis.encoding.Deserializer getDeserializer(
+           java.lang.String mechType, 
+           java.lang.Class _javaType,  
+           javax.xml.namespace.QName _xmlType) {
+        return 
+          new  org.apache.axis.encoding.ser.BeanDeserializer(
+            _javaType, _xmlType, typeDesc);
+    }
+
+
+    /**
+     * Writes the exception data to the faultDetails
+     */
+    public void writeDetails(javax.xml.namespace.QName qname, org.apache.axis.encoding.SerializationContext context) throws java.io.IOException {
+        context.serialize(qname, null, this);
+    }
 }

@@ -5,8 +5,6 @@ package org.emayor.servicehandling.beans;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Properties;
 
@@ -15,7 +13,6 @@ import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
-import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL;
 import org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL;
 
