@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessManagerLocal;
 import org.emayor.servicehandling.kernel.AccessException;
 import org.emayor.servicehandling.kernel.ForwardMessage;
+import org.emayor.servicehandling.kernel.bpel.forward.data.ArrayOfStrings;
 import org.emayor.servicehandling.utclient.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -47,7 +48,9 @@ public class ForwardServiceProcessor extends AbstractProcessor {
             AccessManagerLocal access = serviceLocator.getAccessManager();
             ForwardMessage forwardMessage = new ForwardMessage();
             forwardMessage.setType(ForwardMessage.REQUEST);
-            forwardMessage.setDocuments(new String[]{"forwarded document"});
+            ArrayOfStrings arrayOfStrings = new ArrayOfStrings();
+            arrayOfStrings.setItem(new String[]{"forwarded document"});
+            forwardMessage.setDocuments(arrayOfStrings);
             forwardMessage.setReplyAddress("reply address");
             forwardMessage.setReplyID("sss");
             String ssid = access.startForwardedService(asid, serviceName, forwardMessage);

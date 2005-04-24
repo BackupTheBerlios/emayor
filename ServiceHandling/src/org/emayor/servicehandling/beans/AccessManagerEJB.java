@@ -298,7 +298,7 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 					.getAccessSession(accessSessionId);
 			if (log.isDebugEnabled())
 				log.debug("got access session with id: " + as.getSessionId());
-			ret = as.startServiceSession(serviceId, true, message.getDocuments()[0], "");
+			ret = as.startServiceSession(serviceId, true, message.getDocuments().getItem(0), "");
 			if (log.isDebugEnabled())
 				log.debug("started service ssid = " + ret);
 		} catch (KernelException ex) {
