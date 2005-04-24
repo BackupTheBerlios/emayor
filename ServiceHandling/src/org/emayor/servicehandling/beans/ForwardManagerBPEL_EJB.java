@@ -3,17 +3,33 @@
  */
 package org.emayor.servicehandling.beans;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Properties;
 
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL;
 import org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL;
 
 import javax.ejb.CreateException;
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSender;
+import javax.jms.QueueSession;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  * @ejb.bean name="ForwardManagerBPEL" display-name="Name for
@@ -75,6 +91,73 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
         log.debug("-> start processing ...");
 
     }
+    
+    private void forward(ForwardMessageBPEL message, int type) {
+    	log.debug("-> start processing ...");
+        ForwardMessageBPEL.printForwardMessage(message);
+        
+		Properties config = System.getProperties();
+		String configuration = System.getProperty("jboss.server.home.dir")+"\\conf\\forward.properties";
+		//String configuration = System.getProperty("forward.properties");
+		File conffile = new File(configuration);
+		try {
+			if (conffile.exists()) {
+				log.info("loading configuration from file: "+configuration);
+				// load configuration
+				config.load(new FileInputStream(conffile));
+				//config.load(this.getClass().getClassLoader().getResourceAsStream(configuration));
+			} else {
+				throw new Exception("Configuration not found in: "+configuration);
+			}
+		} catch (Exception e) {
+			log.debug(e.getMessage());
+			e.printStackTrace();
+			return;
+		}
+       
+		config.setProperty("java.naming.factory.initial","org.jnp.interfaces.NamingContextFactory");
+		config.setProperty("java.naming.factory.url.pkgs","org.jboss.naming:org.jnp.interfaces");
+		config.setProperty("java.naming.provider.url",config.getProperty("forwardQueueHost"));
+
+		Context context;
+		try {
+			log.info("getting context: "+config.getProperty("java.naming.provider.url"));
+			context = new InitialContext(config);
+			log.info("getting factory ...");
+			QueueConnectionFactory factory = (QueueConnectionFactory) context.lookup("ConnectionFactory");
+			log.info("getting connection ...");
+			QueueConnection connect = factory.createQueueConnection();
+			log.info("getting queue ...");
+			Queue queue = (Queue) context.lookup("queue/testQueue");
+			log.info("getting session ...");
+			QueueSession session = connect.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+			log.info("starting connection ...");
+			connect.start();
+			log.info("creating sender ...");
+			QueueSender sender = session.createSender(queue);
+			log.info("get message ...");
+			MapMessage msg = session.createMapMessage();
+			log.info("create message properties (REQUEST) ...");
+			msg.setInt("type",type);
+			msg.setString("ssid",message.getSsid());
+			msg.setString("uid",message.getUid());
+			msg.setString("doc",message.getDocument());
+			msg.setString("doc1",message.getDocument1());
+			msg.setString("doc2",message.getDocument2());
+			msg.setString("doc3",message.getDocument3());
+			msg.setString("doc4",message.getDocument4());
+			log.info("sending message to queue ...");
+			msg.setString("replyTo",config.getProperty("forwardReplyURL"));
+			sender.send(msg);
+		} catch (NamingException e) {
+			log.debug("-> ... processing FAILED");
+			e.printStackTrace();
+		} catch (JMSException e) {
+			log.debug("-> ... processing FAILED");
+			e.printStackTrace();
+		}
+        log.debug("-> ... processing DONE!");
+    }
 
     /**
      * Business Method
@@ -85,6 +168,7 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
     public void forwardRequest(ForwardMessageBPEL message) {
         log.debug("-> start processing ...");
         ForwardMessageBPEL.printForwardMessage(message);
+		forward(message,IForwardManagerBPEL.REQUEST);
         log.debug("-> ... processing DONE!");
     }
 
@@ -95,8 +179,9 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
      *  
      */
     public void forwardResponse(ForwardMessageBPEL message) {
-        log.debug("-> start processing ...");
+    	log.debug("-> start processing ...");
         ForwardMessageBPEL.printForwardMessage(message);
+		forward(message,IForwardManagerBPEL.RESPONSE);
         log.debug("-> ... processing DONE!");
     }
 
