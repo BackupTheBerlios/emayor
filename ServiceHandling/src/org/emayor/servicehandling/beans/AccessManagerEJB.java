@@ -290,8 +290,28 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 	 */
 	public String startForwardedService(String accessSessionId,
 			String serviceId, ForwardMessage message) throws AccessException {
-		log.debug("-> start processing ...");
+	    log.debug("-> start processing ...");
 		String ret = "";
+		try {
+			log.debug("getting the current access session from kernel");
+			AccessSessionLocal as = this.kernel
+					.getAccessSession(accessSessionId);
+			if (log.isDebugEnabled())
+				log.debug("got access session with id: " + as.getSessionId());
+			ret = as.startServiceSession(serviceId, true, message.getDocuments()[0], "");
+			if (log.isDebugEnabled())
+				log.debug("started service ssid = " + ret);
+		} catch (KernelException ex) {
+			log.error("caught ex: " + ex);
+			throw new AccessException(
+					"Unable to get the list of available services!");
+		} catch (AccessSessionException aex) {
+			log.error("caught ex: " + aex.toString());
+			throw new AccessException("Unable to start the service: "
+					+ serviceId);
+		} catch (SessionException sex) {
+			log.error("caught ex: " + sex.toString());
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
