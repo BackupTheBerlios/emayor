@@ -4,11 +4,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
-	<classpathentry kind="lib" path="C:/Dokumente und Einstellungen/mxs/Eigene Dateien/logging-log4j-1.2.9/dist/lib/log4j-1.2.9.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse/workspace/NotificationService/lib/javamail.jar"/>
 	<classpathentry kind="src" path="/NotificationService"/>
 	<classpathentry kind="src" path="/PrintingUtility"/>
 	<classpathentry kind="src" path="/PolicyEnforcement"/>
+	<classpathentry kind="lib" path="/NotificationService/lib/javamail.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j"/>
 	<classpathentry kind="lib" path="lib/SH-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
