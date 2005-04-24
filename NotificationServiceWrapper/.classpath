@@ -7,8 +7,8 @@
 	<classpathentry kind="lib" path="C:/Dokumente und Einstellungen/mxs/Eigene Dateien/logging-log4j-1.2.9/dist/lib/log4j-1.2.9.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse/workspace/NotificationService/lib/javamail.jar"/>
 	<classpathentry kind="src" path="/NotificationService"/>
-	<classpathentry kind="src" path="/PolicyEnforcement"/>
 	<classpathentry kind="src" path="/PrintingUtility"/>
-	<classpathentry kind="src" path="/ServiceHandling"/>
+	<classpathentry kind="src" path="/PolicyEnforcement"/>
+	<classpathentry kind="lib" path="lib/SH-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
