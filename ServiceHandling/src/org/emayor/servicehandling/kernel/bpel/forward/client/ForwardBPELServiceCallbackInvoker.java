@@ -85,8 +85,8 @@ public class ForwardBPELServiceCallbackInvoker {
                 if (log.isDebugEnabled())
                     log.debug("set tarrget endpoint to: "
                             + replyTo.getAddress());
-                //call.setTargetEndpointAddress(replyTo.getAddress());
-                call.setTargetEndpointAddress(ADDRESS);
+                call.setTargetEndpointAddress(replyTo.getAddress());
+                //call.setTargetEndpointAddress(ADDRESS);
                 call.setProperty(Call.SOAPACTION_USE_PROPERTY,
                         new Boolean(true));
                 if (log.isDebugEnabled())

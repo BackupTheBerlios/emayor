@@ -114,6 +114,9 @@ public class ServiceHandlingTestServlet extends HttpServlet {
         } else if (action.equalsIgnoreCase("InvokeBPELCallback")) {
             log.debug("processing the AfterDownload request");
             processor = new InvokeBPELCallbackProcessor();
+        } else if (action.equalsIgnoreCase("ForwardRequest")) {
+            log.debug("processing the ForwardRequest request");
+            processor = new ForwardServiceProcessor();
         } else {
             log.debug("processing unknown request");
             processor = new ErrorProcessor();
