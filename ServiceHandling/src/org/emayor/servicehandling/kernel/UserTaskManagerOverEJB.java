@@ -165,12 +165,16 @@ public class UserTaskManagerOverEJB implements IService {
 			log.debug("try to call the listTasks operation");
 			Tasks tasks = this.wrapper.lookupTasksByAssigneeAndTitle(uid, ssid);
 			if (tasks != null) {
+			    log.debug("got SOME tasks from remote bean !");
 				ITask[] _tasks = tasks.getTasks();
 				if (_tasks != null && _tasks.length > 0) {
 					if (log.isDebugEnabled())
 						log.debug("found tasks: number=" + _tasks.length);
 					ret = (Task) _tasks[0];
 				}
+			}
+			else {
+			    log.debug("got no tasks from the remote bean!");
 			}
 		} catch (KernelException kex) {
 			log.error("caught ex: " + kex.toString());

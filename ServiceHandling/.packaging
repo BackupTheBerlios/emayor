@@ -64,7 +64,7 @@
 <file prefix="META-INF/wsdl" project="" projectLocation="BPEL-forward/client/ForwardMessageBPEL.xsd" name="ForwardMessageBPEL.xsd" location="BPEL-forward/client/ForwardMessageBPEL.xsd" used="true"/>
 </archive>
 <archive name="SH-client.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
+<folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class,org/emayor/servicehandling/kernel/KernelException.class,org/emayor/servicehandling/kernel/SessionException.class,org/emayor/servicehandling/kernel/*UserProfile.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
 </archive>
 <archive name="eMayorApp.ear" destination="" used="true" exploded="false">
 <file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>

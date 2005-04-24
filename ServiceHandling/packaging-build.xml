@@ -153,7 +153,7 @@
 </target>
 <target name="N101C8" description="SH-client.jar">
 <jar destfile="SH-client.jar">
-<zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
+<zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class,org/emayor/servicehandling/kernel/KernelException.class,org/emayor/servicehandling/kernel/SessionException.class,org/emayor/servicehandling/kernel/*UserProfile.class"/>
 </jar>
 </target>
 <target name="N101D9" description="eMayorApp.ear">
