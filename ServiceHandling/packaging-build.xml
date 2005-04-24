@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N1009D,N100AE,N100BF,N100FC,N1012D,N10176,N10187,N101C8"/>
+<target name="_packaging_generation_" depends="N10004,N1009D,N100AE,N100BF,N100FC,N1012D,N10176,N10187,N101C8,N101D9"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -151,7 +151,12 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/bpel/forward/client/*.class,org/emayor/servicehandling/kernel/bpel/forward/data/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
 </jar>
 </target>
-<target name="N101C8" description="eMayorApp.ear">
+<target name="N101C8" description="SH-client.jar">
+<jar destfile="SH-client.jar">
+<zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
+</jar>
+</target>
+<target name="N101D9" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
