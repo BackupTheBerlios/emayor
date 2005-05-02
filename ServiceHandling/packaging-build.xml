@@ -194,6 +194,9 @@
 <zipfileset dir="../Forwarding">
 <include name="ForwardEJB-client.jar"/>
 </zipfileset>
+<zipfileset dir="../Forwarding">
+<include name="ForwardEJB.jar"/>
+</zipfileset>
 </jar>
 </target>
 </project>

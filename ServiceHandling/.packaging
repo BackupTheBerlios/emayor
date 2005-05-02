@@ -79,5 +79,6 @@
 <file prefix="" project="ContentRouting" projectLocation="ContentRouting-ejb.jar" name="ContentRouting-ejb.jar" location="../ContentRouting/ContentRouting-ejb.jar" used="true"/>
 <file prefix="" project="" projectLocation="ForwardMgrBPEL-client.jar" name="ForwardMgrBPEL-client.jar" location="ForwardMgrBPEL-client.jar" used="true"/>
 <file prefix="" project="Forwarding" projectLocation="ForwardEJB-client.jar" name="ForwardEJB-client.jar" location="../Forwarding/ForwardEJB-client.jar" used="true"/>
+<file prefix="" project="Forwarding" projectLocation="ForwardEJB.jar" name="ForwardEJB.jar" location="../Forwarding/ForwardEJB.jar" used="true"/>
 </archive>
 </configurations>
