@@ -39,6 +39,6 @@
 		<java>ForwardEJB-client.jar</java>
 	</module>
 	<module>
-		<java>ForwardEJB.jar</java>
+		<ejb>ForwardEJB.jar</ejb>
 	</module>
 </application>
