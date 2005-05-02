@@ -191,6 +191,9 @@
 <zipfileset dir=".">
 <include name="ForwardMgrBPEL-client.jar"/>
 </zipfileset>
+<zipfileset dir="../Forwarding">
+<include name="ForwardEJB-client.jar"/>
+</zipfileset>
 </jar>
 </target>
 </project>
