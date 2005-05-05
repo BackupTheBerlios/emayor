@@ -13,6 +13,13 @@ import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
+import org.emayor.ContentRouting.ejb.AccessPointNotFoundException;
+import org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException;
+import org.emayor.ContentRouting.ejb.OrganisationNotFoundException;
+import org.emayor.ContentRouting.ejb.ServiceNotFoundException;
+import org.emayor.ContentRouting.interfaces.ContentRouterLocal;
+import org.emayor.ContentRouting.interfaces.ContentRouterLocalHome;
+import org.emayor.forward.ContentRoutingWrapper;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL;
 import org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL;
 
@@ -111,13 +118,34 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 			e.printStackTrace();
 			return;
 		}
-       
-		config.setProperty("java.naming.factory.initial","org.jnp.interfaces.NamingContextFactory");
-		config.setProperty("java.naming.factory.url.pkgs","org.jboss.naming:org.jnp.interfaces");
-		config.setProperty("java.naming.provider.url",config.getProperty("forwardQueueHost"));
-
+		
+		String local = config.getProperty("localMunicipality");
+		String remote = config.getProperty("remoteMunicipality");
+		String queueName = config.getProperty("queueName");
+		String host = config.getProperty("queueHost");
+		
 		Context context;
+
 		try {
+			context = new InitialContext();
+			
+			/*
+			log.info("getting content home ...");
+			ContentRouterLocalHome home = (ContentRouterLocalHome) context.lookup("ContentRouterLocal");
+			log.info("getting content router ...");
+			ContentRouterLocal content = home.create();
+			*/
+			
+			ContentRoutingWrapper content = new ContentRoutingWrapper();
+			log.info("lookup local forward ...");
+			String replyTo = content.getAccessPoint(local,"forward");
+			log.info("lookup remote forward ...");
+			String to = content.getAccessPoint(remote,"forward");
+			
+			config.setProperty("java.naming.factory.initial","org.jnp.interfaces.NamingContextFactory");
+			config.setProperty("java.naming.factory.url.pkgs","org.jboss.naming:org.jnp.interfaces");
+			config.setProperty("java.naming.provider.url",host);
+			
 			log.info("getting context: "+config.getProperty("java.naming.provider.url"));
 			context = new InitialContext(config);
 			log.info("getting factory ...");
@@ -125,7 +153,7 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 			log.info("getting connection ...");
 			QueueConnection connect = factory.createQueueConnection();
 			log.info("getting queue ...");
-			Queue queue = (Queue) context.lookup("queue/testQueue");
+			Queue queue = (Queue) context.lookup(queueName);
 			log.info("getting session ...");
 			QueueSession session = connect.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
 			log.info("starting connection ...");
@@ -144,7 +172,8 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 			msg.setString("doc3",message.getDocument3());
 			msg.setString("doc4",message.getDocument4());
 			log.info("sending message to queue ...");
-			msg.setString("replyTo",config.getProperty("forwardReplyURL"));
+			msg.setString("replyTo",replyTo);
+			msg.setString("to",to);
 			sender.send(msg);
 		} catch (NamingException e) {
 			log.debug("-> ... processing FAILED");
@@ -152,6 +181,23 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 		} catch (JMSException e) {
 			log.debug("-> ... processing FAILED");
 			e.printStackTrace();
+		/*
+		} catch (CreateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OrganisationNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BindingTemplateNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AccessPointNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			*/
 		}
         log.debug("-> ... processing DONE!");
     }

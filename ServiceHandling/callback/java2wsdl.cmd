@@ -1,7 +1,7 @@
 @setlocal
 @echo off
 
-@set AH=e:\lib\axis
+@set AH=c:\eclipse\workspace\Forwarding\
 
 set CP=%AH%\lib\axis-ant.jar
 set CP=%CP%;%AH%\lib\axis.jar

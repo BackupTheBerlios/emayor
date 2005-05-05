@@ -15,7 +15,6 @@
 	<classpathentry kind="lib" path="lib/jaxb-libs.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
 	<classpathentry kind="src" path="/NotificationService"/>
-	<classpathentry kind="src" path="/NotificationServiceWrapper"/>
 	<classpathentry kind="src" path="/FormatTransformation"/>
 	<classpathentry kind="src" path="/ContentRouting"/>
 	<classpathentry kind="src" path="/Forwarding"/>
