@@ -7,7 +7,7 @@ if %1\\\\\==\\\\\ goto NO_KEYSTORE
 
 @set KEYTOOL=%JAVA_HOME%\bin\keytool.exe
 
-%KEYTOOL% -import -trustcacerts -alias aMayor -file ca-cert.pem -keystore %1 
+%KEYTOOL% -import -trustcacerts -alias 1 -file 2 -keystore %3 
 
 goto END
 
@@ -23,7 +23,7 @@ goto USAGE
 
 :USAGE
 echo usage:
-echo import2keystore.cm keystorefile
+echo import2keystore.cmd alias file keystorefile
 echo sample: import2keystore c:\java\jre\lib\security\cacerts
 goto END
 
