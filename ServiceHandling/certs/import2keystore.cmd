@@ -7,7 +7,7 @@ if %1\\\\\==\\\\\ goto NO_KEYSTORE
 
 @set KEYTOOL=%JAVA_HOME%\bin\keytool.exe
 
-%KEYTOOL% -import -trustcacerts -alias 1 -file 2 -keystore %3 
+%KEYTOOL% -import -trustcacerts -alias %1 -file %2 -keystore %3 
 
 goto END
 

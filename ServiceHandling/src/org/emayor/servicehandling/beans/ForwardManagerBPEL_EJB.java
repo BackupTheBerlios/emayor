@@ -101,7 +101,7 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
         ForwardMessageBPEL.printForwardMessage(message);
         
 		Properties config = System.getProperties();
-		String configuration = System.getProperty("jboss.server.home.dir")+"\\conf\\forward.properties";
+		String configuration = System.getProperty("jboss.server.home.dir")+"/conf/forward.properties";
 		//String configuration = System.getProperty("forward.properties");
 		File conffile = new File(configuration);
 		try {
