@@ -142,6 +142,8 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 			log.info("lookup remote forward ...");
 			String to = content.getAccessPoint(remote,"forward");
 			
+			log.debug("forwarding to: " + to);
+			
 			config.setProperty("java.naming.factory.initial","org.jnp.interfaces.NamingContextFactory");
 			config.setProperty("java.naming.factory.url.pkgs","org.jboss.naming:org.jnp.interfaces");
 			config.setProperty("java.naming.provider.url",host);
