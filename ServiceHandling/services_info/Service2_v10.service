@@ -1,0 +1,8 @@
+## property file for the Service2/v10 service
+
+service.info.service.id=Service2/v10
+service.info.service.version=1.0
+service.info.service.name=Service 2
+service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayorServiceFactory
+service.info.service.class.name=org.emayor.service2.Service2
+service.info.service.description=Description of the service 2.

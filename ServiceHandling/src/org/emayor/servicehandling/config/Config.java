@@ -24,6 +24,8 @@ public class Config {
 
 	private Properties props;
 
+	private String JBOSS_HOME_DIR = "";
+
 	/**
 	 *  
 	 */
@@ -31,8 +33,8 @@ public class Config {
 		log.debug("-> start processing ...");
 		this.props = new Properties();
 		try {
-			String configuration = System.getProperty("jboss.server.home.dir");
-			StringBuffer b = new StringBuffer(configuration);
+			JBOSS_HOME_DIR = System.getProperty("jboss.server.home.dir");
+			StringBuffer b = new StringBuffer(JBOSS_HOME_DIR);
 			b.append(File.separator).append("conf");
 			b.append(File.separator).append("emayor.properties");
 			if (log.isDebugEnabled())
@@ -54,6 +56,7 @@ public class Config {
 			log.error("caught ex: " + ioex.toString());
 			throw new ConfigException("couldn't read the config file");
 		}
+		this.listAllProperties();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -84,24 +87,31 @@ public class Config {
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
-	
+
 	public synchronized void listPropertyNames() {
-		System.out.println("-------------- all property names --------------");	
+		System.out.println("-------------- all property names --------------");
 		for (Enumeration e = this.props.keys(); e.hasMoreElements();) {
-			System.out.println("next property name: " + (String)e.nextElement());
+			System.out.println("next property name: "
+					+ (String) e.nextElement());
 		}
 		System.out.println("------------------------------------------------");
 	}
-	
+
 	public synchronized void listAllProperties() {
 		System.out.println("---------------- all properties ----------------");
 		for (Enumeration e = this.props.keys(); e.hasMoreElements();) {
-			String key = (String)e.nextElement();
+			String key = (String) e.nextElement();
 			String value = this.props.getProperty(key);
 			StringBuffer b = new StringBuffer();
 			b.append("[").append(key).append("]=\"").append(value).append("\"");
 			System.out.println(b.toString());
 		}
 		System.out.println("------------------------------------------------");
+	}
+
+	public synchronized String getQuilifiedDirectoryName(String dirName) {
+		StringBuffer b = new StringBuffer(JBOSS_HOME_DIR);
+		b.append(File.separator).append(dirName);
+		return b.toString();
 	}
 }

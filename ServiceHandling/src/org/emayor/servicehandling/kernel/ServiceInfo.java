@@ -3,6 +3,8 @@
  */
 package org.emayor.servicehandling.kernel;
 
+import java.util.Properties;
+
 import org.apache.log4j.Logger;
 
 
@@ -109,6 +111,51 @@ public class ServiceInfo implements IServiceInfo {
 	public void setServiceVersion(String serviceVersion) {
 		log.debug("-> start processing ...");
 		this.serviceVersion = serviceVersion;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.emayor.servicehandling.kernel.IServiceInfo#unmarshall(java.util.Properties)
+	 */
+	public boolean unmarshall(Properties props) {
+		log.debug("-> start processing ...");
+		boolean ret = true;
+		String str = props.getProperty("service.info.service.id");
+		if (str == null || str.length() == 0) {
+			log.debug("something wrong with service id");
+			return false;
+		}
+		this.setServiceId(str);
+		str = props.getProperty("service.info.service.version");
+		if (str == null || str.length() == 0) {
+			log.debug("something wrong with service version");
+			return false;
+		}
+		this.setServiceVersion(str);
+		str = props.getProperty("service.info.service.name");
+		if (str == null || str.length() == 0) {
+			log.debug("something wrong with service name");
+			return false;
+		}
+		this.setServiceName(str);
+		str = props.getProperty("service.info.service.factory.class.name");
+		if (str == null || str.length() == 0) {
+			log.debug("something wrong with service factory class name");
+			return false;
+		}
+		this.setServiceFactoryClassName(str);
+		str = props.getProperty("service.info.service.class.name");
+		if (str == null || str.length() == 0) {
+			log.debug("something wrong with service class name");
+			return false;
+		}
+		this.setServiceClassName(str);
+		str = props.getProperty("service.info.service.description");
+		if (str == null || str.length() == 0) {
+			log.debug("something wrong with service description");
+			return false;
+		}
+		this.setServiceDescription(str);
+		return ret;
 	}
 }
 

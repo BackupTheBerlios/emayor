@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.kernel;
 
 import java.io.Serializable;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
@@ -23,5 +24,7 @@ public interface IServiceInfo extends Serializable {
 	public String getServiceFactoryClassName();
 	
 	public String getServiceDescription();
+	
+	public boolean unmarshall(Properties props);
 	
 }

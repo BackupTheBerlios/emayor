@@ -1,0 +1,8 @@
+## property file for the Service4/v25 service
+
+service.info.service.id=Service4/v25
+service.info.service.version=2.5
+service.info.service.name=Service 4 (version 2.5)
+service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayorServiceFactory
+service.info.service.class.name=org.emayor.service4.Service4_25
+service.info.service.description=Description of the service 4.
