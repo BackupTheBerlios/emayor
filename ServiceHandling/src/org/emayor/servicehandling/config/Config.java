@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -82,5 +83,25 @@ public class Config {
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
+	}
+	
+	public synchronized void listPropertyNames() {
+		System.out.println("-------------- all property names --------------");	
+		for (Enumeration e = this.props.keys(); e.hasMoreElements();) {
+			System.out.println("next property name: " + (String)e.nextElement());
+		}
+		System.out.println("------------------------------------------------");
+	}
+	
+	public synchronized void listAllProperties() {
+		System.out.println("---------------- all properties ----------------");
+		for (Enumeration e = this.props.keys(); e.hasMoreElements();) {
+			String key = (String)e.nextElement();
+			String value = this.props.getProperty(key);
+			StringBuffer b = new StringBuffer();
+			b.append("[").append(key).append("]=\"").append(value).append("\"");
+			System.out.println(b.toString());
+		}
+		System.out.println("------------------------------------------------");
 	}
 }
