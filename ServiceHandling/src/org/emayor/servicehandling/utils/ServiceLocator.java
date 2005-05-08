@@ -390,7 +390,7 @@ public class ServiceLocator {
         log.debug("-> starting processing ...");
         ContentRouter ret = null;
         try {
-            Object ref = this.bpelInitialContext
+            Object ref = this.initialContext
                     .lookup(ContentRouterHome.JNDI_NAME);
             ContentRouterHome home = (ContentRouterHome) PortableRemoteObject
                     .narrow(ref, ContentRouterHome.class);
@@ -415,7 +415,7 @@ public class ServiceLocator {
         log.debug("-> starting processing ...");
         ContentRouterLocal ret = null;
         try {
-            Object ref = this.bpelInitialContext
+            Object ref = this.initialContext
                     .lookup(ContentRouterLocalHome.JNDI_NAME);
             ContentRouterLocalHome home = (ContentRouterLocalHome) PortableRemoteObject
                     .narrow(ref, ContentRouterLocalHome.class);
