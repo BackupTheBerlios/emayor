@@ -6,6 +6,7 @@ package org.emayor.servicehandling.utils;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.config.Config;
 
 /**
  * @author tku
@@ -14,6 +15,8 @@ public class IdGeneratorRoot {
 	private static Logger log = Logger.getLogger(IdGeneratorRoot.class);
 
 	public static final String DEF_ROOT = "123456";
+	
+	public String prefix = "";
 
 	private static IdGeneratorRoot _self;
 
@@ -22,6 +25,7 @@ public class IdGeneratorRoot {
 	private int currentId = 0;
 
 	private IdGeneratorRoot() {
+		log.debug("-> starting processing ...");
 		try {
 			Calendar cal = Calendar.getInstance();
 			StringBuffer b = new StringBuffer();
@@ -31,10 +35,13 @@ public class IdGeneratorRoot {
 			b.append(cal.get(Calendar.HOUR_OF_DAY)).append("-");
 			b.append(cal.get(Calendar.MINUTE)).append("-");
 			this.root = b.toString();
+			Config config = Config.getinstance();
+			this.prefix = config.getProperty("emayor.platform.instance.id");
 		} catch (Exception ex) {
-			log.error("IdGeneratorRoot -> caught exception: " + ex.toString());
+			log.error("caught ex: " + ex.toString());
 			this.root = DEF_ROOT;
 		}
+		log.debug("-> ... processing DONE!");
 	}
 	/**
 	 * 
@@ -51,6 +58,7 @@ public class IdGeneratorRoot {
 	 */
 	public synchronized String getNextId() {
 		StringBuffer b = new StringBuffer();
+		b.append(this.prefix).append("-");
 		b.append(root).append(this.currentId++);
 		return b.toString();
 	}
