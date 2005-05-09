@@ -86,8 +86,8 @@
 	<RequestDate>1967-08-13</RequestDate>
 	<ed:Observations>String</ed:Observations>
 	<NotificationMedium>Email</NotificationMedium>
-	<ServingMunicipalityDetails>String</ServingMunicipalityDetails>
-	<ReceivingMunicipalityDetails>String</ReceivingMunicipalityDetails>
+	<ServingMunicipalityDetails>Bozen</ServingMunicipalityDetails>
+	<ReceivingMunicipalityDetails>Aachen</ReceivingMunicipalityDetails>
 	<RequestedDocumentFormat>Digital</RequestedDocumentFormat>
 	<RequesterAddress>
 		<cbc:Postbox>String</cbc:Postbox>
