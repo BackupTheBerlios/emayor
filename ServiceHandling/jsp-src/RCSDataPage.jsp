@@ -69,7 +69,7 @@
       <td><span class="style5">
         <select name="REQ_SERVING_MUNICIPALITY">
           <option value="Siena">Municipality of Siena</option>
-          <option value="Achen">Municipality of Achen</option>
+          <option value="Aachen">Municipality of Achen</option>
           <option value="Bozen">Municipality of Bozen/Bolzano</option>
         </select> 
         <font color="#FF0000">*</font></span></td>
