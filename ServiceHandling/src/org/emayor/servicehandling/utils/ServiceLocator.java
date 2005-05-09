@@ -526,7 +526,7 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		try {
 			Hashtable env = new Hashtable();
-			Config config = Config.getinstance();
+			Config config = Config.getInstance();
 			// Standalone OC4J connection details
 			env.put(Context.INITIAL_CONTEXT_FACTORY, config
 					.getProperty("bpel.engine.ut.initial.context.factory"));

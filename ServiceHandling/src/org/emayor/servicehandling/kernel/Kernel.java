@@ -54,7 +54,7 @@ public class Kernel implements IKernel {
 			this.pe = locator.getPolicyEnforcementLocal();
 			if (pe == null)
 				log.warn("the reference to the policy enforcer is NULL!!!!");
-			Config config = Config.getinstance();
+			Config config = Config.getInstance();
 			if (config.getProperty("emayor.operating.mode")
 					.equals("production")) {
 				log.info("working with the production data - production mode");
@@ -607,7 +607,7 @@ public class Kernel implements IKernel {
 	private void initDeployedServices() throws KernelException {
 		log.debug("-> start processing ...");
 		try {
-			Config config = Config.getinstance();
+			Config config = Config.getInstance();
 			String deployDir = config.getQuilifiedDirectoryName(config
 					.getProperty("emayor.service.info.dir"));
 			if (log.isDebugEnabled())

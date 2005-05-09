@@ -35,7 +35,7 @@ public class IdGeneratorRoot {
 			b.append(cal.get(Calendar.HOUR_OF_DAY)).append("-");
 			b.append(cal.get(Calendar.MINUTE)).append("-");
 			this.root = b.toString();
-			Config config = Config.getinstance();
+			Config config = Config.getInstance();
 			this.prefix = config.getProperty("emayor.platform.instance.id");
 		} catch (Exception ex) {
 			log.error("caught ex: " + ex.toString());

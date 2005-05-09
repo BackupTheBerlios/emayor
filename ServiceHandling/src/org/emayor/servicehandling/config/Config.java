@@ -60,7 +60,7 @@ public class Config {
 		log.debug("-> ... processing DONE!");
 	}
 
-	public static synchronized Config getinstance() throws ConfigException {
+	public static synchronized Config getInstance() throws ConfigException {
 		log.debug("-> start processing ...");
 		if (_self == null)
 			_self = new Config();
