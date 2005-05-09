@@ -467,6 +467,8 @@ public class KernelRepository {
             throw new KernelRepositoryException(
                     "Couldn't add data into repository - already exists!");
         } else {
+        	if (log.isDebugEnabled())
+        		log.debug("add callbackdata for ssid = " + ssid);
             this.ssid2bpelForwardCallbackData.put(ssid, data);
         }
         log.debug("-> ... processing DONE!");
