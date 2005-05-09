@@ -27,9 +27,6 @@
 <zipfileset dir="lib">
 <include name="quartz.jar"/>
 </zipfileset>
-<zipfileset dir="lib">
-<include name="uddi4j.jar"/>
-</zipfileset>
 <zipfileset dir="callback" prefix="META-INF">
 <include name="callback_mapping.xml"/>
 </zipfileset>

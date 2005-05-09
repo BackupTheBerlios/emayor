@@ -56,7 +56,7 @@ public class Config {
 			log.error("caught ex: " + ioex.toString());
 			throw new ConfigException("couldn't read the config file");
 		}
-		this.listAllProperties();
+		//this.listAllProperties();
 		log.debug("-> ... processing DONE!");
 	}
 

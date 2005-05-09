@@ -10,7 +10,7 @@
 <file prefix="" project="" projectLocation="lib/ojdl.jar" name="ojdl.jar" location="lib/ojdl.jar" used="true"/>
 <file prefix="" project="" projectLocation="lib/otn-jaxrpc.jar" name="otn-jaxrpc.jar" location="lib/otn-jaxrpc.jar" used="true"/>
 <file prefix="" project="" projectLocation="lib/quartz.jar" name="quartz.jar" location="lib/quartz.jar" used="true"/>
-<file prefix="" project="" projectLocation="lib/uddi4j.jar" name="uddi4j.jar" location="lib/uddi4j.jar" used="true"/>
+<file prefix="" project="" projectLocation="lib/uddi4j.jar" name="uddi4j.jar" location="lib/uddi4j.jar" used="false"/>
 <file prefix="META-INF" project="" projectLocation="callback/callback_mapping.xml" name="callback_mapping.xml" location="callback/callback_mapping.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/webservices.xml" name="webservices.xml" location="src/META-INF/webservices.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/ws4ee-deployment.xml" name="ws4ee-deployment.xml" location="src/META-INF/ws4ee-deployment.xml" used="true"/>
