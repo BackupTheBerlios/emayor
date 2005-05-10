@@ -22,7 +22,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
-import org.emayor.forward.ContentRoutingWrapper;
+import org.emayor.servicehandling.forward.ContentRoutingWrapper;
 import org.emayor.servicehandling.config.Config;
 import org.emayor.servicehandling.config.ConfigException;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL;
@@ -164,6 +164,13 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 			log.debug("sending message to queue ...");
 			msg.setString("replyTo", replyTo);
 			msg.setString("to", to);
+			if (log.isDebugEnabled()) {
+			    log.debug("-------------------------------");
+			    log.debug("to          : " + to);
+			    log.debug("replyTo     : " + replyTo);
+			    log.debug("host        : " + host);
+			    log.debug("-------------------------------");
+			}
 			sender.send(msg);
 		} catch (NamingException e) {
 			log.error("caught ex: " + e.toString());

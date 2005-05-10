@@ -477,6 +477,8 @@ public class KernelRepository {
     public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
+        if (log.isDebugEnabled())
+            log.debug("working with following ssid: " + ssid);
         if (ssid == null || ssid.length() == 0)
             throw new KernelRepositoryException("invalid service session id");
         ForwardBPELCallbackData ret = null;
