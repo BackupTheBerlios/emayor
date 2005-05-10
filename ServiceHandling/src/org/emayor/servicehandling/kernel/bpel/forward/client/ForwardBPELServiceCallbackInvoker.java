@@ -78,6 +78,8 @@ public class ForwardBPELServiceCallbackInvoker {
             Call call = service.createCall(PORT, OPERATION_NAME);
             if (call != null) {
                 log.debug("the call has been created -> go ahead");
+                if (log.isDebugEnabled())
+                    log.debug("set the SSID to: " + msg.getSsid());
                 call.setProperty("SSID", msg.getSsid());
                 call
                         .setProperty(WSAddressingDefs.RELATES_TO_ELEMENT,
