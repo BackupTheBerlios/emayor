@@ -5,6 +5,7 @@
 <file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
 <file prefix="org/emayor/ContentRouting/ejb" project="" projectLocation="bin/ContentRouting.conf" name="ContentRouting.conf" location="bin/ContentRouting.conf" used="true"/>
+<folder prefix="" includes="" excludes="" project="" projectLocation="lib" name="lib" location="lib" used="true"/>
 </archive>
 <archive name="ContentRouting-ejb-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/ContentRouting/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
