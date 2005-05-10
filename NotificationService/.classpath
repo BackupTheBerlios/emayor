@@ -4,9 +4,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
-	<classpathentry kind="lib" path="C:/eclipse/workspace/NotificationService/lib/mail.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse/workspace/NotificationService/lib/activation.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse/workspace/NotificationService/lib/quartz.jar"/>
-	<classpathentry kind="lib" path="C:/Dokumente und Einstellungen/mxs/Eigene Dateien/logging-log4j-1.2.9/dist/lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
+	<classpathentry kind="lib" path="lib/quartz.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
