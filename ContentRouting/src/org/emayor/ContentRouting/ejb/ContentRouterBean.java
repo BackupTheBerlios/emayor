@@ -39,6 +39,11 @@ import java.util.Vector;
  */
 public class ContentRouterBean implements SessionBean {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
     Properties config = new Properties();
 
     /**

@@ -10,6 +10,12 @@ package org.emayor.ContentRouting.ejb;
 public class OrganisationNotFoundException extends ContentRouterException {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+ 
+
+    /**
      * @param message
      *            The message passed when the exception occurs.
      */

@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
-	<classpathentry kind="lib" path="C:/eclipse/workspace/ContentRouting/uddi4j/uddi4j.jar"/>
+	<classpathentry kind="lib" path="lib/uddi4j.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

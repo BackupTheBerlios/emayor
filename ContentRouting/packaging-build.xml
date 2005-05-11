@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10037,N10048,N1007B"/>
-<target name="N10004" description="ContentRouting-ejb.jar">
+<project name="Packaging Generator" default="_packaging_generation_">
+<target name="_packaging_generation_" depends="N65540,N65591,N65608,N65659"/>
+<target name="N65540" description="ContentRouting-ejb.jar">
 <jar destfile="ContentRouting-ejb.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="ejb-jar.xml"/>
@@ -13,15 +13,15 @@
 <include name="ContentRouting.conf"/>
 </zipfileset>
 <zipfileset dir="bin" includes="org/emayor/ContentRouting/ejb/*.class,org/emayor/ContentRouting/interfaces/*.class"/>
-<zipfileset dir="lib"/>
+<zipfileset dir="lib" includes="/eMayor-Content Routing J2EE/lib/*.jar"/>
 </jar>
 </target>
-<target name="N10037" description="ContentRouting-ejb-client.jar">
+<target name="N65591" description="ContentRouting-ejb-client.jar">
 <jar destfile="ContentRouting-ejb-client.jar">
 <zipfileset dir="bin" includes="org/emayor/ContentRouting/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N10048" description="ContentRouting-web.war">
+<target name="N65608" description="ContentRouting-web.war">
 <jar destfile="ContentRouting-web.war">
 <zipfileset dir="src/WEB-INF" prefix="WEB-INF">
 <include name="web.xml"/>
@@ -36,7 +36,7 @@
 <zipfileset dir="docroot"/>
 </jar>
 </target>
-<target name="N1007B" description="ContentRouting.ear">
+<target name="N65659" description="ContentRouting.ear">
 <jar destfile="ContentRouting.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>

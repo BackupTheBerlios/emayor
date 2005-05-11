@@ -13,6 +13,11 @@ package org.emayor.ContentRouting.ejb;
 public class BindingTemplateNotFoundException extends ContentRouterException {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    /**
      * @param message
      *            The message passed when the exception occurs.
      */

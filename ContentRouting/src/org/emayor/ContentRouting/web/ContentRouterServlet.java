@@ -41,6 +41,10 @@ import org.emayor.ContentRouting.interfaces.ContentRouterHome;
  */
 public class ContentRouterServlet extends HttpServlet {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private ContentRouterHome home;
 
     /**

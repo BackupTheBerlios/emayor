@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_xdoclet_generation_" name="XDoclet Generator">
 <property file="xdoclet-build.properties"/>
-<property name="eclipse.home" value="C:/eclipse"/>
-<property name="xdoclet.basedir" value="${eclipse.home}/plugins/org.jboss.ide.eclipse.xdoclet.core_1.4.1"/>
-<property name="jboss.net.version" value="4.0"/>
+<property name="eclipse.home" value=""/>
+<property name="xdoclet.basedir" value="/c:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.xdoclet.core_1.4.0/"/>
+<property name="jboss.net.version" value=""/>
 <path id="project.classpath"><pathelement location="bin"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/ejb-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jacc-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jca-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jms-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jsp-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/jta-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/servlet-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1/lib/j2ee-1.4/sql-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/jaxr-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/jaxrpc-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/saaj-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1/lib/wsi-1.0/xml-api.jar"/>
-<pathelement location="${eclipse.home}/workspace/ContentRouting/uddi4j/uddi4j.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/ejb-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jacc-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jca-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jms-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jsp-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jta-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/servlet-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/sql-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/jaxr-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/jaxrpc-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/saaj-api.jar"/>
+<pathelement location="C:/Programme/Java/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/xml-api.jar"/>
+<pathelement location="lib/uddi4j.jar"/>
 </path>
 <path id="xdoclet.classpath">
 <path refid="project.classpath"/>

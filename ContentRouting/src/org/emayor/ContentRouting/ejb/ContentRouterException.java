@@ -10,6 +10,11 @@ package org.emayor.ContentRouting.ejb;
 public class ContentRouterException extends Exception {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * @param message
      *            The message passed when the exception occurs.
      */
