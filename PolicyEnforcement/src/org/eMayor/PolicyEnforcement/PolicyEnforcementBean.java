@@ -14,6 +14,9 @@ import javax.ejb.SessionContext;
 
 import javax.ejb.CreateException;
 
+import org.apache.log4j.Logger;
+
+
 
 import java.security.cert.X509Certificate;
 
@@ -26,12 +29,14 @@ import java.security.cert.X509Certificate;
  *           view-type="both"
  */
 public class PolicyEnforcementBean implements SessionBean {
-
+	private static final Logger log = Logger.getLogger(PolicyEnforcementBean.class);
+	
 	/**
 	 * 
 	 */
 	
 	public PolicyEnforcementBean() {
+		
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -89,6 +94,7 @@ public class PolicyEnforcementBean implements SessionBean {
 		// TODO Auto-generated method stub
 		try
 		{
+			log.debug("PolicyEnfocement->Create User Profile");
 			return (new C_UserProfile(x509_CertChain)).F_getUserProfileasString();
 		} catch (C_UserProfile.E_UserProfileException e) {
 			throw new E_PolicyEnforcementException ("PolicyEnforcement::F_getUserProfile:: Exception \n" +e.toString());
