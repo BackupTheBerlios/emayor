@@ -13,5 +13,8 @@ package org.eMayor.PolicyEnforcement;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class PEP {
+	public PEP (PDP myPDP){
+		
+	}
 
 }
