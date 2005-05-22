@@ -36,186 +36,187 @@ import org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
  *           type="Stateless" view-type="local"
  */
 public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL {
-	private static final Logger log = Logger
-			.getLogger(ForwardManagerBPEL_EJB.class);
+    private static final Logger log = Logger
+            .getLogger(ForwardManagerBPEL_EJB.class);
 
-	private SessionContext ctx;
+    private SessionContext ctx;
 
-	/**
-	 *  
-	 */
-	public ForwardManagerBPEL_EJB() {
-		super();
-	}
+    /**
+     *  
+     */
+    public ForwardManagerBPEL_EJB() {
+        super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
-	 */
-	public void setSessionContext(SessionContext ctx) throws EJBException,
-			RemoteException {
-		log.debug("-> start processing ...");
-		this.ctx = ctx;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
+     */
+    public void setSessionContext(SessionContext ctx) throws EJBException,
+            RemoteException {
+        log.debug("-> start processing ...");
+        this.ctx = ctx;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#ejbRemove()
-	 */
-	public void ejbRemove() throws EJBException, RemoteException {
-		log.debug("-> start processing ...");
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbRemove()
+     */
+    public void ejbRemove() throws EJBException, RemoteException {
+        log.debug("-> start processing ...");
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#ejbActivate()
-	 */
-	public void ejbActivate() throws EJBException, RemoteException {
-		log.debug("-> start processing ...");
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbActivate()
+     */
+    public void ejbActivate() throws EJBException, RemoteException {
+        log.debug("-> start processing ...");
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#ejbPassivate()
-	 */
-	public void ejbPassivate() throws EJBException, RemoteException {
-		log.debug("-> start processing ...");
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbPassivate()
+     */
+    public void ejbPassivate() throws EJBException, RemoteException {
+        log.debug("-> start processing ...");
 
-	}
+    }
 
-	private void forward(ForwardMessageBPEL message, int type) {
-		log.debug("-> start processing ...");
-		ForwardMessageBPEL.printForwardMessage(message);
-		String local = "";
-		String remote = "";
-		String queueName = "";
-		String host = "";
-		try {
-			Config config = Config.getInstance();
-			local = config
-					.getProperty("forward.manager.test.local.municipality.name");
-			remote = config
-					.getProperty("forward.manager.test.remote.municipality.name");
-			queueName = config.getProperty("forward.manager.queue.name");
-			host = config.getProperty("forward.manager.queue.host");
-			if (log.isDebugEnabled()) {
-				log.debug("local       = " + local);
-				log.debug("remote      = " + remote);
-				log.debug("queue name  = " + queueName);
-				log.debug("host        = " + host);
-			}
-		} catch (ConfigException confex) {
-			log.error("caught ex: " + confex.toString());
-		}
-		Context context;
+    private void forward(ForwardMessageBPEL message, int type) {
+        log.debug("-> start processing ...");
+        if (log.isDebugEnabled())
+            ForwardMessageBPEL.printForwardMessage(message);
+        String local = "";
+        String remote = "";
+        String queueName = "";
+        String host = "";
+        try {
+            Config config = Config.getInstance();
+            local = config
+                    .getProperty("forward.manager.test.local.municipality.name");
+            remote = message.getRemoteMunicipalityId();
+            queueName = config.getProperty("forward.manager.queue.name");
+            host = config.getProperty("forward.manager.queue.host");
+            if (log.isDebugEnabled()) {
+                log.debug("local       = " + local);
+                log.debug("remote      = " + remote);
+                log.debug("queue name  = " + queueName);
+                log.debug("host        = " + host);
+            }
+        } catch (ConfigException confex) {
+            log.error("caught ex: " + confex.toString());
+        }
+        Context context;
 
-		try {
-			context = new InitialContext();
+        try {
+            context = new InitialContext();
 
-			ContentRoutingWrapper content = new ContentRoutingWrapper();
-			log.debug("lookup local forward ...");
-			String replyTo = ContentRoutingWrapper.getAccessPoint(local,
-					"forward");
-			log.debug("lookup remote forward ...");
-			String to = ContentRoutingWrapper.getAccessPoint(remote, "forward");
+            ContentRoutingWrapper content = new ContentRoutingWrapper();
+            log.debug("lookup local forward ...");
+            String replyTo = ContentRoutingWrapper.getAccessPoint(local,
+                    "forward");
+            log.debug("lookup remote forward ...");
+            String to = ContentRoutingWrapper.getAccessPoint(remote, "forward");
 
-			log.debug("forwarding to: " + to);
-			Properties props = new Properties();
-			props.setProperty("java.naming.factory.initial",
-					"org.jnp.interfaces.NamingContextFactory");
-			props.setProperty("java.naming.factory.url.pkgs",
-					"org.jboss.naming:org.jnp.interfaces");
-			props.setProperty("java.naming.provider.url", host);
+            log.debug("forwarding to: " + to);
+            Properties props = new Properties();
+            props.setProperty("java.naming.factory.initial",
+                    "org.jnp.interfaces.NamingContextFactory");
+            props.setProperty("java.naming.factory.url.pkgs",
+                    "org.jboss.naming:org.jnp.interfaces");
+            props.setProperty("java.naming.provider.url", host);
 
-			log.debug("getting context: "
-					+ props.getProperty("java.naming.provider.url"));
-			context = new InitialContext(props);
-			log.debug("getting factory ...");
-			QueueConnectionFactory factory = (QueueConnectionFactory) context
-					.lookup("ConnectionFactory");
-			log.debug("getting connection ...");
-			QueueConnection connect = factory.createQueueConnection();
-			log.debug("getting queue ...");
-			Queue queue = (Queue) context.lookup(queueName);
-			log.debug("getting session ...");
-			QueueSession session = connect.createQueueSession(false,
-					QueueSession.AUTO_ACKNOWLEDGE);
-			log.debug("starting connection ...");
-			connect.start();
-			log.debug("creating sender ...");
-			QueueSender sender = session.createSender(queue);
-			log.debug("get message ...");
-			MapMessage msg = session.createMapMessage();
-			log.debug("create message properties (REQUEST) ...");
-			msg.setInt("type", type);
-			msg.setString("ssid", message.getSsid());
-			msg.setString("uid", message.getUid());
-			msg.setString("doc", message.getDocument());
-			msg.setString("doc1", message.getDocument1());
-			msg.setString("doc2", message.getDocument2());
-			msg.setString("doc3", message.getDocument3());
-			msg.setString("doc4", message.getDocument4());
-			log.debug("sending message to queue ...");
-			msg.setString("replyTo", replyTo);
-			msg.setString("to", to);
-			if (log.isDebugEnabled()) {
-			    log.debug("-------------------------------");
-			    log.debug("to          : " + to);
-			    log.debug("replyTo     : " + replyTo);
-			    log.debug("host        : " + host);
-			    log.debug("-------------------------------");
-			}
-			sender.send(msg);
-		} catch (NamingException e) {
-			log.error("caught ex: " + e.toString());
-			return;
-		} catch (JMSException e) {
-			log.debug("caught ex: " + e.toString());
-			return;
-		}
-		log.debug("-> ... processing DONE!");
-	}
+            log.debug("getting context: "
+                    + props.getProperty("java.naming.provider.url"));
+            context = new InitialContext(props);
+            log.debug("getting factory ...");
+            QueueConnectionFactory factory = (QueueConnectionFactory) context
+                    .lookup("ConnectionFactory");
+            log.debug("getting connection ...");
+            QueueConnection connect = factory.createQueueConnection();
+            log.debug("getting queue ...");
+            Queue queue = (Queue) context.lookup(queueName);
+            log.debug("getting session ...");
+            QueueSession session = connect.createQueueSession(false,
+                    QueueSession.AUTO_ACKNOWLEDGE);
+            log.debug("starting connection ...");
+            connect.start();
+            log.debug("creating sender ...");
+            QueueSender sender = session.createSender(queue);
+            log.debug("get message ...");
+            MapMessage msg = session.createMapMessage();
+            log.debug("create message properties (REQUEST) ...");
+            msg.setInt("type", type);
+            msg.setString("ssid", message.getSsid());
+            msg.setString("uid", message.getUid());
+            msg.setString("doc", message.getDocument());
+            msg.setString("doc1", message.getDocument1());
+            msg.setString("doc2", message.getDocument2());
+            msg.setString("doc3", message.getDocument3());
+            msg.setString("doc4", message.getDocument4());
+            msg.setString("serviceId", message.getServiceId());
+            log.debug("sending message to queue ...");
+            msg.setString("replyTo", replyTo);
+            msg.setString("to", to);
+            if (log.isDebugEnabled()) {
+                log.debug("-------------------------------");
+                log.debug("to          : " + to);
+                log.debug("replyTo     : " + replyTo);
+                log.debug("host        : " + host);
+                log.debug("-------------------------------");
+            }
+            sender.send(msg);
+        } catch (NamingException e) {
+            log.error("caught ex: " + e.toString());
+            return;
+        } catch (JMSException e) {
+            log.debug("caught ex: " + e.toString());
+            return;
+        }
+        log.debug("-> ... processing DONE!");
+    }
 
-	/**
-	 * Business Method
-	 * 
-	 * @ejb.interface-method view-type = "local"
-	 *  
-	 */
-	public void forwardRequest(ForwardMessageBPEL message) {
-		log.debug("-> start processing ...");
-		ForwardMessageBPEL.printForwardMessage(message);
-		forward(message, IForwardManagerBPEL.REQUEST);
-		log.debug("-> ... processing DONE!");
-	}
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void forwardRequest(ForwardMessageBPEL message) {
+        log.debug("-> start processing ...");
+        ForwardMessageBPEL.printForwardMessage(message);
+        forward(message, IForwardManagerBPEL.REQUEST);
+        log.debug("-> ... processing DONE!");
+    }
 
-	/**
-	 * Business Method
-	 * 
-	 * @ejb.interface-method view-type = "local"
-	 *  
-	 */
-	public void forwardResponse(ForwardMessageBPEL message) {
-		log.debug("-> start processing ...");
-		ForwardMessageBPEL.printForwardMessage(message);
-		forward(message, IForwardManagerBPEL.RESPONSE);
-		log.debug("-> ... processing DONE!");
-	}
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void forwardResponse(ForwardMessageBPEL message) {
+        log.debug("-> start processing ...");
+        ForwardMessageBPEL.printForwardMessage(message);
+        forward(message, IForwardManagerBPEL.RESPONSE);
+        log.debug("-> ... processing DONE!");
+    }
 
-	/**
-	 * Default create method
-	 * 
-	 * @throws CreateException
-	 * @ejb.create-method
-	 */
-	public void ejbCreate() throws CreateException {
-		log.debug("-> start processing ...");
-	}
+    /**
+     * Default create method
+     * 
+     * @throws CreateException
+     * @ejb.create-method
+     */
+    public void ejbCreate() throws CreateException {
+        log.debug("-> start processing ...");
+    }
 
 }

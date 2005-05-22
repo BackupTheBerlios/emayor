@@ -28,6 +28,10 @@ public class ForwardMessageBPEL implements java.io.Serializable {
 
     private java.lang.String uid;
 
+    private java.lang.String serviceId;
+
+    private java.lang.String remoteMunicipalityId;
+
     public ForwardMessageBPEL() {
     }
 
@@ -87,6 +91,23 @@ public class ForwardMessageBPEL implements java.io.Serializable {
         this.uid = uid;
     }
 
+    public java.lang.String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(java.lang.String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public java.lang.String getRemoteMunicipalityId() {
+        return remoteMunicipalityId;
+    }
+
+    public void setRemoteMunicipalityId(java.lang.String remoteMunicipalityId) {
+        log.info("fffffffffffffffffffffffffffffff: " + remoteMunicipalityId);
+        this.remoteMunicipalityId = remoteMunicipalityId;
+    }
+
     private java.lang.Object __equalsCalc = null;
 
     public synchronized boolean equals(java.lang.Object obj) {
@@ -116,9 +137,15 @@ public class ForwardMessageBPEL implements java.io.Serializable {
                 && ((this.ssid == null && other.getSsid() == null) || (this.ssid != null && this.ssid
                         .equals(other.getSsid())))
                 && ((this.uid == null && other.getUid() == null) || (this.uid != null && this.uid
-                        .equals(other.getUid())));
+                        .equals(other.getUid())))
+                && ((this.serviceId == null && other.getServiceId() == null) || (this.serviceId != null && this.serviceId
+                        .equals(other.getServiceId())))
+                && ((this.remoteMunicipalityId == null && other
+                        .getRemoteMunicipalityId() == null) || (this.remoteMunicipalityId != null && this.remoteMunicipalityId
+                        .equals(other.getRemoteMunicipalityId())));
         __equalsCalc = null;
         return _equals;
+
     }
 
     private boolean __hashCodeCalc = false;
@@ -149,6 +176,12 @@ public class ForwardMessageBPEL implements java.io.Serializable {
         }
         if (getUid() != null) {
             _hashCode += getUid().hashCode();
+        }
+        if (getServiceId() != null) {
+            _hashCode += getServiceId().hashCode();
+        }
+        if (getRemoteMunicipalityId() != null) {
+            _hashCode += getRemoteMunicipalityId().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -212,6 +245,21 @@ public class ForwardMessageBPEL implements java.io.Serializable {
         elemField.setXmlType(new javax.xml.namespace.QName(
                 "http://www.w3.org/2001/XMLSchema", "string"));
         typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("serviceId");
+        elemField.setXmlName(new javax.xml.namespace.QName(THIS_NAMESPACE,
+                "serviceId"));
+        elemField.setXmlType(new javax.xml.namespace.QName(
+                "http://www.w3.org/2001/XMLSchema", "string"));
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("remoteMunicipalityId");
+        elemField.setXmlName(new javax.xml.namespace.QName(THIS_NAMESPACE,
+                "remoteMunicipalityId"));
+        elemField.setXmlType(new javax.xml.namespace.QName(
+                "http://www.w3.org/2001/XMLSchema", "string"));
+        typeDesc.addFieldDesc(elemField);
+
     }
 
     /**
@@ -243,11 +291,15 @@ public class ForwardMessageBPEL implements java.io.Serializable {
 
     public static void printForwardMessage(ForwardMessageBPEL msg) {
         log.debug("---------- forward message ----------");
-        log.debug("uid      : " + msg.getUid());
-        log.debug("ssid     : " + msg.getSsid());
-        log.debug("document : " + msg.getDocument());
-        log.debug("document1: " + msg.getDocument1());
-        log.debug("document2: " + msg.getDocument2());
+        log.debug("uid                   : " + msg.getUid());
+        log.debug("ssid                  : " + msg.getSsid());
+        log.debug("document              : " + msg.getDocument());
+        log.debug("document1             : " + msg.getDocument1());
+        log.debug("document2             : " + msg.getDocument2());
+        log.debug("document3             : " + msg.getDocument3());
+        log.debug("document4             : " + msg.getDocument4());
+        log.debug("serviceId             : " + msg.getServiceId());
+        log.debug("remote municipality id: " + msg.getRemoteMunicipalityId());
         log.debug("-------------------------------------");
     }
 }

@@ -127,6 +127,10 @@ public class ResidenceCertificationService implements IeMayorService {
             type.setUid(uid);
             type.setStatus(IeMayorService.STATUS_NO);
             type.setServiceId(this.serviceId);
+            type.setExtraField1("<empty/>");
+            type.setExtraField2("<empty/>");
+            type.setExtraField3("<empty/>");
+            type.setExtraField4("<empty/>");
 
             MessageID messageID = new MessageID(conversationId);
 
