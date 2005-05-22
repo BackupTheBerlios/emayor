@@ -6,3 +6,4 @@ service.info.service.name=Service 3 (version 1.5)
 service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayorServiceFactory
 service.info.service.class.name=org.emayor.service3.Service3_15
 service.info.service.description=Description of the service 3.
+service.info.service.endpoint=http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0
