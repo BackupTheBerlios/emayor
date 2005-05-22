@@ -16,7 +16,7 @@ public interface IeMayorService extends Serializable {
 	public static String STATUS_NO = "NO";
 	public static String STATUS_YES = "YES";
 
-	public void setup() throws eMayorServiceException;
+	public void setup(String serviceId) throws eMayorServiceException;
 
 	//public void customize(IUserServiceProfile userServiceProfile) throws
 	// eMayorServiceException;

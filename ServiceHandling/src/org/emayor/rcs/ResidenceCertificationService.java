@@ -26,152 +26,156 @@ import org.xmlsoap.schemas.ws.addressing.ReplyTo;
  * @author tku
  */
 public class ResidenceCertificationService implements IeMayorService {
-	private static Logger log = Logger
-			.getLogger(ResidenceCertificationService.class);
+    private static Logger log = Logger
+            .getLogger(ResidenceCertificationService.class);
 
-	//private ResidenceCertifcationRequest_v10_Port port = null;
+    //private ResidenceCertifcationRequest_v10_Port port = null;
 
-	public static final String DEF_ENDPOINT = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
+    public static final String DEF_ENDPOINT = "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
-	public static final String DEF_XMLFILE = "SampleResidenceCertificationRequestDocument.xml";
+    public static final String DEF_XMLFILE = "SampleResidenceCertificationRequestDocument.xml";
 
-	//private String endpoint =
-	// "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
+    private String serviceId = "";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IeMayorService#setup()
-	 */
-	public void setup() throws eMayorServiceException {
-		log.debug("-> start processing ...");
+    //private String endpoint =
+    // "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IeMayorService#setup()
+     */
+    public void setup(String serviceId) throws eMayorServiceException {
+        log.debug("-> start processing ...");
+        this.serviceId = serviceId;
+        if (log.isDebugEnabled())
+            log.debug("working with following service id = " + this.serviceId);
+        log.debug("-> ... processing DONE!");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IeMayorService#cleanup()
-	 */
-	public void cleanup() throws eMayorServiceException {
-		log.debug("-> start processing ...");
-		//this.port = null;
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IeMayorService#cleanup()
+     */
+    public void cleanup() throws eMayorServiceException {
+        log.debug("-> start processing ...");
+        //this.port = null;
+        log.debug("-> ... processing DONE!");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IeMayorService#endService()
-	 */
-	public void endService() throws eMayorServiceException {
-		// TODO Auto-generated method stub
-		log.debug("-> start processing ...");
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IeMayorService#endService()
+     */
+    public void endService() throws eMayorServiceException {
+        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
 
-		log.debug("-> ... processing DONE!");
-		throw new eMayorServiceException("NOT IMPLEMENTED");
-	}
+        log.debug("-> ... processing DONE!");
+        throw new eMayorServiceException("NOT IMPLEMENTED");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IeMayorService#startService(java.lang.String,
-	 *      java.lang.String)
-	 */
-	public void startService(String uid, String ssid)
-			throws eMayorServiceException {
-		log.debug("-> start processing ...");
-		this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
-				.getXMLDocument(), "<empty/>");
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IeMayorService#startService(java.lang.String,
+     *      java.lang.String)
+     */
+    public void startService(String uid, String ssid)
+            throws eMayorServiceException {
+        log.debug("-> start processing ...");
+        this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
+                .getXMLDocument(), "<empty/>");
+        log.debug("-> ... processing DONE!");
+    }
 
-	private void startIt(String forward, String uid, String ssid, String req,
-			String reqDigSig) throws eMayorServiceException {
-		log.debug("-> start processing ...");
-		try {
-			VMID guid = new VMID();
-			String conversationId = guid.toString();
-			if (log.isDebugEnabled())
-				log.debug("got new conversation id: " + conversationId);
-			log.debug("creating the input data structure");
-			EMayorServiceRequestType type = new EMayorServiceRequestType();
-			if (type == null)
-				log.error("the type ref is NULL");
-			if (log.isDebugEnabled()) {
-				StringBuffer b = new StringBuffer();
-				b.append("forward   : ").append(forward);
-				b.append("\nuid       : ").append(uid);
-				b.append("\nssid      : ").append(ssid);
-				log.debug("\n" + b.toString());
-			}
-			type.setForwarded(forward);
-			type.setReqestDocument(req);
-			type.setReqDocDigSig(reqDigSig);
-			type.setSsid(ssid);
-			type.setUid(uid);
-			type.setStatus(IeMayorService.STATUS_NO);
+    private void startIt(String forward, String uid, String ssid, String req,
+            String reqDigSig) throws eMayorServiceException {
+        log.debug("-> start processing ...");
+        try {
+            VMID guid = new VMID();
+            String conversationId = guid.toString();
+            if (log.isDebugEnabled())
+                log.debug("got new conversation id: " + conversationId);
+            log.debug("creating the input data structure");
+            EMayorServiceRequestType type = new EMayorServiceRequestType();
+            if (type == null)
+                log.error("the type ref is NULL");
+            if (log.isDebugEnabled()) {
+                StringBuffer b = new StringBuffer();
+                b.append("forward   : ").append(forward);
+                b.append("\nuid       : ").append(uid);
+                b.append("\nssid      : ").append(ssid);
+                log.debug("\n" + b.toString());
+            }
+            type.setForwarded(forward);
+            type.setReqestDocument(req);
+            type.setReqDocDigSig(reqDigSig);
+            type.setSsid(ssid);
+            type.setUid(uid);
+            type.setStatus(IeMayorService.STATUS_NO);
 
-			MessageID messageID = new MessageID(conversationId);
+            MessageID messageID = new MessageID(conversationId);
 
-			ReplyTo replyTo = new ReplyTo(
-					"http://localhost:8080/axis/services/LoanFlowClientCallback",
-					"LoanFlowCallback", "LoanFlowCallbackService");
-			RCSInvoker client = new RCSInvoker(DEF_ENDPOINT, messageID,
-					replyTo, type);
-			client.call();
-		} catch (Exception ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new eMayorServiceException("");
-		}
-		log.debug("-> ... processing DONE!");
-	}
+            ReplyTo replyTo = new ReplyTo(
+                    "http://localhost:8080/axis/services/LoanFlowClientCallback",
+                    "LoanFlowCallback", "LoanFlowCallbackService");
+            RCSInvoker client = new RCSInvoker(DEF_ENDPOINT, messageID,
+                    replyTo, type);
+            client.call();
+        } catch (Exception ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new eMayorServiceException("");
+        }
+        log.debug("-> ... processing DONE!");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IeMayorService#forward(java.lang.String,
-	 *      java.lang.String, java.lang.String, java.lang.String)
-	 */
-	public void forward(String uid, String ssid, String req, String reqDigSig)
-			throws eMayorServiceException {
-		log.debug("-> start processing ...");
-		this.startIt(IeMayorService.FORWARD_YES, uid, ssid, req, reqDigSig);
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IeMayorService#forward(java.lang.String,
+     *      java.lang.String, java.lang.String, java.lang.String)
+     */
+    public void forward(String uid, String ssid, String req, String reqDigSig)
+            throws eMayorServiceException {
+        log.debug("-> start processing ...");
+        this.startIt(IeMayorService.FORWARD_YES, uid, ssid, req, reqDigSig);
+        log.debug("-> ... processing DONE!");
+    }
 
-	private InitialContext getInitialContext() throws NamingException {
-		Properties env = new Properties();
-		env.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-				"org.jnp.interfaces.NamingContextFactory");
-		env.setProperty(Context.URL_PKG_PREFIXES, "org.jboss.naming.client");
-		env.setProperty(Context.PROVIDER_URL, "jnp://localhost:1099");
-		env.setProperty("j2ee.clientName", "ws4ee-client");
-		return new InitialContext(env);
-	}
+    private InitialContext getInitialContext() throws NamingException {
+        Properties env = new Properties();
+        env.setProperty(Context.INITIAL_CONTEXT_FACTORY,
+                "org.jnp.interfaces.NamingContextFactory");
+        env.setProperty(Context.URL_PKG_PREFIXES, "org.jboss.naming.client");
+        env.setProperty(Context.PROVIDER_URL, "jnp://localhost:1099");
+        env.setProperty("j2ee.clientName", "ws4ee-client");
+        return new InitialContext(env);
+    }
 
-	private String getXMLDocument() throws eMayorServiceException {
-		log.debug("-> start processing ...");
-		String ret = "";
-		try {
-			URL url = this.getClass().getResource(DEF_XMLFILE);
-			InputStream is = url.openStream();
+    private String getXMLDocument() throws eMayorServiceException {
+        log.debug("-> start processing ...");
+        String ret = "";
+        try {
+            URL url = this.getClass().getResource(DEF_XMLFILE);
+            InputStream is = url.openStream();
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			StringBuffer b = new StringBuffer();
-			String line = null;
-			while ((line = br.readLine()) != null)
-				b.append(line.trim());
-			ret = b.toString();
-			if (log.isDebugEnabled())
-				log.debug("got xml: " + ret);
-		} catch (IOException ioex) {
-			log.error("caught ex: " + ioex.toString());
-			throw new eMayorServiceException("");
-		}
-		log.debug("-> ... processing DONE!");
-		return ret;
-	}
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            StringBuffer b = new StringBuffer();
+            String line = null;
+            while ((line = br.readLine()) != null)
+                b.append(line.trim());
+            ret = b.toString();
+            if (log.isDebugEnabled())
+                log.debug("got xml: " + ret);
+        } catch (IOException ioex) {
+            log.error("caught ex: " + ioex.toString());
+            throw new eMayorServiceException("");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
 
 }
