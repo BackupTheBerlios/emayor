@@ -37,6 +37,8 @@ public class ResidenceCertificationService implements IeMayorService {
 
     private String serviceId = "";
 
+    private String serviceEndpoint = DEF_ENDPOINT;
+
     //private String endpoint =
     // "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
 
@@ -45,11 +47,19 @@ public class ResidenceCertificationService implements IeMayorService {
      * 
      * @see org.emayor.servicehandling.kernel.IeMayorService#setup()
      */
-    public void setup(String serviceId) throws eMayorServiceException {
+    public void setup(String serviceId, String serviceEndpoint)
+            throws eMayorServiceException {
         log.debug("-> start processing ...");
+        if (serviceId == null || serviceId.length() == 0)
+            throw new eMayorServiceException("invalid service id");
         this.serviceId = serviceId;
-        if (log.isDebugEnabled())
-            log.debug("working with following service id = " + this.serviceId);
+        if (serviceEndpoint != null && serviceEndpoint.length() != 0)
+            this.serviceEndpoint = serviceEndpoint;
+        if (log.isDebugEnabled()) {
+            log.debug("working with following service id: " + this.serviceId);
+            log.debug("working with following service endpoint: "
+                    + this.serviceEndpoint);
+        }
         log.debug("-> ... processing DONE!");
     }
 
@@ -116,13 +126,13 @@ public class ResidenceCertificationService implements IeMayorService {
             type.setSsid(ssid);
             type.setUid(uid);
             type.setStatus(IeMayorService.STATUS_NO);
+            type.setServiceId(this.serviceId);
 
             MessageID messageID = new MessageID(conversationId);
 
-            ReplyTo replyTo = new ReplyTo(
-                    "http://localhost:8080/axis/services/LoanFlowClientCallback",
-                    "LoanFlowCallback", "LoanFlowCallbackService");
-            RCSInvoker client = new RCSInvoker(DEF_ENDPOINT, messageID,
+            ReplyTo replyTo = new ReplyTo("http://some.url", "", "");
+            
+            RCSInvoker client = new RCSInvoker(this.serviceEndpoint, messageID,
                     replyTo, type);
             client.call();
         } catch (Exception ex) {

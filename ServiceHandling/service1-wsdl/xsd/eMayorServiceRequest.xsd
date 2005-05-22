@@ -7,15 +7,12 @@
 			<xs:element name="ssid" type="xs:string"/>
 			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="reqestDocument" type="xs:string"/>
+			<xs:element name="serviceId" type="xs:string"/>
 			<xs:element name="reqDocDigSig" type="xs:string"/>
+			<xs:element name="extraField1" type="xs:string"/>
+			<xs:element name="extraField2" type="xs:string"/>
+			<xs:element name="extraField3" type="xs:string"/>
+			<xs:element name="extraField4" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
-	<!--
-	<xs:complexType name="eMayorServiceRequestType">
-		<xs:sequence>
-			<xs:element name="requestData" type="tns:eMayorServiceRequestStructure"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:element name="eMayorServiceRequest" type="tns:eMayorServiceRequestType"/>
--->
 </xs:schema>

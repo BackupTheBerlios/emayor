@@ -178,7 +178,7 @@ public class Kernel implements IKernel {
 			IeMayorService service = factory.createService(serviceId, ret
 					.getSessionId());
 			log.debug("call setup method on the service instance");
-			service.setup(serviceId);
+			service.setup(serviceId, serviceInfo.getServiceEndpoint());
 			log.debug("assign the service to the service session");
 			ret.seteMayorService(service);
 			log.debug("save the current instance into repository");

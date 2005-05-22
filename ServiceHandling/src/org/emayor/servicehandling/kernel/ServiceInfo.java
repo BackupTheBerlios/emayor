@@ -27,7 +27,21 @@ public class ServiceInfo implements IServiceInfo {
 	private String serviceClassName;
 	
 	private String serviceDescription;
+	
+	private String serviceEndpoint;
 
+    /**
+     * @return Returns the serviceEndpoint.
+     */
+    public String getServiceEndpoint() {
+        return serviceEndpoint;
+    }
+    /**
+     * @param serviceEndpoint The serviceEndpoint to set.
+     */
+    public void setServiceEndpoint(String serviceEndpoint) {
+        this.serviceEndpoint = serviceEndpoint;
+    }
 	public String getServiceName() {
 		return this.serviceName;
 	}
@@ -155,6 +169,14 @@ public class ServiceInfo implements IServiceInfo {
 			return false;
 		}
 		this.setServiceDescription(str);
+		
+		str = props.getProperty("service.info.service.endpoint");
+		if (str == null || str.length() == 0) {
+			log.debug("something wrong with service endpoint");
+			return false;
+		}
+		this.setServiceEndpoint(str);
+		
 		return ret;
 	}
 }

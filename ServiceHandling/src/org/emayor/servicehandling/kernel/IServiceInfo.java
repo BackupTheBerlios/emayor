@@ -25,6 +25,8 @@ public interface IServiceInfo extends Serializable {
 	
 	public String getServiceDescription();
 	
+	public String getServiceEndpoint();
+	
 	public boolean unmarshall(Properties props);
 	
 }

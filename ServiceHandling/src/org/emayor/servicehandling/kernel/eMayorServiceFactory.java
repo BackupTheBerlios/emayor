@@ -60,8 +60,8 @@ public class eMayorServiceFactory implements IeMayorServiceFactory {
 			ret = (IeMayorService) _class.newInstance();
 			if (ret != null)
 				log.debug("newInstance called successful - ret NOT null");
-			log.debug("call the setup method ont the service");
-			ret.setup(serviceName);
+			//log.debug("call the setup method ont the service");
+			//ret.setup(serviceName, null);
 		} catch (KernelException kex) {
 			log.error("caught ex: " + kex.toString());
 			throw new eMayorServiceException("problem with kernel");
