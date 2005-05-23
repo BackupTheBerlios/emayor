@@ -8,13 +8,17 @@ package org.eMayor.PolicyEnforcement;
 
 import java.net.URI;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 import com.sun.xacml.EvaluationCtx;
 import com.sun.xacml.attr.StringAttribute;
 import com.sun.xacml.ctx.Attribute;
 import com.sun.xacml.ctx.RequestCtx;
 import com.sun.xacml.ctx.ResponseCtx;
+import com.sun.xacml.ctx.Result;
 import com.sun.xacml.ctx.Subject;
 
 
@@ -27,11 +31,14 @@ import com.sun.xacml.ctx.Subject;
  */
 public class C_PEP {
 	C_PDP MyPDP;
+	private static final Logger log = Logger.getLogger(C_PEP.class);
 	public C_PEP (C_PDP currentPDP){
 		MyPDP= currentPDP;
 	}
-	public boolean F_CanStartService(String UserRole, String SerivceName){
+	public boolean F_CanStartService(String UserRole, String SerivceName) throws  E_PolicyEnforcementException 
+	{
 //		 Build the Request
+		log.debug("PolicyEnfocement->PEP->F_CanStartService( User Role: "+UserRole+", Service: "+SerivceName+")");
 	try {
 	//Creates Subjects
 		HashSet attributes = new HashSet();
@@ -76,12 +83,38 @@ public class C_PEP {
 		// Evaluet the request
 		ResponseCtx response = this.MyPDP.evaluate(request);
 		Set results = response.getResults();
+		Iterator resultiterator= results.iterator();
+		
+		  while (resultiterator.hasNext()) {
+		  	
+		  
+            Result finalresult = (Result)(resultiterator.next());
+            int decision = finalresult.getDecision();
+            String sdecision ="";
+            switch (decision) {
+            case Result.DECISION_DENY:  sdecision="DENY";
+            case Result.DECISION_INDETERMINATE: sdecision = "INDETERMINATE";
+            case Result.DECISION_NOT_APPLICABLE: sdecision = "NOT_APPLICABLE";
+            case Result.DECISION_PERMIT: sdecision = "PERMIT";
+            }
+			
+			  
+            log.debug("PolicyEnfocement->PEP->Decision = " + sdecision);
+            if (decision == Result.DECISION_PERMIT)
+            {
+            	return true;
+            }
+            else {
+            	return false;
+            }
+		  }  
+		
 		
 		
 	} catch (Exception e)
 	{
-		// Print exeption
+		throw new E_PolicyEnforcementException ("PolicyEnforcement::PEP:: Exception \n" +e.toString());
 	}
-		return true;
+		return false;
 	}
 }

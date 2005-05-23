@@ -9,17 +9,17 @@ package org.eMayor.PolicyEnforcement;
 import org.eMayor.PolicyEnforcement.DBPolicyModule;
 
 import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.FilenameFilter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
+
 import java.util.Set;
 
 import org.emayor.servicehandling.config.Config;
-import org.emayor.servicehandling.config.ConfigException;
+
 
 import com.sun.xacml.PDPConfig;
 import com.sun.xacml.PDP;
@@ -45,7 +45,7 @@ public class C_PDP {
 	{
 		return MyPDP.evaluate(request);
 	}
-	public C_PDP() {
+	public C_PDP() throws  E_PolicyEnforcementException{
 		// Create the Policy Decizion Point based on the configurartion file from emayor
 		try {
 			Config config = Config.getInstance();
@@ -83,10 +83,9 @@ public class C_PDP {
 			} else {
 				// Generate exception No policyes
 			}
-		} catch (ConfigException confex) {
+		} catch (Exception e) {
 			// throuw exeption on configurarion error
-			//throw new KernelException(
-			//		"couldn't read the configuration file properly");
+			throw new E_PolicyEnforcementException("PolicyEnforcement->PDP: Initialization Execption:: "+ e.toString());
 		} 
 		
 		/*catch (IOException ioex) {

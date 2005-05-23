@@ -31,6 +31,11 @@ import java.security.cert.X509Certificate;
 public class PolicyEnforcementBean implements SessionBean {
 	private static final Logger log = Logger.getLogger(PolicyEnforcementBean.class);
 	
+	// Create the PEP and the PDP
+	    private static C_PEP MyPEP=null;
+	     
+	     
+	
 	/**
 	 * 
 	 */
@@ -38,6 +43,8 @@ public class PolicyEnforcementBean implements SessionBean {
 	public PolicyEnforcementBean() {
 		
 		super();
+		
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -141,7 +148,17 @@ public class PolicyEnforcementBean implements SessionBean {
 		String UserProfile,
 		String ServiceProfile) throws  E_PolicyEnforcementException{
 		// TODO Auto-generated method stub
-		return true;
+		try {
+			if (MyPEP==null) MyPEP = new C_PEP(new C_PDP());
+			C_UserProfile MyUserProfile = new C_UserProfile(UserProfile);
+			return MyPEP.F_CanStartService(MyUserProfile.getUserRole(), ServiceProfile);
+		} catch (Exception e)
+		{
+			throw new E_PolicyEnforcementException("PolicyEnforcement->F_AuthorizeService: Exeption ::" + e.toString());
+		}
+			
+		
+		
 	}
 	/**
 	 * Business method

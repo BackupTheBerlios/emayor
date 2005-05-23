@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Policy PolicyId="BasicPolicy"
+         RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
+    <Target>
+        <Subjects>
+            <AnySubject/>
+        </Subjects>
+        <Resources>
+            <AnyResource/>
+        </Resources>
+        <Actions>
+            <AnyAction/>
+        </Actions>
+    </Target>
+    <Rule RuleId="PrimaryRule" Effect="Deny"/>
+</Policy>
