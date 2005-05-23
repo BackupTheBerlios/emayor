@@ -117,6 +117,9 @@ public class ServiceHandlingTestServlet extends HttpServlet {
         } else if (action.equalsIgnoreCase("ForwardRequest")) {
             log.debug("processing the ForwardRequest request");
             processor = new ForwardServiceProcessor();
+        }else if (action.equalsIgnoreCase("reloadPolicies")) {
+            log.debug("processing the ReloadPolicies request");
+            processor = new reloadPoliciesProcessor();
         } else {
             log.debug("processing unknown request");
             processor = new ErrorProcessor();

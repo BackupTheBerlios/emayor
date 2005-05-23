@@ -24,6 +24,8 @@
 
 <a href="ServiceHandlingTest?action=listMyTasks" class="style2">my tasks listing :-)</a>
 		<br/>
+<a href="ServiceHandlingTest?action=reloadPolicies" class="style2">Reload Policies</a>
+        <br/>
 
 <hr/>
 <a href="ServiceHandlingTest?action=Logout" class="style2"> LOGOUT </a>
