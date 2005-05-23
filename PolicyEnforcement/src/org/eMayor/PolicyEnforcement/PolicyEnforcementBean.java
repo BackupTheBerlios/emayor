@@ -150,9 +150,14 @@ public class PolicyEnforcementBean implements SessionBean {
 		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		try {
-			if (MyPEP == null)
+			if (MyPEP == null){
 				MyPEP = new C_PEP(new C_PDP());
+				log.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
+			}
+				
+				
 			C_UserProfile MyUserProfile = new C_UserProfile(UserProfile);
+			log.debug("Policy Enforcement->F_AuthorizeService:: Got The User Profile with role" + MyUserProfile.getUserRole());
 			return MyPEP.F_CanStartService(
 				MyUserProfile.getUserRole(),
 				ServiceProfile);

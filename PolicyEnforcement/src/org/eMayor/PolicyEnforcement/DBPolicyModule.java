@@ -24,8 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -91,7 +90,7 @@ public class DBPolicyModule extends PolicyFinderModule
 
     // the logger we'll use for all messages
     private static final Logger logger =
-        Logger.getLogger(DBPolicyModule.class.getName());
+        Logger.getLogger(DBPolicyModule.class);
 
     /**
      * Constructor which retrieves the schema file to validate policies against
@@ -262,9 +261,7 @@ public class DBPolicyModule extends PolicyFinderModule
             }
 
         } catch (Exception e) {
-            if (logger.isLoggable(Level.WARNING))
-                logger.log(Level.WARNING, "Error reading policy from file " +
-                           filename, e);
+                  logger.debug("Error reading policy from file " + filename, e);
         }
 
         // a default fall-through in the case of an error
@@ -320,7 +317,7 @@ public class DBPolicyModule extends PolicyFinderModule
         }
 
         
-        if (needpolicyset)
+        if (needpolicyset==true)
         {
         	try{
         	      	
@@ -332,14 +329,17 @@ public class DBPolicyModule extends PolicyFinderModule
         		return new PolicyFinderResult();
 			}
         		
-        }
+        } else {
+        	
+        
         // if we found a policy, return it, otherwise we're N/A
         
                 
-        if (selectedPolicy != null)
-            return new PolicyFinderResult(selectedPolicy);
-        else
-            return new PolicyFinderResult();
+        	if (selectedPolicy != null)
+        		return new PolicyFinderResult(selectedPolicy);
+        	else
+        		return new PolicyFinderResult();
+        }
     }
 
     /**
@@ -348,8 +348,8 @@ public class DBPolicyModule extends PolicyFinderModule
      * @param exception information on what caused the problem
      */
     public void warning(SAXParseException exception) throws SAXException {
-        if (logger.isLoggable(Level.WARNING))
-            logger.warning("Warning on line " + exception.getLineNumber() +
+        
+            logger.debug("Warning on line " + exception.getLineNumber() +
                            ": " + exception.getMessage());
     }
 
@@ -361,8 +361,8 @@ public class DBPolicyModule extends PolicyFinderModule
      * @throws SAXException always to halt parsing on errors
      */
     public void error(SAXParseException exception) throws SAXException {
-        if (logger.isLoggable(Level.WARNING))
-            logger.warning("Error on line " + exception.getLineNumber() +
+       
+            logger.debug("Error on line " + exception.getLineNumber() +
                            ": " + exception.getMessage() + " ... " +
                            "Policy will not be available");
 
@@ -377,8 +377,8 @@ public class DBPolicyModule extends PolicyFinderModule
      * @throws SAXException always to halt parsing on errors
      */
     public void fatalError(SAXParseException exception) throws SAXException {
-        if (logger.isLoggable(Level.WARNING))
-            logger.warning("Fatal error on line " + exception.getLineNumber() +
+        
+            logger.debug("Fatal error on line " + exception.getLineNumber() +
                            ": " + exception.getMessage() + " ... " +
                            "Policy will not be available");
 

@@ -30,10 +30,15 @@ import com.sun.xacml.ctx.Subject;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class C_PEP {
-	C_PDP MyPDP;
+	private C_PDP MyPDP=null;
 	private static final Logger log = Logger.getLogger(C_PEP.class);
-	public C_PEP (C_PDP currentPDP){
+	public C_PEP (C_PDP currentPDP) throws E_PolicyEnforcementException{
 		MyPDP= currentPDP;
+		if (MyPDP==null){
+			throw new E_PolicyEnforcementException ("PolicyEnforcement::PEP:: get null for PDP");
+		}
+			
+		log.debug("PolicyEnforcement->PEP:: Initialising the PDP");
 	}
 	public boolean F_CanStartService(String UserRole, String SerivceName) throws  E_PolicyEnforcementException 
 	{
@@ -81,7 +86,9 @@ public class C_PEP {
 		RequestCtx request = new RequestCtx(subjects, resource, action, new HashSet());
 		
 		// Evaluet the request
-		ResponseCtx response = this.MyPDP.evaluate(request);
+		log.debug("PolicyEnforcement->PEP:: Created Request :: " + request.toString());
+		ResponseCtx response = MyPDP.evaluate(request);
+		log.debug("PolicyEnforcement->PEP:: Got Response :: " + response.toString());
 		Set results = response.getResults();
 		Iterator resultiterator= results.iterator();
 		
@@ -99,7 +106,7 @@ public class C_PEP {
             }
 			
 			  
-            log.debug("PolicyEnfocement->PEP->Decision = " + sdecision);
+            log.debug("PolicyEnfocement->PEP->Decision = " + sdecision + " or = " + decision);
             if (decision == Result.DECISION_PERMIT)
             {
             	return true;

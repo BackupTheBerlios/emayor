@@ -6,6 +6,7 @@
  */
 package org.eMayor.PolicyEnforcement;
 
+import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.DBPolicyModule;
 
 import java.io.File;
@@ -39,35 +40,50 @@ import com.sun.xacml.finder.impl.CurrentEnvModule;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class C_PDP {
-	private PDP MyPDP;
+	private PDP MyPDP=null;
+	private static final Logger log = Logger.getLogger(C_PDP.class);
 	
 	public ResponseCtx evaluate(RequestCtx request)
 	{
+		log.debug("PolicyEnforcement->PDP->evaluate :: got request " + request.toString());
 		return MyPDP.evaluate(request);
 	}
 	public C_PDP() throws  E_PolicyEnforcementException{
 		// Create the Policy Decizion Point based on the configurartion file from emayor
+		
+			log.debug("PolicyEnforcement->PDP:: Initializing..");
 		try {
 			Config config = Config.getInstance();
 			String deployDir = config.getQuilifiedDirectoryName(config
 					.getProperty("emayor.pe.info.dir"));
 			
+			log.debug("Get the policies directory " + deployDir);
 			File file = new File(deployDir);
+			
+			
 			File[] files = file.listFiles(new PolicyFilenameFilter());
+			
 			// Create the PDP
-			DBPolicyModule MyPolicyModule = new DBPolicyModule();
-			CurrentEnvModule envModule = new CurrentEnvModule();
+			
+				
+			
+				DBPolicyModule MyPolicyModule = new DBPolicyModule();
+				CurrentEnvModule envModule = new CurrentEnvModule();
 			
 			
 			
 			// Load Policies
 			if (files != null) {
+				
+				if (files.length < 1)  throw new E_PolicyEnforcementException("PolicyEnforcement->PDP: Initialization Execption:: No Policies have bean Loaded!!!!" );
+				
+				
 				for (int i = 0; i < files.length; i++) {
 					String filename = files[i].getAbsolutePath();
 					MyPolicyModule.addPolicy(filename);
 					
 				}
-				
+				log.debug("PolicyEnforcement->PDP:: Loaded the policy files");
 				PolicyFinder mypolicyFinder = new PolicyFinder();
 				Set policyModules = new HashSet();
 				policyModules.add(MyPolicyModule);
@@ -78,10 +94,10 @@ public class C_PDP {
 				myattrFinder.setModules(attrModules);
 			    
 				MyPDP = new PDP(new PDPConfig(myattrFinder,mypolicyFinder,null));
-				
+				log.debug("PolicyEnforcement->PDP:: Created the PDP");
 				
 			} else {
-				// Generate exception No policyes
+				throw new E_PolicyEnforcementException("PolicyEnforcement->PDP: Initialization Execption:: No Policies have bean Loaded!!!!" );
 			}
 		} catch (Exception e) {
 			// throuw exeption on configurarion error
@@ -102,7 +118,7 @@ public class C_PDP {
 		public boolean accept(File dir, String filename) {
 			
 			boolean ret = false;
-			if (filename != null && filename.endsWith(".policy.xml")) {
+			if (filename != null && filename.endsWith(".policy")) {
 				ret = true;
 			}
 			return ret;
