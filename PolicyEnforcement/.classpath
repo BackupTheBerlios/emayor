@@ -6,7 +6,7 @@
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
 	<classpathentry kind="lib" path="lib/xmlsec-1.2RC2.jar"/>
 	<classpathentry kind="lib" path="/PrintingUtility/lib/log4j-1.2.9.jar"/>
-	<classpathentry kind="lib" path="/ServiceHandling/eMayorEJB.jar"/>
 	<classpathentry kind="lib" path="lib/sunxacml.jar"/>
+	<classpathentry kind="lib" path="/ServiceHandling/eMayorEJB.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
