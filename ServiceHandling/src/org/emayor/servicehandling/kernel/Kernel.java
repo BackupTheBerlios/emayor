@@ -159,6 +159,7 @@ public class Kernel implements IKernel {
 	public synchronized ServiceSessionLocal createServiceSession(String asid,
 			String serviceId, String userId) throws KernelException {
 		log.debug("-> start processing ...");
+		// ##############  added by Sergiu :) ############
 		boolean bAccessResult=false;
 		log.debug("Get Service Access Permition ...");
 		try{
@@ -175,7 +176,7 @@ public class Kernel implements IKernel {
 			throw new KernelException("Access to the Service " + serviceId + " is not allowed" );
 		} else {
 			
-			
+		// ########### end of added by Sergiu :) ############	
 		
 			ServiceSessionLocal ret = null;
 			try {
