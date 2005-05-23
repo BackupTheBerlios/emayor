@@ -8,7 +8,7 @@
         <Resources>
             <Resource>
                 <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Service1</AttributeValue>
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ResidenceCertificationService</AttributeValue>
                     <ResourceAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
                         AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"/>
                 </ResourceMatch>
@@ -41,7 +41,7 @@
           <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
                                       AttributeId="role"/>
         </Apply>
-        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">citizen</AttributeValue>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Citizen</AttributeValue>
         
       </Condition>
     </Rule>
