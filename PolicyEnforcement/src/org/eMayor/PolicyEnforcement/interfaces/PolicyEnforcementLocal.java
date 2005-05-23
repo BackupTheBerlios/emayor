@@ -44,4 +44,9 @@ public interface PolicyEnforcementLocal
     */
    public boolean F_AuthorizeServiceStep( java.lang.String UserProfile,java.lang.String ServiceProfile,java.lang.String ServiceStep ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
+   /**
+    * Business method
+    */
+   public void F_UpdatePolicies(  ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
+
 }

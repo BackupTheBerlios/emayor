@@ -16,8 +16,6 @@ import javax.ejb.CreateException;
 
 import org.apache.log4j.Logger;
 
-
-
 import java.security.cert.X509Certificate;
 
 /**
@@ -29,22 +27,20 @@ import java.security.cert.X509Certificate;
  *           view-type="both"
  */
 public class PolicyEnforcementBean implements SessionBean {
-	private static final Logger log = Logger.getLogger(PolicyEnforcementBean.class);
-	
+	private static final Logger log = Logger
+		.getLogger(PolicyEnforcementBean.class);
+
 	// Create the PEP and the PDP
-	    private static C_PEP MyPEP=null;
-	     
-	     
-	
+	private static C_PEP MyPEP = null;
+
 	/**
 	 * 
 	 */
-	
+
 	public PolicyEnforcementBean() {
-		
+
 		super();
-		
-		
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -55,7 +51,6 @@ public class PolicyEnforcementBean implements SessionBean {
 		throws EJBException,
 		RemoteException {
 		// TODO Auto-generated method stub
-		
 
 	}
 
@@ -97,21 +92,25 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public String F_getUserProfile(X509Certificate x509_CertChain[]) throws  E_PolicyEnforcementException{
+	public String F_getUserProfile(X509Certificate x509_CertChain[])
+		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
-		try
-		{
+		try {
 			log.debug("PolicyEnfocement->Create User Profile");
-			return (new C_UserProfile(x509_CertChain)).F_getUserProfileasString();
+			return (new C_UserProfile(x509_CertChain))
+				.F_getUserProfileasString();
 		} catch (C_UserProfile.E_UserProfileException e) {
-			throw new E_PolicyEnforcementException ("PolicyEnforcement::F_getUserProfile:: Exception \n" +e.toString());
+			throw new E_PolicyEnforcementException(
+				"PolicyEnforcement::F_getUserProfile:: Exception \n"
+					+ e.toString());
 		}
 	}
 	/**
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_AuthenticateUser(String UserProfile) throws  E_PolicyEnforcementException{
+	public boolean F_AuthenticateUser(String UserProfile)
+		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 
 		return true;
@@ -120,7 +119,8 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_VerifyXMLSignature(String xmlDocument) throws  E_PolicyEnforcementException {
+	public boolean F_VerifyXMLSignature(String xmlDocument)
+		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		return true;
 	}
@@ -128,7 +128,8 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public String F_TimeStampXMLDocument(String xmlDocumentDoc) throws  E_PolicyEnforcementException{
+	public String F_TimeStampXMLDocument(String xmlDocumentDoc)
+		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -136,7 +137,8 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_VerifyXMLTimeStampedDocument(String xmlDocument) throws  E_PolicyEnforcementException{
+	public boolean F_VerifyXMLTimeStampedDocument(String xmlDocument)
+		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		return true;
 	}
@@ -144,21 +146,22 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_AuthorizeService  (
-		String UserProfile,
-		String ServiceProfile) throws  E_PolicyEnforcementException{
+	public boolean F_AuthorizeService(String UserProfile, String ServiceProfile)
+		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		try {
-			if (MyPEP==null) MyPEP = new C_PEP(new C_PDP());
+			if (MyPEP == null)
+				MyPEP = new C_PEP(new C_PDP());
 			C_UserProfile MyUserProfile = new C_UserProfile(UserProfile);
-			return MyPEP.F_CanStartService(MyUserProfile.getUserRole(), ServiceProfile);
-		} catch (Exception e)
-		{
-			throw new E_PolicyEnforcementException("PolicyEnforcement->F_AuthorizeService: Exeption ::" + e.toString());
+			return MyPEP.F_CanStartService(
+				MyUserProfile.getUserRole(),
+				ServiceProfile);
+		} catch (Exception e) {
+			throw new E_PolicyEnforcementException(
+				"PolicyEnforcement->F_AuthorizeService: Exeption ::"
+					+ e.toString());
 		}
-			
-		
-		
+
 	}
 	/**
 	 * Business method
@@ -167,8 +170,26 @@ public class PolicyEnforcementBean implements SessionBean {
 	public boolean F_AuthorizeServiceStep(
 		String UserProfile,
 		String ServiceProfile,
-		String ServiceStep) throws  E_PolicyEnforcementException {
+		String ServiceStep) throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	/**
+	 * Business method
+	 * @ejb.interface-method  view-type = "both"
+	 */
+	public void F_UpdatePolicies() throws E_PolicyEnforcementException {
+		// TODO Auto-generated method stub
+		try {
+			MyPEP = new C_PEP(new C_PDP());
+		} catch (Exception e)
+		{
+			throw new E_PolicyEnforcementException(
+					"PolicyEnforcement->F_UpdatePolicies: Exeption ::"
+						+ e.toString());
+		}
+			
+			
+		
 	}
 }

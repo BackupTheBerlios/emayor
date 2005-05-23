@@ -51,4 +51,10 @@ public interface PolicyEnforcement
    public boolean F_AuthorizeServiceStep( java.lang.String UserProfile,java.lang.String ServiceProfile,java.lang.String ServiceStep )
       throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException, java.rmi.RemoteException;
 
+   /**
+    * Business method
+    */
+   public void F_UpdatePolicies(  )
+      throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException, java.rmi.RemoteException;
+
 }
