@@ -75,9 +75,6 @@ public class C_PDP {
 			// Load Policies
 			if (files != null) {
 				
-				if (files.length < 1)  throw new E_PolicyEnforcementException("PolicyEnforcement->PDP: Initialization Execption:: No Policies have bean Loaded!!!!" );
-				
-				
 				for (int i = 0; i < files.length; i++) {
 					String filename = files[i].getAbsolutePath();
 					MyPolicyModule.addPolicy(filename);
