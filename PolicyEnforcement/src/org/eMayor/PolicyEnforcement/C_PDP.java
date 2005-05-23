@@ -75,6 +75,9 @@ public class C_PDP {
 			// Load Policies
 			if (files != null) {
 				
+				if (files.length < 1)  throw new E_PolicyEnforcementException("No Policies have bean Loaded!!!!" );
+				
+				
 				for (int i = 0; i < files.length; i++) {
 					String filename = files[i].getAbsolutePath();
 					MyPolicyModule.addPolicy(filename);
@@ -94,11 +97,11 @@ public class C_PDP {
 				log.debug("PolicyEnforcement->PDP:: Created the PDP");
 				
 			} else {
-				throw new E_PolicyEnforcementException("PolicyEnforcement->PDP: Initialization Execption:: No Policies have bean Loaded!!!!" );
+				throw new E_PolicyEnforcementException("PDP: Initialization Execption:: No Policies have bean Loaded!!!!" );
 			}
 		} catch (Exception e) {
 			// throuw exeption on configurarion error
-			throw new E_PolicyEnforcementException("PolicyEnforcement->PDP: Initialization Execption:: "+ e.toString());
+			throw new E_PolicyEnforcementException("PDP: Initialization Execption:: "+ e.toString());
 		} 
 		
 		/*catch (IOException ioex) {

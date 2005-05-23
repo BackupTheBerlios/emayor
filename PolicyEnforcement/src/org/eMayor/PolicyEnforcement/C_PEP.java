@@ -35,7 +35,7 @@ public class C_PEP {
 	public C_PEP (C_PDP currentPDP) throws E_PolicyEnforcementException{
 		MyPDP= currentPDP;
 		if (MyPDP==null){
-			throw new E_PolicyEnforcementException ("PolicyEnforcement::PEP:: get null for PDP");
+			throw new E_PolicyEnforcementException ("PEP:: get null for PDP");
 		}
 			
 		log.debug("PolicyEnforcement->PEP:: Initialising the PDP");
@@ -120,7 +120,7 @@ public class C_PEP {
 		
 	} catch (Exception e)
 	{
-		throw new E_PolicyEnforcementException ("PolicyEnforcement::PEP:: Exception \n" +e.toString());
+		throw new E_PolicyEnforcementException ("PEP:: Exception \n" +e.toString());
 	}
 		return false;
 	}
