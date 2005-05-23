@@ -65,7 +65,7 @@
 	</wsdl:binding>
 	<wsdl:service name="IForwardManagerBPELService">
 		<wsdl:port name="ForwardManagerBPELPort" binding="impl:ForwardManagerBPELSoapBinding">
-			<wsdlsoap:address location="http://localhost:8080/eMayor/ForwardManagerBPEL"/>
+			<wsdlsoap:address location="http://localhost:80/eMayor/ForwardManagerBPEL"/>
 		</wsdl:port>
 	</wsdl:service>
 	<wsdl:service name="IForwardManagerBPELCallbackService">

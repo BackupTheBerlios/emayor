@@ -13,6 +13,6 @@ set CP=%CP%;%AH%\lib\saaj.jar
 set CP=%CP%;%AH%\lib\wsdl4j.jar
 set CP=%CP%;..\..\classes
 
-java -cp %CP% org.apache.axis.wsdl.Java2WSDL -u LITERAL -y DOCUMENT -l "http://localhost:8080/eMayor/ForwardManagerBPEL" -o ForwardManagerBPEL_gen.wsdl --PkgtoNS "org.emayor.servicehandling.kernel.bpel.forward.data"="http://eMayor.org/sh/bpel/forward/data" --PkgtoNS "org.emayor.servicehandling.kernel.bpel.forward.server"="http://eMayor.org/sh/bpel/forward/service" org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
+java -cp %CP% org.apache.axis.wsdl.Java2WSDL -u LITERAL -y DOCUMENT -l "http://localhost:80/eMayor/ForwardManagerBPEL" -o ForwardManagerBPEL_gen.wsdl --PkgtoNS "org.emayor.servicehandling.kernel.bpel.forward.data"="http://eMayor.org/sh/bpel/forward/data" --PkgtoNS "org.emayor.servicehandling.kernel.bpel.forward.server"="http://eMayor.org/sh/bpel/forward/service" org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
 
 @endlocal

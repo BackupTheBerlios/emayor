@@ -159,42 +159,61 @@ public class Kernel implements IKernel {
 	public synchronized ServiceSessionLocal createServiceSession(String asid,
 			String serviceId, String userId) throws KernelException {
 		log.debug("-> start processing ...");
-		ServiceSessionLocal ret = null;
-		try {
-			log.debug("getting instance of ServiceLocator");
-			ServiceLocator serviceLocator = ServiceLocator.getInstance();
-			log.debug("a new service session");
-			ret = serviceLocator.getServiceSessionLocal(asid);
-			if (log.isDebugEnabled() && ret != null)
-				log.debug("the new ssid = " + ret.getSessionId());
-			IServiceInfo serviceInfo = this.repository
-					.getServiceInfo(serviceId);
-			log.debug("set service id into service session instance");
-			ret.setServiceId(serviceId);
-			log.debug("get the factory for the given service");
-			IeMayorServiceFactory factory = this.repository
-					.getServiceFactory(serviceId);
-			log.debug("create the service instance using got factory");
-			IeMayorService service = factory.createService(serviceId, ret
-					.getSessionId());
-			log.debug("call setup method on the service instance");
-			service.setup(serviceId, serviceInfo.getServiceEndpoint());
-			log.debug("assign the service to the service session");
-			ret.seteMayorService(service);
-			log.debug("save the current instance into repository");
-			this.repository.addServiceSession(ret, userId);
-		} catch (ServiceLocatorException slex) {
-			log.error("caught ex: " + slex.toString());
-			throw new KernelException(slex.toString());
-		} catch (SessionException sex) {
-			log.error("caught ex: " + sex.toString());
-		} catch (KernelRepositoryException krex) {
-			log.error("caught ex: " + krex.toString());
-		} catch (eMayorServiceException emsex) {
-			log.error("caught ex: " + emsex.toString());
+		boolean bAccessResult=false;
+		log.debug("Get Service Access Permition ...");
+		try{
+			
+			bAccessResult = this.pe.F_AuthorizeService(this.getUserProfile(userId).getPEUserProfile().F_getUserProfileasString(), serviceId);
+		} catch (Exception e)
+		{
+			throw new KernelException(e.toString());
 		}
-		log.debug("-> ... processing DONE!");
-		return ret;
+		
+		log.debug("Got Permition = " + bAccessResult);
+		if (bAccessResult==false)
+		{
+			throw new KernelException("Access to the Service " + serviceId + " is not allowed" );
+		} else {
+			
+			
+		
+			ServiceSessionLocal ret = null;
+			try {
+				log.debug("getting instance of ServiceLocator");
+				ServiceLocator serviceLocator = ServiceLocator.getInstance();
+				log.debug("a new service session");
+				ret = serviceLocator.getServiceSessionLocal(asid);
+				if (log.isDebugEnabled() && ret != null)
+					log.debug("the new ssid = " + ret.getSessionId());
+				IServiceInfo serviceInfo = this.repository
+						.getServiceInfo(serviceId);
+				log.debug("set service id into service session instance");
+				ret.setServiceId(serviceId);
+				log.debug("get the factory for the given service");
+				IeMayorServiceFactory factory = this.repository
+						.getServiceFactory(serviceId);
+				log.debug("create the service instance using got factory");
+				IeMayorService service = factory.createService(serviceId, ret
+						.getSessionId());
+				log.debug("call setup method on the service instance");
+				service.setup(serviceId, serviceInfo.getServiceEndpoint());
+				log.debug("assign the service to the service session");
+				ret.seteMayorService(service);
+				log.debug("save the current instance into repository");
+				this.repository.addServiceSession(ret, userId);
+			} catch (ServiceLocatorException slex) {
+				log.error("caught ex: " + slex.toString());
+				throw new KernelException(slex.toString());
+			} catch (SessionException sex) {
+				log.error("caught ex: " + sex.toString());
+			} catch (KernelRepositoryException krex) {
+				log.error("caught ex: " + krex.toString());
+			} catch (eMayorServiceException emsex) {
+				log.error("caught ex: " + emsex.toString());
+			}
+			log.debug("-> ... processing DONE!");
+			return ret;
+		}
 	}
 
 	/*

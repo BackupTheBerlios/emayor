@@ -13,6 +13,6 @@ set CP=%CP%;%AH%\lib\saaj.jar
 set CP=%CP%;%AH%\lib\wsdl4j.jar
 set CP=%CP%;..\classes
 
-java -cp %CP% org.apache.axis.wsdl.Java2WSDL -u LITERAL -y DOCUMENT -l "http://localhost:8080/eMayorEJB/ServiceCallbackManager" -o ServiceCallbackManager.wsdl --PkgtoNS "org.emayor.servicehandling.kernel"="http://emayor.org/ServiceCallbackManager" org.emayor.servicehandling.kernel.IServiceCallbackManager
+java -cp %CP% org.apache.axis.wsdl.Java2WSDL -u LITERAL -y DOCUMENT -l "http://localhost:80/eMayorEJB/ServiceCallbackManager" -o ServiceCallbackManager.wsdl --PkgtoNS "org.emayor.servicehandling.kernel"="http://emayor.org/ServiceCallbackManager" org.emayor.servicehandling.kernel.IServiceCallbackManager
 
 @endlocal
