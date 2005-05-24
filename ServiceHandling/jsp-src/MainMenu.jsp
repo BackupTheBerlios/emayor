@@ -24,6 +24,8 @@
 		<a href="ServiceHandlingTest?action=ShowInvokeBPELCallbackPage">invoke BPEL callback</a>
 		<br/>
 		<a href="ServiceHandlingTest?action=ForwardRequest&asid=<%= session.getAttribute("ASID") %>&ServiceName=ResidenceCertificationService/v10">forward sample request</a>
+		<br/>
+		<a href="ServiceHandlingTest?action=ReloadConfig">reload platform configuration</a>
 
 <hr/>
 <a href="ServiceHandlingTest?action=Logout"> LOGOUT </a>
