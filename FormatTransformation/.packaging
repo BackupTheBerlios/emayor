@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations>
-<archive name="TransformerEJB.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/eMayor/FormatTransformation/ejb/*.class,org/eMayor/FormatTransformation/interfaces/*.class,org/eMayor/FormatTransformation/ejb/*.xml" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
+<archive destination="" exploded="false" name="TransformerEJB.jar" used="true">
+<folder excludes="" includes="org/eMayor/FormatTransformation/ejb/*.class,org/eMayor/FormatTransformation/interfaces/*.class,org/eMayor/FormatTransformation/ejb/*.xml" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<file location="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" used="true"/>
+<file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" used="true"/>
 </archive>
-<archive name="TransformerEJB-client.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/eMayor/FormatTransformation/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+<archive destination="" exploded="false" name="TransformerEJB-client.jar" used="true">
+<folder excludes="" includes="org/eMayor/FormatTransformation/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
 </archive>
-<archive name="TransformerApp.ear" destination="" used="true" exploded="false">
-<file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
-<file prefix="" project="" projectLocation="TransformerEJB.jar" name="TransformerEJB.jar" location="TransformerEJB.jar" used="true"/>
-<folder prefix="" includes="*.jar" excludes="" project="" projectLocation="xalan" name="xalan" location="xalan" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/MANIFEST.MF" name="MANIFEST.MF" location="src/META-INF/MANIFEST.MF" used="true"/>
+<archive destination="" exploded="false" name="TransformerApp.ear" used="true">
+<file location="src/META-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" used="true"/>
+<file location="TransformerEJB.jar" name="TransformerEJB.jar" prefix="" project="" projectLocation="TransformerEJB.jar" used="true"/>
+<folder excludes="" includes="*.jar" location="D:/Work/javaProjects/JavaLibraries/Xalan2.6" prefix="" used="true"/>
+<file location="src/META-INF/MANIFEST.MF" name="MANIFEST.MF" prefix="META-INF" project="" projectLocation="src/META-INF/MANIFEST.MF" used="true"/>
 </archive>
 </configurations>
