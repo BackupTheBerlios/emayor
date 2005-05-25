@@ -4,12 +4,13 @@ import iaik.asn1.ObjectID;
 import iaik.x509.V3Extension;
 import iaik.x509.X509CRL;
 
+
 import java.io.File;
 import java.security.KeyStore;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Vector;
-
+import java.security.cert.X509Certificate;
 
 /**
  * <p>Title: CertificateValidator</p>
@@ -151,6 +152,25 @@ public class CertificateValidator {
 		return certIsRevoked;
 	}
 
+	public boolean validateChain(X509Certificate[] chain) {
+		boolean result=false;
+		
+		// We begin checking top level certificates in the chain.
+		// If we find one valid according to our trusted store
+		
+		try {
+			for (int i=chain.length-1; i>=0; i--) {
+				if (chain[i] != null) {
+					iaik.x509.X509Certificate cert = new iaik.x509.X509Certificate(chain[i].getEncoded());
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+			
+		return result;
+	}
+	
     /** This method initializes the trustedStore parameter of this CertificateValidator
      *  based on the java keystore information contained in the TrustedStoreConfiguration file.
      */
