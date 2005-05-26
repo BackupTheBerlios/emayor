@@ -6,6 +6,7 @@
  */
 package org.emayor.notification.producer;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -175,7 +176,7 @@ public class EmailNotificationProducerBean
 			
 			// create file for attachment
 			log.info("creating attachment ...");
-			FileOutputStream out = new FileOutputStream(directory+"\\"+sessionId);
+			FileOutputStream out = new FileOutputStream(directory+File.separatorChar+sessionId);
 			PrintStream p = new PrintStream( out );
 			p.println (message);
 			p.close();
@@ -202,7 +203,7 @@ public class EmailNotificationProducerBean
 				bp.setText(body);
 				// attachment
 				BodyPart attach = new MimeBodyPart();
-				FileDataSource fds = new FileDataSource(directory+"\\"+sessionId);
+				FileDataSource fds = new FileDataSource(directory+File.separatorChar+sessionId);
 				attach.setDataHandler(new DataHandler(fds));
 				attach.setFileName("document.xml");
 				attach.setDescription("document.xml");

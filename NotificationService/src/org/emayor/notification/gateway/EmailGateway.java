@@ -64,7 +64,7 @@ public class EmailGateway {
 			config = new Properties();
 			try {
 				// access jboss configuration file
-				String configuration = System.getProperty("jboss.server.home.dir")+"\\conf\\mail.properties";
+				String configuration = System.getProperty("jboss.server.home.dir")+File.separatorChar+"conf"+File.separatorChar+"mail.properties";
 				File conffile = new File(configuration);
 				if (conffile.exists()) {
 					log.debug("loading configuration from file: "+configuration);
