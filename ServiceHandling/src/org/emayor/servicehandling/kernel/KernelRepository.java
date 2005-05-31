@@ -176,7 +176,7 @@ public class KernelRepository {
                 List ssids = (List) this.userId2ssids.get(userId);
                 if (ssids.contains(ssid)) {
                     log
-                            .debug("everything's OK -> removing session from data stuctures");
+                            .debug("everything's OK -> removing session from data structures");
                     this.ssid2serviceSession.remove(ssid);
                     ssids.remove(ssid);
                     this.userId2ssids.remove(userId);

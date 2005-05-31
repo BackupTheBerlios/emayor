@@ -63,6 +63,14 @@
 <file prefix="META-INF/wsdl" project="" projectLocation="BPEL-forward/client/ws-addressing.xsd" name="ws-addressing.xsd" location="BPEL-forward/client/ws-addressing.xsd" used="true"/>
 <file prefix="META-INF/wsdl" project="" projectLocation="BPEL-forward/client/ForwardMessageBPEL.xsd" name="ForwardMessageBPEL.xsd" location="BPEL-forward/client/ForwardMessageBPEL.xsd" used="true"/>
 </archive>
+<archive name="eMayorBPELServiceStarter.jar" destination="" used="true" exploded="false">
+<file prefix="META-INF" project="" projectLocation="service_starter/application-client.xml" name="application-client.xml" location="service_starter/application-client.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="service_starter/service_starter_client_mapping.xml" name="service_starter_client_mapping.xml" location="service_starter/service_starter_client_mapping.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="service_starter/jboss-client.xml" name="jboss-client.xml" location="service_starter/jboss-client.xml" used="true"/>
+<file prefix="META-INF/wsdl" project="" projectLocation="service_starter/wsdl/eMayorServiceStarter_v10_jboss_client.wsdl" name="eMayorServiceStarter_v10_jboss_client.wsdl" location="service_starter/wsdl/eMayorServiceStarter_v10_jboss_client.wsdl" used="true"/>
+<file prefix="META-INF/wsdl/xsd" project="" projectLocation="service_starter/wsdl/xsd/eMayorServiceRequest.xsd" name="eMayorServiceRequest.xsd" location="service_starter/wsdl/xsd/eMayorServiceRequest.xsd" used="true"/>
+<file prefix="META-INF/wsdl/xsd" project="" projectLocation="service_starter/wsdl/xsd/eMayorServiceStarterRequest.xsd" name="eMayorServiceStarterRequest.xsd" location="service_starter/wsdl/xsd/eMayorServiceStarterRequest.xsd" used="true"/>
+</archive>
 <archive name="SH-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class,org/emayor/servicehandling/kernel/KernelException.class,org/emayor/servicehandling/kernel/SessionException.class,org/emayor/servicehandling/kernel/*UserProfile.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
 </archive>
@@ -80,5 +88,6 @@
 <file prefix="" project="" projectLocation="ForwardMgrBPEL-client.jar" name="ForwardMgrBPEL-client.jar" location="ForwardMgrBPEL-client.jar" used="true"/>
 <file prefix="" project="Forwarding" projectLocation="ForwardEJB-client.jar" name="ForwardEJB-client.jar" location="../Forwarding/ForwardEJB-client.jar" used="true"/>
 <file prefix="" project="Forwarding" projectLocation="ForwardEJB.jar" name="ForwardEJB.jar" location="../Forwarding/ForwardEJB.jar" used="true"/>
+<file prefix="" project="" projectLocation="eMayorBPELServiceStarter.jar" name="eMayorBPELServiceStarter.jar" location="eMayorBPELServiceStarter.jar" used="true"/>
 </archive>
 </configurations>

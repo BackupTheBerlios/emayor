@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N1009D,N100AE,N100BF,N100FC,N1012D,N10176,N10187,N101C8,N101D9"/>
+<target name="_packaging_generation_" depends="N10004,N1009D,N100AE,N100BF,N100FC,N1012D,N10176,N10187,N101C8,N101FF,N10210"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -148,12 +148,34 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/bpel/forward/client/*.class,org/emayor/servicehandling/kernel/bpel/forward/data/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
 </jar>
 </target>
-<target name="N101C8" description="SH-client.jar">
+<target name="N101C8" description="eMayorBPELServiceStarter.jar">
+<jar destfile="eMayorBPELServiceStarter.jar">
+<zipfileset dir="service_starter" prefix="META-INF">
+<include name="application-client.xml"/>
+</zipfileset>
+<zipfileset dir="service_starter" prefix="META-INF">
+<include name="service_starter_client_mapping.xml"/>
+</zipfileset>
+<zipfileset dir="service_starter" prefix="META-INF">
+<include name="jboss-client.xml"/>
+</zipfileset>
+<zipfileset dir="service_starter/wsdl" prefix="META-INF/wsdl">
+<include name="eMayorServiceStarter_v10_jboss_client.wsdl"/>
+</zipfileset>
+<zipfileset dir="service_starter/wsdl/xsd" prefix="META-INF/wsdl/xsd">
+<include name="eMayorServiceRequest.xsd"/>
+</zipfileset>
+<zipfileset dir="service_starter/wsdl/xsd" prefix="META-INF/wsdl/xsd">
+<include name="eMayorServiceStarterRequest.xsd"/>
+</zipfileset>
+</jar>
+</target>
+<target name="N101FF" description="SH-client.jar">
 <jar destfile="SH-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class,org/emayor/servicehandling/kernel/KernelException.class,org/emayor/servicehandling/kernel/SessionException.class,org/emayor/servicehandling/kernel/*UserProfile.class"/>
 </jar>
 </target>
-<target name="N101D9" description="eMayorApp.ear">
+<target name="N10210" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -193,6 +215,9 @@
 </zipfileset>
 <zipfileset dir="../Forwarding">
 <include name="ForwardEJB.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="eMayorBPELServiceStarter.jar"/>
 </zipfileset>
 </jar>
 </target>

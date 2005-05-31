@@ -98,6 +98,9 @@ public class ServiceCallbackManagerEJB implements SessionBean,
             ServiceLocator locator = ServiceLocator.getInstance();
             KernelLocal kernel = locator.getKernelLocal();
             log.debug("got the kernel");
+            // it should work, because this is happening after the
+            // user has picked up the data, so he/she is logged in 
+            // at the system !
             asid = kernel.getAsidByUserID(userId);
             if (log.isDebugEnabled()) {
                 log.debug("ssid = " + ssid);
@@ -110,6 +113,7 @@ public class ServiceCallbackManagerEJB implements SessionBean,
             kernel.remove();
             log.debug("stop the service session");
             accessSession.stopServiceSession(ssid);
+            
             ret = "OK";
         } catch (ServiceLocatorException slex) {
             log.error("problem with the service locator");

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<application-client xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:impl="http://ws.sample"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ns5="http://eMayor.org/sh/bpel/forward/service"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"
+  version="1.4">
+  
+  <display-name>WS Client to the eMayor Service Starter</display-name>
+  
+  <service-ref>
+    <service-ref-name>service/IeMayorServiceStarterServiceClient</service-ref-name>
+    <service-interface>
+    	org.emayor.servicehandling.kernel.bpel.starter.IeMayorServiceStarterService
+    </service-interface>
+    <wsdl-file>META-INF/wsdl/eMayorServiceStarter_v10_jboss_client.wsdl</wsdl-file>
+    <jaxrpc-mapping-file>META-INF/service_starter_client_mapping.xml</jaxrpc-mapping-file>
+  </service-ref>
+  
+</application-client>

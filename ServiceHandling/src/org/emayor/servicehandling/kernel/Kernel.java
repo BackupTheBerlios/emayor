@@ -574,6 +574,8 @@ public class Kernel implements IKernel {
     public synchronized String getAsidByUserID(String userId)
             throws KernelException {
         log.debug("-> start processing ...");
+        if (log.isDebugEnabled())
+        	log.debug("working with following userId: " + userId);
         String ret = "defid";
         try {
             ret = this.repository.getAsidByUserId(userId);

@@ -47,6 +47,7 @@ import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocalHome;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocalHome;
 import org.emayor.servicehandling.kernel.bpel.forward.client.IForwardManagerBPELCallbackService;
+import org.emayor.servicehandling.kernel.bpel.starter.IeMayorServiceStarterService;
 import org.emayor.servicehandling.model.UTWrapperEJB;
 import org.emayor.servicehandling.model.UTWrapperEJBHome;
 
@@ -476,6 +477,23 @@ public class ServiceLocator {
 		try {
 			ret = (IForwardManagerBPELCallbackService) initialContext
 					.lookup("java:comp/env/service/ForwardManagerBPELClient");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public synchronized IeMayorServiceStarterService getIeMayorServiceStarterService()
+			throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		IeMayorServiceStarterService ret = null;
+		InitialContext initialContext = this
+				.getInitialContextForWSClient("IeMayorServiceStarterServiceClient");
+		try {
+			ret = (IeMayorServiceStarterService) initialContext
+					.lookup("java:comp/env/service/IeMayorServiceStarterServiceClient");
 		} catch (NamingException nex) {
 			log.error("caught ex: " + nex.toString());
 			throw new ServiceLocatorException(nex);

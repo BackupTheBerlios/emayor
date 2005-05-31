@@ -1,0 +1,47 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:client="http://www.emayor.org/eMayorServiceStarter_v10" xmlns:request="http://www.emayor.org/eMayorServiceStarterRequest.xsd" targetNamespace="http://www.emayor.org/eMayorServiceStarter_v10" name="eMayorServiceStarter_v10">
+	<types>
+		<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.emayor.org/eMayorServiceStarter_v10" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.emayor.org/eMayorServiceStarterRequest.xsd" schemaLocation="xsd/eMayorServiceStarterRequest.xsd"/>
+			<element name="eMayorServiceStarter_v10ProcessRequest">
+				<complexType>
+					<sequence>
+						<element name="input" type="request:eMayorServiceStarterRequestType"/>
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</types>
+	<message name="eMayorServiceStarter_v10RequestMessage">
+		<part name="payload" element="client:eMayorServiceStarter_v10ProcessRequest"/>
+	</message>
+	<message name="eMayorServiceStarter_v10ResponseMessage">
+	</message>
+	<portType name="eMayorServiceStarter_v10">
+		<operation name="initiate">
+			<input message="client:eMayorServiceStarter_v10RequestMessage"/>
+			<output message="client:eMayorServiceStarter_v10ResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="eMayorServiceStarter_v10Binding" type="client:eMayorServiceStarter_v10">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="initiate">
+			<soap:operation soapAction="initiate" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="eMayorServiceStarter_v10">
+		<port name="eMayorServiceStarter_v10Port" binding="client:eMayorServiceStarter_v10Binding">
+			<soap:address location="http://localhost:9701/orabpel/default/eMayorServiceStarter_v10/1.0"/>
+		</port>
+	</service>
+	<plnk:partnerLinkType name="eMayorServiceStarter_v10">
+		<plnk:role name="eMayorServiceStarter_v10Provider">
+			<plnk:portType name="client:eMayorServiceStarter_v10"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

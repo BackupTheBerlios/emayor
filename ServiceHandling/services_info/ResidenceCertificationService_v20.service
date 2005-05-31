@@ -1,0 +1,9 @@
+## property file for the ResidenceCertificationService2/v10 service
+
+service.info.service.id=ResidenceCertificationService2/v10
+service.info.service.version=1.0
+service.info.service.name=Residence Certification Service
+service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayorServiceFactory
+service.info.service.class.name=org.emayor.rcs.ResidenceCertificationService
+service.info.service.description=Description of the service 1.
+service.info.service.endpoint=http://localhost:9700/orabpel/default/ResidenceCertifcationService_v20/1.0

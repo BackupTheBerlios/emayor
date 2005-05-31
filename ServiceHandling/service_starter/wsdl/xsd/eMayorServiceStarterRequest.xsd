@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.emayor.org/eMayorServiceStarterRequest.xsd" 
+    elementFormDefault="qualified" 
+    attributeFormDefault="unqualified" 
+    xmlns:tns="http://www.emayor.org/eMayorServiceStarterRequest.xsd" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd">
+ <xs:import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="eMayorServiceRequest.xsd"/>
+ <xs:complexType name="eMayorServiceStarterRequestType">
+  <xs:sequence>
+   <xs:element name="eMayorServiceId" type="xs:string"/>
+   <xs:element name="eMayorServiceRequest" type="request:eMayorServiceRequestType"/>
+  </xs:sequence>
+ </xs:complexType>
+</xs:schema>
