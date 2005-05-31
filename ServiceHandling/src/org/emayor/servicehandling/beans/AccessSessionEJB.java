@@ -74,7 +74,6 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
      * @see javax.ejb.SessionBean#ejbRemove()
      */
     public void ejbRemove() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -84,7 +83,6 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
      * @see javax.ejb.SessionBean#ejbActivate()
      */
     public void ejbActivate() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -94,7 +92,6 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
      * @see javax.ejb.SessionBean#ejbPassivate()
      */
     public void ejbPassivate() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -214,6 +211,50 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
             log.debug("start the service");
             serviceSessionLocal.startService(this.userId, isForwarded, xmlDoc,
                     docSig);
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AccessSessionException("problems with locator service");
+        } catch (KernelException kex) {
+            log.error("caught ex: " + kex.toString());
+            throw new AccessSessionException(
+                    "Couldn't create a new service session");
+        } catch (SessionException sex) {
+            log.error("caught ex: " + sex.toString());
+            throw new AccessSessionException(
+                    "Couldn't obtain the ssid of the new service session");
+        } catch (RemoveException rex) {
+            log.error("caught ex: " + rex.toString());
+            throw new AccessSessionException("internal error");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public String startServiceSession(String serviceId, String requestDocument)
+            throws AccessSessionException {
+        log.debug("-> start processing ...");
+        if (log.isDebugEnabled())
+            log.debug("input: serviceId=" + serviceId);
+        String ret = null;
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            KernelLocal kernel = locator.getKernelLocal();
+            ServiceSessionLocal serviceSessionLocal = kernel
+                    .createServiceSession(this.asid, serviceId, this.userId);
+            kernel.remove();
+            ret = serviceSessionLocal.getSessionId();
+            if (log.isDebugEnabled())
+                log.debug("got ssid from kernel: " + ret);
+            this.repository.put(serviceSessionLocal);
+            log.debug("start the service");
+            serviceSessionLocal.startServiceRequestCompleted(this.userId,
+                    false, requestDocument, "</empty>");
         } catch (ServiceLocatorException ex) {
             log.error("caught ex: " + ex.toString());
             throw new AccessSessionException("problems with locator service");

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SERVICE HANDLING -->
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+	<display-name>eMayor Application - Service Handling (v.0.1)</display-name>
+	<module>
+		<ejb>eMayorEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>eMayor_PolicyEnforcementEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>PrinterEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>NotificationEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>NotificationWrapperEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>TransformerEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>ContentRouting-ejb.jar</ejb>
+	</module>
+	<module>
+		<web>
+			<web-uri>eMayorWeb.war</web-uri>
+			<context-root>/sh</context-root>
+		</web>
+	</module>
+	<module>
+		<java>WorklistManager-client.jar</java>
+	</module>
+	<module>
+		<java>ForwardMgrBPEL-client.jar</java>
+	</module>
+	<module>
+		<java>ForwardEJB-client.jar</java>
+	</module>
+	<module>
+		<ejb>ForwardEJB.jar</ejb>
+	</module>
+</application>

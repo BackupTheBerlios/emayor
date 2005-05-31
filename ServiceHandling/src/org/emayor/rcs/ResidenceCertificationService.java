@@ -39,9 +39,6 @@ public class ResidenceCertificationService implements IeMayorService {
 
     private String serviceEndpoint = DEF_ENDPOINT;
 
-    //private String endpoint =
-    // "http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0";
-
     /*
      * (non-Javadoc)
      * 
@@ -101,6 +98,17 @@ public class ResidenceCertificationService implements IeMayorService {
         log.debug("-> ... processing DONE!");
     }
 
+    public void startService(String uid, String ssid, String requestDocument)
+            throws eMayorServiceException {
+        log.debug("-> start processing ...");
+        /*
+        this.startIt(IeMayorService.FORWARD_NO, uid, ssid, requestDocument,
+                "<empty/>");
+        */
+        log.debug("-> ... processing DONE!");
+        throw new eMayorServiceException("NOT SUPPORTED BY THIS SERVICE");
+    }
+
     private void startIt(String forward, String uid, String ssid, String req,
             String reqDigSig) throws eMayorServiceException {
         log.debug("-> start processing ...");
@@ -135,7 +143,7 @@ public class ResidenceCertificationService implements IeMayorService {
             MessageID messageID = new MessageID(conversationId);
 
             ReplyTo replyTo = new ReplyTo("http://some.url", "", "");
-            
+
             RCSInvoker client = new RCSInvoker(this.serviceEndpoint, messageID,
                     replyTo, type);
             client.call();

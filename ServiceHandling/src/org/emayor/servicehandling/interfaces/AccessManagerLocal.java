@@ -22,6 +22,11 @@ public interface AccessManagerLocal
    /**
     * Business Method
     */
+   public java.lang.String startService( java.lang.String accessSessionId,java.lang.String serviceId,java.lang.String requestDocument ) throws org.emayor.servicehandling.kernel.AccessException;
+
+   /**
+    * Business Method
+    */
    public boolean stopService( java.lang.String accessSessionId,java.lang.String serviceSessionId ) throws org.emayor.servicehandling.kernel.AccessException;
 
    /**

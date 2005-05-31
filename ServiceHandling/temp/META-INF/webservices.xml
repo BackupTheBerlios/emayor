@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SERVICE HANDLING -->
+<webservices xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cb="http://emayor.org/ServiceCallbackManager" xmlns:fbpel="http://eMayor.org/sh/bpel/forward/service" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://www.ibm.com/webservices/xsd/j2ee_web_services_1_1.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" version="1.1">
+	<webservice-description>
+		<webservice-description-name>ServiceCallbackManager</webservice-description-name>
+		<wsdl-file>META-INF/wsdl/ServiceCallbackManager.wsdl</wsdl-file>
+		<jaxrpc-mapping-file>META-INF/callback_mapping.xml</jaxrpc-mapping-file>
+		<port-component>
+			<port-component-name>IServiceCallbackManagerService</port-component-name>
+			<wsdl-port>cb:ServiceCallbackManager</wsdl-port>
+			<service-endpoint-interface>
+				org.emayor.servicehandling.kernel.IServiceCallbackManager
+			</service-endpoint-interface>
+			<service-impl-bean>
+				<ejb-link>ServiceCallbackManager</ejb-link>
+			</service-impl-bean>
+		</port-component>
+	</webservice-description>
+	
+	<webservice-description>
+		<webservice-description-name>ForwardManagerBPEL</webservice-description-name>
+		<wsdl-file>META-INF/wsdl/ForwardManagerBPEL_server.wsdl</wsdl-file>
+		<jaxrpc-mapping-file>META-INF/forward_BPEL_server_mapping.xml</jaxrpc-mapping-file>
+		<port-component>
+			<port-component-name>IForwardManagerBPELService</port-component-name>
+			<wsdl-port>fbpel:ForwardManagerBPELPort</wsdl-port>
+			<service-endpoint-interface>
+				org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
+			</service-endpoint-interface>
+			<service-impl-bean>
+				<ejb-link>ForwardManagerBPEL</ejb-link>
+			</service-impl-bean>
+			<handler>
+				<handler-name>MessageID-Handler</handler-name>
+				<handler-class>
+					org.emayor.servicehandling.kernel.bpel.forward.server.ForwardManagerBPELServerHandler
+				</handler-class>
+				<soap-header>wsa:MessageID</soap-header>
+			</handler>
+		</port-component>
+	</webservice-description>
+</webservices>

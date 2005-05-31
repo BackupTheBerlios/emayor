@@ -49,6 +49,7 @@ public interface IKernel {
      */
     public ServiceSessionLocal createServiceSession(String asid,
             String serviceName, String userId) throws KernelException;
+   
 
     /**
      * 
@@ -157,10 +158,11 @@ public interface IKernel {
 
     /**
      * It means get and remove!
+     * 
      * @param ssid
      * @return
      * @throws KernelException
      */
     public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
-            throws KernelException; 
+            throws KernelException;
 }

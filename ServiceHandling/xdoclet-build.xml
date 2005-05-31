@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_xdoclet_generation_" name="XDoclet Generator">
 <property file="xdoclet-build.properties"/>
-<property name="eclipse.home" value="C:/eclipse"/>
+<property name="eclipse.home" value="e:/Programme/eMayor/eclipse"/>
 <property name="xdoclet.basedir" value="${eclipse.home}/plugins/org.jboss.ide.eclipse.xdoclet.core_1.4.0"/>
 <property name="jboss.net.version" value="4.0"/>
 <path id="project.classpath"><pathelement location="classes"/>

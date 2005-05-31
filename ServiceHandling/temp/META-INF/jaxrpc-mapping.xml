@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<java-wsdl-mapping xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:impl="http://emayor.org/servicehandling/bpel/task"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd"
+  version="1.1">
+
+  <package-mapping>
+    <package-type>org.emayor.servicehandling.bpel.task</package-type>
+    <namespaceURI>http://emayor.org/servicehandling/bpel/task</namespaceURI>
+  </package-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.servicehandling.bpel.task._task</java-type>
+  	<root-type-qname>impl:task</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.servicehandling.bpel.task._tasklist</java-type>
+  	<root-type-qname>impl:tasklist</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.servicehandling.bpel.task._assigneeAndCustomKey</java-type>
+  	<root-type-qname>impl:assigneeAndCustomKey</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:taskId</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:assignee</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:customKey</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>title</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.util.Calendar</java-type>
+  	<root-type-qname>impl:creationDate</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:creator</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.emayor.servicehandling.bpel.task._task_status</java-type>
+  	<root-type-qname>impl:status</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.util.Calendar</java-type>
+  	<root-type-qname>impl:modifyDate</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:modifier</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:assignee</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.Boolean</java-type>
+  	<root-type-qname>impl:expired</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.util.Calendar</java-type>
+  	<root-type-qname>impl:expirationDate</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>org.apache.axis.types.Duration</java-type>
+  	<root-type-qname>impl:duration</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.Integer</java-type>
+  	<root-type-qname>impl:priority</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:template</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:customKey</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:conclusion</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  
+  <java-xml-type-mapping>
+  	<java-type>java.lang.String</java-type>
+  	<root-type-qname>impl:attachement</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  <!--
+  <java-xml-type-mapping>
+  	<java-type>com.oracle.services.bpel.task._whereCondition</java-type>
+  	<root-type-qname>impl:whereCondition</root-type-qname>
+  	<qname-scope>element</qname-scope>
+  </java-xml-type-mapping>
+  -->
+</java-wsdl-mapping> 

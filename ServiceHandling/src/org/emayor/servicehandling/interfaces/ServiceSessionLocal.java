@@ -57,6 +57,11 @@ public interface ServiceSessionLocal
    /**
     * Business Method
     */
+   public void startServiceRequestCompleted( java.lang.String userId,boolean isForwarded,java.lang.String xmlDoc,java.lang.String docSig ) throws org.emayor.servicehandling.kernel.ServiceSessionException;
+
+   /**
+    * Business Method
+    */
    public void endService(  ) throws org.emayor.servicehandling.kernel.ServiceSessionException;
 
 }

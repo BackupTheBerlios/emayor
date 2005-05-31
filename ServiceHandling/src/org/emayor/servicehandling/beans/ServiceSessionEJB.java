@@ -65,7 +65,6 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      * @see javax.ejb.SessionBean#ejbRemove()
      */
     public void ejbRemove() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -75,7 +74,6 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      * @see javax.ejb.SessionBean#ejbActivate()
      */
     public void ejbActivate() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -85,7 +83,6 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      * @see javax.ejb.SessionBean#ejbPassivate()
      */
     public void ejbPassivate() throws EJBException, RemoteException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
     }
 
@@ -141,7 +138,6 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      *  
      */
     public void stopService(String reason) throws ServiceSessionException {
-        // TODO Auto-generated method stub
         log.debug("-> start processing ...");
         throw new ServiceSessionException("NOT IMPLEMENTED !!!");
     }
@@ -225,6 +221,30 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
                 this.eMayorService.forward(userId, this.ssid, xmlDoc, docSig);
             else {
                 this.eMayorService.startService(userId, this.ssid);
+            }
+        } catch (eMayorServiceException emsex) {
+            log.error("caught ex: " + emsex.toString());
+            throw new ServiceSessionException("Couldn't start the service :-(");
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void startServiceRequestCompleted(String userId,
+            boolean isForwarded, String xmlDoc, String docSig)
+            throws ServiceSessionException {
+        log.debug("-> start processing ...");
+        try {
+            log.debug("starting the service :-)");
+            if (isForwarded)
+                this.eMayorService.forward(userId, this.ssid, xmlDoc, docSig);
+            else {
+                this.eMayorService.startService(userId, this.ssid, xmlDoc);
             }
         } catch (eMayorServiceException emsex) {
             log.error("caught ex: " + emsex.toString());

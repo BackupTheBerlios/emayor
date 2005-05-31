@@ -28,6 +28,9 @@ public interface IeMayorService extends Serializable {
     public void startService(String uid, String ssid)
             throws eMayorServiceException;
 
+    public void startService(String uid, String ssid, String requestDocument)
+            throws eMayorServiceException;
+
     public void forward(String uid, String ssid, String req, String reqDigSig)
             throws eMayorServiceException;
 }

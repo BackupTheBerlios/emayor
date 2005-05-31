@@ -50,6 +50,17 @@ public interface IServiceSession extends ISession {
 	 */
 	public void startService(String userId, boolean isForwarded, String xmlDoc,
 			String docSig) throws ServiceSessionException;
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param isForwarded
+	 * @param xmlDoc
+	 * @param docSig
+	 * @throws ServiceSessionException
+	 */
+	public void startServiceRequestCompleted(String userId, boolean isForwarded, String xmlDoc,
+			String docSig) throws ServiceSessionException;
 
 	/**
 	 * The service will be immediately stoped with the given reason.

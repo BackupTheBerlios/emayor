@@ -32,6 +32,11 @@ public interface AccessSessionLocal
    /**
     * Business Method
     */
+   public java.lang.String startServiceSession( java.lang.String serviceId,java.lang.String requestDocument ) throws org.emayor.servicehandling.kernel.AccessSessionException;
+
+   /**
+    * Business Method
+    */
    public boolean stopServiceSession( java.lang.String ssid ) throws org.emayor.servicehandling.kernel.AccessSessionException;
 
    /**
