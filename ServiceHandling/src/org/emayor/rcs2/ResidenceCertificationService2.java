@@ -1,7 +1,7 @@
 /*
- * Created on Feb 23, 2005
+ * $ Created on Jun 1, 2005 by tku $
  */
-package org.emayor.rcs;
+package org.emayor.rcs2;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.AbstracteMayorService;
@@ -9,11 +9,13 @@ import org.emayor.servicehandling.kernel.IeMayorService;
 import org.emayor.servicehandling.kernel.eMayorServiceException;
 
 /**
- * @author tku
+ * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
+ *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
+ *         </font>
  */
-public class ResidenceCertificationService extends AbstracteMayorService {
-	private static Logger log = Logger
-			.getLogger(ResidenceCertificationService.class);
+public class ResidenceCertificationService2 extends AbstracteMayorService {
+	private final static Logger log = Logger
+			.getLogger(ResidenceCertificationService2.class);
 
 	public static final String DEF_XML_FILE = "SampleResidenceCertificationRequestDocument.xml";
 
@@ -28,13 +30,20 @@ public class ResidenceCertificationService extends AbstracteMayorService {
 		log.debug("-> start processing ...");
 		this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
 				.getXMLDocumentFromResource(DEF_XML_FILE), "<empty/>");
-		log.debug("-> ... processing DONE!");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.emayor.servicehandling.kernel.IeMayorService#startService(java.lang.String,
+	 *      java.lang.String, java.lang.String)
+	 */
 	public void startService(String uid, String ssid, String requestDocument)
 			throws eMayorServiceException {
 		log.debug("-> start processing ...");
-		throw new eMayorServiceException("NOT SUPPORTED BY THIS SERVICE");
+		this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
+				.getXMLDocumentFromResource(DEF_XML_FILE), "<empty/>");
+		log.debug("-> ... processing DONE!");
 	}
 
 }

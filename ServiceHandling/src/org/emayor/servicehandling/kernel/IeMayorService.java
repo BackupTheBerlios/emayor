@@ -18,7 +18,7 @@ public interface IeMayorService extends Serializable {
 
     public static String STATUS_YES = "YES";
 
-    public void setup(String serviceId, String serviceEndpoint)
+    public void setup(String serviceId)
             throws eMayorServiceException;
 
     public void cleanup() throws eMayorServiceException;

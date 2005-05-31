@@ -186,8 +186,8 @@ public class Kernel implements IKernel {
                 ret = serviceLocator.getServiceSessionLocal(asid);
                 if (log.isDebugEnabled() && ret != null)
                     log.debug("the new ssid = " + ret.getSessionId());
-                IServiceInfo serviceInfo = this.repository
-                        .getServiceInfo(serviceId);
+                //IServiceInfo serviceInfo = this.repository
+                //        .getServiceInfo(serviceId);
                 log.debug("set service id into service session instance");
                 ret.setServiceId(serviceId);
                 log.debug("get the factory for the given service");
@@ -197,7 +197,7 @@ public class Kernel implements IKernel {
                 IeMayorService service = factory.createService(serviceId, ret
                         .getSessionId());
                 log.debug("call setup method on the service instance");
-                service.setup(serviceId, serviceInfo.getServiceEndpoint());
+                service.setup(serviceId);
                 log.debug("assign the service to the service session");
                 ret.seteMayorService(service);
                 log.debug("save the current instance into repository");

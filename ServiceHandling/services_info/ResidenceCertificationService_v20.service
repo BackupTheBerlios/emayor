@@ -2,8 +2,8 @@
 
 service.info.service.id=ResidenceCertificationService2/v10
 service.info.service.version=1.0
-service.info.service.name=Residence Certification Service
+service.info.service.name=Residence Certification Service - ver. 2
 service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayorServiceFactory
-service.info.service.class.name=org.emayor.rcs.ResidenceCertificationService
-service.info.service.description=Description of the service 1.
+service.info.service.class.name=org.emayor.rcs2.ResidenceCertificationService2
+service.info.service.description=Description of the Residence Certification Service (ver.2). The data collection phase is not supprted.
 service.info.service.endpoint=http://localhost:9700/orabpel/default/ResidenceCertifcationService_v20/1.0

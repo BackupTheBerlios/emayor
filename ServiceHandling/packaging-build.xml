@@ -51,6 +51,9 @@
 <zipfileset dir="BPEL-forward/server" prefix="META-INF/wsdl">
 <include name="ForwardMessageBPEL.xsd"/>
 </zipfileset>
+<zipfileset dir="xml" prefix="org/emayor/rcs2">
+<include name="SampleResidenceCertificationRequestDocument.xml"/>
+</zipfileset>
 <zipfileset dir="classes" includes="**/*.class"/>
 </jar>
 </target>
@@ -97,29 +100,7 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N1012D" description="ResidenceCertificationService-client.jar">
-<jar destfile="ResidenceCertificationService-client.jar">
-<zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
-<include name="application-client.xml"/>
-</zipfileset>
-<zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
-<include name="jboss-client.xml"/>
-</zipfileset>
-<zipfileset dir="service1-wsdl/META-INF" prefix="META-INF">
-<include name="jaxrpc-mapping.xml"/>
-</zipfileset>
-<zipfileset dir="service1-wsdl" prefix="META-INF/wsdl">
-<include name="ResidenceCertificationService.wsdl"/>
-</zipfileset>
-<zipfileset dir="service1-wsdl/xsd" prefix="META-INF/wsdl/xsd">
-<include name="eMayorServiceRequest.xsd"/>
-</zipfileset>
-<zipfileset dir="service1-wsdl/xsd" prefix="META-INF/wsdl/xsd">
-<include name="ws-addressing.xsd"/>
-</zipfileset>
-<zipfileset dir="classes" includes="org/emayor/www/eMayorServiceRequest_xsd/*.class,org/emayor/ResidenceCertifcationRequest_v10/*.class"/>
-</jar>
-</target>
+<target name="N1012D" description="ResidenceCertificationService-client.jar"/>
 <target name="N10176" description="BPELPolicyEnforcer-client.jar">
 <jar destfile="BPELPolicyEnforcer-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/BPELPolicyEnforcer*.class,org/emayor/servicehandling/kernel/*BPELPolicyEnforcer*.class"/>
