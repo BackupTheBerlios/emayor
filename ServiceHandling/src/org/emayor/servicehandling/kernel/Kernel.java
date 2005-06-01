@@ -75,7 +75,7 @@ public class Kernel implements IKernel {
         log.debug("-> ... processing DONE!");
     }
 
-    public static final Kernel getInstance() throws KernelException {
+    public static final synchronized Kernel getInstance() throws KernelException {
         log.debug("-> start processing ...");
         if (_self == null)
             _self = new Kernel();
@@ -156,7 +156,7 @@ public class Kernel implements IKernel {
      * @see org.emayor.servicehandling.kernel.IKernel#createServiceSession(java.lang.String,
      *      java.lang.String, java.lang.String, java.lang.String)
      */
-    public ServiceSessionLocal createServiceSession(String asid,
+    public synchronized ServiceSessionLocal createServiceSession(String asid,
             String serviceId, String userId) throws KernelException {
         //      ############## added by Sergiu :) ############
         boolean bAccessResult = false;
@@ -442,7 +442,6 @@ public class Kernel implements IKernel {
      */
     public synchronized IServiceProfile getServiceProfile(String ssid)
             throws KernelException {
-        // TODO
         log.debug("-> start processing ...");
         IServiceProfile ret = null;
         try {
@@ -575,7 +574,7 @@ public class Kernel implements IKernel {
             throws KernelException {
         log.debug("-> start processing ...");
         if (log.isDebugEnabled())
-        	log.debug("working with following userId: " + userId);
+            log.debug("working with following userId: " + userId);
         String ret = "defid";
         try {
             ret = this.repository.getAsidByUserId(userId);
@@ -691,5 +690,52 @@ public class Kernel implements IKernel {
             }
             return ret;
         }
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IKernel#reloadDeployedServices()
+     */
+    public synchronized void reloadDeployedServices() throws KernelException {
+        log.debug("-> start processing ...");
+        try {
+            this.repository.emptyServiceInfo();
+            this.initDeployedServices();
+        } catch(KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't reload the services - repository problem!");
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IKernel#listAccessSessions()
+     */
+    public synchronized AccessSessionInfo[] listAccessSessions() throws KernelException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IKernel#listServiceSessions()
+     */
+    public synchronized ServiceSessionInfo[] listServiceSessions() throws KernelException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IKernel#listServiceSessions(java.lang.String)
+     */
+    public synchronized ServiceSessionInfo[] listServiceSessions(String uid) throws KernelException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IKernel#listUserProfiles()
+     */
+    public synchronized IUserProfile listUserProfiles() throws KernelException {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

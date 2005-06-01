@@ -142,6 +142,20 @@
       </session>
 
       <session >
+         <description><![CDATA[Description for AdminManager]]></description>
+         <display-name>Name for AdminManager</display-name>
+
+         <ejb-name>AdminManager</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.AdminManagerLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.AdminManagerLocal</local>
+         <ejb-class>org.emayor.servicehandling.beans.AdminManagerEJB</ejb-class>
+         <session-type>Stateful</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
+      <session >
          <description><![CDATA[Description for UserTaskManager]]></description>
          <display-name>Name for UserTaskManager</display-name>
 
@@ -186,6 +200,8 @@
        XDoclet merge directory called assembly-descriptor.xml that contains
        the <assembly-descriptor></assembly-descriptor> markup.
      -->
+
+   <!-- finder permissions -->
 
    <!-- finder permissions -->
 

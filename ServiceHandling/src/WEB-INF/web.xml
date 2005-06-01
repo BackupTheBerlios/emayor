@@ -39,10 +39,21 @@
      <servlet-class>org.emayor.servicehandling.test.ServiceHandlingTestServlet</servlet-class>
 
    </servlet>
+   <servlet>
+      <servlet-name>AdminManagerContoller</servlet-name>
+      <display-name>Name for AdminManagerContoller</display-name>
+      <description><![CDATA[AdminManagerContoller]]></description>
+     <servlet-class>org.emayor.servicehandling.gui.admin.AdminManagerContollerServlet</servlet-class>
+
+   </servlet>
 
    <servlet-mapping>
       <servlet-name>ServiceHandlingTest</servlet-name>
       <url-pattern>/ServiceHandlingTest</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+      <servlet-name>AdminManagerContoller</servlet-name>
+      <url-pattern>/adm</url-pattern>
    </servlet-mapping>
 
    <!--

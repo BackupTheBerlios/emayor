@@ -49,7 +49,7 @@ public class AdminLoginProcessor extends AbstractRequestProcessor {
                 ret = "admin/LoginForm.jsp";
             }
         } catch (ServiceLocatorException ex) {
-
+            
         } catch (AdminException ex) {
 
         }

@@ -276,6 +276,12 @@ public class KernelRepository {
         }
         log.debug("-> ... processing DONE!");
     }
+    
+    public void emptyServiceInfo() throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        this.serviceId2serviceInfo = new HashMap();
+        log.debug("-> ... processing DONE!");
+    }
 
     public ServiceInfo getServiceInfo(String serviceId)
             throws KernelRepositoryException {

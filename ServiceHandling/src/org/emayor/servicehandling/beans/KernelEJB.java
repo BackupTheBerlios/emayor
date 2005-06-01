@@ -15,12 +15,14 @@ import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
+import org.emayor.servicehandling.kernel.AccessSessionInfo;
 import org.emayor.servicehandling.kernel.IKernel;
 import org.emayor.servicehandling.kernel.IServiceProfile;
 import org.emayor.servicehandling.kernel.IUserProfile;
 import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
+import org.emayor.servicehandling.kernel.ServiceSessionInfo;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData;
 
 /**
@@ -284,6 +286,61 @@ public class KernelEJB implements SessionBean, IKernel {
     public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid) throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.getForwardBPELCallbackData(ssid);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void reloadDeployedServices() throws KernelException {
+        log.debug("-> start processing ...");
+        this.kernel.reloadDeployedServices();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public AccessSessionInfo[] listAccessSessions() throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.listAccessSessions();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public ServiceSessionInfo[] listServiceSessions() throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.listServiceSessions();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public ServiceSessionInfo[] listServiceSessions(String uid) throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.listServiceSessions(uid);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public IUserProfile listUserProfiles() throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.listUserProfiles();
     }
 
 }

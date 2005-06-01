@@ -34,6 +34,13 @@ public interface IKernel {
 
     /**
      * 
+     * @return
+     * @throws KernelException
+     */
+    public AccessSessionInfo[] listAccessSessions() throws KernelException;
+
+    /**
+     * 
      * @param asid
      * @return
      * @throws KernelException
@@ -49,7 +56,6 @@ public interface IKernel {
      */
     public ServiceSessionLocal createServiceSession(String asid,
             String serviceName, String userId) throws KernelException;
-   
 
     /**
      * 
@@ -70,6 +76,22 @@ public interface IKernel {
      * @throws KernelException
      */
     public boolean deleteServiceSession(String asid, String ssid)
+            throws KernelException;
+
+    /**
+     * 
+     * @return
+     * @throws KernelException
+     */
+    public ServiceSessionInfo[] listServiceSessions() throws KernelException;
+
+    /**
+     * 
+     * @param uid
+     * @return
+     * @throws KernelException
+     */
+    public ServiceSessionInfo[] listServiceSessions(String uid)
             throws KernelException;
 
     /**
@@ -111,6 +133,12 @@ public interface IKernel {
      */
     public String getUserIdByASID(String asid) throws KernelException;
 
+    /**
+     * 
+     * @param userId
+     * @return
+     * @throws KernelException
+     */
     public String getAsidByUserID(String userId) throws KernelException;
 
     /**
@@ -120,6 +148,13 @@ public interface IKernel {
      * @throws KernelException
      */
     public IUserProfile getUserProfile(String userId) throws KernelException;
+
+    /**
+     * 
+     * @return
+     * @throws KernelException
+     */
+    public IUserProfile listUserProfiles() throws KernelException;
 
     /**
      * 
@@ -165,4 +200,10 @@ public interface IKernel {
      */
     public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
             throws KernelException;
+
+    /**
+     * 
+     * @throws KernelException
+     */
+    public void reloadDeployedServices() throws KernelException;
 }

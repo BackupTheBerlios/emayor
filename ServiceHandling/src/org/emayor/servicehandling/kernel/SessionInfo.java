@@ -3,10 +3,12 @@
  */
 package org.emayor.servicehandling.kernel;
 
+import java.io.Serializable;
+
 /**
  * @author tku
  */
-public class SessionInfo {
+public class SessionInfo implements Serializable {
     
     private String sessionId;
 

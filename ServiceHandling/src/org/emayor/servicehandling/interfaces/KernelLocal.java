@@ -94,4 +94,29 @@ public interface KernelLocal
     */
    public org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData getForwardBPELCallbackData( java.lang.String ssid ) throws org.emayor.servicehandling.kernel.KernelException;
 
+   /**
+    * Business Method
+    */
+   public void reloadDeployedServices(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.AccessSessionInfo[] listAccessSessions(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.ServiceSessionInfo[] listServiceSessions(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.ServiceSessionInfo[] listServiceSessions( java.lang.String uid ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.IUserProfile listUserProfiles(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
 }
