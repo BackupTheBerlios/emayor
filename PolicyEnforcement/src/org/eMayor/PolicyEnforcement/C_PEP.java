@@ -99,10 +99,10 @@ public class C_PEP {
             int decision = finalresult.getDecision();
             String sdecision ="";
             switch (decision) {
-            case Result.DECISION_DENY:  sdecision="DENY";
-            case Result.DECISION_INDETERMINATE: sdecision = "INDETERMINATE";
-            case Result.DECISION_NOT_APPLICABLE: sdecision = "NOT_APPLICABLE";
-            case Result.DECISION_PERMIT: sdecision = "PERMIT";
+            case Result.DECISION_DENY:  sdecision="DENY"; break;
+            case Result.DECISION_INDETERMINATE: sdecision = "INDETERMINATE"; break;
+            case Result.DECISION_NOT_APPLICABLE: sdecision = "NOT_APPLICABLE"; break;
+            case Result.DECISION_PERMIT: sdecision = "PERMIT"; break;
             }
 			
 			  
