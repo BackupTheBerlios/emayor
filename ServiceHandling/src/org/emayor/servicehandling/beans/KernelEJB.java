@@ -27,8 +27,8 @@ import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackDa
 
 /**
  * @ejb.bean name="Kernel" display-name="Name for Kernel"
- *           description="Description for Kernel" jndi-name="ejb/Kernel"
- *           type="Stateless" view-type="local"
+ *           description="Description for Kernel"
+ *           jndi-name="ejb/emayor/sh/Kernel" type="Stateless" view-type="local"
  */
 public class KernelEJB implements SessionBean, IKernel {
     private static Logger log = Logger.getLogger(KernelEJB.class);
@@ -147,7 +147,8 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public boolean deleteServiceSession(String asid, String ssid) throws KernelException {
+    public boolean deleteServiceSession(String asid, String ssid)
+            throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.deleteServiceSession(asid, ssid);
     }
@@ -272,7 +273,8 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public void addForwardBPELCallbackData(ForwardBPELCallbackData data) throws KernelException {
+    public void addForwardBPELCallbackData(ForwardBPELCallbackData data)
+            throws KernelException {
         log.debug("-> start processing ...");
         this.kernel.addForwardBPELCallbackData(data);
     }
@@ -283,7 +285,8 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid) throws KernelException {
+    public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
+            throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.getForwardBPELCallbackData(ssid);
     }
@@ -327,7 +330,8 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public ServiceSessionInfo[] listServiceSessions(String uid) throws KernelException {
+    public ServiceSessionInfo[] listServiceSessions(String uid)
+            throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.listServiceSessions(uid);
     }
@@ -338,9 +342,20 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public IUserProfile listUserProfiles() throws KernelException {
+    public IUserProfile[] listUserProfiles() throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.listUserProfiles();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public IUserProfile[] listLoggedInUsers() throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.listLoggedInUsers();
     }
 
 }

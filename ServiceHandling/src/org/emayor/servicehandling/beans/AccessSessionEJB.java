@@ -5,6 +5,8 @@ package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
 import java.security.cert.X509Certificate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,7 +34,8 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 /**
  * @ejb.bean name="AccessSession" display-name="Name for AccessSession"
  *           description="Description for AccessSession"
- *           jndi-name="ejb/AccessSession" type="Stateful" view-type="local"
+ *           jndi-name="ejb/emayor/sh/AccessSession" type="Stateful"
+ *           view-type="local"
  */
 public class AccessSessionEJB implements SessionBean, IAccessSession {
     private static Logger log = Logger.getLogger(AccessSessionEJB.class);
@@ -47,6 +50,8 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 
     private C_UserProfile userProfile;
 
+    private Date startDate;
+
     private AccessSessionSSRepository repository = null;
 
     /**
@@ -56,6 +61,8 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
         super();
         this.repository = new AccessSessionSSRepository();
         this.isSessionActive = false;
+        Calendar cal = Calendar.getInstance();
+        this.startDate = cal.getTime();
     }
 
     /*
@@ -427,5 +434,15 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
         log.debug("-> start processing ...");
         this.userId = userId;
         log.debug("-> ... processing DONE!");
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.ISession#getStartDate()
+     */
+    public Date getStartDate() throws SessionException {
+        log.debug("-> start processing ...");
+        return this.startDate;
     }
 }

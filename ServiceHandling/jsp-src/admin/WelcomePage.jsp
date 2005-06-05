@@ -33,47 +33,47 @@
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">List all logged in users ...</font></a>
+					- <a href="../adm?action=LIST_LOGGED_USERS"><font size="2">List all logged in users ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">Lookup user's profile ...</font></a>
+					- <a href="../adm?action=LOOKUP_USER"><font size="2">Lookup user's profile ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">List all known users ...</font></a>
+					- <a href="../adm?action=LIST_KNOWN_USERS"><font size="2">List all known users ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">List all running access sessions</font></a>
+					- <a href="../adm?action=LIST_ACCESS_SESSIONS"><font size="2">List all running access sessions</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">Lookup an access session ...</font></a>
+					- <a href="../adm?action=LOOKUP_ACCESS_SESSION"><font size="2">Lookup an access session ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">List all running service sessions ...</font></a>
+					- <a href="../adm?action=LIST_SERVICE_SESSIONS"><font size="2">List all running service sessions ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">Lookup a service session ...</font></a>
+					- <a href="../adm?action=LOOKUP_SERVICE_SESSION"><font size="2">Lookup a service session ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">List deployes services ...</font></a>
+					- <a href="../adm?action=LIST_DEPLOYED_SERVICES"><font size="2">List deployes services ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href=""><font size="2">Lookup a service profile ...</font></a>
+					- <a href="../adm?action=LOOKUP_SERVICE"><font size="2">Lookup a service profile ...</font></a>
 				</td>
 			</tr>
 		</table>
@@ -84,8 +84,8 @@
   </tr>
   <tr> 
   	<td width="73" bgcolor="#99CCFF"><font size="2">(C) 2005</font></td>
-    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../admn?action=mainmenu"><font size="2">logout</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><font size="2">menu</font></a></div></td>
-    <td width="208" bgcolor="#99CCFF"><div align="right"><a href="../adm?action=logout"><font size="2">webmaster</font></a></div></td>
+    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../adm?action=LOGOUT"><font size="2">logout</font></a></div></td>
+    <td width="208" bgcolor="#99CCFF"><div align="right"><a href="mailto:webmaster@emayor.org"><font size="2">webmaster</font></a></div></td>
   </tr>
 </table>
 </body>

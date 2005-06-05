@@ -199,6 +199,22 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    public AccessSessionLocal[] getAllAccessSessions()
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        AccessSessionLocal[] ret = new AccessSessionLocal[this.asid2accessSession
+                .keySet().size()];
+        int index = 0;
+        for (Iterator i = this.asid2accessSession.values().iterator(); i
+                .hasNext();) {
+            ret[index++] = (AccessSessionLocal) i.next();
+        }
+        if (log.isDebugEnabled())
+            log.debug("found " + ret.length
+                    + " access sessions in kernel repository");
+        return ret;
+    }
+
     /**
      * Get service session specified by given service session id.
      * 
@@ -246,6 +262,23 @@ public class KernelRepository {
         return ret;
     }
 
+    public ServiceSessionLocal[] listAllServiceSessions()
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        ServiceSessionLocal[] ret = new ServiceSessionLocal[this.ssid2serviceSession
+                .keySet().size()];
+        int index = 0;
+        for (Iterator i = this.ssid2serviceSession.values().iterator(); i
+                .hasNext();) {
+            ret[index++] = (ServiceSessionLocal) i.next();
+        }
+        if (log.isDebugEnabled())
+            log.debug("found " + ret.length
+                    + " service sessions in kernel repository");
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
     public void addServiceInfo(ServiceInfo serviceInfo)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -276,7 +309,7 @@ public class KernelRepository {
         }
         log.debug("-> ... processing DONE!");
     }
-    
+
     public void emptyServiceInfo() throws KernelRepositoryException {
         log.debug("-> start processing ...");
         this.serviceId2serviceInfo = new HashMap();
@@ -432,6 +465,20 @@ public class KernelRepository {
         return ret;
     }
 
+    public IUserProfile[] listKnownUserProfiles()
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        IUserProfile[] ret = new IUserProfile[this.userId2UserProfile.keySet()
+                .size()];
+        int index = 0;
+        for (Iterator i = this.userId2UserProfile.values().iterator(); i
+                .hasNext();) {
+            ret[index++] = (IUserProfile) i.next();
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
     public void updateAccessSessionData(String userId, String asid) {
         this.userId2asid.put(userId, asid);
         this.asid2userId.put(asid, userId);
@@ -473,8 +520,8 @@ public class KernelRepository {
             throw new KernelRepositoryException(
                     "Couldn't add data into repository - already exists!");
         } else {
-        	if (log.isDebugEnabled())
-        		log.debug("add callbackdata for ssid = " + ssid);
+            if (log.isDebugEnabled())
+                log.debug("add callbackdata for ssid = " + ssid);
             this.ssid2bpelForwardCallbackData.put(ssid, data);
         }
         log.debug("-> ... processing DONE!");

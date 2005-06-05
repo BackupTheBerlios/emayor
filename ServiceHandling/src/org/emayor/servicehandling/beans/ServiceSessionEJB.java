@@ -4,6 +4,8 @@
 package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
@@ -26,7 +28,8 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 /**
  * @ejb.bean name="ServiceSession" display-name="ServiceSessionEJB"
  *           description="Description for ServiceSession"
- *           jndi-name="ejb/ServiceSession" type="Stateful" view-type="local"
+ *           jndi-name="ejb/emayor/sh/ServiceSession" type="Stateful"
+ *           view-type="local"
  */
 public class ServiceSessionEJB implements SessionBean, IServiceSession {
     private static Logger log = Logger.getLogger(ServiceSessionEJB.class);
@@ -41,11 +44,15 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 
     private IeMayorService eMayorService;
 
+    private Date startDate;
+
     /**
      *  
      */
     public ServiceSessionEJB() {
         super();
+        Calendar cal = Calendar.getInstance();
+        this.startDate = cal.getTime();
     }
 
     /*
@@ -280,5 +287,16 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
                     "cannot remove the instance of the kernel ejb");
         }
         log.debug("-> ... processing DONE!");
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public Date getStartDate() throws SessionException {
+        log.debug("-> start processing ...");
+        return this.startDate;
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
 
 <ejb-jar >
@@ -14,9 +14,10 @@
          <display-name>Name for ServiceCallbackManager</display-name>
 
          <ejb-name>ServiceCallbackManager</ejb-name>
-		 <service-endpoint>
+				 <service-endpoint>
 		 	org.emayor.servicehandling.kernel.IServiceCallbackManager
 		 </service-endpoint>
+
          <local-home>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.ServiceCallbackManagerEJB</ejb-class>
@@ -63,6 +64,7 @@
 		 <service-endpoint>
 		 	org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
 		 </service-endpoint>
+
          <local-home>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.ForwardManagerBPEL_EJB</ejb-class>

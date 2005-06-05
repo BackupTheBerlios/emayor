@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.kernel;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author tku
@@ -11,6 +12,8 @@ import java.io.Serializable;
 public class SessionInfo implements Serializable {
     
     private String sessionId;
+    
+    private Date startDate;
 
     /**
      *  
@@ -33,5 +36,17 @@ public class SessionInfo implements Serializable {
      */
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+    /**
+     * @return Returns the startDate.
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+    /**
+     * @param startDate The startDate to set.
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }

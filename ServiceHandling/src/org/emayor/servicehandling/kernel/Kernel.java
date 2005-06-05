@@ -425,18 +425,20 @@ public class Kernel implements IKernel {
                     "production");
             String email = config.getProperty("emayor.email.test.user.address",
                     "eMayor.User@localhost");
+            ret = this.repository.getUserProfile(userId);
+            if (ret == null) {
+                log.error("unknown user id -> profile doesn't exist");
+                throw new KernelException(
+                        "UserProfile doesn't exist for the user with id: "
+                                + userId);
+            }
             if (mode.equals("production")) {
-                ret = this.repository.getUserProfile(userId);
-                if (ret != null) {
-                    log
-                            .warn("got null ref for user's email address -> set the default one");
-                    ret.getPEUserProfile().setUserEmail(email);
-                }
+                log.debug("production mode");
             } else {
                 // for testing purposes the email address has been
                 // stored in the certificate has to be replaced
                 // by a local one
-                log.info("working in test mode -> set the tes email address");
+                log.info("working in test mode -> set the test email address");
                 ret.getPEUserProfile().setUserEmail(email);
             }
         } catch (KernelRepositoryException krex) {
@@ -734,8 +736,31 @@ public class Kernel implements IKernel {
      */
     public synchronized AccessSessionInfo[] listAccessSessions()
             throws KernelException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        AccessSessionInfo[] ret = new AccessSessionInfo[0];
+        try {
+            AccessSessionLocal[] ss = this.repository.getAllAccessSessions();
+            ret = new AccessSessionInfo[ss.length];
+            for (int i = 0; i < ss.length; i++) {
+                AccessSessionLocal asl = ss[i];
+                AccessSessionInfo info = new AccessSessionInfo();
+                info.setSessionId(asl.getSessionId());
+                info.setUserId(asl.getUserId());
+                ret[i] = info;
+            }
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException(
+                    "Couldn't connect to the kernel repository!");
+        } catch (AccessSessionException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the user id!");
+        } catch (SessionException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the access session id!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /*
@@ -745,8 +770,32 @@ public class Kernel implements IKernel {
      */
     public synchronized ServiceSessionInfo[] listServiceSessions()
             throws KernelException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        ServiceSessionInfo[] ret = new ServiceSessionInfo[0];
+        try {
+            ServiceSessionLocal[] ss = this.repository.listAllServiceSessions();
+            ret = new ServiceSessionInfo[ss.length];
+            for (int i = 0; i < ss.length; i++) {
+                ServiceSessionLocal ssl = ss[i];
+                ServiceSessionInfo info = new ServiceSessionInfo();
+                info.setAsid(ssl.getAccessSessionId());
+                info.setServiceId(ssl.getServiceId());
+                info.setSessionId(ssl.getSessionId());
+                ret[i] = info;
+            }
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException(
+                    "Couldn't connect to the kernel repository!");
+        } catch (ServiceSessionException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the service session data!");
+        } catch (SessionException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the session id!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /*
@@ -756,8 +805,33 @@ public class Kernel implements IKernel {
      */
     public synchronized ServiceSessionInfo[] listServiceSessions(String uid)
             throws KernelException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        ServiceSessionInfo[] ret = new ServiceSessionInfo[0];
+        try {
+            ServiceSessionLocal[] ss = this.repository
+                    .getAllServiceSessions(uid);
+            ret = new ServiceSessionInfo[ss.length];
+            for (int i = 0; i < ss.length; i++) {
+                ServiceSessionLocal ssl = ss[i];
+                ServiceSessionInfo info = new ServiceSessionInfo();
+                info.setAsid(ssl.getAccessSessionId());
+                info.setServiceId(ssl.getServiceId());
+                info.setSessionId(ssl.getSessionId());
+                ret[i] = info;
+            }
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException(
+                    "Couldn't connect to the kernel repository!");
+        } catch (ServiceSessionException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the service session data!");
+        } catch (SessionException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the session id!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /*
@@ -765,8 +839,46 @@ public class Kernel implements IKernel {
      * 
      * @see org.emayor.servicehandling.kernel.IKernel#listUserProfiles()
      */
-    public synchronized IUserProfile listUserProfiles() throws KernelException {
-        // TODO Auto-generated method stub
-        return null;
+    public synchronized IUserProfile[] listUserProfiles()
+            throws KernelException {
+        log.debug("-> start processing ...");
+        IUserProfile[] ret = new IUserProfile[0];
+        try {
+            ret = this.repository.listKnownUserProfiles();
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException(
+                    "Couldn't connect to the kernel repository!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#listLoggedInUsers()
+     */
+    public synchronized IUserProfile[] listLoggedInUsers()
+            throws KernelException {
+        log.debug("-> start processing ...");
+        IUserProfile[] ret = new IUserProfile[0];
+        try {
+            AccessSessionLocal[] as = this.repository.getAllAccessSessions();
+            ret = new IUserProfile[as.length];
+            for (int i = 0; i < as.length; i++) {
+                String uid = as[i].getUserId();
+                ret[i] = this.getUserProfile(uid);
+            }
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException(
+                    "Couldn't connect to the kernel repository!");
+        } catch (AccessSessionException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the access session data!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 }

@@ -10,7 +10,7 @@ public interface BPELPolicyEnforcerHome
    extends javax.ejb.EJBHome
 {
    public static final String COMP_NAME="java:comp/env/ejb/BPELPolicyEnforcer";
-   public static final String JNDI_NAME="ejb/BPELPolicyEnforcer";
+   public static final String JNDI_NAME="ejb/emayor/sh/BPELPolicyEnforcer";
 
    public org.emayor.servicehandling.interfaces.BPELPolicyEnforcer create()
       throws javax.ejb.CreateException,java.rmi.RemoteException;

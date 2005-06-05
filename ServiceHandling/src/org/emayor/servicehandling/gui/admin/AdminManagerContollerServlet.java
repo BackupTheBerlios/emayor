@@ -59,6 +59,14 @@ public class AdminManagerContollerServlet extends HttpServlet {
             p = new AdminReloadServicesProcessor();
         } else if (action.equalsIgnoreCase("RELOAD_CONFIGURATION")) {
             p = new AdminReloadConfigurationProcessor();
+        } else if (action.equalsIgnoreCase("LIST_ACCESS_SESSIONS")) {
+            p = new AdminListAccessSessionsProcessor();
+        } else if (action.equalsIgnoreCase("LIST_SERVICE_SESSIONS")) {
+            p = new AdminListServiceSessionsProcessor();
+        } else if (action.equalsIgnoreCase("LIST_LOGGED_USERS")) {
+            p = new AdminListLoggedInUserProfilesProcessor();
+        } else if (action.equalsIgnoreCase("LIST_KNOWN_USERS")) {
+            p = new AdminListAllKnownUsersProcessor();
         } else {
             log.info("current action = UNKNOWN");
             p = new DummyProcessor();

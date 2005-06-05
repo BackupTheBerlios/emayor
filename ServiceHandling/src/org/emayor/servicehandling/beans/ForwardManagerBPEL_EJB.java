@@ -31,8 +31,7 @@ import org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
 /**
  * @ejb.bean name="ForwardManagerBPEL" display-name="Name for
  *           ForwardManagerBPEL" description="Description for
- *           ForwardManagerBPEL"
- *           jndi-name="ejb/eMayor/servicehandling/ForwardManagerBPEL"
+ *           ForwardManagerBPEL" jndi-name="ejb/eMayor/sh/ForwardManagerBPEL"
  *           type="Stateless" view-type="local"
  */
 public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL {

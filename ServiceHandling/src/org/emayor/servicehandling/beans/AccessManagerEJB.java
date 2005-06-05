@@ -30,7 +30,7 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 /**
  * @ejb.bean name="AccessManager" display-name="Name for AccessManager"
  *           description="Description for AccessManager"
- *           jndi-name="ejb/AccessManager" type="Stateless" view-type="local"
+ *           jndi-name="ejb/emayor/sh/AccessManager" type="Stateless" view-type="local"
  *  
  */
 public class AccessManagerEJB implements SessionBean, IAccess {

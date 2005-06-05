@@ -17,104 +17,113 @@ import org.emayor.servicehandling.kernel.eMayorServiceException;
 import javax.ejb.CreateException;
 
 /**
- * @ejb.bean name="eMayorServiceFactory"
- *           display-name="Name for eMayorServiceFactory"
- *           description="Description for eMayorServiceFactory"
- *           jndi-name="ejb/eMayorServiceFactory"
- *           type="Stateful"
+ * @ejb.bean name="eMayorServiceFactory" display-name="Name for
+ *           eMayorServiceFactory" description="Description for
+ *           eMayorServiceFactory"
+ *           jndi-name="ejb/emayor/sh/eMayorServiceFactory" type="Stateful"
  *           view-type="local"
  */
-public class eMayorServiceFactoryEJB implements SessionBean, IeMayorServiceFactory {
-	private static Logger log = Logger.getLogger(eMayorServiceFactoryEJB.class);
-	/**
-	 * 
-	 */
-	public eMayorServiceFactoryEJB() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+public class eMayorServiceFactoryEJB implements SessionBean,
+        IeMayorServiceFactory {
+    private static Logger log = Logger.getLogger(eMayorServiceFactoryEJB.class);
 
-	/* (non-Javadoc)
-	 * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
-	 */
-	public void setSessionContext(SessionContext ctx)
-		throws EJBException,
-		RemoteException {
-		// TODO Auto-generated method stub
-		log.debug("-> start processing ...");
+    /**
+     *  
+     */
+    public eMayorServiceFactoryEJB() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
+     */
+    public void setSessionContext(SessionContext ctx) throws EJBException,
+            RemoteException {
+        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
 
-	/* (non-Javadoc)
-	 * @see javax.ejb.SessionBean#ejbRemove()
-	 */
-	public void ejbRemove() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-		log.debug("-> start processing ...");
+        log.debug("-> ... processing DONE!");
+    }
 
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbRemove()
+     */
+    public void ejbRemove() throws EJBException, RemoteException {
+        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
 
-	/* (non-Javadoc)
-	 * @see javax.ejb.SessionBean#ejbActivate()
-	 */
-	public void ejbActivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-		log.debug("-> start processing ...");
+        log.debug("-> ... processing DONE!");
+    }
 
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbActivate()
+     */
+    public void ejbActivate() throws EJBException, RemoteException {
+        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
 
-	/* (non-Javadoc)
-	 * @see javax.ejb.SessionBean#ejbPassivate()
-	 */
-	public void ejbPassivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-		log.debug("-> start processing ...");
+        log.debug("-> ... processing DONE!");
+    }
 
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbPassivate()
+     */
+    public void ejbPassivate() throws EJBException, RemoteException {
+        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
 
-	/**
-	 * Default create method
-	 * 
-	 * @throws CreateException
-	 * @ejb.create-method
-	 */
-	public void ejbCreate(String param) throws CreateException {
-		// TODO Auto-generated method stub
-	}
+        log.debug("-> ... processing DONE!");
+    }
 
-	/**
-	 * Business method
-	 * 
-	 * @ejb.interface-method view-type = "local"
-	 */
-	public void setup() throws eMayorServiceException {
-		log.debug("-> start processing ...");
-	}
+    /**
+     * Default create method
+     * 
+     * @throws CreateException
+     * @ejb.create-method
+     */
+    public void ejbCreate(String param) throws CreateException {
+        // TODO Auto-generated method stub
+    }
 
-	/**
-	 * Business method
-	 * 
-	 * @ejb.interface-method view-type = "local"
-	 */
-	public void cleanup() throws eMayorServiceException {
-		log.debug("-> start processing ...");
-	}
+    /**
+     * Business method
+     * 
+     * @ejb.interface-method view-type = "local"
+     */
+    public void setup() throws eMayorServiceException {
+        log.debug("-> start processing ...");
+    }
 
-	/**
-	 * Business method
-	 * 
-	 * @ejb.interface-method view-type = "local"
-	 */
-	public IeMayorService createService(String serviceName, String ssid) throws eMayorServiceException {
-		// TODO Auto-generated method stub
-		log.debug("-> start processing ...");
-		
-		log.debug("-> ... processing DONE!");
-		return null;
-	}
+    /**
+     * Business method
+     * 
+     * @ejb.interface-method view-type = "local"
+     */
+    public void cleanup() throws eMayorServiceException {
+        log.debug("-> start processing ...");
+    }
+
+    /**
+     * Business method
+     * 
+     * @ejb.interface-method view-type = "local"
+     */
+    public IeMayorService createService(String serviceName, String ssid)
+            throws eMayorServiceException {
+        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
+
+        log.debug("-> ... processing DONE!");
+        return null;
+    }
 
 }

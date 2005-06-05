@@ -18,6 +18,7 @@ import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.AccessSessionInfo;
 import org.emayor.servicehandling.kernel.AdminException;
 import org.emayor.servicehandling.kernel.IAdmin;
+import org.emayor.servicehandling.kernel.IUserProfile;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceProfile;
 import org.emayor.servicehandling.kernel.ServiceSessionInfo;
@@ -229,8 +230,25 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      *  
      */
     public UserProfile[] listLoggedInUsers() throws AdminException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        UserProfile[] ret = new UserProfile[0];
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            KernelLocal kernel = locator.getKernelLocal();
+            IUserProfile[] tmp = kernel.listLoggedInUsers();
+            ret = new UserProfile[tmp.length];
+            for (int i = 0; i < tmp.length; i++)
+                ret[i] = (UserProfile) tmp[i];
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't connect to the kernel!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException(
+                    "Couldn't get the profile data from kernel!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /**
@@ -240,7 +258,20 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      *  
      */
     public UserProfile lookupUserProfile(String uid) throws AdminException {
-        // TODO Auto-generated method stub
+        log.debug("-> start processing ...");
+        UserProfile ret = null;
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            KernelLocal kernel = locator.getKernelLocal();
+            ret = (UserProfile) kernel.getUserProfile(uid);
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't connect to the kernel!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException(
+                    "Couldn't get the profile data from kernel!");
+        }
         return null;
     }
 
@@ -251,8 +282,25 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      *  
      */
     public UserProfile[] listAllKnownUsers() throws AdminException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        UserProfile[] ret = new UserProfile[0];
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            KernelLocal kernel = locator.getKernelLocal();
+            IUserProfile[] tmp = kernel.listUserProfiles();
+            ret = new UserProfile[tmp.length];
+            for (int i = 0; i < tmp.length; i++)
+                ret[i] = (UserProfile) tmp[i];
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't connect to the kernel!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException(
+                    "Couldn't get the profile data from kernel!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /**
@@ -262,8 +310,25 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      *  
      */
     public AccessSessionInfo[] listAccessSessions() throws AdminException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        AccessSessionInfo[] ret = new AccessSessionInfo[0];
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            log.debug("get the ref to the kernel");
+            KernelLocal kernel = locator.getKernelLocal();
+            ret = kernel.listAccessSessions();
+            if (log.isDebugEnabled())
+                log.debug("got " + ret.length + " from kernel");
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't connect to the kernel!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException(
+                    "Couldn't get the access session from the kernel!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /**
@@ -285,8 +350,25 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      *  
      */
     public ServiceSessionInfo[] listServiceSessions() throws AdminException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        ServiceSessionInfo[] ret = new ServiceSessionInfo[0];
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            log.debug("get the ref to the kernel");
+            KernelLocal kernel = locator.getKernelLocal();
+            ret = kernel.listServiceSessions();
+            if (log.isDebugEnabled())
+                log.debug("got " + ret.length + " from kernel");
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't connect to the kernel!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException(
+                    "Couldn't get the service session from the kernel!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /**

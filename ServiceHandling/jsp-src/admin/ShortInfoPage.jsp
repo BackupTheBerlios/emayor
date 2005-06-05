@@ -49,8 +49,8 @@
   </tr>
   <tr> 
   	<td width="73" bgcolor="#99CCFF"><font size="2">(C) 2005</font></td>
-    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../admn?action=mainmenu"><font size="2">logout</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><font size="2">menu</font></a></div></td>
-    <td width="208" bgcolor="#99CCFF"><div align="right"><a href="../adm?action=logout"><font size="2">webmaster</font></a></div></td>
+    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../adm?action=logout"><font size="2">logout</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../adm?action=mainmenu"><font size="2">menu</font></a></div></td>
+    <td width="208" bgcolor="#99CCFF"><div align="right"><a href="mailto:webmaster@emayor.org"><font size="2">webmaster</font></a></div></td>
   </tr>
 </table>
 </body>

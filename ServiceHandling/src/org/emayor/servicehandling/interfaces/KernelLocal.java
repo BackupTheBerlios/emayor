@@ -117,6 +117,11 @@ public interface KernelLocal
    /**
     * Business Method
     */
-   public org.emayor.servicehandling.kernel.IUserProfile listUserProfiles(  ) throws org.emayor.servicehandling.kernel.KernelException;
+   public org.emayor.servicehandling.kernel.IUserProfile[] listUserProfiles(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.IUserProfile[] listLoggedInUsers(  ) throws org.emayor.servicehandling.kernel.KernelException;
 
 }

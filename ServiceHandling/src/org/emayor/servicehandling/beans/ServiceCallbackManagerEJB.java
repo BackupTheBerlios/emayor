@@ -25,8 +25,8 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  * @ejb.bean name="ServiceCallbackManager" display-name="Name for
  *           ServiceCallbackManager" description="Description for
  *           ServiceCallbackManager"
- *           jndi-name="ejb/eMayor/servicehandling/ServiceCallbackManager" type="Stateless"
- *           view-type="local" 
+ *           jndi-name="ejb/eMayor/sh/ServiceCallbackManager" type="Stateless"
+ *           view-type="local"
  */
 public class ServiceCallbackManagerEJB implements SessionBean,
         IServiceCallbackManager {
@@ -99,7 +99,7 @@ public class ServiceCallbackManagerEJB implements SessionBean,
             KernelLocal kernel = locator.getKernelLocal();
             log.debug("got the kernel");
             // it should work, because this is happening after the
-            // user has picked up the data, so he/she is logged in 
+            // user has picked up the data, so he/she is logged in
             // at the system !
             asid = kernel.getAsidByUserID(userId);
             if (log.isDebugEnabled()) {
@@ -113,7 +113,7 @@ public class ServiceCallbackManagerEJB implements SessionBean,
             kernel.remove();
             log.debug("stop the service session");
             accessSession.stopServiceSession(ssid);
-            
+
             ret = "OK";
         } catch (ServiceLocatorException slex) {
             log.error("problem with the service locator");

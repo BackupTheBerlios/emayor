@@ -46,7 +46,7 @@
   <tr> 
     <td width="73" bgcolor="#99CCFF"><font size="2">(C) 2005</font></td>
 	<td width="603" bgcolor="#99CCFF"><div align="center"><font size="2">&nbsp;</font></div></td>
-    <td width="110" bgcolor="#99CCFF"><div align="right"><a href=""><font size="2">webmaster</font></a></div></td>
+    <td width="110" bgcolor="#99CCFF"><div align="right"><a href="mailto:webmaster@emayor.org"><font size="2">webmaster</font></a></div></td>
   </tr>
 </table>
 </body>

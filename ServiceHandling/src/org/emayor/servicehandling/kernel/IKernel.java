@@ -154,7 +154,14 @@ public interface IKernel {
      * @return
      * @throws KernelException
      */
-    public IUserProfile listUserProfiles() throws KernelException;
+    public IUserProfile[] listUserProfiles() throws KernelException;
+    
+    /**
+     * 
+     * @return
+     * @throws KernelException
+     */
+    public IUserProfile[] listLoggedInUsers() throws KernelException;
 
     /**
      * 

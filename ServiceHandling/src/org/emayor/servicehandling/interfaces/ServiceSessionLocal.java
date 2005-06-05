@@ -64,4 +64,9 @@ public interface ServiceSessionLocal
     */
    public void endService(  ) throws org.emayor.servicehandling.kernel.ServiceSessionException;
 
+   /**
+    * Business Method
+    */
+   public java.util.Date getStartDate(  ) throws org.emayor.servicehandling.kernel.SessionException;
+
 }
