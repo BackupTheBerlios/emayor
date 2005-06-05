@@ -509,7 +509,7 @@ public class ServiceLocator {
         log.debug("-> starting processing ...");
         AdminManagerLocal ret = null;
         try {
-            Object ref = this.bpelInitialContext
+            Object ref = this.initialContext
                     .lookup(AdminManagerLocalHome.JNDI_NAME);
             AdminManagerLocalHome home = (AdminManagerLocalHome) PortableRemoteObject
                     .narrow(ref, AdminManagerLocalHome.class);

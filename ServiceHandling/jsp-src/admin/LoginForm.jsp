@@ -9,18 +9,18 @@
 <body bgcolor="#FFFFFF">
 <table border="0" width="800">
   <tr bgcolor="#999900"> 
-    <td height="60" bgcolor="#99CCFF" colspan="2"> <div align="center"><strong><font size="7">eMayor 
+    <td height="60" bgcolor="#99CCFF" colspan="3"> <div align="center"><strong><font size="7">eMayor 
         Platform</font></strong></div></td>
   </tr>
   <tr> 
-    <td colspan="2"> <hr /></td>
+    <td colspan="3"> <hr /></td>
   </tr>
   <tr> 
-    <td colspan="2"> <div align="center"><strong><font size="4">Admin login page</font></strong> 
+    <td colspan="3"> <div align="center"><strong><font size="4">Admin login page</font></strong> 
       </div></td>
   </tr>
   <tr> 
-    <td colspan="2"> <form action="../adm" method="post">
+    <td colspan="3"> <form action="../adm" method="post">
 		<input type="hidden" name="action" value="login"/>
         <div align="center"> 
           <table border="0" cellspacing="5">
@@ -41,11 +41,12 @@
       </form></td>
   </tr>
   <tr> 
-    <td colspan="2"> <hr /> </td>
+    <td colspan="3"> <hr /> </td>
   </tr>
   <tr> 
-    <td width="787" bgcolor="#99CCFF"> <a href=""><font size="2">logout</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><font size="2">menu</font></a></td>
-    <td width="208" bgcolor="#99CCFF"><div align="right"><a href=""><font size="2">webmaster</font></a></div></td>
+    <td width="73" bgcolor="#99CCFF"><font size="2">(C) 2005</font></td>
+	<td width="603" bgcolor="#99CCFF"><div align="center"><font size="2">&nbsp;</font></div></td>
+    <td width="110" bgcolor="#99CCFF"><div align="right"><a href=""><font size="2">webmaster</font></a></div></td>
   </tr>
 </table>
 </body>

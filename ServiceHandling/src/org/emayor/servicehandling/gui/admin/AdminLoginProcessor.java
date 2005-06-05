@@ -43,7 +43,7 @@ public class AdminLoginProcessor extends AbstractRequestProcessor {
             }
             boolean b = mgr.login(uid, pswd);
             if (b) {
-                log.debug("LOGIN WAS SUCCESSFUL !!!");
+                log.info("ADMIN LOGIN WAS SUCCESSFUL !!!");
                 HttpSession session = req.getSession(true);
             } else {
                 ret = "admin/LoginForm.jsp";

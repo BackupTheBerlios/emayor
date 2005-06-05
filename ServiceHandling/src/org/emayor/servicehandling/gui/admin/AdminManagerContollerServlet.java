@@ -44,28 +44,34 @@ public class AdminManagerContollerServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action == null)
             action = "index";
+        if (log.isDebugEnabled())
+            log.debug("CURRENT ACTION IS " + action);
         IRequestProcessor p = null;
         if (action.equalsIgnoreCase("index")) {
-            log.debug("current action = index");
             p = new IndexProcessor();
-        }
-        else if (action.equalsIgnoreCase("login")) {
-            log.debug("current action = login");
+        } else if (action.equalsIgnoreCase("login")) {
             p = new AdminLoginProcessor();
+        } else if (action.equalsIgnoreCase("logout")) {
+            p = new AdminLogoutProcessor();
+        } else if (action.equalsIgnoreCase("mainmenu")) {
+            p = new AdminMainMenuProcessor();
+        } else if (action.equalsIgnoreCase("RELOAD_SERVICES")) {
+            p = new AdminReloadServicesProcessor();
+        } else if (action.equalsIgnoreCase("RELOAD_CONFIGURATION")) {
+            p = new AdminReloadConfigurationProcessor();
         } else {
             log.info("current action = UNKNOWN");
             p = new DummyProcessor();
         }
         page = p.process(request, response);
         response.sendRedirect(page);
-    }
+    } /*
+       * (non-Javadoc)
+       * 
+       * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
+       *      javax.servlet.http.HttpServletResponse)
+       */
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse)
-     */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         log.debug("-> start processing ...");

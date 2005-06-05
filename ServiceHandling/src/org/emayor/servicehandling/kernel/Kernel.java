@@ -75,7 +75,8 @@ public class Kernel implements IKernel {
         log.debug("-> ... processing DONE!");
     }
 
-    public static final synchronized Kernel getInstance() throws KernelException {
+    public static final synchronized Kernel getInstance()
+            throws KernelException {
         log.debug("-> start processing ...");
         if (_self == null)
             _self = new Kernel();
@@ -419,15 +420,31 @@ public class Kernel implements IKernel {
         log.debug("-> start processing ...");
         IUserProfile ret = null;
         try {
-            ret = this.repository.getUserProfile(userId);
-            // for testing purposes the email address has been
-            // stored in the certificate has to be replaced
-            // by a local one
-            if (ret != null) {
-                ret.getPEUserProfile().setUserEmail("eMayor.User@localhost");
+            Config config = Config.getInstance();
+            String mode = config.getProperty("emayor.operating.mode.email",
+                    "production");
+            String email = config.getProperty("emayor.email.test.user.address",
+                    "eMayor.User@localhost");
+            if (mode.equals("production")) {
+                ret = this.repository.getUserProfile(userId);
+                if (ret != null) {
+                    log
+                            .warn("got null ref for user's email address -> set the default one");
+                    ret.getPEUserProfile().setUserEmail(email);
+                }
+            } else {
+                // for testing purposes the email address has been
+                // stored in the certificate has to be replaced
+                // by a local one
+                log.info("working in test mode -> set the tes email address");
+                ret.getPEUserProfile().setUserEmail(email);
             }
         } catch (KernelRepositoryException krex) {
             log.error("caught ex: " + krex.toString());
+            throw new KernelException(
+                    "problem with obtaining the user profile from repository");
+        } catch (ConfigException ex) {
+            log.error("caught ex: " + ex.toString());
             throw new KernelException(
                     "problem with obtaining the user profile from repository");
         }
@@ -692,7 +709,9 @@ public class Kernel implements IKernel {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.emayor.servicehandling.kernel.IKernel#reloadDeployedServices()
      */
     public synchronized void reloadDeployedServices() throws KernelException {
@@ -700,38 +719,50 @@ public class Kernel implements IKernel {
         try {
             this.repository.emptyServiceInfo();
             this.initDeployedServices();
-        } catch(KernelRepositoryException ex) {
+        } catch (KernelRepositoryException ex) {
             log.error("caught ex: " + ex.toString());
-            throw new KernelException("Couldn't reload the services - repository problem!");
+            throw new KernelException(
+                    "Couldn't reload the services - repository problem!");
         }
         log.debug("-> ... processing DONE!");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.emayor.servicehandling.kernel.IKernel#listAccessSessions()
      */
-    public synchronized AccessSessionInfo[] listAccessSessions() throws KernelException {
+    public synchronized AccessSessionInfo[] listAccessSessions()
+            throws KernelException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.emayor.servicehandling.kernel.IKernel#listServiceSessions()
      */
-    public synchronized ServiceSessionInfo[] listServiceSessions() throws KernelException {
+    public synchronized ServiceSessionInfo[] listServiceSessions()
+            throws KernelException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.emayor.servicehandling.kernel.IKernel#listServiceSessions(java.lang.String)
      */
-    public synchronized ServiceSessionInfo[] listServiceSessions(String uid) throws KernelException {
+    public synchronized ServiceSessionInfo[] listServiceSessions(String uid)
+            throws KernelException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.emayor.servicehandling.kernel.IKernel#listUserProfiles()
      */
     public synchronized IUserProfile listUserProfiles() throws KernelException {
