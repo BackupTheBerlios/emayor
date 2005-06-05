@@ -67,11 +67,11 @@ public interface AdminManagerLocal
    /**
     * Business Method
     */
-   public org.emayor.servicehandling.kernel.ServiceProfile[] listDeployedServices(  ) throws org.emayor.servicehandling.kernel.AdminException;
+   public org.emayor.servicehandling.kernel.AdminServiceProfileData[] listDeployedServices(  ) throws org.emayor.servicehandling.kernel.AdminException;
 
    /**
     * Business Method
     */
-   public org.emayor.servicehandling.kernel.ServiceProfile lookupServiceProfile( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.AdminException;
+   public org.emayor.servicehandling.kernel.AdminServiceProfileData lookupServiceProfile( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.AdminException;
 
 }

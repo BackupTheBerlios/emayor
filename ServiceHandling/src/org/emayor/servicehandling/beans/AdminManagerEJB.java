@@ -17,10 +17,11 @@ import org.emayor.servicehandling.config.ConfigException;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.AccessSessionInfo;
 import org.emayor.servicehandling.kernel.AdminException;
+import org.emayor.servicehandling.kernel.AdminServiceProfileData;
 import org.emayor.servicehandling.kernel.IAdmin;
 import org.emayor.servicehandling.kernel.IUserProfile;
 import org.emayor.servicehandling.kernel.KernelException;
-import org.emayor.servicehandling.kernel.ServiceProfile;
+import org.emayor.servicehandling.kernel.ServiceInfo;
 import org.emayor.servicehandling.kernel.ServiceSessionInfo;
 import org.emayor.servicehandling.kernel.UserProfile;
 import org.emayor.servicehandling.utils.ServiceLocator;
@@ -389,9 +390,39 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public ServiceProfile[] listDeployedServices() throws AdminException {
-        // TODO Auto-generated method stub
-        return null;
+    public AdminServiceProfileData[] listDeployedServices()
+            throws AdminException {
+        log.debug("-> start processing ...");
+        AdminServiceProfileData[] ret = new AdminServiceProfileData[0];
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            log.debug("get the ref to the kernel");
+            KernelLocal kernel = locator.getKernelLocal();
+            ServiceInfo[] infos = kernel.listAllAvailableServices();
+            ServiceSessionInfo[] ss = kernel.listServiceSessions();
+            ret = new AdminServiceProfileData[infos.length];
+            for (int i = 0; i < ret.length; i++) {
+                ServiceInfo info = infos[i];
+                ret[i] = new AdminServiceProfileData(info);
+                int index = 0;
+                String serviceId = info.getServiceId();
+                for (int j = 0; j < ss.length; j++) {
+                    ServiceSessionInfo _ssi = ss[j];
+                    if (_ssi.getServiceId().equals(serviceId))
+                        index++;
+                }
+                ret[i].setNumberOfInstances(String.valueOf(index));
+            }
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't connect to the kernel!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException(
+                    "Couldn't get the service data from the kernel!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
     /**
@@ -400,7 +431,7 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      * @ejb.interface-method view-type = "local"
      *  
      */
-    public ServiceProfile lookupServiceProfile(String serviceId)
+    public AdminServiceProfileData lookupServiceProfile(String serviceId)
             throws AdminException {
         // TODO Auto-generated method stub
         return null;

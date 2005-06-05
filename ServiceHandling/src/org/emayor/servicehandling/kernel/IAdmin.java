@@ -32,8 +32,8 @@ public interface IAdmin {
     public ServiceSessionInfo lookupServiceSession(String ssid)
             throws AdminException;
 
-    public ServiceProfile[] listDeployedServices() throws AdminException;
+    public AdminServiceProfileData[] listDeployedServices() throws AdminException;
 
-    public ServiceProfile lookupServiceProfile(String serviceId)
+    public AdminServiceProfileData lookupServiceProfile(String serviceId)
             throws AdminException;
 }

@@ -43,17 +43,17 @@ public class AdminManagerContollerServlet extends HttpServlet {
         String page = "admin/LoginForm.jsp";
         String action = request.getParameter("action");
         if (action == null)
-            action = "index";
+            action = "INDEX";
         if (log.isDebugEnabled())
             log.debug("CURRENT ACTION IS " + action);
         IRequestProcessor p = null;
-        if (action.equalsIgnoreCase("index")) {
+        if (action.equalsIgnoreCase("INDEX")) {
             p = new IndexProcessor();
-        } else if (action.equalsIgnoreCase("login")) {
+        } else if (action.equalsIgnoreCase("LOGIN")) {
             p = new AdminLoginProcessor();
-        } else if (action.equalsIgnoreCase("logout")) {
+        } else if (action.equalsIgnoreCase("LOGOUT")) {
             p = new AdminLogoutProcessor();
-        } else if (action.equalsIgnoreCase("mainmenu")) {
+        } else if (action.equalsIgnoreCase("MAINMENU")) {
             p = new AdminMainMenuProcessor();
         } else if (action.equalsIgnoreCase("RELOAD_SERVICES")) {
             p = new AdminReloadServicesProcessor();
@@ -67,6 +67,8 @@ public class AdminManagerContollerServlet extends HttpServlet {
             p = new AdminListLoggedInUserProfilesProcessor();
         } else if (action.equalsIgnoreCase("LIST_KNOWN_USERS")) {
             p = new AdminListAllKnownUsersProcessor();
+        } else if (action.equalsIgnoreCase("LIST_DEPLOYED_SERVICES")) {
+            p = new AdminListDeployedServicesProcessor();
         } else {
             log.info("current action = UNKNOWN");
             p = new DummyProcessor();
