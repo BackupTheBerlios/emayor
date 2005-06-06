@@ -149,4 +149,14 @@ public interface KernelLocal
     */
    public void resetNumberOfInstances( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.KernelException;
 
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.AccessSessionInfo getAccessSessionInfo( java.lang.String asid ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public org.emayor.servicehandling.kernel.ServiceSessionInfo getServiceSessionInfo( java.lang.String ssid ) throws org.emayor.servicehandling.kernel.KernelException;
+
 }

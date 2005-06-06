@@ -17,239 +17,257 @@ import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackDa
  *         </font>
  */
 public interface IKernel {
-    /**
-     * 
-     * @return
-     * @throws KernelException
-     */
-    public String createAccessSession() throws KernelException;
+	/**
+	 * 
+	 * @return
+	 * @throws KernelException
+	 */
+	public String createAccessSession() throws KernelException;
 
-    /**
-     * 
-     * @param asid
-     * @return
-     * @throws KernelException
-     */
-    public AccessSessionLocal getAccessSession(String asid)
-            throws KernelException;
+	/**
+	 * 
+	 * @param asid
+	 * @return
+	 * @throws KernelException
+	 */
+	public AccessSessionLocal getAccessSession(String asid)
+			throws KernelException;
 
-    /**
-     * 
-     * @return
-     * @throws KernelException
-     */
-    public AccessSessionInfo[] listAccessSessions() throws KernelException;
+	/**
+	 * 
+	 * @return
+	 * @throws KernelException
+	 */
+	public AccessSessionInfo[] listAccessSessions() throws KernelException;
 
-    /**
-     * 
-     * @param asid
-     * @return
-     * @throws KernelException
-     */
-    public boolean deleteAccessSession(String asid) throws KernelException;
+	/**
+	 * 
+	 * @param asid
+	 * @return
+	 * @throws KernelException
+	 */
+	public AccessSessionInfo getAccessSessionInfo(String asid)
+			throws KernelException;
 
-    /**
-     * 
-     * @param asid
-     * @param serviceName
-     * @return
-     * @throws KernelException
-     */
-    public ServiceSessionLocal createServiceSession(String asid,
-            String serviceName, String userId) throws KernelException;
+	/**
+	 * 
+	 * @param asid
+	 * @return
+	 * @throws KernelException
+	 */
+	public boolean deleteAccessSession(String asid) throws KernelException;
 
-    /**
-     * 
-     * @param ssid
-     * @return
-     * @throws KernelException
-     */
-    public ServiceSessionLocal getServiceSession(String ssid)
-            throws KernelException;
+	/**
+	 * 
+	 * @param asid
+	 * @param serviceName
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceSessionLocal createServiceSession(String asid,
+			String serviceName, String userId) throws KernelException;
 
-    /**
-     * 
-     * @param asid
-     *            current access session id
-     * @param ssid
-     *            service session id
-     * @return
-     * @throws KernelException
-     */
-    public boolean deleteServiceSession(String asid, String ssid)
-            throws KernelException;
+	/**
+	 * 
+	 * @param ssid
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceSessionLocal getServiceSession(String ssid)
+			throws KernelException;
 
-    /**
-     * 
-     * @return
-     * @throws KernelException
-     */
-    public ServiceSessionInfo[] listServiceSessions() throws KernelException;
+	/**
+	 * 
+	 * @param asid
+	 *            current access session id
+	 * @param ssid
+	 *            service session id
+	 * @return
+	 * @throws KernelException
+	 */
+	public boolean deleteServiceSession(String asid, String ssid)
+			throws KernelException;
 
-    /**
-     * 
-     * @param uid
-     * @return
-     * @throws KernelException
-     */
-    public ServiceSessionInfo[] listServiceSessions(String uid)
-            throws KernelException;
+	/**
+	 * 
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceSessionInfo[] listServiceSessions() throws KernelException;
 
-    /**
-     * Get all runing service sessions started by given user.
-     * 
-     * @param userId
-     * @return
-     * @throws KernelException
-     */
-    public ServiceSessionLocal[] getUsersServiceSessions(String userId)
-            throws KernelException;
+	/**
+	 * 
+	 * @param ssid
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceSessionInfo getServiceSessionInfo(String ssid)
+			throws KernelException;
 
-    /*
-     * public boolean checkAuthorization(I_Credentials credentials) throws
-     * KernelException;
-     */
+	/**
+	 * 
+	 * @param uid
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceSessionInfo[] listServiceSessions(String uid)
+			throws KernelException;
 
-    /**
-     * 
-     * @param userProfile
-     * @return
-     * @throws KernelException
-     */
-    public ServiceInfo[] listAvailableServices(C_UserProfile userProfile)
-            throws KernelException;
+	/**
+	 * Get all runing service sessions started by given user.
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceSessionLocal[] getUsersServiceSessions(String userId)
+			throws KernelException;
 
-    /**
-     * 
-     * @return
-     * @throws KernelException
-     */
-    public ServiceInfo[] listAllAvailableServices() throws KernelException;
+	/*
+	 * public boolean checkAuthorization(I_Credentials credentials) throws
+	 * KernelException;
+	 */
 
-    /**
-     * 
-     * @param asid
-     * @return
-     * @throws KernelException
-     */
-    public String getUserIdByASID(String asid) throws KernelException;
+	/**
+	 * 
+	 * @param userProfile
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceInfo[] listAvailableServices(C_UserProfile userProfile)
+			throws KernelException;
 
-    /**
-     * 
-     * @param userId
-     * @return
-     * @throws KernelException
-     */
-    public String getAsidByUserID(String userId) throws KernelException;
+	/**
+	 * 
+	 * @return
+	 * @throws KernelException
+	 */
+	public ServiceInfo[] listAllAvailableServices() throws KernelException;
 
-    /**
-     * 
-     * @param userId
-     * @return
-     * @throws KernelException
-     */
-    public IUserProfile getUserProfile(String userId) throws KernelException;
+	/**
+	 * 
+	 * @param asid
+	 * @return
+	 * @throws KernelException
+	 */
+	public String getUserIdByASID(String asid) throws KernelException;
 
-    /**
-     * 
-     * @return
-     * @throws KernelException
-     */
-    public IUserProfile[] listUserProfiles() throws KernelException;
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws KernelException
+	 */
+	public String getAsidByUserID(String userId) throws KernelException;
 
-    /**
-     * 
-     * @return
-     * @throws KernelException
-     */
-    public IUserProfile[] listLoggedInUsers() throws KernelException;
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws KernelException
+	 */
+	public IUserProfile getUserProfile(String userId) throws KernelException;
 
-    /**
-     * 
-     * @param certificates
-     * @return system unique user id
-     * @throws KernelException
-     */
-    public String authenticateUser(String asid, X509Certificate[] certificates)
-            throws KernelException;
+	/**
+	 * 
+	 * @return
+	 * @throws KernelException
+	 */
+	public IUserProfile[] listUserProfiles() throws KernelException;
 
-    /**
-     * 
-     * @param ssid
-     * @return
-     * @throws KernelException
-     */
-    public IServiceProfile getServiceProfile(String ssid)
-            throws KernelException;
+	/**
+	 * 
+	 * @return
+	 * @throws KernelException
+	 */
+	public IUserProfile[] listLoggedInUsers() throws KernelException;
 
-    /**
-     * 
-     * @param serviceId
-     * @return
-     * @throws KernelException
-     */
-    public IServiceProfile getServiceProfileByServiceId(String serviceId)
-            throws KernelException;
+	/**
+	 * 
+	 * @param certificates
+	 * @return system unique user id
+	 * @throws KernelException
+	 */
+	public String authenticateUser(String asid, X509Certificate[] certificates)
+			throws KernelException;
 
-    /**
-     * 
-     * @param serviceName
-     * @return
-     * @throws KernelException
-     */
-    public String getServiceClassNameByServiceName(String serviceName)
-            throws KernelException;
+	/**
+	 * 
+	 * @param ssid
+	 * @return
+	 * @throws KernelException
+	 */
+	public IServiceProfile getServiceProfile(String ssid)
+			throws KernelException;
 
-    /**
-     * 
-     * @param data
-     * @throws KernelException
-     */
-    public void addForwardBPELCallbackData(ForwardBPELCallbackData data)
-            throws KernelException;
+	/**
+	 * 
+	 * @param serviceId
+	 * @return
+	 * @throws KernelException
+	 */
+	public IServiceProfile getServiceProfileByServiceId(String serviceId)
+			throws KernelException;
 
-    /**
-     * It means get and remove!
-     * 
-     * @param ssid
-     * @return
-     * @throws KernelException
-     */
-    public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
-            throws KernelException;
+	/**
+	 * 
+	 * @param serviceName
+	 * @return
+	 * @throws KernelException
+	 */
+	public String getServiceClassNameByServiceName(String serviceName)
+			throws KernelException;
 
-    /**
-     * 
-     * @throws KernelException
-     */
-    public void reloadDeployedServices() throws KernelException;
+	/**
+	 * 
+	 * @param data
+	 * @throws KernelException
+	 */
+	public void addForwardBPELCallbackData(ForwardBPELCallbackData data)
+			throws KernelException;
 
-    /**
-     * 
-     * @param serviceId
-     * @return
-     * @throws KernelException
-     */
-    public String getNumberOfInstances(String serviceId) throws KernelException;
+	/**
+	 * It means get and remove!
+	 * 
+	 * @param ssid
+	 * @return
+	 * @throws KernelException
+	 */
+	public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
+			throws KernelException;
 
-    /**
-     * 
-     * @throws KernelException
-     */
-    public void resetNumberOfInstances() throws KernelException;
+	/**
+	 * 
+	 * @throws KernelException
+	 */
+	public void reloadDeployedServices() throws KernelException;
 
-    /**
-     * 
-     * @param serviceId
-     * @throws KernelException
-     */
-    public void resetNumberOfInstances(String serviceId) throws KernelException;
+	/**
+	 * 
+	 * @param serviceId
+	 * @return
+	 * @throws KernelException
+	 */
+	public String getNumberOfInstances(String serviceId) throws KernelException;
 
-    /**
-     * 
-     * @return
-     * @throws KernelException
-     */
-    public HashMap getNumberOfInstancesMap() throws KernelException;
+	/**
+	 * 
+	 * @throws KernelException
+	 */
+	public void resetNumberOfInstances() throws KernelException;
+
+	/**
+	 * 
+	 * @param serviceId
+	 * @throws KernelException
+	 */
+	public void resetNumberOfInstances(String serviceId) throws KernelException;
+
+	/**
+	 * 
+	 * @return
+	 * @throws KernelException
+	 */
+	public HashMap getNumberOfInstancesMap() throws KernelException;
 
 }

@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<title>Welcome Page</title>
+	<title>eMayor Admin Interface (C) - v.1.0.0</title>
 </head>
 
 <body bgcolor="#FFFFFF">
@@ -42,7 +42,7 @@
 			</tr>
 			<tr>	
           		<td>
-					- <a href="LookupUserProfileInput.jsp"><font size="2">Lookup user's profile ...</font></a>
+					- <a href="../adm?action=LOOKUP_USER_PROFILE_INPUT"><font size="2">Lookup user's profile ...</font></a>
 				</td>
 			</tr>
 			<tr>	
@@ -67,7 +67,7 @@
 			</tr>
 			<tr>	
           		<td>
-					- <a href="LookupServiceSessionInput.jsp"><font size="2">Lookup a service session ...</font></a>
+					- <a href="../adm?action=LOOKUP_SERVICE_SESSION_INPUT"><font size="2">Lookup a service session ...</font></a>
 				</td>
 			</tr>
 			<tr>	
@@ -77,7 +77,7 @@
 			</tr>
 			<tr>	
           		<td>
-					- <a href="LookupServiceProfileInput.jsp"><font size="2">Lookup a service profile ...</font></a>
+					- <a href="../adm?action=LOOKUP_SERVICE_PROFILE_INPUT"><font size="2">Lookup a service profile ...</font></a>
 				</td>
 			</tr>
 		</table>

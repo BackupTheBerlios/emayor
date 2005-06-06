@@ -1,5 +1,5 @@
 /*
- * Created on Jun 7, 2005
+ * $ Created on Jun 7, 2005 by tku $
  */
 package org.emayor.servicehandling.gui.admin;
 
@@ -18,12 +18,14 @@ import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
 /**
- * @author tku
+ * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
+ *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
+ *         </font>
  */
-public class AdminLookupServiceSessionInfoProcessor extends
+public class AdminLookupServiceSessionInputProcessor extends
 		AbstractRequestProcessor {
 	private final static Logger log = Logger
-			.getLogger(AdminLookupServiceSessionInfoProcessor.class);
+			.getLogger(AdminLookupServiceSessionInputProcessor.class);
 
 	/*
 	 * (non-Javadoc)
@@ -42,41 +44,15 @@ public class AdminLookupServiceSessionInfoProcessor extends
 			try {
 				ServiceLocator locator = ServiceLocator.getInstance();
 				AdminManagerLocal admin = locator.getAdminManagerLocal();
-				String ssid = req.getParameter("SSID");
+				ServiceSessionInfo[] infos = admin.listServiceSessions();
+				String[] ids = new String[infos.length];
 				if (log.isDebugEnabled())
-					log.debug("got as SSID = " + ssid);
-				if (ssid == null || ssid.length() == 0) {
-					log.debug("the ssid is not set -> try with the ssid2");
-					ssid = req.getParameter("SSID2");
-				} else {
-					if (log.isDebugEnabled())
-						log.debug("got from SSID : " + ssid);
-				}
-				if (ssid == null || ssid.length() == 0) {
-					AdminErrorPageData data = new AdminErrorPageData();
-					data
-							.setPageTitle("Please specify properly service session id!");
-					session.setAttribute(AdminErrorPageData.ATT_NAME, data);
-					ret = "admin/ErrorPage.jsp";
-				} else {
-					if (log.isDebugEnabled())
-						log.debug("working with the asid = " + ssid);
-					ServiceSessionInfo info = admin.lookupServiceSession(ssid);
-					if (info != null) {
-						if (log.isDebugEnabled())
-							log.debug("got the service session info with id = "
-									+ info.getSessionId());
-						session.setAttribute("SERVICE_SESSION_INFO", info);
-						ret = "admin/ServiceSessionInfo.jsp";
-					} else {
-						AdminErrorPageData data = new AdminErrorPageData();
-						data
-								.setPageTitle("Couldn't find the service session with given id: <<"
-										+ ssid + ">>!");
-						session.setAttribute(AdminErrorPageData.ATT_NAME, data);
-						ret = "admin/ErrorPage.jsp";
-					}
-				}
+					log.debug("got the ids from platform, number = "
+							+ ids.length);
+				for (int i = 0; i < infos.length; i++)
+					ids[i] = infos[i].getSessionId();
+				session.setAttribute("SERVICE_SESSION_ID_ARRAY", ids);
+				ret = "admin/LookupServiceSessionInput.jsp";
 			} catch (ServiceLocatorException ex) {
 				log.error("caught ex: " + ex.toString());
 				AdminErrorPageData data = new AdminErrorPageData();
@@ -87,8 +63,7 @@ public class AdminLookupServiceSessionInfoProcessor extends
 			} catch (AdminException ex) {
 				log.error("caught ex: " + ex.toString());
 				AdminErrorPageData data = new AdminErrorPageData();
-				data
-						.setPageTitle("Couldn't lookup the required service session.");
+				data.setPageTitle("Couldn't list the running service sessions.");
 				session.setAttribute(AdminErrorPageData.ATT_NAME, data);
 				ret = "admin/ErrorPage.jsp";
 			}

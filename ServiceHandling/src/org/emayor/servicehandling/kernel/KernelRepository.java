@@ -113,7 +113,7 @@ public class KernelRepository {
         if (this.asid2accessSession.containsKey(asid)) {
             ret = (AccessSessionLocal) this.asid2accessSession.get(asid);
         } else {
-            log.error("trying to get access session doesen't exist!");
+            log.error("try to get access session which doesn't exist!");
             throw new KernelRepositoryException("Unknown asid: " + asid);
         }
         log.debug("-> ... processing DONE!");

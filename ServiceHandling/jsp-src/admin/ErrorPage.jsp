@@ -1,5 +1,5 @@
 <%@page contentType="text/html" %>
-<%@ page import="org.emayor.servicehandling.kernel.AccessSessionInfo" %>
+<%@ page import="org.emayor.servicehandling.gui.admin.AdminErrorPageData" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
@@ -17,42 +17,23 @@
     <td colspan="3"> <hr /></td>
   </tr>
   <tr> 
-    <td colspan="3"> <div align="center"><strong><font size="4">Access session details:</font></strong> 
+    <td colspan="3"> <div align="center"><strong><font size="4">!!! ERROR PAGE !!!</font></strong> 
       </div></td>
   </tr>
   <tr> 
     <td colspan="3"> 
-		<table width="784" cellpadding="4" cellspacing="0">
-        <tr bgcolor="#CCCCCC"> 
-          <td width="198"> 
-          <div align="left"><strong>Attribute name </strong></div></td>
-				
-          <td width="568"> 
-          <div align="left"><strong>Attribute value </strong></div></td>
-
-		  </tr>
-			<%
-				AccessSessionInfo info = (AccessSessionInfo)session.getAttribute("ACCESS_SESSION_INFO");
-			%>	
-			<tr>
-				<td>Session id</td>
-				<td><%= info.getSessionId() %></td>
-			</tr>
-			<tr bgcolor="#FFCCCC">
-				<td>Started on</td>
-				<td><%= info.getStartDateAsString() %></td>
-			</tr>
-			<tr>
-				<td>Started by</td>
-				<td><a href="../adm?action=LOOKUP_USER_PROFILE&UID=<%= info.getUserId() %>"><%= info.getUserId() %></a></td>
-			</tr>
-			<tr>
-				
-          <td colspan="2"> <div align="center">
-              <input name="remove" type="submit" value="REMOVE THIS SESSION"/>
-            </div></td>
-			</tr>
-		</table>
+		<%
+			AdminErrorPageData data = (AdminErrorPageData)session.getAttribute(AdminErrorPageData.ATT_NAME);
+			if (data != null) {
+		%>
+			<%= data.getPageTitle() %>
+		<%
+			} else {
+		%>
+			-----------
+		<%
+			}
+		%>
 	</td>
   </tr>
   <tr> 

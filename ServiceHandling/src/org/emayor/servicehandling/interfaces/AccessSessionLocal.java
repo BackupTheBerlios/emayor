@@ -74,4 +74,9 @@ public interface AccessSessionLocal
     */
    public void setUserId( java.lang.String userId ) throws org.emayor.servicehandling.kernel.AccessSessionException;
 
+   /**
+    * Business Method
+    */
+   public java.util.Date getStartDate(  ) throws org.emayor.servicehandling.kernel.SessionException;
+
 }
