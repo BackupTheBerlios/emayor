@@ -31,6 +31,10 @@
 				
           <td>- <a href="../adm?action=RELOAD_CONFIGURATION"><font size="2">Reload the platform configuration ...</font></a></td>
 			</tr>
+			<tr>
+				
+          <td>- <a href="../adm?action=SHOW_CONFIGURATION"><font size="2">View the platform configuration ...</font></a></td>
+			</tr>
 			<tr>	
           		<td>
 					- <a href="../adm?action=LIST_LOGGED_USERS"><font size="2">List all logged in users ...</font></a>
@@ -38,7 +42,7 @@
 			</tr>
 			<tr>	
           		<td>
-					- <a href="../adm?action=LOOKUP_USER"><font size="2">Lookup user's profile ...</font></a>
+					- <a href="LookupUserProfileInput.jsp"><font size="2">Lookup user's profile ...</font></a>
 				</td>
 			</tr>
 			<tr>	
@@ -53,7 +57,7 @@
 			</tr>
 			<tr>	
           		<td>
-					- <a href="../adm?action=LOOKUP_ACCESS_SESSION"><font size="2">Lookup an access session ...</font></a>
+					- <a href="../adm?action=LOOKUP_ACCESS_SESSION_INPUT"><font size="2">Lookup an access session ...</font></a>
 				</td>
 			</tr>
 			<tr>	
@@ -63,17 +67,17 @@
 			</tr>
 			<tr>	
           		<td>
-					- <a href="../adm?action=LOOKUP_SERVICE_SESSION"><font size="2">Lookup a service session ...</font></a>
+					- <a href="LookupServiceSessionInput.jsp"><font size="2">Lookup a service session ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href="../adm?action=LIST_DEPLOYED_SERVICES"><font size="2">List deployes services ...</font></a>
+					- <a href="../adm?action=LIST_DEPLOYED_SERVICES"><font size="2">List deployed services ...</font></a>
 				</td>
 			</tr>
 			<tr>	
           		<td>
-					- <a href="../adm?action=LOOKUP_SERVICE"><font size="2">Lookup a service profile ...</font></a>
+					- <a href="LookupServiceProfileInput.jsp"><font size="2">Lookup a service profile ...</font></a>
 				</td>
 			</tr>
 		</table>

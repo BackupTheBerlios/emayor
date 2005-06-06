@@ -60,6 +60,7 @@ public class AdminListLoggedInUserProfilesProcessor extends
                 ret = "admin/ErrorPage.jsp";
             }
         }
+        log.debug("-> ... processing DONE!");
         return ret;
     }
 

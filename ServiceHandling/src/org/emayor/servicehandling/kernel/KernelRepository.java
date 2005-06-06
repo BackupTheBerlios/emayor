@@ -36,6 +36,9 @@ public class KernelRepository {
     // service id -> factory
     private HashMap serviceId2serviceFactory;
 
+    // serviceId -> number of runing instances
+    private HashMap serviceId2NumberOfInstances;
+
     // userdId -> UserProfile
     private HashMap userId2UserProfile;
 
@@ -58,6 +61,7 @@ public class KernelRepository {
         this.userId2ssids = new HashMap();
         this.serviceId2serviceInfo = new HashMap();
         this.serviceId2serviceFactory = new HashMap();
+        this.serviceId2NumberOfInstances = new HashMap();
         this.userId2UserProfile = new HashMap();
         this.userId2asid = new HashMap();
         this.asid2userId = new HashMap();
@@ -147,6 +151,18 @@ public class KernelRepository {
                 }
                 this.userId2ssids.remove(userId);
                 this.userId2ssids.put(userId, ssids);
+                String serviceId = serviceSession.getServiceId();
+                if (log.isDebugEnabled())
+                    log
+                            .debug("working with following service id: "
+                                    + serviceId);
+                int i = ((Integer) this.serviceId2NumberOfInstances
+                        .get(serviceId)).intValue();
+                this.serviceId2NumberOfInstances.put(serviceId,
+                        new Integer(++i));
+                if (log.isDebugEnabled())
+                    log.debug("set the current number of instance to "
+                            + (++i) + " for serviceId = " + serviceId);
             } else {
                 log.error("The ssid " + ssid
                         + " already exists in the repository!");
@@ -181,6 +197,23 @@ public class KernelRepository {
                     ssids.remove(ssid);
                     this.userId2ssids.remove(userId);
                     this.userId2ssids.put(userId, ssids);
+                    try {
+                        ServiceSessionLocal serviceSession = this
+                                .getServiceSession(ssid);
+                        String serviceId = serviceSession.getServiceId();
+                        if (log.isDebugEnabled())
+                            log.debug("working with following service id: "
+                                    + serviceId);
+                        int i = ((Integer) this.serviceId2NumberOfInstances
+                                .get(serviceId)).intValue();
+                        this.serviceId2NumberOfInstances.put(serviceId,
+                                new Integer(--i));
+                        if (log.isDebugEnabled())
+                            log.debug("set the current number of instance to "
+                                    + (--i) + " for serviceId = " + serviceId);
+                    } catch (ServiceSessionException ex) {
+                        log.error("caught ex: " + ex.toString());
+                    }
                 } else {
                     log.error("the ssid doesn't exist in the list");
                     throw new KernelRepositoryException(
@@ -289,6 +322,7 @@ public class KernelRepository {
                     "Couldn't add ServiceInfo into repository - already exists!");
         } else {
             this.serviceId2serviceInfo.put(id, serviceInfo);
+            this.serviceId2NumberOfInstances.put(id, new Integer(0));
         }
         log.debug("-> ... processing DONE!");
     }
@@ -302,6 +336,7 @@ public class KernelRepository {
             if (log.isDebugEnabled())
                 log.debug("removing the info for the serviceId = " + serviceId);
             this.serviceId2serviceInfo.remove(serviceId);
+            this.serviceId2NumberOfInstances.remove(serviceId);
         } else {
             log.error("info for specified service id doesn't exist!");
             throw new KernelRepositoryException(
@@ -313,6 +348,7 @@ public class KernelRepository {
     public void emptyServiceInfo() throws KernelRepositoryException {
         log.debug("-> start processing ...");
         this.serviceId2serviceInfo = new HashMap();
+        this.serviceId2NumberOfInstances = new HashMap();
         log.debug("-> ... processing DONE!");
     }
 
@@ -547,5 +583,53 @@ public class KernelRepository {
         }
         log.debug("-> ... processing DONE!");
         return ret;
+    }
+
+    public void resetNumberOfServiceInstances(String serviceId)
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        if (this.serviceId2NumberOfInstances.containsKey(serviceId)) {
+            this.serviceId2NumberOfInstances.remove(serviceId);
+            this.serviceId2NumberOfInstances.put(serviceId, new Integer(0));
+        } else {
+            log.error("UNKNOWN SERVICE ID: " + serviceId);
+            throw new KernelRepositoryException("Unknown service id = "
+                    + serviceId);
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    public void resetNumberOfServiceInstances()
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        for (Iterator i = this.serviceId2NumberOfInstances.keySet().iterator(); i
+                .hasNext();) {
+            String sid = (String) i.next();
+            this.serviceId2NumberOfInstances.put(sid, new Integer(0));
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    public String getNumberOfServiceInstances(String serviceId)
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        String ret = "0";
+        if (this.serviceId2NumberOfInstances.containsKey(serviceId)) {
+            Integer i = (Integer) this.serviceId2NumberOfInstances
+                    .get(serviceId);
+            ret = i.toString();
+        } else {
+            log.error("UNKNOWN SERVICE ID: " + serviceId);
+            throw new KernelRepositoryException("Unknown service id = "
+                    + serviceId);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public HashMap getNumberOfServiceInstancesMap()
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        return this.serviceId2NumberOfInstances;
     }
 }

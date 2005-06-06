@@ -72,6 +72,11 @@ public interface KernelLocal
    /**
     * Business Method
     */
+   public org.emayor.servicehandling.kernel.IServiceProfile getServiceProfileByServiceId( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
    public java.lang.String authenticateUser( java.lang.String asid,java.security.cert.X509Certificate[] certificates ) throws org.emayor.servicehandling.kernel.KernelException;
 
    /**
@@ -123,5 +128,25 @@ public interface KernelLocal
     * Business Method
     */
    public org.emayor.servicehandling.kernel.IUserProfile[] listLoggedInUsers(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public java.lang.String getNumberOfInstances( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public java.util.HashMap getNumberOfInstancesMap(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public void resetNumberOfInstances(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public void resetNumberOfInstances( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.KernelException;
 
 }

@@ -74,6 +74,7 @@ public class AdminManagerContollerServlet extends HttpServlet {
             p = new DummyProcessor();
         }
         page = p.process(request, response);
+        log.debug("-> ... processing DONE!");
         response.sendRedirect(page);
     } /*
        * (non-Javadoc)

@@ -14,6 +14,11 @@ public class AdminServiceProfileData extends ServiceInfo {
     
     private String numberOfInstances;
     
+    public AdminServiceProfileData() {
+        super();
+        this.setNumberOfInstances("0");
+    }
+    
     public AdminServiceProfileData(IServiceInfo info) {
         this.setServiceClassName(info.getServiceClassName());
         this.setServiceDescription(info.getServiceDescription());
@@ -22,6 +27,7 @@ public class AdminServiceProfileData extends ServiceInfo {
         this.setServiceId(info.getServiceId());
         this.setServiceName(info.getServiceName());
         this.setServiceVersion(info.getServiceVersion());
+        this.setNumberOfInstances("0");
     }
     
     /**

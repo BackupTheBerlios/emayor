@@ -1,10 +1,9 @@
 <%@page contentType="text/html" %>
-<%@ page import="org.emayor.servicehandling.kernel.AccessSessionInfo" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
 <head>
-	<title>Access session details page.</title>
+	<title>Lookup access session input page.</title>
 </head>
 
 <body bgcolor="#FFFFFF">
@@ -17,11 +16,13 @@
     <td colspan="3"> <hr /></td>
   </tr>
   <tr> 
-    <td colspan="3"> <div align="center"><strong><font size="4">Access session details:</font></strong> 
+    <td colspan="3"> <div align="center"><strong><font size="4">Lookup access session:</font></strong> 
       </div></td>
   </tr>
   <tr> 
     <td colspan="3"> 
+		<form action="../adm" method="post">
+		<input type="hidden" name="action" value="LOOKUP_ACCESS_SESSION"/>
 		<table width="784" cellpadding="4" cellspacing="0">
         <tr bgcolor="#CCCCCC"> 
           <td width="198"> 
@@ -30,29 +31,37 @@
           <td width="568"> 
             <div align="center"><strong>Attribute value </strong></div></td>
 
-			</tr>
-			<%
-				AccessSessionInfo info = (AccessSessionInfo)session.getAttribute("ACCESS_SESSION_INFO");
-			%>	
+			</tr>	
 			<tr>
 				<td>Session id</td>
-				<td><%= info.getSessionId() %></td>
-			</tr>
-			<tr bgcolor="#FFCCCC">
-				<td>Started on</td>
-				<td><%= info.getStartDateAsString() %></td>
+				<td>
+					<input name="ASID" type="text" value="" maxlength="" size="40"/>
+					<%
+						String[] ids = (String[])session.getAttribute("ACCESS_SESSION_ID_ARRAY");
+						if (ids != null && ids.length != 0) {		
+					%>					
+					&nbsp;&nbsp;or&nbsp;&nbsp;
+					<select name="ASID2">
+					<%
+						for (int i = 0; i < ids.length; i++) {
+					%>
+						<option value="<%= ids[i] %>"><%= ids[i] %></option>
+					<%
+						}
+					%>
+					</select>
+					<%
+						}
+					%>	
+				</td>
 			</tr>
 			<tr>
-				<td>Started by</td>
-				<td><%= info.getUserId() %></td>
-			</tr>
-			<tr>
-				
           <td colspan="2"> <div align="center">
-              <input name="remove" type="submit" value="REMOVE THIS SESSION"/>
+              <input name="lookup" type="submit" value="LOOKUP"/>
             </div></td>
 			</tr>
 		</table>
+		</form>
 	</td>
   </tr>
   <tr> 
@@ -60,7 +69,7 @@
   </tr>
   <tr> 
   	<td width="73" bgcolor="#99CCFF"><font size="2">(C) 2005</font></td>
-    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../adm?action=logout"><font size="2">logout</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../adm?action=mainmenu"><font size="2">menu</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../adm?action=LIST_ACCESS_SESSIONS"><font size="2">refresh list</font></a></div></td>
+    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../adm?action=logout"><font size="2">logout</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../adm?action=mainmenu"><font size="2">menu</font></a></div></td>
     <td width="208" bgcolor="#99CCFF"><div align="right"><a href="mailto:webmaster@emayor.org"><font size="2">webmaster</font></a></div></td>
   </tr>
 </table>

@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.kernel;
 
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
 
 import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
@@ -155,7 +156,7 @@ public interface IKernel {
      * @throws KernelException
      */
     public IUserProfile[] listUserProfiles() throws KernelException;
-    
+
     /**
      * 
      * @return
@@ -179,6 +180,15 @@ public interface IKernel {
      * @throws KernelException
      */
     public IServiceProfile getServiceProfile(String ssid)
+            throws KernelException;
+
+    /**
+     * 
+     * @param serviceId
+     * @return
+     * @throws KernelException
+     */
+    public IServiceProfile getServiceProfileByServiceId(String serviceId)
             throws KernelException;
 
     /**
@@ -213,4 +223,33 @@ public interface IKernel {
      * @throws KernelException
      */
     public void reloadDeployedServices() throws KernelException;
+
+    /**
+     * 
+     * @param serviceId
+     * @return
+     * @throws KernelException
+     */
+    public String getNumberOfInstances(String serviceId) throws KernelException;
+
+    /**
+     * 
+     * @throws KernelException
+     */
+    public void resetNumberOfInstances() throws KernelException;
+
+    /**
+     * 
+     * @param serviceId
+     * @throws KernelException
+     */
+    public void resetNumberOfInstances(String serviceId) throws KernelException;
+
+    /**
+     * 
+     * @return
+     * @throws KernelException
+     */
+    public HashMap getNumberOfInstancesMap() throws KernelException;
+
 }

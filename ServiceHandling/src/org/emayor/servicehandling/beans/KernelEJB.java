@@ -5,6 +5,7 @@ package org.emayor.servicehandling.beans;
 
 import java.rmi.RemoteException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
@@ -238,6 +239,18 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
+    public IServiceProfile getServiceProfileByServiceId(String serviceId)
+            throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.getServiceProfileByServiceId(serviceId);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
     public String authenticateUser(String asid, X509Certificate[] certificates)
             throws KernelException {
         log.debug("-> start processing ...");
@@ -358,4 +371,47 @@ public class KernelEJB implements SessionBean, IKernel {
         return this.kernel.listLoggedInUsers();
     }
 
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public String getNumberOfInstances(String serviceId) throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.getNumberOfInstances(serviceId);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public HashMap getNumberOfInstancesMap() throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.getNumberOfInstancesMap();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void resetNumberOfInstances() throws KernelException {
+        log.debug("-> start processing ...");
+        this.kernel.resetNumberOfInstances();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void resetNumberOfInstances(String serviceId) throws KernelException {
+        log.debug("-> start processing ...");
+        this.kernel.resetNumberOfInstances(serviceId);
+    }
 }

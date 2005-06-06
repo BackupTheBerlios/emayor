@@ -59,6 +59,7 @@ public class AdminListAllKnownUsersProcessor extends AbstractRequestProcessor {
                 ret = "admin/ErrorPage.jsp";
             }
         }
+        log.debug("-> ... processing DONE!");
         return ret;
     }
 

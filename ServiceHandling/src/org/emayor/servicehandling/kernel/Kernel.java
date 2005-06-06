@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -273,7 +274,8 @@ public class Kernel implements IKernel {
         try {
             ret = this.repository.listServicesInfo();
         } catch (KernelRepositoryException ex) {
-
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't get the service info data!");
         }
         log.debug("-> ... processing DONE!");
         return ret;
@@ -463,10 +465,32 @@ public class Kernel implements IKernel {
             throws KernelException {
         log.debug("-> start processing ...");
         IServiceProfile ret = null;
+        String serviceId = null;
         try {
             log.debug("get the service session");
             ServiceSessionLocal serviceSession = this.getServiceSession(ssid);
-            String serviceId = serviceSession.getServiceId();
+            serviceId = serviceSession.getServiceId();
+            if (log.isDebugEnabled())
+                log.debug("got the service id = " + serviceId);
+            ret = this.getServiceProfileByServiceId(serviceId);
+        } catch (ServiceSessionException ssex) {
+            log.error("caught ex: " + ssex.toString());
+            throw new KernelException("couldn't obtain the service profile");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#getServiceProfileByServiceId(java.lang.String)
+     */
+    public synchronized IServiceProfile getServiceProfileByServiceId(
+            String serviceId) throws KernelException {
+        log.debug("-> start processing ...");
+        IServiceProfile ret = null;
+        try {
             if (log.isDebugEnabled())
                 log.debug("got the service id = " + serviceId);
             log.debug("get the service info from repository");
@@ -478,9 +502,6 @@ public class Kernel implements IKernel {
             ret = new ServiceProfile();
             ret.setServiceInfo(serviceInfo);
             ret.setPEServiceProfile(serviceProfile);
-        } catch (ServiceSessionException ssex) {
-            log.error("caught ex: " + ssex.toString());
-            throw new KernelException("couldn't obtain the service profile");
         } catch (KernelRepositoryException krex) {
             log.error("caught ex: " + krex.toString());
             throw new KernelException("couldn't obtain the service profile");
@@ -880,5 +901,71 @@ public class Kernel implements IKernel {
         }
         log.debug("-> ... processing DONE!");
         return ret;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#getNumberOfInstances(java.lang.String)
+     */
+    public String getNumberOfInstances(String serviceId) throws KernelException {
+        log.debug("-> start processing ...");
+        String ret = "0";
+        try {
+            ret = this.repository.getNumberOfServiceInstances(serviceId);
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException();
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#getNumberOfInstancesMap()
+     */
+    public HashMap getNumberOfInstancesMap() throws KernelException {
+        log.debug("-> start processing ...");
+        HashMap ret = new HashMap();
+        try {
+            ret = this.repository.getNumberOfServiceInstancesMap();
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException();
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#restNumberOfInstances()
+     */
+    public void resetNumberOfInstances() throws KernelException {
+        log.debug("-> start processing ...");
+        try {
+            this.repository.resetNumberOfServiceInstances();
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#resetNumberOfInstances(java.lang.String)
+     */
+    public void resetNumberOfInstances(String serviceId) throws KernelException {
+        log.debug("-> start processing ...");
+        try {
+            this.repository.resetNumberOfServiceInstances(serviceId);
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException();
+        }
     }
 }

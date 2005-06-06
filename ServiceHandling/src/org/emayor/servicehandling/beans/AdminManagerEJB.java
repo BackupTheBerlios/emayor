@@ -19,6 +19,7 @@ import org.emayor.servicehandling.kernel.AccessSessionInfo;
 import org.emayor.servicehandling.kernel.AdminException;
 import org.emayor.servicehandling.kernel.AdminServiceProfileData;
 import org.emayor.servicehandling.kernel.IAdmin;
+import org.emayor.servicehandling.kernel.IServiceProfile;
 import org.emayor.servicehandling.kernel.IUserProfile;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
@@ -433,8 +434,26 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      */
     public AdminServiceProfileData lookupServiceProfile(String serviceId)
             throws AdminException {
-        // TODO Auto-generated method stub
-        return null;
+        log.debug("-> start processing ...");
+        AdminServiceProfileData ret = new AdminServiceProfileData();
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            log.debug("get the ref to the kernel");
+            KernelLocal kernel = locator.getKernelLocal();
+            IServiceProfile profile = kernel
+                    .getServiceProfileByServiceId(serviceId);
+            ret = new AdminServiceProfileData(profile.getServiceInfo());
+            //ret.setNumberOfInstances(kernel.)
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't connect to the kernel!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException(
+                    "Couldn't get the service data from the kernel!");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
     }
 
 }
