@@ -274,7 +274,7 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
 			throw new AdminException(
 					"Couldn't get the profile data from kernel!");
 		}
-		return null;
+		return ret;
 	}
 
 	/**

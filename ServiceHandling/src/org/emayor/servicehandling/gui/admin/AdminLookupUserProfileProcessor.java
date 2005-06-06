@@ -65,8 +65,9 @@ public class AdminLookupUserProfileProcessor extends AbstractRequestProcessor {
 							log.debug("got the user profile with id = "
 									+ info.getUserId());
 						session.setAttribute("USER_PROFILE_INFO", info);
-						ret = "admin/UserProfileInfo.jsp.jsp";
+						ret = "admin/UserProfileInfo.jsp";
 					} else {
+						log.debug("the info was null -> UNKNOWN user id");
 						AdminErrorPageData data = new AdminErrorPageData();
 						data
 								.setPageTitle("Couldn't find the user profile with given id: <<"
