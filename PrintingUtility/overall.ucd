@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="default diagram" size="3067,3182" id="." metadata="nsuml-1.4" initialized="true" scrolledX="927" scrolledY="295" tag="200" key="3230303431313235205072696E74696E675574696C697479">
+  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.ServiceHandling.PrintingUtility.interfaces" location="30,50" size="387,216" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces">
+    <children xsi:type="editmodel:InterfaceEditModel" name="PrinterHome" location="206,50" size="144,117" stereotype="interface" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/PrinterHome" runTimeClassModel="COMP_NAME,create(),JNDI_NAME">
+      <children xsi:type="editmodel:CompartmentEditModel" size="121,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="COMP_NAME" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/PrinterHome#COMP_NAME"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="JNDI_NAME" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/PrinterHome#JNDI_NAME"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="62,18">
+        <children xsi:type="editmodel:MethodEditModel" name="create" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/PrinterHome#create()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/PrinterHome->org.eMayor.ServiceHandling.PrintingUtility.interfaces/Printer" source="//@children.0/@children.0" target="//@children.0/@children.1" targetEnd="//@children.0/@children.0/@sourceConnections.0/@children.2" label="//@children.0/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,40" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="86,40"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.0/@children.0/@sourceConnections.0" name="Printer" location="50,50" size="86,81" stereotype="interface" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/Printer" runTimeClassModel="print(Ljava.lang.String;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="52,18">
+        <children xsi:type="editmodel:MethodEditModel" name="print" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/Printer#print(Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.ServiceHandling.PrintingUtility.ejb" location="434,0" size="871,1011" id="org.eMayor.ServiceHandling.PrintingUtility.ejb">
+    <children xsi:type="editmodel:ClassEditModel" name="PrinterBean" location="38,806" size="145,175" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean" runTimeClassModel="ejbCreate(),ejbPassivate(),print(Ljava.lang.String;Ljava.lang.String;),ejbRemove(),ejbActivate(),setSessionContext(Ljavax.ejb.SessionContext;),PrinterBean()">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="122,126">
+        <children xsi:type="editmodel:MethodEditModel" name="PrinterBean" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean#PrinterBean()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbActivate" location="13,61" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean#ejbActivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbCreate" location="6,76" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean#ejbCreate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbPassivate" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean#ejbPassivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbRemove" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean#ejbRemove()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="print" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean#print(Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setSessionContext" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean#setSessionContext(Ljavax.ejb.SessionContext;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean->org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility" source="//@children.1/@children.0" target="//@children.1/@children.3" targetEnd="//@children.1/@children.0/@sourceConnections.0/@children.2" label="//@children.1/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="145,87" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,838"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.3/@sourceConnections.3" name="PrintServiceJobListener" location="24,82" size="195,229" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener" runTimeClassModel="getSpje(),printJobCompleted(Ljavax.print.event.PrintJobEvent;),printJobNoMoreEvents(Ljavax.print.event.PrintJobEvent;),spje,setype,getSetype(),printDataTransferCompleted(Ljavax.print.event.PrintJobEvent;),printJobFailed(Ljavax.print.event.PrintJobEvent;),printJobRequiresAttention(Ljavax.print.event.PrintJobEvent;),printJobCanceled(Ljavax.print.event.PrintJobEvent;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="114,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="setype" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#setype"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="spje" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#spje"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="166,144">
+        <children xsi:type="editmodel:MethodEditModel" name="getSetype" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#getSetype()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getSpje" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#getSpje()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printDataTransferCompleted" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#printDataTransferCompleted(Ljavax.print.event.PrintJobEvent;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printJobCanceled" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#printJobCanceled(Ljavax.print.event.PrintJobEvent;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printJobCompleted" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#printJobCompleted(Ljavax.print.event.PrintJobEvent;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printJobFailed" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#printJobFailed(Ljavax.print.event.PrintJobEvent;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printJobNoMoreEvents" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#printJobNoMoreEvents(Ljavax.print.event.PrintJobEvent;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printJobRequiresAttention" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener#printJobRequiresAttention(Ljavax.print.event.PrintJobEvent;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.3/@sourceConnections.2" name="PrintAttributeListener" location="20,394" size="178,67" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintAttributeListener" runTimeClassModel="attributeUpdate(Ljavax.print.event.PrintServiceAttributeEvent;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="104,18">
+        <children xsi:type="editmodel:MethodEditModel" name="attributeUpdate" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintAttributeListener#attributeUpdate(Ljavax.print.event.PrintServiceAttributeEvent;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.0" name="PrintingUtility" location="294,55" size="254,949" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility" runTimeClassModel="unitsName,units,compromised,leftMargin,copies,preview,addPrintAListener([LPrintService;),props,jobname,orientation,getPrintServices(),deriveMediaPrintableArea(),PrintRequestAttributeSet2DocAttributeSet(Ljavax.print.attribute.PrintRequestAttributeSet;),setDocFlavor(),renderable_image,filetypestr,jobsheets,createDocPrintJob(Ljavax.print.PrintService;),createFinalDoc(Ljava.io.InputStream;),rightMargin,printHtmlJob(),topMargin,bottomMargin,pageable,print(),chromaticity,fin,setRequest(),url,getDefaultPrintService(),useServiceFormat,destination,addPrintJListener(Ljavax.print.DocPrintJob;),compromiseAttribute(I),mediasize,printable,media,useDialog,setDocProperies(Ljava.io.InputStream;),sides,addPrintAListener(Ljavax.print.PrintService;),filename,isSupportedFileType(Ljava.lang.String;),getAvailablePrintServices(),paging,PrintingUtility(Ljava.lang.String;Ljava.io.InputStream;Ljava.lang.String;),printJob(Ljavax.print.DocPrintJob;Ljavax.print.Doc;),is,fidelity,_propsIS">
+      <children xsi:type="editmodel:CompartmentEditModel" size="155,558">
+        <children xsi:type="editmodel:AttributeEditModel" name="_propsIS" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#_propsIS"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="bottomMargin" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#bottomMargin"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="chromaticity" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#chromaticity"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="compromised" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#compromised"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="copies" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#copies"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="destination" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#destination"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="fidelity" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#fidelity"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="filename" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#filename"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="filetypestr" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#filetypestr"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="fin" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#fin"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="is" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#is"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="jobname" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#jobname"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="jobsheets" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#jobsheets"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="leftMargin" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#leftMargin"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="media" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#media"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="mediasize" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#mediasize"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="orientation" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#orientation"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="pageable" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#pageable"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="paging" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#paging"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="preview" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#preview"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="printable" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#printable"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="props" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#props"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="renderable_image" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#renderable_image"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="rightMargin" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#rightMargin"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="sides" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#sides"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="topMargin" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#topMargin"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="units" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#units"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="unitsName" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#unitsName"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="url" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#url"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="useDialog" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#useDialog"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="useServiceFormat" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#useServiceFormat"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="231,342">
+        <children xsi:type="editmodel:MethodEditModel" name="PrintRequestAttributeSet2DocAttributeSet" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#PrintRequestAttributeSet2DocAttributeSet(Ljavax.print.attribute.PrintRequestAttributeSet;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="PrintingUtility" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#PrintingUtility(Ljava.lang.String;Ljava.io.InputStream;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addPrintAListener" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#addPrintAListener([LPrintService;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addPrintAListener" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#addPrintAListener(Ljavax.print.PrintService;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addPrintJListener" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#addPrintJListener(Ljavax.print.DocPrintJob;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="compromiseAttribute" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#compromiseAttribute(I)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="createDocPrintJob" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#createDocPrintJob(Ljavax.print.PrintService;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="createFinalDoc" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#createFinalDoc(Ljava.io.InputStream;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="deriveMediaPrintableArea" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#deriveMediaPrintableArea()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getAvailablePrintServices" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#getAvailablePrintServices()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getDefaultPrintService" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#getDefaultPrintService()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getPrintServices" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#getPrintServices()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="isSupportedFileType" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#isSupportedFileType(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="print" location="18,833" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#print()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printHtmlJob" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#printHtmlJob()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printJob" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#printJob(Ljavax.print.DocPrintJob;Ljavax.print.Doc;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setDocFlavor" location="20,890" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#setDocFlavor()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setDocProperies" location="16,909" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#setDocProperies(Ljava.io.InputStream;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setRequest" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility#setRequest()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility->org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter" source="//@children.1/@children.3" target="//@children.1/@children.6" targetEnd="//@children.1/@children.3/@sourceConnections.0/@children.2" label="//@children.1/@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="254,325" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,335"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility->org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit" source="//@children.1/@children.3" target="//@children.1/@children.4" targetEnd="//@children.1/@children.3/@sourceConnections.1/@children.2" label="//@children.1/@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.1/@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,581" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="192,135"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility->org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintAttributeListener" source="//@children.1/@children.3" target="//@children.1/@children.2" targetEnd="//@children.1/@children.3/@sourceConnections.2/@children.2" label="//@children.1/@children.3/@sourceConnections.2/@children.0" sourceEnd="//@children.1/@children.3/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,372" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="178,33"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintingUtility->org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintServiceJobListener" source="//@children.1/@children.3" target="//@children.1/@children.1" targetEnd="//@children.1/@children.3/@sourceConnections.3/@children.2" label="//@children.1/@children.3/@sourceConnections.3/@children.0" sourceEnd="//@children.1/@children.3/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,141" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="195,114"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.3/@sourceConnections.1" name="PrinterHTMLEditorKit" location="20,501" size="192,272" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit" runTimeClassModel="PrinterHTMLEditorKit(Ljava.lang.String;Ljava.awt.Component;),createDefaultDocument(),org.eMayor.ServiceHandling.PrintingUtility.ejb.PrinterHTMLEditorKit.PrinterHTMLFactory,url,comp,getViewFactory()">
+      <children xsi:type="editmodel:CompartmentEditModel" size="109,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="comp" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit#comp"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="url" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit#url"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="144,54">
+        <children xsi:type="editmodel:MethodEditModel" name="PrinterHTMLEditorKit" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit#PrinterHTMLEditorKit(Ljava.lang.String;Ljava.awt.Component;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="createDefaultDocument" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit#createDefaultDocument()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getViewFactory" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit#getViewFactory()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="169,123">
+        <children xsi:type="editmodel:ClassEditModel" name="PrinterHTMLFactory" size="169,121" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit$PrinterHTMLFactory" runTimeClassModel="PrinterHTMLFactory(Ljava.lang.String;Ljava.awt.Component;),create(Ljavax.swing.text.Element;),url,comp">
+          <children xsi:type="editmodel:CompartmentEditModel" size="109,36">
+            <children xsi:type="editmodel:AttributeEditModel" name="comp" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit$PrinterHTMLFactory#comp"/>
+            <children xsi:type="editmodel:AttributeEditModel" name="url" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit$PrinterHTMLFactory#url"/>
+          </children>
+          <children xsi:type="editmodel:CompartmentEditModel" size="126,36">
+            <children xsi:type="editmodel:MethodEditModel" name="PrinterHTMLFactory" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit$PrinterHTMLFactory#PrinterHTMLFactory(Ljava.lang.String;Ljava.awt.Component;)"/>
+            <children xsi:type="editmodel:MethodEditModel" name="create" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterHTMLEditorKit$PrinterHTMLFactory#create(Ljavax.swing.text.Element;)"/>
+          </children>
+          <children xsi:type="editmodel:CompartmentEditModel"/>
+          <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+        </children>
+      </children>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.6/@sourceConnections.0" name="PrintPreviewDialog" location="607,751" size="166,193" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog" runTimeClassModel="getPrintPreviewDialog(),show(),show(Lorg.eMayor.ServiceHandling.PrintingUtility.ejb.PrintPreviewDialog;),PrintPreviewDialog(Ljavax.swing.JEditorPane;II),y,actionPerformed(Ljava.awt.event.ActionEvent;),x,printConfirmed">
+      <children xsi:type="editmodel:CompartmentEditModel" size="137,54">
+        <children xsi:type="editmodel:AttributeEditModel" name="printConfirmed" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#printConfirmed"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="x" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#x"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="y" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#y"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="136,90">
+        <children xsi:type="editmodel:MethodEditModel" name="PrintPreviewDialog" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#PrintPreviewDialog(Ljavax.swing.JEditorPane;II)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="actionPerformed" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#actionPerformed(Ljava.awt.event.ActionEvent;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getPrintPreviewDialog" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#getPrintPreviewDialog()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="show" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#show()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="show" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog#show(Lorg.eMayor.ServiceHandling.PrintingUtility.ejb.PrintPreviewDialog;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.3/@sourceConnections.0" name="HTMLPrinter" location="610,45" size="228,661" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter" runTimeClassModel="printDocument(Ljavax.print.Doc;Ljavax.print.PrintService;),addPrintJobListener(Ljavax.print.event.PrintJobListener;),preview(II),jobsheets,showPrintDialog(Ljavax.print.attribute.PrintRequestAttributeSet;),units,gc,printEditorPane(Z),setPrintDialogLocation(II),chromaticity,copies,printJEditorPane(Ljavax.print.PrintService;),preview,removePrintServiceAttributeListener(Ljavax.print.event.PrintServiceAttributeListener;),DEFAULT_DPI,HTMLPrinter(Ljavax.swing.JEditorPane;Ljavax.print.attribute.PrintRequestAttributeSet;Ljavax.print.PrintService;[LPrintService;IZ),destination,addPrintServiceAttributeListener(Ljavax.print.event.PrintServiceAttributeListener;),mediasize,pjalListeners,jobname,media,orientation,sides,filename,bufferedImagetoByteArray(Ljava.awt.image.BufferedImage;),DEFAULT_PAGE_WIDTH_INCH,paging,DEFAULT_PAGE_HEIGHT_INCH,y,removePrintJobListener(Ljavax.print.event.PrintJobListener;),fidelity,x,filetypestr">
+      <children xsi:type="editmodel:CompartmentEditModel" size="201,396">
+        <children xsi:type="editmodel:AttributeEditModel" name="DEFAULT_DPI" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#DEFAULT_DPI"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="DEFAULT_PAGE_HEIGHT_INCH" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#DEFAULT_PAGE_HEIGHT_INCH"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="DEFAULT_PAGE_WIDTH_INCH" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#DEFAULT_PAGE_WIDTH_INCH"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="chromaticity" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#chromaticity"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="copies" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#copies"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="destination" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#destination"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="fidelity" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#fidelity"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="filename" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#filename"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="filetypestr" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#filetypestr"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="gc" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#gc"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="jobname" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#jobname"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="jobsheets" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#jobsheets"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="media" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#media"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="mediasize" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#mediasize"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="orientation" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#orientation"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="paging" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#paging"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="pjalListeners" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#pjalListeners"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="preview" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#preview"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="sides" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#sides"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="units" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#units"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="x" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#x"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="y" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#y"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="205,216">
+        <children xsi:type="editmodel:MethodEditModel" name="HTMLPrinter" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#HTMLPrinter(Ljavax.swing.JEditorPane;Ljavax.print.attribute.PrintRequestAttributeSet;Ljavax.print.PrintService;[LPrintService;IZ)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addPrintJobListener" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#addPrintJobListener(Ljavax.print.event.PrintJobListener;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addPrintServiceAttributeListener" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#addPrintServiceAttributeListener(Ljavax.print.event.PrintServiceAttributeListener;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="bufferedImagetoByteArray" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#bufferedImagetoByteArray(Ljava.awt.image.BufferedImage;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="preview" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#preview(II)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printDocument" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#printDocument(Ljavax.print.Doc;Ljavax.print.PrintService;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printEditorPane" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#printEditorPane(Z)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="printJEditorPane" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#printJEditorPane(Ljavax.print.PrintService;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="removePrintJobListener" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#removePrintJobListener(Ljavax.print.event.PrintJobListener;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="removePrintServiceAttributeListener" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#removePrintServiceAttributeListener(Ljavax.print.event.PrintServiceAttributeListener;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setPrintDialogLocation" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#setPrintDialogLocation(II)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="showPrintDialog" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter#showPrintDialog(Ljavax.print.attribute.PrintRequestAttributeSet;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/HTMLPrinter->org.eMayor.ServiceHandling.PrintingUtility.ejb/PrintPreviewDialog" source="//@children.1/@children.6" target="//@children.1/@children.5" targetEnd="//@children.1/@children.6/@sourceConnections.0/@children.2" label="//@children.1/@children.6/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.6/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="81,661" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="84,0"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb->javax.print" source="//@children.1" target="//@children.2" targetEnd="//@children.1/@sourceConnections.0/@children.2" label="//@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«access, use»" size="73,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="871,250" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,40"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb->javax.imageio.stream" source="//@children.1" target="//@children.3" targetEnd="//@children.1/@sourceConnections.1/@children.2" label="//@children.1/@sourceConnections.1/@children.0" sourceEnd="//@children.1/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="871,116" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,66"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb->javax.print.event" source="//@children.1" target="//@children.4" targetEnd="//@children.1/@sourceConnections.2/@children.2" label="//@children.1/@sourceConnections.2/@children.0" sourceEnd="//@children.1/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="871,374" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,54"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb->javax.imageio" source="//@children.1" target="//@children.5" targetEnd="//@children.1/@sourceConnections.3/@children.2" label="//@children.1/@sourceConnections.3/@children.0" sourceEnd="//@children.1/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use, access»" size="73,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="871,519" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,49"/>
+    </sourceConnections>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.0" name="javax.print" location="1365,210" size="108,81" id="javax.print">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.1" name="javax.imageio.stream" location="1330,50" size="178,133" id="javax.imageio.stream">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.2" name="javax.print.event" location="1359,320" size="147,110" id="javax.print.event">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.3" name="javax.imageio" location="1377,470" size="131,98" id="javax.imageio">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=4"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="10,10" gridOrigin="0,0" rulerUnit="pixel">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

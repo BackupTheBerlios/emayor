@@ -86,19 +86,70 @@ public class PrintingUtility {
     Properties props = new Properties();
     //String propsFile;
     InputStream _propsIS;
-    String compromised[] = new String[10];
-    PrintRequestAttributeSet aset;
-    PrintService[] services;
-    PrintService service;
-    DocFlavor myFlavor;
+
+	/**
+	 * 
+	 * @uml.property name="compromised" 
+	 */
+	String compromised[] = new String[10];
+
+	/**
+	 * 
+	 * @uml.property name="aset"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	PrintRequestAttributeSet aset;
+
+	/**
+	 * 
+	 * @uml.property name="services"
+	 * @uml.associationEnd multiplicity="(0 -1)"
+	 */
+	PrintService[] services;
+
+	/**
+	 * 
+	 * @uml.property name="service"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	PrintService service;
+
+	/**
+	 * 
+	 * @uml.property name="myFlavor"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	DocFlavor myFlavor;
+
     InputStream is;
     String url;
     FileInputStream fin;
-    Doc myDoc;
+
+	/**
+	 * 
+	 * @uml.property name="myDoc"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	Doc myDoc;
+
     boolean useDialog = false;
-    JEditorPane jep = null;
+
+	/**
+	 * 
+	 * @uml.property name="jep"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	JEditorPane jep = null;
+
     boolean paging = false;
-    DocAttributeSet das;
+
+	/**
+	 * 
+	 * @uml.property name="das"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	DocAttributeSet das;
+
     boolean preview = false;
     //PrintPreviewDialog previewDialog;
     
@@ -811,22 +862,28 @@ public class PrintingUtility {
             aset.remove(newattr[i]);
         }
     }
-    
-    /**
-     * Returns the names of compromised attributes
-     * @return	A String array containing the categories (class names) of the compromised attributes
-     */
-    public String[] getCompromised() {
-        if (compromised != null ) 	{
-            return compromised;
-        } else return null;
-    }
-    
-    /**
-     * Returns the discovered Print Services
-     * @return The discovered Print Services
-     */
-    public PrintService[] getServices() {
-        return services;
-    }
+
+	/**
+	 * Returns the names of compromised attributes
+	 * @return	A String array containing the categories (class names) of the compromised attributes
+	 * 
+	 * @uml.property name="compromised"
+	 */
+	public String[] getCompromised() {
+		if (compromised != null) {
+			return compromised;
+		} else
+			return null;
+	}
+
+	/**
+	 * Returns the discovered Print Services
+	 * @return The discovered Print Services
+	 * 
+	 * @uml.property name="services"
+	 */
+	public PrintService[] getServices() {
+		return services;
+	}
+
 }

@@ -53,17 +53,67 @@ public class HTMLPrinter {
     int x = 100;
     int y = 80;
     GraphicsConfiguration gc;
-    PrintService[] services;
-    PrintService defaultService;
-    DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
-    PrintRequestAttributeSet attributes;
-    Vector pjlListeners = new Vector();
+
+	/**
+	 * 
+	 * @uml.property name="services"
+	 * @uml.associationEnd multiplicity="(0 -1)"
+	 */
+	PrintService[] services;
+
+	/**
+	 * 
+	 * @uml.property name="defaultService"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	PrintService defaultService;
+
+	/**
+	 * 
+	 * @uml.property name="flavor"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
+
+	/**
+	 * 
+	 * @uml.property name="attributes"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	PrintRequestAttributeSet attributes;
+
+	/**
+	 * 
+	 * @uml.property name="pjlListeners"
+	 * @uml.associationEnd multiplicity="(0 -1)" elementType="javax.print.event.PrintJobListener"
+	 */
+	Vector pjlListeners = new Vector();
+
     Vector pjalListeners = new Vector();
-    Vector psalListeners = new Vector();
-    JEditorPane jep;
+
+	/**
+	 * 
+	 * @uml.property name="psalListeners"
+	 * @uml.associationEnd multiplicity="(0 -1)" elementType="javax.print.event.PrintServiceAttributeListener"
+	 */
+	Vector psalListeners = new Vector();
+
+	/**
+	 * 
+	 * @uml.property name="jep"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	JEditorPane jep;
+
     int units;
     boolean paging;
-    boolean preview;
+
+	/**
+	 * 
+	 * @uml.property name="preview" 
+	 */
+	boolean preview;
+
     String chromaticity = "Monochrome";
     String copies = "1";
     String destination = "/file.out";
@@ -76,7 +126,14 @@ public class HTMLPrinter {
     String orientation = "landscape";
     String sides = "duplex";
     String mediasize = "A4";
-    PrintPreviewDialog previewDialog;
+
+	/**
+	 * 
+	 * @uml.property name="previewDialog"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	PrintPreviewDialog previewDialog;
+
     
     
     /** Creates a new instance of HTMLPrinter
@@ -128,20 +185,27 @@ public class HTMLPrinter {
         }
         jep.setEditable(false);
     }
-    
-    /** Sets whether a print preview window will appear or not
-     *  @param prv true or false for print previewing
-     */
-    public void setPreview(boolean prv) {
-        preview = prv;
-    }
-    
-    /** Sets the PrintRequestAttributeSet that defines the printing parameters
-     *  @param attribs The PrintRequestAttributeSet that defines the printing parameters
-     */
-    public void setPrintRequestAttributes(PrintRequestAttributeSet attribs) {
-        attributes = attribs;
-    }
+
+	/**
+	 * Sets whether a print preview window will appear or not
+	 *  @param prv true or false for print previewing
+	 * 
+	 * @uml.property name="preview"
+	 */
+	public void setPreview(boolean prv) {
+		preview = prv;
+	}
+
+	/**
+	 * Sets the PrintRequestAttributeSet that defines the printing parameters
+	 *  @param attribs The PrintRequestAttributeSet that defines the printing parameters
+	 * 
+	 * @uml.property name="attributes"
+	 */
+	public void setPrintRequestAttributes(PrintRequestAttributeSet attribs) {
+		attributes = attribs;
+	}
+
     
     /** Sets the Print Dialog location (when used)
      *  @param x The print dialog's top left point position along the screen's horizontal axis
@@ -190,13 +254,17 @@ public class HTMLPrinter {
         ppd.show();
         if (!ppd.isPrintConfirmed()) throw new PrintException("Printing aborted on preview");
     }
-    
-    /** Gets the PringPreviewDialog object
-     * @return this PrintPreviewDialog object
-     */    
-    public PrintPreviewDialog getPrintPreviewDialog() {
-        return previewDialog;
-    }
+
+	/**
+	 * Gets the PringPreviewDialog object
+	 * @return this PrintPreviewDialog object
+	 * 
+	 * @uml.property name="previewDialog"
+	 */
+	public PrintPreviewDialog getPrintPreviewDialog() {
+		return previewDialog;
+	}
+
     
     /** Prints the contents of the JEditorPane using the specified Print Service <br/>
      * Calculates the number of pages (if paging is enabled) according to the printing parameters (size, orientation, etc). <br/>

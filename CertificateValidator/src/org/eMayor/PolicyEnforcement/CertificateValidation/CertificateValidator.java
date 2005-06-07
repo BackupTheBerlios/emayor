@@ -22,9 +22,21 @@ import java.security.cert.X509Certificate;
  */
 
 public class CertificateValidator {
-	
+
+	/**
+	 * 
+	 * @uml.property name="tsc"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
 	TrustedStoreConfiguration tsc = new TrustedStoreConfiguration();
+
 	private boolean checkRevocationStatus = true;
+
+	/**
+	 * 
+	 * @uml.property name="trustedStore"
+	 * @uml.associationEnd multiplicity="(0 -1)" elementType="java.lang.String"
+	 */
 	KeyStore trustedStore = null;
 
     /** CertificateValidator provides methods to check the validity of a given

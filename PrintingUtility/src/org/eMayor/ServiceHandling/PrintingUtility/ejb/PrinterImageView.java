@@ -55,13 +55,22 @@ public class PrinterImageView extends View implements ImageObserver, MouseListen
     
     // --- Attribute Values ------------------------------------------
     
-    public static final String
-            TOP = "top",
-            TEXTTOP = "texttop",
-            MIDDLE = "middle",
-            ABSMIDDLE = "absmiddle",
-            CENTER = "center",
-            BOTTOM = "bottom";
+    public static final String TOP = "top" ;
+    // --- Attribute Values ------------------------------------------
+    
+    public static final String TEXTTOP = "texttop" ;
+    // --- Attribute Values ------------------------------------------
+    
+    public static final String MIDDLE = "middle" ;
+    // --- Attribute Values ------------------------------------------
+    
+    public static final String ABSMIDDLE = "absmiddle" ;
+    // --- Attribute Values ------------------------------------------
+    
+    public static final String CENTER = "center" ;
+    // --- Attribute Values ------------------------------------------
+    
+    public static final String BOTTOM = "bottom" ;
     public String url = null;
     public Component comp = null;
     
@@ -94,102 +103,115 @@ public class PrinterImageView extends View implements ImageObserver, MouseListen
         StyleSheet sheet = getStyleSheet();
         attr = sheet.getViewAttributes(this);
     }
-    
-    
-    /**
-     * Handles image loading (ensures completeness) and processes relative image paths by calling the <a href="#processSrcPath(java.lang.String)">processSrcPath</a> method
-     *
-     * @param elem the element to create a view for
-     */
-    private void initialize( Element elem ) {
-        synchronized(this) {
-            loading = true;
-            fWidth = fHeight = 0;
-        }
-        int width = 0;
-        int height = 0;
-        boolean customWidth = false;
-        boolean customHeight = false;
-        try {
-            fElement = elem;
-            // Request image from document's cache:
-            AttributeSet attr = elem.getAttributes();
-            if (isURL()) {
-                URL src = getSourceURL();
-                if( src != null ) {
-                    Dictionary cache = (Dictionary) getDocument().getProperty(IMAGE_CACHE_PROPERTY);
-                    if( cache != null )
-                        fImage = (Image) cache.get(src);
-                    else
-                        fImage = Toolkit.getDefaultToolkit().getImage(src);
-                }
-            } else {
-                
-                /******** Code to load from relative path *************/
-                String src =
-                        (String) fElement.getAttributes().getAttribute
-                        (HTML.Attribute.SRC);
-                src = processSrcPath(src);
-                
-                byte[] buf = null;
-                URL url1 = null;
-                try {
-                    url1 = new URL(src);
-                } catch (MalformedURLException mue) {
-                    mue.printStackTrace();
-                }
-                try {
-                    InputStream imgIs = url1.openStream();
-                    java.io.DataInputStream dis = new java.io.DataInputStream(imgIs);
-                    buf = new byte[imgIs.available()];
-                    dis.readFully(buf);
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                } catch (NullPointerException npe) {
-                    npe.printStackTrace();
-                }
-                fImage = Toolkit.getDefaultToolkit().createImage(buf);
-                
-                try { waitForImage(); } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    fImage = null;
-                }
-            }
-            
-            // Get height/width from params or image or defaults:
-            height = getIntAttr(HTML.Attribute.HEIGHT,-1);
-            customHeight = (height>0);
-            if( !customHeight && fImage != null )
-                height = fImage.getHeight(this);
-            if( height <= 0 )
-                height = DEFAULT_HEIGHT;
-            
-            width = getIntAttr(HTML.Attribute.WIDTH,-1);
-            customWidth = (width>0);
-            if( !customWidth && fImage != null )
-                width = fImage.getWidth(this);
-            if( width <= 0 )
-                width = DEFAULT_WIDTH;
-            
-            // Make sure the image starts loading:
-            if( fImage != null )
-                if( customWidth && customHeight )
-                    Toolkit.getDefaultToolkit().prepareImage(fImage,height, width,this);
-                else
-                    Toolkit.getDefaultToolkit().prepareImage(fImage,-1,-1, this);
-            
-        } finally {
-            synchronized(this) {
-                loading = false;
-                if (customWidth || fWidth == 0) {
-                    fWidth = width;
-                }
-                if (customHeight || fHeight == 0) {
-                    fHeight = height;
-                }
-            }
-        }
-    }
+
+	/**
+	 * Handles image loading (ensures completeness) and processes relative image paths by calling the <a href="#processSrcPath(java.lang.String)">processSrcPath</a> method
+	 * 
+	 * @param elem the element to create a view for
+	 * 
+	 * @uml.property name="fElement"
+	 */
+	private void initialize(Element elem) {
+		synchronized (this) {
+			loading = true;
+			fWidth = fHeight = 0;
+		}
+		int width = 0;
+		int height = 0;
+		boolean customWidth = false;
+		boolean customHeight = false;
+		try {
+			fElement = elem;
+			// Request image from document's cache:
+			AttributeSet attr = elem.getAttributes();
+			if (isURL()) {
+				URL src = getSourceURL();
+				if (src != null) {
+					Dictionary cache = (Dictionary) getDocument().getProperty(
+						IMAGE_CACHE_PROPERTY);
+					if (cache != null)
+						fImage = (Image) cache.get(src);
+					else
+						fImage = Toolkit.getDefaultToolkit().getImage(src);
+				}
+			} else {
+
+				/******** Code to load from relative path *************/
+				String src = (String) fElement.getAttributes().getAttribute(
+					HTML.Attribute.SRC);
+				src = processSrcPath(src);
+
+				byte[] buf = null;
+				URL url1 = null;
+				try {
+					url1 = new URL(src);
+				} catch (MalformedURLException mue) {
+					mue.printStackTrace();
+				}
+				try {
+					InputStream imgIs = url1.openStream();
+					java.io.DataInputStream dis = new java.io.DataInputStream(
+						imgIs);
+					buf = new byte[imgIs.available()];
+					dis.readFully(buf);
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+				} catch (NullPointerException npe) {
+					npe.printStackTrace();
+				}
+				fImage = Toolkit.getDefaultToolkit().createImage(buf);
+
+				try {
+					waitForImage();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					fImage = null;
+				}
+			}
+
+			// Get height/width from params or image or defaults:
+			height = getIntAttr(HTML.Attribute.HEIGHT, -1);
+			customHeight = (height > 0);
+			if (!customHeight && fImage != null)
+				height = fImage.getHeight(this);
+			if (height <= 0)
+				height = DEFAULT_HEIGHT;
+
+			width = getIntAttr(HTML.Attribute.WIDTH, -1);
+			customWidth = (width > 0);
+			if (!customWidth && fImage != null)
+				width = fImage.getWidth(this);
+			if (width <= 0)
+				width = DEFAULT_WIDTH;
+
+			// Make sure the image starts loading:
+			if (fImage != null)
+				if (customWidth && customHeight)
+					Toolkit.getDefaultToolkit().prepareImage(
+						fImage,
+						height,
+						width,
+						this);
+				else
+					Toolkit.getDefaultToolkit().prepareImage(
+						fImage,
+						-1,
+						-1,
+						this);
+
+		} finally {
+			synchronized (this) {
+				loading = false;
+				if (customWidth || fWidth == 0) {
+					fWidth = width;
+				}
+				if (customHeight || fHeight == 0) {
+					fHeight = height;
+				}
+			}
+		}
+	}
+
     
     /** Determines if path is in the form of a URL
      * @return true if the examined element's "src" html attribute is a URL, false if not
@@ -266,15 +288,18 @@ public class PrinterImageView extends View implements ImageObserver, MouseListen
             fImage = null;
         }
     }
-    
-    /**
-     * Fetches the attributes to use when rendering.  This is
-     * implemented to multiplex the attributes specified in the
-     * model with a StyleSheet.
-     */
-    public AttributeSet getAttributes() {
-        return attr;
-    }
+
+	/**
+	 * Fetches the attributes to use when rendering.  This is
+	 * implemented to multiplex the attributes specified in the
+	 * model with a StyleSheet.
+	 * 
+	 * @uml.property name="attr"
+	 */
+	public AttributeSet getAttributes() {
+		return attr;
+	}
+
     
     /** Is this image within a link? */
     boolean isLink( ) {
@@ -835,13 +860,31 @@ public class PrinterImageView extends View implements ImageObserver, MouseListen
         HTMLDocument doc = (HTMLDocument) getDocument();
         return doc.getStyleSheet();
     }
-    
-    // --- member variables ------------------------------------------------
-    
-    private AttributeSet attr;
-    private Element   fElement;
-    private Image     fImage;
-    private int       fHeight,fWidth;
+
+	/**
+	 * 
+	 * @uml.property name="attr"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	// --- member variables ------------------------------------------------
+	private AttributeSet attr;
+
+	/**
+	 * 
+	 * @uml.property name="fElement"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private Element fElement;
+
+	/**
+	 * 
+	 * @uml.property name="fImage"
+	 * @uml.associationEnd multiplicity="(0 1)" qualifier="key:java.net.URL java.awt.Image"
+	 */
+	private Image fImage;
+
+    private int fHeight;
+    private int fWidth;
     private Container fContainer;
     private Rectangle fBounds;
     private Component fComponent;
@@ -853,11 +896,13 @@ public class PrinterImageView extends View implements ImageObserver, MouseListen
     
     // --- constants and static stuff --------------------------------
     
-    private static Icon sPendingImageIcon,
-            sMissingImageIcon;
-    private static final String
-            PENDING_IMAGE_SRC = "icons/image-delayed.gif",  // both stolen from HotJava
-            MISSING_IMAGE_SRC = "icons/image-failed.gif";
+    private static Icon sPendingImageIcon;
+    // --- constants and static stuff --------------------------------
+    
+    private static Icon sMissingImageIcon;
+    private static final String PENDING_IMAGE_SRC = "icons/image-delayed.gif" ;
+    // both stolen from HotJava
+ private static final String MISSING_IMAGE_SRC = "icons/image-failed.gif" ;
     
     private static final boolean DEBUG = false;
     
@@ -865,10 +910,11 @@ public class PrinterImageView extends View implements ImageObserver, MouseListen
     static final String IMAGE_CACHE_PROPERTY = "imageCache";
     
     // Height/width to use before we know the real size:
-    private static final int
-            DEFAULT_WIDTH = 32,
-            DEFAULT_HEIGHT= 32,
-            // Default value of BORDER param:      //? possibly move into stylesheet?
-            DEFAULT_BORDER=  2;
+    private static final int DEFAULT_WIDTH = 32 ;
+    // Height/width to use before we know the real size:
+    private static final int DEFAULT_HEIGHT = 32 ;
+    // Default value of BORDER param:      //? possibly move into stylesheet?
+ // Height/width to use before we know the real size:
+    private static final int DEFAULT_BORDER = 2 ;
     
 }

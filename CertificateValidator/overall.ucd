@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="default diagram" size="570,438" id="." metadata="nsuml-1.4" initialized="true" tag="200" key="323030343131323520436572746966696361746556616C696461746F72">
+  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.PolicyEnforcement.CertificateValidation" location="40,40" size="681,266" id="org.eMayor.PolicyEnforcement.CertificateValidation">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.3/@sourceConnections.0" name="CDPConfiguration" location="21,174" size="156,67" id="org.eMayor.PolicyEnforcement.CertificateValidation/CDPConfiguration" runTimeClassModel="CDPConfiguration()">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="115,18">
+        <children xsi:type="editmodel:MethodEditModel" name="CDPConfiguration" id="org.eMayor.PolicyEnforcement.CertificateValidation/CDPConfiguration#CDPConfiguration()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.3/@sourceConnections.1" name="TrustedStoreConfiguration" location="442,99" size="210,103" id="org.eMayor.PolicyEnforcement.CertificateValidation/TrustedStoreConfiguration" runTimeClassModel="TrustedStoreConfiguration(),_storePath,_storePass">
+      <children xsi:type="editmodel:CompartmentEditModel" size="112,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="_storePass" id="org.eMayor.PolicyEnforcement.CertificateValidation/TrustedStoreConfiguration#_storePass"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="_storePath" id="org.eMayor.PolicyEnforcement.CertificateValidation/TrustedStoreConfiguration#_storePath"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="158,18">
+        <children xsi:type="editmodel:MethodEditModel" name="TrustedStoreConfiguration" id="org.eMayor.PolicyEnforcement.CertificateValidation/TrustedStoreConfiguration#TrustedStoreConfiguration()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.3/@sourceConnections.2" name="CRLFetcher" location="34,57" size="117,67" id="org.eMayor.PolicyEnforcement.CertificateValidation/CRLFetcher" runTimeClassModel="fetchCRL(Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="76,18">
+        <children xsi:type="editmodel:MethodEditModel" name="fetchCRL" id="org.eMayor.PolicyEnforcement.CertificateValidation/CRLFetcher#fetchCRL(Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="CertificateValidator" location="207,91" size="198,121" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator" runTimeClassModel="validateChain([LX509Certificate;),isCertTrusted(Liaik.x509.X509Certificate;),CertificateValidator(),retrieveTrustedStoreFromDisk()">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="175,72">
+        <children xsi:type="editmodel:MethodEditModel" name="CertificateValidator" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator#CertificateValidator()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="isCertTrusted" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator#isCertTrusted(Liaik.x509.X509Certificate;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveTrustedStoreFromDisk" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator#retrieveTrustedStoreFromDisk()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="validateChain" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator#validateChain([LX509Certificate;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator->org.eMayor.PolicyEnforcement.CertificateValidation/CDPConfiguration" source="//@children.0/@children.3" target="//@children.0/@children.0" targetEnd="//@children.0/@children.3/@sourceConnections.0/@children.2" label="//@children.0/@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,101" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="156,18"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator->org.eMayor.PolicyEnforcement.CertificateValidation/TrustedStoreConfiguration" source="//@children.0/@children.3" target="//@children.0/@children.1" targetEnd="//@children.0/@children.3/@sourceConnections.1/@children.2" label="//@children.0/@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="198,59" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,51"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.PolicyEnforcement.CertificateValidation/CertificateValidator->org.eMayor.PolicyEnforcement.CertificateValidation/CRLFetcher" source="//@children.0/@children.3" target="//@children.0/@children.2" targetEnd="//@children.0/@children.3/@sourceConnections.2/@children.2" label="//@children.0/@children.3/@sourceConnections.2/@children.0" sourceEnd="//@children.0/@children.3/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«access»" size="49,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,16" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="117,50"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=4"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="10,10" gridOrigin="0,0" rulerUnit="pixel">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

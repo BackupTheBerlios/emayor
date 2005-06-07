@@ -25,7 +25,13 @@ import org.w3c.dom.Text;
  */
 public class CDPConfiguration {
 
+	/**
+	 * 
+	 * @uml.property name="cdpUris"
+	 * @uml.associationEnd multiplicity="(0 -1)" elementType="java.lang.String"
+	 */
 	Vector cdpUris = new Vector();
+
 	
     /** A wrapper for a CDP configuration file. CDPConfiguration parses
      * 	the xml structure of the CRLDistributionPoints.xml file, that contains the uris
@@ -67,11 +73,15 @@ public class CDPConfiguration {
 			cdpUris.add(cdpUri);
 		}
 	}
-	
-    /** Returns the uris of availble crl servers packed in a Vector object.
-     *  @return The Vector containing the Uris of usable CDPs.
-     */
+
+	/**
+	 * Returns the uris of availble crl servers packed in a Vector object.
+	 *  @return The Vector containing the Uris of usable CDPs.
+	 * 
+	 * @uml.property name="cdpUris"
+	 */
 	public Vector getCDPs() {
 		return cdpUris;
 	}
+
 }

@@ -20,10 +20,23 @@ import javax.swing.JScrollPane;
  */
 
 public class PrintPreviewDialog extends javax.swing.JFrame implements ActionListener {
-    public JEditorPane jep;
+
+	/**
+	 * 
+	 * @uml.property name="jep"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	public JEditorPane jep;
+
     public int x;
     public int y;
-    boolean printConfirmed = false;
+
+	/**
+	 * 
+	 * @uml.property name="printConfirmed" 
+	 */
+	boolean printConfirmed = false;
+
     
     /** Creates new form PrintPreviewDialog <br/>
      *  The PrintPreviewDialog allows printing to be cancelled either by clicking on the "Cancel" button or by closing the "Print Preview" window <br/>
@@ -149,14 +162,17 @@ public class PrintPreviewDialog extends javax.swing.JFrame implements ActionList
         actionPerformed(evt);
         printConfirmed = true;
     }//GEN-LAST:event_printButtonActionPerformed
-    
-    
-    /** Gets the result of the PringPreviewDialog (true for printing or false for cancelling)
-     * @return true for printing or false for cancelling
-     */    
-    public boolean isPrintConfirmed() {
-        return printConfirmed;
-    }
+
+	/**
+	 * Gets the result of the PringPreviewDialog (true for printing or false for cancelling)
+	 * @return true for printing or false for cancelling
+	 * 
+	 * @uml.property name="printConfirmed"
+	 */
+	public boolean isPrintConfirmed() {
+		return printConfirmed;
+	}
+
     
     /** Gets the PringPreviewDialog object
      * @return this PrintPreviewDialog object
@@ -171,16 +187,64 @@ public class PrintPreviewDialog extends javax.swing.JFrame implements ActionList
     public void actionPerformed(java.awt.event.ActionEvent e) {
         printPreviewDialog.setVisible(false) ;
     }
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel buttonsPanel;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JFrame ownerFrame;
-    private javax.swing.JButton printButton;
-    private javax.swing.JDialog printPreviewDialog;
-    private javax.swing.JPanel printPreviewPanel;
+
+	/**
+	 * 
+	 * @uml.property name="buttonsPanel"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JPanel buttonsPanel;
+
+	/**
+	 * 
+	 * @uml.property name="cancelButton"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private javax.swing.JButton cancelButton;
+
+	/**
+	 * 
+	 * @uml.property name="jEditorPane1"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private javax.swing.JEditorPane jEditorPane1;
+
+	/**
+	 * 
+	 * @uml.property name="jScrollPane1"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private javax.swing.JScrollPane jScrollPane1;
+
+	/**
+	 * 
+	 * @uml.property name="ownerFrame"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private javax.swing.JFrame ownerFrame;
+
+	/**
+	 * 
+	 * @uml.property name="printButton"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private javax.swing.JButton printButton;
+
+	/**
+	 * 
+	 * @uml.property name="printPreviewDialog"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private javax.swing.JDialog printPreviewDialog;
+
+	/**
+	 * 
+	 * @uml.property name="printPreviewPanel"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private javax.swing.JPanel printPreviewPanel;
+
     // End of variables declaration//GEN-END:variables
     
 }

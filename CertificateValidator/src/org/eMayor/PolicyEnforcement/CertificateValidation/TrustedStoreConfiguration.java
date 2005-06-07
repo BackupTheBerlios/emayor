@@ -23,9 +23,19 @@ import org.w3c.dom.Text;
  *
  */
 public class TrustedStoreConfiguration {
-	
+
+	/**
+	 * 
+	 * @uml.property name="_storePath" 
+	 */
 	private String _storePath;
+
+	/**
+	 * 
+	 * @uml.property name="_storePass" 
+	 */
 	private String _storePass;
+
 
     /** A wrapper for a trusted store configuration file. TrustedStoreConfiguration 
      * parses the xml structure of the TrustedStoreConfiguration.xml file, 
@@ -61,17 +71,23 @@ public class TrustedStoreConfiguration {
 			_storePass = ((Text)((Element) list.item(0)).getFirstChild()).getNodeValue();
 
 	}
-	
-    /** Returns the store pass as a String.
-     *  @return The String containing the pass to the keystore file.
-     */
+
+	/**
+	 * Returns the store pass as a String.
+	 *  @return The String containing the pass to the keystore file.
+	 * 
+	 * @uml.property name="_storePass"
+	 */
 	public String getStorePass() {
 		return _storePass;
 	}
-	
-    /** Returns the store path as a String.
-     *  @return The String containing the path of the keystore file.
-     */
+
+	/**
+	 * Returns the store path as a String.
+	 *  @return The String containing the path of the keystore file.
+	 * 
+	 * @uml.property name="_storePath"
+	 */
 	public String getStorePath() {
 		return _storePath;
 	}
