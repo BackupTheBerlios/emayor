@@ -42,64 +42,14 @@
 			%>	
 			<tr>
 			<%		} else { %>
-			
-			<%		}
+			<tr bgcolor="#FFCCCC">
+			<%		} 
+					++index;
+			%>
 				<td><%= key %></td>
 				<td><%= value %></td>
 			</tr>
-			<tr bgcolor="#FFCCCC">
-				<td>Name</td>
-				<td><%= info.getServiceName() %></td>
-			</tr>
-			<tr>
-				<td>Description</td>
-				<td><%= info.getServiceDescription() %></td>
-			</tr>
-			<tr bgcolor="#FFCCCC">
-				<td>Version</td>
-				<td><%= info.getServiceVersion() %></td>
-			</tr>
-			<tr>
-			<tr>
-				<td>Endpoint</td>
-				<td><%= info.getServiceEndpoint() %></td>
-			</tr>
-			<tr bgcolor="#FFCCCC">
-				<td>Class name</td>
-				<td><%= info.getServiceClassName() %></td>
-			</tr>
-			<tr>
-				<td>Factory class name</td>
-				<td><%= info.getServiceFactoryClassName() %></td>
-			</tr>
-			<tr bgcolor="#FFCCCC">
-				<td>Number of running instances</td>
-				<td><%= info.getNumberOfInstances() %></td>
-			</tr>
-			<tr>
-				<td>Current status</td>
-				
-          <td>
-            <% if (info.isActive()) { %>
-            <font color="#00CC00">ACTIVE</font> 
-            <% } else { %>
-			<font color="#FF0000">INACTIVE</font>
-            <% } %>
-          </td>
-			</tr>	
-          <td colspan="2"> <div align="center">
-		  		<form action="../adm" method="post">
-					<% if (info.isActive()) { %>
-              		<input name="remove" type="submit" value="DEACTIVATE THIS SERVICE"/>
-					<input name="action" type="hidden" value="DEACTIVATE_SERVICE"/>
-					<% } else { %>
-					<input name="remove" type="submit" value="ACTIVATE THIS SERVICE"/>
-					<input name="action" type="hidden" value="ACTIVATE_SERVICE"/>
-					<% } %>
-			  		<input name="SID" type="hidden" value="<%= info.getServiceId() %>"/>
-				</form>
-            </div></td>
-			</tr>
+			<%	} %>
 		</table>
 	</td>
   </tr>

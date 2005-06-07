@@ -49,6 +49,7 @@ public class AdminReloadServicesProcessor extends AbstractRequestProcessor {
                 data
                         .setRedirectionText("The services deployed on the platform has been successfuly reloaded.");
                 data.setRedirectionAction("WelcomePage.jsp");
+                data.setRedirectionCancelAction("MAINMENU");
                 data.setRedirectionCancelButtonTitle("     GO     ");
                 session.setAttribute(ShortInfoPageData.ATT_NAME, data);
                 ret = "admin/ShortInfoPage.jsp";

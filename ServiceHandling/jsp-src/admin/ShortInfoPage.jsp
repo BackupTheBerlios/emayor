@@ -32,7 +32,7 @@
 					<%= data.getRedirectionText() %>
 				</td>
 			</tr>
-			<form action="" method="post">
+			<form action="../adm" method="post">
 			<tr>
 				
             <td> <div align="center">
