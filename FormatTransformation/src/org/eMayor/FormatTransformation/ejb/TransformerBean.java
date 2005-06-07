@@ -24,7 +24,14 @@ import javax.ejb.CreateException;
  *           view-type="remote"
  */
 public class TransformerBean implements SessionBean {
+
+	/**
+	 * 
+	 * @uml.property name="tc"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
 	private TransformationController tc = new TransformationController();
+
 	/**
 	 * 
 	 */

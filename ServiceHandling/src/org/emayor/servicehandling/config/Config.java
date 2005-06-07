@@ -89,6 +89,11 @@ public class Config {
 		}
 		System.out.println("------------------------------------------------");
 	}
+	
+	public synchronized Properties getAllProperties() {
+	    log.debug("-> start processing ...");
+	    return this.props;
+	}
 
 	public synchronized void listAllProperties() {
 		System.out.println("---------------- all properties ----------------");

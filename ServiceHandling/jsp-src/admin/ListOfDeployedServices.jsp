@@ -56,7 +56,7 @@
 				<td><%= info.getServiceDescription() %></td>
 				<td><div align="center"><%= info.getServiceVersion() %></div></td>
 				<td><div align="center"><%= info.getNumberOfInstances() %></div></td>
-				<td><div align="center"><a href="../adm?action=w"><font size="2">DETAILS</font></a></div></td>
+				<td><div align="center"><a href="../adm?action=LOOKUP_SERVICE_PROFILE&SID=<%= info.getServiceId() %>"><font size="2">DETAILS</font></a></div></td>
 			</tr>
 			<%
 				}

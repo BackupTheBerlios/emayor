@@ -46,7 +46,7 @@
 				<td><%= info.getSessionId() %></td>
 				<td><a href=""><%= info.getServiceId() %></a></td>
 				<td><a href=""><%= info.getAsid() %></a></td>
-				<td><div align="center"><a href="../adm?action=w"><font size="2">DETAILS</font></a></div></td>
+				<td><div align="center"><a href="../adm?action=LOOKUP_SERVICE_SESSION&SSID=<%= info.getSessionId() %>"><font size="2">DETAILS</font></a></div></td>
 			</tr>
 			<%
 				}

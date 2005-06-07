@@ -23,8 +23,14 @@ import javax.ejb.CreateException;
  *           view-type="remote"
  */
 public class TemplateManagerBean implements SessionBean {
-	
+
+	/**
+	 * 
+	 * @uml.property name="tManager"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
 	private TemplateController tManager = new TemplateController();
+
 	/**
 	 * 
 	 */

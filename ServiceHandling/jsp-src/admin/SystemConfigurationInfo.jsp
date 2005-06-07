@@ -1,10 +1,11 @@
 <%@page contentType="text/html" %>
-<%@ page import="org.emayor.servicehandling.kernel.AdminServiceProfileData" %>
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.util.Enumeration" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
 <head>
-	<title>eMayor Admin Interface (C) - v.1.0.0</title>
+	<title>JSP Page</title>
 </head>
 
 <body bgcolor="#FFFFFF">
@@ -17,7 +18,7 @@
     <td colspan="3"> <hr /></td>
   </tr>
   <tr> 
-    <td colspan="3"> <div align="center"><strong><font size="4">Service profile details:</font></strong> 
+    <td colspan="3"> <div align="center"><strong><font size="4">System configuration:</font></strong> 
       </div></td>
   </tr>
   <tr> 
@@ -32,11 +33,19 @@
 
 		  </tr>
 			<%
-				AdminServiceProfileData info = (AdminServiceProfileData)session.getAttribute("SERVICE_PROFILE_INFO");
+				Properties props = (Properties)session.getAttribute("SYSTEM_CONFIGURATION");
+				int index = 0;
+				for (Enumeration e = props.propertyNames(); e.hasMoreElements();) {
+            		String key = (String)e.nextElement();
+            		String value = props.getProperty(key);
+					if ( (index % 2) == 0) {
 			%>	
 			<tr>
-				<td>Id</td>
-				<td><%= info.getServiceId() %></td>
+			<%		} else { %>
+			
+			<%		}
+				<td><%= key %></td>
+				<td><%= value %></td>
 			</tr>
 			<tr bgcolor="#FFCCCC">
 				<td>Name</td>

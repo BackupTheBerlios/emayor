@@ -18,12 +18,38 @@ import org.w3c.dom.Text;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class TransformerConfiguration {
-	
+
+	/**
+	 * 
+	 * @uml.property name="_domConfig"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
 	private Document _domConfig;
+
+	/**
+	 * 
+	 * @uml.property name="_EUFtoELF" 
+	 */
 	private String _EUFtoELF;
+
+	/**
+	 * 
+	 * @uml.property name="_ELFtoEUF" 
+	 */
 	private String _ELFtoEUF;
+
+	/**
+	 * 
+	 * @uml.property name="_ELFtoEPF" 
+	 */
 	private String _ELFtoEPF;
+
+	/**
+	 * 
+	 * @uml.property name="_EUFtoEPF" 
+	 */
 	private String _EUFtoEPF;
+
 	
     /** A wrapper for a transformation configuration file. The TransformationConfiguration contains
      * 	the xml structure of the transformerconfiguration.xml file, that contains the paths where 
@@ -47,36 +73,49 @@ public class TransformerConfiguration {
 		list = mainNode.getElementsByTagName("EUFtoEPF");
 		_EUFtoEPF = ((Text)((Element) list.item(0)).getFirstChild()).getNodeValue();
 	}
-	
-    /** Returns the path to the sheet that performs eUF to eLF transformation
-     * 	for the document type handled by this TransformerConfiguration object. 
-     *  @return The path to the transformation sheet.
-     */
+
+	/**
+	 * Returns the path to the sheet that performs eUF to eLF transformation
+	 * 	for the document type handled by this TransformerConfiguration object. 
+	 *  @return The path to the transformation sheet.
+	 * 
+	 * @uml.property name="_EUFtoELF"
+	 */
 	public String getEUFtoELF() {
 		return _EUFtoELF;
 	}
-    
-	/** Returns the path to the sheet that performs eLF to eUF transformation
-     * 	for the document type handled by this TransformerConfiguration object. 
-     *  @return The path to the transformation sheet.
-     */
+
+	/**
+	 * Returns the path to the sheet that performs eLF to eUF transformation
+	 * 	for the document type handled by this TransformerConfiguration object. 
+	 *  @return The path to the transformation sheet.
+	 * 
+	 * @uml.property name="_ELFtoEUF"
+	 */
 	public String getELFtoEUF() {
 		return _ELFtoEUF;
 	}
-    
-	/** Returns the path to the sheet that performs eLF to ePF transformation
-     * 	for the document type handled by this TransformerConfiguration object. 
-     *  @return The path to the transformation sheet.
-     */
+
+	/**
+	 * Returns the path to the sheet that performs eLF to ePF transformation
+	 * 	for the document type handled by this TransformerConfiguration object. 
+	 *  @return The path to the transformation sheet.
+	 * 
+	 * @uml.property name="_ELFtoEPF"
+	 */
 	public String getELFtoEPF() {
 		return _ELFtoEPF;
 	}
-	
-    /** Returns the path to the sheet that performs eUF to ePF transformation
-     * 	for the document type handled by this TransformerConfiguration object. 
-     *  @return The path to the transformation sheet.
-     */
+
+	/**
+	 * Returns the path to the sheet that performs eUF to ePF transformation
+	 * 	for the document type handled by this TransformerConfiguration object. 
+	 *  @return The path to the transformation sheet.
+	 * 
+	 * @uml.property name="_EUFtoEPF"
+	 */
 	public String getEUFtoEPF() {
 		return _EUFtoEPF;
 	}
+
 }

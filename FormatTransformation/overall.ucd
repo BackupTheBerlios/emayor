@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="default diagram" size="755,464" id="." metadata="nsuml-1.4" initialized="true" zoom="0.37767057201929705" tag="200" key="323030343131323520466F726D61745472616E73666F726D6174696F6E">
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.0" name="org.eMayor.FormatTransformation.ejb" location="585,45" size="860,771" id="org.eMayor.FormatTransformation.ejb">
+    <children xsi:type="editmodel:ClassEditModel" name="MRFDocument" location="60,595" size="135,67" id="org.eMayor.FormatTransformation.ejb/MRFDocument" runTimeClassModel="MRFDocument()">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="100,18">
+        <children xsi:type="editmodel:MethodEditModel" name="MRFDocument" id="org.eMayor.FormatTransformation.ejb/MRFDocument#MRFDocument()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.4/@sourceConnections.1 //@children.0/@children.8/@sourceConnections.0 //@children.0/@children.3/@sourceConnections.0 //@children.1/@children.1/@sourceConnections.0" name="XMLTransformationTemplate" location="262,376" size="227,103" id="org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate" runTimeClassModel="_documentType,_templateType,XMLTransformationTemplate(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="134,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="_documentType" id="org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate#_documentType"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="_templateType" id="org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate#_templateType"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="168,18">
+        <children xsi:type="editmodel:MethodEditModel" name="XMLTransformationTemplate" id="org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate#XMLTransformationTemplate(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.4/@sourceConnections.0" name="TransformationTemplate" location="616,188" size="199,57" id="org.eMayor.FormatTransformation.ejb/TransformationTemplate" runTimeClassModel="templateType">
+      <children xsi:type="editmodel:CompartmentEditModel" size="121,18">
+        <children xsi:type="editmodel:AttributeEditModel" name="templateType" location="1,34" id="org.eMayor.FormatTransformation.ejb/TransformationTemplate#templateType"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="TemplateManagerBean" location="327,561" size="192,175" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean" runTimeClassModel="ejbCreate(),ejbPassivate(),ejbRemove(),retrieveXMLTemplate(Ljava.lang.String;Ljava.lang.String;),ejbActivate(),setSessionContext(Ljavax.ejb.SessionContext;),TemplateManagerBean()">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="141,126">
+        <children xsi:type="editmodel:MethodEditModel" name="TemplateManagerBean" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean#TemplateManagerBean()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbActivate" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean#ejbActivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbCreate" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean#ejbCreate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbPassivate" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean#ejbPassivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbRemove" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean#ejbRemove()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveXMLTemplate" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean#retrieveXMLTemplate(Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setSessionContext" location="2,151" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean#setSessionContext(Ljavax.ejb.SessionContext;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean->org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate" source="//@children.0/@children.3" target="//@children.0/@children.1" targetEnd="//@children.0/@children.3/@sourceConnections.0/@children.2" label="//@children.0/@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="80,0" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="145,103"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TemplateManagerBean->org.eMayor.FormatTransformation.ejb/TemplateController" source="//@children.0/@children.3" target="//@children.0/@children.4" targetEnd="//@children.0/@children.3/@sourceConnections.1/@children.2" label="//@children.0/@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="192,20" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="20,175"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.3/@sourceConnections.1" name="TemplateController" location="587,317" size="218,175" id="org.eMayor.FormatTransformation.ejb/TemplateController" runTimeClassModel="TemplateController(),availableTransformationTemplates(),addTransformationTemplate(Lorg.eMayor.FormatTransformation.ejb.TransformationTemplate;Ljava.lang.String;),storeTemplate(Lorg.eMayor.FormatTransformation.ejb.TransformationTemplate;Ljava.lang.String;),removeTransformationTemplate(Ljava.lang.String;),retrieveXMLTemplate(Ljava.lang.String;Ljava.lang.String;),removeTemplate(Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="195,126">
+        <children xsi:type="editmodel:MethodEditModel" name="TemplateController" id="org.eMayor.FormatTransformation.ejb/TemplateController#TemplateController()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addTransformationTemplate" id="org.eMayor.FormatTransformation.ejb/TemplateController#addTransformationTemplate(Lorg.eMayor.FormatTransformation.ejb.TransformationTemplate;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="availableTransformationTemplates" id="org.eMayor.FormatTransformation.ejb/TemplateController#availableTransformationTemplates()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="removeTemplate" id="org.eMayor.FormatTransformation.ejb/TemplateController#removeTemplate(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="removeTransformationTemplate" id="org.eMayor.FormatTransformation.ejb/TemplateController#removeTransformationTemplate(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveXMLTemplate" id="org.eMayor.FormatTransformation.ejb/TemplateController#retrieveXMLTemplate(Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="storeTemplate" id="org.eMayor.FormatTransformation.ejb/TemplateController#storeTemplate(Lorg.eMayor.FormatTransformation.ejb.TransformationTemplate;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TemplateController->org.eMayor.FormatTransformation.ejb/TransformationTemplate" source="//@children.0/@children.4" target="//@children.0/@children.2" targetEnd="//@children.0/@children.4/@sourceConnections.0/@children.2" label="//@children.0/@children.4/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.4/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="123,0" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="94,57"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TemplateController->org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate" source="//@children.0/@children.4" target="//@children.0/@children.1" targetEnd="//@children.0/@children.4/@sourceConnections.1/@children.2" label="//@children.0/@children.4/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@children.4/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,110" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="227,51"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TemplateController->org.eMayor.FormatTransformation.ejb/TransformerConfiguration" source="//@children.0/@children.4" target="//@children.0/@children.7" targetEnd="//@children.0/@children.4/@sourceConnections.2/@children.2" label="//@children.0/@children.4/@sourceConnections.2/@children.0" sourceEnd="//@children.0/@children.4/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="141,175" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="76,0"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TemplateController->org.eMayor.FormatTransformation.ejb/InputOutputHandler" source="//@children.0/@children.4" target="//@children.0/@children.5" targetEnd="//@children.0/@children.4/@sourceConnections.3/@children.2" label="//@children.0/@children.4/@sourceConnections.3/@children.0" sourceEnd="//@children.0/@children.4/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«access»" size="49,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,85" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="168,69"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.4/@sourceConnections.3 //@children.0/@children.8/@sourceConnections.1" name="InputOutputHandler" location="65,333" size="168,139" id="org.eMayor.FormatTransformation.ejb/InputOutputHandler" runTimeClassModel="parseDOMAsXMLString(Lorg.w3c.dom.Document;),parseXMLStringAsDOM(Ljava.lang.String;),parseDOMInput(Ljava.io.InputStream;),parseDOMInput(Ljava.lang.String;),serializeDOMOutput(Lorg.w3c.dom.Document;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="145,90">
+        <children xsi:type="editmodel:MethodEditModel" name="parseDOMAsXMLString" id="org.eMayor.FormatTransformation.ejb/InputOutputHandler#parseDOMAsXMLString(Lorg.w3c.dom.Document;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="parseDOMInput" id="org.eMayor.FormatTransformation.ejb/InputOutputHandler#parseDOMInput(Ljava.io.InputStream;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="parseDOMInput" id="org.eMayor.FormatTransformation.ejb/InputOutputHandler#parseDOMInput(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="parseXMLStringAsDOM" id="org.eMayor.FormatTransformation.ejb/InputOutputHandler#parseXMLStringAsDOM(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="serializeDOMOutput" id="org.eMayor.FormatTransformation.ejb/InputOutputHandler#serializeDOMOutput(Lorg.w3c.dom.Document;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="TransformerBean" location="385,130" size="153,175" id="org.eMayor.FormatTransformation.ejb/TransformerBean" runTimeClassModel="ejbCreate(),ejbPassivate(),TransformerBean(),ejbRemove(),transform(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),ejbActivate(),setSessionContext(Ljavax.ejb.SessionContext;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="122,126">
+        <children xsi:type="editmodel:MethodEditModel" name="TransformerBean" id="org.eMayor.FormatTransformation.ejb/TransformerBean#TransformerBean()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbActivate" id="org.eMayor.FormatTransformation.ejb/TransformerBean#ejbActivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbCreate" id="org.eMayor.FormatTransformation.ejb/TransformerBean#ejbCreate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbPassivate" id="org.eMayor.FormatTransformation.ejb/TransformerBean#ejbPassivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbRemove" id="org.eMayor.FormatTransformation.ejb/TransformerBean#ejbRemove()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setSessionContext" id="org.eMayor.FormatTransformation.ejb/TransformerBean#setSessionContext(Ljavax.ejb.SessionContext;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="transform" id="org.eMayor.FormatTransformation.ejb/TransformerBean#transform(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TransformerBean->org.eMayor.FormatTransformation.ejb/TransformationController" source="//@children.0/@children.6" target="//@children.0/@children.8" targetEnd="//@children.0/@children.6/@sourceConnections.0/@children.2" label="//@children.0/@children.6/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.6/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,62" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="213,60"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.4/@sourceConnections.2" name="TransformerConfiguration" location="652,548" size="206,139" id="org.eMayor.FormatTransformation.ejb/TransformerConfiguration" runTimeClassModel="_EUFtoEPF,_EUFtoELF,_ELFtoEUF,TransformerConfiguration(Lorg.w3c.dom.Document;Ljava.lang.String;),_ELFtoEPF">
+      <children xsi:type="editmodel:CompartmentEditModel" size="109,72">
+        <children xsi:type="editmodel:AttributeEditModel" name="_ELFtoEPF" id="org.eMayor.FormatTransformation.ejb/TransformerConfiguration#_ELFtoEPF"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="_ELFtoEUF" id="org.eMayor.FormatTransformation.ejb/TransformerConfiguration#_ELFtoEUF"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="_EUFtoELF" id="org.eMayor.FormatTransformation.ejb/TransformerConfiguration#_EUFtoELF"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="_EUFtoEPF" id="org.eMayor.FormatTransformation.ejb/TransformerConfiguration#_EUFtoEPF"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="155,18">
+        <children xsi:type="editmodel:MethodEditModel" name="TransformerConfiguration" id="org.eMayor.FormatTransformation.ejb/TransformerConfiguration#TransformerConfiguration(Lorg.w3c.dom.Document;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.6/@sourceConnections.0" name="TransformationController" location="82,132" size="213,121" id="org.eMayor.FormatTransformation.ejb/TransformationController" runTimeClassModel="TransformationController(),instantiateTransformationFactory(),transform(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),transform(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="190,72">
+        <children xsi:type="editmodel:MethodEditModel" name="TransformationController" id="org.eMayor.FormatTransformation.ejb/TransformationController#TransformationController()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="instantiateTransformationFactory" id="org.eMayor.FormatTransformation.ejb/TransformationController#instantiateTransformationFactory()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="transform" id="org.eMayor.FormatTransformation.ejb/TransformationController#transform(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="transform" id="org.eMayor.FormatTransformation.ejb/TransformationController#transform(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TransformationController->org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate" source="//@children.0/@children.8" target="//@children.0/@children.1" targetEnd="//@children.0/@children.8/@sourceConnections.0/@children.2" label="//@children.0/@children.8/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.8/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="196,121" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="16,0"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TransformationController->org.eMayor.FormatTransformation.ejb/InputOutputHandler" source="//@children.0/@children.8" target="//@children.0/@children.5" targetEnd="//@children.0/@children.8/@sourceConnections.1/@children.2" label="//@children.0/@children.8/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@children.8/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«access»" size="49,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="75,121" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="92,0"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TransformationController->org.eMayor.FormatTransformation.interfaces/TemplateManagerHome" source="//@children.0/@children.8" target="//@children.1/@children.0" targetEnd="//@children.0/@children.8/@sourceConnections.2/@children.2" label="//@children.0/@children.8/@sourceConnections.2/@children.0" sourceEnd="//@children.0/@children.8/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,12" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="196,104"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb/TransformationController->org.eMayor.FormatTransformation.interfaces/TemplateManager" source="//@children.0/@children.8" target="//@children.1/@children.1" targetEnd="//@children.0/@children.8/@sourceConnections.3/@children.2" label="//@children.0/@children.8/@sourceConnections.3/@children.0" sourceEnd="//@children.0/@children.8/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,20" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="139,81"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->org.eMayor.FormatTransformation.interfaces" source="//@children.0" target="//@children.1" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,176" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="504,171"/>
+    </sourceConnections>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.0" name="org.eMayor.FormatTransformation.interfaces" location="50,50" size="504,383" id="org.eMayor.FormatTransformation.interfaces">
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.0/@children.8/@sourceConnections.2" name="TemplateManagerHome" location="288,50" size="196,117" stereotype="interface" id="org.eMayor.FormatTransformation.interfaces/TemplateManagerHome" runTimeClassModel="COMP_NAME,create(),JNDI_NAME">
+      <children xsi:type="editmodel:CompartmentEditModel" size="121,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="COMP_NAME" id="org.eMayor.FormatTransformation.interfaces/TemplateManagerHome#COMP_NAME"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="JNDI_NAME" id="org.eMayor.FormatTransformation.interfaces/TemplateManagerHome#JNDI_NAME"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="62,18">
+        <children xsi:type="editmodel:MethodEditModel" name="create" id="org.eMayor.FormatTransformation.interfaces/TemplateManagerHome#create()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.interfaces/TemplateManagerHome->org.eMayor.FormatTransformation.interfaces/TemplateManager" source="//@children.1/@children.0" target="//@children.1/@children.1" targetEnd="//@children.1/@children.0/@sourceConnections.0/@children.2" label="//@children.1/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,40" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="159,40"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.0 //@children.0/@children.8/@sourceConnections.3" name="TemplateManager" location="50,50" size="159,81" stereotype="interface" id="org.eMayor.FormatTransformation.interfaces/TemplateManager" runTimeClassModel="retrieveXMLTemplate(Ljava.lang.String;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="132,18">
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveXMLTemplate" id="org.eMayor.FormatTransformation.interfaces/TemplateManager#retrieveXMLTemplate(Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.interfaces/TemplateManager->org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate" source="//@children.1/@children.1" target="//@children.0/@children.1" targetEnd="//@children.1/@children.1/@sourceConnections.0/@children.2" label="//@children.1/@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="139,81" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,20"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@children.3/@sourceConnections.0" name="Transformer" location="50,217" size="120,81" stereotype="interface" id="org.eMayor.FormatTransformation.interfaces/Transformer" runTimeClassModel="transform(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="78,18">
+        <children xsi:type="editmodel:MethodEditModel" name="transform" id="org.eMayor.FormatTransformation.interfaces/Transformer#transform(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:InterfaceEditModel" name="TransformerHome" location="244,217" size="157,117" stereotype="interface" id="org.eMayor.FormatTransformation.interfaces/TransformerHome" runTimeClassModel="COMP_NAME,create(),JNDI_NAME">
+      <children xsi:type="editmodel:CompartmentEditModel" size="121,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="COMP_NAME" id="org.eMayor.FormatTransformation.interfaces/TransformerHome#COMP_NAME"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="JNDI_NAME" id="org.eMayor.FormatTransformation.interfaces/TransformerHome#JNDI_NAME"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="62,18">
+        <children xsi:type="editmodel:MethodEditModel" name="create" id="org.eMayor.FormatTransformation.interfaces/TransformerHome#create()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.interfaces/TransformerHome->org.eMayor.FormatTransformation.interfaces/Transformer" source="//@children.1/@children.3" target="//@children.1/@children.2" targetEnd="//@children.1/@children.3/@sourceConnections.0/@children.2" label="//@children.1/@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,40" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="120,40"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.interfaces->org.eMayor.FormatTransformation.ejb" source="//@children.1" target="//@children.0" targetEnd="//@children.1/@sourceConnections.0/@children.2" label="//@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="504,191" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,196"/>
+    </sourceConnections>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=4"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="10,10" gridOrigin="0,0" rulerUnit="pixel">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

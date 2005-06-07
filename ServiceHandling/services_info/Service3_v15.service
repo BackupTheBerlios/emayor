@@ -7,3 +7,6 @@ service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayor
 service.info.service.class.name=org.emayor.service3.Service3_15
 service.info.service.description=Description of the service 3.
 service.info.service.endpoint=http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0
+
+## service is active = YES, or not = NO
+service.info.service.active=YES

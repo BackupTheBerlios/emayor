@@ -52,7 +52,14 @@ import org.w3c.dom.Document;
  */
 
 public class TransformationController {
-    private TransformerFactory _tFactory = null;
+
+	/**
+	 * 
+	 * @uml.property name="_tFactory"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	private TransformerFactory _tFactory = null;
+
     
     /** Creates a new instance of TransformationController */
     public TransformationController() {

@@ -1,9 +1,26 @@
 ## property file for the ResidenceCertificationService/v10 service
 
+## this is the system wide unique id of the service
 service.info.service.id=ResidenceCertificationService/v10
+
+## the version of the service
 service.info.service.version=1.0
+
+## arbitrary string describing short the servie on human readable way
 service.info.service.name=Residence Certification Service
+
+## using the default service factory, which will be almost always the case
 service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayorServiceFactory
+
+## the service class on the platform implementing the lifecycle of the service
 service.info.service.class.name=org.emayor.rcs.ResidenceCertificationService
-service.info.service.description=Description of the service 1.
+
+## arbitrary string describing the service
+service.info.service.description=It could be a arbitrary string which contains some extra information about the service.
+
+## actually not needed any more, bacause all service will be started 
+## by using the Starter interface of the BPEL
 service.info.service.endpoint=http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/1.0
+
+## service is active = YES, or not = NO
+service.info.service.active=YES

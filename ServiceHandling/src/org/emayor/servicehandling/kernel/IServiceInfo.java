@@ -13,20 +13,29 @@ import java.util.Properties;
  */
 public interface IServiceInfo extends Serializable {
 
-	public String getServiceId();
-	
-	public String getServiceVersion();
-	
-	public String getServiceName();
+    public static final String IS_ACTIVE = "YES";
 
-	public String getServiceClassName();
+    public static final String IS_NOT_ACTIVE = "NO";
 
-	public String getServiceFactoryClassName();
-	
-	public String getServiceDescription();
-	
-	public String getServiceEndpoint();
-	
-	public boolean unmarshall(Properties props);
-	
+    public String getServiceId();
+
+    public String getServiceVersion();
+
+    public String getServiceName();
+
+    public String getServiceClassName();
+
+    public String getServiceFactoryClassName();
+
+    public String getServiceDescription();
+
+    public String getServiceEndpoint();
+
+    public boolean unmarshall(Properties props);
+
+    public Properties marshall();
+
+    public boolean isActive();
+
+    public void setActive(boolean active);
 }

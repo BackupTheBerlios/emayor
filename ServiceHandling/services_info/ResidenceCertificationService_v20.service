@@ -7,3 +7,6 @@ service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayor
 service.info.service.class.name=org.emayor.rcs2.ResidenceCertificationService2
 service.info.service.description=Description of the Residence Certification Service (ver.2). The data collection phase is not supprted.
 service.info.service.endpoint=http://localhost:9700/orabpel/default/ResidenceCertifcationService_v20/1.0
+
+## service is active = YES, or not = NO
+service.info.service.active=YES

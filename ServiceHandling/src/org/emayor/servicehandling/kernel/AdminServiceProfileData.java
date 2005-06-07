@@ -27,6 +27,7 @@ public class AdminServiceProfileData extends ServiceInfo {
         this.setServiceId(info.getServiceId());
         this.setServiceName(info.getServiceName());
         this.setServiceVersion(info.getServiceVersion());
+        this.setActive(info.isActive());
         this.setNumberOfInstances("0");
     }
     
