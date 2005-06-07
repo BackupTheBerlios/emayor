@@ -1026,7 +1026,8 @@ public class Kernel implements IKernel {
             this.repository.resetNumberOfServiceInstances(serviceId);
         } catch (KernelRepositoryException ex) {
             log.error("caught ex: " + ex.toString());
-            throw new KernelException();
+            throw new KernelException(
+                    "Couldn't reset the number of instances for the given service.");
         }
     }
 
@@ -1038,7 +1039,15 @@ public class Kernel implements IKernel {
     public synchronized void changeServiceStatus(String serviceId,
             boolean active) throws KernelException {
         log.debug("-> start processing ...");
-
+        try {
+            ServiceInfo info = this.repository.getServiceInfo(serviceId);
+            info.setActive(active);
+            this.repository.changeServiceInfo(info);
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException(
+                    "Couldn't change the status of the given service!");
+        }
     }
 
     /*
@@ -1049,6 +1058,11 @@ public class Kernel implements IKernel {
     public synchronized void removeUserProfile(String uid)
             throws KernelException {
         log.debug("-> start processing ...");
-
+        try {
+            this.repository.removeUserProfile(uid);
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't remove the given user profile!");
+        }
     }
 }

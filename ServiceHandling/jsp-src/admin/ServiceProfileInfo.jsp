@@ -82,11 +82,12 @@
 		  		<form action="../adm" method="post">
 					<% if (info.isActive()) { %>
               		<input name="remove" type="submit" value="DEACTIVATE THIS SERVICE"/>
-					<input name="action" type="hidden" value="DEACTIVATE_SERVICE"/>
+					<input name="status" type="hidden" value="OFF"/>
 					<% } else { %>
 					<input name="remove" type="submit" value="ACTIVATE THIS SERVICE"/>
-					<input name="action" type="hidden" value="ACTIVATE_SERVICE"/>
+					<input name="status" type="hidden" value="ON"/>
 					<% } %>
+					<input name="action" type="hidden" value="CHANGE_SERVICE_STATUS"/>
 			  		<input name="SID" type="hidden" value="<%= info.getServiceId() %>"/>
 				</form>
             </div></td>

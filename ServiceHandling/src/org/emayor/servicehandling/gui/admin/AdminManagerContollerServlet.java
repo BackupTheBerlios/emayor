@@ -87,6 +87,14 @@ public class AdminManagerContollerServlet extends HttpServlet {
             p = new AdminLookupUserProfileProcessor();
         } else if (action.equalsIgnoreCase("SHOW_SYSTEM_CONFIGURATION")) {
             p = new AdminShowSystemConfigurationProcessor();
+        } else if (action.equalsIgnoreCase("REMOVE_ACCESS_SESSION")) {
+            p = new AdminRemoveAccessSessionProcessor();
+        } else if (action.equalsIgnoreCase("REMOVE_SERVICE_SESSION")) {
+            p = new AdminRemoveServiceSessionProcessor();
+        } else if (action.equalsIgnoreCase("REMOVE_USER_PROFILE")) {
+            p = new AdminRemoveUserProfileProcessor();
+        } else if (action.equalsIgnoreCase("CHANGE_SERVICE_STATUS")) {
+            p = new AdminChangeServiceStatusProcessor();
         } else {
             log.info("current action = UNKNOWN");
             p = new DummyProcessor();
