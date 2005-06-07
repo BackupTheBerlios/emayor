@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="overall" size="755,464" id="." metadata="nsuml-1.4" initialized="true" scrolledX="258" scrolledY="15" tag="200" key="323030343131323520466F726D61745472616E73666F726D6174696F6E">
-  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.0" name="org.eMayor.FormatTransformation.ejb" location="555,15" size="801,646" id="org.eMayor.FormatTransformation.ejb">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="overall" size="1685,1012" id="." metadata="nsuml-1.4" initialized="true" scrolledX="269" scrolledY="419" tag="200" key="323030343131323520466F726D61745472616E73666F726D6174696F6E">
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.0" name="org.eMayor.FormatTransformation.ejb" location="555,15" size="807,688" id="org.eMayor.FormatTransformation.ejb">
     <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.3/@sourceConnections.1 //@children.0/@children.7/@sourceConnections.0 //@children.0/@children.2/@sourceConnections.0 //@children.1/@children.1/@sourceConnections.0" name="XMLTransformationTemplate" location="17,282" size="227,103" id="org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate" runTimeClassModel="_documentType,_templateType,XMLTransformationTemplate(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="134,36">
         <children xsi:type="editmodel:AttributeEditModel" name="_documentType" id="org.eMayor.FormatTransformation.ejb/XMLTransformationTemplate#_documentType"/>
@@ -155,12 +155,57 @@
     </children>
     <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->org.eMayor.FormatTransformation.interfaces" source="//@children.0" target="//@children.1" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
       <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" location="0,175" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" location="421,165"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,188" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="421,178"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->org.xml.sax" source="//@children.0" target="//@children.2" targetEnd="//@children.0/@sourceConnections.1/@children.2" label="//@children.0/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="112,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->javax.rmi" source="//@children.0" target="//@children.3" targetEnd="//@children.0/@sourceConnections.2/@children.2" label="//@children.0/@sourceConnections.2/@children.0" sourceEnd="//@children.0/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«access»" size="49,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="254,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="49,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->javax.naming" source="//@children.0" target="//@children.4" targetEnd="//@children.0/@sourceConnections.3/@children.2" label="//@children.0/@sourceConnections.3/@children.0" sourceEnd="//@children.0/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«instantiate, use»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="728,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="63,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->org.w3c.dom" source="//@children.0" target="//@children.5" targetEnd="//@children.0/@sourceConnections.4/@children.2" label="//@children.0/@sourceConnections.4/@children.0" sourceEnd="//@children.0/@sourceConnections.4/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="345,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="60,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->javax.xml.parsers" source="//@children.0" target="//@children.6" targetEnd="//@children.0/@sourceConnections.5/@children.2" label="//@children.0/@sourceConnections.5/@children.0" sourceEnd="//@children.0/@sourceConnections.5/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use, access»" size="73,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="201,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="76,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->javax.ejb" source="//@children.0" target="//@children.7" targetEnd="//@children.0/@sourceConnections.6/@children.2" label="//@children.0/@sourceConnections.6/@children.0" sourceEnd="//@children.0/@sourceConnections.6/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="49,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="49,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->javax.xml.transform" source="//@children.0" target="//@children.8" targetEnd="//@children.0/@sourceConnections.7/@children.2" label="//@children.0/@sourceConnections.7/@children.0" sourceEnd="//@children.0/@sourceConnections.7/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«access, use»" size="73,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="518,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="83,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->org.apache.xml.serializer" source="//@children.0" target="//@children.9" targetEnd="//@children.0/@sourceConnections.8/@children.2" label="//@children.0/@sourceConnections.8/@children.0" sourceEnd="//@children.0/@sourceConnections.8/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use, access»" size="73,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="636,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="101,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.ejb->javax.xml.transform.dom" source="//@children.0" target="//@children.10" targetEnd="//@children.0/@sourceConnections.9/@children.2" label="//@children.0/@sourceConnections.9/@children.0" sourceEnd="//@children.0/@sourceConnections.9/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="414,688" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="99,0"/>
     </sourceConnections>
     <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.0" name="org.eMayor.FormatTransformation.interfaces" location="100,25" size="421,371" id="org.eMayor.FormatTransformation.interfaces">
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.0" name="org.eMayor.FormatTransformation.interfaces" location="100,25" size="421,396" id="org.eMayor.FormatTransformation.interfaces">
     <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.0/@children.7/@sourceConnections.2" name="TemplateManagerHome" location="194,230" size="196,117" stereotype="interface" id="org.eMayor.FormatTransformation.interfaces/TemplateManagerHome" runTimeClassModel="COMP_NAME,create(),JNDI_NAME">
       <children xsi:type="editmodel:CompartmentEditModel" size="121,36">
         <children xsi:type="editmodel:AttributeEditModel" name="COMP_NAME" id="org.eMayor.FormatTransformation.interfaces/TemplateManagerHome#COMP_NAME"/>
@@ -216,9 +261,36 @@
     </children>
     <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.FormatTransformation.interfaces->org.eMayor.FormatTransformation.ejb" source="//@children.1" target="//@children.0" targetEnd="//@children.1/@sourceConnections.0/@children.2" label="//@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
       <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" location="421,185" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" location="0,195"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="421,198" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,208"/>
     </sourceConnections>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.1" name="org.xml.sax" location="610,913" size="115,86" id="org.xml.sax">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.2" name="javax.rmi" location="760,924" size="100,75" id="javax.rmi">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.3" name="javax.naming" location="1220,749" size="127,95" id="javax.naming">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.4" name="org.w3c.dom" location="840,730" size="122,91" id="org.w3c.dom">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.5" name="javax.xml.parsers" location="680,730" size="153,114" id="javax.xml.parsers">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.6" name="javax.ejb" location="555,730" size="99,74" id="javax.ejb">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.7" name="javax.xml.transform" location="990,724" size="167,125" id="javax.xml.transform">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.8" name="org.apache.xml.serializer" location="1090,859" size="203,152" id="org.apache.xml.serializer">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.9" name="javax.xml.transform.dom" location="870,860" size="199,149" id="javax.xml.transform.dom">
     <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
   </children>
   <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=4"/>
