@@ -49,7 +49,11 @@
 			<tr>
 				
           <td colspan="2"> <div align="center">
-              <input name="remove" type="submit" value="REMOVE THIS SESSION"/>
+		  	<form action="../adm" method="post">
+				<input name="ASID" value="<%= info.getSessionId() %>" type="hidden"/>
+				<input name="action" value="REMOVE_ACCESS_SESSION" type="hidden"/>
+	            <input name="remove" type="submit" value="REMOVE THIS SESSION"/>
+			</form>
             </div></td>
 			</tr>
 		</table>

@@ -43,7 +43,7 @@
 			<tr>
 				<td><%= (i + 1) %>.</td>
 				<td><%= info.getSessionId() %></td>
-				<td><a href=""><%= info.getUserId() %></a></td>
+				<td><a href="../adm?action=LOOKUP_USER_PROFILE&UID=<%= info.getUserId() %>"><%= info.getUserId() %></a></td>
 				<td><div align="center"><a href="../adm?action=LOOKUP_ACCESS_SESSION&ASID=<%= info.getSessionId() %>"><font size="2">DETAILS</font></a></div></td>
 			</tr>
 			<%

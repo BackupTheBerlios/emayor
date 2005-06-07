@@ -74,4 +74,24 @@ public interface AdminManagerLocal
     */
    public org.emayor.servicehandling.kernel.AdminServiceProfileData lookupServiceProfile( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.AdminException;
 
+   /**
+    * Business Method
+    */
+   public void changeServiceStatus( java.lang.String serviceId,boolean active ) throws org.emayor.servicehandling.kernel.AdminException;
+
+   /**
+    * Business Method
+    */
+   public void removeAccessSession( java.lang.String asid ) throws org.emayor.servicehandling.kernel.AdminException;
+
+   /**
+    * Business Method
+    */
+   public void removeServiceSession( java.lang.String ssid ) throws org.emayor.servicehandling.kernel.AdminException;
+
+   /**
+    * Business Method
+    */
+   public void removeUserProfile( java.lang.String uid ) throws org.emayor.servicehandling.kernel.AdminException;
+
 }

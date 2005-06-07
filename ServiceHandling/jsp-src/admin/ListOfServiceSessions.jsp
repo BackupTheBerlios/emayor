@@ -44,8 +44,8 @@
 			<tr>
 				<td><%= (i+1) %>.</td>
 				<td><%= info.getSessionId() %></td>
-				<td><a href=""><%= info.getServiceId() %></a></td>
-				<td><a href=""><%= info.getAsid() %></a></td>
+				<td><a href="../adm?action=LOOKUP_SERVICE_PROFILE&SID=<%= info.getServiceId() %>"><%= info.getServiceId() %></a></td>
+				<td><%= info.getAsid() %></td>
 				<td><div align="center"><a href="../adm?action=LOOKUP_SERVICE_SESSION&SSID=<%= info.getSessionId() %>"><font size="2">DETAILS</font></a></div></td>
 			</tr>
 			<%

@@ -48,6 +48,9 @@ public class KernelRepository {
     // asid -> userId
     private HashMap asid2userId;
 
+    // ssid -> userId
+    private HashMap ssid2userId;
+
     // ssid -> bpelCallbackData
     private HashMap ssid2bpelForwardCallbackData;
 
@@ -66,9 +69,15 @@ public class KernelRepository {
         this.userId2asid = new HashMap();
         this.asid2userId = new HashMap();
         this.ssid2bpelForwardCallbackData = new HashMap();
+        this.ssid2userId = new HashMap();
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param accessSession
+     * @throws KernelRepositoryException
+     */
     public void addAccessSession(AccessSessionLocal accessSession)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -91,6 +100,11 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param asid
+     * @throws KernelRepositoryException
+     */
     public void removeAccessSession(String asid)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -106,6 +120,12 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param asid
+     * @return
+     * @throws KernelRepositoryException
+     */
     public AccessSessionLocal getAccessSession(String asid)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -151,6 +171,7 @@ public class KernelRepository {
                 }
                 this.userId2ssids.remove(userId);
                 this.userId2ssids.put(userId, ssids);
+                this.ssid2userId.put(ssid, userId);
                 String serviceId = serviceSession.getServiceId();
                 if (log.isDebugEnabled())
                     log
@@ -161,8 +182,8 @@ public class KernelRepository {
                 this.serviceId2NumberOfInstances.put(serviceId,
                         new Integer(++i));
                 if (log.isDebugEnabled())
-                    log.debug("set the current number of instance to "
-                            + (++i) + " for serviceId = " + serviceId);
+                    log.debug("set the current number of instance to " + (++i)
+                            + " for serviceId = " + serviceId);
             } else {
                 log.error("The ssid " + ssid
                         + " already exists in the repository!");
@@ -197,6 +218,7 @@ public class KernelRepository {
                     ssids.remove(ssid);
                     this.userId2ssids.remove(userId);
                     this.userId2ssids.put(userId, ssids);
+                    this.ssid2userId.remove(ssid);
                     try {
                         ServiceSessionLocal serviceSession = this
                                 .getServiceSession(ssid);
@@ -232,6 +254,30 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param ssid
+     * @throws KernelRepositoryException
+     */
+    public void adminRemoveServiceSession(String ssid)
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        if (this.ssid2serviceSession.containsKey(ssid)) {
+            String userId = (String) this.ssid2userId.get(ssid);
+            this.removeServiceSession(ssid, userId);
+        } else {
+            log.error("service session to be removed doesn't exist!");
+            throw new KernelRepositoryException(
+                    "removeServiceSession failed: Unknown ssid=" + ssid);
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    /**
+     * 
+     * @return
+     * @throws KernelRepositoryException
+     */
     public AccessSessionLocal[] getAllAccessSessions()
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -370,6 +416,28 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param serviceInfo
+     * @throws KernelRepositoryException
+     */
+    public void changeServiceInfo(ServiceInfo serviceInfo)
+            throws KernelRepositoryException {
+        log.debug("-> start processing ...");
+        if (serviceInfo == null)
+            throw new KernelRepositoryException(
+                    "Bad input data - reference was null");
+        String id = serviceInfo.getServiceId();
+        this.removeServiceInfo(id);
+        this.addServiceInfo(serviceInfo);
+        log.debug("-> ... processing DONE!");
+    }
+
+    /**
+     * 
+     * @return
+     * @throws KernelRepositoryException
+     */
     public ServiceInfo[] listServicesInfo() throws KernelRepositoryException {
         log.debug("-> start processing ...");
         ServiceInfo[] ret = null;
@@ -387,6 +455,12 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param serviceId
+     * @param serviceFactory
+     * @throws KernelRepositoryException
+     */
     public void addServiceFactory(String serviceId,
             IeMayorServiceFactory serviceFactory)
             throws KernelRepositoryException {
@@ -405,6 +479,11 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param serviceId
+     * @throws KernelRepositoryException
+     */
     public void removeServiceFactory(String serviceId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -423,6 +502,12 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param serviceId
+     * @return
+     * @throws KernelRepositoryException
+     */
     public IeMayorServiceFactory getServiceFactory(String serviceId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -441,6 +526,11 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param userProfile
+     * @throws KernelRepositoryException
+     */
     public void addUserProfile(IUserProfile userProfile)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -455,6 +545,11 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param userId
+     * @throws KernelRepositoryException
+     */
     public void removeUserProfile(String userId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -472,6 +567,12 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param userId
+     * @return
+     * @throws KernelRepositoryException
+     */
     public IUserProfile getUserProfile(String userId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -490,6 +591,12 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param userId
+     * @return
+     * @throws KernelRepositoryException
+     */
     public boolean existUserProfile(String userId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -501,6 +608,11 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @return
+     * @throws KernelRepositoryException
+     */
     public IUserProfile[] listKnownUserProfiles()
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -515,11 +627,22 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param userId
+     * @param asid
+     */
     public void updateAccessSessionData(String userId, String asid) {
         this.userId2asid.put(userId, asid);
         this.asid2userId.put(asid, userId);
     }
 
+    /**
+     * 
+     * @param userId
+     * @return
+     * @throws KernelRepositoryException
+     */
     public String getAsidByUserId(String userId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -534,6 +657,12 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param asid
+     * @return
+     * @throws KernelRepositoryException
+     */
     public String getUserIdByAsid(String asid) throws KernelRepositoryException {
         log.debug("-> start processing ...");
         String ret = "";
@@ -547,6 +676,11 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param data
+     * @throws KernelRepositoryException
+     */
     public void addForwardBPELCallbackData(ForwardBPELCallbackData data)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -563,6 +697,12 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param ssid
+     * @return
+     * @throws KernelRepositoryException
+     */
     public ForwardBPELCallbackData getForwardBPELCallbackData(String ssid)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -585,6 +725,11 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @param serviceId
+     * @throws KernelRepositoryException
+     */
     public void resetNumberOfServiceInstances(String serviceId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -599,6 +744,10 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @throws KernelRepositoryException
+     */
     public void resetNumberOfServiceInstances()
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -610,6 +759,12 @@ public class KernelRepository {
         log.debug("-> ... processing DONE!");
     }
 
+    /**
+     * 
+     * @param serviceId
+     * @return
+     * @throws KernelRepositoryException
+     */
     public String getNumberOfServiceInstances(String serviceId)
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
@@ -627,6 +782,11 @@ public class KernelRepository {
         return ret;
     }
 
+    /**
+     * 
+     * @return
+     * @throws KernelRepositoryException
+     */
     public HashMap getNumberOfServiceInstancesMap()
             throws KernelRepositoryException {
         log.debug("-> start processing ...");

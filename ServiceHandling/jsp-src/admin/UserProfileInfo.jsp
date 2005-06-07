@@ -64,7 +64,11 @@
 				<td><%= info.getPEUserProfile().getUserST() %></td>
 			</tr>
           <td colspan="2"> <div align="center">
-              <input name="remove" type="submit" value="REMOVE THIS USER"/>
+		  	<form action="../adm" method="post">
+				<input name="UID" value="<%= info.getUserId() %>" type="hidden"/>
+				<input name="action" value="REMOVE_USER_PROFILE" type="hidden"/>
+              	<input name="remove" type="submit" value="REMOVE THIS USER PROFILE"/>
+			</form>
             </div></td>
 			</tr>
 		</table>

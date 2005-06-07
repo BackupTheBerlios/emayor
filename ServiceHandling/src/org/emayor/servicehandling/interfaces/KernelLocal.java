@@ -159,4 +159,14 @@ public interface KernelLocal
     */
    public org.emayor.servicehandling.kernel.ServiceSessionInfo getServiceSessionInfo( java.lang.String ssid ) throws org.emayor.servicehandling.kernel.KernelException;
 
+   /**
+    * Business Method
+    */
+   public void changeServiceStatus( java.lang.String serviceId,boolean active ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
+   public void removeUserProfile( java.lang.String uid ) throws org.emayor.servicehandling.kernel.KernelException;
+
 }

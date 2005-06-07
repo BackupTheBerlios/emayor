@@ -46,7 +46,7 @@
 				<td><%= info.getPEUserProfile().getUserName() %></td>
 				<td><%= info.getUserId() %></td>
 				<td><%= info.getPEUserProfile().getUserRole() %></td>
-				<td><div align="center"><a href="../adm?action=w"><font size="2">DETAILS</font></a></div></td>
+				<td><div align="center"><a href="../adm?action=LOOKUP_USER_PROFILE&UID=<%= info.getUserId() %>"><font size="2">DETAILS</font></a></div></td>
 			</tr>
 			<%
 				}
