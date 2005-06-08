@@ -85,6 +85,11 @@
 					- <a href="../adm?action=DEPLOY_NEW_SERVICE_INPUT"><font size="2">Deploy new service ...</font></a>
 				</td>
 			</tr>
+			<tr>	
+          		<td>
+					- <a href="../adm?action=UNDEPLOY_SERVICE_INPUT"><font size="2">Undeploy service ...</font></a>
+				</td>
+			</tr>
 		</table>
 	</td>
   </tr>
