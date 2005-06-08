@@ -395,6 +395,7 @@ public class KernelRepository {
         log.debug("-> start processing ...");
         this.serviceId2serviceInfo = new HashMap();
         this.serviceId2NumberOfInstances = new HashMap();
+        this.serviceId2serviceFactory = new HashMap();
         log.debug("-> ... processing DONE!");
     }
 

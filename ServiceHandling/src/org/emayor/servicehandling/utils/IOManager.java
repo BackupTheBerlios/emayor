@@ -13,6 +13,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.config.Config;
+import org.emayor.servicehandling.config.ConfigException;
+import org.emayor.servicehandling.kernel.IServiceInfo;
 
 /**
  * @author tku
@@ -153,10 +156,27 @@ public class IOManager {
         if (file.exists()) {
             if (file.delete()) {
                 log.debug("the file has been successful deleted!");
-            }
-            else {
+            } else {
                 log.error("Couldn't delete following file: " + path);
             }
+        }
+        log.debug("-> ... processing DONE!");
+    }
+
+    public synchronized void saveServiceInfo(IServiceInfo serviceInfo)
+            throws IOManagerException {
+        log.debug("-> start processing ...");
+        String content = serviceInfo.toString();
+        try {
+            StringBuffer b = new StringBuffer(serviceInfo.getServiceId());
+            b.append("_").append(serviceInfo.getServiceVersion());
+            b.append(".service");
+            Config config = Config.getInstance();
+            this.writeTextFile(config.getProperty("emayor.service.info.dir"), b
+                    .toString(), content);
+        } catch (ConfigException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new IOManagerException("");
         }
         log.debug("-> ... processing DONE!");
     }

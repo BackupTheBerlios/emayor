@@ -54,7 +54,10 @@ public class eMayorServiceFactory implements IeMayorServiceFactory {
                     .getServiceClassNameByServiceName(serviceId);
             if (log.isDebugEnabled())
                 log.debug("got the class name: " + className);
-            Class _class = Class.forName(className);
+            ClassLoader _loader = this.getClass().getClassLoader();
+            ServiceClassLoader loader = new ServiceClassLoader(_loader);
+            //Class _class = Class.forName(className);
+            Class _class = loader.loadServiceClass(className);
             if (_class != null)
                 log.debug("forName called successful - class NOT null");
             ret = (IeMayorService) _class.newInstance();
@@ -63,10 +66,6 @@ public class eMayorServiceFactory implements IeMayorServiceFactory {
         } catch (KernelException kex) {
             log.error("caught ex: " + kex.toString());
             throw new eMayorServiceException("problem with kernel");
-        } catch (ClassNotFoundException cnfex) {
-            log.error("caught ex: " + cnfex.toString());
-            throw new eMayorServiceException(
-                    "the specified class not found in classpath");
         } catch (IllegalAccessException iaex) {
             log.error("caught ex: " + iaex.toString());
             throw new eMayorServiceException(

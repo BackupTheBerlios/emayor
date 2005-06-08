@@ -762,17 +762,8 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
         si.setServiceVersion(profile.getServiceVersion());
         String content = si.toString();
         try {
-            StringBuffer b = new StringBuffer(si.getServiceId());
-            b.append("_").append(si.getServiceVersion());
-            b.append(".service");
-            Config config = Config.getInstance();
             IOManager manager = IOManager.getInstance();
-            manager.writeTextFile(
-                    config.getProperty("emayor.service.info.dir"),
-                    b.toString(), content);
-        } catch (ConfigException ex) {
-            log.error("caught ex: " + ex.toString());
-            throw new AdminException("");
+            manager.saveServiceInfo(si);
         } catch (IOManagerException ex) {
             log.error("caught ex: " + ex.toString());
             throw new AdminException("");
