@@ -136,5 +136,10 @@ public interface IAdmin {
      * @param active
      * @throws AdminException
      */
-    public void changeServiceStatus(String serviceId, boolean active) throws AdminException;
+    public void changeServiceStatus(String serviceId, boolean active)
+            throws AdminException;
+
+    public void deployNewService(AdminServiceProfileData serviceProfile,
+            String serviceClassName, String serviceFactoryName)
+            throws AdminException;
 }

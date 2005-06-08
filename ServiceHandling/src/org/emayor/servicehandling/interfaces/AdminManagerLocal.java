@@ -94,4 +94,9 @@ public interface AdminManagerLocal
     */
    public void removeUserProfile( java.lang.String uid ) throws org.emayor.servicehandling.kernel.AdminException;
 
+   /**
+    * Business Method
+    */
+   public void deployNewService( org.emayor.servicehandling.kernel.AdminServiceProfileData serviceProfile,java.lang.String serviceClassName,java.lang.String serviceFactoryName ) throws org.emayor.servicehandling.kernel.AdminException;
+
 }

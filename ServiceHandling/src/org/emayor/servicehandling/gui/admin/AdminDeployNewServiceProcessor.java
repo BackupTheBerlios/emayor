@@ -1,8 +1,9 @@
 /*
- * Created on Jun 6, 2005
+ * Created on Jun 9, 2005
  */
 package org.emayor.servicehandling.gui.admin;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.ejb.EJBException;
@@ -15,15 +16,25 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AdminManagerLocal;
 import org.emayor.servicehandling.kernel.AdminException;
+import org.emayor.servicehandling.kernel.AdminServiceProfileData;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
+
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * @author tku
  */
-public class AdminReloadServicesProcessor extends AbstractRequestProcessor {
-    private static final Logger log = Logger
-            .getLogger(AdminReloadServicesProcessor.class);
+public class AdminDeployNewServiceProcessor extends AbstractRequestProcessor {
+    private final static Logger log = Logger
+            .getLogger(AdminDeployNewServiceProcessor.class);
+
+    private MultipartRequest mreq = null;
+
+    public void setMultipartRequest(MultipartRequest mreq) {
+        log.debug("-> start processing ...");
+        this.mreq = mreq;
+    }
 
     /*
      * (non-Javadoc)
@@ -37,36 +48,68 @@ public class AdminReloadServicesProcessor extends AbstractRequestProcessor {
         String ret = "admin/FatalError.jsp";
         HttpSession session = req.getSession(false);
         if (session == null) {
-            log.debug("the got session ref is null -> no valid session");
+            log.debug("no valid session !");
         } else {
             try {
                 ServiceLocator locator = ServiceLocator.getInstance();
                 AdminManagerLocal admin = locator.getAdminManagerLocal();
-                admin.reloadServices();
+                AdminServiceProfileData profile = new AdminServiceProfileData();
+                String sid = mreq.getParameter("SID");
+                profile.setServiceId(sid);
+                String version = mreq.getParameter("VERSION");
+                profile.setServiceVersion(version);
+                String name = mreq.getParameter("NAME");
+                profile.setServiceName(name);
+                String description = mreq.getParameter("DESCRIPTION");
+                profile.setServiceDescription(description);
+                File file = mreq.getFile("CLAZZ");
+                String clazz = file.getName();
+                String factory;
+                file = mreq.getFile("FACTORY");
+                if (file == null) {
+                    log.debug("factory isn't specified -> using the def one");
+                    factory = null;
+                } else {
+                    factory = file.getName();
+                }
+
+                if (log.isDebugEnabled()) {
+                    log.debug("--- got service profile ---");
+                    log.debug("id                : " + sid);
+                    log.debug("version           : " + version);
+                    log.debug("name              : " + name);
+                    log.debug("description       : " + description);
+                    log.debug("class name        : " + clazz);
+                    log.debug("factory class name: " + factory);
+                }
+
+                admin.deployNewService(profile, clazz, factory);
+                admin.remove();
                 ShortInfoPageData data = new ShortInfoPageData();
-                data.setPageTitle("Reload services operation status.");
+                data.setPageTitle("Deploy new service - operation status.");
                 data.setSleepTime("3");
                 data.setRedirectionUrl("WelcomePage.jsp");
                 data.setSectionTitle("Status information.");
                 data
-                        .setRedirectionText("The services deployed on the platform has been successfuly reloaded.");
+                        .setRedirectionText("The new service has been successfuly deployed on the platform.");
                 data.setRedirectionAction("WelcomePage.jsp");
                 data.setRedirectionCancelAction("MAINMENU");
                 data.setRedirectionCancelButtonTitle("     GO     ");
                 session.setAttribute(ShortInfoPageData.ATT_NAME, data);
                 ret = "admin/ShortInfoPage.jsp";
-                admin.remove();
             } catch (ServiceLocatorException ex) {
                 log.error("caught ex: " + ex.toString());
                 AdminErrorPageData data = new AdminErrorPageData();
+                data.setPageTitle("Fatal Error!");
                 data
-                        .setPageTitle("Couldn't connect to the admin interface on the platfom.");
+                        .setMessage("Couldn't connect to the admin interface on the platfom.");
                 session.setAttribute(AdminErrorPageData.ATT_NAME, data);
                 ret = "admin/ErrorPage.jsp";
             } catch (AdminException ex) {
                 log.error("caught ex: " + ex.toString());
                 AdminErrorPageData data = new AdminErrorPageData();
-                data.setPageTitle("Couldn't reload the services.");
+                data.setPageTitle("Admin Error!");
+                data.setMessage("Couldn't remove the required user profile.");
                 session.setAttribute(AdminErrorPageData.ATT_NAME, data);
                 ret = "admin/ErrorPage.jsp";
             } catch (EJBException ex) {
@@ -85,7 +128,7 @@ public class AdminReloadServicesProcessor extends AbstractRequestProcessor {
                 ret = "admin/ErrorPage.jsp";
             }
         }
+        log.debug("-> ... processing DONE!");
         return ret;
     }
-
 }

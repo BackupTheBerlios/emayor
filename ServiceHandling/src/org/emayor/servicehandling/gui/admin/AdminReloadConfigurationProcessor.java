@@ -5,6 +5,8 @@ package org.emayor.servicehandling.gui.admin;
 
 import java.io.IOException;
 
+import javax.ejb.EJBException;
+import javax.ejb.RemoveException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +55,7 @@ public class AdminReloadConfigurationProcessor extends AbstractRequestProcessor 
                 data.setRedirectionCancelButtonTitle("     GO     ");
                 session.setAttribute(ShortInfoPageData.ATT_NAME, data);
                 ret = "admin/ShortInfoPage.jsp";
+                admin.remove();
             } catch (ServiceLocatorException ex) {
                 log.error("caught ex: " + ex.toString());
                 AdminErrorPageData data = new AdminErrorPageData();
@@ -65,6 +68,20 @@ public class AdminReloadConfigurationProcessor extends AbstractRequestProcessor 
                 AdminErrorPageData data = new AdminErrorPageData();
                 data
                         .setPageTitle("Couldn't reload the platform's configuration.");
+                session.setAttribute(AdminErrorPageData.ATT_NAME, data);
+                ret = "admin/ErrorPage.jsp";
+            } catch (EJBException ex) {
+                log.error("caught ex: " + ex.toString());
+                AdminErrorPageData data = new AdminErrorPageData();
+                data.setPageTitle("Internal Error!");
+                data.setMessage("This was an fatal internal error!");
+                session.setAttribute(AdminErrorPageData.ATT_NAME, data);
+                ret = "admin/ErrorPage.jsp";
+            } catch (RemoveException ex) {
+                log.error("caught ex: " + ex.toString());
+                AdminErrorPageData data = new AdminErrorPageData();
+                data.setPageTitle("Internal Error!");
+                data.setMessage("This was an fatal internal error!");
                 session.setAttribute(AdminErrorPageData.ATT_NAME, data);
                 ret = "admin/ErrorPage.jsp";
             }

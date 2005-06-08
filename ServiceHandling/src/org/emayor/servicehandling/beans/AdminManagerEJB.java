@@ -3,6 +3,7 @@
  */
 package org.emayor.servicehandling.beans;
 
+import java.io.File;
 import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
@@ -22,9 +23,12 @@ import org.emayor.servicehandling.kernel.IAdmin;
 import org.emayor.servicehandling.kernel.IServiceProfile;
 import org.emayor.servicehandling.kernel.IUserProfile;
 import org.emayor.servicehandling.kernel.KernelException;
+import org.emayor.servicehandling.kernel.ServiceClassLoader;
 import org.emayor.servicehandling.kernel.ServiceInfo;
 import org.emayor.servicehandling.kernel.ServiceSessionInfo;
 import org.emayor.servicehandling.kernel.UserProfile;
+import org.emayor.servicehandling.utils.IOManager;
+import org.emayor.servicehandling.utils.IOManagerException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -663,5 +667,116 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
             log.error("caught ex: " + ex.toString());
             throw new AdminException("Internal error!");
         }
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void deployNewService(AdminServiceProfileData serviceProfile,
+            String serviceClassName, String serviceFactoryName)
+            throws AdminException {
+        log.debug("-> start processing ...");
+        String sid = serviceProfile.getServiceId();
+        AdminServiceProfileData[] dss = this.listDeployedServices();
+        for (int i = 0; i < dss.length; i++) {
+            if (dss[i].getServiceId().equals(sid)) {
+                log.error("service already exists: serviceId=" + sid);
+                throw new AdminException("Service already exists! ServiceId = "
+                        + sid);
+            }
+        }
+
+        log.debug("storing service class");
+        String fullyServiceClassName = this.storeClass(serviceClassName);
+        String fullyServiceFactoryClassName = "org.emayor.servicehandling.kernel.eMayorServiceFactory";
+        if (serviceFactoryName != null && serviceFactoryName.length() != 0) {
+            log.debug("storing factory class");
+            fullyServiceFactoryClassName = this.storeClass(serviceFactoryName);
+        } else {
+            log.debug("using the default factory");
+        }
+        log.debug("storing service profile");
+        serviceProfile.setServiceClassName(fullyServiceClassName);
+        serviceProfile.setServiceFactoryClassName(fullyServiceFactoryClassName);
+        serviceProfile.setServiceEndpoint("---");
+        this.storeProfile(serviceProfile);
+        log.debug("reloading the services");
+        this.reloadServices();
+    }
+
+    private String storeClass(String className) throws AdminException {
+        log.debug("-> start processing ...");
+        String ret = null;
+        try {
+            Config config = Config.getInstance();
+            String relPath = config.getProperty("emayor.service.classes.dir");
+            IOManager manager = IOManager.getInstance();
+            byte[] bytes = manager.readBinaryFile(config
+                    .getProperty("emayor.tmp.dir"), className);
+            ClassLoader _classLoader = this.getClass().getClassLoader();
+            ServiceClassLoader loader = new ServiceClassLoader(_classLoader);
+            Class clazz = loader.loadClass(bytes);
+            String fullyClassName = clazz.getName();
+            clazz = null;
+            int i = fullyClassName.lastIndexOf(".");
+            String packageName = fullyClassName.substring(0, i);
+            String _className = fullyClassName.substring(i + 1);
+            if (log.isDebugEnabled()) {
+                log.debug("fully clazz name: " + fullyClassName);
+                log.debug("clazz name: " + _className);
+                log.debug("package name: " + packageName);
+            }
+            String str = packageName.replace('.', File.separatorChar);
+            manager.createDirs(relPath, str);
+            StringBuffer b = new StringBuffer();
+            str = fullyClassName.replace('.', File.separatorChar);
+            b.append(str).append(".class");
+            manager.writeBinaryFile(relPath, b.toString(), bytes);
+            ret = fullyClassName;
+            manager.deleteFile(config.getProperty("emayor.tmp.dir"), className);
+        } catch (ConfigException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("");
+        } catch (IOManagerException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("");
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    private void storeProfile(AdminServiceProfileData profile)
+            throws AdminException {
+        log.debug("-> start processing ...");
+        ServiceInfo si = new ServiceInfo();
+        si.setActive(false);
+        si.setServiceClassName(profile.getServiceClassName());
+        si.setServiceDescription(profile.getServiceDescription());
+        si.setServiceEndpoint(profile.getServiceEndpoint());
+        si.setServiceFactoryClassName(profile.getServiceFactoryClassName());
+        si.setServiceId(profile.getServiceId());
+        si.setServiceName(profile.getServiceName());
+        si.setServiceVersion(profile.getServiceVersion());
+        String content = si.toString();
+        try {
+            StringBuffer b = new StringBuffer(si.getServiceId());
+            b.append("_").append(si.getServiceVersion());
+            b.append(".service");
+            Config config = Config.getInstance();
+            IOManager manager = IOManager.getInstance();
+            manager.writeTextFile(
+                    config.getProperty("emayor.service.info.dir"),
+                    b.toString(), content);
+        } catch (ConfigException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("");
+        } catch (IOManagerException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("");
+        }
+        log.debug("-> ... processing DONE!");
     }
 }

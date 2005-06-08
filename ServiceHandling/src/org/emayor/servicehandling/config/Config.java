@@ -25,6 +25,8 @@ public class Config {
 	private Properties props;
 
 	private String JBOSS_HOME_DIR = "";
+	
+	private String TMP_DIR;
 
 	/**
 	 *  
@@ -64,10 +66,10 @@ public class Config {
 			else {
 				if (log.isDebugEnabled())
 					log.debug("using a default value: " + defValue);
-				ret = defValue;
+				ret = defValue.trim();
 			}
 		} else {
-			ret = this.props.getProperty(propName);
+			ret = this.props.getProperty(propName).trim();
 			if (log.isDebugEnabled()) {
 				log.debug("got property value: [" + propName + "]=" + ret);
 			}
@@ -112,6 +114,10 @@ public class Config {
 		b.append(File.separator).append(dirName);
 		return b.toString();
 	}
+	
+	public synchronized String getTmpDir() {
+	    return this.TMP_DIR;
+	}
 
 	private final void loadConfiguration() throws ConfigException {
 		log.debug("-> start processing ...");
@@ -128,6 +134,10 @@ public class Config {
 			File configFile = new File(b.toString());
 			if (configFile.exists()) {
 				this.props.load(new FileInputStream(configFile));
+				this.props.put("jboss.server.home.dir", JBOSS_HOME_DIR);
+				b = new StringBuffer(this.JBOSS_HOME_DIR);
+				b.append(File.separator).append(this.props.getProperty("emayor.tmp.dir"));
+				this.TMP_DIR = b.toString();
 			} else {
 				throw new ConfigException(
 						"reading configuration failed: the config file doesn't exist");

@@ -3,16 +3,19 @@
  */
 package org.emayor.servicehandling.gui.admin;
 
-import javax.servlet.http.HttpServlet;
-
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.config.Config;
+import org.emayor.servicehandling.config.ConfigException;
+
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet Class
@@ -26,6 +29,8 @@ public class AdminManagerContollerServlet extends HttpServlet {
     private static final Logger log = Logger
             .getLogger(AdminManagerContollerServlet.class);
 
+    private String tempDir;
+
     /**
      *  
      */
@@ -35,13 +40,31 @@ public class AdminManagerContollerServlet extends HttpServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        log.debug("-> start processing ...");
+        try {
+            Config _config = Config.getInstance();
+            this.tempDir = _config.getTmpDir();
+            if (log.isDebugEnabled())
+                log.debug("the temp dir is: " + this.tempDir);
+        } catch (ConfigException ex) {
+            log.error("Couldn't get the temp directory");
+        }
     }
 
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         log.debug("-> start processing ...");
         String page = "admin/LoginForm.jsp";
-        String action = request.getParameter("action");
+        String type = request.getContentType();
+        MultipartRequest mrequest = null;
+        String action = null;
+        if (type != null && type.startsWith("multipart/form-data")) {
+            log.debug("this is a multipart request");
+            mrequest = new MultipartRequest(request, this.tempDir);
+            action = mrequest.getParameter("action");
+        } else {
+            action = request.getParameter("action");
+        }
         if (action == null)
             action = "INDEX";
         if (log.isDebugEnabled())
@@ -95,6 +118,12 @@ public class AdminManagerContollerServlet extends HttpServlet {
             p = new AdminRemoveUserProfileProcessor();
         } else if (action.equalsIgnoreCase("CHANGE_SERVICE_STATUS")) {
             p = new AdminChangeServiceStatusProcessor();
+        } else if (action.equalsIgnoreCase("DEPLOY_NEW_SERVICE_INPUT")) {
+            p = new AdminDeployNewServiceInputProcessor();
+        } else if (action.equalsIgnoreCase("DEPLOY_NEW_SERVICE")) {
+            AdminDeployNewServiceProcessor pp = new AdminDeployNewServiceProcessor();
+            pp.setMultipartRequest(mrequest);
+            p = pp;
         } else {
             log.info("current action = UNKNOWN");
             p = new DummyProcessor();
