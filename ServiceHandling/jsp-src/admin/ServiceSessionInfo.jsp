@@ -49,7 +49,7 @@
 			</tr>
 			<tr bgcolor="#FFCCCC">
 				<td>Service id</td>
-				<td><a href="../adm?action=LOOKUP_DEPLOYED_SERVICES&SID=<%= info.getServiceId() %>"><%= info.getServiceId() %></a></td>
+				<td><a href="../adm?action=LOOKUP_SERVICE_PROFILE&SID=<%= info.getServiceId() %>"><%= info.getServiceId() %></a></td>
 			</tr>
 			<tr>
 				
