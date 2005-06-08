@@ -99,4 +99,9 @@ public interface AdminManagerLocal
     */
    public void deployNewService( org.emayor.servicehandling.kernel.AdminServiceProfileData serviceProfile,java.lang.String serviceClassName,java.lang.String serviceFactoryName ) throws org.emayor.servicehandling.kernel.AdminException;
 
+   /**
+    * Business Method
+    */
+   public void undeployService( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.AdminException;
+
 }
