@@ -21,35 +21,39 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  * @author tku
  */
 public class WelcomeProcessor extends AbstractProcessor {
-	private static Logger log = Logger.getLogger(WelcomeProcessor.class);
+    private static Logger log = Logger.getLogger(WelcomeProcessor.class);
 
-	/**
-	 *  
-	 */
-	public WelcomeProcessor() {
-		super();
-	}
+    /**
+     *  
+     */
+    public WelcomeProcessor() {
+        super();
+    }
 
-	public String process(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		log.debug("-> start processing ...");
-		String ret = "ServiceListing.jsp";
-		HttpSession session = req.getSession();
-		try {
-			ServiceLocator serviceLocator = ServiceLocator.getInstance();
-			AccessManagerLocal access = serviceLocator.getAccessManager();
-			ServicesInfo servicesInfo = access.listAvailableServices("-1001");
-			session.setAttribute("SERVICES_INFO", servicesInfo
-					.getServicesInfo());
-		} catch (ServiceLocatorException ex) {
-			log.error("caught ex: " + ex.toString());
-			// TODO hadle exception
-		} catch (AccessException aex) {
-			log.error("caught ex: " + aex.toString());
-			// TODO handle ex
-		}
-		log.debug("-> ... processing DONE!");
-		return ret;
-	}
+    public String process(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        log.debug("-> start processing ...");
+        String ret = "ServiceListing.jsp";
+        HttpSession session = req.getSession();
+        try {
+            ServiceLocator serviceLocator = ServiceLocator.getInstance();
+            AccessManagerLocal access = serviceLocator.getAccessManager();
+            // the number "-1001" means the user id is not used
+            ServicesInfo servicesInfo = access.listAvailableServices("-1001");
+            log.debug("got the services ("
+                    + servicesInfo.getServicesInfo().length
+                    + ") -> inserting into session");
+            session.setAttribute("SERVICES_INFO", servicesInfo
+                    .getServicesInfo());
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            // TODO hadle exception
+        } catch (AccessException aex) {
+            log.error("caught ex: " + aex.toString());
+            // TODO handle ex
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
 
 }

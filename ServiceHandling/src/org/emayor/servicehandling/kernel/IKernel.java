@@ -97,8 +97,10 @@ public interface IKernel {
             throws KernelException;
 
     /**
+     * Obtains a list of all current running service sessions info - system
+     * wide.
      * 
-     * @return
+     * @return an array of service session interfaces
      * @throws KernelException
      */
     public ServiceSessionInfo[] listServiceSessions() throws KernelException;
@@ -125,7 +127,8 @@ public interface IKernel {
      * Get all runing service sessions started by given user.
      * 
      * @param userId
-     * @return
+     *            the id of given user
+     * @return an array of service session interfaces
      * @throws KernelException
      */
     public ServiceSessionLocal[] getUsersServiceSessions(String userId)
@@ -137,20 +140,33 @@ public interface IKernel {
      */
 
     /**
+     * Obtains a list af all active service, the specified user is allowed to
+     * start/use.
      * 
      * @param userProfile
-     * @return
+     *            the profile of current user
+     * @return an array of service info instances
      * @throws KernelException
      */
     public ServiceInfo[] listAvailableServices(C_UserProfile userProfile)
             throws KernelException;
 
     /**
+     * Obtains a list of all deployed service, it doesn't matter active or not
+     * active.
      * 
-     * @return
+     * @return an array of service info instances
      * @throws KernelException
      */
     public ServiceInfo[] listAllAvailableServices() throws KernelException;
+
+    /**
+     * Obtains a list of all active services.
+     * 
+     * @return an array of service info instances
+     * @throws KernelException
+     */
+    public ServiceInfo[] listAllActiveServices() throws KernelException;
 
     /**
      * 

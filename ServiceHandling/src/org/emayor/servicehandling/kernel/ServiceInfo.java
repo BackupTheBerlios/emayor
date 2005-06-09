@@ -48,6 +48,7 @@ public class ServiceInfo implements IServiceInfo {
     }
 
     public String getServiceName() {
+        log.debug("-> start processing ...");
         return this.serviceName;
     }
 
@@ -197,11 +198,11 @@ public class ServiceInfo implements IServiceInfo {
         if (str == null || str.length() == 0) {
             log.debug("something wrong with active");
             return false;
-        } 
+        }
         if (log.isDebugEnabled())
             log.debug("SETTING ACTIVE TO : " + str);
         this.setActive(str);
-        
+
         return ret;
     }
 
@@ -211,7 +212,8 @@ public class ServiceInfo implements IServiceInfo {
         ret.put("service.info.service.id", this.serviceId);
         ret.put("service.info.service.version", this.serviceVersion);
         ret.put("service.info.service.name", this.serviceName);
-        ret.put("service.info.service.factory.class.name", this.serviceFactoryClassName);
+        ret.put("service.info.service.factory.class.name",
+                this.serviceFactoryClassName);
         ret.put("service.info.service.class.name", this.serviceClassName);
         ret.put("service.info.service.description", this.serviceDescription);
         ret.put("service.info.service.endpoint", this.serviceEndpoint);
@@ -229,24 +231,36 @@ public class ServiceInfo implements IServiceInfo {
         this.active = (active) ? (IServiceInfo.IS_ACTIVE)
                 : (IServiceInfo.IS_NOT_ACTIVE);
     }
-    
-    private void setActive(String active) {
+
+    public void setActive(String active) {
         this.active = active;
     }
-    
-    private String getActive() {
+
+    public String getActive() {
         return this.active;
     }
-    
+
     public String toString() {
         StringBuffer b = new StringBuffer();
         Properties props = this.marshall();
         for (Enumeration e = props.propertyNames(); e.hasMoreElements();) {
-            String key = (String)e.nextElement();
+            String key = (String) e.nextElement();
             String value = props.getProperty(key);
             b.append(key).append("=").append(value).append("\n");
         }
         return b.toString();
+    }
+
+    public void displayService() {
+        if (log.isDebugEnabled()) {
+            log.debug("name         : " + this.serviceName);
+            log.debug("id           : " + this.serviceId);
+            log.debug("class name   : " + this.serviceClassName);
+            log.debug("factory name : " + this.serviceFactoryClassName);
+            log.debug("version      : " + this.serviceVersion);
+            log.debug("endpoint     : " + this.serviceVersion);
+            log.debug("is active    : " + this.getActive());
+        }
     }
 }
 

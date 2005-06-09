@@ -183,6 +183,17 @@ public class KernelEJB implements SessionBean, IKernel {
      * @ejb.interface-method view-type = "local"
      *  
      */
+    public ServiceInfo[] listAllActiveServices() throws KernelException {
+        log.debug("-> start processing ...");
+        return this.kernel.listAllActiveServices();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
     public String getUserIdByASID(String asid) throws KernelException {
         log.debug("-> start processing ...");
         return this.kernel.getUserIdByASID(asid);

@@ -52,6 +52,11 @@ public interface KernelLocal
    /**
     * Business Method
     */
+   public org.emayor.servicehandling.kernel.ServiceInfo[] listAllActiveServices(  ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    */
    public java.lang.String getUserIdByASID( java.lang.String asid ) throws org.emayor.servicehandling.kernel.KernelException;
 
    /**

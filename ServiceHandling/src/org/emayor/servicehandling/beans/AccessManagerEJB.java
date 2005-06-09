@@ -21,6 +21,7 @@ import org.emayor.servicehandling.kernel.ForwardMessage;
 import org.emayor.servicehandling.kernel.IAccess;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
+import org.emayor.servicehandling.kernel.ServiceInfo;
 import org.emayor.servicehandling.kernel.ServicesInfo;
 import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.kernel.UserProfile;
@@ -30,7 +31,8 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 /**
  * @ejb.bean name="AccessManager" display-name="Name for AccessManager"
  *           description="Description for AccessManager"
- *           jndi-name="ejb/emayor/sh/AccessManager" type="Stateless" view-type="local"
+ *           jndi-name="ejb/emayor/sh/AccessManager" type="Stateless"
+ *           view-type="local"
  *  
  */
 public class AccessManagerEJB implements SessionBean, IAccess {
@@ -223,10 +225,15 @@ public class AccessManagerEJB implements SessionBean, IAccess {
             throws AccessException {
         log.debug("-> start processing ...");
         ServicesInfo ret = new ServicesInfo();
-        if (accessSessionId.equals("-1001")) {
+        if (accessSessionId == null || accessSessionId.equals("-1001")) {
             log.debug("anonymous login - list of services");
             try {
-                ret.setServicesInfo(this.kernel.listAllAvailableServices());
+                // listing of all active services without differentiating
+                // among the users
+                ServiceInfo[] services = this.kernel.listAllActiveServices();
+                if (log.isDebugEnabled())
+                    log.debug("currently got " + services.length + " services");
+                ret.setServicesInfo(services);
             } catch (KernelException ex) {
                 log.error("caught ex: " + ex);
                 throw new AccessException(
@@ -234,6 +241,8 @@ public class AccessManagerEJB implements SessionBean, IAccess {
             }
         } else {
             try {
+                // lookup only the active services the current user is allowed
+                // to start
                 AccessSessionLocal as = this.kernel
                         .getAccessSession(accessSessionId);
                 ret.setServicesInfo(as.listAvailableServices());

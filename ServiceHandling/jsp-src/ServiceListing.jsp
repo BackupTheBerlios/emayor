@@ -27,6 +27,7 @@ Current Access Session id = <%= session.getAttribute("ASID") %>
 	ServiceInfo[] infos = (ServiceInfo[])session.getAttribute("SERVICES_INFO");
 	for (int i = 0; i < infos.length; i++) {
 		ServiceInfo info = infos[i];
+		info.displayService();
 		String serviceName = info.getServiceName();
 		String serviceDescription = info.getServiceDescription();
 		String serviceId = info.getServiceId();

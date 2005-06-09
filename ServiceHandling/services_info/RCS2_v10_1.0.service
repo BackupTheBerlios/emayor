@@ -1,0 +1,8 @@
+service.info.service.version=1.0
+service.info.service.name=Residence Certification Service (version 2)
+service.info.service.endpoint=---
+service.info.service.id=RCS2_v10
+service.info.service.factory.class.name=org.emayor.servicehandling.kernel.eMayorServiceFactory
+service.info.service.description=Blah. Blah (version2)
+service.info.service.active=YES
+service.info.service.class.name=org.emayor.rcs2.ResidenceCertificationService2
