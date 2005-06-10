@@ -112,8 +112,15 @@ public class ServiceCallbackManagerEJB implements SessionBean,
             log.debug("remove the kernel");
             kernel.remove();
             log.debug("stop the service session");
-            accessSession.stopServiceSession(ssid);
-
+            if (accessSession.stopServiceSession(ssid))  {
+            	log.debug("the access session has been successful stoped!");
+            	ret = "OK";
+            }
+            else {
+            	log.debug("Couldn't stop the access session!");
+            	ret = "NOT OK";
+            }
+            // TODO 
             ret = "OK";
         } catch (ServiceLocatorException slex) {
             log.error("problem with the service locator");
