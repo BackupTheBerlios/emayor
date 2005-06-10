@@ -301,6 +301,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 			serviceSession.endService();
 			log.debug("remove the service session ejb instance");
 			serviceSession.remove();
+			ret = true;
 		} catch (ServiceSessionException ssex) {
 			log.error("caught ex: " + ssex.toString());
 			throw new AccessSessionException(

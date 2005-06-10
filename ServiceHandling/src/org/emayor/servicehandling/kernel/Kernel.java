@@ -311,6 +311,7 @@ public class Kernel implements IKernel {
             if (asid == null) {
                 log.info("the asid was null -> using the admin delete method!");
                 this.repository.adminRemoveServiceSession(ssid);
+                ret = true;
             } else {
             	log.info("tha asid wasn't null, asid=" + asid);
                 String userId = this.getUserIdByASID(asid);

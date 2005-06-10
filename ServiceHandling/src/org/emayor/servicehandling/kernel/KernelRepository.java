@@ -54,6 +54,9 @@ public class KernelRepository {
 	// ssid -> bpelCallbackData
 	private HashMap ssid2bpelForwardCallbackData;
 
+	// ssid -> service id
+	private HashMap ssid2serviceId;
+
 	/**
 	 *  
 	 */
@@ -70,6 +73,7 @@ public class KernelRepository {
 		this.asid2userId = new HashMap();
 		this.ssid2bpelForwardCallbackData = new HashMap();
 		this.ssid2userId = new HashMap();
+		this.ssid2serviceId = new HashMap();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -177,6 +181,7 @@ public class KernelRepository {
 					log
 							.debug("working with following service id: "
 									+ serviceId);
+				this.ssid2serviceId.put(ssid, serviceId);
 				int i = ((Integer) this.serviceId2NumberOfInstances
 						.get(serviceId)).intValue();
 				this.serviceId2NumberOfInstances.put(serviceId,
@@ -216,23 +221,18 @@ public class KernelRepository {
 				if (ssids.contains(ssid)) {
 					log
 							.debug("everything's OK -> removing session from data structures");
-					try {
-						ServiceSessionLocal serviceSession = this
-								.getServiceSession(ssid);
-						String serviceId = serviceSession.getServiceId();
-						if (log.isDebugEnabled())
-							log.debug("working with following service id: "
-									+ serviceId);
-						int i = ((Integer) this.serviceId2NumberOfInstances
-								.get(serviceId)).intValue();
-						this.serviceId2NumberOfInstances.put(serviceId,
-								new Integer(--i));
-						if (log.isDebugEnabled())
-							log.debug("set the current number of instance to "
-									+ (--i) + " for serviceId = " + serviceId);
-					} catch (ServiceSessionException ex) {
-						log.error("caught ex: " + ex.toString());
-					}
+					String serviceId = (String) this.ssid2serviceId.get(ssid);
+					this.ssid2serviceId.remove(ssid);
+					if (log.isDebugEnabled())
+						log.debug("working with following service id: "
+								+ serviceId);
+					int i = ((Integer) this.serviceId2NumberOfInstances
+							.get(serviceId)).intValue();
+					this.serviceId2NumberOfInstances.put(serviceId,
+							new Integer(--i));
+					if (log.isDebugEnabled())
+						log.debug("set the current number of instance to "
+								+ i + " for serviceId = " + serviceId);
 					log.debug("clear the ssid2serviceSession");
 					this.ssid2serviceSession.remove(ssid);
 					ssids.remove(ssid);
