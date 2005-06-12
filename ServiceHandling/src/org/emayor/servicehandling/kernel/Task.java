@@ -12,28 +12,36 @@ import java.util.Calendar;
  */
 public class Task implements ITask {
 
+	// the id of this task - attached automaticaly by the PM
 	private String taskId;
 
+	// the status of this task
 	private String status;
 
+	// the business document
 	private String xMLDocument;
-	
+
+	// the digitale signature - if this mode used
 	private String docDigSig;
-	
+
+	// some extra info - used to encode the string version of the business
+	// document type
 	private String extraInfo;
 	
+	// the status of the signature check
 	private boolean signatureStatus;
-	
+
+	// the type of current task
 	private int taskType;
-	
+
 	private Calendar deadline;
-	
+
 	private Calendar incoming;
-	
+
 	private String ssid;
-	
+
 	private String documentResponse;
-	
+
 	private String documentResponseDigSig;
 
 	/**
@@ -42,36 +50,45 @@ public class Task implements ITask {
 	public Calendar getIncoming() {
 		return incoming;
 	}
+
 	/**
-	 * @param incoming The incoming to set.
+	 * @param incoming
+	 *            The incoming to set.
 	 */
 	public void setIncoming(Calendar incoming) {
 		this.incoming = incoming;
 	}
+
 	/**
 	 * @return Returns the deadline.
 	 */
 	public Calendar getDeadline() {
 		return deadline;
 	}
+
 	/**
-	 * @param deadline The deadline to set.
+	 * @param deadline
+	 *            The deadline to set.
 	 */
 	public void setDeadline(Calendar deadline) {
 		this.deadline = deadline;
 	}
+
 	/**
 	 * @return Returns the taskType.
 	 */
 	public int getTaskType() {
 		return taskType;
 	}
+
 	/**
-	 * @param taskType The taskType to set.
+	 * @param taskType
+	 *            The taskType to set.
 	 */
 	public void setTaskType(int taskType) {
 		this.taskType = taskType;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -125,7 +142,7 @@ public class Task implements ITask {
 	public void setXMLDocument(String xmlDocument) {
 		this.xMLDocument = xmlDocument;
 	}
-	
+
 	public String toString() {
 		StringBuffer b = new StringBuffer();
 		b.append("task id: ").append(this.taskId).append("\n");
@@ -133,28 +150,36 @@ public class Task implements ITask {
 		return b.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.emayor.servicehandling.kernel.ITask#getDocDigSig()
 	 */
 	public String getDocDigSig() {
 		return this.docDigSig;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.emayor.servicehandling.kernel.ITask#setDocDigSig(java.lang.String)
 	 */
 	public void setDocDigSig(String docDigSig) {
 		this.docDigSig = docDigSig;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.emayor.servicehandling.kernel.ITask#getExtraInfo()
 	 */
 	public String getExtraInfo() {
 		return this.extraInfo;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.emayor.servicehandling.kernel.ITask#setExtraInfo()
 	 */
 	public void setExtraInfo(String extraInfo) {
@@ -167,46 +192,57 @@ public class Task implements ITask {
 	public boolean isSignatureStatus() {
 		return signatureStatus;
 	}
+
 	/**
-	 * @param signatureStatus The signatureStatus to set.
+	 * @param signatureStatus
+	 *            The signatureStatus to set.
 	 */
 	public void setSignatureStatus(boolean signatureStatus) {
 		this.signatureStatus = signatureStatus;
 	}
-    /**
-     * @return Returns the documentResponse.
-     */
-    public String getDocumentResponse() {
-        return documentResponse;
-    }
-    /**
-     * @param documentResponse The documentResponse to set.
-     */
-    public void setDocumentResponse(String documentResponse) {
-        this.documentResponse = documentResponse;
-    }
-    /**
-     * @return Returns the documentResponseDigSig.
-     */
-    public String getDocumentResponseDigSig() {
-        return documentResponseDigSig;
-    }
-    /**
-     * @param documentResponseDigSig The documentResponseDigSig to set.
-     */
-    public void setDocumentResponseDigSig(String documentResponseDigSig) {
-        this.documentResponseDigSig = documentResponseDigSig;
-    }
-    /**
-     * @return Returns the ssid.
-     */
-    public String getSsid() {
-        return ssid;
-    }
-    /**
-     * @param ssid The ssid to set.
-     */
-    public void setSsid(String ssid) {
-        this.ssid = ssid;
-    }
+
+	/**
+	 * @return Returns the documentResponse.
+	 */
+	public String getDocumentResponse() {
+		return documentResponse;
+	}
+
+	/**
+	 * @param documentResponse
+	 *            The documentResponse to set.
+	 */
+	public void setDocumentResponse(String documentResponse) {
+		this.documentResponse = documentResponse;
+	}
+
+	/**
+	 * @return Returns the documentResponseDigSig.
+	 */
+	public String getDocumentResponseDigSig() {
+		return documentResponseDigSig;
+	}
+
+	/**
+	 * @param documentResponseDigSig
+	 *            The documentResponseDigSig to set.
+	 */
+	public void setDocumentResponseDigSig(String documentResponseDigSig) {
+		this.documentResponseDigSig = documentResponseDigSig;
+	}
+
+	/**
+	 * @return Returns the ssid.
+	 */
+	public String getSsid() {
+		return ssid;
+	}
+
+	/**
+	 * @param ssid
+	 *            The ssid to set.
+	 */
+	public void setSsid(String ssid) {
+		this.ssid = ssid;
+	}
 }
