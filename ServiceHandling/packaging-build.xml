@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N100A5,N100B6,N100C7,N10104,N10135,N1017E,N1018F,N101D0,N10207,N10218"/>
+<target name="_packaging_generation_" depends="N10004,N100AD,N100BE,N100CF,N1010C,N1013D,N10186,N10197,N101D8,N1020F,N10220"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -57,20 +57,23 @@
 <zipfileset dir="lib">
 <include name="cos.jar"/>
 </zipfileset>
+<zipfileset dir="xml" prefix="org/emayor/ur">
+<include name="SampleUserRegistrationRequestDocument.xml"/>
+</zipfileset>
 <zipfileset dir="classes" includes="**/*.class"/>
 </jar>
 </target>
-<target name="N100A5" description="eMayorEJB-client.jar">
+<target name="N100AD" description="eMayorEJB-client.jar">
 <jar destfile="eMayorEJB-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N100B6" description="eMayorSH-GUI-client.jar">
+<target name="N100BE" description="eMayorSH-GUI-client.jar">
 <jar destfile="eMayorSH-GUI-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/interfaces/AdminManager*.class,org/emayor/servicehandling/utclient*.class,org/emayor/servicehandling/kernel/IServiceInfo.class,org/emayor/servicehandling/kernel/ServiceInfo.class,org/emayor/servicehandling/kernel/ServicesInfo.class,org/emayor/servicehandling/bpel/task/_task.class,org/emayor/servicehandling/bpel/task/_task_status.class"/>
 </jar>
 </target>
-<target name="N100C7" description="eMayorWeb.war">
+<target name="N100CF" description="eMayorWeb.war">
 <jar destfile="eMayorWeb.war">
 <zipfileset dir="." prefix="WEB-INF/lib">
 <include name="eMayorSH-GUI-client.jar"/>
@@ -86,7 +89,7 @@
 <zipfileset dir="jsp-src"/>
 </jar>
 </target>
-<target name="N10104" description="WorklistManager-client.jar">
+<target name="N1010C" description="WorklistManager-client.jar">
 <jar destfile="WorklistManager-client.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -103,13 +106,13 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N10135" description="ResidenceCertificationService-client.jar"/>
-<target name="N1017E" description="BPELPolicyEnforcer-client.jar">
+<target name="N1013D" description="ResidenceCertificationService-client.jar"/>
+<target name="N10186" description="BPELPolicyEnforcer-client.jar">
 <jar destfile="BPELPolicyEnforcer-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/BPELPolicyEnforcer*.class,org/emayor/servicehandling/kernel/*BPELPolicyEnforcer*.class"/>
 </jar>
 </target>
-<target name="N1018F" description="ForwardMgrBPEL-client.jar">
+<target name="N10197" description="ForwardMgrBPEL-client.jar">
 <jar destfile="ForwardMgrBPEL-client.jar">
 <zipfileset dir="BPEL-forward/client" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -132,7 +135,7 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/bpel/forward/client/*.class,org/emayor/servicehandling/kernel/bpel/forward/data/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
 </jar>
 </target>
-<target name="N101D0" description="eMayorBPELServiceStarter.jar">
+<target name="N101D8" description="eMayorBPELServiceStarter.jar">
 <jar destfile="eMayorBPELServiceStarter.jar">
 <zipfileset dir="service_starter" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -154,12 +157,12 @@
 </zipfileset>
 </jar>
 </target>
-<target name="N10207" description="SH-client.jar">
+<target name="N1020F" description="SH-client.jar">
 <jar destfile="SH-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class,org/emayor/servicehandling/kernel/KernelException.class,org/emayor/servicehandling/kernel/SessionException.class,org/emayor/servicehandling/kernel/*UserProfile.class"/>
 </jar>
 </target>
-<target name="N10218" description="eMayorApp.ear">
+<target name="N10220" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>

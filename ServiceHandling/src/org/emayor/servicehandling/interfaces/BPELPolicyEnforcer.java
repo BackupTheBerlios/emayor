@@ -33,4 +33,10 @@ public interface BPELPolicyEnforcer
    public boolean F_AuthorizeServiceStep( java.lang.String userId,java.lang.String ssid,java.lang.String serviceStepId )
       throws org.emayor.servicehandling.kernel.BPELPolicyEnforcerException, java.rmi.RemoteException;
 
+   /**
+    * Business method
+    */
+   public boolean F_NewUserProfile( java.lang.String newUserProfile )
+      throws java.rmi.RemoteException;
+
 }

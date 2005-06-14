@@ -29,4 +29,9 @@ public interface BPELPolicyEnforcerLocal
     */
    public boolean F_AuthorizeServiceStep( java.lang.String userId,java.lang.String ssid,java.lang.String serviceStepId ) throws org.emayor.servicehandling.kernel.BPELPolicyEnforcerException;
 
+   /**
+    * Business method
+    */
+   public boolean F_NewUserProfile( java.lang.String newUserProfile ) ;
+
 }
