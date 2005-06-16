@@ -45,10 +45,12 @@ public class GetInputDataPageProcessor extends AbstractProcessor {
             String asid = (String) session.getAttribute("ASID");
             String ssid = (String) session.getAttribute("SSID");
             String role = (String) session.getAttribute("ROLE");
+            String sname = (String) session.getAttribute("SNAME");
             if (log.isDebugEnabled()) {
-                log.debug("got asid: " + asid);
-                log.debug("got ssid: " + ssid);
-                log.debug("got role: " + role);
+                log.debug("got asid : " + asid);
+                log.debug("got ssid : " + ssid);
+                log.debug("got sname: " + sname);
+                log.debug("got role : " + role);
             }
             UserTaskServiceClient userTaskServiceClient = new UserTaskServiceClient();
             Task task = userTaskServiceClient.lookupTask(asid, ssid);
@@ -64,30 +66,61 @@ public class GetInputDataPageProcessor extends AbstractProcessor {
                 StringReader reader = new StringReader(xmldoc);
                 InputSource inputSource = new InputSource(reader);
                 Document root = builder.parse(inputSource);
-                if (root != null)
+                if (root != null) {
                     log.debug("root: " + root.toString());
+                }
                 else
                     log.debug("root is NULL");
-                String reqForename = XPathAPI
-                        .selectSingleNode(
-                                root,
-                                "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()")
-                        .getNodeValue();
-                String reqSurname = XPathAPI
-                        .selectSingleNode(
-                                root,
-                                "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()")
-                        .getNodeValue();
-                String reqEMail = XPathAPI
-                        .selectSingleNode(
-                                root,
-                                "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
-                        .getNodeValue();
+                
                 session.setAttribute("CURR_TASK", task);
-                session.setAttribute("REQ_FORENAME", reqForename);
-                session.setAttribute("REQ_SURNAME", reqSurname);
-                session.setAttribute("REQ_EMAIL", reqEMail);
-                ret = "RCSDataPage.jsp";
+                
+                
+                if (sname.matches("^(.*?)UserRegistration(.*?)$")) {
+                	String reqForename = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/UserProfile/CitizenName/CitizenNameForename/text()")
+                    .getNodeValue();
+                    String reqSurname = XPathAPI
+                    .selectSingleNode(
+                            root,
+							"/UserProfile/CitizenName/CitizenNameSurname/text()")
+                    .getNodeValue();
+                    String reqEMail = XPathAPI
+                    .selectSingleNode(
+                            root,
+                    		"/UserProfile/ContactDetails/Email/EmailAddress/text()")
+                    .getNodeValue();
+                    
+                    session.setAttribute("REQ_FORENAME", reqForename);
+    	            session.setAttribute("REQ_SURNAME", reqSurname);
+    	            session.setAttribute("REQ_EMAIL", reqEMail);
+                	
+                	ret = "URSDataPage.jsp";
+                } else 
+                if (sname.matches("^(.*?)ResidenceCertification(.*?)$")){
+                    String reqForename = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()")
+                    .getNodeValue();
+                    String reqSurname = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()")
+                    .getNodeValue();
+                    String reqEMail = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
+                    .getNodeValue();
+                    
+                    session.setAttribute("REQ_FORENAME", reqForename);
+    	            session.setAttribute("REQ_SURNAME", reqSurname);
+    	            session.setAttribute("REQ_EMAIL", reqEMail);
+    	            
+                	ret = "RCSDataPage.jsp";
+                }
             }
         } catch (UserTaskException utex) {
             log.error("caught ex: " + utex.toString());

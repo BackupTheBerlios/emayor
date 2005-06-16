@@ -52,20 +52,18 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             String asid = (String) session.getAttribute("ASID");
             String ssid = (String) session.getAttribute("SSID");
             String role = (String) session.getAttribute("ROLE");
+            String sname = (String) session.getAttribute("SNAME");
             if (log.isDebugEnabled()) {
-                log.debug("got asid: " + asid);
-                log.debug("got ssid: " + ssid);
-                log.debug("got role: " + role);
+                log.debug("got asid : " + asid);
+                log.debug("got ssid : " + ssid);
+                log.debug("got sname: " + sname);
+                log.debug("got role : " + role);
             }
             UserTaskServiceClient userTaskServiceClient = new UserTaskServiceClient();
             Task task = (Task) session.getAttribute("CURR_TASK");
             String taskId = req.getParameter("taskid");
             String xmldoc = task.getXMLDocument();
-            String reqForename = req.getParameter("REQ_FORENAME");
-            String reqSurname = req.getParameter("REQ_SURNAME");
-            String reqEmail = req.getParameter("REQ_EMAIL");
-            String reqServingMunicipality = req
-                    .getParameter("REQ_SERVING_MUNICIPALITY");
+
             DocumentBuilderFactory factory = DocumentBuilderFactory
                     .newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -76,33 +74,70 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
                 log.debug("root: " + root.toString());
             else
                 log.debug("root is NULL");
-            Node node = XPathAPI
-                    .selectSingleNode(
-                            root,
-                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()");
-            node
-                    .setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
-                            : ("-"));
-            node = XPathAPI
-                    .selectSingleNode(
-                            root,
-                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()");
-            node
-                    .setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
-                            : ("-"));
-            node = XPathAPI
-                    .selectSingleNode(
-                            root,
-                            "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()");
-            node
-                    .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
-                            : ("-"));
-            node = XPathAPI
-                    .selectSingleNode(root,
-                            "/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()");
-            node
-                    .setNodeValue((reqServingMunicipality != null && reqServingMunicipality
-                            .length() != 0) ? (reqServingMunicipality) : ("-"));
+
+            String reqForename = req.getParameter("REQ_FORENAME");
+            String reqSurname = req.getParameter("REQ_SURNAME");
+            String reqEmail = req.getParameter("REQ_EMAIL");
+            
+            
+            if (sname.matches("^(.*?)UserRegistration(.*?)$")) {
+            	Node node = XPathAPI
+					.selectSingleNode(
+                        root,
+                        "/UserProfile/CitizenName/CitizenNameForename/text()");
+            	node
+                	.setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
+                        : ("-"));
+            	
+            	node = XPathAPI
+                	.selectSingleNode(
+                        root,
+                        "/UserProfile/CitizenName/CitizenNameSurname/text()");
+            	node
+                	.setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
+                        : ("-"));
+            	
+            	node = XPathAPI
+                	.selectSingleNode(
+                        root,
+						"/UserProfile/ContactDetails/Email/EmailAddress/text()");
+            	node
+                .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
+                        : ("-"));
+            	
+            } else if (sname.matches("^(.*?)ResidenceCertification(.*?)$")) {
+            	String reqServingMunicipality = req
+                .getParameter("REQ_SERVING_MUNICIPALITY");
+            	Node node = XPathAPI
+                .selectSingleNode(
+                        root,
+                        "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()");
+            	node
+                	.setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
+                        : ("-"));
+            	node = XPathAPI
+                	.selectSingleNode(
+                        root,
+                        "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()");
+            	node
+                	.setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
+                        : ("-"));
+            	node = XPathAPI
+                	.selectSingleNode(
+                        root,
+                        "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()");
+            	node
+                	.setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
+                        : ("-"));
+            	node = XPathAPI
+                	.selectSingleNode(
+                	root,
+                	"/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()");
+            	node
+                	.setNodeValue((reqServingMunicipality != null && reqServingMunicipality
+                        .length() != 0) ? (reqServingMunicipality) : ("-"));
+            }
+
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(root);
