@@ -51,7 +51,7 @@ public class StartServiceNewProcessor extends AbstractProcessor {
                 log.debug("got role: " + role);
             }
             session.setAttribute("SSID", ssid);
-            session.setAttribute("SNAME",serviceName);
+            //session.setAttribute("SNAME",serviceName);
             session.setAttribute("SLEEP_TIME", "10");
             session.setAttribute("REDIRECTION_URL", "ServiceHandlingTest?action=GetInputDataPage");
             session.setAttribute("PAGE_TITLE", "Waiting for input data page!");

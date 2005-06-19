@@ -22,8 +22,11 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 import org.apache.xpath.XPathAPI;
+import org.emayor.rcs.datachecker.DataCheckerException;
+import org.emayor.rcs.datachecker.RCSDataChecker;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
+import org.emayor.servicehandling.utclient.CVDocumentTypes;
 import org.emayor.servicehandling.utclient.InputDataCollector;
 import org.emayor.servicehandling.utclient.UserTaskServiceClient;
 import org.w3c.dom.Document;
@@ -53,15 +56,16 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             String asid = (String) session.getAttribute("ASID");
             String ssid = (String) session.getAttribute("SSID");
             String role = (String) session.getAttribute("ROLE");
-            String sname = (String) session.getAttribute("SNAME");
+            //String sname = (String) session.getAttribute("SNAME");
             if (log.isDebugEnabled()) {
                 log.debug("got asid : " + asid);
                 log.debug("got ssid : " + ssid);
-                log.debug("got sname: " + sname);
+                //log.debug("got sname: " + sname);
                 log.debug("got role : " + role);
             }
             UserTaskServiceClient userTaskServiceClient = new UserTaskServiceClient();
             Task task = (Task) session.getAttribute("CURR_TASK");
+            int taskType = task.getTaskType();
             String taskId = req.getParameter("taskid");
             String xmldoc = task.getXMLDocument();
 
@@ -79,95 +83,131 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             String reqForename = req.getParameter("REQ_FORENAME");
             String reqSurname = req.getParameter("REQ_SURNAME");
             String reqEmail = req.getParameter("REQ_EMAIL");
-            
-            
-            if (sname.matches("^(.*?)UserRegistration(.*?)$")) {
-            	Node node = XPathAPI
-					.selectSingleNode(
-                        root,
+
+            if (taskType == CVDocumentTypes.CV_USER_REGISTRATION_REQUEST) {
+                Node node = XPathAPI.selectSingleNode(root,
                         "/UserProfile/CitizenName/CitizenNameForename/text()");
-            	node
-                	.setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
-                        : ("-"));
-            	
-            	node = XPathAPI
-                	.selectSingleNode(
-                        root,
+                node
+                        .setNodeValue((reqForename != null && reqForename
+                                .length() != 0) ? (reqForename) : ("-"));
+
+                node = XPathAPI.selectSingleNode(root,
                         "/UserProfile/CitizenName/CitizenNameSurname/text()");
-            	node
-                	.setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
-                        : ("-"));
-            	
-            	node = XPathAPI
-                	.selectSingleNode(
-                        root,
-						"/UserProfile/ContactDetails/Email/EmailAddress/text()");
-            	node
-                .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
-                        : ("-"));
+                node
+                        .setNodeValue((reqSurname != null && reqSurname
+                                .length() != 0) ? (reqSurname) : ("-"));
 
-    			InputDataCollector collector = new InputDataCollector();
-    			collector.postInputData(task, asid, ssid);
+                node = XPathAPI
+                        .selectSingleNode(root,
+                                "/UserProfile/ContactDetails/Email/EmailAddress/text()");
+                node
+                        .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
+                                : ("-"));
 
-    			session.removeAttribute("SSID");
-    			session.removeAttribute("CURR_TASK");
-    			
-    			ret = "MainMenu.jsp";
-            	            	
-            } else if (sname.matches("^(.*?)ResidenceCertification(.*?)$")) {
-            	String reqServingMunicipality = req
-                .getParameter("REQ_SERVING_MUNICIPALITY");
-            	Node node = XPathAPI
-                .selectSingleNode(
-                        root,
-                        "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()");
-            	node
-                	.setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
-                        : ("-"));
-            	node = XPathAPI
-                	.selectSingleNode(
-                        root,
-                        "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()");
-            	node
-                	.setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
-                        : ("-"));
-            	node = XPathAPI
-                	.selectSingleNode(
-                        root,
-                        "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()");
-            	node
-                	.setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
-                        : ("-"));
-            	node = XPathAPI
-                	.selectSingleNode(
-                	root,
-                	"/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()");
-            	node
-                	.setNodeValue((reqServingMunicipality != null && reqServingMunicipality
-                        .length() != 0) ? (reqServingMunicipality) : ("-"));
-            	
-            	session.setAttribute("SLEEP_TIME", "10");
-                session.setAttribute("REDIRECTION_URL",
-                        "ServiceHandlingTest?action=GetTask");
-                session.setAttribute("PAGE_TITLE", "Waiting for response ...");
-                session.setAttribute("REDIRECTION_TEXT",
-                        "Please wait a while - we are working for you!");
-                session.setAttribute("REDIRECTION_CANCEL_ACTION", "Welcome");
-                session.setAttribute("REDIRECTION_ACTION", "ServiceHandlingTest");
-                ret = "JustWait.jsp";
+                InputDataCollector collector = new InputDataCollector();
+                collector.postInputData(task, asid, ssid);
+
+                session.removeAttribute("SSID");
+                session.removeAttribute("CURR_TASK");
+
+                ret = "MainMenu.jsp";
+
+            } else if (taskType == CVDocumentTypes.CV_RESIDENCE_CERTIFICATE_REQUEST
+                    || taskType == CVDocumentTypes.CV_RESIDENCE_CERTIFICATE_REQUEST
+                    || taskType == CVDocumentTypes.CV_NEGATIVE_RESIDENCE_CERTIFICATE_DOCUMENT) {
+                String reqServingMunicipality = req
+                        .getParameter("REQ_SERVING_MUNICIPALITY");
+                String reqReceivingMunicipality = req
+                        .getParameter("REQ_RECEIVING_MUNICIPALITY");
+                Node node = XPathAPI
+                        .selectSingleNode(
+                                root,
+                                "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()");
+                node
+                        .setNodeValue((reqForename != null && reqForename
+                                .length() != 0) ? (reqForename) : ("-"));
+                node = XPathAPI
+                        .selectSingleNode(
+                                root,
+                                "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()");
+                node
+                        .setNodeValue((reqSurname != null && reqSurname
+                                .length() != 0) ? (reqSurname) : ("-"));
+                node = XPathAPI
+                        .selectSingleNode(
+                                root,
+                                "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()");
+                node
+                        .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
+                                : ("-"));
+                node = XPathAPI
+                        .selectSingleNode(root,
+                                "/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()");
+                node
+                        .setNodeValue((reqServingMunicipality != null && reqServingMunicipality
+                                .length() != 0) ? (reqServingMunicipality)
+                                : ("-"));
+                node = XPathAPI
+                        .selectSingleNode(root,
+                                "/ResidenceCertificationRequestDocument/ReceivingMunicipalityDetails/text()");
+                node
+                        .setNodeValue((reqReceivingMunicipality != null && reqReceivingMunicipality
+                                .length() != 0) ? (reqReceivingMunicipality)
+                                : ("-"));
+                RCSDataChecker dataChecker = new RCSDataChecker();
+                boolean decision = dataChecker.checkData(root);
+                TransformerFactory tFactory = TransformerFactory.newInstance();
+                Transformer transformer = tFactory.newTransformer();
+                DOMSource source = new DOMSource(root);
+                StringWriter sw = new StringWriter();
+                StreamResult result = new StreamResult(sw);
+                transformer.transform(source, result);
+                String xmlString = sw.toString();
+                if (log.isDebugEnabled())
+                    log.debug("got after transformation: " + xmlString);
+                task.setXMLDocument(xmlString);
+                if (decision) {
+                    log.debug("the data has been filled in properly");
+                    log
+                            .debug("presenting the data to be signed and posted back to the BPEL");
+                    session.setAttribute("CURR_TASK", task);
+                    session.setAttribute("SSID", ssid);
+                    //session.setAttribute("SNAME", sname);
+                    session.setAttribute("SLEEP_TIME", "0");
+                    session.setAttribute("REDIRECTION_URL",
+                            "ServiceHandlingTest?action=RCSDataCompletePage");
+                    session.setAttribute("PAGE_TITLE",
+                            "Waiting for input data page!");
+                    session.setAttribute("REDIRECTION_TEXT",
+                            "Please wait a while - we are working for you!");
+                    session
+                            .setAttribute("REDIRECTION_CANCEL_ACTION",
+                                    "Welcome");
+                    session.setAttribute("REDIRECTION_ACTION",
+                            "ServiceHandlingTest");
+                    ret = "JustWait.jsp";
+                } else {
+                    log.debug("still missing some input data!!!!");
+                    log.debug("redirecing to the RCS data incomplet");
+                    session.setAttribute("CURR_TASK", task);
+                    session.setAttribute("SSID", ssid);
+                    //session.setAttribute("SNAME", sname);
+                    session.setAttribute("SLEEP_TIME", "0");
+                    session
+                            .setAttribute("REDIRECTION_URL",
+                                    "ServiceHandlingTest?action=RCSDataNotCompletePage");
+                    session.setAttribute("PAGE_TITLE",
+                            "Waiting for input data page!");
+                    session.setAttribute("REDIRECTION_TEXT",
+                            "Please wait a while - we are working for you!");
+                    session
+                            .setAttribute("REDIRECTION_CANCEL_ACTION",
+                                    "Welcome");
+                    session.setAttribute("REDIRECTION_ACTION",
+                            "ServiceHandlingTest");
+                    ret = "JustWait.jsp";
+                }
             }
-
-            TransformerFactory tFactory = TransformerFactory.newInstance();
-            Transformer transformer = tFactory.newTransformer();
-            DOMSource source = new DOMSource(root);
-            StringWriter sw = new StringWriter();
-            StreamResult result = new StreamResult(sw);
-            transformer.transform(source, result);
-            String xmlString = sw.toString();
-            if (log.isDebugEnabled())
-                log.debug("got after transformation: " + xmlString);
-            task.setXMLDocument(xmlString);
-            userTaskServiceClient.completeTask(asid, task);
         } catch (ParserConfigurationException pcex) {
             log.error("caught ex: " + pcex.toString());
             // TODO handle ex
@@ -179,6 +219,9 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             // TODO handle ex
         } catch (UserTaskException utex) {
             log.error("caught ex: " + utex.toString());
+            // TODO handle ex
+        } catch (DataCheckerException ex) {
+            log.error("caught ex: " + ex.toString());
             // TODO handle ex
         }
         log.debug("-> ... processing DONE!");

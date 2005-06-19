@@ -18,4 +18,8 @@ public class CVDocumentTypes {
 	
 	public static final int CV_RESIDENCE_DOCUMENT = 5001;
 	
+	public static final int CV_NEGATIVE_RESIDENCE_CERTIFICATE_DOCUMENT = 5002;
+	
+	public static final int CV_USER_REGISTRATION_REQUEST = 7001;
+	
 }

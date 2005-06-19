@@ -82,15 +82,21 @@ public class ShowTaskDetailsProcessor extends AbstractProcessor {
                                     "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
                             .getNodeValue();
                     String reqServingMunicipality = XPathAPI
-                            .selectSingleNode(
-                                    root,
+                            .selectSingleNode(root,
                                     "/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()")
+                            .getNodeValue();
+                    String reqReceivingMunicipality = XPathAPI
+                            .selectSingleNode(root,
+                                    "/ResidenceCertificationRequestDocument/ReceivingMunicipalityDetails/text()")
                             .getNodeValue();
                     session.setAttribute("CURR_TASK", task);
                     session.setAttribute("REQ_FORENAME", reqForename);
                     session.setAttribute("REQ_SURNAME", reqSurname);
                     session.setAttribute("REQ_EMAIL", reqEmail);
-                    session.setAttribute("REQ_SERVING_MUNICIPALITY", reqServingMunicipality);
+                    session.setAttribute("REQ_SERVING_MUNICIPALITY",
+                            reqServingMunicipality);
+                    session.setAttribute("REQ_RECEIVING_MUNICIPALITY",
+                            reqReceivingMunicipality);
                     ret = "RCSDataPage.jsp";
                 } else if (task.getTaskType() == CVDocumentTypes.CV_RESIDENCE_DOCUMENT) {
                     log.debug("this is a residance certification document");

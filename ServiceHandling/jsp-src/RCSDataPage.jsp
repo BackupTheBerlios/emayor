@@ -26,6 +26,8 @@
 	String forename = (String)session.getAttribute("REQ_FORENAME");
 	String surname = (String)session.getAttribute("REQ_SURNAME");
 	String email = (String)session.getAttribute("REQ_EMAIL");
+	String servingMunicipality = (String)session.getAttribute("REQ_SERVING_MUNICIPALITY");
+	String receivingMunicipality = (String)session.getAttribute("REQ_RECEIVING_MUNICIPALITY");
 %>
 <body bgcolor="#FFFFFF">
 	Current Access Session id = <%= session.getAttribute("ASID") %>
@@ -65,14 +67,32 @@
         <font color="#FF0000">*</font> </span></td>
     </tr>
     <tr bgcolor="#CCCCCC"> 
-      <td class="style4"><strong>Serving Municipality</strong></td>
+      <td class="style4"><strong>Serving Municipality: </strong></td>
       <td><span class="style5">
         <select name="REQ_SERVING_MUNICIPALITY">
-          <option value="Siena">Municipality of Siena</option>
-          <option value="Aachen">Municipality of Achen</option>
+		<% if (servingMunicipality.equals("Siena")) { %>
+          <option value="Siena" selected="true">Municipality of Siena</option>
+		<% } else { %>
+		  <option value="Siena">Municipality of Siena</option>
+		<% } %>
+		<% if (servingMunicipality.equals("Aachen")) { %>
+          <option value="Aachen" selected="true">Municipality of Achen</option>
+		<% } else { %>
+		  <option value="Aachen">Municipality of Achen</option>
+		<% } %>
+		<% if (servingMunicipality.equals("Bolzano/Bozen")) { %>
+		  <option value="Bolzano/Bozen" selected="true">Municipality of Bozen/Bolzano</option>
+		<% } else { %>
           <option value="Bolzano/Bozen">Municipality of Bozen/Bolzano</option>
+		<% } %>
         </select> 
         <font color="#FF0000">*</font></span></td>
+    </tr>
+	<tr> 
+      <td class="style4"><strong>Receiving Municipality: </strong></td>
+      <td> <span class="style5">
+        <input name="REQ_RECEIVING_MUNICIPALITY" type="text" value="<%= receivingMunicipality %>" size="60" /> 
+        <font color="#FF0000">*</font> </span></td>
     </tr>
     <tr bgcolor="#CCCC66"> 
       <td colspan="2">&nbsp;</td>

@@ -34,123 +34,169 @@ import org.xml.sax.SAXException;
  * @author tku
  */
 public class RCSDisplayDataFormProcessor extends AbstractProcessor {
-	private static Logger log = Logger
-			.getLogger(RCSDisplayDataFormProcessor.class);
+    private static Logger log = Logger
+            .getLogger(RCSDisplayDataFormProcessor.class);
 
-	/**
-	 *  
-	 */
-	public RCSDisplayDataFormProcessor() {
-		super();
-	}
+    /**
+     *  
+     */
+    public RCSDisplayDataFormProcessor() {
+        super();
+    }
 
-	public String process(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		log.debug("-> start processing ...");
-		String ret = "Error.jsp";
-		try {
-			HttpSession session = req.getSession(false);
-			String asid = (String) session.getAttribute("ASID");
-			String ssid = (String) session.getAttribute("SSID");
-			String role = (String) session.getAttribute("ROLE");
-			if (log.isDebugEnabled()) {
-				log.debug("got asid: " + asid);
-				log.debug("got ssid: " + ssid);
-			}
-			Task task = (Task) session.getAttribute("CURR_TASK");
-			String taskId = req.getParameter("taskid");
-			String xmldoc = task.getXMLDocument();
-			String reqForename = req.getParameter("REQ_FORENAME");
-			String reqSurname = req.getParameter("REQ_SURNAME");
-			String reqEmail = req.getParameter("REQ_EMAIL");
-			DocumentBuilderFactory factory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			StringReader reader = new StringReader(xmldoc);
-			InputSource inputSource = new InputSource(reader);
-			Document root = builder.parse(inputSource);
-			if (root != null)
-				log.debug("root: " + root.toString());
-			else
-				log.debug("root is NULL");
-			Node node = XPathAPI
-					.selectSingleNode(
-							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()");
-			node
-					.setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
-							: ("-"));
-			node = XPathAPI
-					.selectSingleNode(
-							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()");
-			node
-					.setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
-							: ("-"));
-			node = XPathAPI
-					.selectSingleNode(
-							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()");
-			node
-					.setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
-							: ("-"));
-			TransformerFactory tFactory = TransformerFactory.newInstance();
-			Transformer transformer = tFactory.newTransformer();
-			DOMSource source = new DOMSource(root);
-			StringWriter sw = new StringWriter();
-			StreamResult result = new StreamResult(sw);
-			transformer.transform(source, result);
-			String xmlString = sw.toString();
-			if (log.isDebugEnabled())
-				log.debug("got after transformation: " + xmlString);
-			task.setXMLDocument(xmlString);
+    public String process(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        log.debug("-> start processing ...");
+        String ret = "Error.jsp";
+        try {
+            HttpSession session = req.getSession(false);
+            String asid = (String) session.getAttribute("ASID");
+            String ssid = (String) session.getAttribute("SSID");
+            String role = (String) session.getAttribute("ROLE");
+            if (log.isDebugEnabled()) {
+                log.debug("got asid: " + asid);
+                log.debug("got ssid: " + ssid);
+                log.debug("got role: " + role);
+            }
+            Task task = (Task) session.getAttribute("CURR_TASK");
+            String taskId = req.getParameter("taskid");
+            String xmldoc = task.getXMLDocument();
+            String reqForename = req.getParameter("REQ_FORENAME");
+            String reqSurname = req.getParameter("REQ_SURNAME");
+            String reqEmail = req.getParameter("REQ_EMAIL");
+            String reqServingMunicipality = req
+                    .getParameter("REQ_SERVING_MUNICIPALITY");
+            String reqReceivingMunicipality = req
+                    .getParameter("REQ_RECEIVING_MUNICIPALITY");
+            if (log.isDebugEnabled()) {
+                log.debug("got from session:");
+                log.debug("forename              : " + reqForename);
+                log.debug("surname               : " + reqSurname);
+                log.debug("email                 : " + reqEmail);
+                log.debug("serving municipality  : " + reqServingMunicipality);
+                log.debug("receiving municipality: " + reqReceivingMunicipality);
+            }
+            DocumentBuilderFactory factory = DocumentBuilderFactory
+                    .newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            StringReader reader = new StringReader(xmldoc);
+            InputSource inputSource = new InputSource(reader);
+            Document root = builder.parse(inputSource);
+            if (root != null)
+                log.debug("root: " + root.toString());
+            else
+                log.debug("root is NULL");
+            Node node = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()");
+            node
+                    .setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
+                            : ("-"));
+            node = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()");
+            node
+                    .setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
+                            : ("-"));
+            node = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()");
+            node
+                    .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
+                            : ("-"));
+            node = XPathAPI
+                    .selectSingleNode(root,
+                            "/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()");
+            node
+                    .setNodeValue(((reqServingMunicipality != null && reqServingMunicipality
+                            .length() != 0) ? (reqServingMunicipality) : "-"));
+            node = XPathAPI
+                    .selectSingleNode(root,
+                            "/ResidenceCertificationRequestDocument/ReceivingMunicipalityDetails/text()");
+            node
+                    .setNodeValue((reqReceivingMunicipality != null && reqServingMunicipality
+                            .length() != 0) ? (reqReceivingMunicipality)
+                            : ("-"));
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer();
+            DOMSource source = new DOMSource(root);
+            StringWriter sw = new StringWriter();
+            StreamResult result = new StreamResult(sw);
+            transformer.transform(source, result);
+            String xmlString = sw.toString();
+            if (log.isDebugEnabled())
+                log.debug("got after transformation: " + xmlString);
+            task.setXMLDocument(xmlString);
 
-			InputDataCollector collector = new InputDataCollector();
-			Task taskNew = collector.validateInputData(task, asid, ssid);
-			xmldoc = taskNew.getXMLDocument();
-			if (log.isDebugEnabled())
-				log.debug("got after validation: " + xmldoc);
-			reader = new StringReader(xmldoc);
-			inputSource = new InputSource(reader);
-			root = builder.parse(inputSource);
-			if (root != null)
-				log.debug("root: " + root.toString());
-			else
-				log.debug("root is NULL");
-			reqForename = XPathAPI
-					.selectSingleNode(
-							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()")
-					.getNodeValue();
-			reqSurname = XPathAPI
-					.selectSingleNode(
-							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()")
-					.getNodeValue();
-			reqEmail = XPathAPI
-					.selectSingleNode(
-							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
-					.getNodeValue();
-			session.setAttribute("CURR_TASK", taskNew);
-			session.setAttribute("REQ_FORENAME", reqForename);
-			session.setAttribute("REQ_SURNAME", reqSurname);
-			session.setAttribute("REQ_EMAIL", reqEmail);
-			ret = "RCSDataPage.jsp";
-		} catch (ParserConfigurationException pcex) {
-			log.error("caught ex: " + pcex.toString());
-			// TODO handle ex
-		} catch (SAXException saxex) {
-			log.error("caught ex: " + saxex.toString());
-			// TODO handle ex
-		} catch (TransformerException tex) {
-			log.error("caught ex: " + tex.toString());
-			// TODO handle ex
-		} catch (UserTaskException utex) {
-			log.error("caught ex: " + utex.toString());
-			// TODO handle ex
-		}
-		log.debug("-> ... processing DONE!");
-		return ret;
-	}
+            InputDataCollector collector = new InputDataCollector();
+            Task taskNew = collector.validateInputData(task, asid, ssid);
+            xmldoc = taskNew.getXMLDocument();
+            if (log.isDebugEnabled())
+                log.debug("got after validation: " + xmldoc);
+            reader = new StringReader(xmldoc);
+            inputSource = new InputSource(reader);
+            root = builder.parse(inputSource);
+            if (root != null)
+                log.debug("root: " + root.toString());
+            else
+                log.debug("root is NULL");
+            reqForename = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()")
+                    .getNodeValue();
+            reqSurname = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()")
+                    .getNodeValue();
+            reqEmail = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
+                    .getNodeValue();
+            reqServingMunicipality = XPathAPI
+                    .selectSingleNode(root,
+                            "/ResidenceCertificationRequestDocument/ServingMunicipalityDetails/text()")
+                    .getNodeValue();
+            reqReceivingMunicipality = XPathAPI
+                    .selectSingleNode(root,
+                            "/ResidenceCertificationRequestDocument/ReceivingMunicipalityDetails/text()")
+                    .getNodeValue();
+            if (log.isDebugEnabled()) {
+                log.debug("after validation:");
+                log.debug("forename              : " + reqForename);
+                log.debug("surname               : " + reqSurname);
+                log.debug("email                 : " + reqEmail);
+                log.debug("serving municipality  : " + reqServingMunicipality);
+                log.debug("receiving municipality: " + reqReceivingMunicipality);
+            }
+            session.setAttribute("CURR_TASK", taskNew);
+            session.setAttribute("REQ_FORENAME", reqForename);
+            session.setAttribute("REQ_SURNAME", reqSurname);
+            session.setAttribute("REQ_EMAIL", reqEmail);
+            session.setAttribute("REQ_SERVING_MUNICIPALITY",
+                    reqServingMunicipality);
+            session.setAttribute("REQ_RECEIVING_MUNICIPALITY",
+                    reqReceivingMunicipality);
+            ret = "RCSDataPage.jsp";
+        } catch (ParserConfigurationException pcex) {
+            log.error("caught ex: " + pcex.toString());
+            // TODO handle ex
+        } catch (SAXException saxex) {
+            log.error("caught ex: " + saxex.toString());
+            // TODO handle ex
+        } catch (TransformerException tex) {
+            log.error("caught ex: " + tex.toString());
+            // TODO handle ex
+        } catch (UserTaskException utex) {
+            log.error("caught ex: " + utex.toString());
+            // TODO handle ex
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
 }
