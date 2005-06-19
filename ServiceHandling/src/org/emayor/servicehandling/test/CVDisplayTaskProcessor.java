@@ -109,6 +109,48 @@ public class CVDisplayTaskProcessor extends AbstractProcessor {
                     session.setAttribute("SURNAME", surname);
                     session.setAttribute("EMAIL", email);
                     ret = "CVDisplayRCDocument.jsp";
+                } else if (task.getTaskType() == CVDocumentTypes.CV_USER_REGISTRATION_REQUEST) {
+                    log.debug("this is a user registration request");
+                    String forename = XPathAPI
+                            .selectSingleNode(
+                                    root,
+									"/UserProfile/CitizenDetails/CitizenName/CitizenNameForename/text()")
+                            .getNodeValue();
+                    String surname = XPathAPI
+                            .selectSingleNode(
+                                    root,
+									"/UserProfile/CitizenDetails/CitizenName/CitizenNameSurname/text()")
+                            .getNodeValue();
+                    String email = XPathAPI
+                            .selectSingleNode(
+                                    root,
+                                    "/UserProfile/CitizenDetails/ContactDetails/Email/EmailAddress/text()")
+                            .getNodeValue();
+                    String title = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/UserProfile/CitizenDetails/CitizenName/CitizenNameTitle/text()")
+                    .getNodeValue();
+                    String sex = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/UserProfile/CitizenDetails/CitizenSex/text()")
+                    .getNodeValue();
+                    String lang = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/UserProfile/CitizenDetails/PreferredLanguages/text()")
+                    .getNodeValue();
+                    
+                    session.setAttribute("CURR_TASK", task);
+                    session.setAttribute("REQ_FORENAME", forename);
+                    session.setAttribute("REQ_SURNAME", surname);
+                    session.setAttribute("REQ_EMAIL", email);
+                    session.setAttribute("REQ_TITLE", title);
+                    session.setAttribute("REQ_LANG", lang);
+                    session.setAttribute("REQ_SEX", sex);
+                    
+                    ret = "CVDisplayURRequest.jsp";
                 } else {
                     log.debug("unknown document type");
                     session.setAttribute("ERR_MSG", "Unknown document type");

@@ -33,8 +33,8 @@ public class Utils {
                 in[i].setExtraInfo("Tax management activation request");
                 break;
             case CVDocumentTypes.CV_USER_REGISTRATION_REQUEST:
-                in[i].setExtraInfo("User registration request.");
-            	break;
+                in[i].setExtraInfo("User registration request");
+                break;
             }
         }
         log.debug("-> ... processing DONE!");

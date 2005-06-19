@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
+import org.emayor.servicehandling.utclient.CVDocumentTypes;
 import org.emayor.servicehandling.utclient.CivilServantTaskServiceClient;
 
 /**
@@ -38,9 +39,9 @@ public class CVHandleTaskProcessor extends AbstractProcessor {
             String ssid = (String) session.getAttribute("SSID");
             String role = (String) session.getAttribute("ROLE");
             if (log.isDebugEnabled()) {
-                log.debug("got asid: " + asid);
-                log.debug("got ssid: " + ssid);
-                log.debug("got role: " + role);
+                log.debug("got asid : " + asid);
+                log.debug("got ssid : " + ssid);
+                log.debug("got role : " + role);
             }
             String action = req.getParameter("Submit");
             if (log.isDebugEnabled())
@@ -49,7 +50,9 @@ public class CVHandleTaskProcessor extends AbstractProcessor {
 
             if (action.equalsIgnoreCase("Approve")) {
                 log.debug("this is a case of approval");
-                task.setStatus("YES");
+                if (task.getTaskType() == CVDocumentTypes.CV_USER_REGISTRATION_REQUEST)
+                	task.setStatus("APPROVED");
+                else task.setStatus("YES");
             } else {
                 log.debug("this is a case of declination");
                 task.setStatus("NO");

@@ -75,27 +75,52 @@ public class GetInputDataPageProcessor extends AbstractProcessor {
                     log.debug("root is NULL");
 
                 session.setAttribute("CURR_TASK", task);
-
+                
                 if (taskType == CVDocumentTypes.CV_USER_REGISTRATION_REQUEST) {
-                    String reqForename = XPathAPI
-                            .selectSingleNode(root,
-                                    "/UserProfile/CitizenName/CitizenNameForename/text()")
-                            .getNodeValue();
+                	String reqTitle = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/UserProfile/CitizenDetails/CitizenName/CitizenNameTitle/text()")
+                    .getNodeValue();
+                	String reqForename = XPathAPI
+                    .selectSingleNode(
+                            root,
+                            "/UserProfile/CitizenDetails/CitizenName/CitizenNameForename/text()")
+                    .getNodeValue();
                     String reqSurname = XPathAPI
-                            .selectSingleNode(root,
-                                    "/UserProfile/CitizenName/CitizenNameSurname/text()")
-                            .getNodeValue();
-                    String reqEMail = XPathAPI
-                            .selectSingleNode(root,
-                                    "/UserProfile/ContactDetails/Email/EmailAddress/text()")
-                            .getNodeValue();
+					
+                    .selectSingleNode(
+                            root,
+							"/UserProfile/CitizenDetails/CitizenName/CitizenNameSurname/text()")
+                    .getNodeValue();
 
+                    String reqEMail = XPathAPI
+
+                    .selectSingleNode(
+                            root,
+                    		"/UserProfile/CitizenDetails/ContactDetails/Email/EmailAddress/text()")
+                    .getNodeValue();
+                    String reqSex = XPathAPI
+                    .selectSingleNode(
+                            root,
+                    		"/UserProfile/CitizenDetails/CitizenSex/text()")
+                    .getNodeValue();
+                    String reqLang = XPathAPI
+                    .selectSingleNode(
+                            root,
+                    		"/UserProfile/CitizenDetails/PreferredLanguages/text()")
+                    .getNodeValue();
+                    
                     session.setAttribute("REQ_FORENAME", reqForename);
+    	            session.setAttribute("REQ_TITLE", reqTitle);
+    	            session.setAttribute("REQ_LANG", reqLang.toLowerCase());
+    	            session.setAttribute("REQ_SEX", (reqSex.equals("f") || reqSex.equals("m")) ? reqSex : "m");
                     session.setAttribute("REQ_SURNAME", reqSurname);
                     session.setAttribute("REQ_EMAIL", reqEMail);
 
                     ret = "URSDataPage.jsp";
                 } else if (taskType == CVDocumentTypes.CV_RESIDENCE_CERTIFICATE_REQUEST) {
+
                     String reqForename = XPathAPI
                             .selectSingleNode(
                                     root,

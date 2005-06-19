@@ -84,33 +84,80 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             String reqSurname = req.getParameter("REQ_SURNAME");
             String reqEmail = req.getParameter("REQ_EMAIL");
 
+
             if (taskType == CVDocumentTypes.CV_USER_REGISTRATION_REQUEST) {
-                Node node = XPathAPI.selectSingleNode(root,
-                        "/UserProfile/CitizenName/CitizenNameForename/text()");
-                node
-                        .setNodeValue((reqForename != null && reqForename
-                                .length() != 0) ? (reqForename) : ("-"));
-
-                node = XPathAPI.selectSingleNode(root,
-                        "/UserProfile/CitizenName/CitizenNameSurname/text()");
-                node
-                        .setNodeValue((reqSurname != null && reqSurname
-                                .length() != 0) ? (reqSurname) : ("-"));
-
-                node = XPathAPI
-                        .selectSingleNode(root,
-                                "/UserProfile/ContactDetails/Email/EmailAddress/text()");
-                node
-                        .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
-                                : ("-"));
-
-                InputDataCollector collector = new InputDataCollector();
-                collector.postInputData(task, asid, ssid);
-
-                session.removeAttribute("SSID");
-                session.removeAttribute("CURR_TASK");
-
-                ret = "MainMenu.jsp";
+            	String reqTitle = req.getParameter("REQ_TITLE");
+                String reqSex = req.getParameter("REQ_SEX");
+                String reqLang = req.getParameter("REQ_LANG");
+                
+	            	Node node = XPathAPI
+					.selectSingleNode(
+	                    root,
+	                    "/UserProfile/CitizenDetails/CitizenName/CitizenNameForename/text()");
+	        	node
+	            	.setNodeValue((reqForename != null && reqForename.length() != 0) ? (reqForename)
+	                    : ("-"));
+	        	
+	        	node = XPathAPI
+	            	.selectSingleNode(
+	                    root,
+	                    "/UserProfile/CitizenDetails/CitizenName/CitizenNameSurname/text()");
+	        	node
+	            	.setNodeValue((reqSurname != null && reqSurname.length() != 0) ? (reqSurname)
+	                    : ("-"));
+	        	
+	        	node = XPathAPI
+	            	.selectSingleNode(
+	                    root,
+						"/UserProfile/CitizenDetails/ContactDetails/Email/EmailAddress/text()");
+	        	node
+	            .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
+	                    : ("-"));
+	        	
+	        	node = XPathAPI
+	        	.selectSingleNode(
+	                root,
+					"/UserProfile/CitizenDetails/PreferredLanguages/text()");
+	        	node
+	            .setNodeValue((reqLang != null && reqLang.length() != 0) ? (reqLang)
+	                    : ("-"));
+	        	
+	        	node = XPathAPI
+	        	.selectSingleNode(
+	                root,
+					"/UserProfile/CitizenDetails/CitizenName/CitizenNameTitle/text()");
+		    	node
+		        .setNodeValue((reqTitle != null && reqTitle.length() != 0) ? (reqTitle)
+		                : ("-"));
+		
+		    	node = XPathAPI
+		    	.selectSingleNode(
+		            root,
+					"/UserProfile/CitizenDetails/CitizenSex/text()");
+				node
+			    .setNodeValue((reqSex != null && reqSex.length() != 0) ? (reqSex)
+			            : ("-"));
+	
+	        	TransformerFactory tFactory = TransformerFactory.newInstance();
+	            Transformer transformer = tFactory.newTransformer();
+	            DOMSource source = new DOMSource(root);
+	            StringWriter sw = new StringWriter();
+	            StreamResult result = new StreamResult(sw);
+	            transformer.transform(source, result);
+	            String xmlString = sw.toString();
+	            if (log.isDebugEnabled())
+	                log.debug("got after transformation: " + xmlString);
+	            task.setXMLDocument(xmlString);
+	        	
+				InputDataCollector collector = new InputDataCollector();
+				collector.postInputData(task, asid, ssid);
+	
+				session.removeAttribute("SSID");
+				session.removeAttribute("CURR_TASK");
+				
+				ret = "MainMenu.jsp";
+				
+				userTaskServiceClient.completeTask(asid, task);
 
             } else if (taskType == CVDocumentTypes.CV_RESIDENCE_CERTIFICATE_REQUEST
                     || taskType == CVDocumentTypes.CV_RESIDENCE_CERTIFICATE_REQUEST
