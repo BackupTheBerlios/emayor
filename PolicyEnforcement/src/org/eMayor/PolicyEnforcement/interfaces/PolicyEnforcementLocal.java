@@ -49,4 +49,9 @@ public interface PolicyEnforcementLocal
     */
    public void F_UpdatePolicies(  ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
+   /**
+    * Business method
+    */
+   public boolean F_NewUserProfile( java.lang.String newUserProfile ) ;
+
 }

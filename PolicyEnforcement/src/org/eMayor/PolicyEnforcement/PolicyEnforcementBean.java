@@ -197,4 +197,14 @@ public class PolicyEnforcementBean implements SessionBean {
 			
 		
 	}
+	/**
+	 * Business method
+	 * @ejb.interface-method  view-type = "both"
+	 */
+	public boolean F_NewUserProfile(String newUserProfile){
+		if (log.isDebugEnabled())
+		log.debug("Policy Enforcement->F_NewUserProfile::" + newUserProfile);
+		return true;
+		
+	}
 }

@@ -57,4 +57,10 @@ public interface PolicyEnforcement
    public void F_UpdatePolicies(  )
       throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException, java.rmi.RemoteException;
 
+   /**
+    * Business method
+    */
+   public boolean F_NewUserProfile( java.lang.String newUserProfile )
+      throws java.rmi.RemoteException;
+
 }
