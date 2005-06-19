@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import org.apache.xpath.XPathAPI;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.UserTaskException;
+import org.emayor.servicehandling.utclient.InputDataCollector;
 import org.emayor.servicehandling.utclient.UserTaskServiceClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -104,7 +105,15 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             	node
                 .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
                         : ("-"));
-            	
+
+    			InputDataCollector collector = new InputDataCollector();
+    			collector.postInputData(task, asid, ssid);
+
+    			session.removeAttribute("SSID");
+    			session.removeAttribute("CURR_TASK");
+    			
+    			ret = "MainMenu.jsp";
+            	            	
             } else if (sname.matches("^(.*?)ResidenceCertification(.*?)$")) {
             	String reqServingMunicipality = req
                 .getParameter("REQ_SERVING_MUNICIPALITY");
@@ -136,6 +145,16 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
             	node
                 	.setNodeValue((reqServingMunicipality != null && reqServingMunicipality
                         .length() != 0) ? (reqServingMunicipality) : ("-"));
+            	
+            	session.setAttribute("SLEEP_TIME", "10");
+                session.setAttribute("REDIRECTION_URL",
+                        "ServiceHandlingTest?action=GetTask");
+                session.setAttribute("PAGE_TITLE", "Waiting for response ...");
+                session.setAttribute("REDIRECTION_TEXT",
+                        "Please wait a while - we are working for you!");
+                session.setAttribute("REDIRECTION_CANCEL_ACTION", "Welcome");
+                session.setAttribute("REDIRECTION_ACTION", "ServiceHandlingTest");
+                ret = "JustWait.jsp";
             }
 
             TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -149,15 +168,6 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
                 log.debug("got after transformation: " + xmlString);
             task.setXMLDocument(xmlString);
             userTaskServiceClient.completeTask(asid, task);
-            session.setAttribute("SLEEP_TIME", "10");
-            session.setAttribute("REDIRECTION_URL",
-                    "ServiceHandlingTest?action=GetTask");
-            session.setAttribute("PAGE_TITLE", "Waiting for response ...");
-            session.setAttribute("REDIRECTION_TEXT",
-                    "Please wait a while - we are working for you!");
-            session.setAttribute("REDIRECTION_CANCEL_ACTION", "Welcome");
-            session.setAttribute("REDIRECTION_ACTION", "ServiceHandlingTest");
-            ret = "JustWait.jsp";
         } catch (ParserConfigurationException pcex) {
             log.error("caught ex: " + pcex.toString());
             // TODO handle ex
