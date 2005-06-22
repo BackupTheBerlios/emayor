@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="default diagram" size="3067,3182" id="." metadata="nsuml-1.4" initialized="true" scrolledX="927" scrolledY="295" tag="200" key="3230303431313235205072696E74696E675574696C697479">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="overall" size="3067,3182" id="." metadata="nsuml-1.4" initialized="true" scrolledX="713" scrolledY="475" tag="200" key="3230303431313235205072696E74696E675574696C697479">
   <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.ServiceHandling.PrintingUtility.interfaces" location="30,50" size="387,216" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces">
     <children xsi:type="editmodel:InterfaceEditModel" name="PrinterHome" location="206,50" size="144,117" stereotype="interface" id="org.eMayor.ServiceHandling.PrintingUtility.interfaces/PrinterHome" runTimeClassModel="COMP_NAME,create(),JNDI_NAME">
       <children xsi:type="editmodel:CompartmentEditModel" size="121,36">
@@ -27,7 +27,7 @@
     </children>
     <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.ServiceHandling.PrintingUtility.ejb" location="434,0" size="871,1011" id="org.eMayor.ServiceHandling.PrintingUtility.ejb">
+  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.ServiceHandling.PrintingUtility.ejb" location="434,0" size="871,1053" id="org.eMayor.ServiceHandling.PrintingUtility.ejb">
     <children xsi:type="editmodel:ClassEditModel" name="PrinterBean" location="38,806" size="145,175" id="org.eMayor.ServiceHandling.PrintingUtility.ejb/PrinterBean" runTimeClassModel="ejbCreate(),ejbPassivate(),print(Ljava.lang.String;Ljava.lang.String;),ejbRemove(),ejbActivate(),setSessionContext(Ljavax.ejb.SessionContext;),PrinterBean()">
       <children xsi:type="editmodel:CompartmentEditModel"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="122,126">
@@ -252,8 +252,8 @@
     </sourceConnections>
     <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb->javax.print.event" source="//@children.1" target="//@children.4" targetEnd="//@children.1/@sourceConnections.2/@children.2" label="//@children.1/@sourceConnections.2/@children.0" sourceEnd="//@children.1/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
       <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" location="871,374" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" location="0,54"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="871,375" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,55"/>
     </sourceConnections>
     <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.ServiceHandling.PrintingUtility.ejb->javax.imageio" source="//@children.1" target="//@children.5" targetEnd="//@children.1/@sourceConnections.3/@children.2" label="//@children.1/@sourceConnections.3/@children.0" sourceEnd="//@children.1/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
       <children xsi:type="editmodel:WireLabelEditModel" name="«use, access»" size="73,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>

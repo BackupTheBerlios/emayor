@@ -116,7 +116,7 @@ public class InputOutputHandler {
     	
         /** Parses the String which contains an xml document to receive 
          *  an org.w3c.dom.Document representation of it.
-    	 *  @param inputName The String to be parsed.
+    	 *  @param xmlString The String to be parsed.
     	 *  @return The xml content of the String as an org.w3c.dom.Document.
     	 */
 
@@ -161,6 +161,7 @@ public class InputOutputHandler {
             try {
             	serializer.setWriter(stringOut);
             	serializer.asDOMSerializer().serialize(inputDOM);
+            	
             } catch (IOException IOe) {
             	IOe.printStackTrace();
             } 
