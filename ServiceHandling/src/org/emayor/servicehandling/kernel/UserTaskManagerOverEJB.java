@@ -6,6 +6,7 @@ package org.emayor.servicehandling.kernel;
 import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.config.Config;
 import org.emayor.servicehandling.model.UTWrapperEJB;
 import org.emayor.servicehandling.model.UTWrapperException;
 import org.emayor.servicehandling.utils.ServiceLocator;
@@ -73,15 +74,16 @@ public class UserTaskManagerOverEJB implements IService {
 			log.debug("get the role");
 			String role = this.kernel.getUserProfile(uid).getPEUserProfile()
 					.getUserRole();
+
 			if (log.isDebugEnabled())
 				log.debug("got following role: " + role);
 			if (role.equalsIgnoreCase("citizen")) {
 				log.debug("try to call the listTasks operation for citizen");
-				ret = this.wrapper.listTasksByAssignee(uid);
+				ret = this.wrapper.listTasksByAssignee(uid,getBPELCredentials());
 			} else {
 				log
 						.debug("try to call the listTasks operation for civil servant");
-				ret = this.wrapper.listTasksByAssignee("CivilServant");
+				ret = this.wrapper.listTasksByAssignee("CivilServant",getBPELCredentials());
 			}
 			if (log.isDebugEnabled())
 				log.debug("got following number of tasks: "
@@ -100,6 +102,22 @@ public class UserTaskManagerOverEJB implements IService {
 		return ret;
 	}
 
+	private BPELDomainCredentials getBPELCredentials() {
+		BPELDomainCredentials result = null;
+		try {
+			Config config = Config.getInstance();
+			String pass = config.getProperty(
+					"bpel.engine.ut.security.domain.password", "bpel");
+			String name = config.getProperty(
+					"bpel.engine.ut.security.domain.name", "default");
+			result = new BPELDomainCredentials();
+			result.setDomainName(name);
+			result.setDomainPassword(pass);
+		} catch (Exception e) {
+		}
+		return result;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -110,7 +128,7 @@ public class UserTaskManagerOverEJB implements IService {
 			throws ServiceException {
 		log.debug("-> start processing ...");
 		try {
-			this.wrapper.completeTask(task);
+			this.wrapper.completeTask(task,getBPELCredentials());
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceException("Couldn't complete task !");
@@ -132,7 +150,7 @@ public class UserTaskManagerOverEJB implements IService {
 		if (log.isDebugEnabled())
 			log.debug("got taskId = " + taskId);
 		try {
-			ret = (Task) this.wrapper.lookupTask(taskId);
+			ret = (Task) this.wrapper.lookupTask(taskId,getBPELCredentials());
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceException("Couldn't lookup task !");
@@ -163,18 +181,17 @@ public class UserTaskManagerOverEJB implements IService {
 			if (log.isDebugEnabled())
 				log.debug("got the uid: " + uid);
 			log.debug("try to call the listTasks operation");
-			Tasks tasks = this.wrapper.lookupTasksByAssigneeAndTitle(uid, ssid);
+			Tasks tasks = this.wrapper.lookupTasksByAssigneeAndTitle(uid, ssid,getBPELCredentials());
 			if (tasks != null) {
-			    log.debug("got SOME tasks from remote bean !");
+				log.debug("got SOME tasks from remote bean !");
 				ITask[] _tasks = tasks.getTasks();
 				if (_tasks != null && _tasks.length > 0) {
 					if (log.isDebugEnabled())
 						log.debug("found tasks: number=" + _tasks.length);
 					ret = (Task) _tasks[0];
 				}
-			}
-			else {
-			    log.debug("got no tasks from the remote bean!");
+			} else {
+				log.debug("got no tasks from the remote bean!");
 			}
 		} catch (KernelException kex) {
 			log.error("caught ex: " + kex.toString());

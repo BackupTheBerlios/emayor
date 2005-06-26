@@ -128,7 +128,7 @@
 	</binding>
 	<service name="MyWorklistManager">
 		<port name="MyWorklistManagerPort" binding="tns:MyWorklistManagerBinding">
-			<soap:address location="http://localhost:9700/orabpel/Bozen/MyWorklistManager/1.0"/>
+			<soap:address location="http://localhost:9700/orabpel/default/MyWorklistManager/1.0"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="MyWorklistManager">
