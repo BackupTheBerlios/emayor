@@ -45,6 +45,7 @@
 		 <datasource>java:/MySqlDS</datasource>
 		 <datasource-mapping>mySQL</datasource-mapping>
          <create-table>true</create-table>
+         <remove-table>true</remove-table>
 
          <table-name>SERVICE_INFO</table-name>
 
@@ -118,6 +119,28 @@
          <cmp-field>
             <field-name>startDate</field-name>
             <column-name>STARTDATE</column-name>
+
+        </cmp-field>
+
+      </entity>
+
+      <entity>
+         <ejb-name>UserProfileEntity</ejb-name>
+		 <datasource>java:/MySqlDS</datasource>
+		 <datasource-mapping>mySQL</datasource-mapping>
+         <create-table>true</create-table>
+         <remove-table>true</remove-table>
+
+         <table-name>USER_PROFILE</table-name>
+
+         <cmp-field>
+            <field-name>userId</field-name>
+            <column-name>USERID</column-name>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>c_UserProfile</field-name>
+            <column-name>CUSERPROFILE</column-name>
 
         </cmp-field>
 

@@ -15,7 +15,7 @@ public interface AccessSessionEntityLocalHome
    public org.emayor.servicehandling.interfaces.AccessSessionEntityLocal create(java.lang.String asid)
       throws javax.ejb.CreateException;
 
-   public java.util.Collection findByUserId(String userId)
+   public java.util.Collection findByUserId(java.lang.String userId)
       throws javax.ejb.FinderException;
 
    public org.emayor.servicehandling.interfaces.AccessSessionEntityLocal findByPrimaryKey(java.lang.String pk)

@@ -15,9 +15,9 @@ public interface IBPELProcessRequest {
 	
 	public void setForwardFlag(boolean forwardFlag);
 	
-	public UserID getUserID();
+	//public UserID getUserID();
 	
-	public void setUserID(UserID userId);
+	//public void setUserID(UserID userId);
 	
 	public RequestDocument getRequestDocument();
 	

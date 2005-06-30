@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
  *             "Local" signature = "java.util.Collection
  *             findAllActiveServicesInfo()"
  * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
- *             ServiceInfoEntity AS o WHERE o.version = ?1" result-type-mapping =
+ *             ServiceInfoEntity AS o WHERE o.serviceVersion = ?1" result-type-mapping =
  *             "Local" signature = "java.util.Collection
  *             findByVersion(java.lang.String version)"
  */

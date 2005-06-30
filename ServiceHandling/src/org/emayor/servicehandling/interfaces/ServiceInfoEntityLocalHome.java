@@ -18,6 +18,12 @@ public interface ServiceInfoEntityLocalHome
    public java.util.Collection findAll()
       throws javax.ejb.FinderException;
 
+   public java.util.Collection findAllActiveServicesInfo()
+      throws javax.ejb.FinderException;
+
+   public java.util.Collection findByVersion(java.lang.String version)
+      throws javax.ejb.FinderException;
+
    public org.emayor.servicehandling.interfaces.ServiceInfoEntityLocal findByPrimaryKey(java.lang.String pk)
       throws javax.ejb.FinderException;
 

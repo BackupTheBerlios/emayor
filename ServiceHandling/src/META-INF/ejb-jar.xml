@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
 
 <ejb-jar >
@@ -278,6 +278,25 @@
             <result-type-mapping>Local</result-type-mapping>
             <ejb-ql><![CDATA[SELECT OBJECT(o) FROM ServiceInfoEntity AS o]]></ejb-ql>
          </query>
+         <query>
+            <query-method>
+               <method-name>findAllActiveServicesInfo</method-name>
+               <method-params>
+               </method-params>
+            </query-method>
+            <result-type-mapping>Local</result-type-mapping>
+            <ejb-ql><![CDATA[SELECT OBJECT(o) FROM ServiceInfoEntity AS o WHERE o.active = TRUE]]></ejb-ql>
+         </query>
+         <query>
+            <query-method>
+               <method-name>findByVersion</method-name>
+               <method-params>
+                  <method-param>java.lang.String</method-param>
+               </method-params>
+            </query-method>
+            <result-type-mapping>Local</result-type-mapping>
+            <ejb-ql><![CDATA[SELECT OBJECT(o) FROM ServiceInfoEntity AS o WHERE o.serviceVersion = ?1]]></ejb-ql>
+         </query>
 	  <!-- Write a file named ejb-finders-ServiceInfoEntityEJB.xml if you want to define extra finders. -->
       </entity>
 
@@ -337,6 +356,43 @@
 	  <!-- Write a file named ejb-finders-ServiceSessionBeanEntityEJB.xml if you want to define extra finders. -->
       </entity>
 
+      <entity >
+         <description><![CDATA[Description for UserProfileEntity]]></description>
+         <display-name>Name for UserProfileEntity</display-name>
+
+         <ejb-name>UserProfileEntity</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.UserProfileEntityLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.UserProfileEntityLocal</local>
+
+         <ejb-class>org.emayor.servicehandling.beans.UserProfileEntityCMP</ejb-class>
+         <persistence-type>Container</persistence-type>
+         <prim-key-class>java.lang.String</prim-key-class>
+         <reentrant>False</reentrant>
+         <cmp-version>2.x</cmp-version>
+         <abstract-schema-name>UserProfileEntity</abstract-schema-name>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field userId]]></description>
+            <field-name>userId</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field c_UserProfile]]></description>
+            <field-name>c_UserProfile</field-name>
+         </cmp-field>
+          <primkey-field>userId</primkey-field>
+
+         <query>
+            <query-method>
+               <method-name>findAll</method-name>
+               <method-params>
+               </method-params>
+            </query-method>
+            <result-type-mapping>Local</result-type-mapping>
+            <ejb-ql><![CDATA[SELECT OBJECT(o) FROM UserProfileEntity AS o]]></ejb-ql>
+         </query>
+	  <!-- Write a file named ejb-finders-UserProfileEntityEJB.xml if you want to define extra finders. -->
+      </entity>
+
      <!--
        To add entity beans that you have deployment descriptor info for, add
        a file to your XDoclet merge directory called entity-beans.xml that contains
@@ -361,6 +417,8 @@
        XDoclet merge directory called assembly-descriptor.xml that contains
        the <assembly-descriptor></assembly-descriptor> markup.
      -->
+
+   <!-- finder permissions -->
 
    <!-- finder permissions -->
 

@@ -13,93 +13,96 @@ import javax.ejb.RemoveException;
 import org.apache.log4j.Logger;
 
 /**
- * @ejb.bean name="ServiceSessionBeanEntity"
- *           display-name="Name for ServiceSessionBeanEntity"
- *           description="Description for ServiceSessionBeanEntity"
+ * @ejb.bean name="ServiceSessionBeanEntity" display-name="Name for
+ *           ServiceSessionBeanEntity" description="Description for
+ *           ServiceSessionBeanEntity"
  *           jndi-name="ejb/emayor/sh/entity/ServiceSessionBeanEntity"
- *           type="CMP"
- *           cmp-version="2.x"
- *           view-type="local" 
- * 			 primkey-field = "ssid" 
- * @jboss.persistence 
- * 				table-name = "SERVICE_SESSION"
- * 				create-table = "true"
- * 				datasource = "java:/MySqlDS"
- * 				datasource-mapping = "mySQL"
- * @ejb.finder 
- * 				method-intf = "LocalHome"
- * 				query = "SELECT OBJECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.asid = ?1"
- * 				result-type-mapping = "Local"
- * 				signature = "java.util.Collection findByASID(java.lang.String asid)"
- * @jboss.query query = ""
- * @ejb.finder 
- * 				method-intf = "LocalHome"
- * 				query = "SELECT OBJECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.serviceId = ?1"
- * 				result-type-mapping = "Local"
- * 				signature = "java.util.Collection findByServiceID(java.lang.String serviceId)"
- * 				
+ *           type="CMP" cmp-version="2.x" view-type="local" primkey-field =
+ *           "ssid"
+ * @jboss.persistence table-name = "SERVICE_SESSION" create-table = "true"
+ *                    datasource = "java:/MySqlDS" datasource-mapping = "mySQL"
+ * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
+ *             ServiceSessionBeanEntity AS o WHERE o.asid = ?1"
+ *             result-type-mapping = "Local" signature = "java.util.Collection
+ *             findByASID(java.lang.String asid)"
+ * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
+ *             ServiceSessionBeanEntity AS o WHERE o.serviceId = ?1"
+ *             result-type-mapping = "Local" signature = "java.util.Collection
+ *             findByServiceID(java.lang.String serviceId)"
+ *  
  */
 public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
 	private static final Logger log = Logger
-		.getLogger(ServiceSessionBeanEntityEJB.class);
+			.getLogger(ServiceSessionBeanEntityEJB.class);
 
 	/**
-	 * 
+	 *  
 	 */
 	public ServiceSessionBeanEntityEJB() {
 		super();
 		log.debug("-> start processing ...");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.EntityBean#setEntityContext(javax.ejb.EntityContext)
 	 */
-	public void setEntityContext(EntityContext ctx)
-		throws EJBException,
-		RemoteException {
+	public void setEntityContext(EntityContext ctx) throws EJBException,
+			RemoteException {
 		log.debug("-> start processing ...");
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.EntityBean#unsetEntityContext()
 	 */
 	public void unsetEntityContext() throws EJBException, RemoteException {
 		log.debug("-> start processing ...");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.EntityBean#ejbRemove()
 	 */
-	public void ejbRemove()
-		throws RemoveException,
-		EJBException,
-		RemoteException {
+	public void ejbRemove() throws RemoveException, EJBException,
+			RemoteException {
 		log.debug("-> start processing ...");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.EntityBean#ejbActivate()
 	 */
 	public void ejbActivate() throws EJBException, RemoteException {
 		log.debug("-> start processing ...");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.EntityBean#ejbPassivate()
 	 */
 	public void ejbPassivate() throws EJBException, RemoteException {
 		log.debug("-> start processing ...");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.EntityBean#ejbLoad()
 	 */
 	public void ejbLoad() throws EJBException, RemoteException {
 		log.debug("-> start processing ...");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.ejb.EntityBean#ejbStore()
 	 */
 	public void ejbStore() throws EJBException, RemoteException {
@@ -108,10 +111,10 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
 
 	/**
 	 * Getter for CMP Field ssid
-	 *
-	 * @ejb.pk-field 
-	 * @ejb.persistent-field 
-	 * @ejb.interface-method   view-type="local"
+	 * 
+	 * @ejb.pk-field
+	 * @ejb.persistent-field
+	 * @ejb.interface-method view-type="local"
 	 * @jboss.column-name name = "SSID"
 	 * @jboss.sql-type type = "VARCHAR(100)"
 	 */
@@ -119,32 +122,35 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
 
 	/**
 	 * Setter for CMP Field ssid
-	 *
-	 * @ejb.interface-method   view-type="local"
+	 * 
+	 * @ejb.interface-method view-type="local"
 	 */
 	public abstract void setSsid(String value);
 
 	/**
 	 * Create method
-	 * @ejb.create-method  view-type = "local"
+	 * 
+	 * @ejb.create-method view-type = "local"
 	 */
 	public String ejbCreate(String ssid) throws javax.ejb.CreateException {
 		log.debug("-> start processing ...");
 		this.setSsid(ssid);
 		return null;
 	}
+
 	/**
 	 * Post Create method
 	 */
 	public void ejbPostCreate(String ssid) throws javax.ejb.CreateException {
 		// TODO Auto-generated method stub
 	}
+
 	/**
 	 * Getter for CMP Field asid
-	 *
+	 * 
 	 * 
 	 * @ejb.persistent-field
-	 * @ejb.interface-method   view-type="local"
+	 * @ejb.interface-method view-type="local"
 	 * @jboss.column-name name = "ASID"
 	 * @jboss.sql-type type = "VARVHAR(100)"
 	 */
@@ -152,17 +158,17 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
 
 	/**
 	 * Setter for CMP Field asid
-	 *
-	 * @ejb.interface-method   view-type="local"
+	 * 
+	 * @ejb.interface-method view-type="local"
 	 */
 	public abstract void setAsid(String value);
 
 	/**
 	 * Getter for CMP Field serviceId
-	 *
+	 * 
 	 * 
 	 * @ejb.persistent-field
-	 * @ejb.interface-method   view-type="local"
+	 * @ejb.interface-method view-type="local"
 	 * @jboss.column-name name = "SERVICEID"
 	 * @jboss.sql-type type = "VARVHAR(200)"
 	 */
@@ -170,17 +176,17 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
 
 	/**
 	 * Setter for CMP Field serviceId
-	 *
-	 * @ejb.interface-method   view-type="local"
+	 * 
+	 * @ejb.interface-method view-type="local"
 	 */
 	public abstract void setServiceId(String value);
 
 	/**
 	 * Getter for CMP Field startDate
-	 *
+	 * 
 	 * 
 	 * @ejb.persistent-field
-	 * @ejb.interface-method   view-type="local"
+	 * @ejb.interface-method view-type="local"
 	 * @jboss.column-name name = "STARTDATE"
 	 * @jboss.sql-type type = "DATETIME"
 	 */
@@ -188,8 +194,8 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
 
 	/**
 	 * Setter for CMP Field startDate
-	 *
-	 * @ejb.interface-method   view-type="local"
+	 * 
+	 * @ejb.interface-method view-type="local"
 	 */
 	public abstract void setStartDate(java.util.Date value);
 

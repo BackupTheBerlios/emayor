@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 3.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_3_0.dtd">
 
 <jboss>
@@ -25,6 +25,11 @@
       <entity>
          <ejb-name>ServiceSessionBeanEntity</ejb-name>
          <local-jndi-name>ServiceSessionBeanEntityLocal</local-jndi-name>
+
+      </entity>
+      <entity>
+         <ejb-name>UserProfileEntity</ejb-name>
+         <local-jndi-name>UserProfileEntityLocal</local-jndi-name>
 
       </entity>
 
