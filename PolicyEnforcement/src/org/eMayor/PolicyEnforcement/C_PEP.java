@@ -40,6 +40,9 @@ public class C_PEP {
 			
 		log.debug("PolicyEnforcement->PEP:: Initialising the PDP");
 	}
+	public C_PDP F_getCurrentPDP() {
+		return MyPDP;
+	}
 	public boolean F_CanStartService(String UserRole, String SerivceName) throws  E_PolicyEnforcementException 
 	{
 //		 Build the Request
