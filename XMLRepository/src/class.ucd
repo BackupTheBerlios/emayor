@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="default diagram" size="704,348" id="." metadata="nsuml-1.4" initialized="true" scrolledY="100" tag="200" key="323030343131323520584D4C5265706F7369746F7279">
+  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.repository.ejb" location="50,50" size="268,274" id="org.eMayor.repository.ejb">
+    <children xsi:type="editmodel:ClassEditModel" name="XMLRepository" location="50,50" size="198,175" id="org.eMayor.repository.ejb/XMLRepository" runTimeClassModel="query(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),retrieveDocumentAsXmlString(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),XMLRepository(Ljava.lang.String;Ljava.lang.String;),retrieveDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),storeXmlStringDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),XMLRepository(),storeDomDocument(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="175,126">
+        <children xsi:type="editmodel:MethodEditModel" name="XMLRepository" id="org.eMayor.repository.ejb/XMLRepository#XMLRepository(Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="XMLRepository" id="org.eMayor.repository.ejb/XMLRepository#XMLRepository()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="query" id="org.eMayor.repository.ejb/XMLRepository#query(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveDocument" id="org.eMayor.repository.ejb/XMLRepository#retrieveDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveDocumentAsXmlString" id="org.eMayor.repository.ejb/XMLRepository#retrieveDocumentAsXmlString(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="storeDomDocument" id="org.eMayor.repository.ejb/XMLRepository#storeDomDocument(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="storeXmlStringDocument" id="org.eMayor.repository.ejb/XMLRepository#storeXmlStringDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=4"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="10,10" gridOrigin="0,0" rulerUnit="pixel">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

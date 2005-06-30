@@ -24,7 +24,14 @@ import java.util.Vector;
 public class XMLRepository {
 	
 	    private String _URI = null;
-	    private String _driver = null;
+
+	/**
+	 * 
+	 * @uml.property name="_driver"
+	 * @uml.associationEnd multiplicity="(0 -1)" elementType="org.xmldb.api.base.Database"
+	 */
+	private String _driver = null;
+
 	    
     	/** The default constructor for the class. It sets the default settings for the URI of the database location
     	 *  (which is xmldb:exist://localhost:8080/exist/xmlrpc/db/) and the driver implemenation
