@@ -43,6 +43,9 @@ public class C_PDP {
 	private PDP MyPDP=null;
 	private static final Logger log = Logger.getLogger(C_PDP.class);
 	
+	public PDP F_getCurrentPDP(){
+		return MyPDP;
+	}
 	public ResponseCtx evaluate(RequestCtx request)
 	{
 		log.debug("PolicyEnforcement->PDP->evaluate :: got request " + request.toString());

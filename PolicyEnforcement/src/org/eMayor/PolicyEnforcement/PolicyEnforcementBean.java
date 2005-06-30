@@ -16,6 +16,8 @@ import javax.ejb.CreateException;
 
 import org.apache.log4j.Logger;
 
+
+
 import java.security.cert.X509Certificate;
 
 /**
@@ -197,6 +199,7 @@ public class PolicyEnforcementBean implements SessionBean {
 			
 		
 	}
+
 	/**
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
@@ -207,4 +210,5 @@ public class PolicyEnforcementBean implements SessionBean {
 		return true;
 		
 	}
+
 }
