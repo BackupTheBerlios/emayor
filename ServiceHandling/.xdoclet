@@ -201,7 +201,7 @@
 <attribute name="currentField" value="" used="false"/>
 <attribute name="currentClass" value="" used="false"/>
 </element>
-<element name="entitycmp" used="false">
+<element name="entitycmp" used="true">
 <attribute name="CmpSpec" value="2.x" used="true"/>
 <attribute name="pattern" value="" used="false"/>
 <attribute name="acceptInterfaces" value="" used="false"/>

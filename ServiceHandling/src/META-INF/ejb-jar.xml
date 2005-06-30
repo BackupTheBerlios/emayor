@@ -14,28 +14,13 @@
          <display-name>Name for ServiceCallbackManager</display-name>
 
          <ejb-name>ServiceCallbackManager</ejb-name>
-				 <service-endpoint>
+	<service-endpoint>
 		 	org.emayor.servicehandling.kernel.IServiceCallbackManager
-		 </service-endpoint>
-
+		 </service-endpoint> 
          <local-home>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.ServiceCallbackManagerEJB</ejb-class>
          <session-type>Stateless</session-type>
-         <transaction-type>Container</transaction-type>
-
-      </session>
-
-      <session >
-         <description><![CDATA[Description for ServiceSession]]></description>
-         <display-name>ServiceSessionEJB</display-name>
-
-         <ejb-name>ServiceSession</ejb-name>
-
-         <local-home>org.emayor.servicehandling.interfaces.ServiceSessionLocalHome</local-home>
-         <local>org.emayor.servicehandling.interfaces.ServiceSessionLocal</local>
-         <ejb-class>org.emayor.servicehandling.beans.ServiceSessionEJB</ejb-class>
-         <session-type>Stateful</session-type>
          <transaction-type>Container</transaction-type>
 
       </session>
@@ -57,23 +42,6 @@
       </session>
 
       <session >
-         <description><![CDATA[Description for ForwardManagerBPEL]]></description>
-         <display-name>Name for ForwardManagerBPEL</display-name>
-
-         <ejb-name>ForwardManagerBPEL</ejb-name>
-		 <service-endpoint>
-		 	org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
-		 </service-endpoint>
-
-         <local-home>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocalHome</local-home>
-         <local>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocal</local>
-         <ejb-class>org.emayor.servicehandling.beans.ForwardManagerBPEL_EJB</ejb-class>
-         <session-type>Stateless</session-type>
-         <transaction-type>Container</transaction-type>
-
-      </session>
-
-      <session >
          <description><![CDATA[Description for AccessManager]]></description>
          <display-name>Name for AccessManager</display-name>
 
@@ -82,6 +50,22 @@
          <local-home>org.emayor.servicehandling.interfaces.AccessManagerLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.AccessManagerLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.AccessManagerEJB</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
+      <session >
+         <description><![CDATA[Description for ForwardManagerBPEL]]></description>
+         <display-name>Name for ForwardManagerBPEL</display-name>
+
+         <ejb-name>ForwardManagerBPEL</ejb-name>
+	<service-endpoint>
+		org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
+	</service-endpoint>
+         <local-home>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocal</local>
+         <ejb-class>org.emayor.servicehandling.beans.ForwardManagerBPEL_EJB</ejb-class>
          <session-type>Stateless</session-type>
          <transaction-type>Container</transaction-type>
 
@@ -97,6 +81,48 @@
          <local>org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.SimpleIdGeneratorEJB</ejb-class>
          <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
+      <session >
+         <description><![CDATA[Description for AccessSession]]></description>
+         <display-name>Name for AccessSession</display-name>
+
+         <ejb-name>AccessSession</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.AccessSessionLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.AccessSessionLocal</local>
+         <ejb-class>org.emayor.servicehandling.beans.AccessSessionEJB</ejb-class>
+         <session-type>Stateful</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
+      <session >
+         <description><![CDATA[Description for UserTaskManager]]></description>
+         <display-name>Name for UserTaskManager</display-name>
+
+         <ejb-name>UserTaskManager</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.UserTaskManagerLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.UserTaskManagerLocal</local>
+         <ejb-class>org.emayor.servicehandling.beans.UserTaskManagerEJB</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
+      <session >
+         <description><![CDATA[Description for ServiceSession]]></description>
+         <display-name>ServiceSessionEJB</display-name>
+
+         <ejb-name>ServiceSession</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.ServiceSessionLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.ServiceSessionLocal</local>
+         <ejb-class>org.emayor.servicehandling.beans.ServiceSessionEJB</ejb-class>
+         <session-type>Stateful</session-type>
          <transaction-type>Container</transaction-type>
 
       </session>
@@ -130,20 +156,6 @@
       </session>
 
       <session >
-         <description><![CDATA[Description for AccessSession]]></description>
-         <display-name>Name for AccessSession</display-name>
-
-         <ejb-name>AccessSession</ejb-name>
-
-         <local-home>org.emayor.servicehandling.interfaces.AccessSessionLocalHome</local-home>
-         <local>org.emayor.servicehandling.interfaces.AccessSessionLocal</local>
-         <ejb-class>org.emayor.servicehandling.beans.AccessSessionEJB</ejb-class>
-         <session-type>Stateful</session-type>
-         <transaction-type>Container</transaction-type>
-
-      </session>
-
-      <session >
          <description><![CDATA[Description for AdminManager]]></description>
          <display-name>Name for AdminManager</display-name>
 
@@ -157,20 +169,6 @@
 
       </session>
 
-      <session >
-         <description><![CDATA[Description for UserTaskManager]]></description>
-         <display-name>Name for UserTaskManager</display-name>
-
-         <ejb-name>UserTaskManager</ejb-name>
-
-         <local-home>org.emayor.servicehandling.interfaces.UserTaskManagerLocalHome</local-home>
-         <local>org.emayor.servicehandling.interfaces.UserTaskManagerLocal</local>
-         <ejb-class>org.emayor.servicehandling.beans.UserTaskManagerEJB</ejb-class>
-         <session-type>Stateless</session-type>
-         <transaction-type>Container</transaction-type>
-
-      </session>
-
      <!--
        To add session beans that you have deployment descriptor info for, add
        a file to your XDoclet merge directory called session-beans.xml that contains
@@ -178,6 +176,74 @@
      -->
 
       <!-- Entity Beans -->
+      <entity >
+         <description><![CDATA[Description for AccessSessionEntity]]></description>
+         <display-name>Name for AccessSessionEntity</display-name>
+
+         <ejb-name>AccessSessionEntity</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.AccessSessionEntityLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.AccessSessionEntityLocal</local>
+
+         <ejb-class>org.emayor.servicehandling.beans.AccessSessionEntityCMP</ejb-class>
+         <persistence-type>Container</persistence-type>
+         <prim-key-class>java.lang.String</prim-key-class>
+         <reentrant>False</reentrant>
+         <cmp-version>2.x</cmp-version>
+         <abstract-schema-name>AccessSessionEntity</abstract-schema-name>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field asid]]></description>
+            <field-name>asid</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field userId]]></description>
+            <field-name>userId</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field startDate]]></description>
+            <field-name>startDate</field-name>
+         </cmp-field>
+          <primkey-field>asid</primkey-field>
+
+	  <!-- Write a file named ejb-finders-AccessSessionEntityEJB.xml if you want to define extra finders. -->
+      </entity>
+
+      <entity >
+         <description><![CDATA[Description for ServiceSessionBeanEntity]]></description>
+         <display-name>Name for ServiceSessionBeanEntity</display-name>
+
+         <ejb-name>ServiceSessionBeanEntity</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.ServiceSessionBeanEntityLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.ServiceSessionBeanEntityLocal</local>
+
+         <ejb-class>org.emayor.servicehandling.beans.ServiceSessionBeanEntityCMP</ejb-class>
+         <persistence-type>Container</persistence-type>
+         <prim-key-class>java.lang.String</prim-key-class>
+         <reentrant>False</reentrant>
+         <cmp-version>2.x</cmp-version>
+         <abstract-schema-name>ServiceSessionBeanEntity</abstract-schema-name>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field ssid]]></description>
+            <field-name>ssid</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field asid]]></description>
+            <field-name>asid</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field serviceId]]></description>
+            <field-name>serviceId</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field startDate]]></description>
+            <field-name>startDate</field-name>
+         </cmp-field>
+          <primkey-field>ssid</primkey-field>
+
+	  <!-- Write a file named ejb-finders-ServiceSessionBeanEntityEJB.xml if you want to define extra finders. -->
+      </entity>
+
      <!--
        To add entity beans that you have deployment descriptor info for, add
        a file to your XDoclet merge directory called entity-beans.xml that contains
@@ -202,6 +268,10 @@
        XDoclet merge directory called assembly-descriptor.xml that contains
        the <assembly-descriptor></assembly-descriptor> markup.
      -->
+
+   <!-- finder permissions -->
+
+   <!-- finder permissions -->
 
    <!-- finder permissions -->
 

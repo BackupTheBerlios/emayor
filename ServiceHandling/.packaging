@@ -20,6 +20,8 @@
 <file prefix="META-INF/wsdl" project="" projectLocation="BPEL-forward/server/ForwardMessageBPEL.xsd" name="ForwardMessageBPEL.xsd" location="BPEL-forward/server/ForwardMessageBPEL.xsd" used="true"/>
 <file prefix="org/emayor/rcs2" project="" projectLocation="xml/SampleResidenceCertificationRequestDocument.xml" name="SampleResidenceCertificationRequestDocument.xml" location="xml/SampleResidenceCertificationRequestDocument.xml" used="true"/>
 <file prefix="" project="" projectLocation="lib/cos.jar" name="cos.jar" location="lib/cos.jar" used="true"/>
+<file prefix="org/emayor/ur" project="" projectLocation="xml/SampleUserRegistrationRequestDocument.xml" name="SampleUserRegistrationRequestDocument.xml" location="xml/SampleUserRegistrationRequestDocument.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="src/META-INF/jbosscmp-jdbc.xml" name="jbosscmp-jdbc.xml" location="src/META-INF/jbosscmp-jdbc.xml" used="true"/>
 </archive>
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>

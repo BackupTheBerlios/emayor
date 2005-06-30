@@ -18,6 +18,8 @@ import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
+import org.emayor.servicehandling.interfaces.AccessSessionEntityLocal;
+import org.emayor.servicehandling.interfaces.AccessSessionEntityLocalHome;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
@@ -40,17 +42,19 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 public class AccessSessionEJB implements SessionBean, IAccessSession {
 	private static Logger log = Logger.getLogger(AccessSessionEJB.class);
 
-	private boolean isSessionActive = false;
+	//private boolean isSessionActive = false;
 
-	private String asid;
+	private AccessSessionEntityLocal accessSessionData;
 
-	private String userId;
+	//private String asid;
+
+	//private String userId;
 
 	private SessionContext ctx;
 
-	private C_UserProfile userProfile;
+	//private C_UserProfile userProfile;
 
-	private Date startDate;
+	//private Date startDate;
 
 	private AccessSessionSSRepository repository = null;
 
@@ -59,10 +63,11 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public AccessSessionEJB() {
 		super();
+		log.debug("-> start processing ...");
 		this.repository = new AccessSessionSSRepository();
-		this.isSessionActive = false;
-		Calendar cal = Calendar.getInstance();
-		this.startDate = cal.getTime();
+		//this.isSessionActive = false;
+		//Calendar cal = Calendar.getInstance();
+		//this.startDate = cal.getTime();
 	}
 
 	/*
@@ -82,6 +87,22 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public void ejbRemove() throws EJBException, RemoteException {
 		log.debug("-> start processing ...");
+		try {
+			ServiceLocator serviceLocator = ServiceLocator.getInstance();
+			/*
+			 * AccessSessionEntityLocalHome entHome = serviceLocator
+			 * .getAccessSessionEntityLocalHome(); AccessSessionEntityLocal
+			 * local = entHome .findByPrimaryKey(this.asid); local.remove();
+			 */
+			this.accessSessionData.remove();
+		} catch (ServiceLocatorException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new EJBException(ex.toString());
+		} catch (RemoveException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new EJBException(ex.toString());
+		}
+		log.debug("-> ... processing DONE!");
 	}
 
 	/*
@@ -115,18 +136,20 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			KernelLocal kernel = locator.getKernelLocal();
-			String str = kernel.authenticateUser(this.asid, certificates);
+			String str = kernel.authenticateUser(this.getSessionId(),
+					certificates);
 			if (str != null && str.length() != 0) {
 				log.debug("the user has been authenticated!");
-				this.userId = str;
+				//this.userId = str;
+				this.setUserId(str);
 				if (log.isDebugEnabled())
-					log.debug("the user id = " + this.userId);
-				this.isSessionActive = true;
+					log.debug("the user id = " + str);
+				//this.isSessionActive = true;
 				ret = true;
 				ServiceSessionLocal[] serviceSessions = kernel
 						.getUsersServiceSessions(str);
 				for (int i = 0; i < serviceSessions.length; i++) {
-					serviceSessions[i].setAccessSessionId(this.asid);
+					serviceSessions[i].setAccessSessionId(this.getSessionId());
 					this.repository.put(serviceSessions[i]);
 				}
 			} else {
@@ -150,6 +173,10 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 			log.error("caught ex: " + ssex.toString());
 			throw new AccessSessionException(
 					"authenticateUser failed: couldn't assign the new asid to running the service session");
+		} catch (SessionException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new AccessSessionException(
+					"authenticateUser failed: Internal error - couldn't get the asid");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -208,15 +235,17 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			KernelLocal kernel = locator.getKernelLocal();
+			String userId = this.getUserId();
 			ServiceSessionLocal serviceSessionLocal = kernel
-					.createServiceSession(this.asid, serviceId, this.userId);
+					.createServiceSession(this.getSessionId(), serviceId,
+							userId);
 			kernel.remove();
 			ret = serviceSessionLocal.getSessionId();
 			if (log.isDebugEnabled())
 				log.debug("got ssid from kernel: " + ret);
 			this.repository.put(serviceSessionLocal);
 			log.debug("start the service");
-			serviceSessionLocal.startService(this.userId, isForwarded, xmlDoc,
+			serviceSessionLocal.startService(userId, isForwarded, xmlDoc,
 					docSig);
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
@@ -252,16 +281,18 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			KernelLocal kernel = locator.getKernelLocal();
+			String userId = this.getUserId();
 			ServiceSessionLocal serviceSessionLocal = kernel
-					.createServiceSession(this.asid, serviceId, this.userId);
+					.createServiceSession(this.getSessionId(), serviceId,
+							userId);
 			kernel.remove();
 			ret = serviceSessionLocal.getSessionId();
 			if (log.isDebugEnabled())
 				log.debug("got ssid from kernel: " + ret);
 			this.repository.put(serviceSessionLocal);
 			log.debug("start the service");
-			serviceSessionLocal.startServiceRequestCompleted(this.userId,
-					false, requestDocument, "</empty>");
+			serviceSessionLocal.startServiceRequestCompleted(userId, false,
+					requestDocument, "</empty>");
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new AccessSessionException("problems with locator service");
@@ -353,7 +384,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			KernelLocal kernel = locator.getKernelLocal();
-			ret = kernel.deleteAccessSession(this.asid);
+			ret = kernel.deleteAccessSession(this.getSessionId());
 			kernel.remove();
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
@@ -366,6 +397,10 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 		} catch (RemoveException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new AccessSessionException("internal error");
+		} catch (SessionException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new AccessSessionException(
+					"Internal error - couldn't get the asid");
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;
@@ -378,7 +413,8 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 *  
 	 */
 	public C_UserProfile getUserProfile() throws AccessSessionException {
-		return this.userProfile;
+		//return this.userProfile;
+		return null;
 	}
 
 	/**
@@ -388,7 +424,8 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 *  
 	 */
 	public String getSessionId() throws SessionException {
-		return this.asid;
+		//return this.asid;
+		return this.accessSessionData.getAsid();
 	}
 
 	/**
@@ -403,8 +440,16 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			SimpleIdGeneratorLocal simpleIdGeneratorLocal = serviceLocator
 					.getSimpleIdGeneratorLocal();
-			this.asid = simpleIdGeneratorLocal.generateId();
+			String asid = simpleIdGeneratorLocal.generateId();
 			simpleIdGeneratorLocal.remove();
+			AccessSessionEntityLocalHome entHome = serviceLocator
+					.getAccessSessionEntityLocalHome();
+			//AccessSessionEntityLocal local = entHome.create(this.asid);
+			this.accessSessionData = entHome.create(asid);
+			Calendar cal = Calendar.getInstance();
+			//this.startDate = cal.getTime();
+			//local.setStartDate(cal.getTime());
+			this.accessSessionData.setStartDate(cal.getTime());
 		} catch (ServiceLocatorException slex) {
 			throw new CreateException(slex.toString());
 		} catch (RemoveException rex) {
@@ -422,7 +467,19 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public String getUserId() throws AccessSessionException {
 		log.debug("-> start processing ...");
-		return this.userId;
+		String ret = this.accessSessionData.getUserId();
+		/*
+		 * try { ServiceLocator serviceLocator = ServiceLocator.getInstance();
+		 * AccessSessionEntityLocalHome entHome = serviceLocator
+		 * .getAccessSessionEntityLocalHome(); AccessSessionEntityLocal local =
+		 * entHome .findByPrimaryKey(this.asid); ret = local.getUserId(); }
+		 * catch (ServiceLocatorException ex) { log.error("caught ex: " +
+		 * ex.toString()); throw new AccessSessionException(ex.toString()); }
+		 * catch (FinderException ex) { log.error("caught ex: " +
+		 * ex.toString()); throw new AccessSessionException(ex.toString()); }
+		 */
+		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 
 	/**
@@ -433,7 +490,17 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public void setUserId(String userId) throws AccessSessionException {
 		log.debug("-> start processing ...");
-		this.userId = userId;
+		/*
+		 * try { ServiceLocator serviceLocator = ServiceLocator.getInstance();
+		 * AccessSessionEntityLocalHome entHome = serviceLocator
+		 * .getAccessSessionEntityLocalHome(); AccessSessionEntityLocal local =
+		 * entHome .findByPrimaryKey(this.asid); local.setUserId(userId); }
+		 * catch (ServiceLocatorException ex) { log.error("caught ex: " +
+		 * ex.toString()); throw new AccessSessionException(ex.toString()); }
+		 * catch (FinderException ex) { log.error("caught ex: " +
+		 * ex.toString()); throw new AccessSessionException(ex.toString()); }
+		 */
+		this.accessSessionData.setUserId(userId);
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -445,6 +512,18 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public Date getStartDate() throws SessionException {
 		log.debug("-> start processing ...");
-		return this.startDate;
+		Date ret = this.accessSessionData.getStartDate();
+		/*
+		 * try { ServiceLocator serviceLocator = ServiceLocator.getInstance();
+		 * AccessSessionEntityLocalHome entHome = serviceLocator
+		 * .getAccessSessionEntityLocalHome(); AccessSessionEntityLocal local =
+		 * entHome .findByPrimaryKey(this.asid); ret = local.getStartDate(); }
+		 * catch (ServiceLocatorException ex) { log.error("caught ex: " +
+		 * ex.toString()); throw new AccessSessionException(ex.toString()); }
+		 * catch (FinderException ex) { log.error("caught ex: " +
+		 * ex.toString()); throw new AccessSessionException(ex.toString()); }
+		 */
+		log.debug("-> ... processing DONE!");
+		return ret;
 	}
 }

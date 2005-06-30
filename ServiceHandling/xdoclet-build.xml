@@ -23,17 +23,16 @@
 <pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/log4j-1.2.8.jar"/>
 <pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/axis-1.2/wsdl4j.jar"/>
 <pathelement location="lib/otn-jaxrpc.jar"/>
-<pathelement location="lib/UTWrapper-client.jar"/>
 <pathelement location="../PolicyEnforcement/bin"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/rt.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/sunrsasign.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/jsse.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/jce.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/charsets.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/ext/dnsns.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/ext/ldapsec.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/ext/localedata.jar"/>
-<pathelement location="E:/java/j2sdk1.4.2/jre/lib/ext/sunjce_provider.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/rt.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/sunrsasign.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/jsse.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/jce.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/charsets.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/dnsns.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/ldapsec.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/localedata.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/sunjce_provider.jar"/>
 <pathelement location="../PolicyEnforcement/lib/xmlsec-1.2RC2.jar"/>
 <pathelement location="../PrintingUtility/lib/log4j-1.2.9.jar"/>
 <pathelement location="../PolicyEnforcement/lib/sunxacml.jar"/>
@@ -61,6 +60,9 @@
 <pathelement location="../NotificationService/lib/javamail.jar"/>
 <pathelement location="../NotificationServiceWrapper/lib/SH-client.jar"/>
 <pathelement location="../NotificationServiceWrapper/lib/log4j-1.2.9.jar"/>
+<pathelement location="lib/cos.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.test.core_1.4.0/lib/junit-3.8.1/junit.jar"/>
+<pathelement location="lib/UTWrapper-client.jar"/>
 </path>
 <path id="xdoclet.classpath">
 <path refid="project.classpath"/>
@@ -274,7 +276,33 @@
 
 
 </localinterface>
+<entitycmp CmpSpec="2.x" >
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</entitycmp>
 
 </ejbdoclet></target>
 <target name="N104C9" description="Web">
