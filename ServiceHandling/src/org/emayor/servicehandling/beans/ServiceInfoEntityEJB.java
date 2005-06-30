@@ -19,25 +19,22 @@ import org.apache.log4j.Logger;
  *           cmp-version="2.x" view-type="local" primkey-field = "serviceId"
  * @jboss.persistence table-name = "SERVICE_INFO" create-table = "true"
  *                    datasource = "java:/MySqlDS" datasource-mapping = "mySQL"
- * @ejb.finder 
- * 			method-intf = "LocalHome"
- * 			query = "SELECT OBJECT(o) FROM ServiceInfoEntity AS o"
- * 			result-type-mapping = "Local"
- * 			signature = "java.util.Collection findAll()"
- * @ejb.finder 
- * 			method-intf = "LocalHome"
- * 			query = "SELECT OBJECT(o) FROM ServiceInfoEntity AS o WHERE o.active = TRUE"
- * 			result-type-mapping = "Local"
- * 			signature = "java.util.Collection findAllActiveServicesInfo()"
- * @ejb.finder 
- * 			method-intf = "LocalHome"
- * 			query = "SELECT OBJECT(o) FROM ServiceInfoEntity AS o WHERE o.version = ?1"
- * 			result-type-mapping = "Local"
- * 			signature = "java.util.Collection findByVersion(java.lang.String version)"
+ *                    remove-table = "true"
+ * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
+ *             ServiceInfoEntity AS o" result-type-mapping = "Local" signature =
+ *             "java.util.Collection findAll()"
+ * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
+ *             ServiceInfoEntity AS o WHERE o.active = TRUE" result-type-mapping =
+ *             "Local" signature = "java.util.Collection
+ *             findAllActiveServicesInfo()"
+ * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
+ *             ServiceInfoEntity AS o WHERE o.version = ?1" result-type-mapping =
+ *             "Local" signature = "java.util.Collection
+ *             findByVersion(java.lang.String version)"
  */
 public abstract class ServiceInfoEntityEJB implements EntityBean {
     private final static Logger log = Logger
-        .getLogger(ServiceInfoEntityEJB.class);
+            .getLogger(ServiceInfoEntityEJB.class);
 
     /**
      *  
@@ -52,9 +49,8 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * 
      * @see javax.ejb.EntityBean#setEntityContext(javax.ejb.EntityContext)
      */
-    public void setEntityContext(EntityContext ctx)
-        throws EJBException,
-        RemoteException {
+    public void setEntityContext(EntityContext ctx) throws EJBException,
+            RemoteException {
         // TODO Auto-generated method stub
 
     }
@@ -74,10 +70,8 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * 
      * @see javax.ejb.EntityBean#ejbRemove()
      */
-    public void ejbRemove()
-        throws RemoveException,
-        EJBException,
-        RemoteException {
+    public void ejbRemove() throws RemoveException, EJBException,
+            RemoteException {
         // TODO Auto-generated method stub
 
     }
@@ -140,29 +134,32 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      */
     public abstract void setServiceId(String value);
-    
+
     /**
      * Create method
-     * @ejb.create-method  view-type = "local"
+     * 
+     * @ejb.create-method view-type = "local"
      */
     public String ejbCreate(String serviceId) throws javax.ejb.CreateException {
         log.debug("-> start processing ...");
         this.setServiceId(serviceId);
         return null;
     }
+
     /**
      * Post Create method
      */
     public void ejbPostCreate(String serviceId)
-        throws javax.ejb.CreateException {
+            throws javax.ejb.CreateException {
         // TODO Auto-generated method stub
     }
+
     /**
      * Getter for CMP Field serviceVersion
-     *
+     * 
      * 
      * @ejb.persistent-field
-     * @ejb.interface-method   view-type="local"
+     * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEVERSION"
      * @jboss.sql-type type = "VARVHAR(20)"
      */
@@ -170,17 +167,17 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
 
     /**
      * Setter for CMP Field serviceVersion
-     *
-     * @ejb.interface-method   view-type="local"
+     * 
+     * @ejb.interface-method view-type="local"
      */
     public abstract void setServiceVersion(String value);
 
     /**
      * Getter for CMP Field serviceName
-     *
+     * 
      * 
      * @ejb.persistent-field
-     * @ejb.interface-method   view-type="local"
+     * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICENAME"
      * @jboss.sql-type type = "VARVHAR(100)"
      */
@@ -188,17 +185,17 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
 
     /**
      * Setter for CMP Field serviceName
-     *
-     * @ejb.interface-method   view-type="local"
+     * 
+     * @ejb.interface-method view-type="local"
      */
     public abstract void setServiceName(String value);
 
     /**
      * Getter for CMP Field serviceClassName
-     *
+     * 
      * 
      * @ejb.persistent-field
-     * @ejb.interface-method   view-type="local"
+     * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICECLASSNAME"
      * @jboss.sql-type type = "VARVHAR(200)"
      */
@@ -206,17 +203,17 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
 
     /**
      * Setter for CMP Field serviceClassName
-     *
-     * @ejb.interface-method   view-type="local"
+     * 
+     * @ejb.interface-method view-type="local"
      */
     public abstract void setServiceClassName(String value);
 
     /**
      * Getter for CMP Field serviceFactoryClassName
-     *
+     * 
      * 
      * @ejb.persistent-field
-     * @ejb.interface-method   view-type="local"
+     * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEFACTORYCLASSNAME"
      * @jboss.sql-type type = "VARVHAR(100)"
      */
@@ -224,17 +221,17 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
 
     /**
      * Setter for CMP Field serviceFactoryClassName
-     *
-     * @ejb.interface-method   view-type="local"
+     * 
+     * @ejb.interface-method view-type="local"
      */
     public abstract void setServiceFactoryClassName(String value);
 
     /**
      * Getter for CMP Field serviceDescription
-     *
+     * 
      * 
      * @ejb.persistent-field
-     * @ejb.interface-method   view-type="local"
+     * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEDECRIPTION"
      * @jboss.sql-type type = "VARVHAR(255)"
      */
@@ -242,17 +239,17 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
 
     /**
      * Setter for CMP Field serviceDescription
-     *
-     * @ejb.interface-method   view-type="local"
+     * 
+     * @ejb.interface-method view-type="local"
      */
     public abstract void setServiceDescription(String value);
 
     /**
      * Getter for CMP Field serviceEndpoint
-     *
+     * 
      * 
      * @ejb.persistent-field
-     * @ejb.interface-method   view-type="local"
+     * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEENDPOINT"
      * @jboss.sql-type type = "VARVHAR(200)"
      */
@@ -260,17 +257,17 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
 
     /**
      * Setter for CMP Field serviceEndpoint
-     *
-     * @ejb.interface-method   view-type="local"
+     * 
+     * @ejb.interface-method view-type="local"
      */
     public abstract void setServiceEndpoint(String value);
 
     /**
      * Getter for CMP Field active
-     *
+     * 
      * 
      * @ejb.persistent-field
-     * @ejb.interface-method   view-type="local"
+     * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "ACTIVE"
      * @jboss.sql-type type = "BOOLEAN"
      */
@@ -278,8 +275,8 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
 
     /**
      * Setter for CMP Field active
-     *
-     * @ejb.interface-method   view-type="local"
+     * 
+     * @ejb.interface-method view-type="local"
      */
     public abstract void setActive(Boolean value);
 

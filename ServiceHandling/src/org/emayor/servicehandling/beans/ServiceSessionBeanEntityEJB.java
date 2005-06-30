@@ -26,6 +26,17 @@ import org.apache.log4j.Logger;
  * 				create-table = "true"
  * 				datasource = "java:/MySqlDS"
  * 				datasource-mapping = "mySQL"
+ * @ejb.finder 
+ * 				method-intf = "LocalHome"
+ * 				query = "SELECT OBJECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.asid = ?1"
+ * 				result-type-mapping = "Local"
+ * 				signature = "java.util.Collection findByASID(java.lang.String asid)"
+ * @jboss.query query = ""
+ * @ejb.finder 
+ * 				method-intf = "LocalHome"
+ * 				query = "SELECT OBJECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.serviceId = ?1"
+ * 				result-type-mapping = "Local"
+ * 				signature = "java.util.Collection findByServiceID(java.lang.String serviceId)"
  * 				
  */
 public abstract class ServiceSessionBeanEntityEJB implements EntityBean {

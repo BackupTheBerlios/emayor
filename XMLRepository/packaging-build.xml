@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004,N10025,N10036"/>
+<target name="N10004" description="RepositoryManager.jar">
+<jar destfile="RepositoryManager.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="bin" includes="org/eMayor/repository/ejb/*.class, org/eMayor/repository/interfaces.class"/>
+</jar>
+</target>
+<target name="N10025" description="RepositoryManagerEJB-Client.jar">
+<jar destfile="RepositoryManagerEJB-Client.jar">
+<zipfileset dir="bin" includes="org/eMayor/repository/interfaces/*.class"/>
+</jar>
+</target>
+<target name="N10036" description="RepositoryManagerApp.ear">
+<jar destfile="RepositoryManagerApp.ear">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="application.xml"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="RepositoryManagerEJB.jar"/>
+</zipfileset>
+<zipfileset dir="eXist">
+<include name="exist.jar"/>
+</zipfileset>
+<zipfileset dir="pool">
+<include name="commons-pool-1.2.jar"/>
+</zipfileset>
+<zipfileset dir="xalan">
+<include name="xalan.jar"/>
+</zipfileset>
+<zipfileset dir="XMLDB">
+<include name="xmldb.jar"/>
+</zipfileset>
+<zipfileset dir="xmlrpc">
+<include name="xmlrpc-1.2-patched.jar"/>
+</zipfileset>
+</jar>
+</target>
+</project>

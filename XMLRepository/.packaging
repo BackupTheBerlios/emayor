@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive name="RepositoryManager.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/eMayor/repository/ejb/*.class, org/eMayor/repository/interfaces.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+<file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
+<file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
+</archive>
+<archive name="RepositoryManagerEJB-Client.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/eMayor/repository/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+</archive>
+<archive name="RepositoryManagerApp.ear" destination="" used="true" exploded="false">
+<file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
+<file prefix="" project="" projectLocation="RepositoryManagerEJB.jar" name="RepositoryManagerEJB.jar" location="RepositoryManagerEJB.jar" used="true"/>
+<file prefix="" project="" projectLocation="eXist/exist.jar" name="exist.jar" location="eXist/exist.jar" used="true"/>
+<file prefix="" project="" projectLocation="pool/commons-pool-1.2.jar" name="commons-pool-1.2.jar" location="pool/commons-pool-1.2.jar" used="true"/>
+<file prefix="" project="" projectLocation="xalan/xalan.jar" name="xalan.jar" location="xalan/xalan.jar" used="true"/>
+<file prefix="" project="" projectLocation="XMLDB/xmldb.jar" name="xmldb.jar" location="XMLDB/xmldb.jar" used="true"/>
+<file prefix="" project="" projectLocation="xmlrpc/xmlrpc-1.2-patched.jar" name="xmlrpc-1.2-patched.jar" location="xmlrpc/xmlrpc-1.2-patched.jar" used="true"/>
+</archive>
+</configurations>

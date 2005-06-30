@@ -24,6 +24,7 @@
          <cmp-field>
             <field-name>asid</field-name>
             <column-name>ASID</column-name>
+			<not-null/>
 
         </cmp-field>
          <cmp-field>
@@ -34,6 +35,58 @@
          <cmp-field>
             <field-name>startDate</field-name>
             <column-name>STARTDATE</column-name>
+
+        </cmp-field>
+
+      </entity>
+
+      <entity>
+         <ejb-name>ServiceInfoEntity</ejb-name>
+		 <datasource>java:/MySqlDS</datasource>
+		 <datasource-mapping>mySQL</datasource-mapping>
+         <create-table>true</create-table>
+
+         <table-name>SERVICE_INFO</table-name>
+
+         <cmp-field>
+            <field-name>serviceId</field-name>
+            <column-name>SERVICEID</column-name>
+			<not-null/>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>serviceVersion</field-name>
+            <column-name>SERVICEVERSION</column-name>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>serviceName</field-name>
+            <column-name>SERVICENAME</column-name>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>serviceClassName</field-name>
+            <column-name>SERVICECLASSNAME</column-name>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>serviceFactoryClassName</field-name>
+            <column-name>SERVICEFACTORYCLASSNAME</column-name>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>serviceDescription</field-name>
+            <column-name>SERVICEDECRIPTION</column-name>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>serviceEndpoint</field-name>
+            <column-name>SERVICEENDPOINT</column-name>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>active</field-name>
+            <column-name>ACTIVE</column-name>
 
         </cmp-field>
 
