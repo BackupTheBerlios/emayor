@@ -20,6 +20,6 @@ public interface ContentRouterLocal
     * @throws org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException when no binding template could be found for the given service.
     * @throws org.emayor.ContentRouting.ejb.AccessPointNotFoundException when no access point URL could be found for the given service.
     */
-   public java.lang.String getAccessPoint( java.lang.String municipalityName,java.lang.String serviceName ) throws org.emayor.ContentRouting.ejb.OrganisationNotFoundException, org.emayor.ContentRouting.ejb.ServiceNotFoundException, org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException, org.emayor.ContentRouting.ejb.AccessPointNotFoundException;
+   public java.lang.String getAccessPoint( java.lang.String municipalityName,java.lang.String serviceName ) throws org.emayor.ContentRouting.ejb.OrganisationNotFoundException, org.emayor.ContentRouting.ejb.ServiceNotFoundException, org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException, org.emayor.ContentRouting.ejb.AccessPointNotFoundException, org.emayor.servicehandling.config.ConfigException;
 
 }

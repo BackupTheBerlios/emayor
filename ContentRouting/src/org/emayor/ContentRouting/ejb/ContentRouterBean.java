@@ -5,8 +5,10 @@ import java.rmi.RemoteException;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-
 import javax.ejb.CreateException;
+
+import org.emayor.servicehandling.config.Config;
+import org.emayor.servicehandling.config.ConfigException;
 
 //Imports for the business logic
 import org.emayor.ContentRouting.ejb.AccessPointNotFoundException;
@@ -27,7 +29,6 @@ import org.uddi4j.util.FindQualifiers;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Properties;
 import java.util.Vector;
 
 /**
@@ -44,8 +45,7 @@ public class ContentRouterBean implements SessionBean {
      */
     private static final long serialVersionUID = 1L;
     
-    Properties config = new Properties();
-
+   
     /**
      * Sets up the EJB class for content routing.
      * 
@@ -54,10 +54,7 @@ public class ContentRouterBean implements SessionBean {
      * @throws IOException
      *             in case of a general I/O malfunction.
      */
-    public ContentRouterBean() throws FileNotFoundException, IOException {
-
-        config = new UDDI4JConfigurator().getUDDI4JProperties();
-    }
+    public ContentRouterBean() throws FileNotFoundException, IOException {}
 
     /*
      * (non-Javadoc)
@@ -133,9 +130,11 @@ public class ContentRouterBean implements SessionBean {
             throws org.emayor.ContentRouting.ejb.OrganisationNotFoundException,
             org.emayor.ContentRouting.ejb.ServiceNotFoundException,
             org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException,
-            org.emayor.ContentRouting.ejb.AccessPointNotFoundException {
+            org.emayor.ContentRouting.ejb.AccessPointNotFoundException,
+            org.emayor.servicehandling.config.ConfigException {
 
         try {
+            Config config = Config.getInstance();
             String accessPointURL = new String(getAccessPointUDDI(
                     municipalityName, serviceName, config
                             .getProperty("localInquiryURL")));
@@ -144,20 +143,28 @@ public class ContentRouterBean implements SessionBean {
             String accessPointURL = forceUpdateAccessPoint(municipalityName,
                     serviceName);
             return (accessPointURL);
-        }
+        } catch(ConfigException e) {
+            throw new ConfigException("Configuration File Error");
+         }
     }
 
     private String forceUpdateAccessPoint(String municipalityName,
             String serviceName) throws OrganisationNotFoundException,
             ServiceNotFoundException, BindingTemplateNotFoundException,
-            AccessPointNotFoundException {
-        updateOrganization(municipalityName, serviceName, config
-                .getProperty("remoteInquiryURL"), config
-                .getProperty("localInquiryURL"), config
-                .getProperty("localPublishURL"));
-        String accessPointURL = new String(getAccessPointUDDI(municipalityName,
-                serviceName, config.getProperty("localInquiryURL")));
-        return (accessPointURL);
+            AccessPointNotFoundException, ConfigException {
+        
+        try {
+            Config config = Config.getInstance();
+            updateOrganization(municipalityName, serviceName, config
+                    .getProperty("remoteInquiryURL"), config
+                    .getProperty("localInquiryURL"), config
+                    .getProperty("localPublishURL"));
+            String accessPointURL = new String(getAccessPointUDDI(municipalityName,
+                    serviceName, config.getProperty("localInquiryURL")));
+            return (accessPointURL);
+        } catch (ConfigException e) {
+            throw new ConfigException("Configuration File Error");
+         }
     }
 
     private String getAccessPointUDDI(String municipalityName,
@@ -290,12 +297,14 @@ public class ContentRouterBean implements SessionBean {
 
     private void updateOrganization(String municipalityName,
             String serviceName, String inquiryAccessPointSource,
-            String inquiryAccessPointTarget, String publishAccessPointTarget) {
+            String inquiryAccessPointTarget, String publishAccessPointTarget) 
+            throws ConfigException {
 
         BusinessEntity businessEntityContainer = new BusinessEntity();
         BusinessServices businessServicesContainer = new BusinessServices();
 
         try {
+            Config config = Config.getInstance();
             //********************************************************************
             //Prepare the container object of the organization that will be
             // copied
@@ -428,6 +437,7 @@ public class ContentRouterBean implements SessionBean {
             }
 
             e.printStackTrace();
+        } catch (ConfigException e) {throw new ConfigException("Configuration File Error");
         } catch (Exception e) {
             e.printStackTrace();
         }
