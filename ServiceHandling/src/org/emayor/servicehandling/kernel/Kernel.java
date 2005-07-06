@@ -64,7 +64,7 @@ public class Kernel implements IKernel {
             if (config.getProperty("emayor.operating.mode")
                     .equals("production")) {
                 log.info("working with the production data - production mode");
-                this.initDeployedServices();
+                //this.initDeployedServices();
             } else {
                 log.info("working with the internal test data - test mode");
                 this.initTestData();
@@ -313,10 +313,10 @@ public class Kernel implements IKernel {
                 this.repository.adminRemoveServiceSession(ssid);
                 ret = true;
             } else {
-            	log.info("tha asid wasn't null, asid=" + asid);
+                log.info("tha asid wasn't null, asid=" + asid);
                 String userId = this.getUserIdByASID(asid);
                 if (log.isDebugEnabled())
-                	log.debug("got uid from repository: " + userId);
+                    log.debug("got uid from repository: " + userId);
                 this.repository.removeServiceSession(ssid, userId);
                 ret = true;
             }
@@ -664,7 +664,8 @@ public class Kernel implements IKernel {
                 ret = userId;
                 if (log.isDebugEnabled())
                     log.debug("returning the user id : " + ret);
-                this.repository.updateAccessSessionData(userId, asid);
+                // TODO check it !!!!!!
+                //this.repository.updateAccessSessionData(userId, asid);
                 /*
                  * log.debug("try to handle the entity bean!"); ServiceLocator
                  * locator = ServiceLocator.getInstance(); UserProfileLocalHome
@@ -856,7 +857,7 @@ public class Kernel implements IKernel {
         log.debug("-> start processing ...");
         try {
             this.repository.emptyServiceInfo();
-            this.initDeployedServices();
+            //this.initDeployedServices();
             this.initializeServiceFactories();
         } catch (KernelRepositoryException ex) {
             log.error("caught ex: " + ex.toString());
@@ -1127,5 +1128,40 @@ public class Kernel implements IKernel {
             log.error("caught ex: " + ex.toString());
             throw new KernelException("Couldn't remove the given user profile!");
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#deployService(org.emayor.servicehandling.kernel.IServiceProfile)
+     */
+    public void deployService(IServiceProfile serviceProfile)
+            throws KernelException {
+        log.debug("-> start processing ...");
+        try {
+            this.repository.addServiceInfo((ServiceInfo) serviceProfile
+                    .getServiceInfo());
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException("Couldn't deploy the new service!");
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.emayor.servicehandling.kernel.IKernel#undeployService(java.lang.String)
+     */
+    public void undeployService(String serviceId) throws KernelException {
+        log.debug("-> start processing ...");
+        try {
+            this.repository.removeServiceInfo(serviceId);
+        } catch (KernelRepositoryException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelException(
+                    "Couldn't undeploy the service with serviceId = "
+                            + serviceId);
+        }
+
     }
 }

@@ -4,10 +4,10 @@
 package org.emayor.servicehandling.beans;
 
 /**
- * CMP layer for ServiceSessionBeanEntity.
+ * CMP layer for UserProfileEntity.
  */
-public abstract class ServiceSessionBeanEntityCMP
-   extends org.emayor.servicehandling.beans.ServiceSessionBeanEntityEJB
+public abstract class UserProfileEntityCMP
+   extends org.emayor.servicehandling.beans.UserProfileEntityEJB
    implements javax.ejb.EntityBean
 {
 
@@ -48,24 +48,12 @@ public abstract class ServiceSessionBeanEntityCMP
 
    }
 
-   public abstract java.lang.String getSsid() ;
-
-   public abstract void setSsid( java.lang.String ssid ) ;
-
-   public abstract java.lang.String getAsid() ;
-
-   public abstract void setAsid( java.lang.String asid ) ;
-
-   public abstract java.lang.String getServiceId() ;
-
-   public abstract void setServiceId( java.lang.String serviceId ) ;
-
-   public abstract java.util.Date getStartDate() ;
-
-   public abstract void setStartDate( java.util.Date startDate ) ;
-
    public abstract java.lang.String getUserId() ;
 
    public abstract void setUserId( java.lang.String userId ) ;
+
+   public abstract java.lang.String getC_UserProfile() ;
+
+   public abstract void setC_UserProfile( java.lang.String c_UserProfile ) ;
 
 }

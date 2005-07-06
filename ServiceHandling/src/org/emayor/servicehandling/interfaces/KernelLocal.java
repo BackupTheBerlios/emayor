@@ -174,4 +174,14 @@ public interface KernelLocal
     */
    public void removeUserProfile( java.lang.String uid ) throws org.emayor.servicehandling.kernel.KernelException;
 
+   /**
+    * Business Method
+    * @see org.emayor.servicehandling.kernel.IKernel#deployService(org.emayor.servicehandling.kernel.IServiceProfile)    */
+   public void deployService( org.emayor.servicehandling.kernel.IServiceProfile serviceProfile ) throws org.emayor.servicehandling.kernel.KernelException;
+
+   /**
+    * Business Method
+    * @see org.emayor.servicehandling.kernel.IKernel#undeployService(java.lang.String)    */
+   public void undeployService( java.lang.String serviceId ) throws org.emayor.servicehandling.kernel.KernelException;
+
 }

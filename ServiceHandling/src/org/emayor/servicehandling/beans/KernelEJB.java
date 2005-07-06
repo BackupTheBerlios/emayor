@@ -472,4 +472,27 @@ public class KernelEJB implements SessionBean, IKernel {
         log.debug("-> start processing ...");
         this.kernel.removeUserProfile(uid);
     }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     * @see org.emayor.servicehandling.kernel.IKernel#deployService(org.emayor.servicehandling.kernel.IServiceProfile)
+     */
+    public void deployService(IServiceProfile serviceProfile)
+            throws KernelException {
+        log.debug("-> start processing ...");
+        this.kernel.deployService(serviceProfile);
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     * @see org.emayor.servicehandling.kernel.IKernel#undeployService(java.lang.String)
+     */
+    public void undeployService(String serviceId) throws KernelException {
+        log.debug("-> start processing ...");
+        this.kernel.undeployService(serviceId);
+    }
 }

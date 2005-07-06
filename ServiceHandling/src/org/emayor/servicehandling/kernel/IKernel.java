@@ -18,24 +18,33 @@ import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackDa
  */
 public interface IKernel {
     /**
+     * An new access session will be created and the attached access session id
+     * renturend.
      * 
-     * @return
+     * @return the attached unique access session id
      * @throws KernelException
      */
     public String createAccessSession() throws KernelException;
 
     /**
+     * The local intarface to the access session instance specified by the given
+     * access session id will be returned.
      * 
      * @param asid
-     * @return
+     *            access session id to be found
+     * @return a reference to the local interface of the required access session
+     *         instance
      * @throws KernelException
      */
     public AccessSessionLocal getAccessSession(String asid)
             throws KernelException;
 
     /**
+     * a list of the references to the local interface of all at the moment
+     * existing access sessions will be returned. In case that no access session
+     * exists a list of the length 0 is returend.
      * 
-     * @return
+     * @return 
      * @throws KernelException
      */
     public AccessSessionInfo[] listAccessSessions() throws KernelException;
@@ -309,5 +318,29 @@ public interface IKernel {
      * @throws KernelException
      */
     public void removeUserProfile(String uid) throws KernelException;
+
+    /**
+     * By using this method it is possible to deploy a new eMayor service. The
+     * service itself is described by an instance of the ServiceProfile class,
+     * which implements IServiceProfile interface. In case of any failure an
+     * instance of KernelException containing appropriate failure message will
+     * be thrown and the service is NOT DEPLOYED.
+     * 
+     * @param serviceProfile
+     *            description of the eMayor servie to be deployed
+     * @throws KernelException
+     */
+    public void deployService(IServiceProfile serviceProfile)
+            throws KernelException;
+
+    /**
+     * This method is responsible for undelpoying of a deployed eMayor service
+     * sepcified by te given service id.
+     * 
+     * @param serviceId
+     *            the service id of the eMayor service to be undeployed
+     * @throws KernelException
+     */
+    public void undeployService(String serviceId) throws KernelException;
 
 }

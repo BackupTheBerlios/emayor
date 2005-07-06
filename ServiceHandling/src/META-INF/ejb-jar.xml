@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
 
 <ejb-jar >
@@ -267,6 +267,11 @@
             <description><![CDATA[Getter for CMP Field active]]></description>
             <field-name>active</field-name>
          </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field instances]]></description>
+            <field-name>instances</field-name>
+         </cmp-field>
+
           <primkey-field>serviceId</primkey-field>
 
          <query>
@@ -331,6 +336,10 @@
             <description><![CDATA[Getter for CMP Field startDate]]></description>
             <field-name>startDate</field-name>
          </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field userId]]></description>
+            <field-name>userId</field-name>
+         </cmp-field>
           <primkey-field>ssid</primkey-field>
 
          <query>
@@ -352,6 +361,16 @@
             </query-method>
             <result-type-mapping>Local</result-type-mapping>
             <ejb-ql><![CDATA[SELECT OBJECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.serviceId = ?1]]></ejb-ql>
+         </query>
+         <query>
+            <query-method>
+               <method-name>findByCreatorID</method-name>
+               <method-params>
+                  <method-param>java.lang.String</method-param>
+               </method-params>
+            </query-method>
+            <result-type-mapping>Local</result-type-mapping>
+            <ejb-ql><![CDATA[SELECT OBJCECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.userId = ?1]]></ejb-ql>
          </query>
 	  <!-- Write a file named ejb-finders-ServiceSessionBeanEntityEJB.xml if you want to define extra finders. -->
       </entity>

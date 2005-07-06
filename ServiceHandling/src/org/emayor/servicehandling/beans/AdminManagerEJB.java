@@ -26,6 +26,7 @@ import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceClassLoader;
 import org.emayor.servicehandling.kernel.ServiceClassloaderException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
+import org.emayor.servicehandling.kernel.ServiceProfile;
 import org.emayor.servicehandling.kernel.ServiceSessionInfo;
 import org.emayor.servicehandling.kernel.UserProfile;
 import org.emayor.servicehandling.utils.IOManager;
@@ -704,8 +705,8 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
         serviceProfile.setServiceFactoryClassName(fullyServiceFactoryClassName);
         serviceProfile.setServiceEndpoint("---");
         this.storeProfile(serviceProfile);
-        log.debug("reloading the services");
-        this.reloadServices();
+        //log.debug("reloading the services");
+        //this.reloadServices();
     }
 
     /**
@@ -716,27 +717,34 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
      */
     public void undeployService(String serviceId) throws AdminException {
         log.debug("-> start processing ...");
-        AdminServiceProfileData profile = this.lookupServiceProfile(serviceId);
-        if (profile != null) {
-            // 1. delete service class
-            log.debug("delete the service class");
-            this.deleteServiceClass(profile.getServiceClassName());
-            // 2. delete service factory, if exists
-            String factory = profile.getServiceFactoryClassName();
-            if (!factory
-                    .equals("org.emayor.servicehandling.kernel.eMayorServiceFactory")) {
-                log.debug("delete the service factory class!");
-                this.deleteServiceClass(factory);
-            }
-            // 3. delete service profile
-            log.debug("delete the service profile");
-            this.deleteProfile(profile);
-            // 4. reload configuration
-            log.debug("reload the services");
-            this.reloadServices();
-        } else {
-            throw new AdminException(
-                    "Cannot remove the service - service id unknown!");
+        /*
+         * AdminServiceProfileData profile =
+         * this.lookupServiceProfile(serviceId); if (profile != null) { // 1.
+         * delete service class log.debug("delete the service class");
+         * this.deleteServiceClass(profile.getServiceClassName()); // 2. delete
+         * service factory, if exists String factory =
+         * profile.getServiceFactoryClassName(); if (!factory
+         * .equals("org.emayor.servicehandling.kernel.eMayorServiceFactory")) {
+         * log.debug("delete the service factory class!");
+         * this.deleteServiceClass(factory); } // 3. delete service profile
+         * log.debug("delete the service profile"); this.deleteProfile(profile); //
+         * 4. reload configuration log.debug("reload the services");
+         * this.reloadServices(); } else { throw new AdminException( "Cannot
+         * remove the service - service id unknown!"); }
+         */
+        try {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            KernelLocal kernel = locator.getKernelLocal();
+            kernel.undeployService(serviceId);
+            kernel.remove();
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't undeploy the new service!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't undeploy the new service!");
+        } catch (RemoveException ex) {
+            log.error("caught ex: " + ex.toString());
         }
         log.debug("-> ... processing DONE!");
     }
@@ -818,13 +826,30 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
         si.setServiceId(profile.getServiceId());
         si.setServiceName(profile.getServiceName());
         si.setServiceVersion(profile.getServiceVersion());
-        String content = si.toString();
+        IServiceProfile sp = new ServiceProfile();
+        sp.setServiceInfo(si);
+        /*
+         * String content = si.toString();
+         * 
+         * try { IOManager manager = IOManager.getInstance();
+         * manager.saveServiceInfo(si); } catch (IOManagerException ex) {
+         * log.error("caught ex: " + ex.toString()); throw new
+         * AdminException("Input/Outpur error!"); }
+         */
         try {
-            IOManager manager = IOManager.getInstance();
-            manager.saveServiceInfo(si);
-        } catch (IOManagerException ex) {
+            ServiceLocator locator = ServiceLocator.getInstance();
+            KernelLocal kernel = locator.getKernelLocal();
+            locator = null;
+            kernel.deployService(sp);
+            kernel.remove();
+        } catch (ServiceLocatorException ex) {
             log.error("caught ex: " + ex.toString());
-            throw new AdminException("Input/Outpur error!");
+            throw new AdminException("Couldn't deploy the new service!");
+        } catch (KernelException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new AdminException("Couldn't deploy the new service!");
+        } catch (RemoveException ex) {
+            log.error("caught ex: " + ex.toString());
         }
         log.debug("-> ... processing DONE!");
     }

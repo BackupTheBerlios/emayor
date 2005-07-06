@@ -49,6 +49,7 @@ import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocalHome;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocalHome;
+import org.emayor.servicehandling.interfaces.UserProfileEntityLocalHome;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocalHome;
 import org.emayor.servicehandling.kernel.bpel.forward.client.IForwardManagerBPELCallbackService;
@@ -546,7 +547,7 @@ public class ServiceLocator {
         return ret;
     }
 
-    public synchronized ServiceSessionBeanEntityLocalHome getServiceSessionBeanEntityLocalHom()
+    public synchronized ServiceSessionBeanEntityLocalHome getServiceSessionBeanEntityLocalHome()
             throws ServiceLocatorException {
         log.debug("-> starting processing ...");
         ServiceSessionBeanEntityLocalHome ret = null;
@@ -572,6 +573,23 @@ public class ServiceLocator {
                     .lookup(ServiceInfoEntityLocalHome.JNDI_NAME);
             ret = (ServiceInfoEntityLocalHome) PortableRemoteObject.narrow(ref,
                     ServiceInfoEntityLocalHome.class);
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public synchronized UserProfileEntityLocalHome getUserProfileEntityLocalHome()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        UserProfileEntityLocalHome ret = null;
+        try {
+            Object ref = this.initialContext
+                    .lookup(UserProfileEntityLocalHome.JNDI_NAME);
+            ret = (UserProfileEntityLocalHome) PortableRemoteObject.narrow(ref,
+                    UserProfileEntityLocalHome.class);
         } catch (NamingException nex) {
             log.error("caught ex: " + nex.toString());
             throw new ServiceLocatorException(nex);

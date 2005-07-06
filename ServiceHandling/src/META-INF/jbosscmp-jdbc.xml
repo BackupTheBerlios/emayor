@@ -45,7 +45,7 @@
 		 <datasource>java:/MySqlDS</datasource>
 		 <datasource-mapping>mySQL</datasource-mapping>
          <create-table>true</create-table>
-         <remove-table>true</remove-table>
+         <remove-table>false</remove-table>
 
          <table-name>SERVICE_INFO</table-name>
 
@@ -90,6 +90,11 @@
             <column-name>ACTIVE</column-name>
 
         </cmp-field>
+         <cmp-field>
+            <field-name>instances</field-name>
+            <column-name>INSTANCES</column-name>
+
+        </cmp-field>
 
       </entity>
 
@@ -121,6 +126,11 @@
             <column-name>STARTDATE</column-name>
 
         </cmp-field>
+         <cmp-field>
+            <field-name>userId</field-name>
+            <column-name>CREATORID</column-name>
+
+        </cmp-field>
 
       </entity>
 
@@ -137,10 +147,16 @@
             <field-name>userId</field-name>
             <column-name>USERID</column-name>
 
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(100)</sql-type>
+
         </cmp-field>
          <cmp-field>
             <field-name>c_UserProfile</field-name>
             <column-name>CUSERPROFILE</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>TEXT</sql-type>
 
         </cmp-field>
 

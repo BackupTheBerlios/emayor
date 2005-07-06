@@ -89,4 +89,14 @@ public interface ServiceInfoEntityLocal
     */
    public void setActive( java.lang.Boolean value ) ;
 
+   /**
+    * Getter for CMP Field instances
+    */
+   public java.lang.Integer getInstances(  ) ;
+
+   /**
+    * Setter for CMP Field instances
+    */
+   public void setInstances( java.lang.Integer value ) ;
+
 }

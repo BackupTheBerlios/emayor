@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  *           cmp-version="2.x" view-type="local" primkey-field = "serviceId"
  * @jboss.persistence table-name = "SERVICE_INFO" create-table = "true"
  *                    datasource = "java:/MySqlDS" datasource-mapping = "mySQL"
- *                    remove-table = "true"
+ *                    remove-table = "false"
  * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
  *             ServiceInfoEntity AS o" result-type-mapping = "Local" signature =
  *             "java.util.Collection findAll()"
@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class ServiceInfoEntityEJB implements EntityBean {
     private final static Logger log = Logger
-            .getLogger(ServiceInfoEntityEJB.class);
+        .getLogger(ServiceInfoEntityEJB.class);
 
     /**
      *  
@@ -49,8 +49,9 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * 
      * @see javax.ejb.EntityBean#setEntityContext(javax.ejb.EntityContext)
      */
-    public void setEntityContext(EntityContext ctx) throws EJBException,
-            RemoteException {
+    public void setEntityContext(EntityContext ctx)
+        throws EJBException,
+        RemoteException {
         // TODO Auto-generated method stub
 
     }
@@ -70,8 +71,10 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * 
      * @see javax.ejb.EntityBean#ejbRemove()
      */
-    public void ejbRemove() throws RemoveException, EJBException,
-            RemoteException {
+    public void ejbRemove()
+        throws RemoveException,
+        EJBException,
+        RemoteException {
         // TODO Auto-generated method stub
 
     }
@@ -150,7 +153,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * Post Create method
      */
     public void ejbPostCreate(String serviceId)
-            throws javax.ejb.CreateException {
+        throws javax.ejb.CreateException {
         // TODO Auto-generated method stub
     }
 
@@ -279,5 +282,23 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      */
     public abstract void setActive(Boolean value);
+
+    /**
+     * Getter for CMP Field instances
+     *
+     * 
+     * @ejb.persistent-field
+     * @ejb.interface-method   view-type="local"
+     * @jboss.column-name name = "INSTANCES"
+     * @jboss.sql-type type = "INT"
+     */
+    public abstract java.lang.Integer getInstances();
+
+    /**
+     * Setter for CMP Field instances
+     *
+     * @ejb.interface-method   view-type="local"
+     */
+    public abstract void setInstances(java.lang.Integer value);
 
 }

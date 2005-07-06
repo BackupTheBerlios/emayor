@@ -49,4 +49,14 @@ public interface ServiceSessionBeanEntityLocal
     */
    public void setStartDate( java.util.Date value ) ;
 
+   /**
+    * Getter for CMP Field userId
+    */
+   public java.lang.String getUserId(  ) ;
+
+   /**
+    * Setter for CMP Field userId
+    */
+   public void setUserId( java.lang.String value ) ;
+
 }
