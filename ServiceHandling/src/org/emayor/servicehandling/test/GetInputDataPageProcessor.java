@@ -56,11 +56,11 @@ public class GetInputDataPageProcessor extends AbstractProcessor {
             }
             UserTaskServiceClient userTaskServiceClient = new UserTaskServiceClient();
             Task task = userTaskServiceClient.lookupTask(asid, ssid);
-            int taskType = task.getTaskType();
             if (task == null) {
                 log.debug("still waiting cause got null ref !");
                 ret = "JustWait.jsp";
             } else {
+            	int taskType = task.getTaskType();
                 log.debug("SUCCESS - got the task");
                 DocumentBuilderFactory factory = DocumentBuilderFactory
                         .newInstance();
