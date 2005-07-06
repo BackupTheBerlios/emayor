@@ -1,7 +1,7 @@
 ## property file for the ResidenceCertificationService/v10 service
 
 ## this is the system wide unique id of the service
-service.info.service.id=ResidenceCertificationService/v10
+service.info.service.id=ResidenceCertificationService_v10
 
 ## the version of the service
 service.info.service.version=1.0
