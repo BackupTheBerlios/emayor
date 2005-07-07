@@ -137,15 +137,14 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 				ServiceLocator sloc = ServiceLocator.getInstance();
 				KernelLocal kern = sloc.getKernelLocal();
 				address = kern.getUserProfile(userId).getPEUserProfile().getUserEmail();
-				sessionId = sloc.getAccessSessionLocal().getSessionId();
+				//sessionId = sloc.getAccessSessionLocal().getSessionId();
+				sessionId = "----------";
 				
 			} catch (ServiceLocatorException e1) {
 				throw new NotificationException(e1);
 			} catch (KernelException e1) {
 				throw new NotificationException(e1);
-			} catch (SessionException e1) {
-				throw new NotificationException(e1);
-			}
+			} 
 
 			if (address == null) {
 				throw new NotificationException("User has no valid email address.");
