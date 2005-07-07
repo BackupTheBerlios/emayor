@@ -165,7 +165,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEVERSION"
-     * @jboss.sql-type type = "VARVHAR(20)"
+     * @jboss.sql-type type = "VARCHAR(20)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceVersion();
@@ -184,7 +184,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICENAME"
-     * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.sql-type type = "VARCHAR(100)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceName();
@@ -203,7 +203,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICECLASSNAME"
-     * @jboss.sql-type type = "VARVHAR(200)"
+     * @jboss.sql-type type = "VARCHAR(200)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceClassName();
@@ -222,7 +222,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEFACTORYCLASSNAME"
-     * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.sql-type type = "VARCHAR(100)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceFactoryClassName();
@@ -260,7 +260,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEENDPOINT"
-     * @jboss.sql-type type = "VARVHAR(250)"
+     * @jboss.sql-type type = "VARCHAR(250)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceEndpoint();
