@@ -111,6 +111,7 @@ public abstract class AccessSessionEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "ASID"
      * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.jdbc-type type = "VARCHAR"
      * @jboss.persistence not-null = "true"
      */
     public abstract java.lang.String getAsid();
@@ -148,6 +149,7 @@ public abstract class AccessSessionEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "USERID"
      * @jboss.sql-type type = "VARVHAR(50)"
+     * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getUserId();
 
@@ -166,6 +168,7 @@ public abstract class AccessSessionEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "STARTDATE"
      * @jboss.sql-type type = "DATETIME"
+     * @jboss.jdbc-type type = "TIMESTAMP"
      */
     public abstract java.util.Date getStartDate();
 

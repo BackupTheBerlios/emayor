@@ -39,6 +39,7 @@ import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionLocalHome;
 import org.emayor.servicehandling.interfaces.AdminManagerLocal;
 import org.emayor.servicehandling.interfaces.AdminManagerLocalHome;
+import org.emayor.servicehandling.interfaces.BPELCallbackDataEntityLocalHome;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.interfaces.KernelLocalHome;
 import org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocal;
@@ -590,6 +591,23 @@ public class ServiceLocator {
                     .lookup(UserProfileEntityLocalHome.JNDI_NAME);
             ret = (UserProfileEntityLocalHome) PortableRemoteObject.narrow(ref,
                     UserProfileEntityLocalHome.class);
+        } catch (NamingException nex) {
+            log.error("caught ex: " + nex.toString());
+            throw new ServiceLocatorException(nex);
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
+
+    public synchronized BPELCallbackDataEntityLocalHome getBPELCallbackDataEntityLocalHome()
+            throws ServiceLocatorException {
+        log.debug("-> starting processing ...");
+        BPELCallbackDataEntityLocalHome ret = null;
+        try {
+            Object ref = this.initialContext
+                    .lookup(BPELCallbackDataEntityLocalHome.JNDI_NAME);
+            ret = (BPELCallbackDataEntityLocalHome) PortableRemoteObject
+                    .narrow(ref, BPELCallbackDataEntityLocalHome.class);
         } catch (NamingException nex) {
             log.error("caught ex: " + nex.toString());
             throw new ServiceLocatorException(nex);

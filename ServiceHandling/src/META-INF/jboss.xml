@@ -23,6 +23,11 @@
 
       </entity> 
       <entity>
+         <ejb-name>BPELCallbackDataEntity</ejb-name>
+         <local-jndi-name>BPELCallbackDataEntityLocal</local-jndi-name>
+
+      </entity>
+      <entity>
          <ejb-name>ServiceSessionBeanEntity</ejb-name>
          <local-jndi-name>ServiceSessionBeanEntityLocal</local-jndi-name>
 

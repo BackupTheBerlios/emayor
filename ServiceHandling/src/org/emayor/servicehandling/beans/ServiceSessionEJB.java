@@ -15,6 +15,8 @@ import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.KernelLocal;
+import org.emayor.servicehandling.interfaces.ServiceSessionBeanEntityLocal;
+import org.emayor.servicehandling.interfaces.ServiceSessionBeanEntityLocalHome;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.kernel.IServiceSession;
 import org.emayor.servicehandling.kernel.IeMayorService;
@@ -34,25 +36,25 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 public class ServiceSessionEJB implements SessionBean, IServiceSession {
     private static Logger log = Logger.getLogger(ServiceSessionEJB.class);
 
-    private String asid;
+    private ServiceSessionBeanEntityLocal serviceSessionData;
 
-    private String ssid;
+    //private String asid;
 
-    private String serviceId;
+    //private String ssid;
+
+    //private String serviceId;
 
     private SessionContext ctx;
 
     private IeMayorService eMayorService;
 
-    private Date startDate;
+    //private Date startDate;
 
     /**
      *  
      */
     public ServiceSessionEJB() {
         super();
-        Calendar cal = Calendar.getInstance();
-        this.startDate = cal.getTime();
     }
 
     /*
@@ -73,6 +75,11 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      */
     public void ejbRemove() throws EJBException, RemoteException {
         log.debug("-> start processing ...");
+        try {
+            this.serviceSessionData.remove();
+        } catch (RemoveException ex) {
+            log.error("caught ex: " + ex.toString());
+        }
     }
 
     /*
@@ -101,7 +108,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      */
     public String getAccessSessionId() throws ServiceSessionException {
         log.debug("getting asid ...");
-        return this.asid;
+        return this.serviceSessionData.getAsid();
     }
 
     /**
@@ -113,7 +120,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
     public void setAccessSessionId(String asid) throws ServiceSessionException {
         if (log.isDebugEnabled())
             log.debug("setting asid to " + asid);
-        this.asid = asid;
+        this.serviceSessionData.setAsid(asid);
     }
 
     /**
@@ -124,7 +131,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      */
     public String getServiceId() throws ServiceSessionException {
         log.debug("getting service name");
-        return this.serviceId;
+        return this.serviceSessionData.getServiceId();
     }
 
     /**
@@ -135,7 +142,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      */
     public void setServiceId(String serviceId) throws ServiceSessionException {
         log.debug("getting service name");
-        this.serviceId = serviceId;
+        this.serviceSessionData.setServiceId(serviceId);
     }
 
     /**
@@ -157,7 +164,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      */
     public String getSessionId() throws SessionException {
         log.debug("-> start processing ...");
-        return this.ssid;
+        return this.serviceSessionData.getSsid();
     }
 
     /**
@@ -170,15 +177,20 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
         log.debug("-> start processing ...");
         if (asid == null || asid.length() == 0)
             throw new CreateException("the given asid has to be a valid value!");
-        this.asid = asid;
         try {
             ServiceLocator serviceLocator = ServiceLocator.getInstance();
             SimpleIdGeneratorLocal simpleIdGeneratorLocal = serviceLocator
                     .getSimpleIdGeneratorLocal();
-            this.ssid = simpleIdGeneratorLocal.generateId();
+            String ssid = simpleIdGeneratorLocal.generateId();
             simpleIdGeneratorLocal.remove();
             if (log.isDebugEnabled())
                 log.debug("generated following ssid : " + ssid);
+            ServiceSessionBeanEntityLocalHome home = serviceLocator
+                    .getServiceSessionBeanEntityLocalHome();
+            this.serviceSessionData = home.create(ssid);
+            this.serviceSessionData.setAsid(asid);
+            Calendar cal = Calendar.getInstance();
+            this.serviceSessionData.setStartDate(cal.getTime());
         } catch (ServiceLocatorException slex) {
             log.error("caught ex: " + slex.toString());
             throw new CreateException(slex.toString());
@@ -225,9 +237,11 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
         try {
             log.debug("starting the service :-)");
             if (isForwarded)
-                this.eMayorService.forward(userId, this.ssid, xmlDoc, docSig);
+                this.eMayorService.forward(userId, this.serviceSessionData
+                        .getSsid(), xmlDoc, docSig);
             else {
-                this.eMayorService.startService(userId, this.ssid);
+                this.eMayorService.startService(userId, this.serviceSessionData
+                        .getSsid());
             }
         } catch (eMayorServiceException emsex) {
             log.error("caught ex: " + emsex.toString());
@@ -249,9 +263,11 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
         try {
             log.debug("starting the service :-)");
             if (isForwarded)
-                this.eMayorService.forward(userId, this.ssid, xmlDoc, docSig);
+                this.eMayorService.forward(userId, this.serviceSessionData
+                        .getSsid(), xmlDoc, docSig);
             else {
-                this.eMayorService.startService(userId, this.ssid, xmlDoc);
+                this.eMayorService.startService(userId, this.serviceSessionData
+                        .getSsid(), xmlDoc);
             }
         } catch (eMayorServiceException emsex) {
             log.error("caught ex: " + emsex.toString());
@@ -271,14 +287,16 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
         try {
             ServiceLocator locator = ServiceLocator.getInstance();
             KernelLocal kernel = locator.getKernelLocal();
-            kernel.deleteServiceSession(this.asid, this.ssid);
+            kernel.deleteServiceSession(this.serviceSessionData.getAsid(),
+                    this.serviceSessionData.getSsid());
             kernel.remove();
         } catch (ServiceLocatorException slex) {
             log.error("cannot get an instance of the service locator");
             throw new ServiceSessionException(
                     "cannot get an instance of the service locator");
         } catch (KernelException kex) {
-            log.error("cannot delete successful service session: ssid=" + ssid);
+            log.error("cannot delete successful service session: ssid="
+                    + serviceSessionData.getSsid());
             throw new ServiceSessionException(
                     "cannot delete successful service session");
         } catch (RemoveException rex) {
@@ -297,6 +315,28 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
      */
     public Date getStartDate() throws SessionException {
         log.debug("-> start processing ...");
-        return this.startDate;
+        return this.serviceSessionData.getStartDate();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public String getCreatorId() throws ServiceSessionException {
+        log.debug("-> start processing ...");
+        return this.serviceSessionData.getUserId();
+    }
+
+    /**
+     * Business Method
+     * 
+     * @ejb.interface-method view-type = "local"
+     *  
+     */
+    public void setCreatorId(String creatorId) throws ServiceSessionException {
+        log.debug("-> start processing ...");
+        this.serviceSessionData.setUserId(creatorId);
     }
 }

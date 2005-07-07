@@ -127,6 +127,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEID"
      * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.jdbc-type type = "VARCHAR"
      * @jboss.persistence not-null = "true"
      */
     public abstract String getServiceId();
@@ -165,6 +166,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEVERSION"
      * @jboss.sql-type type = "VARVHAR(20)"
+     * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceVersion();
 
@@ -183,6 +185,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICENAME"
      * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceName();
 
@@ -201,6 +204,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICECLASSNAME"
      * @jboss.sql-type type = "VARVHAR(200)"
+     * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceClassName();
 
@@ -219,6 +223,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEFACTORYCLASSNAME"
      * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceFactoryClassName();
 
@@ -236,7 +241,8 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEDECRIPTION"
-     * @jboss.sql-type type = "VARVHAR(255)"
+     * @jboss.sql-type type = "TEXT"
+     * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceDescription();
 
@@ -254,7 +260,8 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEENDPOINT"
-     * @jboss.sql-type type = "VARVHAR(200)"
+     * @jboss.sql-type type = "VARVHAR(250)"
+     * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceEndpoint();
 
@@ -273,6 +280,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "ACTIVE"
      * @jboss.sql-type type = "BOOLEAN"
+     * @jboss.jdbc-type type = "TINYINT"
      */
     public abstract Boolean getActive();
 
@@ -291,6 +299,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method   view-type="local"
      * @jboss.column-name name = "INSTANCES"
      * @jboss.sql-type type = "INT"
+     * @jboss.jdbc-type type = "INTEGER"
      */
     public abstract java.lang.Integer getInstances();
 

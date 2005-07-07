@@ -276,7 +276,7 @@
 
 
 </localinterface>
-<entitycmp CmpSpec="2.x"  destDir="src/META-INF" >
+<entitycmp CmpSpec="2.x" >
 
 
 

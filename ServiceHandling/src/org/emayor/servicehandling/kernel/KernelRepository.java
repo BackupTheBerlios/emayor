@@ -16,6 +16,8 @@ import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.interfaces.AccessSessionEntityLocal;
 import org.emayor.servicehandling.interfaces.AccessSessionEntityLocalHome;
 import org.emayor.servicehandling.interfaces.AccessSessionLocal;
+import org.emayor.servicehandling.interfaces.BPELCallbackDataEntityLocal;
+import org.emayor.servicehandling.interfaces.BPELCallbackDataEntityLocalHome;
 import org.emayor.servicehandling.interfaces.ServiceInfoEntityLocal;
 import org.emayor.servicehandling.interfaces.ServiceInfoEntityLocalHome;
 import org.emayor.servicehandling.interfaces.ServiceSessionBeanEntityLocal;
@@ -26,6 +28,8 @@ import org.emayor.servicehandling.interfaces.UserProfileEntityLocalHome;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
+import org.xmlsoap.schemas.ws.addressing.MessageID;
+import org.xmlsoap.schemas.ws.addressing.ReplyTo;
 
 /**
  * @author tku
@@ -66,7 +70,7 @@ public class KernelRepository {
     //private HashMap ssid2userId;
 
     // ssid -> bpelCallbackData
-    private HashMap ssid2bpelForwardCallbackData;
+    //private HashMap ssid2bpelForwardCallbackData;
 
     // ssid -> service id
     //private HashMap ssid2serviceId;
@@ -78,6 +82,8 @@ public class KernelRepository {
     private ServiceSessionBeanEntityLocalHome serviceSessionBeanEntityLocalHome = null;
 
     private UserProfileEntityLocalHome userProfileEntityLocalHome = null;
+
+    private BPELCallbackDataEntityLocalHome bpelCallbackDataEntityLocalHome = null;
 
     /**
      *  
@@ -93,7 +99,7 @@ public class KernelRepository {
         //this.userId2UserProfile = new HashMap();
         //this.userId2asid = new HashMap();
         //this.asid2userId = new HashMap();
-        this.ssid2bpelForwardCallbackData = new HashMap();
+        //this.ssid2bpelForwardCallbackData = new HashMap();
         //this.ssid2userId = new HashMap();
         //this.ssid2serviceId = new HashMap();
         try {
@@ -106,6 +112,8 @@ public class KernelRepository {
                     .getServiceSessionBeanEntityLocalHome();
             this.userProfileEntityLocalHome = locator
                     .getUserProfileEntityLocalHome();
+            this.bpelCallbackDataEntityLocalHome = locator
+                    .getBPELCallbackDataEntityLocalHome();
         } catch (ServiceLocatorException ex) {
             log.error("caught ex: " + ex.toString());
         }
@@ -914,7 +922,7 @@ public class KernelRepository {
             int i = collection.size();
             if (log.isDebugEnabled())
                 log.debug("size of the collection = " + i);
-            if (i == 0) {
+            if (i == 1) {
                 Object[] array = collection.toArray();
                 AccessSessionEntityLocal local = (AccessSessionEntityLocal) array[0];
                 ret = local.getAsid();
@@ -972,14 +980,42 @@ public class KernelRepository {
             throws KernelRepositoryException {
         log.debug("-> start processing ...");
         String ssid = data.getSsid();
-        if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
-            log.error("Callback data already exists in the repository");
-            throw new KernelRepositoryException(
-                    "Couldn't add data into repository - already exists!");
+        /*
+         * if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
+         * log.error("Callback data already exists in the repository"); throw
+         * new KernelRepositoryException( "Couldn't add data into repository -
+         * already exists!"); } else { if (log.isDebugEnabled()) log.debug("add
+         * callbackdata for ssid = " + ssid);
+         * this.ssid2bpelForwardCallbackData.put(ssid, data); }
+         */
+        BPELCallbackDataEntityLocal local = null;
+        try {
+            local = this.bpelCallbackDataEntityLocalHome.findByPrimaryKey(ssid);
+        } catch (FinderException ex) {
+            log
+                    .debug("caught FinderException -> superb, it means the record doesn't exit yet!");
+            local = null;
+        }
+        if (local == null) {
+            try {
+                local = this.bpelCallbackDataEntityLocalHome.create(ssid);
+                local.setMessageId(data.getMessageID().toString());
+                local.setUserId(data.getUid());
+                local.setAddress(data.getReplyTo().getAddress());
+                local.setPortType(data.getReplyTo().getPortType());
+                local.setServiceName(data.getReplyTo().getServiceName());
+            } catch (CreateException ex) {
+                log.error("caught ex: " + ex.toString());
+                throw new KernelRepositoryException(
+                        "Couldn't create bpel callback data record for ssid: "
+                                + ssid);
+            }
         } else {
-            if (log.isDebugEnabled())
-                log.debug("add callbackdata for ssid = " + ssid);
-            this.ssid2bpelForwardCallbackData.put(ssid, data);
+            log.error("the record containing bpel callback data for ssid = "
+                    + ssid + " already exist!");
+            throw new KernelRepositoryException(
+                    "the record containing bpel callback data for ssid = "
+                            + ssid + " already exist!");
         }
         log.debug("-> ... processing DONE!");
     }
@@ -998,15 +1034,33 @@ public class KernelRepository {
         if (ssid == null || ssid.length() == 0)
             throw new KernelRepositoryException("invalid service session id");
         ForwardBPELCallbackData ret = null;
-        if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
-            log.debug("found the right data");
-            ret = (ForwardBPELCallbackData) this.ssid2bpelForwardCallbackData
-                    .get(ssid);
-            this.ssid2bpelForwardCallbackData.remove(ssid);
-        } else {
-            log.error("data record for specified ssid doesn't exist!");
+        /*
+         * if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
+         * log.debug("found the right data"); ret = (ForwardBPELCallbackData)
+         * this.ssid2bpelForwardCallbackData .get(ssid);
+         * this.ssid2bpelForwardCallbackData.remove(ssid); } else {
+         * log.error("data record for specified ssid doesn't exist!"); throw new
+         * KernelRepositoryException( "data record for specified ssid doesn't
+         * exist!"); }
+         */
+        try {
+            BPELCallbackDataEntityLocal local = this.bpelCallbackDataEntityLocalHome
+                    .findByPrimaryKey(ssid);
+            ret = new ForwardBPELCallbackData();
+            ret.setSsid(local.getSsid());
+            ret.setUid(local.getUserId());
+            ret.setMessageID(new MessageID(local.getMessageId()));
+            ret.setReplyTo(new ReplyTo(local.getAddress(), local.getPortType(),
+                    local.getServiceName()));
+            local.remove();
+        } catch (FinderException ex) {
+            log.error("caught ex: " + ex.toString());
             throw new KernelRepositoryException(
-                    "data record for specified ssid doesn't exist!");
+                    "Couldn't find the bpel callback data for ssid: " + ssid);
+        } catch (RemoveException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new KernelRepositoryException(
+                    "Couldn't remove bpel callback data for ssid: " + ssid);
         }
         log.debug("-> ... processing DONE!");
         return ret;

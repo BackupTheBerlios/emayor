@@ -221,6 +221,7 @@ public class Kernel implements IKernel {
                     log.debug("the new ssid = " + ret.getSessionId());
                 //IServiceInfo serviceInfo = this.repository
                 //        .getServiceInfo(serviceId);
+                ret.setCreatorId(userId);
                 log.debug("set service id into service session instance");
                 ret.setServiceId(serviceId);
                 log.debug("get the factory for the given service");

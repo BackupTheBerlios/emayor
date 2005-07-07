@@ -1,5 +1,5 @@
 /*
- * $ Created on Jun 30, 2005 by tku $
+ * Created on Jul 8, 2005
  */
 package org.emayor.servicehandling.beans;
 
@@ -13,36 +13,31 @@ import javax.ejb.RemoveException;
 import org.apache.log4j.Logger;
 
 /**
- * @ejb.bean name="ServiceSessionBeanEntity" display-name="Name for
- *           ServiceSessionBeanEntity" description="Description for
- *           ServiceSessionBeanEntity"
- *           jndi-name="ejb/emayor/sh/entity/ServiceSessionBeanEntity"
- *           type="CMP" cmp-version="2.x" view-type="local" primkey-field =
- *           "ssid"
- * @jboss.persistence table-name = "SERVICE_SESSION" create-table = "true"
+ * @ejb.bean name="BPELCallbackDataEntity" display-name="Name for
+ *           BPELCallbackDataEntity" description="Description for
+ *           BPELCallbackDataEntity"
+ *           jndi-name="ejb/emayor/sh/entity/BPELCallbackDataEntity" type="CMP"
+ *           cmp-version="2.x" view-type="local" primkey-field = "ssid"
+ * @jboss.persistence table-name = "BPELCALLBACKDATA" create-table = "true"
  *                    datasource = "java:/MySqlDS" datasource-mapping = "mySQL"
  * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
- *             ServiceSessionBeanEntity AS o WHERE o.asid = ?1"
- *             result-type-mapping = "Local" signature = "java.util.Collection
- *             findByASID(java.lang.String asid)"
+ *             BPELCallbackDataEntity AS o" result-type-mapping = "Local"
+ *             signature = "java.util.Collection findAll()"
  * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
- *             ServiceSessionBeanEntity AS o WHERE o.serviceId = ?1"
+ *             BPELCallbackDataEntity AS o WHERE o.userId = ?1"
  *             result-type-mapping = "Local" signature = "java.util.Collection
- *             findByServiceID(java.lang.String serviceId)"
- * @ejb.finder method-intf = "LocalHome" query = "SELECT OBJECT(o) FROM
- *             ServiceSessionBeanEntity AS o WHERE o.userId = ?1"
- *             result-type-mapping = "Local" signature = "java.util.Collection
- *             findByCreatorID(java.lang.String serviceId)"
- *  
+ *             findByUserId(java.lang.String userId)"
  */
-public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
-    private static final Logger log = Logger
-            .getLogger(ServiceSessionBeanEntityEJB.class);
+public abstract class BPELCallbackDataEntityEJB implements EntityBean {
+    private final static Logger log = Logger
+            .getLogger(BPELCallbackDataEntityEJB.class);
+
+    private EntityContext ctx;
 
     /**
      *  
      */
-    public ServiceSessionBeanEntityEJB() {
+    public BPELCallbackDataEntityEJB() {
         super();
         log.debug("-> start processing ...");
     }
@@ -55,7 +50,7 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
     public void setEntityContext(EntityContext ctx) throws EJBException,
             RemoteException {
         log.debug("-> start processing ...");
-
+        this.ctx = ctx;
     }
 
     /*
@@ -114,30 +109,12 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
     }
 
     /**
-     * Getter for CMP Field ssid
-     * 
-     * @ejb.pk-field
-     * @ejb.persistent-field
-     * @ejb.interface-method view-type="local"
-     * @jboss.column-name name = "SSID"
-     * @jboss.sql-type type = "VARCHAR(100)"
-     * @jboss.jdbc-type type = "VARCHAR"
-     */
-    public abstract String getSsid();
-
-    /**
-     * Setter for CMP Field ssid
-     * 
-     * @ejb.interface-method view-type="local"
-     */
-    public abstract void setSsid(String value);
-
-    /**
      * Create method
      * 
      * @ejb.create-method view-type = "local"
      */
-    public String ejbCreate(String ssid) throws javax.ejb.CreateException {
+    public java.lang.String ejbCreate(java.lang.String ssid)
+            throws javax.ejb.CreateException {
         log.debug("-> start processing ...");
         this.setSsid(ssid);
         return null;
@@ -146,66 +123,65 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
     /**
      * Post Create method
      */
-    public void ejbPostCreate(String ssid) throws javax.ejb.CreateException {
-        // TODO Auto-generated method stub
+    public void ejbPostCreate(java.lang.String ssid)
+            throws javax.ejb.CreateException {
+        log.debug("-> start processing ...");
     }
 
     /**
-     * Getter for CMP Field asid
+     * Getter for CMP Field ssid
+     * 
+     * @ejb.pk-field
+     * @ejb.persistent-field
+     * @ejb.interface-method view-type="local"
+     * @jboss.sql-type type = "VARCHAR(100)"
+     * @jboss.jdbc-type type = "VARCHAR"
+     * @jboss.persistence not-null = "true"
+     */
+    public abstract java.lang.String getSsid();
+
+    /**
+     * Setter for CMP Field ssid
+     * 
+     * @ejb.interface-method view-type="local"
+     */
+    public abstract void setSsid(java.lang.String value);
+
+    /**
+     * Getter for CMP Field messageId
      * 
      * 
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
-     * @jboss.column-name name = "ASID"
-     * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.sql-type type = "VARCHAR(250)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
-    public abstract String getAsid();
+    public abstract java.lang.String getMessageId();
 
     /**
-     * Setter for CMP Field asid
+     * Setter for CMP Field messageId
      * 
      * @ejb.interface-method view-type="local"
      */
-    public abstract void setAsid(String value);
+    public abstract void setMessageId(java.lang.String value);
 
     /**
-     * Getter for CMP Field serviceId
+     * Getter for CMP Field address
      * 
      * 
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
-     * @jboss.column-name name = "SERVICEID"
-     * @jboss.sql-type type = "VARVHAR(200)"
+     * @jboss.sql-type type = "VARCHAR(250)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
-    public abstract String getServiceId();
+    public abstract java.lang.String getAddress();
 
     /**
-     * Setter for CMP Field serviceId
+     * Setter for CMP Field address
      * 
      * @ejb.interface-method view-type="local"
      */
-    public abstract void setServiceId(String value);
-
-    /**
-     * Getter for CMP Field startDate
-     * 
-     * 
-     * @ejb.persistent-field
-     * @ejb.interface-method view-type="local"
-     * @jboss.column-name name = "STARTDATE"
-     * @jboss.sql-type type = "DATETIME"
-     * @jboss.jdbc-type type = "TIMESTAMP"
-     */
-    public abstract java.util.Date getStartDate();
-
-    /**
-     * Setter for CMP Field startDate
-     * 
-     * @ejb.interface-method view-type="local"
-     */
-    public abstract void setStartDate(java.util.Date value);
+    public abstract void setAddress(java.lang.String value);
 
     /**
      * Getter for CMP Field userId
@@ -213,8 +189,7 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
      * 
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
-     * @jboss.column-name name = "CREATORID"
-     * @jboss.sql-type type = "VARVHAR(200)"
+     * @jboss.sql-type type = "VARCHAR(250)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract java.lang.String getUserId();
@@ -225,5 +200,41 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
      * @ejb.interface-method view-type="local"
      */
     public abstract void setUserId(java.lang.String value);
+
+    /**
+     * Getter for CMP Field portType
+     * 
+     * 
+     * @ejb.persistent-field
+     * @ejb.interface-method view-type="local"
+     * @jboss.sql-type type = "VARCHAR(250)"
+     * @jboss.jdbc-type type = "VARCHAR"
+     */
+    public abstract java.lang.String getPortType();
+
+    /**
+     * Setter for CMP Field portType
+     * 
+     * @ejb.interface-method view-type="local"
+     */
+    public abstract void setPortType(java.lang.String value);
+
+    /**
+     * Getter for CMP Field serviceName
+     * 
+     * 
+     * @ejb.persistent-field
+     * @ejb.interface-method view-type="local"
+     * @jboss.sql-type type = "VARCHAR(250)"
+     * @jboss.jdbc-type type = "VARCHAR"
+     */
+    public abstract java.lang.String getServiceName();
+
+    /**
+     * Setter for CMP Field serviceName
+     * 
+     * @ejb.interface-method view-type="local"
+     */
+    public abstract void setServiceName(java.lang.String value);
 
 }

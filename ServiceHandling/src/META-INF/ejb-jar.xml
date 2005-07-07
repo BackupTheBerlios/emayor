@@ -15,8 +15,8 @@
 
          <ejb-name>ServiceCallbackManager</ejb-name>
 	<service-endpoint>
-		 	org.emayor.servicehandling.kernel.IServiceCallbackManager
-		 </service-endpoint> 
+		org.emayor.servicehandling.kernel.IServiceCallbackManager
+	</service-endpoint> 
 
          <local-home>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocal</local>
@@ -61,7 +61,7 @@
          <display-name>Name for ForwardManagerBPEL</display-name>
 
          <ejb-name>ForwardManagerBPEL</ejb-name>
-		<service-endpoint>
+	<service-endpoint>
 		org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
 	</service-endpoint>
 
@@ -271,7 +271,6 @@
             <description><![CDATA[Getter for CMP Field instances]]></description>
             <field-name>instances</field-name>
          </cmp-field>
-
           <primkey-field>serviceId</primkey-field>
 
          <query>
@@ -303,6 +302,69 @@
             <ejb-ql><![CDATA[SELECT OBJECT(o) FROM ServiceInfoEntity AS o WHERE o.serviceVersion = ?1]]></ejb-ql>
          </query>
 	  <!-- Write a file named ejb-finders-ServiceInfoEntityEJB.xml if you want to define extra finders. -->
+      </entity>
+
+      <entity >
+         <description><![CDATA[Description for BPELCallbackDataEntity]]></description>
+         <display-name>Name for BPELCallbackDataEntity</display-name>
+
+         <ejb-name>BPELCallbackDataEntity</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.BPELCallbackDataEntityLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.BPELCallbackDataEntityLocal</local>
+
+         <ejb-class>org.emayor.servicehandling.beans.BPELCallbackDataEntityCMP</ejb-class>
+         <persistence-type>Container</persistence-type>
+         <prim-key-class>java.lang.String</prim-key-class>
+         <reentrant>False</reentrant>
+         <cmp-version>2.x</cmp-version>
+         <abstract-schema-name>BPELCallbackDataEntity</abstract-schema-name>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field ssid]]></description>
+            <field-name>ssid</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field messageId]]></description>
+            <field-name>messageId</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field address]]></description>
+            <field-name>address</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field userId]]></description>
+            <field-name>userId</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field portType]]></description>
+            <field-name>portType</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field serviceName]]></description>
+            <field-name>serviceName</field-name>
+         </cmp-field>
+          <primkey-field>ssid</primkey-field>
+
+         <query>
+            <query-method>
+               <method-name>findAll</method-name>
+               <method-params>
+               </method-params>
+            </query-method>
+            <result-type-mapping>Local</result-type-mapping>
+            <ejb-ql><![CDATA[SELECT OBJECT(o) FROM BPELCallbackDataEntity AS o]]></ejb-ql>
+         </query>
+         <query>
+            <query-method>
+               <method-name>findByUserId</method-name>
+               <method-params>
+                  <method-param>java.lang.String</method-param>
+               </method-params>
+            </query-method>
+            <result-type-mapping>Local</result-type-mapping>
+            <ejb-ql><![CDATA[SELECT OBJECT(o) FROM BPELCallbackDataEntity AS o WHERE o.userId = ?1]]></ejb-ql>
+         </query>
+	  <!-- Write a file named ejb-finders-BPELCallbackDataEntityEJB.xml if you want to define extra finders. -->
       </entity>
 
       <entity >
@@ -370,7 +432,7 @@
                </method-params>
             </query-method>
             <result-type-mapping>Local</result-type-mapping>
-            <ejb-ql><![CDATA[SELECT OBJCECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.userId = ?1]]></ejb-ql>
+            <ejb-ql><![CDATA[SELECT OBJECT(o) FROM ServiceSessionBeanEntity AS o WHERE o.userId = ?1]]></ejb-ql>
          </query>
 	  <!-- Write a file named ejb-finders-ServiceSessionBeanEntityEJB.xml if you want to define extra finders. -->
       </entity>
@@ -436,6 +498,8 @@
        XDoclet merge directory called assembly-descriptor.xml that contains
        the <assembly-descriptor></assembly-descriptor> markup.
      -->
+
+   <!-- finder permissions -->
 
    <!-- finder permissions -->
 

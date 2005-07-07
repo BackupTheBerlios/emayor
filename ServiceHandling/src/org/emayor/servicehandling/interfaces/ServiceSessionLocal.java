@@ -69,4 +69,14 @@ public interface ServiceSessionLocal
     */
    public java.util.Date getStartDate(  ) throws org.emayor.servicehandling.kernel.SessionException;
 
+   /**
+    * Business Method
+    */
+   public java.lang.String getCreatorId(  ) throws org.emayor.servicehandling.kernel.ServiceSessionException;
+
+   /**
+    * Business Method
+    */
+   public void setCreatorId( java.lang.String creatorId ) throws org.emayor.servicehandling.kernel.ServiceSessionException;
+
 }
