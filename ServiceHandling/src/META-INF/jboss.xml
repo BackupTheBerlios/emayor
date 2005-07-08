@@ -21,7 +21,7 @@
          <ejb-name>ServiceInfoEntity</ejb-name>
          <local-jndi-name>ServiceInfoEntityLocal</local-jndi-name>
 
-      </entity> 
+      </entity>
       <entity>
          <ejb-name>BPELCallbackDataEntity</ejb-name>
          <local-jndi-name>BPELCallbackDataEntityLocal</local-jndi-name>
@@ -41,10 +41,10 @@
       <session>
          <ejb-name>ServiceCallbackManager</ejb-name>
          <local-jndi-name>ServiceCallbackManagerLocal</local-jndi-name>
-	<port-component>
-		 	<port-component-name>ServiceCallbackManager</port-component-name>
-		 	<port-uri>ServiceCallbackManager</port-uri>
-		 </port-component>
+	 <port-component>
+		<port-component-name>ServiceCallbackManager</port-component-name>
+		<port-uri>ServiceCallbackManager</port-uri>
+	 </port-component>
       </session>
       <session>
          <ejb-name>BPELPolicyEnforcer</ejb-name>
@@ -60,10 +60,10 @@
       <session>
          <ejb-name>ForwardManagerBPEL</ejb-name>
          <local-jndi-name>ForwardManagerBPELLocal</local-jndi-name>
-	<port-component>
-		 	<port-component-name>ForwardManagerBPEL</port-component-name>
-		 	<port-uri>ForwardManagerBPEL</port-uri>
-		 </port-component> 
+	 <port-component>
+		<port-component-name>ForwardManagerBPEL</port-component-name>
+		<port-uri>ForwardManagerBPEL</port-uri>
+	 </port-component> 
       </session>
       <session>
          <ejb-name>SimpleIdGenerator</ejb-name>
@@ -74,6 +74,15 @@
          <ejb-name>AccessSession</ejb-name>
          <local-jndi-name>AccessSessionLocal</local-jndi-name>
 
+      </session>
+      <session>
+         <ejb-name>ForwardManager</ejb-name>
+         <local-jndi-name>ForwardManagerLocal</local-jndi-name>
+	 <port-component>
+		<port-component-name>ForwardManager</port-component-name>
+		<port-uri>ForwardManager</port-uri>
+		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+	 </port-component> 
       </session>
       <session>
          <ejb-name>UserTaskManager</ejb-name>
@@ -100,6 +109,11 @@
          <local-jndi-name>AdminManagerLocal</local-jndi-name>
 
       </session>
+	
+      <message-driven>
+         <ejb-name>ForwardMessageDriven</ejb-name>
+         <destination-jndi-name>queue/eMayor-ForwardQueue</destination-jndi-name>
+      </message-driven>
 
    </enterprise-beans>
 

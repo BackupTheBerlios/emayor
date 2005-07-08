@@ -40,9 +40,11 @@
 		<java>eMayorBPELServiceStarter.jar</java>
 	</module>
 	<module>
-		<java>ForwardEJB-client.jar</java>
+		<java>ForwardManager-client.jar</java>
 	</module>
+	<!--
 	<module>
 		<ejb>ForwardEJB.jar</ejb>
 	</module>
+	-->
 </application>

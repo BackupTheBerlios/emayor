@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<application-client xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:impl="uri:org.emayor.servicehandling.kernel.forward"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"
+  version="1.4">
+  
+  <display-name>IForward WS client</display-name>
+  
+  <service-ref>
+    <service-ref-name>service/ForwardWSClient</service-ref-name>
+    <service-interface>
+    	org.emayor.servicehandling.kernel.forward.IForwardService
+    </service-interface>
+    <wsdl-file>META-INF/wsdl/ForwardManagerWS.wsdl</wsdl-file>
+    <jaxrpc-mapping-file>META-INF/forward-client-mapping.xml</jaxrpc-mapping-file>
+  </service-ref>
+  
+</application-client>

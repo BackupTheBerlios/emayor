@@ -18,6 +18,7 @@
 		 <datasource>java:/MySqlDS</datasource>
 		 <datasource-mapping>mySQL</datasource-mapping>
          <create-table>true</create-table>
+         <remove-table>true</remove-table>
 
          <table-name>ACCESS_SESSION</table-name>
 
@@ -27,7 +28,7 @@
 			<not-null/>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(100)</sql-type>
+            <sql-type>VARCHAR(100)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -35,7 +36,7 @@
             <column-name>USERID</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(50)</sql-type>
+            <sql-type>VARCHAR(50)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -64,7 +65,7 @@
 			<not-null/>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(100)</sql-type>
+            <sql-type>VARCHAR(100)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -72,7 +73,7 @@
             <column-name>SERVICEVERSION</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(20)</sql-type>
+            <sql-type>VARCHAR(20)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -80,7 +81,7 @@
             <column-name>SERVICENAME</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(100)</sql-type>
+            <sql-type>VARCHAR(100)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -88,7 +89,7 @@
             <column-name>SERVICECLASSNAME</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(200)</sql-type>
+            <sql-type>VARCHAR(200)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -96,7 +97,7 @@
             <column-name>SERVICEFACTORYCLASSNAME</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(100)</sql-type>
+            <sql-type>VARCHAR(100)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -112,7 +113,7 @@
             <column-name>SERVICEENDPOINT</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(250)</sql-type>
+            <sql-type>VARCHAR(250)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -139,6 +140,7 @@
 		 <datasource>java:/MySqlDS</datasource>
 		 <datasource-mapping>mySQL</datasource-mapping>
          <create-table>true</create-table>
+         <remove-table>true</remove-table>
 
          <table-name>BPELCALLBACKDATA</table-name>
 
@@ -209,7 +211,7 @@
             <column-name>ASID</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(100)</sql-type>
+            <sql-type>VARCHAR(100)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -217,7 +219,7 @@
             <column-name>SERVICEID</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(200)</sql-type>
+            <sql-type>VARCHAR(200)</sql-type>
 
         </cmp-field>
          <cmp-field>
@@ -233,7 +235,7 @@
             <column-name>CREATORID</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARVHAR(200)</sql-type>
+            <sql-type>VARCHAR(200)</sql-type>
 
         </cmp-field>
 

@@ -16,8 +16,7 @@
          <ejb-name>ServiceCallbackManager</ejb-name>
 	<service-endpoint>
 		org.emayor.servicehandling.kernel.IServiceCallbackManager
-	</service-endpoint> 
-
+	</service-endpoint>
          <local-home>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.ServiceCallbackManagerLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.ServiceCallbackManagerEJB</ejb-class>
@@ -63,8 +62,7 @@
          <ejb-name>ForwardManagerBPEL</ejb-name>
 	<service-endpoint>
 		org.emayor.servicehandling.kernel.bpel.forward.server.IForwardManagerBPEL
-	</service-endpoint>
-
+	</service-endpoint> 
          <local-home>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocalHome</local-home>
          <local>org.emayor.servicehandling.interfaces.ForwardManagerBPELLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.ForwardManagerBPEL_EJB</ejb-class>
@@ -97,6 +95,22 @@
          <local>org.emayor.servicehandling.interfaces.AccessSessionLocal</local>
          <ejb-class>org.emayor.servicehandling.beans.AccessSessionEJB</ejb-class>
          <session-type>Stateful</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
+      <session >
+         <description><![CDATA[Description for ForwardManager]]></description>
+         <display-name>Name for ForwardManager</display-name>
+
+         <ejb-name>ForwardManager</ejb-name>
+	<service-endpoint>
+		org.emayor.servicehandling.kernel.forward.IForward
+	 </service-endpoint>
+         <local-home>org.emayor.servicehandling.interfaces.ForwardManagerLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.ForwardManagerLocal</local>
+         <ejb-class>org.emayor.servicehandling.beans.ForwardManagerEJB</ejb-class>
+         <session-type>Stateless</session-type>
          <transaction-type>Container</transaction-type>
 
       </session>
@@ -481,6 +495,22 @@
      -->
 
       <!-- Message Driven Beans -->
+      <message-driven >
+         <description><![CDATA[Description for ForwardMessageDriven]]></description>
+         <display-name>Name for ForwardMessageDriven</display-name>
+
+         <ejb-name>ForwardMessageDriven</ejb-name>
+
+         <ejb-class>org.emayor.servicehandling.beans.ForwardMessageDrivenEJB</ejb-class>
+
+         <transaction-type>Container</transaction-type>
+         <acknowledge-mode>Auto-acknowledge</acknowledge-mode>
+         <message-driven-destination>
+            <destination-type>javax.jms.Queue</destination-type>
+         </message-driven-destination>
+
+      </message-driven>
+
      <!--
        To add message driven beans that you have deployment descriptor info for, add
        a file to your XDoclet merge directory called message-driven-beans.xml that contains
@@ -498,6 +528,8 @@
        XDoclet merge directory called assembly-descriptor.xml that contains
        the <assembly-descriptor></assembly-descriptor> markup.
      -->
+
+   <!-- finder permissions -->
 
    <!-- finder permissions -->
 

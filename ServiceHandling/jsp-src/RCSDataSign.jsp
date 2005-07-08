@@ -34,8 +34,8 @@
 <form method="post" action="ServiceHandlingTest">
 	<table width="600" border="1" cellspacing="2" cellpadding="2">
 		  <tr bgcolor="#CCCC66">
-			<th width="175" scope="col"><div align="center" class="style1">Name</div></th>
-			<th width="582" scope="col"><div align="center" class="style1">Value</div></th>
+			<th width="121" scope="col"><div align="center" class="style1">Name</div></th>
+			<th width="459" scope="col"><div align="center" class="style1">Value</div></th>
 	  </tr>
 		  <tr>
 		  	<td><span class="style4">Task Id</span></td>
@@ -74,12 +74,11 @@
       </tr>
 		  <tr bgcolor="#CCCCFF">
 			<td colspan="2">
-				<div align="center">
-				  <input type="submit" name="submit" value="Sign and post request"/>
-				  <input type="hidden" name="taskid" value="<%= task.getTaskId() %>"/>
-				  <input type="hidden" name="action" value="ServiceHandlingPostSignRequest"/>
-			    </div>
-			</td>
+			  <div align="left">
+			    <input type="submit" name="submit" value="Sign and post request"/>
+			    <input type="hidden" name="taskid" value="<%= task.getTaskId() %>"/>
+			    <input type="hidden" name="action" value="ServiceHandlingPostSignRequest"/>
+	            </div></td>
 		  </tr>
   </table>
 </form>

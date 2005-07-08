@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="uri:org.emayor.servicehandling.kernel.forward" xmlns:intf="uri:org.emayor.servicehandling.kernel.forward" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="uri:org.emayor.servicehandling.kernel.forward">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="uri:org.emayor.servicehandling.kernel.forward">
+			<complexType name="ArrayOfStrings">
+				<sequence>
+					<element name="item" nillable="true" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<complexType name="ForwardMessage">
+				<sequence>
+					<element name="documents" nillable="true" type="impl:ArrayOfStrings"/>
+					<element name="replyAddress" nillable="true" type="xsd:string"/>
+					<element name="replyID" nillable="true" type="xsd:string"/>
+					<element name="replyService" nillable="true" type="xsd:string"/>
+					<element name="serviceId" nillable="true" type="xsd:string"/>
+					<element name="type" type="xsd:int"/>
+				</sequence>
+			</complexType>
+			<element name="forwardRequestElement" type="impl:ForwardMessage"/>
+			<element name="forwardResponseElement" type="impl:ForwardMessage"/>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="forwardRequestRequest">
+		<wsdl:part name="request" element="impl:forwardRequestElement"/>
+	</wsdl:message>
+	<wsdl:message name="forwardResponseResponse">
+
+   </wsdl:message>
+	<wsdl:message name="forwardRequestResponse">
+
+   </wsdl:message>
+	<wsdl:message name="forwardResponseRequest">
+		<wsdl:part name="response" element="impl:forwardResponseElement"/>
+	</wsdl:message>
+	<wsdl:portType name="IForward">
+		<wsdl:operation name="forwardRequest" parameterOrder="request">
+			<wsdl:input name="forwardRequestRequest" message="impl:forwardRequestRequest"/>
+			<wsdl:output name="forwardRequestResponse" message="impl:forwardRequestResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="forwardResponse" parameterOrder="response">
+			<wsdl:input name="forwardResponseRequest" message="impl:forwardResponseRequest"/>
+			<wsdl:output name="forwardResponseResponse" message="impl:forwardResponseResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ForwardManagerSoapBinding" type="impl:IForward">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="forwardRequest">
+			<wsdlsoap:operation/>
+			<wsdl:input>
+				<wsdlsoap:body use="literal" namespace="uri:org.emayor.servicehandling.kernel.forward"/>
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" namespace="uri:org.emayor.servicehandling.kernel.forward"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="forwardResponse">
+			<wsdlsoap:operation/>
+			<wsdl:input>
+				<wsdlsoap:body use="literal" namespace="uri:org.emayor.servicehandling.kernel.forward"/>
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" namespace="uri:org.emayor.servicehandling.kernel.forward"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IForwardService">
+		<wsdl:port name="ForwardManager" binding="impl:ForwardManagerSoapBinding">
+			<wsdlsoap:address location="http://localhost:80/eMayor/ForwardManager"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

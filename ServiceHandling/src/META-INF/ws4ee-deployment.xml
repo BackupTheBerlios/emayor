@@ -28,5 +28,30 @@
 				 deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" 
 				 encodingStyle="">
     </typeMapping>
+    
+    <typeMapping qname="ns1:forwardRequestElement" 
+				 xmlns:ns1="uri:org.emayor.servicehandling.kernel.forward" 
+				 type="java:org.emayor.servicehandling.kernel.forward.ForwardMessage" 
+				 serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" 
+				 deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" 
+				 encodingStyle="">
+    </typeMapping>
+    
+    <typeMapping qname="ns1:forwardResponseElement" 
+				 xmlns:ns1="uri:org.emayor.servicehandling.kernel.forward" 
+				 type="java:org.emayor.servicehandling.kernel.forward.ForwardMessage" 
+				 serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" 
+				 deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" 
+				 encodingStyle="">
+    </typeMapping>
+    
+    <typeMapping qname="ns1:ArrayOfStrings" 
+				 xmlns:ns1="uri:org.emayor.servicehandling.kernel.forward" 
+				 type="java:org.emayor.servicehandling.kernel.forward.ArrayOfStrings" 
+				 serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" 
+				 deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" 
+				 encodingStyle="">
+    </typeMapping>
+    
 </deployment>
 

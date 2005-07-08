@@ -22,7 +22,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
-import org.emayor.servicehandling.forward.ContentRoutingWrapper;
+import org.emayor.servicehandling.kernel.forward.ContentRoutingWrapper;
 import org.emayor.servicehandling.config.Config;
 import org.emayor.servicehandling.config.ConfigException;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardMessageBPEL;

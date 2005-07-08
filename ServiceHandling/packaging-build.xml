@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N100B5,N100C6,N100D7,N10114,N10145,N1018E,N1019F,N101E0,N10217,N10228"/>
+<target name="_packaging_generation_" depends="N10004,N100C5,N100D6,N100E7,N10124,N10155,N1019E,N101AF,N101F0,N10227,N10238,N10269"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -63,20 +63,26 @@
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="jbosscmp-jdbc.xml"/>
 </zipfileset>
+<zipfileset dir="forward/server" prefix="META-INF">
+<include name="forward_server_mapping.xml"/>
+</zipfileset>
+<zipfileset dir="forward/server" prefix="META-INF/wsdl">
+<include name="ForwardManagerWS.wsdl"/>
+</zipfileset>
 <zipfileset dir="classes" includes="**/*.class"/>
 </jar>
 </target>
-<target name="N100B5" description="eMayorEJB-client.jar">
+<target name="N100C5" description="eMayorEJB-client.jar">
 <jar destfile="eMayorEJB-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N100C6" description="eMayorSH-GUI-client.jar">
+<target name="N100D6" description="eMayorSH-GUI-client.jar">
 <jar destfile="eMayorSH-GUI-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/interfaces/AdminManager*.class,org/emayor/servicehandling/utclient*.class,org/emayor/servicehandling/kernel/IServiceInfo.class,org/emayor/servicehandling/kernel/ServiceInfo.class,org/emayor/servicehandling/kernel/ServicesInfo.class,org/emayor/servicehandling/bpel/task/_task.class,org/emayor/servicehandling/bpel/task/_task_status.class"/>
 </jar>
 </target>
-<target name="N100D7" description="eMayorWeb.war">
+<target name="N100E7" description="eMayorWeb.war">
 <jar destfile="eMayorWeb.war">
 <zipfileset dir="." prefix="WEB-INF/lib">
 <include name="eMayorSH-GUI-client.jar"/>
@@ -92,7 +98,7 @@
 <zipfileset dir="jsp-src"/>
 </jar>
 </target>
-<target name="N10114" description="WorklistManager-client.jar">
+<target name="N10124" description="WorklistManager-client.jar">
 <jar destfile="WorklistManager-client.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -109,13 +115,13 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N10145" description="ResidenceCertificationService-client.jar"/>
-<target name="N1018E" description="BPELPolicyEnforcer-client.jar">
+<target name="N10155" description="ResidenceCertificationService-client.jar"/>
+<target name="N1019E" description="BPELPolicyEnforcer-client.jar">
 <jar destfile="BPELPolicyEnforcer-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/BPELPolicyEnforcer*.class,org/emayor/servicehandling/kernel/*BPELPolicyEnforcer*.class"/>
 </jar>
 </target>
-<target name="N1019F" description="ForwardMgrBPEL-client.jar">
+<target name="N101AF" description="ForwardMgrBPEL-client.jar">
 <jar destfile="ForwardMgrBPEL-client.jar">
 <zipfileset dir="BPEL-forward/client" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -138,7 +144,7 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/bpel/forward/client/*.class,org/emayor/servicehandling/kernel/bpel/forward/data/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
 </jar>
 </target>
-<target name="N101E0" description="eMayorBPELServiceStarter.jar">
+<target name="N101F0" description="eMayorBPELServiceStarter.jar">
 <jar destfile="eMayorBPELServiceStarter.jar">
 <zipfileset dir="service_starter" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -160,12 +166,29 @@
 </zipfileset>
 </jar>
 </target>
-<target name="N10217" description="SH-client.jar">
+<target name="N10227" description="SH-client.jar">
 <jar destfile="SH-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class,org/emayor/servicehandling/kernel/KernelException.class,org/emayor/servicehandling/kernel/SessionException.class,org/emayor/servicehandling/kernel/*UserProfile.class"/>
 </jar>
 </target>
-<target name="N10228" description="eMayorApp.ear">
+<target name="N10238" description="ForwardManager-client.jar">
+<jar destfile="ForwardManager-client.jar">
+<zipfileset dir="forward/client" prefix="META-INF">
+<include name="application-client.xml"/>
+</zipfileset>
+<zipfileset dir="forward/client" prefix="META-INF">
+<include name="forward-client-mapping.xml"/>
+</zipfileset>
+<zipfileset dir="forward/client" prefix="META-INF/wsdl">
+<include name="ForwardManagerWS.wsdl"/>
+</zipfileset>
+<zipfileset dir="forward/client" prefix="META-INF">
+<include name="jboss-client.xml"/>
+</zipfileset>
+<zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/forward/IForward*.class,org/emayor/servicehandling/kernel/forward/ForwardMessage.class,org/emayor/servicehandling/kernel/forward/ArrayOfStrings.class"/>
+</jar>
+</target>
+<target name="N10269" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -200,14 +223,11 @@
 <zipfileset dir=".">
 <include name="ForwardMgrBPEL-client.jar"/>
 </zipfileset>
-<zipfileset dir="../Forwarding">
-<include name="ForwardEJB-client.jar"/>
-</zipfileset>
-<zipfileset dir="../Forwarding">
-<include name="ForwardEJB.jar"/>
-</zipfileset>
 <zipfileset dir=".">
 <include name="eMayorBPELServiceStarter.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="ForwardManager-client.jar"/>
 </zipfileset>
 </jar>
 </target>

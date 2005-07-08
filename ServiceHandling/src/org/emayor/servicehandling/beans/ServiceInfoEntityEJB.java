@@ -126,7 +126,7 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEID"
-     * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.sql-type type = "VARCHAR(100)"
      * @jboss.jdbc-type type = "VARCHAR"
      * @jboss.persistence not-null = "true"
      */

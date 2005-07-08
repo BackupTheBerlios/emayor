@@ -17,7 +17,6 @@ import org.emayor.servicehandling.interfaces.AccessSessionLocal;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.AccessException;
 import org.emayor.servicehandling.kernel.AccessSessionException;
-import org.emayor.servicehandling.kernel.ForwardMessage;
 import org.emayor.servicehandling.kernel.IAccess;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.RunningServicesInfo;
@@ -25,6 +24,7 @@ import org.emayor.servicehandling.kernel.ServiceInfo;
 import org.emayor.servicehandling.kernel.ServicesInfo;
 import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.kernel.UserProfile;
+import org.emayor.servicehandling.kernel.forward.ForwardMessage;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 

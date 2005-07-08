@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.AccessManagerLocal;
 import org.emayor.servicehandling.kernel.AccessException;
-import org.emayor.servicehandling.kernel.ForwardMessage;
-import org.emayor.servicehandling.kernel.bpel.forward.data.ArrayOfStrings;
+import org.emayor.servicehandling.kernel.forward.ArrayOfStrings;
+import org.emayor.servicehandling.kernel.forward.ForwardMessage;
 import org.emayor.servicehandling.utclient.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 

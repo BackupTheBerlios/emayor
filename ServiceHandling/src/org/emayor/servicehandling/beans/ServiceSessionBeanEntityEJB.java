@@ -157,7 +157,7 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "ASID"
-     * @jboss.sql-type type = "VARVHAR(100)"
+     * @jboss.sql-type type = "VARCHAR(100)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getAsid();
@@ -176,7 +176,7 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "SERVICEID"
-     * @jboss.sql-type type = "VARVHAR(200)"
+     * @jboss.sql-type type = "VARCHAR(200)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract String getServiceId();
@@ -214,7 +214,7 @@ public abstract class ServiceSessionBeanEntityEJB implements EntityBean {
      * @ejb.persistent-field
      * @ejb.interface-method view-type="local"
      * @jboss.column-name name = "CREATORID"
-     * @jboss.sql-type type = "VARVHAR(200)"
+     * @jboss.sql-type type = "VARCHAR(200)"
      * @jboss.jdbc-type type = "VARCHAR"
      */
     public abstract java.lang.String getUserId();

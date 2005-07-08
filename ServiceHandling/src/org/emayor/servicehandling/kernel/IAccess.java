@@ -5,6 +5,8 @@ package org.emayor.servicehandling.kernel;
 
 import java.security.cert.X509Certificate;
 
+import org.emayor.servicehandling.kernel.forward.ForwardMessage;
+
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
  *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)

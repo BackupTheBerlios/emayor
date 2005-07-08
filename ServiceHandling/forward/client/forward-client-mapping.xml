@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java-wsdl-mapping xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+               http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd" 
+    version="1.1">    
+	<package-mapping>
+		<package-type>org.emayor.servicehandling.kernel.forward</package-type>
+		<namespaceURI>uri:org.emayor.servicehandling.kernel.forward</namespaceURI>
+	</package-mapping>
+	<java-xml-type-mapping>
+    	<java-type>org.emayor.servicehandling.kernel.forward.ForwardMessage</java-type>
+    	<root-type-qname xmlns:typeNS="uri:org.emayor.servicehandling.kernel.forward">typeNS:forwardRequestElement</root-type-qname>
+    	<qname-scope>complexType</qname-scope>
+  	</java-xml-type-mapping>
+  	<java-xml-type-mapping>
+    	<java-type>org.emayor.servicehandling.kernel.forward.ForwardMessage</java-type>
+    	<root-type-qname xmlns:typeNS="uri:org.emayor.servicehandling.kernel.forward">typeNS:forwardResponseElement</root-type-qname>
+    	<qname-scope>complexType</qname-scope>
+  	</java-xml-type-mapping>
+  	<java-xml-type-mapping>
+    	<java-type>org.emayor.servicehandling.kernel.forward.ArrayOfStrings</java-type>
+    	<root-type-qname xmlns:typeNS="uri:org.emayor.servicehandling.kernel.forward">typeNS:ArrayOfStrings</root-type-qname>
+    	<qname-scope>complexType</qname-scope>
+  	</java-xml-type-mapping>
+</java-wsdl-mapping>

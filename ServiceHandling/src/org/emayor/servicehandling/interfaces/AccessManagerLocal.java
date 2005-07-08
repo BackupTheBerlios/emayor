@@ -47,7 +47,7 @@ public interface AccessManagerLocal
    /**
     * Business Method
     */
-   public java.lang.String startForwardedService( java.lang.String accessSessionId,java.lang.String serviceId,org.emayor.servicehandling.kernel.ForwardMessage message ) throws org.emayor.servicehandling.kernel.AccessException;
+   public java.lang.String startForwardedService( java.lang.String accessSessionId,java.lang.String serviceId,org.emayor.servicehandling.kernel.forward.ForwardMessage message ) throws org.emayor.servicehandling.kernel.AccessException;
 
    /**
     * Business Method
