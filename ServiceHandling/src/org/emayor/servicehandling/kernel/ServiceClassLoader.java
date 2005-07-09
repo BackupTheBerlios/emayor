@@ -73,7 +73,8 @@ public class ServiceClassLoader extends ClassLoader {
 			ret = this.loadClass(bytes);
 		} catch (IOManagerException ex) {
 			log.error("caught ex: " + ex.toString());
-			throw new ServiceClassloaderException("");
+			throw new ServiceClassloaderException(
+					"Couldn't load the class with name: " + name);
 		}
 		return ret;
 	}

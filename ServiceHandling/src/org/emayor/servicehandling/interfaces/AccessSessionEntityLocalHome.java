@@ -18,6 +18,9 @@ public interface AccessSessionEntityLocalHome
    public java.util.Collection findByUserId(java.lang.String userId)
       throws javax.ejb.FinderException;
 
+   public java.util.Collection findAll()
+      throws javax.ejb.FinderException;
+
    public org.emayor.servicehandling.interfaces.AccessSessionEntityLocal findByPrimaryKey(java.lang.String pk)
       throws javax.ejb.FinderException;
 

@@ -24,6 +24,12 @@ public interface ServiceSessionBeanEntityLocalHome
    public java.util.Collection findByCreatorID(java.lang.String serviceId)
       throws javax.ejb.FinderException;
 
+   public java.util.Collection findAll()
+      throws javax.ejb.FinderException;
+
+   public java.util.Collection findAllSsids()
+      throws javax.ejb.FinderException;
+
    public org.emayor.servicehandling.interfaces.ServiceSessionBeanEntityLocal findByPrimaryKey(java.lang.String pk)
       throws javax.ejb.FinderException;
 

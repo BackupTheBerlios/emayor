@@ -68,7 +68,7 @@ public class AdminDeployNewServiceProcessor extends AbstractRequestProcessor {
                 file = mreq.getFile("FACTORY");
                 if (file == null) {
                     log.debug("factory isn't specified -> using the def one");
-                    factory = null;
+                    factory = "";
                 } else {
                     factory = file.getName();
                 }

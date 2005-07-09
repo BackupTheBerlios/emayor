@@ -25,6 +25,9 @@ import org.apache.log4j.Logger;
  *             AccessSessionEntity AS o WHERE o.userId = ?1" result-type-mapping =
  *             "Local" signature = "java.util.Collection
  *             findByUserId(java.lang.String userId)"
+ * @ejb.finder method-intf = "LocalHome" query = "SELECT DISTINCT OBJECT(o) FROM
+ *             AccessSessionEntity AS o" result-type-mapping = "Local" signature =
+ *             "java.util.Collection findAll()"
  *  
  */
 public abstract class AccessSessionEntityEJB implements EntityBean {

@@ -485,19 +485,12 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
             log.debug("get the ref to the kernel");
             KernelLocal kernel = locator.getKernelLocal();
             ServiceInfo[] infos = kernel.listAllAvailableServices();
-            ServiceSessionInfo[] ss = kernel.listServiceSessions();
             ret = new AdminServiceProfileData[infos.length];
             for (int i = 0; i < ret.length; i++) {
                 ServiceInfo info = infos[i];
                 ret[i] = new AdminServiceProfileData(info);
-                int index = 0;
                 String serviceId = info.getServiceId();
-                for (int j = 0; j < ss.length; j++) {
-                    ServiceSessionInfo _ssi = ss[j];
-                    if (_ssi.getServiceId().equals(serviceId))
-                        index++;
-                }
-                ret[i].setNumberOfInstances(String.valueOf(index));
+                ret[i].setNumberOfInstances(kernel.getNumberOfInstances(serviceId));
             }
             kernel.remove();
         } catch (ServiceLocatorException ex) {

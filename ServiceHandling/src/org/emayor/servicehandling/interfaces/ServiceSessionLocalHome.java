@@ -15,4 +15,7 @@ public interface ServiceSessionLocalHome
    public org.emayor.servicehandling.interfaces.ServiceSessionLocal create(java.lang.String asid)
       throws javax.ejb.CreateException;
 
+   public org.emayor.servicehandling.interfaces.ServiceSessionLocal create(java.lang.String ssid , java.lang.String asid)
+      throws javax.ejb.CreateException;
+
 }

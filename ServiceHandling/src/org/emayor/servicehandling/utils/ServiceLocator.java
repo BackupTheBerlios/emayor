@@ -184,6 +184,28 @@ public class ServiceLocator {
 		return ret;
 	}
 
+	public synchronized ServiceSessionLocal getServiceSessionLocal(String ssid,
+			String asid) throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		ServiceSessionLocal ret = null;
+		try {
+			Object ref = this.initialContext
+					.lookup(ServiceSessionLocalHome.JNDI_NAME);
+			ServiceSessionLocalHome home = (ServiceSessionLocalHome) PortableRemoteObject
+					.narrow(ref, ServiceSessionLocalHome.class);
+			ret = home.create(ssid, asid);
+			log.debug("got the reference!");
+		} catch (NamingException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new ServiceLocatorException(ex);
+		} catch (CreateException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new ServiceLocatorException(ex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
 	public synchronized KernelLocal getKernelLocal()
 			throws ServiceLocatorException {
 		log.debug("-> starting processing ...");
