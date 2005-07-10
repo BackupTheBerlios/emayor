@@ -240,6 +240,10 @@
 				<description><![CDATA[Getter for CMP Field instances]]></description>
 				<field-name>serviceClass</field-name>
 			</cmp-field>
+			<cmp-field>
+				<description><![CDATA[Getter for CMP Field instances]]></description>
+				<field-name>serviceFactoryClass</field-name>
+			</cmp-field>
 			<primkey-field>serviceId</primkey-field>
 			<query>
 				<query-method>

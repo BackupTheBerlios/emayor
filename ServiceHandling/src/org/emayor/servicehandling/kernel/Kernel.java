@@ -29,8 +29,6 @@ import org.emayor.servicehandling.interfaces.ServiceSessionBeanEntityLocalHome;
 import org.emayor.servicehandling.interfaces.ServiceSessionLocal;
 import org.emayor.servicehandling.interfaces.SimpleIdGeneratorLocal;
 import org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData;
-import org.emayor.servicehandling.utils.IOManager;
-import org.emayor.servicehandling.utils.IOManagerException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -462,48 +460,19 @@ public class Kernel implements IKernel {
 			throws KernelException {
 		log.debug("-> start processing ...");
 		try {
-			if (log.isDebugEnabled())
-				log.debug("create factory: " + clazzName);
-			Class _class = null;
-			if (clazzName
-					.equals("org.emayor.servicehandling.kernel.eMayorServiceFactory")) {
-				log
-						.debug("using the default factory -> so the def class loader as well");
-				_class = Class.forName(clazzName);
-			} else {
-				log.debug("using the service class loader");
-				ClassLoader _loader = this.getClass().getClassLoader();
-				ServiceClassLoader loader = new ServiceClassLoader(_loader);
-				_class = loader.loadServiceClass(clazzName);
-			}
-			if (_class != null)
-				log.debug("forName called successful - class NOT null");
-			IeMayorServiceFactory factory = (IeMayorServiceFactory) _class
-					.newInstance();
+			IeMayorServiceFactory factory = this.repository
+					.loadServiceFactory(serviceId);
 			if (factory != null)
 				log.debug("factory reference is NOT null");
-			factory.setup();
+			else
+				throw new KernelException(
+						"Couldn't load the service factory for service with id: "
+								+ serviceId);
 			this.repository.addServiceFactory(serviceId, factory);
-		} catch (ClassNotFoundException cnfex) {
-			log.error("caught ex: " + cnfex.toString());
-			throw new KernelException(
-					"the specified class not found in classpath");
-		} catch (IllegalAccessException iaex) {
-			log.error("caught ex: " + iaex.toString());
-			throw new KernelException("illegal access to the class instance");
-		} catch (InstantiationException iex) {
-			log.error("caught ex: " + iex.toString());
-			throw new KernelException("cannot get an instance");
-		} catch (eMayorServiceException emsex) {
-			log.error("caught ex: " + emsex.toString());
-			throw new KernelException("factory setup failed");
 		} catch (KernelRepositoryException kex) {
 			log.error("caught ex: " + kex.toString());
 			throw new KernelException(
 					"the new factory couldn't be saved into repository");
-		} catch (ServiceClassloaderException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new KernelException("A class loader exception!");
 		}
 	}
 
@@ -515,22 +484,6 @@ public class Kernel implements IKernel {
 			if (log.isDebugEnabled())
 				log.debug("got service name: " + serviceId);
 			String className = services[i].getServiceFactoryClassName();
-			/*
-			 * if (log.isDebugEnabled()) log.debug("create factory: " +
-			 * className); Class _class = null; if (className
-			 * .equals("org.emayor.servicehandling.kernel.eMayorServiceFactory")) {
-			 * log .debug("using the default factory -> so the def class loader
-			 * as well"); _class = Class.forName(className); } else {
-			 * log.debug("using the service class loader"); ClassLoader _loader =
-			 * this.getClass().getClassLoader(); ServiceClassLoader loader = new
-			 * ServiceClassLoader(_loader); _class =
-			 * loader.loadServiceClass(className); } if (_class != null)
-			 * log.debug("forName called successful - class NOT null");
-			 * IeMayorServiceFactory factory = (IeMayorServiceFactory) _class
-			 * .newInstance(); if (factory != null) log.debug("factory reference
-			 * is NOT null"); factory.setup();
-			 * this.repository.addServiceFactory(serviceId, factory);
-			 */
 			this.initializeServiceFactory(serviceId, className);
 		}
 		log.debug("-> ... processing DONE!");
@@ -1133,15 +1086,10 @@ public class Kernel implements IKernel {
 			ServiceInfo info = this.repository.getServiceInfo(serviceId);
 			info.setActive(active);
 			this.repository.changeServiceInfo(info);
-			IOManager manager = IOManager.getInstance();
-			manager.saveServiceInfo(info);
 		} catch (KernelRepositoryException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelException(
 					"Couldn't change the status of the given service!");
-		} catch (IOManagerException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new KernelException("Couldn't save the changes service info!");
 		}
 		log.debug("-> ... processing DONE!");
 	}
@@ -1168,15 +1116,17 @@ public class Kernel implements IKernel {
 	 * 
 	 * @see org.emayor.servicehandling.kernel.IKernel#deployService(org.emayor.servicehandling.kernel.IServiceProfile)
 	 */
-	public void deployService(IServiceProfile serviceProfile)
+	public synchronized void deployService(IServiceProfile serviceProfile)
 			throws KernelException {
 		log.debug("-> start processing ...");
 		try {
 			this.repository.addServiceInfo((ServiceInfo) serviceProfile
 					.getServiceInfo());
+
 			this.initializeServiceFactory(serviceProfile.getServiceInfo()
 					.getServiceId(), serviceProfile.getServiceInfo()
 					.getServiceFactoryClassName());
+
 		} catch (KernelRepositoryException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelException("Couldn't deploy the new service!");
@@ -1189,7 +1139,8 @@ public class Kernel implements IKernel {
 	 * 
 	 * @see org.emayor.servicehandling.kernel.IKernel#undeployService(java.lang.String)
 	 */
-	public void undeployService(String serviceId) throws KernelException {
+	public synchronized void undeployService(String serviceId)
+			throws KernelException {
 		log.debug("-> start processing ...");
 		try {
 			this.repository.removeServiceInfo(serviceId);

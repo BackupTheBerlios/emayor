@@ -109,4 +109,14 @@ public interface ServiceInfoEntityLocal
     */
    public void setServiceClass( byte[] serviceClass ) ;
 
+   /**
+    * Getter for CMP Field instances
+    */
+   public byte[] getServiceFactoryClass(  ) ;
+
+   /**
+    * Setter for CMP Field instances
+    */
+   public void setServiceFactoryClass( byte[] serviceFactoryClass ) ;
+
 }

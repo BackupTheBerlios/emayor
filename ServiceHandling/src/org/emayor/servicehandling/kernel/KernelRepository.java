@@ -468,20 +468,13 @@ public class KernelRepository {
 			si.setActive(new Boolean(serviceInfo.isActive()));
 			si.setInstances(new Integer(0));
 			si.setServiceClass(serviceInfo.getServiceClass());
-			
+			si.setServiceFactoryClass(serviceInfo.getServiceFactoryClass());
+			log.debug("ADDED THE NEW SERVICE INFO");
 		} catch (CreateException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelRepositoryException(
 					"Couldn't store persistently the info about a new service");
 		}
-		/*
-		 * if (this.serviceId2serviceInfo.containsKey(id)) {
-		 * log.error("ServiceInfo already exist in the repository"); throw new
-		 * KernelRepositoryException( "Couldn't add ServiceInfo into repository -
-		 * already exists!"); } else { this.serviceId2serviceInfo.put(id,
-		 * serviceInfo); this.serviceId2NumberOfInstances.put(id, new
-		 * Integer(0)); }
-		 */
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -553,6 +546,8 @@ public class KernelRepository {
 			ret.setServiceId(si.getServiceId());
 			ret.setServiceName(si.getServiceName());
 			ret.setServiceVersion(si.getServiceVersion());
+			ret.setServiceClass(si.getServiceClass());
+			ret.setServiceFactoryClass(si.getServiceFactoryClass());
 		} catch (FinderException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelRepositoryException(
@@ -727,8 +722,7 @@ public class KernelRepository {
 		} else {
 			log
 					.debug("factory instance doesn't exist in the repository -> loading one");
-			ret = this.loadServiceFactory(this.getServiceInfo(serviceId)
-					.getServiceFactoryClassName());
+			ret = this.loadServiceFactory(serviceId);
 			log.debug("save the loaded instance for later usage -> cache");
 			this.serviceId2serviceFactory.put(serviceId, ret);
 		}
@@ -1226,38 +1220,33 @@ public class KernelRepository {
 		return ret;
 	}
 
-	public IeMayorServiceFactory loadServiceFactory(String clazzName)
+	public IeMayorServiceFactory loadServiceFactory(String serviceId)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		if (log.isDebugEnabled()) {
-			log.debug("loading class with name: " + clazzName);
+			log.debug("loading factory class for service with service id: "
+					+ serviceId);
 		}
 		IeMayorServiceFactory ret = null;
 		try {
-			if (log.isDebugEnabled())
-				log.debug("create factory: " + clazzName);
 			Class _class = null;
-			if (clazzName
-					.equals("org.emayor.servicehandling.kernel.eMayorServiceFactory")) {
-				log
-						.debug("using the default factory -> so the def class loader as well");
-				_class = Class.forName(clazzName);
-			} else {
-				log.debug("using the service class loader");
-				ClassLoader _loader = this.getClass().getClassLoader();
-				ServiceClassLoader loader = new ServiceClassLoader(_loader);
-				_class = loader.loadServiceClass(clazzName);
-			}
+			/*
+			 * if (clazzName
+			 * .equals("org.emayor.servicehandling.kernel.eMayorServiceFactory")) {
+			 * log .debug("using the default factory -> so the def class loader
+			 * as well"); _class = Class.forName(clazzName); } else {
+			 */
+			log.debug("using the service class loader");
+			ClassLoader _loader = this.getClass().getClassLoader();
+			ServiceClassLoader loader = new ServiceClassLoader(_loader);
+			_class = loader.loadServiceFactoryClass(serviceId);
+			//}
 			if (_class != null)
 				log.debug("forName called successful - class NOT null");
 			ret = (IeMayorServiceFactory) _class.newInstance();
 			if (ret != null)
 				log.debug("factory reference is NOT null");
 			ret.setup();
-		} catch (ClassNotFoundException cnfex) {
-			log.error("caught ex: " + cnfex.toString());
-			throw new KernelRepositoryException(
-					"the specified class not found in classpath");
 		} catch (IllegalAccessException iaex) {
 			log.error("caught ex: " + iaex.toString());
 			throw new KernelRepositoryException(

@@ -51,7 +51,7 @@
 				</td>
 			</tr>
 			<tr bgcolor="#FFCCCC">
-				<td>Factory class</td>
+				<td>Service factory class</td>
 				<td>
 					<input name="FACTORY" type="file" value="" size="60"/>
 				</td>

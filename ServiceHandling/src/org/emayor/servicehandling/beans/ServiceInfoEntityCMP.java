@@ -88,4 +88,8 @@ public abstract class ServiceInfoEntityCMP
 
    public abstract void setServiceClass( byte[] serviceClass ) ;
 
+   public abstract byte[] getServiceFactoryClass() ;
+
+   public abstract void setServiceFactoryClass( byte[] serviceFactoryClass ) ;
+
 }

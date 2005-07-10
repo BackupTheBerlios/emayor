@@ -56,8 +56,7 @@ public class eMayorServiceFactory implements IeMayorServiceFactory {
 				log.debug("got the class name: " + className);
 			ClassLoader _loader = this.getClass().getClassLoader();
 			ServiceClassLoader loader = new ServiceClassLoader(_loader);
-			//Class _class = Class.forName(className);
-			Class _class = loader.loadServiceClass(className);
+			Class _class = loader.loadServiceClass(serviceId);
 			if (_class != null)
 				log.debug("forName called successful - class NOT null");
 			ret = (IeMayorService) _class.newInstance();

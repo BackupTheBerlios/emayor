@@ -16,6 +16,7 @@ public class AdminServiceProfileData extends ServiceInfo {
     
     public AdminServiceProfileData() {
         super();
+        this.setActive(false);
         this.setNumberOfInstances("0");
     }
     
@@ -27,6 +28,8 @@ public class AdminServiceProfileData extends ServiceInfo {
         this.setServiceId(info.getServiceId());
         this.setServiceName(info.getServiceName());
         this.setServiceVersion(info.getServiceVersion());
+        this.setServiceFactoryClass(info.getServiceFactoryClass());
+        this.setServiceClass(info.getServiceClass());
         this.setActive(info.isActive());
         this.setNumberOfInstances("0");
     }
