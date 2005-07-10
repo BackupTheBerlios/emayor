@@ -3,8 +3,6 @@
  */
 package org.emayor.notification.gateway;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -15,6 +13,8 @@ import javax.mail.Transport;
 
 import org.apache.log4j.Logger;
 import org.emayor.notification.exception.NotificationException;
+import org.emayor.servicehandling.config.Config;
+import org.emayor.servicehandling.config.ConfigException;
 
 /**
  * @author Maximilian Schmidt
@@ -44,7 +44,6 @@ public class EmailGateway {
 	 */
 	public void sendEmail(Message msg, Properties config) throws NotificationException {
 		Logger log = Logger.getLogger(this.getClass());
-		log.debug("got gateway ...");
 			
 		/*
 		 * receive properties
@@ -60,28 +59,32 @@ public class EmailGateway {
 		 * (falling back to localhost is NOT an option)
 		 */
 		if (host == null) {
-			// set up new properties
-			config = new Properties();
+			
+			Config eConfig = null;
+			
+			// set up new properties			
 			try {
-				// access jboss configuration file
-				String configuration = System.getProperty("jboss.server.home.dir")+File.separatorChar+"conf"+File.separatorChar+"mail.properties";
-				File conffile = new File(configuration);
-				if (conffile.exists()) {
-					log.debug("loading configuration from file: "+configuration);
-					// load configuration
-					config.load(new FileInputStream(conffile));
-				} else {
-					throw new NotificationException("Gateway: Host not specified and no config available");
-				}
-			} catch (Exception e1) {
-				throw new NotificationException("Gateway: Host not specified and loading config from file failed");
+				eConfig = Config.getInstance();
+			} catch (ConfigException e3) {
+				throw new NotificationException("Configuration not avaiable",e3);
 			}
 			
-			/* reread properties */
-			host = config.getProperty("mail.smtp.host");
-			user = config.getProperty("mail.smtp.user");
-			pass = config.getProperty("mail.smtp.pass");
-			auth = config.getProperty("mail.smtp.auth");
+			
+			/* read properties */
+			try {
+				
+				host = eConfig.getProperty("emayor.notification.email.smtp.host");
+			} catch (ConfigException e1) {
+				throw new NotificationException("cannot read email properties",e1);
+			}
+			
+			try {
+				user = eConfig.getProperty("emayor.notification.email.smtp.user");
+				pass = eConfig.getProperty("emayor.notification.email.smtp.pass");
+				auth = eConfig.getProperty("emayor.notification.email.smtp.auth");
+			} catch (ConfigException e4) {
+				e4.printStackTrace();
+			}
 			
 			/* check whether configuration complete */
 			if (host == null) {
@@ -89,7 +92,12 @@ public class EmailGateway {
 			}
 		}
 		
-		log.debug("host = "+host);
+		if (log.isDebugEnabled()) { 
+			log.debug("host     = "+host);
+			log.debug("auth     = "+auth);
+			log.debug("user     = "+user);
+			log.debug("password = "+pass);
+		}
 		
 		/*
 		 * get a new session and configure it
@@ -109,34 +117,30 @@ public class EmailGateway {
 			/*
 			 * check for authentication parameters
 			 */
-			if (auth != null) {
-				log.debug("user = "+user);
+			if (auth != null && auth.equals("true")) {
 				if (user == null || pass == null) throw new NotificationException("Gateway: user or pass not specified");
 				
 				
 				/*
 				 * transport authorization
 				 */
-				log.debug("connect ....");
 				trans.connect(host,user,pass);
 				/*
 				 * send out
 				 */
-				log.debug("sending message out ....");
+				if (log.isDebugEnabled()) log.debug("sending message out ...");
 				trans.sendMessage(msg,msg.getAllRecipients());
 			} else {
 				/*
 				 * no authentication -> user and password left empty
 				 */
-				log.debug("connect ....");
 				trans.connect(host,null,null);
 				/*
 				 * send out
 				 */
-				log.debug("sending message out ....");
+				if (log.isDebugEnabled()) log.debug("sending message out ...");
 				trans.sendMessage(msg,msg.getAllRecipients());
 			}
-			log.debug("message send out ....");
 			
 		} catch (MessagingException e) {
 			/*

@@ -7,6 +7,7 @@
 package org.emayor.notification.wrapper.ejb;
 
 import java.rmi.RemoteException;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.ejb.CreateException;
@@ -91,7 +92,7 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 		
 		/* debugging */
 		Logger log = Logger.getLogger(this.getClass());
-		log.debug("medium  : "+medium);
+		if (log.isDebugEnabled()) log.debug("type    : "+medium);
 		
 		/*
 		 * generic properties for producer
@@ -114,46 +115,47 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 		 */
 		if (medium.equals("email")) {
 			// we need at least these 4 field
-			if (args.length < 4) throw new NotificationException("wrapper for email messaging requires more arguments!");
+			if (args.length < 5) throw new NotificationException("wrapper for email messaging requires more arguments!");
 			String userId = args[0];
 			String subject = args[1];
 			String body = args[2];
 			String message = args[3];
-			log.debug("userId  : "+userId);
-			log.debug("subject : "+subject);
-			log.debug("body    : "+body);
-			log.debug("message : "+message);
+			String ssId = args[4];
+			if (log.isDebugEnabled()) {
+				log.debug("userId    : "+userId);
+				log.debug("subject   : "+subject);
+				log.debug("body      : "+body);
+				log.debug("message   : "+message);
+				log.debug("sessionID : "+ssId);
+			}
 			
 			if (userId == null) {
 				throw new NotificationException("No UserID submitted, request failed.");
 			}
+			if (ssId == null) {
+				throw new NotificationException("No SessionID submitted, request failed.");
+			}
 				            	
 	    	/* get email address */
 			
-			String sessionId = null;
 			String address = null;
 			
 			try {
 				ServiceLocator sloc = ServiceLocator.getInstance();
 				KernelLocal kern = sloc.getKernelLocal();
-				address = kern.getUserProfile(userId).getPEUserProfile().getUserEmail();
-				//sessionId = sloc.getAccessSessionLocal().getSessionId();
-				sessionId = "----------";
-				
+				address = kern.getUserProfile(userId).getPEUserProfile().getUserEmail();		
 			} catch (ServiceLocatorException e1) {
 				throw new NotificationException(e1);
 			} catch (KernelException e1) {
 				throw new NotificationException(e1);
-			} 
+			}
 
 			if (address == null) {
 				throw new NotificationException("User has no valid email address.");
 			} else {
-				log.debug("address = "+address);
+				if (log.isDebugEnabled()) log.debug("address = "+address);
 			}
 			
-	    		
-			log.debug("setting up mail properties ...");
 
 			// TODO delete!
 			//address = "mxs@fokus.fraunhofer.de";
@@ -168,10 +170,10 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 			prop.put("subject",subject);
 			prop.put("message",message);
 			prop.put("type",medium);
+			prop.put("sessionId",ssId);
 		}
 		
 		/* get manager */
-		log.debug("looking up NotificationManager ...");
 		
 		Context context;
 		Object ref = null;
@@ -183,13 +185,11 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 			throw new NotificationException(e2);
 		}
 		
-		log.debug("getting home interface ...");
 		NotificationManagerHome home = (NotificationManagerHome) javax.rmi.PortableRemoteObject.narrow(ref,NotificationManagerHome.class);
 		
 		/*
 		 * set up our manager
 		 */
-		log.debug("creating manager instance ...");
 		
 		INotificationManager manager = null;
 		
@@ -204,14 +204,13 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 		/* create a new notification producer for mails */
 		Integer key;
 		try {
-			log.info("creating producer ...");
+			
 			key = manager.createNotificationProducer(prop);
 			
-			log.info("sending notification ...");
+			if (log.isDebugEnabled()) log.debug("send notification to producer ... ");
 			/* get the producer and use it for notification */
 			(manager.getNotificationProducer(key)).send();
 			
-			log.info("deleting producer ...");
 			/* delete the producer */
 			manager.deleteNotificationProducer(key);
 			
@@ -222,7 +221,6 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 		} finally {
 
 			try {
-				log.info("removing manager ...");
 				/* remove manager */
 				manager.remove();
 			} catch (RemoveException e4) {

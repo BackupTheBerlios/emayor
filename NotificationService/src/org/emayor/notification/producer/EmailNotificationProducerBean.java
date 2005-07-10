@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -89,7 +90,7 @@ public class EmailNotificationProducerBean
 	 * @see org.emayor.notification.interfaces.INotificationProducer#configure(java.util.Properties)
 	 */
 	public void configure(Properties config) throws NotificationException {
-		log.debug("configuring ...");
+		if (log.isDebugEnabled()) log.debug("configure producer ...");
 		this.config = config;
 		emailAddress = config.getProperty("address");
 		if (emailAddress == null)
@@ -152,14 +153,11 @@ public class EmailNotificationProducerBean
 	 * @see org.emayor.notification.interfaces.INotificationProducer#notifyViaMail(javax.mail.Message)
 	 */
 	public void send() throws NotificationException {
-		log.debug("send() reached ...");
 		try {
 			/*
 			 * get a new session for the message
 			 */
 			Session sess = Session.getDefaultInstance(config,null);
-			
-			log.info("setting up mail message ...");
 			
 			// get properties from configuration
 			String directory 	= System.getProperty("jboss.server.temp.dir");
@@ -174,14 +172,6 @@ public class EmailNotificationProducerBean
 			if (directory == null) 	directory 	= "";
 			if (sessionId == null) 	sessionId 	= Long.toString(System.currentTimeMillis());
 			
-			// create file for attachment
-			log.info("creating attachment ...");
-			FileOutputStream out = new FileOutputStream(directory+File.separatorChar+sessionId);
-			PrintStream p = new PrintStream( out );
-			p.println (message);
-			p.close();
-			out.close();
-			
 			/*
 			 * create a new message out of the values read
 			 */
@@ -189,14 +179,27 @@ public class EmailNotificationProducerBean
 			msg.setFrom(new InternetAddress(emailAddress));
 			msg.setSubject(subject);
 			msg.setText(body);
-			log.debug("set message date ...");
 			msg.setSentDate(new Date());
-			log.debug("set recipient: "+emailAddress);
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
+			
+			if (log.isDebugEnabled()) {
+				log.debug("TO:        : "+emailAddress);
+				log.debug("FROM       : "+emailAddress);
+				log.debug("subject    : "+subject);
+				log.debug("body       : "+body);
+				log.debug("SSID       : "+sessionId);
+				log.debug("attachment : "+message);
+			}
 			
 			// use attachment or send directly
 			if (message != null) {
-				log.info("attaching body parts ....");
+				// create file for attachment
+				FileOutputStream out = new FileOutputStream(directory+File.separatorChar+sessionId);
+				PrintStream p = new PrintStream( out );
+				p.println (message);
+				p.close();
+				out.close();
+				
 				MimeMultipart mp = new MimeMultipart();
 				// real body
 				BodyPart bp = new MimeBodyPart();
@@ -214,15 +217,13 @@ public class EmailNotificationProducerBean
 				msg.setContent(mp);
 				
 				// send it out
-				log.debug("get gateway ...");
+				if (log.isDebugEnabled()) log.debug("delivering to email gate ...");
 				EmailGateway.getInstance().sendEmail(msg,config);
-				log.debug("delete temporary file ...");
 				fds.getFile().delete();
 			} else {
 				// send it out
-				log.debug("get gateway ...");
+				if (log.isDebugEnabled()) log.debug("delivering to email gate ...");
 				EmailGateway.getInstance().sendEmail(msg,config);
-				log.debug("delete temporary file ...");
 			}
 			
 		} catch (MessagingException e) {
