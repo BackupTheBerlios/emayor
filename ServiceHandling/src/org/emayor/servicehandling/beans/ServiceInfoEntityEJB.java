@@ -309,5 +309,43 @@ public abstract class ServiceInfoEntityEJB implements EntityBean {
      * @ejb.interface-method   view-type="local"
      */
     public abstract void setInstances(java.lang.Integer value);
+    
+    /**
+     * Getter for CMP Field instances
+     *
+     * 
+     * @ejb.persistent-field
+     * @ejb.interface-method   view-type="local"
+     * @jboss.column-name name = "SERVICECLASS"
+     * @jboss.sql-type type = "BLOB"
+     * @jboss.jdbc-type type = "BLOB"
+     */
+    public abstract byte[] getServiceClass();
+    
+    /**
+     * Setter for CMP Field instances
+     *
+     * @ejb.interface-method   view-type="local"
+     */
+    public abstract void setServiceClass(byte[] serviceClass);
+    
+    /**
+     * Getter for CMP Field instances
+     *
+     * 
+     * @ejb.persistent-field
+     * @ejb.interface-method   view-type="local"
+     * @jboss.column-name name = "SERVICEFACTORYCLASS"
+     * @jboss.sql-type type = "BLOB"
+     * @jboss.jdbc-type type = "BLOB"
+     */
+    public abstract byte[] getServiceFactoryClass();
+    
+    /**
+     * Setter for CMP Field instances
+     *
+     * @ejb.interface-method   view-type="local"
+     */
+    public abstract void setServiceFactoryClass(byte[] serviceFactoryClass);
 
 }

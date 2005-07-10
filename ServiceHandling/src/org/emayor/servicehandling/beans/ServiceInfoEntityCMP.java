@@ -84,4 +84,8 @@ public abstract class ServiceInfoEntityCMP
 
    public abstract void setInstances( java.lang.Integer instances ) ;
 
+   public abstract byte[] getServiceClass() ;
+
+   public abstract void setServiceClass( byte[] serviceClass ) ;
+
 }

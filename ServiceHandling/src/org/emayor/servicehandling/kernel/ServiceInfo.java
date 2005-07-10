@@ -31,6 +31,10 @@ public class ServiceInfo implements IServiceInfo {
     private String serviceEndpoint;
 
     private String active;
+    
+    private byte[] serviceClass;
+    
+    private byte[] serviceFactoryClass;
 
     /**
      * @return Returns the serviceEndpoint.
@@ -261,6 +265,34 @@ public class ServiceInfo implements IServiceInfo {
             log.debug("endpoint     : " + this.serviceVersion);
             log.debug("is active    : " + this.getActive());
         }
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IServiceInfo#getServiceClass()
+     */
+    public byte[] getServiceClass() {
+        return this.serviceClass;
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IServiceInfo#setServiceClass(byte[])
+     */
+    public void setServiceClass(byte[] serviceClass) {
+        this.serviceClass = serviceClass;
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IServiceInfo#getServiceFactoryClass()
+     */
+    public byte[] getServiceFactoryClass() {
+        return this.serviceFactoryClass;
+    }
+
+    /* (non-Javadoc)
+     * @see org.emayor.servicehandling.kernel.IServiceInfo#setServiceFactoryClass(byte[])
+     */
+    public void setServiceFactoryClass(byte[] serviceFactoryClass) {
+        this.serviceFactoryClass = serviceFactoryClass;
     }
 }
 

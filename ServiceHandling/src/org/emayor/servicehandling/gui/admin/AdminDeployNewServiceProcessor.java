@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.gui.admin;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.ejb.EJBException;
@@ -63,15 +64,19 @@ public class AdminDeployNewServiceProcessor extends AbstractRequestProcessor {
                 String description = mreq.getParameter("DESCRIPTION");
                 profile.setServiceDescription(description);
                 File file = mreq.getFile("CLAZZ");
+                FileInputStream fis = new FileInputStream(file);
+                long length = file.length();
+                byte[] bytes = new byte[(int) length];
+                profile.setServiceClass(bytes);
+                fis.read(bytes);
                 String clazz = file.getName();
                 String factory;
                 file = mreq.getFile("FACTORY");
-                if (file == null) {
-                    log.debug("factory isn't specified -> using the def one");
-                    factory = "";
-                } else {
-                    factory = file.getName();
-                }
+                factory = file.getName();
+                fis = new FileInputStream(file);
+                length = file.length();
+                bytes = new byte[(int) length];
+                profile.setServiceFactoryClass(bytes);
 
                 if (log.isDebugEnabled()) {
                     log.debug("--- got service profile ---");

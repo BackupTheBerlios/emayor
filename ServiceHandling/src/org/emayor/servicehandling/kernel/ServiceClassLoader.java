@@ -5,78 +5,98 @@ package org.emayor.servicehandling.kernel;
 
 import java.io.File;
 
+import javax.ejb.FinderException;
+
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.config.Config;
 import org.emayor.servicehandling.config.ConfigException;
+import org.emayor.servicehandling.interfaces.ServiceInfoEntityLocal;
+import org.emayor.servicehandling.interfaces.ServiceInfoEntityLocalHome;
 import org.emayor.servicehandling.utils.IOManager;
 import org.emayor.servicehandling.utils.IOManagerException;
+import org.emayor.servicehandling.utils.ServiceLocator;
+import org.emayor.servicehandling.utils.ServiceLocatorException;
 
 /**
  * @author tku
  */
 public class ServiceClassLoader extends ClassLoader {
-	private final static Logger log = Logger
-			.getLogger(ServiceClassLoader.class);
+    private final static Logger log = Logger
+            .getLogger(ServiceClassLoader.class);
 
-	private String JBOSS_HOME_DIR;
+    private String JBOSS_HOME_DIR;
 
-	private String classesDir;
+    private String classesDir;
 
-	/**
-	 *  
-	 */
-	public ServiceClassLoader() throws ServiceClassloaderException {
-		log.debug("-> start processing ...");
-		try {
-			Config config = Config.getInstance();
-			this.JBOSS_HOME_DIR = config.getProperty("jboss.server.home.dir");
-			this.classesDir = config.getProperty("emayor.service.classes.dir");
-		} catch (ConfigException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new ServiceClassloaderException();
-		}
-	}
+    /**
+     *  
+     */
+    public ServiceClassLoader() throws ServiceClassloaderException {
+        log.debug("-> start processing ...");
+        try {
+            Config config = Config.getInstance();
+            this.JBOSS_HOME_DIR = config.getProperty("jboss.server.home.dir");
+            this.classesDir = config.getProperty("emayor.service.classes.dir");
+        } catch (ConfigException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new ServiceClassloaderException();
+        }
+    }
 
-	/**
-	 * @param arg0
-	 */
-	public ServiceClassLoader(ClassLoader arg0)
-			throws ServiceClassloaderException {
-		super(arg0);
-		log.debug("-> start processing ...");
-		try {
-			Config config = Config.getInstance();
-			this.JBOSS_HOME_DIR = config.getProperty("jboss.server.home.dir");
-			this.classesDir = config.getProperty("emayor.service.classes.dir");
-		} catch (ConfigException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new ServiceClassloaderException("");
-		}
-	}
+    /**
+     * @param arg0
+     */
+    public ServiceClassLoader(ClassLoader arg0)
+            throws ServiceClassloaderException {
+        super(arg0);
+        log.debug("-> start processing ...");
+        try {
+            Config config = Config.getInstance();
+            this.JBOSS_HOME_DIR = config.getProperty("jboss.server.home.dir");
+            this.classesDir = config.getProperty("emayor.service.classes.dir");
+        } catch (ConfigException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new ServiceClassloaderException("");
+        }
+    }
 
-	public Class loadClass(byte[] bytes) {
-		log.debug("-> start processing ...");
-		return super.defineClass(null, bytes, 0, bytes.length);
-	}
+    public Class loadClass(byte[] bytes) {
+        log.debug("-> start processing ...");
+        return super.defineClass(null, bytes, 0, bytes.length);
+    }
 
-	public Class loadServiceClass(String name)
-			throws ServiceClassloaderException {
-		log.debug("-> start processing ...");
-		Class ret = null;
-		try {
-			String className = name.replace('.', File.separatorChar);
-			StringBuffer b = new StringBuffer(className);
-			b.append(".class");
-			IOManager manager = IOManager.getInstance();
-			byte[] bytes = manager
-					.readBinaryFile(this.classesDir, b.toString());
-			ret = this.loadClass(bytes);
-		} catch (IOManagerException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new ServiceClassloaderException(
-					"Couldn't load the class with name: " + name);
-		}
-		return ret;
-	}
+    public Class loadServiceClass(String name)
+            throws ServiceClassloaderException {
+        log.debug("-> start processing ...");
+        Class ret = null;
+        try {
+            /*
+             * String className = name.replace('.', File.separatorChar);
+             * StringBuffer b = new StringBuffer(className); b.append(".class");
+             * IOManager manager = IOManager.getInstance(); byte[] bytes =
+             * manager .readBinaryFile(this.classesDir, b.toString());
+             */
+            ServiceLocator locator = ServiceLocator.getInstance();
+            ServiceInfoEntityLocalHome home = locator
+                    .getServiceInfoEntityLocalHome();
+            ServiceInfoEntityLocal local = home.findByPrimaryKey(name);
+            byte[] bytes = local.getServiceClass();
+            ret = this.loadClass(bytes);
 
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new ServiceClassloaderException(
+                    "Couldn't load the class with name: " + name);
+        } catch (FinderException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new ServiceClassloaderException(
+                    "Couldn't load the class with name: " + name);
+        }
+        /*
+         * catch (IOManagerException ex) { log.error("caught ex: " +
+         * ex.toString()); throw new ServiceClassloaderException( "Couldn't load
+         * the class with name: " + name); }
+         */
+        return ret;
+    }
 }

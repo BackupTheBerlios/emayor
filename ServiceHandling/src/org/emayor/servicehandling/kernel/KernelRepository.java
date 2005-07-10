@@ -467,6 +467,8 @@ public class KernelRepository {
 			si.setServiceVersion(serviceInfo.getServiceVersion());
 			si.setActive(new Boolean(serviceInfo.isActive()));
 			si.setInstances(new Integer(0));
+			si.setServiceClass(serviceInfo.getServiceClass());
+			
 		} catch (CreateException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelRepositoryException(

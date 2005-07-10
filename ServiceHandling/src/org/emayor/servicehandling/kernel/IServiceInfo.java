@@ -38,4 +38,12 @@ public interface IServiceInfo extends Serializable {
     public boolean isActive();
 
     public void setActive(boolean active);
+    
+    public byte[] getServiceClass();
+    
+    public void setServiceClass(byte[] serviceClass);
+    
+    public byte[] getServiceFactoryClass();
+    
+    public void setServiceFactoryClass(byte[] serviceFactoryClass);
 }

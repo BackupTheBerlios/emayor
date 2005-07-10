@@ -99,4 +99,14 @@ public interface ServiceInfoEntityLocal
     */
    public void setInstances( java.lang.Integer value ) ;
 
+   /**
+    * Getter for CMP Field instances
+    */
+   public byte[] getServiceClass(  ) ;
+
+   /**
+    * Setter for CMP Field instances
+    */
+   public void setServiceClass( byte[] serviceClass ) ;
+
 }
