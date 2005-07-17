@@ -4,13 +4,18 @@
 package org.emayor.servicehandling.config;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import javax.ejb.CreateException;
+import javax.ejb.FinderException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.rmi.PortableRemoteObject;
+
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.interfaces.PlatformConfigurationEntityLocal;
+import org.emayor.servicehandling.interfaces.PlatformConfigurationEntityLocalHome;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
@@ -20,30 +25,195 @@ import org.apache.log4j.Logger;
 public class Config {
 	private static final Logger log = Logger.getLogger(Config.class);
 
-	private static Config _self;
-
-	private Properties props;
-
-	private String JBOSS_HOME_DIR = "";
+	/*
+	 * Configuration values 
+	 */
 	
-	private String TMP_DIR;
+	// the unique id of the platform instance e.g. Aachen,Bozen
+	public static final int EMAYOR_PLATFORM_INSTANCE_ID = 0;
+	
+	// arbitrary fulle name of the municipality - informative character
+	public static final int EMAYOR_MUNICIPALITY_NAME = 1;
 
+	// this property indicates whether the internal test services should
+	// be loaded (test) or the services contained in the deploy directory
+	public static final int EMAYOR_OPERATING_MODE = 2;
+
+	// test - the forwarding will be simulated, it means there is no
+	// need to start an extra (second) BPEL PM
+	// production - a real process will be started in case of forwarding
+	public static final int EMAYOR_OPERATING_MODE_FORWARD = 3;
+
+	// deployment directory for the emayor services
+	public static final int EMAYOR_TMP_DIR = 4;
+
+	// email on the emayor platform
+	public static final int EMAYOR_OPERATING_MODE_EMAIL = 5;
+	public static final int EMAYOR_EMAIL_TEST_USER_ADDRESS = 6;
+
+	// forward manager 
+	public static final int FORWARD_MANAGER_QUEUE_HOST = 7;
+	public static final int FORWARD_MANAGER_QUEUE_NAME = 8;
+	public static final int EMAYOR_OPERATING_MODE_CONTENT_ROUTING = 9;
+	public static final int FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME = 10;
+	public static final int FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_NAME = 11;
+	public static final int FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_ADDRESS = 12;
+	public static final int FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_ADDRESS = 13;
+	
+	// server1 or server2
+	public static final int FORWARD_MANAGER_TEST_REMOTE_PROFILE_ID = 14;
+
+	// eMayor BPEL service invoker
+	public static final int EMAYOR_SERVICE_INVOKER_ENDPOINT = 15;
+
+	// eMayor admin interface
+	// YES or NO
+	public static final int EMAYOR_ADMIN_INTERFACE_IS_ENABLED = 16;
+	public static final int EMAYOR_ADMIN_INTERFACE_USERID = 17;
+	public static final int EMAYOR_ADMIN_INTERFACE_PASSWORD = 18;
+
+	// bpel engine initial context configuration for the UTWrapper application
+	public static final int BPEL_ENGINE_UT_INITIAL_CONTEXT_FACTORY = 19;
+	public static final int BPEL_ENGINE_UT_SECURITY_PRINCIPAL = 20;
+	public static final int BPEL_ENGINE_UT_SECURITY_CREDENTIALS = 21;
+	public static final int BPEL_ENGINE_UT_PROVIDER_URL = 22;
+	public static final int BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME = 23;
+	public static final int BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD = 24;
+
+	// Policy Enforcer Configurartion
+	public static final int EMAYOR_PE_INFO_DIR = 25;
+
+	// Notification (Email Gateway) Configuration
+	// host = smtp-server (required!)
+	// auth = is the authentification required (true,false, assumed false when empty)
+	// user = authenticate as user (optional)
+	// pass = user´s password (optional)
+	public static final int EMAYOR_NOTIFICATION_EMAIL_SMTP_HOST = 26;
+	public static final int EMAYOR_NOTIFICATION_EMAIL_SMTP_USER = 27;
+	public static final int EMAYOR_NOTIFICATION_EMAIL_SMTP_PASS = 28;
+	public static final int EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH = 29;
+	
+	private final boolean WRITE_CONFIG = false;
+	private final boolean READ_CONFIG  = true;
+	
+	
+	private static Config _self;
+	
+	private String JBOSS_HOME_DIR = "";
+	private String TMP_DIR = "";
+	
+	private String configID = "default";
+	
+	private PlatformConfigurationEntityLocalHome home = null;
+	private PlatformConfigurationEntityLocal local = null;
+	
+	private Properties old2new = null;
+	
 	/**
 	 *  
 	 */
 	private Config() throws ConfigException {
 		log.debug("-> start processing ...");
-		this.loadConfiguration();
-		//this.listAllProperties();
+		try {
+			/*
+			 * cannot use service locator, cause this
+			 * creates endless loops
+			 */
+			//loc = ServiceLocator.getInstance();
+			//home = loc.getPlatformConfigurationEntityLocalHome();
+			Object ref = new InitialContext()
+					.lookup(PlatformConfigurationEntityLocalHome.JNDI_NAME);
+			home = (PlatformConfigurationEntityLocalHome) PortableRemoteObject
+					.narrow(ref, PlatformConfigurationEntityLocalHome.class);
+			local = home.create(this.configID);
+		} catch (CreateException e) {
+			log.debug("using config >"+configID+"< already registered");
+		} catch (NamingException e) {
+			e.printStackTrace();
+			throw new ConfigException("init failed:"+e.getMessage(),e.getCause());
+		}
+		if (local == null) {
+			try {
+				local = home.findByPrimaryKey(this.configID);
+			} catch (FinderException e1) {
+				throw new ConfigException("init failed:"+e1.getMessage(),e1.getCause());
+			}
+		}
+		old2new = new Properties();
+		this.init();
+		
 		log.debug("-> ... processing DONE!");
 	}
-
+	
 	public static synchronized Config getInstance() throws ConfigException {
 		log.debug("-> start processing ...");
 		if (_self == null)
 			_self = new Config();
 		log.debug("-> ... processing DONE!");
 		return _self;
+	}
+
+	private void init() {
+		old2new.setProperty("emayor.platform.instance.id",
+				new Integer(EMAYOR_PLATFORM_INSTANCE_ID).toString());
+		old2new.setProperty("emayor.municipality.name",
+				new Integer(EMAYOR_MUNICIPALITY_NAME).toString());
+		old2new.setProperty("emayor.operating.mode",
+				new Integer(EMAYOR_OPERATING_MODE).toString());
+		old2new.setProperty("emayor.operating.mode.forward",
+				new Integer(EMAYOR_OPERATING_MODE_FORWARD).toString());
+		old2new.setProperty("emayor.tmp.dir",
+				new Integer(EMAYOR_TMP_DIR).toString());
+		old2new.setProperty("emayor.operating.mode.email",
+				new Integer(EMAYOR_OPERATING_MODE_EMAIL).toString());
+		old2new.setProperty("emayor.email.test.user.address",
+				new Integer(EMAYOR_EMAIL_TEST_USER_ADDRESS).toString());
+		old2new.setProperty("forward.manager.queue.host",
+				new Integer(FORWARD_MANAGER_QUEUE_HOST).toString());
+		old2new.setProperty("forward.manager.queue.name",
+				new Integer(FORWARD_MANAGER_QUEUE_NAME).toString());
+		old2new.setProperty("emayor.operating.mode.content.routing",
+				new Integer(EMAYOR_OPERATING_MODE_CONTENT_ROUTING).toString());
+		old2new.setProperty("forward.manager.test.local.municipality.name",
+				new Integer(FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME).toString());
+		old2new.setProperty("forward.manager.test.remote.municipality.name",
+				new Integer(FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_NAME).toString());
+		old2new.setProperty("forward.manager.test.local.municipality.address",
+				new Integer(FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_ADDRESS).toString());
+		old2new.setProperty("forward.manager.test.remote.municipality.address",
+				new Integer(FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_ADDRESS).toString());
+		old2new.setProperty("forward.manager.test.remote.profile.id",
+				new Integer(FORWARD_MANAGER_TEST_REMOTE_PROFILE_ID).toString());
+		old2new.setProperty("emayor.service.invoker.endpoint",
+				new Integer(EMAYOR_SERVICE_INVOKER_ENDPOINT).toString());
+		old2new.setProperty("emayor.admin.interface.is.enabled",
+				new Integer(EMAYOR_ADMIN_INTERFACE_IS_ENABLED).toString());
+		old2new.setProperty("emayor.admin.interface.userid",
+				new Integer(EMAYOR_ADMIN_INTERFACE_USERID).toString());
+		old2new.setProperty("emayor.admin.interface.password",
+				new Integer(EMAYOR_ADMIN_INTERFACE_PASSWORD).toString());
+		old2new.setProperty("bpel.engine.ut.initial.context.factory",
+				new Integer(BPEL_ENGINE_UT_INITIAL_CONTEXT_FACTORY).toString());
+		old2new.setProperty("bpel.engine.ut.security.principal",
+				new Integer(BPEL_ENGINE_UT_SECURITY_PRINCIPAL).toString());
+		old2new.setProperty("bpel.engine.ut.security.credentials",
+				new Integer(BPEL_ENGINE_UT_SECURITY_CREDENTIALS).toString());
+		old2new.setProperty("bpel.engine.ut.provider.url",
+				new Integer(BPEL_ENGINE_UT_PROVIDER_URL).toString());
+		old2new.setProperty("bpel.engine.ut.security.domain.name",
+				new Integer(BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME).toString());
+		old2new.setProperty("bpel.engine.ut.security.domain.password",
+				new Integer(BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD).toString());
+		old2new.setProperty("emayor.pe.info.dir",
+				new Integer(EMAYOR_PE_INFO_DIR).toString());
+		old2new.setProperty("emayor.notification.email.smtp.host",
+				new Integer(EMAYOR_NOTIFICATION_EMAIL_SMTP_HOST).toString());
+		old2new.setProperty("emayor.notification.email.smtp.user",
+				new Integer(EMAYOR_NOTIFICATION_EMAIL_SMTP_USER).toString());
+		old2new.setProperty("emayor.notification.email.smtp.pass",
+				new Integer(EMAYOR_NOTIFICATION_EMAIL_SMTP_PASS).toString());
+		old2new.setProperty("emayor.notification.email.smtp.auth",
+				new Integer(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH).toString());
 	}
 
 	public synchronized void reloadConfiguration() throws ConfigException {
@@ -54,60 +224,271 @@ public class Config {
 
 	public synchronized String getProperty(String propName, String defValue)
 			throws ConfigException {
+		
 		log.debug("-> start processing ...");
-		String ret = null;
-		if (!this.props.containsKey(propName)) {
-			if (log.isDebugEnabled())
-				log.debug("unknown property name: " + propName);
-			if (defValue == null || defValue.length() == 0)
-				throw new ConfigException(
-						"read property error: unknown property name: "
-								+ propName);
-			else {
-				if (log.isDebugEnabled())
-					log.debug("using a default value: " + defValue);
-				ret = defValue.trim();
-			}
-		} else {
-			ret = this.props.getProperty(propName).trim();
-			if (log.isDebugEnabled()) {
-				log.debug("got property value: [" + propName + "]=" + ret);
-			}
+		
+		String result = null;
+		int propID = -1;
+		
+		if (old2new.getProperty(propName) != null) {
+			propID = Integer.parseInt(old2new.getProperty(propName));
 		}
+		
+		log.debug("OLD property request by name: "+propName+" equals ID:"+propID);
+		
+		result = getProperty(propID,defValue);
+
+		
+		
 		log.debug("-> ... processing DONE!");
-		return ret;
+		return result;
 	}
 
-	public synchronized String getProperty(String propertyName)
-			throws ConfigException {
-		return this.getProperty(propertyName, null);
-	}
-
-	public synchronized void listPropertyNames() {
-		System.out.println("-------------- all property names --------------");
-		for (Enumeration e = this.props.keys(); e.hasMoreElements();) {
-			System.out.println("next property name: "
-					+ (String) e.nextElement());
-		}
-		System.out.println("------------------------------------------------");
+	public synchronized String getProperty(int propID, String defValue)
+		throws ConfigException {
+		
+		log.debug("-> start processing ...");
+		
+		String result = null;
+		
+		result = propertyAction(propID,READ_CONFIG,defValue);
+		
+		log.debug("property request [ID:"+propID+"="+result+"]");
+		
+		log.debug("-> ... processing DONE!");
+		return result;
 	}
 	
-	public synchronized Properties getAllProperties() {
-	    log.debug("-> start processing ...");
-	    return this.props;
+	public synchronized String getProperty(String propertyName)
+	throws ConfigException {
+		return this.getProperty(propertyName, null);
 	}
-
-	public synchronized void listAllProperties() {
-		System.out.println("---------------- all properties ----------------");
-		for (Enumeration e = this.props.keys(); e.hasMoreElements();) {
-			String key = (String) e.nextElement();
-			String value = this.props.getProperty(key);
-			StringBuffer b = new StringBuffer();
-			b.append("[").append(key).append("]=\"").append(value).append("\"");
-			System.out.println(b.toString());
+	
+	public synchronized String getProperty(int propID)
+	throws ConfigException {
+		return this.getProperty(propID, null);
+	}
+	
+	public synchronized String setProperty(int propID, String value)
+	throws ConfigException {
+		return this.propertyAction(propID, WRITE_CONFIG, value);
+	}
+	
+	public synchronized String setProperty(String key, String value)
+	throws ConfigException {
+		int propID = -1;
+		if (old2new.getProperty(key) != null) {
+			propID = Integer.parseInt(old2new.getProperty(key));
 		}
-		System.out.println("------------------------------------------------");
+		return this.propertyAction(propID, WRITE_CONFIG, value);
 	}
+	
+	/*
+	 * performs a write or read from properties using
+	 * propID is reference to property to read/write
+	 * write  is indicator whether read from or write to the property
+	 * value  is the default value if a read is performed
+	 *        or the value that should be written in the other case
+	 */
+	public synchronized String propertyAction(int propID, boolean action, String value)
+			throws ConfigException {
+		
+		log.debug("-> start processing ...");
+		
+		String result = null;
+		
+		switch (propID) {
+		
+		case(EMAYOR_PLATFORM_INSTANCE_ID):
+			if (action && WRITE_CONFIG) result = local.getEMayorPlatformInstanceID();
+			else local.setEMayorPlatformInstanceID(value);
+			break;
+	
+		case(EMAYOR_MUNICIPALITY_NAME):
+			if (action && WRITE_CONFIG) result = local.getEMayorMunicipalityName();
+			else local.setEMayorMunicipalityName(value);
+			break;
+			
+
+		case(EMAYOR_OPERATING_MODE):
+			if (action && READ_CONFIG) result = local.getEMayorOperatingMode();
+			else local.setEMayorOperatingMode(value);
+			break;
+			
+
+		case(EMAYOR_OPERATING_MODE_FORWARD):
+			if (action && READ_CONFIG) result = local.getEMayorOperatingModeForward();
+			else local.setEMayorOperatingModeForward(value);
+			break;
+			
+
+		case(EMAYOR_TMP_DIR):
+			if (action && READ_CONFIG) result = local.getEMayorTmpDir();
+			else local.setEMayorTmpDir(value);
+			break;
+			
+
+		case(EMAYOR_OPERATING_MODE_EMAIL):
+			if (action && READ_CONFIG) result = local.getEMayorOperationModeEmail();
+			else local.setEMayorOperationModeEmail(value);
+			break;
+			
+			
+		case(EMAYOR_EMAIL_TEST_USER_ADDRESS):
+			if (action && READ_CONFIG) result = local.getEMayorEmailTestUserAddress();
+			else local.setEMayorEmailTestUserAddress(value);
+			break;
+			
+ 
+		case(FORWARD_MANAGER_QUEUE_HOST):
+			if (action && READ_CONFIG) result = local.getForwardManagerQueueHost();
+			else local.setForwardManagerQueueHost(value);
+			break;
+			
+			
+		case(FORWARD_MANAGER_QUEUE_NAME):
+			if (action && READ_CONFIG) result = local.getForwardManagerQueueName();
+			else local.setForwardManagerQueueName(value);
+			break;
+			
+			
+		case(EMAYOR_OPERATING_MODE_CONTENT_ROUTING):
+			if (action && READ_CONFIG) result = local.getEMayorOperationModeContentRouting();
+			else local.setEMayorOperationModeContentRouting(value);
+			break;
+			
+			
+		case(FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME):
+			if (action && READ_CONFIG) result = local.getForwardManagerTestLocalMunicipalityName();
+			else local.setForwardManagerTestLocalMunicipalityName(value);
+			break;
+			
+			
+		case(FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_NAME):
+			if (action && READ_CONFIG) result = local.getForwardManagerTestRemoteMunicipalityName();
+			else local.setForwardManagerTestRemoteMunicipalityName(value);
+			break;
+			
+			
+		case(FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_ADDRESS):
+			if (action && READ_CONFIG) result = local.getForwardManagerTestLocalMunicipalityAddress();
+			else local.setForwardManagerTestLocalMunicipalityAddress(value);
+			break;
+			
+			
+		case(FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_ADDRESS):
+			if (action && READ_CONFIG) result = local.getForwardManagerTestRemoteMunicipalityAddress();
+			else local.setForwardManagerTestRemoteMunicipalityAddress(value);
+			break;
+			
+		
+		case(FORWARD_MANAGER_TEST_REMOTE_PROFILE_ID):
+			if (action && READ_CONFIG) result = local.getForwardManagerTestRemoteProfileID();
+			else local.setForwardManagerTestRemoteProfileID(value);
+			break;
+			
+
+		case(EMAYOR_SERVICE_INVOKER_ENDPOINT):
+			if (action && READ_CONFIG) result = local.getEMayorServiceInvokerEndpoint();
+			else local.setEMayorServiceInvokerEndpoint(value);
+			break;
+			
+
+		case(EMAYOR_ADMIN_INTERFACE_IS_ENABLED):
+			if (action && READ_CONFIG) result = local.getEMayorAdminInterfaceIsEnabled();
+			else local.setEMayorAdminInterfaceIsEnabled(value);
+			break;
+			
+			
+		case(EMAYOR_ADMIN_INTERFACE_USERID):
+			if (action && READ_CONFIG) result = local.getEMayorAdminInterfaceUserID();
+			else local.setEMayorAdminInterfaceUserID(value);
+			break;
+			
+			
+		case(EMAYOR_ADMIN_INTERFACE_PASSWORD):
+			if (action && READ_CONFIG) result = local.getEMayorAdminInterfacePassword();
+			else local.setEMayorAdminInterfacePassword(value);
+			break;
+			
+			
+		case(BPEL_ENGINE_UT_INITIAL_CONTEXT_FACTORY):
+			if (action && READ_CONFIG) result = local.getBpelEngineUtInitialContextFactory();
+			else local.setBpelEngineUtInitialContextFactory(value);
+			break;
+			
+			
+		case(BPEL_ENGINE_UT_SECURITY_PRINCIPAL):
+			if (action && READ_CONFIG) result = local.getBpelEngineUtSecurityPrincipal();
+			else local.setBpelEngineUtSecurityPrincipal(value);
+			break;
+			
+			
+		case(BPEL_ENGINE_UT_SECURITY_CREDENTIALS):
+			if (action && READ_CONFIG) result = local.getBpelEngineUtSecurityCredentials();
+			else local.setBpelEngineUtSecurityCredentials(value);
+			break;
+			
+			
+		case(BPEL_ENGINE_UT_PROVIDER_URL):
+			if (action && READ_CONFIG) result = local.getBpelEngineUtProviderURL();
+			else local.setBpelEngineUtProviderURL(value);
+			break;
+			
+			
+		case(BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME):
+			if (action && READ_CONFIG) result = local.getBpelEngineUtSecurityDomain();
+			else local.setBpelEngineUtSecurityDomain(value);
+			break;
+			
+			
+		case(BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD):
+			if (action && READ_CONFIG) result = local.getBpelEngineUtSecurityDomainPassword();
+			else local.setBpelEngineUtSecurityDomainPassword(value);
+			break;
+			
+
+		case(EMAYOR_PE_INFO_DIR):
+			if (action && READ_CONFIG) result = local.getEMayorPeInfoDir();
+			else local.setEMayorPeInfoDir(value);
+			break;
+			
+			
+		case(EMAYOR_NOTIFICATION_EMAIL_SMTP_HOST):
+			if (action && READ_CONFIG) result = local.getEMayorNotificationEmailSMTPHost();
+			else local.setEMayorNotificationEmailSMTPHost(value);
+			break;
+			
+			
+		case(EMAYOR_NOTIFICATION_EMAIL_SMTP_USER):
+			if (action && READ_CONFIG) result = local.getEMayorNotificationEmailSMTPUser();
+			else local.setEMayorNotificationEmailSMTPUser(value);
+			break;
+			
+			
+		case(EMAYOR_NOTIFICATION_EMAIL_SMTP_PASS):
+			if (action && READ_CONFIG) result = local.getEMayorNotificationEmailSMTPPass();
+			else local.setEMayorNotificationEmailSMTPPass(value);
+			break;
+			
+			
+		case(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH):
+			if (action && READ_CONFIG) result = local.getEMayorNotificationEmailSMTPAuth();
+			else local.setEMayorNotificationEmailSMTPAuth(value);
+			break;
+			
+		}
+		
+		
+		if (action && READ_CONFIG && result == null) {
+			log.debug("using a default value: " + value);
+			result = value;
+		}
+		
+		
+		log.debug("-> ... processing DONE!");
+		return result;
+	}	
 
 	public synchronized String getQuilifiedDirectoryName(String dirName) {
 		StringBuffer b = new StringBuffer(JBOSS_HOME_DIR);
@@ -118,38 +499,76 @@ public class Config {
 	public synchronized String getTmpDir() {
 	    return this.TMP_DIR;
 	}
-
+	
 	private final void loadConfiguration() throws ConfigException {
-		log.debug("-> start processing ...");
-		this.props = new Properties();
-		try {
-			JBOSS_HOME_DIR = System.getProperty("jboss.server.home.dir");
-			StringBuffer b = new StringBuffer(JBOSS_HOME_DIR);
-			b.append(File.separator).append("conf");
-			b.append(File.separator).append("emayor.properties");
-			if (log.isDebugEnabled())
-				log
-						.debug("working with following config file: "
-								+ b.toString());
-			File configFile = new File(b.toString());
-			if (configFile.exists()) {
-				this.props.load(new FileInputStream(configFile));
-				this.props.put("jboss.server.home.dir", JBOSS_HOME_DIR);
-				b = new StringBuffer(this.JBOSS_HOME_DIR);
-				b.append(File.separator).append(this.props.getProperty("emayor.tmp.dir"));
-				this.TMP_DIR = b.toString();
-			} else {
-				throw new ConfigException(
-						"reading configuration failed: the config file doesn't exist");
-			}
-		} catch (FileNotFoundException fnfex) {
-			log.error("caught ex: " + fnfex.toString());
-			throw new ConfigException(
-					"reading configuration failed: the config file doesn't exist");
-		} catch (IOException ioex) {
-			log.error("caught ex: " + ioex.toString());
-			throw new ConfigException("couldn't read the config file");
+		setProperty(EMAYOR_PLATFORM_INSTANCE_ID,"Aachen");
+		setProperty(EMAYOR_MUNICIPALITY_NAME,"Municipality of Aachen");
+		setProperty(EMAYOR_OPERATING_MODE,"production");
+		setProperty(EMAYOR_OPERATING_MODE_FORWARD,"test");
+		setProperty(EMAYOR_TMP_DIR,"tmp/emayor");
+		setProperty(EMAYOR_OPERATING_MODE_EMAIL,"test");
+		setProperty(EMAYOR_EMAIL_TEST_USER_ADDRESS,"eMayor.User@localhost");
+		setProperty(FORWARD_MANAGER_QUEUE_HOST,"localhost:1099");
+		setProperty(FORWARD_MANAGER_QUEUE_NAME,"queue/testQueue");
+		setProperty(EMAYOR_OPERATING_MODE_CONTENT_ROUTING,"test");
+		setProperty(FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME,"Aachen");
+		setProperty(FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_NAME,"Bozen");
+		setProperty(FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_ADDRESS,"https://localhost:8443/ForwardEJB/IForward");
+		setProperty(FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_ADDRESS,"https://localhost:18443/ForwardEJB/IForward");
+		setProperty(FORWARD_MANAGER_TEST_REMOTE_PROFILE_ID,"server2");
+		setProperty(EMAYOR_SERVICE_INVOKER_ENDPOINT,"http://localhost:9700/orabpel/default/eMayorServiceStarter_v10/1.0");
+		setProperty(EMAYOR_ADMIN_INTERFACE_IS_ENABLED,"YES");
+		setProperty(EMAYOR_ADMIN_INTERFACE_USERID,"admin");
+		setProperty(EMAYOR_ADMIN_INTERFACE_PASSWORD,"admin123");
+		setProperty(BPEL_ENGINE_UT_INITIAL_CONTEXT_FACTORY,"com.evermind.server.rmi.RMIInitialContextFactory");
+		setProperty(BPEL_ENGINE_UT_SECURITY_PRINCIPAL,"admin");
+		setProperty(BPEL_ENGINE_UT_SECURITY_CREDENTIALS,"welcome");
+		setProperty(BPEL_ENGINE_UT_PROVIDER_URL,"rmi://localhost/UTWrapperApp");
+		setProperty(BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME,"default");
+		setProperty(BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD,"bpel");
+		setProperty(EMAYOR_PE_INFO_DIR,"conf/policies");
+		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_HOST,"localhost");
+		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_USER,"eMayor.User");
+		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_PASS,"emayor");
+		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH,"true");
+	}
+	
+	public Properties getAllProperties() {
+		Properties result = new Properties(old2new);
+		String property;
+		for (Enumeration e = result.keys(); e.hasMoreElements();) {
+			property = (String) e.nextElement();
+			try {
+				result.setProperty(property,getProperty(property));
+			} catch (ConfigException e1) {}
 		}
-		log.debug("-> ... processing DONE!");
+		return result;
+	}
+	
+	/*
+	 * switch to existing config
+	 * (and create if not exists)
+	 */
+	public boolean switchConfig(String configID) {
+		boolean result = false;
+		this.configID = configID;
+		
+		try {
+			local = home.create(this.configID);
+			loadConfiguration();
+		} catch (CreateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ConfigException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// return to original values
+		old2new = new Properties();
+		init();
+		
+		result = true;
+		return result;
 	}
 }

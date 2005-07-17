@@ -275,7 +275,161 @@
 			</query>
 			<!-- Write a file named ejb-finders-ServiceInfoEntityEJB.xml if you want to define extra finders. -->
 		</entity>
-		<entity>
+		
+	    <entity >
+         <description><![CDATA[Description for PlatformConfigurationEntity]]></description>
+         <display-name>Name for PlatformConfigurationEntity</display-name>
+
+         <ejb-name>PlatformConfigurationEntity</ejb-name>
+
+         <local-home>org.emayor.servicehandling.interfaces.PlatformConfigurationEntityLocalHome</local-home>
+         <local>org.emayor.servicehandling.interfaces.PlatformConfigurationEntityLocal</local>
+
+         <ejb-class>org.emayor.servicehandling.beans.PlatformConfigurationEntityCMP</ejb-class>
+         <persistence-type>Container</persistence-type>
+         <prim-key-class>java.lang.String</prim-key-class>
+         <reentrant>False</reentrant>
+         <cmp-version>2.x</cmp-version>
+         <abstract-schema-name>PlatformConfigurationEntity</abstract-schema-name>
+         <cmp-field >
+            <description><![CDATA[Getter for CMP Field PropertyValue]]></description>
+            <field-name>configID</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[the unique id of the platform instance e.g.]]></description>
+            <field-name>EMayorPlatformInstanceID</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[arbitrary fulle name of the municipality - informative character]]></description>
+            <field-name>EMayorMunicipalityName</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[this property indicates whether the internal test services should be loaded (test) or the services contained in the deploy directory]]></description>
+            <field-name>EMayorOperatingMode</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[test - the forwarding will be simulated, it means there is no need to start an extra (second) BPEL PM production - a real process will be started in case of forwarding]]></description>
+            <field-name>EMayorOperatingModeForward</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[deployment directory for the emayor services emayor.service.info.dir=conf/services emayor.service.classes.dir=conf/services/classes]]></description>
+            <field-name>EMayorTmpDir</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[email on the emayor platform]]></description>
+            <field-name>EMayorOperationModeEmail</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[email on the emayor platform]]></description>
+            <field-name>EMayorEmailTestUserAddress</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>forwardManagerQueueHost</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>forwardManagerQueueName</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>EMayorOperationModeContentRouting</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>forwardManagerTestLocalMunicipalityName</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>forwardManagerTestRemoteMunicipalityName</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>forwardManagerTestLocalMunicipalityAddress</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>forwardManagerTestRemoteMunicipalityAddress</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>forwardManagerTestRemoteProfileID</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[forward manager]]></description>
+            <field-name>EMayorServiceInvokerEndpoint</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[eMayor admin interface]]></description>
+            <field-name>EMayorAdminInterfaceIsEnabled</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[eMayor admin interface]]></description>
+            <field-name>EMayorAdminInterfaceUserID</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[eMayor admin interface]]></description>
+            <field-name>EMayorAdminInterfacePassword</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[bpel engine initial context configuration for the UTWrapper application]]></description>
+            <field-name>bpelEngineUtInitialContextFactory</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[bpel engine initial context configuration for the UTWrapper application]]></description>
+            <field-name>bpelEngineUtSecurityPrincipal</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[bpel engine initial context configuration for the UTWrapper application]]></description>
+            <field-name>bpelEngineUtSecurityCredentials</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[bpel engine initial context configuration for the UTWrapper application]]></description>
+            <field-name>bpelEngineUtProviderURL</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[bpel engine initial context configuration for the UTWrapper application]]></description>
+            <field-name>bpelEngineUtSecurityDomain</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[bpel engine initial context configuration for the UTWrapper application]]></description>
+            <field-name>bpelEngineUtSecurityDomainPassword</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Policy Enforcer Configurartion]]></description>
+            <field-name>EMayorPeInfoDir</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Notification (Email Gateway) Configuration]]></description>
+            <field-name>EMayorNotificationEmailSMTPHost</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Notification (Email Gateway) Configuration]]></description>
+            <field-name>EMayorNotificationEmailSMTPUser</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Notification (Email Gateway) Configuration]]></description>
+            <field-name>EMayorNotificationEmailSMTPPass</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[Notification (Email Gateway) Configuration]]></description>
+            <field-name>EMayorNotificationEmailSMTPAuth</field-name>
+         </cmp-field>
+          <primkey-field>configID</primkey-field>
+
+         <query>
+            <query-method>
+               <method-name>findAll</method-name>
+               <method-params>
+               </method-params>
+            </query-method>
+            <result-type-mapping>Local</result-type-mapping>
+            <ejb-ql><![CDATA[SELECT OBJECT(o) FROM PlatformConfigurationEntity AS o]]></ejb-ql>
+         </query>
+	  <!-- Write a file named ejb-finders-PlatformConfigurationEntityEJB.xml if you want to define extra finders. -->
+      </entity>
+
+      <entity>
 			<description><![CDATA[Description for BPELCallbackDataEntity]]></description>
 			<display-name>Name for BPELCallbackDataEntity</display-name>
 			<ejb-name>BPELCallbackDataEntity</ejb-name>

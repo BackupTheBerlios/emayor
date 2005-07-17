@@ -12,7 +12,266 @@
        a file to your XDoclet merge directory called jbosscmp-jdbc-beans.xml
        that contains the <entity></entity> markup for those beans.
      -->
+	  <entity>
+         <ejb-name>PlatformConfigurationEntity</ejb-name>
+		 <datasource>java:/MySqlDS</datasource>
+		 <datasource-mapping>mySQL</datasource-mapping>
+         <create-table>true</create-table>
+         <remove-table>false</remove-table>
 
+         <table-name>PLATFORMCONFIG</table-name>
+
+         <cmp-field>
+            <field-name>configID</field-name>
+            <column-name>CONFIGID</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorPlatformInstanceID</field-name>
+            <column-name>emayor_platform_instance_id</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorMunicipalityName</field-name>
+            <column-name>emayor_municipality_name</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorOperatingMode</field-name>
+            <column-name>emayor_operating_mode</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorOperatingModeForward</field-name>
+            <column-name>emayor_operating_mode_forward</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorTmpDir</field-name>
+            <column-name>emayor_tmp_dir</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorOperationModeEmail</field-name>
+            <column-name>emayor_operating_mode_email</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorEmailTestUserAddress</field-name>
+            <column-name>emayor_email_test_user_address</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>forwardManagerQueueHost</field-name>
+            <column-name>forward_manager_queue_host</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>forwardManagerQueueName</field-name>
+            <column-name>forward_manager_queue_name</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorOperationModeContentRouting</field-name>
+            <column-name>emayor_operation_mode_content_routing</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>forwardManagerTestLocalMunicipalityName</field-name>
+            <column-name>forward_manager_test_local_municipality_name</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>forwardManagerTestRemoteMunicipalityName</field-name>
+            <column-name>forward_manager_test_remote_municipality_name</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>forwardManagerTestLocalMunicipalityAddress</field-name>
+            <column-name>forward_manager_test_local_municipality_address</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>forwardManagerTestRemoteMunicipalityAddress</field-name>
+            <column-name>forward_manager_test_remote_municipality_address</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>forwardManagerTestRemoteProfileID</field-name>
+            <column-name>forward_manager_test_remote_profile_id</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorServiceInvokerEndpoint</field-name>
+            <column-name>emayor_service_invoker_endpoint</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorAdminInterfaceIsEnabled</field-name>
+            <column-name>emayor_admin_interface_is_enabled</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(4)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorAdminInterfaceUserID</field-name>
+            <column-name>emayor_admin_interface_userid</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorAdminInterfacePassword</field-name>
+            <column-name>emayor_admin_interface_password</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(16)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>bpelEngineUtInitialContextFactory</field-name>
+            <column-name>bpel_engine_ut_initial_context_factory</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>bpelEngineUtSecurityPrincipal</field-name>
+            <column-name>bpel_engine_ut_security_principal</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>bpelEngineUtSecurityCredentials</field-name>
+            <column-name>bpel_engine_ut_security_credentials</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(16)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>bpelEngineUtProviderURL</field-name>
+            <column-name>bpel_engine_ut_provider_url</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>bpelEngineUtSecurityDomain</field-name>
+            <column-name>bpel_engine_ut_security_domain</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>bpelEngineUtSecurityDomainPassword</field-name>
+            <column-name>bpel_engine_ut_security_domain_password</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(16)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorPeInfoDir</field-name>
+            <column-name>emayor_pe_info_dir</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorNotificationEmailSMTPHost</field-name>
+            <column-name>emayor_notification_email_smtp_host</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(50)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorNotificationEmailSMTPUser</field-name>
+            <column-name>emayor_notification_email_smtp_user</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorNotificationEmailSMTPPass</field-name>
+            <column-name>emayor_notification_email_smtp_pass</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(16)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorNotificationEmailSMTPAuth</field-name>
+            <column-name>emayor_notification_email_smtp_auth</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(4)</sql-type>
+
+        </cmp-field>
+
+      </entity>
+      
       <entity>
          <ejb-name>AccessSessionEntity</ejb-name>
 		 <datasource>java:/MySqlDS</datasource>

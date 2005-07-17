@@ -17,6 +17,12 @@
          <local-jndi-name>AccessSessionEntityLocal</local-jndi-name>
 
       </entity>
+      
+   <entity>
+         <ejb-name>PlatformConfigurationEntity</ejb-name>
+         <local-jndi-name>PlatformConfigurationEntityLocal</local-jndi-name>
+
+      </entity>
       <entity>
          <ejb-name>ServiceInfoEntity</ejb-name>
          <local-jndi-name>ServiceInfoEntityLocal</local-jndi-name>

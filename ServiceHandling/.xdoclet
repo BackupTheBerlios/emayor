@@ -228,7 +228,7 @@
 <attribute name="currentField" value="" used="false"/>
 <attribute name="currentClass" value="" used="false"/>
 </element>
-<element name="entitypk" used="false">
+<element name="entitypk" used="true">
 <attribute name="pattern" value="" used="false"/>
 <attribute name="acceptInterfaces" value="" used="false"/>
 <attribute name="acceptAbstractClasses" value="" used="false"/>
