@@ -424,7 +424,7 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 * forward manager 
 	 *
 	 * @jboss.column-name name = "emayor_service_invoker_endpoint"
-	 * @jboss.sql-type type = "VARCHAR(20)"
+	 * @jboss.sql-type type = "VARCHAR(200)"
 	 * @jboss.jdbc-type type = "VARCHAR" 
 	 * @ejb.persistent-field
 	 * @ejb.interface-method   view-type="local"

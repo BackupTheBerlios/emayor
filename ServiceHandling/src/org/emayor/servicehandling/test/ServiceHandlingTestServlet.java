@@ -120,9 +120,6 @@ public class ServiceHandlingTestServlet extends HttpServlet {
         } else if (action.equalsIgnoreCase("reloadPolicies")) {
             log.debug("processing the ReloadPolicies request");
             processor = new reloadPoliciesProcessor();
-        } else if (action.equalsIgnoreCase("ReloadConfig")) {
-            log.debug("processing the ReloadConfig request");
-            processor = new ReloadPlatformConfigurationProcessor();
         } else if (action.equalsIgnoreCase("RCSDataNotCompletePage")) {
             log.debug("processing the RCSDataNotCompletePage request");
             processor = new RCSDataNotCompleteProcessor();

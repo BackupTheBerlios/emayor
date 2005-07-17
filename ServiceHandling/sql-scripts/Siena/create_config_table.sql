@@ -15,7 +15,7 @@ CREATE TABLE PLATFORMCONFIG (
 	forward_manager_test_local_municipality_address VARCHAR(200), 
 	forward_manager_test_remote_municipality_address VARCHAR(200), 
 	forward_manager_test_remote_profile_id VARCHAR(20), 
-	emayor_service_invoker_endpoint VARCHAR(20), 
+	emayor_service_invoker_endpoint VARCHAR(200), 
 	emayor_admin_interface_is_enabled VARCHAR(4), 
 	emayor_admin_interface_userid VARCHAR(20),
 	emayor_admin_interface_password VARCHAR(16), 

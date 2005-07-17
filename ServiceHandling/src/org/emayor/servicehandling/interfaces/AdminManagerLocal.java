@@ -27,11 +27,6 @@ public interface AdminManagerLocal
    /**
     * Business Method
     */
-   public void reloadConfiguration(  ) throws org.emayor.servicehandling.kernel.AdminException;
-
-   /**
-    * Business Method
-    */
    public org.emayor.servicehandling.kernel.UserProfile[] listLoggedInUsers(  ) throws org.emayor.servicehandling.kernel.AdminException;
 
    /**

@@ -36,14 +36,6 @@ public interface IAdmin {
 	public void reloadServices() throws AdminException;
 
 	/**
-	 * Reload the platform's configuration stored in the <it>emayor.properties
-	 * </it> file.
-	 * 
-	 * @throws AdminException
-	 */
-	public void reloadConfiguration() throws AdminException;
-
-	/**
 	 * Listing of all at the moment logged in users.
 	 * 
 	 * @return a list of user profiles currently logged in at the system

@@ -154,7 +154,7 @@
             <column-name>emayor_service_invoker_endpoint</column-name>
 
             <jdbc-type>VARCHAR</jdbc-type>
-            <sql-type>VARCHAR(20)</sql-type>
+            <sql-type>VARCHAR(200)</sql-type>
 
         </cmp-field>
          <cmp-field>

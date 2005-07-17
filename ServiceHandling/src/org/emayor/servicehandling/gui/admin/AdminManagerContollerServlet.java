@@ -72,6 +72,8 @@ public class AdminManagerContollerServlet extends HttpServlet {
 		IRequestProcessor p = null;
 		if (action.equalsIgnoreCase("INDEX")) {
 			p = new IndexProcessor();
+		} else if (action.equalsIgnoreCase("RECONFIGURE")) {
+			p = new AdminReconfigureProcessor();
 		} else if (action.equalsIgnoreCase("LOGIN")) {
 			p = new AdminLoginProcessor();
 		} else if (action.equalsIgnoreCase("LOGOUT")) {
@@ -80,8 +82,6 @@ public class AdminManagerContollerServlet extends HttpServlet {
 			p = new AdminMainMenuProcessor();
 		} else if (action.equalsIgnoreCase("RELOAD_SERVICES")) {
 			p = new AdminReloadServicesProcessor();
-		} else if (action.equalsIgnoreCase("RELOAD_CONFIGURATION")) {
-			p = new AdminReloadConfigurationProcessor();
 		} else if (action.equalsIgnoreCase("LIST_ACCESS_SESSIONS")) {
 			p = new AdminListAccessSessionsProcessor();
 		} else if (action.equalsIgnoreCase("LIST_SERVICE_SESSIONS")) {
@@ -110,6 +110,8 @@ public class AdminManagerContollerServlet extends HttpServlet {
 			p = new AdminLookupUserProfileProcessor();
 		} else if (action.equalsIgnoreCase("SHOW_SYSTEM_CONFIGURATION")) {
 			p = new AdminShowSystemConfigurationProcessor();
+		} else if (action.equalsIgnoreCase("EDIT_SYSTEM_CONFIGURATION")) {
+			p = new AdminEditSystemConfigurationProcessor();
 		} else if (action.equalsIgnoreCase("REMOVE_ACCESS_SESSION")) {
 			p = new AdminRemoveAccessSessionProcessor();
 		} else if (action.equalsIgnoreCase("REMOVE_SERVICE_SESSION")) {

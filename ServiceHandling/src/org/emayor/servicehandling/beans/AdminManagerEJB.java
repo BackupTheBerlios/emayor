@@ -219,24 +219,6 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
 	 * @ejb.interface-method view-type = "local"
 	 *  
 	 */
-	public void reloadConfiguration() throws AdminException {
-		log.debug("-> start processing ...");
-		try {
-			Config.getInstance().reloadConfiguration();
-			this.init();
-		} catch (ConfigException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new AdminException("Internal fatal ERROR!");
-		}
-		log.debug("-> ... processing DONE!");
-	}
-
-	/**
-	 * Business Method
-	 * 
-	 * @ejb.interface-method view-type = "local"
-	 *  
-	 */
 	public UserProfile[] listLoggedInUsers() throws AdminException {
 		log.debug("-> start processing ...");
 		UserProfile[] ret = new UserProfile[0];

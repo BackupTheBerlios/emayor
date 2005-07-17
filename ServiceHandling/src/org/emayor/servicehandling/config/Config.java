@@ -100,7 +100,6 @@ public class Config {
 	private static Config _self;
 	
 	private String JBOSS_HOME_DIR = "";
-	private String TMP_DIR = "";
 	
 	private String configID = "default";
 	
@@ -114,6 +113,7 @@ public class Config {
 	 */
 	private Config() throws ConfigException {
 		log.debug("-> start processing ...");
+		boolean exists = false;
 		try {
 			/*
 			 * cannot use service locator, cause this
@@ -128,6 +128,7 @@ public class Config {
 			local = home.create(this.configID);
 		} catch (CreateException e) {
 			log.debug("using config >"+configID+"< already registered");
+			exists = true;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new ConfigException("init failed:"+e.getMessage(),e.getCause());
@@ -139,8 +140,11 @@ public class Config {
 				throw new ConfigException("init failed:"+e1.getMessage(),e1.getCause());
 			}
 		}
-		old2new = new Properties();
+		
+		this.old2new = new Properties();
 		this.init();
+		
+		if (!exists) this.loadConfiguration();
 		
 		log.debug("-> ... processing DONE!");
 	}
@@ -216,12 +220,6 @@ public class Config {
 				new Integer(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH).toString());
 	}
 
-	public synchronized void reloadConfiguration() throws ConfigException {
-		log.debug("-> start processing ...");
-		this.loadConfiguration();
-		log.debug("-> ... processing DONE!");
-	}
-
 	public synchronized String getProperty(String propName, String defValue)
 			throws ConfigException {
 		
@@ -234,7 +232,7 @@ public class Config {
 			propID = Integer.parseInt(old2new.getProperty(propName));
 		}
 		
-		log.debug("OLD property request by name: "+propName+" equals ID:"+propID);
+		//log.debug("OLD property request by name: "+propName+" equals ID:"+propID);
 		
 		result = getProperty(propID,defValue);
 
@@ -271,6 +269,7 @@ public class Config {
 	
 	public synchronized String setProperty(int propID, String value)
 	throws ConfigException {
+		log.debug("property set [ID:"+propID+"="+value+"]");
 		return this.propertyAction(propID, WRITE_CONFIG, value);
 	}
 	
@@ -279,8 +278,8 @@ public class Config {
 		int propID = -1;
 		if (old2new.getProperty(key) != null) {
 			propID = Integer.parseInt(old2new.getProperty(key));
-		}
-		return this.propertyAction(propID, WRITE_CONFIG, value);
+		} 
+		return this.setProperty(propID,value);
 	}
 	
 	/*
@@ -293,19 +292,22 @@ public class Config {
 	public synchronized String propertyAction(int propID, boolean action, String value)
 			throws ConfigException {
 		
-		log.debug("-> start processing ...");
+		if ((!action) && (!WRITE_CONFIG))
+			log.debug("-> start processing [WRITE] ...");
+		if (action && READ_CONFIG)
+			log.debug("-> start processing [READ] ...");
 		
 		String result = null;
 		
 		switch (propID) {
 		
 		case(EMAYOR_PLATFORM_INSTANCE_ID):
-			if (action && WRITE_CONFIG) result = local.getEMayorPlatformInstanceID();
+			if (action && READ_CONFIG) result = local.getEMayorPlatformInstanceID();
 			else local.setEMayorPlatformInstanceID(value);
 			break;
 	
 		case(EMAYOR_MUNICIPALITY_NAME):
-			if (action && WRITE_CONFIG) result = local.getEMayorMunicipalityName();
+			if (action && READ_CONFIG) result = local.getEMayorMunicipalityName();
 			else local.setEMayorMunicipalityName(value);
 			break;
 			
@@ -497,7 +499,13 @@ public class Config {
 	}
 	
 	public synchronized String getTmpDir() {
-	    return this.TMP_DIR;
+		String tmpDir = null;
+	    try {
+			tmpDir = getProperty(EMAYOR_TMP_DIR);
+		} catch (ConfigException e) {
+			tmpDir = "";
+		}
+		return tmpDir;
 	}
 	
 	private final void loadConfiguration() throws ConfigException {
@@ -533,15 +541,18 @@ public class Config {
 		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH,"true");
 	}
 	
-	public Properties getAllProperties() {
-		Properties result = new Properties(old2new);
+	public synchronized Properties getAllProperties() {
+		log.debug("-> start processing ...");
+		Properties result = new Properties();
 		String property;
-		for (Enumeration e = result.keys(); e.hasMoreElements();) {
+		for (Enumeration e = old2new.keys(); e.hasMoreElements();) {
 			property = (String) e.nextElement();
 			try {
 				result.setProperty(property,getProperty(property));
-			} catch (ConfigException e1) {}
+			} catch (ConfigException e1) {
+			}
 		}
+		log.debug("-> processing DONE ...");
 		return result;
 	}
 	
