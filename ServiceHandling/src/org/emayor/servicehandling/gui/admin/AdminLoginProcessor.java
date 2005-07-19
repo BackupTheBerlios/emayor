@@ -43,7 +43,12 @@ public class AdminLoginProcessor extends AbstractRequestProcessor {
 				log.debug("got uid  = " + uid);
 				log.debug("got pswd = " + pswd);
 			}
-			boolean b = mgr.login(uid, pswd);
+			boolean b = false;
+			try {
+				b = mgr.login(uid, pswd);
+			} catch (AdminException e) {
+				log.error("caught ex: " + e.toString());
+			}
 			if (b) {
 				log.info("ADMIN LOGIN WAS SUCCESSFUL !!!");
 				HttpSession session = req.getSession(true);
@@ -52,8 +57,6 @@ public class AdminLoginProcessor extends AbstractRequestProcessor {
 			}
 			mgr.remove();
 		} catch (ServiceLocatorException ex) {
-			log.error("caught ex: " + ex.toString());
-		} catch (AdminException ex) {
 			log.error("caught ex: " + ex.toString());
 		} catch (EJBException ex) {
 			log.error("caught ex: " + ex.toString());

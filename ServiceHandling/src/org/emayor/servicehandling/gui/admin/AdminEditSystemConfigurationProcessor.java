@@ -38,7 +38,7 @@ public class AdminEditSystemConfigurationProcessor extends
             log.debug("no valid session !");
         } else {
             try {
-                Config config = Config.getInstance();
+            	Config config = Config.getInstance();
                 Properties props = config.getAllProperties();
                 session.setAttribute("SYSTEM_CONFIGURATION", props);
                 ret = "admin/SystemConfigurationForm.jsp";

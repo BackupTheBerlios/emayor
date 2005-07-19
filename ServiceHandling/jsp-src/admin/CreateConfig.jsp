@@ -1,6 +1,8 @@
 <%@page contentType="text/html" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.TreeMap" %>
+<%@ page import="java.util.Set" %>
 <%@ page import="java.util.Properties" %>
-<%@ page import="java.util.Enumeration" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
@@ -66,11 +68,15 @@ function chkConfig () {
           <div align="left"><strong>Attribute value </strong></div></td>
 		  </tr>
 			<%
-				Properties props = (Properties)session.getAttribute("SYSTEM_CONFIGURATION");
+				Properties props = (Properties) session.getAttribute("SYSTEM_CONFIGURATION");
+				TreeMap map = new TreeMap(String.CASE_INSENSITIVE_ORDER);
+                map.putAll(props);
+				Set s = map.keySet();
+				Iterator i = s.iterator();
 				int index = 0;
-				for (Enumeration e = props.propertyNames(); e.hasMoreElements();) {
-            		String key = (String)e.nextElement();
-            		String value = props.getProperty(key);
+				while (i.hasNext()) {
+            		String key = (String) i.next();
+            		String value = (String) map.get(key);
 					if ( (index % 2) == 0) {
 			%>	
 			<tr>
