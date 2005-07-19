@@ -69,6 +69,21 @@ public class TemplateController {
         return tt;
     }
     
+    /** Retrieves a specific template to be used in a transformation based on its location on a disk. 
+     *  @param typeOfTransformation The type of the template to be retrieved.
+     *  @return The template retrieved.
+     */
+    public XMLTransformationTemplate retrieveXMLTemplate(String fileToRetrieve, String typeOfTransformation, String typeOfDocument)
+    	throws Exception {
+        XMLTransformationTemplate tt = null;
+ 
+        Document xslDom = InputOutputHandler.parseDOMInput(fileToRetrieve);
+        tt = new XMLTransformationTemplate(xslDom, typeOfTransformation, typeOfDocument);
+        
+        return tt;
+    }
+    
+    
     /** Adds the specific TransformationTemplate to those already managed declaring also its type. 
      *  @param template The template to be added.
      *  @param typeOfTransformation The type of the transformation the template corresponds to.

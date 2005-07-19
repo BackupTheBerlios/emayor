@@ -146,4 +146,77 @@ public class TransformationController {
     	
     }
     
+    /** Performs a transformation on the inputed document based on its type and the type of transformation requested,
+     *  locally, without contacting a template controller bean.
+     *  The result of the transformation is returned as a String containing an XML document in the requested format. 
+     *  @param docToTransform The document to be transformed.
+     *  @param typeOfTransformation The type of transformation to apply.
+     *  @param typeOfDocument The type of the document to be transformed.
+     *  @return The output of the transformation.
+     */
+    
+    public String transformLocally(String docToTransform, String typeOfTransformation, String typeOfDocument) {
+    	Document resultDOM;
+    	Document inputDOM;
+    	
+    	inputDOM = InputOutputHandler.parseXMLStringAsDOM(docToTransform);
+    	resultDOM = transform(inputDOM, typeOfTransformation, typeOfDocument);
+    	return InputOutputHandler.parseDOMAsXMLString(resultDOM);
+    	
+    }
+    
+    /** Performs a transformation on the inputed document based on its type and the type of transformation requested,
+     *  locally, without going through the TemplateManager bean.
+     *  The result of the transformation is returned as an org.w3c.dom.Document object
+     *  containing an XML document in the requested format. 
+     *  @param docToTransform The document to be transformed.
+     *  @param typeOfDocument The type of the document to be transformed.
+     *  @return The output of the transformation.
+     */
+    public Document transformLocally(Document docToTransform, String typeOfTransformation, String typeOfDocument, String fileNameOfTemplate) {
+        if (_tFactory == null) {
+        	instantiateTransformationFactory();
+        }
+            
+        Document result = null;
+        XMLTransformationTemplate tt = null;
+
+        
+		try {
+			TemplateController tm = new TemplateController();
+			tt = tm.retrieveXMLTemplate(fileNameOfTemplate, typeOfTransformation, typeOfDocument);
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+        try {
+            
+        	Document xslDom = tt.getTemplate();
+            
+            // Use the DOM Document to define a DOMSource object.
+            DOMSource xslDomSource = new DOMSource(xslDom);
+
+            // Process the stylesheet DOMSource and generate a Transformer.
+            Transformer transformer = _tFactory.newTransformer(xslDomSource);
+
+            // Use the DOM Document to define a DOMSource object.
+            DOMSource xmlDomSource = new DOMSource(docToTransform);
+      
+            // Create an empty DOMResult for the Result.
+            DOMResult domResult = new DOMResult();
+  
+            // Perform the transformation, placing the output in the DOMResult.
+            transformer.transform(xmlDomSource, domResult);
+            result = (Document) domResult.getNode();
+            
+        } catch (TransformerConfigurationException tce) {
+            tce.printStackTrace();
+        } catch (TransformerException te) {
+            te.printStackTrace();
+        }
+        
+        return result;
+    }
+    
 }
