@@ -155,12 +155,12 @@ public class TransformationController {
      *  @return The output of the transformation.
      */
     
-    public String transformLocally(String docToTransform, String typeOfTransformation, String typeOfDocument) {
+    public String transformLocally(String docToTransform, String typeOfTransformation, String typeOfDocument, String fileNameOfTemplate) {
     	Document resultDOM;
     	Document inputDOM;
     	
     	inputDOM = InputOutputHandler.parseXMLStringAsDOM(docToTransform);
-    	resultDOM = transform(inputDOM, typeOfTransformation, typeOfDocument);
+    	resultDOM = transformLocally(inputDOM, typeOfTransformation, typeOfDocument, fileNameOfTemplate);
     	return InputOutputHandler.parseDOMAsXMLString(resultDOM);
     	
     }
