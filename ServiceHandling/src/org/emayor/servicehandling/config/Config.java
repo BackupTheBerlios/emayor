@@ -4,8 +4,12 @@
 package org.emayor.servicehandling.config;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
@@ -114,6 +118,7 @@ public class Config {
 	private Config() throws ConfigException {
 		log.debug("-> start processing ...");
 		boolean exists = false;
+		
 		try {
 			/*
 			 * cannot use service locator, cause this
@@ -127,7 +132,7 @@ public class Config {
 					.narrow(ref, PlatformConfigurationEntityLocalHome.class);
 			local = home.create(this.configID);
 		} catch (CreateException e) {
-			log.debug("using config >"+configID+"< already registered");
+			log.debug("using config >"+this.configID+"< already registered");
 			exists = true;
 		} catch (NamingException e) {
 			e.printStackTrace();
@@ -249,9 +254,8 @@ public class Config {
 		
 		String result = null;
 		
-		result = propertyAction(propID,READ_CONFIG,defValue);
+		result = propertyAction(propID,READ_CONFIG,defValue,this.local);
 		
-		log.debug("property request [ID:"+propID+"="+result+"]");
 		
 		log.debug("-> ... processing DONE!");
 		return result;
@@ -269,8 +273,7 @@ public class Config {
 	
 	public synchronized String setProperty(int propID, String value)
 	throws ConfigException {
-		log.debug("property set [ID:"+propID+"="+value+"]");
-		return this.propertyAction(propID, WRITE_CONFIG, value);
+		return this.propertyAction(propID, WRITE_CONFIG, value, this.local);
 	}
 	
 	public synchronized String setProperty(String key, String value)
@@ -289,13 +292,11 @@ public class Config {
 	 * value  is the default value if a read is performed
 	 *        or the value that should be written in the other case
 	 */
-	public synchronized String propertyAction(int propID, boolean action, String value)
+	public synchronized String propertyAction(int propID, boolean action, String value, PlatformConfigurationEntityLocal local)
 			throws ConfigException {
 		
 		if ((!action) && (!WRITE_CONFIG))
-			log.debug("-> start processing [WRITE] ...");
-		if (action && READ_CONFIG)
-			log.debug("-> start processing [READ] ...");
+			log.debug("property set ("+local.getConfigID()+") [ID:"+propID+"="+value+"]");
 		
 		String result = null;
 		
@@ -487,6 +488,8 @@ public class Config {
 			result = value;
 		}
 		
+		if (action && READ_CONFIG)
+			log.debug("property request ("+local.getConfigID()+") [ID:"+propID+"="+result+"]");
 		
 		log.debug("-> ... processing DONE!");
 		return result;
@@ -541,6 +544,25 @@ public class Config {
 		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH,"true");
 	}
 	
+	public synchronized Set getConfigNames() {
+		
+		Set result = new HashSet();
+		
+		try {
+			Collection c = home.findAll();
+			Iterator i = c.iterator();
+			PlatformConfigurationEntityLocal temp;
+			while (i.hasNext()) {
+				temp = (PlatformConfigurationEntityLocal) i.next();
+				result.add(temp.getConfigID());
+			}
+		} catch (FinderException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	public synchronized Properties getAllProperties() {
 		log.debug("-> start processing ...");
 		Properties result = new Properties();
@@ -562,24 +584,72 @@ public class Config {
 	 */
 	public boolean switchConfig(String configID) {
 		boolean result = false;
-		this.configID = configID;
+		
+		PlatformConfigurationEntityLocal oldLocal = local;
 		
 		try {
-			local = home.create(this.configID);
+			this.local = home.create(configID);
 			loadConfiguration();
+			init();
+			this.configID = configID;
+			result = true;
 		} catch (CreateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ConfigException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				this.local = home.findByPrimaryKey(configID);
+				init();
+				this.configID = configID;
+				result = true;
+			} catch (FinderException e1) {
+				this.local = oldLocal;
+			}
+		} catch (ConfigException e) {}
 		
-		// return to original values
-		old2new = new Properties();
-		init();
-		
-		result = true;
 		return result;
 	}
+	
+	/*
+	 * create new config
+	 */
+	public boolean createConfig(String configID, Properties configValues) throws ConfigException {
+		boolean result = true;
+		
+		PlatformConfigurationEntityLocal tempLocal;
+		String key, value;
+		int propID;
+		
+		try {
+			tempLocal = home.create(configID);
+		} catch (CreateException e) {
+			try {
+				tempLocal = home.findByPrimaryKey(configID);
+			} catch (FinderException e1) {
+				throw new ConfigException("create failed: "+e1.getMessage(),e1.getCause());
+			}
+		}
+		
+		if (configValues == null) {
+			for (Enumeration e = old2new.propertyNames();e.hasMoreElements();) {
+				key = (String) e.nextElement();
+				propID = Integer.parseInt(old2new.getProperty(key));
+				value = getProperty(propID);
+				propertyAction(propID,WRITE_CONFIG,value,tempLocal);
+			}
+		} else {
+			for (Enumeration e = configValues.propertyNames();e.hasMoreElements();) {
+				key = (String) e.nextElement();
+				value = configValues.getProperty(key);
+				if (old2new.containsKey(key)) {
+					propID = Integer.parseInt(old2new.getProperty(key));
+					propertyAction(propID,WRITE_CONFIG,value,tempLocal);	
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	public String getConfigID() {
+		return this.configID;
+	}
+	
 }

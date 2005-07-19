@@ -72,8 +72,14 @@ public class AdminManagerContollerServlet extends HttpServlet {
 		IRequestProcessor p = null;
 		if (action.equalsIgnoreCase("INDEX")) {
 			p = new IndexProcessor();
+		} else if (action.equalsIgnoreCase("CREATECONFIG")) {
+			p = new AdminCreateConfigProcessor();
+		} else if (action.equalsIgnoreCase("CREATECONFIGPOST")) {
+			p = new AdminCreateConfigPostProcessor();
 		} else if (action.equalsIgnoreCase("RECONFIGURE")) {
 			p = new AdminReconfigureProcessor();
+		} else if (action.equalsIgnoreCase("SWITCHCONFIG")) {
+			p = new AdminSwitchSystemConfigurationPostProcessor();
 		} else if (action.equalsIgnoreCase("LOGIN")) {
 			p = new AdminLoginProcessor();
 		} else if (action.equalsIgnoreCase("LOGOUT")) {
@@ -112,6 +118,8 @@ public class AdminManagerContollerServlet extends HttpServlet {
 			p = new AdminShowSystemConfigurationProcessor();
 		} else if (action.equalsIgnoreCase("EDIT_SYSTEM_CONFIGURATION")) {
 			p = new AdminEditSystemConfigurationProcessor();
+		} else if (action.equalsIgnoreCase("SWITCH_SYSTEM_CONFIGURATION")) {
+			p = new AdminSwitchSystemConfigurationProcessor();
 		} else if (action.equalsIgnoreCase("REMOVE_ACCESS_SESSION")) {
 			p = new AdminRemoveAccessSessionProcessor();
 		} else if (action.equalsIgnoreCase("REMOVE_SERVICE_SESSION")) {

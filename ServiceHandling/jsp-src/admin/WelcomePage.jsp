@@ -29,11 +29,15 @@
 			</tr>
 			<tr>
 				
-          <td>- <a href="../adm?action=SHOW_SYSTEM_CONFIGURATION"><font size="2">View the platform configuration ...</font></a></td>
+          <td>- <a href="../adm?action=SHOW_SYSTEM_CONFIGURATION"><font size="2">View the active platform configuration ...</font></a></td>
 			</tr>
 			<tr>
 				
-          <td>- <a href="../adm?action=EDIT_SYSTEM_CONFIGURATION"><font size="2">Edit the platform configuration ...</font></a></td>
+          <td>- <a href="../adm?action=EDIT_SYSTEM_CONFIGURATION"><font size="2">Edit the active platform configuration / Create a new one...</font></a></td>
+			</tr>
+			<tr>
+				
+          <td>- <a href="../adm?action=SWITCH_SYSTEM_CONFIGURATION"><font size="2">Switch to an existant platform configuration ...</font></a></td>
 			</tr>
 
 			<tr>	

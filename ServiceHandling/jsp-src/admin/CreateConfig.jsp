@@ -5,9 +5,28 @@
 <html>
 
 <head>
-	<title>eMayor - System configuration</title>
+	<title>Create Configuration</title>
 </head>
 
+<script language="JavaScript">
+function chkConfig () {
+  if (document.Config.ConfigID.value == "") {
+    alert("Please insert a valid name for the new configuration!");
+    document.Config.ConfigID.focus();
+    return false;
+  }
+/*
+  alert("everything is fine");
+  String[] configs = (String[]) session.getAttribute("CONFIG_IDS");
+  if (configs[1] == document.Config.ConfigID.value) {
+    alert("Configuration already existant, please choose a different name!");
+    document.Config.ConfigID.focus();
+    return false;
+  }
+  alert("everything is fine");
+*/
+}
+</script>
 
 <body bgcolor="#FFFFFF">
 <table border="0" width="800">
@@ -23,16 +42,28 @@
       </div></td>
   </tr>
   <tr> 
-    <td colspan="3"> <form name="Config" action="../adm" method="post">
-		<input type="hidden" name="action" value="reconfigure"/>
+    <td colspan="3"> 
+	  <form name="Config" action="../adm" method="post" onSubmit="return chkConfig()">
+		<input type="hidden" name="action" value="CREATECONFIGPOST"/>
 		<table width="784" cellpadding="4" cellspacing="0">
+		  <tr height="20"></tr>
+		  <tr>
+				<td>
+					name of new configuration
+				</td>
+				<td>
+					<input type="text" name="ConfigID" size="40" maxlength="200" value="configName"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    	<input type="submit" name="submit" value="CREATE"/>
+				</td>
+		  </tr>
+		  <tr height="20"></tr>
         <tr bgcolor="#CCCCCC"> 
           <td width="198"> 
           <div align="left"><strong>Attribute name </strong></div></td>
 				
           <td width="568"> 
           <div align="left"><strong>Attribute value </strong></div></td>
-
 		  </tr>
 			<%
 				Properties props = (Properties)session.getAttribute("SYSTEM_CONFIGURATION");
@@ -49,20 +80,10 @@
 					++index;
 			%>
 				<td><%= key %></td>
-				<td><input type="text" name="ECONFIG-<%= key %>" size="50" maxlength="200" value="<%= value %>"/></td>
+				<td><%= value %></td>
 			</tr>
 			<%	} %>
-            <tr> 
-              <td colspan="2" align="right">
-              	<input type="reset" value="RESET"/> 
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                <input type="submit" name="reconfigure" value="RECONFIGURE" onClick="document.Config.action.value='RECONFIGURE'"/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="submit" name="create" value="CREATE NEW" onClick="document.Config.action.value='CREATECONFIG'"/>
-              </td>
-            </tr>
 		</table>
-		</form>
 	</td>
   </tr>
   <tr> 
