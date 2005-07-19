@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="default diagram" size="1510,631" id="." metadata="nsuml-1.4" initialized="true" scrolledY="177" tag="200" key="323030343131323520584D4C5265706F7369746F7279">
+  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.repository.ejb" location="313,70" size="523,441" id="org.eMayor.repository.ejb">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.1/@sourceConnections.0" name="XMLRepository" location="298,60" size="198,175" id="org.eMayor.repository.ejb/XMLRepository" runTimeClassModel="query(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),retrieveDocumentAsXmlString(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),XMLRepository(Ljava.lang.String;Ljava.lang.String;),retrieveDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),storeXmlStringDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),XMLRepository(),storeDomDocument(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="175,126">
+        <children xsi:type="editmodel:MethodEditModel" name="XMLRepository" id="org.eMayor.repository.ejb/XMLRepository#XMLRepository()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="XMLRepository" id="org.eMayor.repository.ejb/XMLRepository#XMLRepository(Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="query" id="org.eMayor.repository.ejb/XMLRepository#query(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveDocument" id="org.eMayor.repository.ejb/XMLRepository#retrieveDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveDocumentAsXmlString" id="org.eMayor.repository.ejb/XMLRepository#retrieveDocumentAsXmlString(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="storeDomDocument" id="org.eMayor.repository.ejb/XMLRepository#storeDomDocument(Lorg.w3c.dom.Document;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="storeXmlStringDocument" id="org.eMayor.repository.ejb/XMLRepository#storeXmlStringDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb/XMLRepository->org.eMayor.repository.ejb/InputOutputHandler" source="//@children.0/@children.0" target="//@children.0/@children.2" targetEnd="//@children.0/@children.0/@sourceConnections.0/@children.2" label="//@children.0/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«access»" size="49,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="88,175" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="83,0"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="RepositoryManagerBean" location="32,58" size="199,247" id="org.eMayor.repository.ejb/RepositoryManagerBean" runTimeClassModel="initDatabase(Ljava.lang.String;Ljava.lang.String;),ejbCreate(),ejbPassivate(),query(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),ejbRemove(),retrieveDocumentAsXmlString(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),initDatabase(),RepositoryManagerBean(),ejbActivate(),storeXmlStringDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;),setSessionContext(Ljavax.ejb.SessionContext;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="175,198">
+        <children xsi:type="editmodel:MethodEditModel" name="RepositoryManagerBean" id="org.eMayor.repository.ejb/RepositoryManagerBean#RepositoryManagerBean()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbActivate" id="org.eMayor.repository.ejb/RepositoryManagerBean#ejbActivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbCreate" id="org.eMayor.repository.ejb/RepositoryManagerBean#ejbCreate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbPassivate" id="org.eMayor.repository.ejb/RepositoryManagerBean#ejbPassivate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="ejbRemove" id="org.eMayor.repository.ejb/RepositoryManagerBean#ejbRemove()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="initDatabase" id="org.eMayor.repository.ejb/RepositoryManagerBean#initDatabase()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="initDatabase" id="org.eMayor.repository.ejb/RepositoryManagerBean#initDatabase(Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="query" id="org.eMayor.repository.ejb/RepositoryManagerBean#query(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="retrieveDocumentAsXmlString" id="org.eMayor.repository.ejb/RepositoryManagerBean#retrieveDocumentAsXmlString(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="setSessionContext" id="org.eMayor.repository.ejb/RepositoryManagerBean#setSessionContext(Ljavax.ejb.SessionContext;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="storeXmlStringDocument" id="org.eMayor.repository.ejb/RepositoryManagerBean#storeXmlStringDocument(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb/RepositoryManagerBean->org.eMayor.repository.ejb/XMLRepository" source="//@children.0/@children.1" target="//@children.0/@children.0" targetEnd="//@children.0/@children.1/@sourceConnections.0/@children.2" label="//@children.0/@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use, instantiate»" size="86,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="199,89" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,87"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.0/@sourceConnections.0" name="InputOutputHandler" location="303,283" size="168,139" id="org.eMayor.repository.ejb/InputOutputHandler" runTimeClassModel="parseDOMAsXMLString(Lorg.w3c.dom.Document;),parseXMLStringAsDOM(Ljava.lang.String;),parseDOMInput(Ljava.io.InputStream;),parseDOMInput(Ljava.lang.String;),serializeDOMOutput(Lorg.w3c.dom.Document;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="145,90">
+        <children xsi:type="editmodel:MethodEditModel" name="parseDOMAsXMLString" id="org.eMayor.repository.ejb/InputOutputHandler#parseDOMAsXMLString(Lorg.w3c.dom.Document;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="parseDOMInput" id="org.eMayor.repository.ejb/InputOutputHandler#parseDOMInput(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="parseDOMInput" id="org.eMayor.repository.ejb/InputOutputHandler#parseDOMInput(Ljava.io.InputStream;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="parseXMLStringAsDOM" id="org.eMayor.repository.ejb/InputOutputHandler#parseXMLStringAsDOM(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="serializeDOMOutput" id="org.eMayor.repository.ejb/InputOutputHandler#serializeDOMOutput(Lorg.w3c.dom.Document;Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb->org.xmldb.api.modules" source="//@children.0" target="//@children.2" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="20,441" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="187,20"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb->org.w3c.dom" source="//@children.0" target="//@children.3" targetEnd="//@children.0/@sourceConnections.1/@children.2" label="//@children.0/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="386,441" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="60,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb->org.xmldb.api.base" source="//@children.0" target="//@children.4" targetEnd="//@children.0/@sourceConnections.2/@children.2" label="//@children.0/@sourceConnections.2/@children.0" sourceEnd="//@children.0/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="218,441" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="81,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb->org.apache.xml.serializer" source="//@children.0" target="//@children.5" targetEnd="//@children.0/@sourceConnections.3/@children.2" label="//@children.0/@sourceConnections.3/@children.0" sourceEnd="//@children.0/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use, access»" size="73,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="59,441" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="142,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb->javax.ejb" source="//@children.0" target="//@children.6" targetEnd="//@children.0/@sourceConnections.4/@children.2" label="//@children.0/@sourceConnections.4/@children.0" sourceEnd="//@children.0/@sourceConnections.4/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="316,441" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="49,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb->org.xmldb.api" source="//@children.0" target="//@children.7" targetEnd="//@children.0/@sourceConnections.5/@children.2" label="//@children.0/@sourceConnections.5/@children.0" sourceEnd="//@children.0/@sourceConnections.5/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«access»" size="49,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="429,441" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="64,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.ejb->org.xml.sax" source="//@children.0" target="//@children.8" targetEnd="//@children.0/@sourceConnections.6/@children.2" label="//@children.0/@sourceConnections.6/@children.0" sourceEnd="//@children.0/@sourceConnections.6/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="204,441" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,0"/>
+    </sourceConnections>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" name="org.eMayor.repository.interfaces" location="30,80" size="286,241" id="org.eMayor.repository.interfaces">
+    <children xsi:type="editmodel:InterfaceEditModel" name="RepositoryManagerHome" location="31,37" size="203,117" stereotype="interface" id="org.eMayor.repository.interfaces/RepositoryManagerHome" runTimeClassModel="COMP_NAME,create(),JNDI_NAME">
+      <children xsi:type="editmodel:CompartmentEditModel" size="121,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="COMP_NAME" id="org.eMayor.repository.interfaces/RepositoryManagerHome#COMP_NAME"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="JNDI_NAME" id="org.eMayor.repository.interfaces/RepositoryManagerHome#JNDI_NAME"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="62,18">
+        <children xsi:type="editmodel:MethodEditModel" name="create" id="org.eMayor.repository.interfaces/RepositoryManagerHome#create()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <sourceConnections xsi:type="editmodel:DependencyEditModel" id="org.eMayor.repository.interfaces/RepositoryManagerHome->org.eMayor.repository.interfaces/RepositoryManager" source="//@children.1/@children.0" target="//@children.1/@children.1" targetEnd="//@children.1/@children.0/@sourceConnections.0/@children.2" label="//@children.1/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan" autoLocated="true">
+        <children xsi:type="editmodel:WireLabelEditModel" name="«use»" size="31,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="95,117" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="82,0"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.0" name="RepositoryManager" location="44,172" size="166,43" stereotype="interface" id="org.eMayor.repository.interfaces/RepositoryManager" runTimeClassModel="">
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <children xsi:type="editmodel:CompartmentEditModel"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+    </children>
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.0" name="org.xmldb.api.modules" location="30,540" size="187,140" id="org.xmldb.api.modules">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.1" name="org.w3c.dom" location="639,540" size="122,91" id="org.w3c.dom">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.2" name="org.xmldb.api.base" location="450,540" size="163,122" id="org.xmldb.api.base">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.3" name="org.apache.xml.serializer" location="230,540" size="203,152" id="org.apache.xml.serializer">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.4" name="javax.ejb" location="580,676" size="99,74" id="javax.ejb">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.5" name="org.xmldb.api" location="678,676" size="129,96" id="org.xmldb.api">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.0/@sourceConnections.6" name="org.xml.sax" location="460,670" size="115,86" id="org.xml.sax">
+    <packagePreferences xsi:type="editmodel:UMLClassDiagramPackagePreference" showStereotype="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=4"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="10,10" gridOrigin="0,0" rulerUnit="pixel">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

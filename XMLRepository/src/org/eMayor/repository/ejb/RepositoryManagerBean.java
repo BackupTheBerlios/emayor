@@ -24,6 +24,12 @@ import javax.ejb.CreateException;
  *           view-type="remote"
  */
 public class RepositoryManagerBean implements SessionBean {
+
+	/**
+	 * 
+	 * @uml.property name="_rep"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
 	private XMLRepository _rep = null;
 
 	/**
