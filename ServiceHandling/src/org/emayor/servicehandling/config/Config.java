@@ -148,6 +148,7 @@ public class Config {
 		
 		this.old2new = new Properties();
 		this.init();
+		this.JBOSS_HOME_DIR = System.getProperty("jboss.server.home.dir");
 		
 		if (!exists) this.loadConfiguration();
 		

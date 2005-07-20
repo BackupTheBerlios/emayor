@@ -138,6 +138,10 @@ public class AdminManagerContollerServlet extends HttpServlet {
 			p = new AdminUndeployServiceInputProcessor();
 		} else if (action.equalsIgnoreCase("UNDEPLOY_SERVICE")) {
 			p = new AdminUndeployServiceProcessor();
+		} else if (action.equalsIgnoreCase("CHANGE_LOGGING_PREFERENCES")) {
+			p = new AdminChangeLoggingPreferencesProcessor();
+		} else if (action.equalsIgnoreCase("CHANGE_LOG4J_CONFIG_POST")) {
+			p = new AdminChangeLoggingPreferencesPostProcessor();
 		} else {
 			log.info("current action = UNKNOWN");
 			p = new DummyProcessor();

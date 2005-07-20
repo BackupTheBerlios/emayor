@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/cos.jar"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.junit-3.8.1"/>
 	<classpathentry kind="lib" path="lib/UTWrapper-client.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
