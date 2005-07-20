@@ -6,18 +6,14 @@ package org.emayor.servicehandling.gui.admin;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Category;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.apache.log4j.lf5.viewer.categoryexplorer.CategoryImmediateEditor;
 import org.emayor.servicehandling.config.Config;
 import org.emayor.servicehandling.config.ConfigException;
 

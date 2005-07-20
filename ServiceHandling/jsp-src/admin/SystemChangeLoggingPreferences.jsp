@@ -34,7 +34,8 @@
 				
           <td width="568"> 
           <div align="left"><strong>Attribute value </strong></div></td>
-
+			<tr height="20">
+			</tr>
 		  </tr>
 			<%
 				HashMap conf = (HashMap) session.getAttribute("LOG4J_CONFIG");
