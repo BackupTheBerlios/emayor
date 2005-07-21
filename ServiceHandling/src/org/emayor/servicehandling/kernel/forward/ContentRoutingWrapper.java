@@ -16,9 +16,6 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 
 /**
  * @author mxs
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
  */
 public class ContentRoutingWrapper {
 	private static final Logger log = Logger
@@ -31,7 +28,11 @@ public class ContentRoutingWrapper {
 		try {
 			Config config = Config.getInstance();
 			mode = config.getProperty("emayor.operating.mode.content.routing");
-			log.info("content routing mode is: " + mode);
+			if (log.isDebugEnabled()) {
+				log.debug("content routing mode is: " + mode);
+				log.debug("requested municipality is: " + municipality);
+				log.debug("requested service is : " + service);
+			}
 		} catch (ConfigException confex) {
 			log.error("caught ex: " + confex.toString());
 		}
@@ -56,6 +57,7 @@ public class ContentRoutingWrapper {
 				log.error("caught ex: " + confex.toString());
 			}
 		} else {
+			log.debug("work in production mode");
 			try {
 				ServiceLocator loc = ServiceLocator.getInstance();
 				ContentRouterLocal content = loc.getContentRouterLocal();

@@ -44,6 +44,7 @@ public class AdminManagerContollerServlet extends HttpServlet {
 		try {
 			Config _config = Config.getInstance();
 			this.tempDir = _config.getTmpDir();
+			this.tempDir = _config.getQuilifiedDirectoryName(this.tempDir);
 			if (log.isDebugEnabled())
 				log.debug("the temp dir is: " + this.tempDir);
 		} catch (ConfigException ex) {

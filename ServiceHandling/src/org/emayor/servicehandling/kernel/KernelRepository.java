@@ -456,6 +456,8 @@ public class KernelRepository {
 				log.debug("is service active?        : "
 						+ serviceInfo.getActive());
 			}
+			if (log.isDebugEnabled())
+				log.debug("create the new entitty bean for id: " + id);
 			ServiceInfoEntityLocal si = this.serviceInfoEntityLocalHome
 					.create(id);
 			si.setServiceClassName(serviceInfo.getServiceClassName());

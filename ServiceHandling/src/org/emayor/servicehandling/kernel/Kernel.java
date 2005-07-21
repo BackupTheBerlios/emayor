@@ -1122,11 +1122,11 @@ public class Kernel implements IKernel {
 		try {
 			this.repository.addServiceInfo((ServiceInfo) serviceProfile
 					.getServiceInfo());
-
+			/*
 			this.initializeServiceFactory(serviceProfile.getServiceInfo()
 					.getServiceId(), serviceProfile.getServiceInfo()
 					.getServiceFactoryClassName());
-
+*/
 		} catch (KernelRepositoryException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelException("Couldn't deploy the new service!");
