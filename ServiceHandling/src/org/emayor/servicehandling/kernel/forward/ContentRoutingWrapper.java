@@ -59,9 +59,18 @@ public class ContentRoutingWrapper {
 		} else {
 			log.debug("work in production mode");
 			try {
+				log
+						.debug("try to get the ref to the ContentRouter local interface");
 				ServiceLocator loc = ServiceLocator.getInstance();
 				ContentRouterLocal content = loc.getContentRouterLocal();
+				if (log.isDebugEnabled()) {
+					log.debug("try to get the access point");
+					log.debug("municipality: " + municipality);
+					log.debug("service     : " + service);
+				}
 				result = content.getAccessPoint(municipality, service);
+				if (log.isDebugEnabled())
+					log.debug("got result from content routing: " + result);
 				if (log.isDebugEnabled())
 					log.debug("got from ContentRouting: " + result);
 			} catch (ServiceLocatorException slex) {
@@ -74,6 +83,9 @@ public class ContentRoutingWrapper {
 				log.error("caught ex: " + e.toString());
 			} catch (AccessPointNotFoundException e) {
 				log.error("caught ex: " + e.toString());
+			} catch (ConfigException ex) {
+				// this is thrown by the ContentRoutingBean in case the config doesn't work
+				log.error("caught ex: " + ex.toString());
 			}
 		}
 		log.debug("-> ... processing DONE!");
