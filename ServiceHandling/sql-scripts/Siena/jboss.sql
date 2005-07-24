@@ -1,26 +1,24 @@
-create database Aachen;
+create database Siena;
 
-GRANT ALL PRIVILEGES ON Aachen.* TO jboss@localhost IDENTIFIED BY 'emayor';
+GRANT ALL PRIVILEGES ON Siena.* TO jboss@localhost IDENTIFIED BY 'emayor';
 
-use Aachen;
+use Siena;
 
 SOURCE create_config_table.sql
 
 ### default config ###
-SET @CONFIG_ID = 'Aachen';
-SET @MUNICIPALITY_ID = 'Aachen';
-SET @MUNICIPALITY_NAME = 'Municipality of Aachen';
+SET @CONFIG_ID = 'Siena';
+SET @MUNICIPALITY_ID = 'Siena';
+SET @MUNICIPALITY_NAME = 'Municipality of Siena';
 
-SET @BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME = 'Aachen';
+SET @BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME = 'Siena';
 SET @BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD = 'bpel';
 
 SET @FORWARD_MANAGER_QUEUE_HOST = 'localhost:1099';
-SET @FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME = 'Aachen';
+SET @FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME = 'Siena';
 SET @FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_ADDRESS = 'https://localhost:8443/eMayorEJB/ForwardManager';
 SET @FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_NAME = 'Bozen';
 SET @FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_ADDRESS = 'https://localhost:18443/eMayorEJB/ForwardManager';
-
-SET @EMAYOR_SERVICE_INVOKER_ENDPOINT = 'http://localhost:9700/orabpel/Aachen/eMayorServiceStarter_v10/1.0';
 
 SET @EMAYOR_CONTENTROUTING_LOCAL_INQUIRY = 'http://localhost:28080/juddi/inquiry';
 SET @EMAYOR_CONTENTROUTING_LOCAL_PUBLISH = 'http://localhost:28080/juddi/publish';

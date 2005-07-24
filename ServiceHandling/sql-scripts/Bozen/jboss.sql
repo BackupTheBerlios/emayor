@@ -1,8 +1,8 @@
-create database Aachen;
+create database Bozen;
 
-GRANT ALL PRIVILEGES ON Aachen.* TO jboss@localhost IDENTIFIED BY 'emayor';
+GRANT ALL PRIVILEGES ON Bozen.* TO jboss@localhost IDENTIFIED BY 'emayor';
 
-use Aachen;
+use Bozen;
 
 SOURCE create_config_table.sql
 

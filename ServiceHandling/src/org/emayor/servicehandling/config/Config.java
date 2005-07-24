@@ -160,6 +160,8 @@ public class Config {
 			 */
 			if (local == null) {
 				local = home.create(this.configID);
+			} else {
+				exists = true;
 			}
 		} catch (CreateException e) {
 			log.debug("using config >"+this.configID+"< already registered");
