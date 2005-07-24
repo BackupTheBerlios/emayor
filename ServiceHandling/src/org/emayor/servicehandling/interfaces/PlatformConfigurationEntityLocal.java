@@ -319,4 +319,64 @@ public interface PlatformConfigurationEntityLocal
     */
    public void setEMayorNotificationEmailSMTPAuth( java.lang.String value ) ;
 
+   /**
+    * marker for active configuration
+    */
+   public Boolean getIsActive(  ) ;
+
+   /**
+    * Setter for CMP Field
+    */
+   public void setIsActive( Boolean value ) ;
+
+   /**
+    * content routing local inquiry URL
+    */
+   public java.lang.String getEMayorContentRoutingLocalInquiryURL(  ) ;
+
+   /**
+    * Setter for CMP Field
+    */
+   public void setEMayorContentRoutingLocalInquiryURL( java.lang.String value ) ;
+
+   /**
+    * content routing remote inquiry URL
+    */
+   public java.lang.String getEMayorContentRoutingRemoteInquiryURL(  ) ;
+
+   /**
+    * Setter for CMP Field
+    */
+   public void setEMayorContentRoutingRemoteInquiryURL( java.lang.String value ) ;
+
+   /**
+    * content routing local publish URL
+    */
+   public java.lang.String getEMayorContentRoutingLocalPublishURL(  ) ;
+
+   /**
+    * Setter for CMP Field
+    */
+   public void setEMayorContentRoutingLocalPublishURL( java.lang.String value ) ;
+
+   /**
+    * content routing juddi userid
+    */
+   public java.lang.String getEMayorContentRoutingUserID(  ) ;
+
+   /**
+    * Setter for CMP Field
+    */
+   public void setEMayorContentRoutingUserID( java.lang.String value ) ;
+
+   /**
+    * content routing juddi userid
+    */
+   public java.lang.String getEMayorContentRoutingPassword(  ) ;
+
+   /**
+    * Setter for CMP Field
+    */
+   public void setEMayorContentRoutingPassword( java.lang.String value ) ;
+
 }

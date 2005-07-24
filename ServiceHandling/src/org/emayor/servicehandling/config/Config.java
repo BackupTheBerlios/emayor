@@ -97,6 +97,20 @@ public class Config {
 	public static final int EMAYOR_NOTIFICATION_EMAIL_SMTP_PASS = 28;
 	public static final int EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH = 29;
 	
+	// Content Routing
+	public static final int EMAYOR_CONTENT_ROUTING_LOCAL_INQUIRY = 30;
+	public static final int EMAYOR_CONTENT_ROUTING_REMOTE_INQUIRY = 31;
+	public static final int EMAYOR_CONTENT_ROUTING_LOCAL_PUBLISH = 32;
+	public static final int EMAYOR_CONTENT_ROUTING_USERID = 33;
+	public static final int EMAYOR_CONTENT_ROUTING_PASSWORD = 34;
+	
+	// marker for active configuration
+	public static final int CONFIG_IS_ACTIVE = 35;
+	
+	/*
+	 * INSERT NEW FIELDS HERE
+	 */
+	
 	private final boolean WRITE_CONFIG = false;
 	private final boolean READ_CONFIG  = true;
 	
@@ -130,13 +144,40 @@ public class Config {
 					.lookup(PlatformConfigurationEntityLocalHome.JNDI_NAME);
 			home = (PlatformConfigurationEntityLocalHome) PortableRemoteObject
 					.narrow(ref, PlatformConfigurationEntityLocalHome.class);
-			local = home.create(this.configID);
+			
+			/*
+			 * search for active configuration
+			 */
+			for (Iterator i = home.findAll().iterator(); i.hasNext();) {
+				local = (PlatformConfigurationEntityLocal) i.next();
+				if (local.getIsActive().booleanValue()) {
+					this.configID = local.getConfigID();
+				}
+			}
+			
+			/*
+			 * otherwise switch to hardcoded value
+			 */
+			if (local == null) {
+				local = home.create(this.configID);
+			}
 		} catch (CreateException e) {
 			log.debug("using config >"+this.configID+"< already registered");
 			exists = true;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new ConfigException("init failed:"+e.getMessage(),e.getCause());
+		} catch (FinderException e) {
+			try {
+				/*
+				 * if no active config is found, we just create a new one
+				 */
+				log.debug("no active config specified, using >"+this.configID+"<");
+				local = home.create(this.configID);
+			} catch (CreateException e1) {
+				e1.printStackTrace();
+				throw new ConfigException("init failed:"+e1.getMessage(),e1.getCause());
+			}
 		}
 		if (local == null) {
 			try {
@@ -224,6 +265,18 @@ public class Config {
 				new Integer(EMAYOR_NOTIFICATION_EMAIL_SMTP_PASS).toString());
 		old2new.setProperty("emayor.notification.email.smtp.auth",
 				new Integer(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH).toString());
+		old2new.setProperty("emayor.contentrouting.local.inquiry.url",
+				new Integer(EMAYOR_CONTENT_ROUTING_LOCAL_INQUIRY).toString());
+		old2new.setProperty("emayor.contentrouting.local.publish.url",
+				new Integer(EMAYOR_CONTENT_ROUTING_LOCAL_PUBLISH).toString());
+		old2new.setProperty("emayor.contentrouting.remote.inquiry.url",
+				new Integer(EMAYOR_CONTENT_ROUTING_REMOTE_INQUIRY).toString());
+		old2new.setProperty("emayor.contentrouting.userid",
+				new Integer(EMAYOR_CONTENT_ROUTING_USERID).toString());
+		old2new.setProperty("emayor.contentrouting.password",
+				new Integer(EMAYOR_CONTENT_ROUTING_PASSWORD).toString());
+		old2new.setProperty("config.is.active",
+				new Integer(CONFIG_IS_ACTIVE).toString());
 	}
 
 	public synchronized String getProperty(String propName, String defValue)
@@ -480,6 +533,36 @@ public class Config {
 			if (action && READ_CONFIG) result = local.getEMayorNotificationEmailSMTPAuth();
 			else local.setEMayorNotificationEmailSMTPAuth(value);
 			break;
+		
+		case(EMAYOR_CONTENT_ROUTING_LOCAL_INQUIRY):
+			if (action && READ_CONFIG) result = local.getEMayorContentRoutingLocalInquiryURL();
+			else local.setEMayorContentRoutingLocalInquiryURL(value);
+			break;			
+		
+		case(EMAYOR_CONTENT_ROUTING_REMOTE_INQUIRY):
+			if (action && READ_CONFIG) result = local.getEMayorContentRoutingRemoteInquiryURL();
+			else local.setEMayorContentRoutingRemoteInquiryURL(value);
+			break;						
+
+		case(EMAYOR_CONTENT_ROUTING_LOCAL_PUBLISH):
+			if (action && READ_CONFIG) result = local.getEMayorContentRoutingLocalPublishURL();
+			else local.setEMayorContentRoutingLocalPublishURL(value);
+			break;									
+			
+		case(EMAYOR_CONTENT_ROUTING_USERID):
+			if (action && READ_CONFIG) result = local.getEMayorContentRoutingUserID();
+			else local.setEMayorContentRoutingUserID(value);
+			break;
+			
+		case(EMAYOR_CONTENT_ROUTING_PASSWORD):
+			if (action && READ_CONFIG) result = local.getEMayorContentRoutingPassword();
+			else local.setEMayorContentRoutingPassword(value);
+			break;
+		
+		case(CONFIG_IS_ACTIVE):
+			if (action && READ_CONFIG) result = local.getIsActive().toString();
+			else local.setIsActive(Boolean.valueOf(value));
+			break;			
 			
 		}
 		
@@ -543,6 +626,12 @@ public class Config {
 		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_USER,"eMayor.User");
 		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_PASS,"emayor");
 		setProperty(EMAYOR_NOTIFICATION_EMAIL_SMTP_AUTH,"true");
+		setProperty(EMAYOR_CONTENT_ROUTING_LOCAL_INQUIRY,"http://localhost:28080/juddi/inquiry");
+		setProperty(EMAYOR_CONTENT_ROUTING_LOCAL_PUBLISH,"http://localhost:28080/juddi/publish");
+		setProperty(EMAYOR_CONTENT_ROUTING_REMOTE_INQUIRY,"http://localhost:28080/juddi/inquiry");
+		setProperty(EMAYOR_CONTENT_ROUTING_USERID,"juddi");
+		setProperty(EMAYOR_CONTENT_ROUTING_PASSWORD,"juddi");
+		setProperty(CONFIG_IS_ACTIVE,Boolean.TRUE.toString());
 	}
 	
 	public synchronized Set getConfigNames() {
@@ -570,9 +659,12 @@ public class Config {
 		String property;
 		for (Enumeration e = old2new.keys(); e.hasMoreElements();) {
 			property = (String) e.nextElement();
-			try {
-				result.setProperty(property,getProperty(property));
-			} catch (ConfigException e1) {
+			/* don´t push active state in properties */
+			if (!property.equals("config.is.active")) {
+				try {
+					result.setProperty(property,getProperty(property));
+				} catch (ConfigException e1) {
+				}
 			}
 		}
 		log.debug("-> processing DONE ...");
@@ -592,12 +684,15 @@ public class Config {
 			this.local = home.create(configID);
 			loadConfiguration();
 			init();
+			oldLocal.setIsActive(Boolean.FALSE);
 			this.configID = configID;
 			result = true;
 		} catch (CreateException e) {
 			try {
 				this.local = home.findByPrimaryKey(configID);
 				init();
+				oldLocal.setIsActive(Boolean.FALSE);
+				this.local.setIsActive(Boolean.TRUE);
 				this.configID = configID;
 				result = true;
 			} catch (FinderException e1) {

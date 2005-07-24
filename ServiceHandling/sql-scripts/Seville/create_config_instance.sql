@@ -29,7 +29,13 @@ emayor_pe_info_dir,
 emayor_notification_email_smtp_host,
 emayor_notification_email_smtp_user,
 emayor_notification_email_smtp_pass,
-emayor_notification_email_smtp_auth
+emayor_notification_email_smtp_auth,
+emayor_content_routing_local_inquiry,
+emayor_content_routing_remote_inquiry,
+emayor_content_routing_local_publish,
+emayor_content_routing_userid,
+emayor_content_routing_password,
+config_is_active
 ) VALUES (
 @CONFIG_ID,
 @MUNICIPALITY_ID,
@@ -56,5 +62,11 @@ emayor_notification_email_smtp_auth
 'rmi://localhost/UTWrapperApp',
 @BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME,
 @BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD,
-'conf/policies','localhost','eMayor.User','emayor','true'
+'conf/policies','localhost','eMayor.User','emayor','true',
+@EMAYOR_CONTENTROUTING_LOCAL_INQUIRY,
+@EMAYOR_CONTENTROUTING_REMOTE_INQUIRY,
+@EMAYOR_CONTENTROUTING_LOCAL_PUBLISH,
+@EMAYOR_CONTENTROUTING_USERID,
+@EMAYOR_CONTENTROUTING_PASSWORD,
+@CONFIG_IS_ACTIVE
 );

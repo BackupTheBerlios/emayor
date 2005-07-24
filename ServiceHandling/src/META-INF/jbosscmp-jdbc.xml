@@ -12,7 +12,8 @@
        a file to your XDoclet merge directory called jbosscmp-jdbc-beans.xml
        that contains the <entity></entity> markup for those beans.
      -->
-	  <entity>
+
+      <entity>
          <ejb-name>PlatformConfigurationEntity</ejb-name>
 		 <datasource>java:/MySqlDS</datasource>
 		 <datasource-mapping>mySQL</datasource-mapping>
@@ -267,6 +268,54 @@
 
             <jdbc-type>VARCHAR</jdbc-type>
             <sql-type>VARCHAR(4)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>isActive</field-name>
+            <column-name>config_is_active</column-name>
+
+            <jdbc-type>INTEGER</jdbc-type>
+            <sql-type>SMALLINT</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorContentRoutingLocalInquiryURL</field-name>
+            <column-name>emayor_content_routing_local_inquiry</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorContentRoutingRemoteInquiryURL</field-name>
+            <column-name>emayor_content_routing_remote_inquiry</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorContentRoutingLocalPublishURL</field-name>
+            <column-name>emayor_content_routing_local_publish</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorContentRoutingUserID</field-name>
+            <column-name>emayor_content_routing_userid</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorContentRoutingPassword</field-name>
+            <column-name>emayor_content_routing_password</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(20)</sql-type>
 
         </cmp-field>
 

@@ -690,4 +690,111 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 */
 	public abstract void setEMayorNotificationEmailSMTPAuth(String value);	
 	
+	/**
+	 * marker for active configuration
+	 *
+	 * @jboss.column-name name = "config_is_active"
+	 * @jboss.sql-type type = "BOOLEAN"
+	 * @jboss.jdbc-type type = "TINYINT" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract Boolean getIsActive();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setIsActive(Boolean value);
+	
+	/**
+	 * content routing local inquiry URL
+	 *
+	 * @jboss.column-name name = "emayor_content_routing_local_inquiry"
+	 * @jboss.sql-type type = "VARCHAR(200)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorContentRoutingLocalInquiryURL();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorContentRoutingLocalInquiryURL(String value);
+	
+	/**
+	 * content routing remote inquiry URL
+	 *
+	 * @jboss.column-name name = "emayor_content_routing_remote_inquiry"
+	 * @jboss.sql-type type = "VARCHAR(200)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorContentRoutingRemoteInquiryURL();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorContentRoutingRemoteInquiryURL(String value);
+	
+	/**
+	 * content routing local publish URL
+	 *
+	 * @jboss.column-name name = "emayor_content_routing_local_publish"
+	 * @jboss.sql-type type = "VARCHAR(200)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorContentRoutingLocalPublishURL();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorContentRoutingLocalPublishURL(String value);
+	
+	/**
+	 * content routing juddi userid
+	 *
+	 * @jboss.column-name name = "emayor_content_routing_userid"
+	 * @jboss.sql-type type = "VARCHAR(20)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorContentRoutingUserID();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorContentRoutingUserID(String value);
+	
+	/**
+	 * content routing juddi userid
+	 *
+	 * @jboss.column-name name = "emayor_content_routing_password"
+	 * @jboss.sql-type type = "VARCHAR(20)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorContentRoutingPassword();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorContentRoutingPassword(String value);
 }

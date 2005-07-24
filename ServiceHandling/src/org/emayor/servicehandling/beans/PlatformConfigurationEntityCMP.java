@@ -181,4 +181,28 @@ public abstract class PlatformConfigurationEntityCMP
 
    public abstract void setEMayorNotificationEmailSMTPAuth( java.lang.String EMayorNotificationEmailSMTPAuth ) ;
 
+   public abstract Boolean getIsActive() ;
+
+   public abstract void setIsActive( Boolean isActive ) ;
+
+   public abstract java.lang.String getEMayorContentRoutingLocalInquiryURL() ;
+
+   public abstract void setEMayorContentRoutingLocalInquiryURL( java.lang.String EMayorContentRoutingLocalInquiryURL ) ;
+
+   public abstract java.lang.String getEMayorContentRoutingRemoteInquiryURL() ;
+
+   public abstract void setEMayorContentRoutingRemoteInquiryURL( java.lang.String EMayorContentRoutingRemoteInquiryURL ) ;
+
+   public abstract java.lang.String getEMayorContentRoutingLocalPublishURL() ;
+
+   public abstract void setEMayorContentRoutingLocalPublishURL( java.lang.String EMayorContentRoutingLocalPublishURL ) ;
+
+   public abstract java.lang.String getEMayorContentRoutingUserID() ;
+
+   public abstract void setEMayorContentRoutingUserID( java.lang.String EMayorContentRoutingUserID ) ;
+
+   public abstract java.lang.String getEMayorContentRoutingPassword() ;
+
+   public abstract void setEMayorContentRoutingPassword( java.lang.String EMayorContentRoutingPassword ) ;
+
 }

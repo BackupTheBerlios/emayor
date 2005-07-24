@@ -276,7 +276,7 @@
 			<!-- Write a file named ejb-finders-ServiceInfoEntityEJB.xml if you want to define extra finders. -->
 		</entity>
 		
-	    <entity >
+	 <entity >
          <description><![CDATA[Description for PlatformConfigurationEntity]]></description>
          <display-name>Name for PlatformConfigurationEntity</display-name>
 
@@ -414,6 +414,30 @@
          <cmp-field >
             <description><![CDATA[Notification (Email Gateway) Configuration]]></description>
             <field-name>EMayorNotificationEmailSMTPAuth</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[marker for active configuration]]></description>
+            <field-name>isActive</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[content routing local inquiry URL]]></description>
+            <field-name>EMayorContentRoutingLocalInquiryURL</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[content routing remote inquiry URL]]></description>
+            <field-name>EMayorContentRoutingRemoteInquiryURL</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[content routing local publish URL]]></description>
+            <field-name>EMayorContentRoutingLocalPublishURL</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[content routing juddi userid]]></description>
+            <field-name>EMayorContentRoutingUserID</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[content routing juddi userid]]></description>
+            <field-name>EMayorContentRoutingPassword</field-name>
          </cmp-field>
           <primkey-field>configID</primkey-field>
 
