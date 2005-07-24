@@ -699,16 +699,20 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		InitialContext ret = null;
 		try {
+			Config config = Config.getInstance();
 			Properties env = new Properties();
 			env.setProperty(Context.INITIAL_CONTEXT_FACTORY,
 					"org.jnp.interfaces.NamingContextFactory");
 			env
 					.setProperty(Context.URL_PKG_PREFIXES,
 							"org.jboss.naming.client");
-			env.setProperty(Context.PROVIDER_URL, "jnp://localhost:1099");
+			env.setProperty(Context.PROVIDER_URL, "jnp://"+config.getProperty(Config.FORWARD_MANAGER_QUEUE_HOST));
 			env.setProperty("j2ee.clientName", clientName);
 			ret = new InitialContext(env);
 		} catch (NamingException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new ServiceLocatorException(ex);
+		} catch (ConfigException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new ServiceLocatorException(ex);
 		}
