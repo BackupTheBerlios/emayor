@@ -137,7 +137,7 @@ public class ContentRouterBean implements SessionBean {
             Config config = Config.getInstance();
             String accessPointURL = new String(getAccessPointUDDI(
                     municipalityName, serviceName, config
-                            .getProperty("emayor.contentrouting.local.inquiry.url")));
+                            .getProperty(Config.EMAYOR_CONTENT_ROUTING_LOCAL_INQUIRY)));
             return (accessPointURL);
         } catch (ContentRouterException e) {
             String accessPointURL = forceUpdateAccessPoint(municipalityName,
@@ -156,11 +156,11 @@ public class ContentRouterBean implements SessionBean {
         try {
             Config config = Config.getInstance();
             updateOrganization(municipalityName, serviceName, config
-                    .getProperty("emayor.contentrouting.remote.inquiry.url"), config
-                    .getProperty("emayor.contentrouting.local.inquiry.url"), config
-                    .getProperty("emayor.contentrouting.local.publish.url"));
+                    .getProperty(Config.EMAYOR_CONTENT_ROUTING_REMOTE_INQUIRY), config
+                    .getProperty(Config.EMAYOR_CONTENT_ROUTING_LOCAL_INQUIRY), config
+                    .getProperty(Config.EMAYOR_CONTENT_ROUTING_LOCAL_PUBLISH));
             String accessPointURL = new String(getAccessPointUDDI(municipalityName,
-                    serviceName, config.getProperty("emayor.contentrouting.local.inquiry.url")));
+                    serviceName, config.getProperty(Config.EMAYOR_CONTENT_ROUTING_LOCAL_INQUIRY)));
             return (accessPointURL);
         } catch (ConfigException e) {
             throw new ConfigException("Configuration File Error");
@@ -380,7 +380,7 @@ public class ContentRouterBean implements SessionBean {
             retrieval.setInquiryURL(inquiryAccessPointTarget);
             retrieval.setPublishURL(publishAccessPointTarget);
             AuthToken token = retrieval.get_authToken(config
-                    .getProperty("emayor.contentrouting.userid"), config.getProperty("emayor.contentrouting.password"));
+                    .getProperty(Config.EMAYOR_CONTENT_ROUTING_USERID), config.getProperty(Config.EMAYOR_CONTENT_ROUTING_PASSWORD));
             Vector v = new Vector(1); //Set the arguments
             v.add(new Name(municipalityName)); //Municipality Name to search
             // for
@@ -412,7 +412,7 @@ public class ContentRouterBean implements SessionBean {
             UDDIProxy publisher = new UDDIProxy();
             publisher.setPublishURL(publishAccessPointTarget);
             AuthToken auth = publisher.get_authToken(config
-                    .getProperty("emayor.contentrouting.userid"), config.getProperty("emayor.contentrouting.password"));
+                    .getProperty(Config.EMAYOR_CONTENT_ROUTING_USERID), config.getProperty(Config.EMAYOR_CONTENT_ROUTING_PASSWORD));
             Vector entities = new Vector();
             entities.addElement(businessEntityContainer);
             BusinessDetail org = publisher.save_business(auth

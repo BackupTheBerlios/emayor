@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N100C5,N100D6,N100E7,N10124,N10155,N1019E,N101AF,N101F0,N10227,N10238,N10269"/>
+<target name="_packaging_generation_" depends="N10004,N100C5,N100D6,N100E7,N10124,N10155,N1019E,N101AF,N101F0,N10227,N10238,N10269,N102D8"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -229,6 +229,11 @@
 <zipfileset dir=".">
 <include name="ForwardManager-client.jar"/>
 </zipfileset>
+</jar>
+</target>
+<target name="N102D8" description="Config-Interface.jar">
+<jar destfile="Config-Interface.jar">
+<zipfileset dir="classes" includes="org/emayor/servicehandling/config/*.class"/>
 </jar>
 </target>
 </project>

@@ -101,4 +101,7 @@
 <file prefix="" project="" projectLocation="eMayorBPELServiceStarter.jar" name="eMayorBPELServiceStarter.jar" location="eMayorBPELServiceStarter.jar" used="true"/>
 <file prefix="" project="" projectLocation="ForwardManager-client.jar" name="ForwardManager-client.jar" location="ForwardManager-client.jar" used="true"/>
 </archive>
+<archive name="Config-Interface.jar" destination="" used="true" exploded="false">
+<folder prefix="" includes="org/emayor/servicehandling/config/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>
+</archive>
 </configurations>
