@@ -10,7 +10,7 @@
 <include name="jboss.xml"/>
 </zipfileset>
 <zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class"/>
-<zipfileset dir="lib"/>
+<zipfileset dir="lib" excludes="eMayorEJB.jar"/>
 </jar>
 </target>
 <target name="N1002F" description="eMayor_PolicyEnforcementEJB-client.jar">
