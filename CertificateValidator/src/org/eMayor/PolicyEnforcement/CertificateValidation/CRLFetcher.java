@@ -4,6 +4,12 @@ import iaik.x509.X509CRL;
 
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
+import java.io.IOException;
+
+import java.security.cert.CRLException;
+
 
 /**
  * <p>Title: CRLFetcher </p>
@@ -21,15 +27,13 @@ public class CRLFetcher {
      *  @param url The URL of the server and the file where the CRL can be found.
      *  @return An X509CRL object containing the downloaded CRL.
      */
-	public static X509CRL fetchCRL(String url) {
+	public static X509CRL fetchCRL(String url) throws ConnectException, MalformedURLException, IOException, CRLException {
 		X509CRL crl = null;
-		try {
+			
 			URL crlurl = new URL(url);
 			URLConnection crlcon = crlurl.openConnection();
 			crl = new X509CRL(crlcon.getInputStream());
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+
 		return crl;
 	}
 }

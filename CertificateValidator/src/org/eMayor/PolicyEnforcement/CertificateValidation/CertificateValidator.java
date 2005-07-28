@@ -11,6 +11,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Vector;
 import java.security.cert.X509Certificate;
+import java.net.ConnectException;
 
 /**
  * <p>Title: CertificateValidator</p>
@@ -78,7 +79,9 @@ public class CertificateValidator {
 				iaik.x509.X509Certificate trustedCert = new iaik.x509.X509Certificate((trustedStore.getCertificate(item)).getEncoded());
 				String trustedEntryDN = trustedCert.getSubjectDN().getName();
 				String trustedEntryIssuerDN =trustedCert.getIssuerDN().getName();
-    	      
+				
+				//System.out.println(trustedEntryDN);
+				//System.out.println(trustedEntryIssuerDN);
 				//System.out.println("Current Check: " + subjectDN);
 				//System.out.println("Current Issuer: " + issuerDN);
     	      
@@ -89,18 +92,20 @@ public class CertificateValidator {
 				if ( trustedEntryDN.equalsIgnoreCase(issuerDN) && trustedEntryIssuerDN.equals(issuerDN)) { 
 					// we are in root
 					// we check if the target certificate is revoked
-    	    		
+    	    		//System.out.println("Root");
+					
 					if(checkRevocationStatus){
 						certIsTrusted = !isCertRevoked(iaikCert);
 					} else certIsTrusted=true;
     	    		
 					break;
 				} 
-				// Here we have found the issuer, but the certificate doesn't have the basic constraints
-				// of a root CA. Therefore it is an intermediate CA.
-				else if (trustedEntryDN.equalsIgnoreCase(issuerDN) && !(iaikCert.getBasicConstraints()==-1)) { 
+				// Here we have found the issuer, but and since it is not a Root CA it is an intermediate one
+				else if (trustedEntryDN.equalsIgnoreCase(issuerDN)) { 
 					// we are in intermediate CA
 					//iaik.x509.X509Certificate issuerCert = new iaik.x509.X509Certificate(cert.getEncoded());
+					//System.out.println("Intermediate");
+					
 					certIsTrusted = this.isCertTrusted(trustedCert);
     	    			
 					if(checkRevocationStatus){
@@ -158,9 +163,26 @@ public class CertificateValidator {
 				}
 			}
 
-		}catch (Exception ex) {
+		} catch (ConnectException ce) {
+			// In case we fail to connect we use the predefined CDP and get a ConnectException
+			System.out.println("ConnectException");
+			try {
+				CDPConfiguration cdpConf = new CDPConfiguration();
+				Vector cdpUris = cdpConf.getCDPs();
+		
+				for (Iterator i=cdpUris.iterator(); i.hasNext(); ) {
+					String url = (String) i.next();
+					crl = CRLFetcher.fetchCRL(url);
+					certIsRevoked = certIsRevoked || crl.isRevoked(cert);
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return certIsRevoked;
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+
 		return certIsRevoked;
 	}
 
@@ -197,5 +219,12 @@ public class CertificateValidator {
 		}catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+    /** This method sets whether a CRL server shall be contacted to download the appropriate
+     *  CRL while checking a certificate.
+     */
+	public void setRevocationChecking(boolean checkRevocationStatus) {
+		this.checkRevocationStatus = checkRevocationStatus;
 	}
 }

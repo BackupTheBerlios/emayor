@@ -5,8 +5,5 @@
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
 	<classpathentry kind="lib" path="IAIKJCE/iaik_jce.jar"/>
-	<classpathentry kind="lib" path="IBMSecuritySuite/are.jar"/>
-	<classpathentry kind="lib" path="IBMSecuritySuite/xml4j.jar"/>
-	<classpathentry kind="lib" path="IBMSecuritySuite/xss4j.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

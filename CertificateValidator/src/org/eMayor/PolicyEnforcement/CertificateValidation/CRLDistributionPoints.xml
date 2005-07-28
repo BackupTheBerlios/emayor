@@ -1,7 +1,7 @@
 <CRLDistributionPoints>
 	<CDP>
 		<ServerUrl>http://192.168.1.48</ServerUrl>
-		<CRLFileName>crl1.crl</CRLFileName>
+		<CRLFileName>EMayor-operational.crl</CRLFileName>
 	</CDP>
 	<CDP>
 		<ServerUrl>http://192.168.1.48</ServerUrl>
