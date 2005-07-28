@@ -189,6 +189,10 @@ public class ServiceLocator {
 			String asid) throws ServiceLocatorException {
 		log.debug("-> starting processing ...");
 		ServiceSessionLocal ret = null;
+		if (log.isDebugEnabled()) {
+			log.debug("ssid = " + ssid);
+			log.debug("asid = " + asid);
+		}
 		try {
 			Object ref = this.initialContext
 					.lookup(ServiceSessionLocalHome.JNDI_NAME);
@@ -639,7 +643,7 @@ public class ServiceLocator {
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
-	
+
 	public synchronized PlatformConfigurationEntityLocalHome getPlatformConfigurationEntityLocalHome()
 			throws ServiceLocatorException {
 		log.debug("-> starting processing ...");
@@ -706,7 +710,8 @@ public class ServiceLocator {
 			env
 					.setProperty(Context.URL_PKG_PREFIXES,
 							"org.jboss.naming.client");
-			env.setProperty(Context.PROVIDER_URL, "jnp://"+config.getProperty(Config.FORWARD_MANAGER_QUEUE_HOST));
+			env.setProperty(Context.PROVIDER_URL, "jnp://"
+					+ config.getProperty(Config.FORWARD_MANAGER_QUEUE_HOST));
 			env.setProperty("j2ee.clientName", clientName);
 			ret = new InitialContext(env);
 		} catch (NamingException ex) {

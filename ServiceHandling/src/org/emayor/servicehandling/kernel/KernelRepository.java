@@ -396,6 +396,8 @@ public class KernelRepository {
 		 * ret[index++] = this.getServiceSession(ssid); } }
 		 */
 		try {
+			if (log.isDebugEnabled())
+				log.debug("find the ss's for userid = " + userId);
 			Collection collection = this.serviceSessionBeanEntityLocalHome
 					.findByCreatorID(userId);
 			int index = 0;

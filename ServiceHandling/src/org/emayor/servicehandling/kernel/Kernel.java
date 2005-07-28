@@ -80,16 +80,23 @@ public class Kernel implements IKernel {
 		}
 		log.debug("initialize the factories ...");
 		this.initializeServiceFactories();
-		log.debug("initialize all existed service sessions");
-		this.initializeServiceSessions();
+		//log.debug("initialize all existed service sessions");
+		//this.initializeServiceSessions();
 		log.debug("-> ... processing DONE!");
+	}
+
+	static {
+		log.debug("<<<<<<<static initializer:>>>>>>>>>>>>");
 	}
 
 	public static final synchronized Kernel getInstance()
 			throws KernelException {
 		log.debug("-> start processing ...");
-		if (_self == null)
+		if (_self == null) {
 			_self = new Kernel();
+			log.debug("initialize all existed service sessions");
+			_self.initializeServiceSessions();
+		}
 		return _self;
 	}
 
@@ -479,6 +486,8 @@ public class Kernel implements IKernel {
 	private void initializeServiceFactories() throws KernelException {
 		log.debug("-> start processing ...");
 		ServiceInfo[] services = this.listAllAvailableServices();
+		if (log.isDebugEnabled())
+			log.debug("found " + services.length + " deployed services!");
 		for (int i = 0; i < services.length; i++) {
 			String serviceId = services[i].getServiceId();
 			if (log.isDebugEnabled())
@@ -1123,10 +1132,10 @@ public class Kernel implements IKernel {
 			this.repository.addServiceInfo((ServiceInfo) serviceProfile
 					.getServiceInfo());
 			/*
-			this.initializeServiceFactory(serviceProfile.getServiceInfo()
-					.getServiceId(), serviceProfile.getServiceInfo()
-					.getServiceFactoryClassName());
-*/
+			 * this.initializeServiceFactory(serviceProfile.getServiceInfo()
+			 * .getServiceId(), serviceProfile.getServiceInfo()
+			 * .getServiceFactoryClassName());
+			 */
 		} catch (KernelRepositoryException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelException("Couldn't deploy the new service!");
@@ -1161,6 +1170,9 @@ public class Kernel implements IKernel {
 			ServiceSessionBeanEntityLocalHome home = locator
 					.getServiceSessionBeanEntityLocalHome();
 			Collection col = home.findAllSsids();
+			if (log.isDebugEnabled())
+				log.debug("found " + col.size()
+						+ " service sessions in the repository");
 			for (Iterator i = col.iterator(); i.hasNext();) {
 				String ssid = (String) i.next();
 				if (log.isDebugEnabled())
@@ -1179,6 +1191,11 @@ public class Kernel implements IKernel {
 				log.debug("assign the service to the service session");
 				sslocal.seteMayorService(service);
 				log.debug("save the current instance into repository");
+				if (log.isDebugEnabled()) {
+					log.debug("the ssid of current ss is: " + ssid);
+					log.debug("serviceId: " + serviceId);
+					log.debug("userId   : " + userId);
+				}
 				this.repository.addServiceSession(sslocal, userId);
 			}
 		} catch (ServiceLocatorException ex) {

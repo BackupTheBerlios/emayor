@@ -135,6 +135,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
                 ret = true;
                 ServiceSessionLocal[] serviceSessions = kernel
                         .getUsersServiceSessions(str);
+                log.debug("get the service sessions of current user!");
                 for (int i = 0; i < serviceSessions.length; i++) {
                     serviceSessions[i].setAccessSessionId(this.getSessionId());
                     this.repository.put(serviceSessions[i]);

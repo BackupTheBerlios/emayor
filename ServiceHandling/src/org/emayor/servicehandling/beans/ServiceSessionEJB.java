@@ -142,7 +142,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 *  
 	 */
 	public void setServiceId(String serviceId) throws ServiceSessionException {
-		log.debug("getting service name");
+		log.debug("getting service id");
 		this.serviceSessionData.setServiceId(serviceId);
 	}
 
@@ -212,15 +212,22 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public void ejbCreate(String ssid, String asid) throws CreateException {
 		log.debug("-> start processing ...");
+		log.debug("the ejbCreate method with two input parameters");
 		if (asid == null || asid.length() == 0)
 			throw new CreateException("the given asid has to be a valid value!");
 		try {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			if (log.isDebugEnabled())
-				log.debug("generated following ssid : " + ssid);
+				log.debug("search using following ssid : " + ssid);
 			ServiceSessionBeanEntityLocalHome home = serviceLocator
 					.getServiceSessionBeanEntityLocalHome();
 			this.serviceSessionData = home.findByPrimaryKey(ssid);
+			if (log.isDebugEnabled()) {
+				if (this.serviceSessionData != null) {
+					log.debug("got the properly service session bean instance!");
+					log.debug("ssid from db: " + this.serviceSessionData.getSsid());
+				}
+			}
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new CreateException(
