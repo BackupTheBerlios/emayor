@@ -30,6 +30,7 @@ public class CertificateValidator {
 	 * @uml.associationEnd multiplicity="(1 1)"
 	 */
 	TrustedStoreConfiguration tsc = new TrustedStoreConfiguration();
+	String CRLUri;
 
 	private boolean checkRevocationStatus = true;
 
@@ -45,8 +46,9 @@ public class CertificateValidator {
      * - Whether the certificate is trusted (belongs to a trusted certificate chain).
      * - Whether the certificate is revoked (based on one ore more CRLs accessed).
      */
-	public CertificateValidator() {
+	public CertificateValidator(String MyCRLUri) {
 		this.retrieveTrustedStoreFromDisk();
+		CRLUri = MyCRLUri;
 		/*if (new File(tsc.getStorePath()).exists()) {
 			
 		}else {
@@ -155,12 +157,13 @@ public class CertificateValidator {
 				certIsRevoked = crl.isRevoked(cert);
 			} else {
 				// Otherwise we use the list provided in the CRLDistributionPoints configuration file
-				CDPConfiguration cdpConf = new CDPConfiguration();
-				Vector cdpUris = cdpConf.getCDPs();
+				//CDPConfiguration cdpConf = new CDPConfiguration();
+				//Vector cdpUris = cdpConf.getCDPs();
     		
-				for (Iterator i=cdpUris.iterator(); i.hasNext(); ) {
-					String url = (String) i.next();
-					crl = CRLFetcher.fetchCRL(url);
+				//for (Iterator i=cdpUris.iterator(); i.hasNext(); ) 
+				{
+					//String url = (String) i.next();
+					crl = CRLFetcher.fetchCRL(CRLUri);
 					certIsRevoked = certIsRevoked || crl.isRevoked(cert);
 				}
 			}
