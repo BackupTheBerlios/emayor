@@ -118,7 +118,7 @@ public class PolicyEnforcementBean implements SessionBean {
 		// TODO Auto-generated method stub
 		
 		// Validate the user certificate
-		CertificateValidator cv = new CertificateValidator();
+		CertificateValidator cv = new CertificateValidator("http://141.99.152.70/EMayor-operational.crl");
 		boolean result = false;
 		try {
 			result = cv.validateChain((new C_UserProfile(UserProfile)).getX509_CertChain());
