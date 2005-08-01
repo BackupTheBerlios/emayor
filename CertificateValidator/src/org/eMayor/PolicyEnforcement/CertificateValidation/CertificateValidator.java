@@ -31,6 +31,7 @@ public class CertificateValidator {
 	 */
 	//TrustedStoreConfiguration tsc = new TrustedStoreConfiguration();
 	String CRLUri;
+	boolean DefaultCRL=false;
 
 	private boolean checkRevocationStatus = true;
 
@@ -46,9 +47,10 @@ public class CertificateValidator {
      * - Whether the certificate is trusted (belongs to a trusted certificate chain).
      * - Whether the certificate is revoked (based on one ore more CRLs accessed).
      */
-	public CertificateValidator(String MyCRLUri) {
+	public CertificateValidator(String MyCRLUri, boolean MyDefaultCRL) {
 		this.retrieveTrustedStoreFromDisk();
 		CRLUri = MyCRLUri;
+		DefaultCRL = MyDefaultCRL;
 		/*if (new File(tsc.getStorePath()).exists()) {
 			
 		}else {
@@ -149,7 +151,7 @@ public class CertificateValidator {
 			// the certificate as an extension
 			
 			V3Extension cdpExt = cert.getExtension(newOID);
-			if (cdpExt != null) {
+			if (!DefaultCRL && (cdpExt != null)) {
 				// If there is, we use that as a source for the crl
 				String cdp = cdpExt.toString();
 				String url = cdp.substring(cdp.lastIndexOf("http"));
