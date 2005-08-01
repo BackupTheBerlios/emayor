@@ -114,8 +114,10 @@ public class E_UserProfileException extends Exception
    }
 }
 
-public C_UserProfile(X509Certificate[] x509_CertChain) {
-	if (x509_CertChain == null) {
+public C_UserProfile(X509Certificate[] x509_CertChain) throws
+E_UserProfileException{
+	if ((x509_CertChain==null) || (x509_CertChain.length < 1)) {
+		throw new E_UserProfileException("C_UserProfile:: No Certificate Provided");
 		
 	} else {
 		
@@ -148,6 +150,7 @@ public C_UserProfile(X509Certificate[] x509_CertChain) {
 
 public C_UserProfile(Document InputDocument) throws
 E_UserProfileException {
+	if (InputDocument == null) throw new E_UserProfileException("C_UserProfile:: No Document Provided");
 	F_CreateUserProfile(InputDocument);
 }
 
@@ -229,7 +232,7 @@ private X509Certificate m_X509_CertChain[];
 	}
 	}
 private Document F_StringtoDocument(String myXMLDocument) throws E_UserProfileException{
-
+	if (myXMLDocument==null) throw new E_UserProfileException("C_UserProfile::F_StringtoDocument:: Ivalid String"); 
 	try {
 		
 		
