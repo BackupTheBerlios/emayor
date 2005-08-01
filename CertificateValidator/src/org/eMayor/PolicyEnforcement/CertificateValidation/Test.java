@@ -19,7 +19,8 @@ public class Test {
 	public static void main(String[] args) {
 		try {
 			//Put a DER encoded X509 certificate here....
-			FileInputStream fis = new FileInputStream("C:\\OpenSSL\\lab\\civilservant1.cer");
+			//FileInputStream fis = new FileInputStream("C:\\civilservant1.cer");
+			FileInputStream fis = new FileInputStream("C:\\citizen2.cer");
 			X509Certificate cert = new X509Certificate(fis);
 			CertificateValidator cv = new CertificateValidator();
 			System.out.println("Result:" + cv.isCertTrusted(cert));

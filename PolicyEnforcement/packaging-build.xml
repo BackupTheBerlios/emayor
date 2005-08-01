@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N1002F,N10040,N10071"/>
+<target name="_packaging_generation_" depends="N10004,N1002F,N1004A,N1007B"/>
 <target name="N10004" description="eMayor_PolicyEnforcementEJB.jar">
 <jar destfile="eMayor_PolicyEnforcementEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -16,9 +16,10 @@
 <target name="N1002F" description="eMayor_PolicyEnforcementEJB-client.jar">
 <jar destfile="eMayor_PolicyEnforcementEJB-client.jar">
 <zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/interfaces/*.class"/>
+<zipfileset dir="../CertificateValidator/bin"/>
 </jar>
 </target>
-<target name="N10040" description="eMayor_PolicyEnforcementWeb.war">
+<target name="N1004A" description="eMayor_PolicyEnforcementWeb.war">
 <jar destfile="eMayor_PolicyEnforcementWeb.war">
 <zipfileset dir="src/WEB-INF" prefix="WEB-INF">
 <include name="web.xml"/>
@@ -35,7 +36,7 @@
 <zipfileset dir="bin" prefix="WEB-INF/classes" includes="org/eMayor/Test/*.class"/>
 </jar>
 </target>
-<target name="N10071" description="eMayor_PolicyEnforcementApp.ear">
+<target name="N1007B" description="eMayor_PolicyEnforcementApp.ear">
 <jar destfile="eMayor_PolicyEnforcementApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>

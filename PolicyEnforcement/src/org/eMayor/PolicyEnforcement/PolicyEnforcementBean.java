@@ -6,6 +6,8 @@
  */
 package org.eMayor.PolicyEnforcement;
 
+import org.eMayor.PolicyEnforcement.CertificateValidation.*;
+
 import java.rmi.RemoteException;
 
 import javax.ejb.EJBException;
@@ -114,8 +116,19 @@ public class PolicyEnforcementBean implements SessionBean {
 	public boolean F_AuthenticateUser(String UserProfile)
 		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
-
-		return true;
+		
+		// Validate the user certificate
+		CertificateValidator cv = new CertificateValidator();
+		boolean result = false;
+		try {
+			result = cv.validateChain((new C_UserProfile(UserProfile)).getX509_CertChain());
+		} catch (Exception e)
+		{
+			throw new E_PolicyEnforcementException(
+					"PolicyEnforcement::F_AuthenticateUser:: Exception \n"
+						+ e.toString());
+		}
+		return result;
 	}
 	/**
 	 * Business method

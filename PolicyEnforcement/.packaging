@@ -8,6 +8,7 @@
 </archive>
 <archive name="eMayor_PolicyEnforcementEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/eMayor/PolicyEnforcement/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+<folder prefix="" includes="" excludes="" project="CertificateValidator" projectLocation="bin" name="bin" location="../CertificateValidator/bin" used="true"/>
 </archive>
 <archive name="eMayor_PolicyEnforcementWeb.war" destination="" used="true" exploded="false">
 <folder prefix="WEB-INF/classes" includes="org/eMayor/Test/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>

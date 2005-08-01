@@ -46,11 +46,12 @@ public class CertificateValidator {
      * - Whether the certificate is revoked (based on one ore more CRLs accessed).
      */
 	public CertificateValidator() {
-		if (new File(tsc.getStorePath()).exists()) {
-			this.retrieveTrustedStoreFromDisk();
+		this.retrieveTrustedStoreFromDisk();
+		/*if (new File(tsc.getStorePath()).exists()) {
+			
 		}else {
 			System.out.println("Non-existent trusted store.");
-		}
+		}*/
 	}
 
     /** This method provides an answer to the question "can this certificate be
@@ -111,7 +112,7 @@ public class CertificateValidator {
 					if(checkRevocationStatus){
 						// We check if it is revoked
 						certIsTrusted = certIsTrusted && !isCertRevoked(iaikCert);
-					} else certIsTrusted=true;
+					} //else certIsTrusted=true;
     	    			
 					break;
 				} else {
@@ -144,6 +145,7 @@ public class CertificateValidator {
 		try {
 			// First we check if there is CRL Distribution Point inside
 			// the certificate as an extension
+			
 			V3Extension cdpExt = cert.getExtension(newOID);
 			if (cdpExt != null) {
 				// If there is, we use that as a source for the crl
@@ -211,11 +213,22 @@ public class CertificateValidator {
 	public void retrieveTrustedStoreFromDisk(){
 		try {
 			trustedStore = KeyStore.getInstance(KeyStore.getDefaultType());
-			// get user password and file input stream
-			char[] password = tsc.getStorePass().toCharArray();
+			// get user password and file input stream for the cacerts
+		
+			String sJavaHome = System.getProperty("java.home");
+			System.out.println("The java home is " + sJavaHome);
+			
+			String sCacertspath = sJavaHome + "\\lib\\security\\cacerts";
+			char[] password = (new String("changeit")).toCharArray();
+			java.io.FileInputStream fis = new java.io.FileInputStream(sCacertspath);
+			trustedStore.load(fis, password);
+			/*	char[] password = tsc.getStorePass().toCharArray();
+			
 			java.io.FileInputStream fis = new java.io.FileInputStream(tsc.getStorePath());
 			trustedStore.load(fis, password);
 			fis.close();
+			
+			*/
 		}catch (Exception ex) {
 			ex.printStackTrace();
 		}

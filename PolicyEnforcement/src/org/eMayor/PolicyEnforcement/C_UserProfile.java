@@ -47,6 +47,8 @@ private X509Certificate m_X509_CertChain[];
 
 public String getUserName(){
 	return this.m_S_UserName;
+	
+	
 }
 public void setUserName(String sUserName){
 	this.m_S_UserName = sUserName;
