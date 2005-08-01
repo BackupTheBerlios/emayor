@@ -14,7 +14,7 @@
 </zipfileset>
 <zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class"/>
 <zipfileset dir="lib" excludes="eMayorEJB.jar"/>
-<zipfileset dir="../CertificateValidator/bin" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class; org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class"/>
+<zipfileset dir="../CertificateValidator/bin" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class, org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class"/>
 </jar>
 </target>
 <target name="N10041" description="eMayor_PolicyEnforcementEJB-client.jar">

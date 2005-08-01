@@ -5,7 +5,7 @@
 <file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
 <folder prefix="" includes="" excludes="eMayorEJB.jar" project="" projectLocation="lib" name="lib" location="lib" used="true"/>
-<folder prefix="" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class; org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class" excludes="" project="CertificateValidator" projectLocation="bin" name="bin" location="../CertificateValidator/bin" used="true"/>
+<folder prefix="" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class, org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class" excludes="" project="CertificateValidator" projectLocation="bin" name="bin" location="../CertificateValidator/bin" used="true"/>
 <file prefix="" project="CertificateValidator" projectLocation="IAIKJCE/iaik_jce.jar" name="iaik_jce.jar" location="../CertificateValidator/IAIKJCE/iaik_jce.jar" used="true"/>
 </archive>
 <archive name="eMayor_PolicyEnforcementEJB-client.jar" destination="" used="true" exploded="false">
