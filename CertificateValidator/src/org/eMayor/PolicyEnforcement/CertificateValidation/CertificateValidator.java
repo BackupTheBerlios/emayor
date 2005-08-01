@@ -223,7 +223,7 @@ public class CertificateValidator {
 			String sJavaHome = System.getProperty("java.home");
 			System.out.println("The java home is " + sJavaHome);
 			
-			String sCacertspath = sJavaHome + "\\lib\\security\\cacerts";
+			String sCacertspath = sJavaHome + "/lib/security/cacerts";
 			char[] password = (new String("changeit")).toCharArray();
 			java.io.FileInputStream fis = new java.io.FileInputStream(sCacertspath);
 			trustedStore.load(fis, password);
