@@ -194,15 +194,18 @@ public class CertificateValidator {
 	}
 
 	public boolean validateChain(X509Certificate[] chain) {
-		boolean result=false;
+		boolean result=true;
 		
 		// We begin checking top level certificates in the chain.
 		// If we find one valid according to our trusted store
-		
+		if (chain.length < 1){
+			result=false;
+		} else 
 		try {
 			for (int i=chain.length-1; i>=0; i--) {
 				if (chain[i] != null) {
 					iaik.x509.X509Certificate cert = new iaik.x509.X509Certificate(chain[i].getEncoded());
+					result = result && this.isCertTrusted(cert);
 				}
 			}
 		} catch (Exception ex) {
