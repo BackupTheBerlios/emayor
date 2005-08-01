@@ -29,7 +29,7 @@ public class CertificateValidator {
 	 * @uml.property name="tsc"
 	 * @uml.associationEnd multiplicity="(1 1)"
 	 */
-	TrustedStoreConfiguration tsc = new TrustedStoreConfiguration();
+	//TrustedStoreConfiguration tsc = new TrustedStoreConfiguration();
 	String CRLUri;
 
 	private boolean checkRevocationStatus = true;
@@ -170,16 +170,18 @@ public class CertificateValidator {
 
 		} catch (ConnectException ce) {
 			// In case we fail to connect we use the predefined CDP and get a ConnectException
-			System.out.println("ConnectException");
+			System.out.println("no Connection to CRL from the Certificate, Use default");
 			try {
-				CDPConfiguration cdpConf = new CDPConfiguration();
+			/*	CDPConfiguration cdpConf = new CDPConfiguration();
 				Vector cdpUris = cdpConf.getCDPs();
 		
 				for (Iterator i=cdpUris.iterator(); i.hasNext(); ) {
 					String url = (String) i.next();
 					crl = CRLFetcher.fetchCRL(url);
 					certIsRevoked = certIsRevoked || crl.isRevoked(cert);
-				}
+				} */
+				crl = CRLFetcher.fetchCRL(CRLUri);
+				certIsRevoked = certIsRevoked || crl.isRevoked(cert);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
