@@ -9,6 +9,20 @@
    <enterprise-beans>
 
       <!-- Session Beans -->
+      <session >
+         <description><![CDATA[Description for E2M]]></description>
+         <display-name>Name for E2M</display-name>
+
+         <ejb-name>E2M</ejb-name>
+
+         <home>org.eMayor.AdaptationLayer.interfaces.E2MHome</home>
+         <remote>org.eMayor.AdaptationLayer.interfaces.E2M</remote>
+         <ejb-class>org.eMayor.AdaptationLayer.ejb.E2MBean</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+
+      </session>
+
      <!--
        To add session beans that you have deployment descriptor info for, add
        a file to your XDoclet merge directory called session-beans.xml that contains
@@ -40,6 +54,8 @@
        XDoclet merge directory called assembly-descriptor.xml that contains
        the <assembly-descriptor></assembly-descriptor> markup.
      -->
+
+   <!-- finder permissions -->
 
    <!-- transactions -->
 

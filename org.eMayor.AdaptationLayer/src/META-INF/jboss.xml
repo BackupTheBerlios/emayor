@@ -12,6 +12,12 @@
        markup for those beans.
      -->
 
+      <session>
+         <ejb-name>E2M</ejb-name>
+         <jndi-name>ejb/E2M</jndi-name>
+
+      </session>
+
    </enterprise-beans>
 
    <resource-managers>

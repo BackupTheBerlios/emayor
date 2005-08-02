@@ -24,12 +24,12 @@ import javax.ejb.CreateException;
  *           type="Stateless"
  *           view-type="remote"
  */
-public class E2M implements SessionBean {
+public class E2MBean implements SessionBean {
 
 	/**
 	 * 
 	 */
-	public E2M() {
+	public E2MBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

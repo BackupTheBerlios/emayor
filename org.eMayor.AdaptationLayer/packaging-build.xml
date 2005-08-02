@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004"/>
+<target name="N10004" description="E2MEJB.jar">
+<jar destfile="E2MEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="bin" includes="org.eMayor.AdaptationLayer/ejb/*.class, org.eMayor.AdaptationLayer/interfaces/*.class"/>
+</jar>
+</target>
+</project>
