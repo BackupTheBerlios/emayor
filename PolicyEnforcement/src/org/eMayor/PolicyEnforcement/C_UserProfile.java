@@ -136,6 +136,7 @@ E_UserProfileException{
 			if (b[2] == 19) {
 				String myRole = (new String(b)).toString();
 				this.setUserRole(myRole.substring(4));
+				
 
 			}
 

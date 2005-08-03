@@ -116,19 +116,42 @@ public class PolicyEnforcementBean implements SessionBean {
 	public boolean F_AuthenticateUser(String UserProfile)
 		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
-		
+		C_UserProfile myUserProfile;
 		// Validate the user certificate
 		CertificateValidator cv = new CertificateValidator("http://localhost/EMayor-operational.crl", true);
-		boolean result = false;
+		int result = CertificateValidator.CertUntrusted;
 		try {
-			result = cv.validateChain((new C_UserProfile(UserProfile)).getX509_CertChain());
+			if (MyPEP == null){
+				MyPEP = new C_PEP(new C_PDP());
+				log.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
+			}
+			myUserProfile = new C_UserProfile(UserProfile);
 		} catch (Exception e)
 		{
 			throw new E_PolicyEnforcementException(
 					"PolicyEnforcement::F_AuthenticateUser:: Exception \n"
 						+ e.toString());
 		}
-		return result;
+		result = cv.validateChain(myUserProfile.getX509_CertChain());
+		String sValidationResult="CertUntrusted";
+		if (result == CertificateValidator.CertTrusted) sValidationResult="CertTrusted";
+		else if (result == CertificateValidator.NoCRLConnection) sValidationResult="NoCRLConnection";
+		
+		
+		
+		java.security.Principal myIssuer = ((myUserProfile.getX509_CertChain())[0]).getIssuerDN();
+		String sCA="Not Available";
+		if (myIssuer!=null) sCA = myIssuer.getName();
+		
+		
+		return MyPEP.F_AuthenticateUser(sValidationResult, myUserProfile.getUserRole(), sCA, myUserProfile.getUserCountry() );
+		
+			
+			
+			
+			
+			
+			
 	}
 	/**
 	 * Business method

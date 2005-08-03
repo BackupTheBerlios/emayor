@@ -24,6 +24,10 @@ import org.emayor.servicehandling.config.Config;
 
 import com.sun.xacml.PDPConfig;
 import com.sun.xacml.PDP;
+import com.sun.xacml.combine.BaseCombiningAlgFactory;
+import com.sun.xacml.combine.CombiningAlgFactory;
+import com.sun.xacml.combine.CombiningAlgFactoryProxy;
+import com.sun.xacml.combine.StandardCombiningAlgFactory;
 import com.sun.xacml.ctx.RequestCtx;
 import com.sun.xacml.ctx.ResponseCtx;
 import com.sun.xacml.finder.AttributeFinder;
@@ -55,7 +59,28 @@ public class C_PDP {
 		// Create the Policy Decizion Point based on the configurartion file from emayor
 		
 			log.debug("PolicyEnforcement->PDP:: Initializing..");
+			
+		
+			
 		try {
+			
+			StandardCombiningAlgFactory standardFactory = StandardCombiningAlgFactory.getFactory();
+			final BaseCombiningAlgFactory newFactory = new BaseCombiningAlgFactory(standardFactory.getStandardAlgorithms());
+							
+		
+			
+			CombiningAlgFactory.setDefaultFactory(new CombiningAlgFactoryProxy() {
+				public CombiningAlgFactory getFactory() {
+					return newFactory;
+				}
+			});
+			
+			CombiningAlgFactory  myFactory = CombiningAlgFactory.getInstance();
+			myFactory.addAlgorithm(new AllPermitRuleAlg());
+			myFactory.addAlgorithm(new AllPermitPolicyAlg());
+			
+			
+			// Get the configuration Object
 			Config config = Config.getInstance();
 			String deployDir = config.getQuilifiedDirectoryName(config
 					.getProperty("emayor.pe.info.dir"));
@@ -99,6 +124,11 @@ public class C_PDP {
 				MyPDP = new PDP(new PDPConfig(myattrFinder,mypolicyFinder,null));
 				log.debug("PolicyEnforcement->PDP:: Created the PDP");
 				
+				// Adding new Combining Allgortithms
+				
+				
+				
+				
 			} else {
 				throw new E_PolicyEnforcementException("PDP: Initialization Execption:: No Policies have bean Loaded!!!!" );
 			}
@@ -128,3 +158,4 @@ public class C_PDP {
 		}
 	}
 }
+

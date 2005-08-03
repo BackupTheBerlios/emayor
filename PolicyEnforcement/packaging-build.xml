@@ -13,7 +13,7 @@
 <include name="iaik_jce.jar"/>
 </zipfileset>
 <zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class"/>
-<zipfileset dir="lib" excludes="eMayorEJB.jar"/>
+<zipfileset dir="lib"/>
 <zipfileset dir="../CertificateValidator/bin" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class, org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class"/>
 </jar>
 </target>
