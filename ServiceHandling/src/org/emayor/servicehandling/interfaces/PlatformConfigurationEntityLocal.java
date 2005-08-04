@@ -322,12 +322,12 @@ public interface PlatformConfigurationEntityLocal
    /**
     * marker for active configuration
     */
-   public Boolean getIsActive(  ) ;
+   public java.lang.Boolean getIsActive(  ) ;
 
    /**
     * Setter for CMP Field
     */
-   public void setIsActive( Boolean value ) ;
+   public void setIsActive( java.lang.Boolean value ) ;
 
    /**
     * content routing local inquiry URL

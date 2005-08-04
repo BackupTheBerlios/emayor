@@ -74,8 +74,11 @@ public class ServiceLocator {
 
 	private ServiceLocator() throws ServiceLocatorException {
 		log.debug("-> starting processing ...");
-		this.initInitialContext();
-		this.initBpelInitialContext();
+		// Configuration changes should be mentioned, so invoke
+		// configuration-dependend methods in getInstance()
+		//
+		//this.initInitialContext();
+		//this.initBpelInitialContext();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -89,6 +92,8 @@ public class ServiceLocator {
 		log.debug("-> starting processing ...");
 		if (_self == null)
 			_self = new ServiceLocator();
+		_self.initBpelInitialContext();
+		_self.initInitialContext();
 		return _self;
 	}
 

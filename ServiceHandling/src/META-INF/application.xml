@@ -42,6 +42,9 @@
 	<module>
 		<java>ForwardManager-client.jar</java>
 	</module>
+	<module>
+		<java>PlatformTest-client.jar</java>
+	</module>
 	<!--
 	<module>
 		<ejb>ForwardEJB.jar</ejb>

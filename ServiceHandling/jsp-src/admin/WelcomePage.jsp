@@ -22,6 +22,11 @@
   <tr> 
     <td colspan="3"> 
 		<table width="388" cellpadding="4" cellspacing="4">
+		<tr>	
+          		<td>
+					- <a href="../adm?action=TEST_PLATFORM_INTRO"><font size="2">Test platform ...</font></a>
+				</td>
+			</tr>
         <tr>	
           		<td>
 					- <a href="../adm?action=RELOAD_SERVICES"><font size="2">Reload the services ...</font></a>

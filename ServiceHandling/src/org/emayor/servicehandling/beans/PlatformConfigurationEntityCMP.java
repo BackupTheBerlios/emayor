@@ -181,9 +181,9 @@ public abstract class PlatformConfigurationEntityCMP
 
    public abstract void setEMayorNotificationEmailSMTPAuth( java.lang.String EMayorNotificationEmailSMTPAuth ) ;
 
-   public abstract Boolean getIsActive() ;
+   public abstract java.lang.Boolean getIsActive() ;
 
-   public abstract void setIsActive( Boolean isActive ) ;
+   public abstract void setIsActive( java.lang.Boolean isActive ) ;
 
    public abstract java.lang.String getEMayorContentRoutingLocalInquiryURL() ;
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="PlatformTest"
+     targetNamespace="http://org.emayor/servicehandling/gui/admin/PlatformTest"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://org.emayor/servicehandling/gui/admin/PlatformTest"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:client="http://org.emayor/servicehandling/gui/admin/PlatformTest"
+    >
+    <types>
+        <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://org.emayor/servicehandling/gui/admin/PlatformTest"
+             xmlns="http://www.w3.org/2001/XMLSchema">
+            <element name="PlatformTestProcessRequest">
+                <complexType>
+                    <sequence>
+                        <element name="input" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="PlatformTestProcessResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+    <message name="PlatformTestRequestMessage">
+        <part name="payload" element="tns:PlatformTestProcessRequest"/>
+    </message>
+    <message name="PlatformTestResponseMessage">
+        <part name="payload" element="tns:PlatformTestProcessResponse"/>
+    </message>
+    <portType name="PlatformTest">
+        <operation name="process">
+            <input message="tns:PlatformTestRequestMessage"/>
+            <output message="tns:PlatformTestResponseMessage"/>
+        </operation>
+    </portType>
+    <binding name="PlatformTestBinding" type="tns:PlatformTest">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="PlatformTest">
+        <port name="PlatformTestPort" binding="tns:PlatformTestBinding">
+            <soap:address location="http://localhost:9700/orabpel/default/PlatformTest/1.0"/>
+        </port>
+    </service>
+  <plnk:partnerLinkType name="PlatformTest">
+    <plnk:role name="PlatformTestProvider">
+      <plnk:portType name="tns:PlatformTest"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+</definitions>
+

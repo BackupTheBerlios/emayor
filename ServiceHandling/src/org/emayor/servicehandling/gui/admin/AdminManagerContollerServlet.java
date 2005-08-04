@@ -143,6 +143,10 @@ public class AdminManagerContollerServlet extends HttpServlet {
 			p = new AdminChangeLoggingPreferencesProcessor();
 		} else if (action.equalsIgnoreCase("CHANGE_LOG4J_CONFIG_POST")) {
 			p = new AdminChangeLoggingPreferencesPostProcessor();
+		} else if (action.equalsIgnoreCase("TEST_PLATFORM_INTRO")) {
+			p = new AdminTestPlatformIntroProcessor();
+		} else if (action.equalsIgnoreCase("TEST_PLATFORM_EXEC")) {
+			p = new AdminTestPlatformExecProcessor();
 		} else {
 			log.info("current action = UNKNOWN");
 			p = new DummyProcessor();

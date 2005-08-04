@@ -3,6 +3,8 @@
  */
 package org.emayor.servicehandling.kernel.forward;
 
+import javax.naming.ServiceUnavailableException;
+
 import org.apache.log4j.Logger;
 import org.emayor.ContentRouting.ejb.AccessPointNotFoundException;
 import org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException;
@@ -86,6 +88,8 @@ public class ContentRoutingWrapper {
 			} catch (ConfigException ex) {
 				// this is thrown by the ContentRoutingBean in case the config doesn't work
 				log.error("caught ex: " + ex.toString());
+			} catch (ServiceUnavailableException e) {
+				log.error("caught ex: " + e.toString());
 			}
 		}
 		log.debug("-> ... processing DONE!");

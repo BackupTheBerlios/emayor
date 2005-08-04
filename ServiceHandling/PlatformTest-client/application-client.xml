@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<application-client xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:impl="http://ws.sample"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ns5="http://org.emayor/servicehandling/gui/admin/PlatformTest"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"
+  version="1.4">
+  
+  <display-name>WS Client to the BPEL PlatformTestr</display-name>
+  
+  <service-ref>
+    <service-ref-name>service/PlatformTestClient</service-ref-name>
+    <service-interface>
+    	org.emayor.servicehandling.gui.admin.PlatformTest_Service
+    </service-interface>
+    <wsdl-file>META-INF/wsdl/PlatformTest.wsdl</wsdl-file>
+    <jaxrpc-mapping-file>META-INF/platformTest_mapping.xml</jaxrpc-mapping-file>
+  </service-ref>
+  
+</application-client>
