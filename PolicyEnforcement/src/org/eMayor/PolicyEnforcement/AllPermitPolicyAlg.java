@@ -6,6 +6,7 @@
  */
 package org.eMayor.PolicyEnforcement;
 import com.sun.xacml.AbstractPolicy;
+//import org.apache.log4j.Logger;
 import com.sun.xacml.EvaluationCtx;
 import com.sun.xacml.MatchResult;
 
@@ -29,7 +30,7 @@ import java.util.Set;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class AllPermitPolicyAlg  extends PolicyCombiningAlgorithm {
-	
+//   private static final Logger log = Logger.getLogger(AllPermitPolicyAlg.class);
 	public AllPermitPolicyAlg() throws URISyntaxException {
 		super (new URI("policy-combining-alg:allpermit"));
 	}
@@ -39,8 +40,11 @@ public class AllPermitPolicyAlg  extends PolicyCombiningAlgorithm {
 		Iterator it = policies.iterator();
 		while (it.hasNext())
 		{
+//            log.debug("AllPermitPolicyAlg:: Algorithms Started");
 			AbstractPolicy mypolicy = (AbstractPolicy) (it.next());
+//			log.debug("AllPermitPolicyAlg:: Get First Policy ::" +  mypolicy.getId().toString());
 			MatchResult mymatch = mypolicy.match(context);
+//			log.debug("AllPermitPolicyAlg:: Evalueated Rule " + mypolicy.getId().toString() + "  :: Result  " + mymatch.getResult());
 			if (mymatch.getResult()==MatchResult.MATCH) {
 				Result myresult = mypolicy.evaluate(context);
 				if (myresult.getDecision()!=Result.DECISION_PERMIT) {

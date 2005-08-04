@@ -204,6 +204,7 @@ public class C_PEP {
 			
 			log.debug("PolicyEnforcement->PEP:: Created Request :: " + myOutStram.toString());
 			ResponseCtx response = MyPDP.evaluate(request);
+			if (response==null) log.debug("PolicyEnforcement->PEP:AuthenticateUser: Got Null as Response :: "); 
 			myOutStram = new ByteArrayOutputStream();
 			response.encode(myOutStram);
 			
@@ -241,6 +242,7 @@ public class C_PEP {
 			
 		} catch (Exception e)
 		{
+			e.printStackTrace();
 			throw new E_PolicyEnforcementException ("PEP:F_AuthenticateUser: Exception \n" +e.toString());
 		}
 		return false;

@@ -36,6 +36,7 @@ public class PolicyEnforcementBean implements SessionBean {
 
 	// Create the PEP and the PDP
 	private static C_PEP MyPEP = null;
+	
 
 	/**
 	 * 
@@ -44,7 +45,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	public PolicyEnforcementBean() {
 
 		super();
-
+		
 		// TODO Auto-generated constructor stub
 	}
 
