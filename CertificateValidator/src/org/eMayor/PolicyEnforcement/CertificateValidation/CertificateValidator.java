@@ -5,13 +5,14 @@ import iaik.x509.V3Extension;
 import iaik.x509.X509CRL;
 
 
-import java.io.File;
+//import java.io.File;
 import java.security.KeyStore;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Vector;
+//import java.util.Iterator;
+//import java.util.Vector;
 import java.security.cert.X509Certificate;
-import java.net.ConnectException;
+//import java.net.ConnectException;
+//import org.apache.log4j.Logger;
 
 /**
  * <p>Title: CertificateValidator</p>
@@ -23,7 +24,7 @@ import java.net.ConnectException;
  */
 
 public class CertificateValidator {
-
+	//private static final Logger log = Logger.getLogger(CertificateValidator.class);
 	/**
 	 * 
 	 * @uml.property name="tsc"
@@ -32,8 +33,21 @@ public class CertificateValidator {
 	//TrustedStoreConfiguration tsc = new TrustedStoreConfiguration();
 	String CRLUri;
 	boolean DefaultCRL=false;
+	
+	// Define the answer type
+	public static final int CertUntrusted   = 0;
+	public static final int CertTrusted     = 1;
+	public static final int NoCRLConnection = 2;
+	public static final int CertNotRevoked  = 3; // For the Check Revocation Status
+	public static final int CertRevoked     = 4;
+	
+	
+	
+	
+	
+	
 
-	private boolean checkRevocationStatus = true;
+	
 
 	/**
 	 * 
@@ -67,11 +81,22 @@ public class CertificateValidator {
      *  @param iaikCert An X509 certificate wrapper based on the IAIK library.
      *  @return A boolean indicating whether the certificate can be trusted.
      */
-	public boolean isCertTrusted(iaik.x509.X509Certificate iaikCert){ 
+	public int isCertTrusted(iaik.x509.X509Certificate iaikCert){ 
 	
 		//We extract the subject and issuer DNs to search for them in our trusted store.
-
-		boolean certIsTrusted = false;
+		try {
+			iaikCert.checkValidity();
+			
+		} catch (java.security.cert.CertificateExpiredException e) {
+		//	log.debug("ValidateChain:: isTrusted :: Validity Expired");
+			return CertUntrusted;
+		}
+		catch (java.security.cert.CertificateNotYetValidException e) {
+		//	log.debug("ValidateChain:: isTrusted :: Validity NotYetValid");
+			return CertUntrusted;
+		}
+		// log.debug("ValidateChain:: isTrusted :: Validity OK");
+		int ReturnValue = CertUntrusted;
 		String subjectDN = iaikCert.getSubjectDN().getName();
 		String issuerDN = iaikCert.getIssuerDN().getName();
 
@@ -99,10 +124,13 @@ public class CertificateValidator {
 					// we check if the target certificate is revoked
     	    		//System.out.println("Root");
 					
-					if(checkRevocationStatus){
-						certIsTrusted = !isCertRevoked(iaikCert);
-					} else certIsTrusted=true;
-    	    		
+					  int Responce = isCertRevoked(iaikCert);
+					  if (Responce == CertNotRevoked) ReturnValue = CertTrusted; else
+					  if (Responce == CertRevoked) ReturnValue = CertUntrusted; else
+					  	ReturnValue = NoCRLConnection; // No CRL Connection
+					  	
+					
+		//			  log.debug("ValidateChain:: isTrusted :: Root is " + ReturnValue);
 					break;
 				} 
 				// Here we have found the issuer, but and since it is not a Root CA it is an intermediate one
@@ -111,22 +139,25 @@ public class CertificateValidator {
 					//iaik.x509.X509Certificate issuerCert = new iaik.x509.X509Certificate(cert.getEncoded());
 					//System.out.println("Intermediate");
 					
-					certIsTrusted = this.isCertTrusted(trustedCert);
-    	    			
-					if(checkRevocationStatus){
-						// We check if it is revoked
-						certIsTrusted = certIsTrusted && !isCertRevoked(iaikCert);
-					} //else certIsTrusted=true;
-    	    			
+					int IntermediarCheck =  this.isCertTrusted(trustedCert);
+			//		log.debug("ValidateChain:: isTrusted :: Intermidiar is " + IntermediarCheck);
+					if (IntermediarCheck==NoCRLConnection) ReturnValue = NoCRLConnection; 
+					else if (IntermediarCheck == CertTrusted){
+						   int Responce = isCertRevoked(iaikCert);
+				//		   log.debug("ValidateChain:: isTrusted :: Crtificate Revocation is " + Responce);
+						   if (Responce == CertNotRevoked) ReturnValue = CertTrusted; 
+						   else if (Responce == CertRevoked) ReturnValue = CertUntrusted; 
+						        else ReturnValue = NoCRLConnection; 
+					     } else ReturnValue = CertUntrusted;
 					break;
-				} else {
-					certIsTrusted = false;
-				}
-			}
+				} else ReturnValue = CertUntrusted;
+			} // end For
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return certIsTrusted;
+		
+		
+    	return ReturnValue;
 	}
 
     /** This method provides an answer to the question "is this certificate revoked?". 
@@ -136,10 +167,11 @@ public class CertificateValidator {
      *  @param iaikCert An X509 certificate wrapper based on the IAIK library.
      *  @return A boolean indicating whether the certificate is revoked.
      */
-	private boolean isCertRevoked(iaik.x509.X509Certificate cert){ 
+	private int isCertRevoked(iaik.x509.X509Certificate cert){ 
 		// check of revocation Status
 
-		boolean certIsRevoked = false;
+	
+		int Response = CertUntrusted;
 		String oidStr = "2.5.29.31";
 		String name = "CRL Distribution Point";
 		String shortName = "CDP";
@@ -156,7 +188,9 @@ public class CertificateValidator {
 				String cdp = cdpExt.toString();
 				String url = cdp.substring(cdp.lastIndexOf("http"));
 				crl = CRLFetcher.fetchCRL(url);
-				certIsRevoked = crl.isRevoked(cert);
+				if (crl.isRevoked(cert)) Response= CertRevoked;
+				  else Response = CertNotRevoked;
+				
 			} else {
 				// Otherwise we use the list provided in the CRLDistributionPoints configuration file
 				//CDPConfiguration cdpConf = new CDPConfiguration();
@@ -166,54 +200,67 @@ public class CertificateValidator {
 				{
 					//String url = (String) i.next();
 					crl = CRLFetcher.fetchCRL(CRLUri);
-					certIsRevoked = certIsRevoked || crl.isRevoked(cert);
+					if (crl.isRevoked(cert)) Response= CertRevoked;
+					  else Response = CertNotRevoked;
+					
+					
 				}
+				
 			}
 
-		} catch (ConnectException ce) {
+		} catch (Exception ce) {
 			// In case we fail to connect we use the predefined CDP and get a ConnectException
-			System.out.println("no Connection to CRL from the Certificate, Use default");
-			try {
-			/*	CDPConfiguration cdpConf = new CDPConfiguration();
-				Vector cdpUris = cdpConf.getCDPs();
+			
+			if (!DefaultCRL) {
+				System.out.println("no Connection to CRL from the Certificate, Use default");
+				try {
+				/*	CDPConfiguration cdpConf = new CDPConfiguration();
+					Vector cdpUris = cdpConf.getCDPs();
+			
+					for (Iterator i=cdpUris.iterator(); i.hasNext(); ) {
+						String url = (String) i.next();
+						crl = CRLFetcher.fetchCRL(url);
+						certIsRevoked = certIsRevoked || crl.isRevoked(cert);
+					} */
+					crl = CRLFetcher.fetchCRL(CRLUri);
+					if (crl.isRevoked(cert)) Response= CertRevoked;
+					  else Response = CertNotRevoked;
+					
+				} catch (Exception ex) {
+					Response = NoCRLConnection;
+					
+				}
+			} else Response = NoCRLConnection;;
+			
+			
+		} 
 		
-				for (Iterator i=cdpUris.iterator(); i.hasNext(); ) {
-					String url = (String) i.next();
-					crl = CRLFetcher.fetchCRL(url);
-					certIsRevoked = certIsRevoked || crl.isRevoked(cert);
-				} */
-				crl = CRLFetcher.fetchCRL(CRLUri);
-				certIsRevoked = certIsRevoked || crl.isRevoked(cert);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			return certIsRevoked;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return certIsRevoked;
+		return Response;
 	}
 
-	public boolean validateChain(X509Certificate[] chain) {
-		boolean result=true;
+	public int validateChain(X509Certificate[] chain) {
+		int result=CertTrusted;
 		
 		// We begin checking top level certificates in the chain.
 		// If we find one valid according to our trusted store
-		if (chain.length < 1){
-			result=false;
-		} else 
-		try {
-			for (int i=chain.length-1; i>=0; i--) {
-				if (chain[i] != null) {
-					iaik.x509.X509Certificate cert = new iaik.x509.X509Certificate(chain[i].getEncoded());
-					result = result && this.isCertTrusted(cert);
+		if (chain.length > 0){
+	
+			try {
+				for (int i=chain.length-1; i>=0; i--) {
+					if (chain[i] != null) {
+						iaik.x509.X509Certificate cert = new iaik.x509.X509Certificate(chain[i].getEncoded());
+						int IntermediateAnswer = this.isCertTrusted(cert);
+			//			log.debug("ValidateChain:: Cert" + i + " Result " + IntermediateAnswer);
+						if (result==CertTrusted) result = IntermediateAnswer;
+						
+					}
 				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-			
+		
+		} else 	result=CertUntrusted;
+	//	log.debug("ValidateChain:: Result " + result);
 		return result;
 	}
 	
@@ -226,7 +273,7 @@ public class CertificateValidator {
 			// get user password and file input stream for the cacerts
 		
 			String sJavaHome = System.getProperty("java.home");
-			System.out.println("The java home is " + sJavaHome);
+			//System.out.println("The java home is " + sJavaHome);
 			
 			String sCacertspath = sJavaHome + "/lib/security/cacerts";
 			char[] password = (new String("changeit")).toCharArray();
@@ -247,7 +294,5 @@ public class CertificateValidator {
     /** This method sets whether a CRL server shall be contacted to download the appropriate
      *  CRL while checking a certificate.
      */
-	public void setRevocationChecking(boolean checkRevocationStatus) {
-		this.checkRevocationStatus = checkRevocationStatus;
-	}
+
 }
