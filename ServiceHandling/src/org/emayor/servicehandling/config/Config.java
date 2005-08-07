@@ -348,6 +348,20 @@ public class Config {
 		return this.setProperty(propID,value);
 	}
 	
+	public synchronized String setProperty(int propID, boolean value)
+	throws ConfigException {
+		return this.propertyAction(propID, WRITE_CONFIG, Boolean.toString(value), this.local);
+	}
+
+	public synchronized String setProperty(String key, boolean value)
+	throws ConfigException {
+		int propID = -1;
+		if (old2new.getProperty(key) != null) {
+			propID = Integer.parseInt(old2new.getProperty(key));
+		} 
+		return this.setProperty(propID,value);
+	}
+	
 	/*
 	 * performs a write or read from properties using
 	 * propID is reference to property to read/write
