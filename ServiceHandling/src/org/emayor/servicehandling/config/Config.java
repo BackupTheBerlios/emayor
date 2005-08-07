@@ -334,6 +334,16 @@ public class Config {
 		return this.getProperty(propID, null);
 	}
 	
+	public synchronized boolean getPropertyAsBoolean(String propertyName)
+	throws ConfigException {
+		return Boolean.getBoolean(this.getProperty(propertyName, null));
+	}
+	
+	public synchronized boolean getPropertyAsBoolean(int propID)
+	throws ConfigException {
+		return Boolean.getBoolean(this.getProperty(propID, null));
+	}
+	
 	public synchronized String setProperty(int propID, String value)
 	throws ConfigException {
 		return this.propertyAction(propID, WRITE_CONFIG, value, this.local);
