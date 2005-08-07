@@ -105,17 +105,49 @@
     </Rule>
 
    <Rule RuleId="CountryCheck" Effect="Permit">
-      <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+       <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
           <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
                                       AttributeId="Country"/>
         </Apply>
         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">BE</AttributeValue>
-        
-      </Condition>
+
+	
+        </Condition>
+      
     </Rule>
     
 </Policy>
+<Policy PolicyId="ServerAuthentication"
+    RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides">
+
+<Target>
+    <Subjects>
+        <AnySubject/>
+    </Subjects>
+    <Resources>
+        <AnyResource/>
+    </Resources>
+    <Actions>
+        <AnyAction/>
+    </Actions>
+</Target>
+											
+   <Rule RuleId="RoleCheck" Effect="Permit">
+      <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+          <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                      AttributeId="Role"/>
+        </Apply>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Server</AttributeValue>
+        
+      </Condition>
+    </Rule>
+
+   <Rule RuleId="DeafaultDeny" Effect="Deny"/>
+    
+</Policy>
+
 </PolicySet>
 <Policy PolicyId="TrustedCert"
     RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides">
@@ -157,4 +189,37 @@
    <Rule RuleId="DefaultRule" Effect="Deny"/>
     
 </Policy>
+
+<Policy PolicyId="IssuerCAPolicy"
+    RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides">
+
+<Target>
+    <Subjects>
+        <AnySubject/>
+    </Subjects>
+        <Resources>
+    <AnyResource/>
+        </Resources>
+    <Actions>
+        <AnyAction/>
+    </Actions>
+</Target>
+						
+
+   <Rule RuleId="IssuerCa" Effect="Permit">
+      <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+          <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                      AttributeId="CA"/>
+        </Apply>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">CN=eMayor Operational CA, C=BE</AttributeValue>
+        
+      </Condition>
+    </Rule>
+
+   <Rule RuleId="DefaultRule" Effect="Deny"/>
+    
+</Policy>
+
+
 </PolicySet>
