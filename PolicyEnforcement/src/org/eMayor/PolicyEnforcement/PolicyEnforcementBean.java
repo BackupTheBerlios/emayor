@@ -7,6 +7,7 @@
 package org.eMayor.PolicyEnforcement;
 
 import org.eMayor.PolicyEnforcement.CertificateValidation.*;
+import org.emayor.servicehandling.config.Config;
 
 import java.rmi.RemoteException;
 
@@ -118,10 +119,23 @@ public class PolicyEnforcementBean implements SessionBean {
 		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		C_UserProfile myUserProfile;
-		// Validate the user certificate
-		CertificateValidator cv = new CertificateValidator("http://localhost/EMayor-operational.crl", true);
-		int result = CertificateValidator.CertUntrusted;
+		// Get the configuation parameters
+		Config config = null;
+		int result = 0;
+		CertificateValidator cv=null;
 		try {
+			config = Config.getInstance();
+		
+		
+		
+		// Validate the user certificate
+			String sCRL =config.getProperty(Config.EMAYOR_PE_CRL_DISTRIBUTION_URL);
+			boolean bUserDefCRL = new Boolean(config.getProperty(Config.EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL)).booleanValue(); 
+			
+			//log.debug("Policy Enforcement->F_AuthorizeService:: get configuration as " + sCRL+ " :: " +  bUserDefCRL);
+			cv = new CertificateValidator(sCRL, bUserDefCRL);
+			result = CertificateValidator.CertUntrusted;
+		
 			if (MyPEP == null){
 				MyPEP = new C_PEP(new C_PDP());
 				log.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
@@ -133,6 +147,7 @@ public class PolicyEnforcementBean implements SessionBean {
 					"PolicyEnforcement::F_AuthenticateUser:: Exception \n"
 						+ e.toString());
 		}
+		
 		result = cv.validateChain(myUserProfile.getX509_CertChain());
 		String sValidationResult="CertUntrusted";
 		if (result == CertificateValidator.CertTrusted) sValidationResult="CertTrusted";
