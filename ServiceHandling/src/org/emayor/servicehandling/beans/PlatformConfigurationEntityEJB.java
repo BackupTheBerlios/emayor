@@ -797,4 +797,41 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 * @ejb.interface-method   view-type="local"
 	 */
 	public abstract void setEMayorContentRoutingPassword(String value);
+	
+	/**
+	 * PolicyEnforcer CRL Distribution URL
+	 *
+	 * @jboss.column-name name = "emayor_pe_crl_distribution_url"
+	 * @jboss.sql-type type = "VARCHAR(200)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorPeCrlDistributionURL();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorPeCrlDistributionURL(String value);
+
+	/**
+	 * PolicyEnforcer CRL Distribution URL as default only
+	 *
+	 * @jboss.column-name name = "emayor_pe_crl_use_default_distribution_url"
+	 * @jboss.sql-type type = "BOOLEAN"
+	 * @jboss.jdbc-type type = "TINYINT" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract Boolean getEMayorPeCrlUseDefaultDistributionURL();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorPeCrlUseDefaultDistributionURL(Boolean value);
+	
 }

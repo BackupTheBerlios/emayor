@@ -36,5 +36,7 @@ CREATE TABLE PLATFORMCONFIG (
 	emayor_content_routing_userid VARCHAR(20),
 	emayor_content_routing_password VARCHAR(20),
 	config_is_active SMALLINT,
+	emayor_pe_crl_distribution_url VARCHAR(200),
+	emayor_pe_crl_use_default_distribution_url SMALLINT,
 	CONSTRAINT pk_PLATFORMCONFIG PRIMARY KEY (CONFIGID)
 );

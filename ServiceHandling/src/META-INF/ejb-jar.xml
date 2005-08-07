@@ -439,6 +439,14 @@
             <description><![CDATA[content routing juddi userid]]></description>
             <field-name>EMayorContentRoutingPassword</field-name>
          </cmp-field>
+         <cmp-field >
+            <description><![CDATA[PolicyEnforcer CRL URL]]></description>
+            <field-name>EMayorPeCrlUseDefaultDistributionURL</field-name>
+         </cmp-field>
+         <cmp-field >
+            <description><![CDATA[PolicyEnforcer CRL as default]]></description>
+            <field-name>EMayorPeCrlDistributionURL</field-name>
+         </cmp-field>
           <primkey-field>configID</primkey-field>
 
          <query>

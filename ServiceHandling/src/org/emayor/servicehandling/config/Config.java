@@ -107,6 +107,9 @@ public class Config {
 	// marker for active configuration
 	public static final int CONFIG_IS_ACTIVE = 35;
 	
+	public static final int EMAYOR_PE_CRL_DISTRIBUTION_URL = 36;
+	public static final int EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL = 37;
+	
 	/*
 	 * INSERT NEW FIELDS HERE
 	 */
@@ -279,6 +282,10 @@ public class Config {
 				new Integer(EMAYOR_CONTENT_ROUTING_PASSWORD).toString());
 		old2new.setProperty("config.is.active",
 				new Integer(CONFIG_IS_ACTIVE).toString());
+		old2new.setProperty("emayor.pe.crl.distributionURL",
+				new Integer(EMAYOR_PE_CRL_DISTRIBUTION_URL).toString());
+		old2new.setProperty("emayor.pe.crl.useDefaultURL",
+				new Integer(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL).toString());
 	}
 
 	public synchronized String getProperty(String propName, String defValue)
@@ -564,7 +571,18 @@ public class Config {
 		case(CONFIG_IS_ACTIVE):
 			if (action && READ_CONFIG) result = local.getIsActive().toString();
 			else local.setIsActive(Boolean.valueOf(value));
-			break;			
+			break;
+		
+		case(EMAYOR_PE_CRL_DISTRIBUTION_URL):
+			if (action && READ_CONFIG) result = local.getEMayorPeCrlDistributionURL();
+			else local.setEMayorPeCrlDistributionURL(value);
+			break;
+		
+		case(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL):
+			if (action && READ_CONFIG) result = local.getEMayorPeCrlUseDefaultDistributionURL().toString();
+			else local.setEMayorPeCrlUseDefaultDistributionURL(Boolean.valueOf(value));
+			break;
+			
 			
 		}
 		
@@ -634,6 +652,8 @@ public class Config {
 		setProperty(EMAYOR_CONTENT_ROUTING_USERID,"juddi");
 		setProperty(EMAYOR_CONTENT_ROUTING_PASSWORD,"juddi");
 		setProperty(CONFIG_IS_ACTIVE,Boolean.TRUE.toString());
+		setProperty(EMAYOR_PE_CRL_DISTRIBUTION_URL,"https://testvalueForCRL/");
+		setProperty(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL,Boolean.TRUE.toString());
 	}
 	
 	public synchronized Set getConfigNames() {

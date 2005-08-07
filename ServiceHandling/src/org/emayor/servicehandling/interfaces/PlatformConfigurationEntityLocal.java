@@ -378,5 +378,26 @@ public interface PlatformConfigurationEntityLocal
     * Setter for CMP Field
     */
    public void setEMayorContentRoutingPassword( java.lang.String value ) ;
+   
+	/**
+	 * PolicyEnforcer CRL Distribution URL
+	 */
+	public String getEMayorPeCrlDistributionURL();
+
+	/**
+	 * Setter for CMP Field
+	 */
+	public void setEMayorPeCrlDistributionURL(String value);
+
+	/**
+	 * PolicyEnforcer CRL Distribution URL as default only
+	 */
+	public Boolean getEMayorPeCrlUseDefaultDistributionURL();
+
+	/**
+	 * Setter for CMP Field
+	 */
+	public void setEMayorPeCrlUseDefaultDistributionURL(Boolean value);
+	
 
 }

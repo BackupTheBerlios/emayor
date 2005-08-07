@@ -205,4 +205,12 @@ public abstract class PlatformConfigurationEntityCMP
 
    public abstract void setEMayorContentRoutingPassword( java.lang.String EMayorContentRoutingPassword ) ;
 
+   public abstract String getEMayorPeCrlDistributionURL();
+
+   public abstract void setEMayorPeCrlDistributionURL(String value);
+
+   public abstract java.lang.Boolean getEMayorPeCrlUseDefaultDistributionURL();
+
+   public abstract void setEMayorPeCrlUseDefaultDistributionURL(Boolean value);
+
 }

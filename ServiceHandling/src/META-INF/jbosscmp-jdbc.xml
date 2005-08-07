@@ -318,6 +318,23 @@
             <sql-type>VARCHAR(20)</sql-type>
 
         </cmp-field>
+        
+        <cmp-field>
+            <field-name>EMayorPeCrlUseDefaultDistributionURL</field-name>
+            <column-name>emayor_pe_crl_use_default_distribution_url</column-name>
+
+            <jdbc-type>INTEGER</jdbc-type>
+            <sql-type>SMALLINT</sql-type>
+
+        </cmp-field>
+         <cmp-field>
+            <field-name>EMayorPeCrlDistributionURL</field-name>
+            <column-name>emayor_pe_crl_distribution_url</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
 
       </entity>
       
