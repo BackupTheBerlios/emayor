@@ -6,6 +6,7 @@ import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 import javax.ejb.CreateException;
+import javax.naming.ServiceUnavailableException;
 
 import org.emayor.servicehandling.config.Config;
 import org.emayor.servicehandling.config.ConfigException;
@@ -113,25 +114,16 @@ public class ContentRouterBean implements SessionBean {
      *            The name of the requested service.
      * @return The URL of the access point for the requested service of the
      *         specific organization (municipality).
-     * @throws org.emayor.ContentRouting.ejb.OrganisationNotFoundException
-     *             when the requested organization could not be found.
-     * @throws org.emayor.ContentRouting.ejb.ServiceNotFoundException
-     *             when no service could be found for the given organization.
-     * @throws org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException
-     *             when no binding template could be found for the given
-     *             service.
-     * @throws org.emayor.ContentRouting.ejb.AccessPointNotFoundException
-     *             when no access point URL could be found for the given
-     *             service.
-     * 
+     * @throws OrganisationNotFoundException
+     * @throws ServiceNotFoundException
+     * @throws BindingTemplateNotFoundException
+     * @throws AccessPointNotFoundException
+     * @throws ConfigException
+     * @throws ServiceUnavailableException
      * @ejb.interface-method view-type = "both"
      */
     public String getAccessPoint(String municipalityName, String serviceName)
-            throws org.emayor.ContentRouting.ejb.OrganisationNotFoundException,
-            org.emayor.ContentRouting.ejb.ServiceNotFoundException,
-            org.emayor.ContentRouting.ejb.BindingTemplateNotFoundException,
-            org.emayor.ContentRouting.ejb.AccessPointNotFoundException,
-            org.emayor.servicehandling.config.ConfigException {
+            throws OrganisationNotFoundException, ServiceNotFoundException, BindingTemplateNotFoundException, AccessPointNotFoundException, ServiceUnavailableException, ConfigException {
 
         try {
             Config config = Config.getInstance();
@@ -149,9 +141,7 @@ public class ContentRouterBean implements SessionBean {
     }
 
     private String forceUpdateAccessPoint(String municipalityName,
-            String serviceName) throws OrganisationNotFoundException,
-            ServiceNotFoundException, BindingTemplateNotFoundException,
-            AccessPointNotFoundException, ConfigException {
+            String serviceName) throws ConfigException, OrganisationNotFoundException, ServiceNotFoundException, BindingTemplateNotFoundException, AccessPointNotFoundException, ServiceUnavailableException {
         
         try {
             Config config = Config.getInstance();
@@ -170,7 +160,7 @@ public class ContentRouterBean implements SessionBean {
     private String getAccessPointUDDI(String municipalityName,
             String serviceName, String registryAccessPoint)
             throws OrganisationNotFoundException, ServiceNotFoundException,
-            BindingTemplateNotFoundException, AccessPointNotFoundException {
+            BindingTemplateNotFoundException, AccessPointNotFoundException, ServiceUnavailableException {
 
         String accessPointURL = new String();
 
@@ -289,7 +279,8 @@ public class ContentRouterBean implements SessionBean {
                 }
             }
         } catch (TransportException e) {
-            e.printStackTrace();
+            throw new ServiceUnavailableException(
+            e.getMessage());
         }
         return (accessPointURL); // Return the Access Point of the requested
         // service
