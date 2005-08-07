@@ -26,7 +26,6 @@ import javax.naming.NamingException;
 import javax.naming.ServiceUnavailableException;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.AxisFault;
 import org.apache.axis.client.Call;
 import org.apache.log4j.Logger;
 import org.eMayor.PolicyEnforcement.C_UserProfile;

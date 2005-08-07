@@ -59,7 +59,7 @@ public class eMayorServiceInvoker {
 		try {
 			Config config = Config.getInstance();
 			String endpoint = config.getProperty(
-					"emayor.service.invoker.endpoint", DEF_ENDPOINT);
+					Config.EMAYOR_SERVICE_INVOKER_ENDPOINT, DEF_ENDPOINT);
 			URL portAddress = new URL(endpoint);
 			ServiceLocator locator = ServiceLocator.getInstance();
 			IeMayorServiceStarterService service = locator

@@ -17,6 +17,7 @@ import org.emayor.servicehandling.bpel.task.MyWorklistManager_Service;
 import org.emayor.servicehandling.bpel.task._assigneeAndCustomKey;
 import org.emayor.servicehandling.bpel.task._task;
 import org.emayor.servicehandling.bpel.task._tasklist;
+import org.emayor.servicehandling.config.Config;
 
 //import org.emayor.servicehandling.bpel.task._whereCondition;
 
@@ -237,7 +238,7 @@ public class UserTaskManager implements IService {
 		env.setProperty(Context.INITIAL_CONTEXT_FACTORY,
 				"org.jnp.interfaces.NamingContextFactory");
 		env.setProperty(Context.URL_PKG_PREFIXES, "org.jboss.naming.client");
-		env.setProperty(Context.PROVIDER_URL, "jnp://localhost:1099");
+		env.setProperty(Context.PROVIDER_URL, "jnp://"+Config.FORWARD_MANAGER_QUEUE_HOST);
 		env.setProperty("j2ee.clientName", "ws4ee-client");
 		return new InitialContext(env);
 	}

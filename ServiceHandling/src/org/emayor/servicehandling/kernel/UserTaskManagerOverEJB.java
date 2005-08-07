@@ -107,9 +107,9 @@ public class UserTaskManagerOverEJB implements IService {
 		try {
 			Config config = Config.getInstance();
 			String pass = config.getProperty(
-					"bpel.engine.ut.security.domain.password", "bpel");
+					Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD, "bpel");
 			String name = config.getProperty(
-					"bpel.engine.ut.security.domain.name", "default");
+					Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME, "default");
 			result = new BPELDomainCredentials();
 			result.setDomainName(name);
 			result.setDomainPassword(pass);

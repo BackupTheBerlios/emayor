@@ -29,7 +29,7 @@ public class ContentRoutingWrapper {
 		String mode = "";
 		try {
 			Config config = Config.getInstance();
-			mode = config.getProperty("emayor.operating.mode.content.routing");
+			mode = config.getProperty(Config.EMAYOR_OPERATING_MODE_CONTENT_ROUTING);
 			if (log.isDebugEnabled()) {
 				log.debug("content routing mode is: " + mode);
 				log.debug("requested municipality is: " + municipality);
@@ -44,16 +44,16 @@ public class ContentRoutingWrapper {
 			try {
 				Config config = Config.getInstance();
 				String localName = config
-						.getProperty("forward.manager.test.local.municipality.name");
+						.getProperty(Config.FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME);
 				String remoteName = config
-						.getProperty("forward.manager.test.remote.municipality.name");
+						.getProperty(Config.FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_NAME);
 				if (municipality.equals(localName)) {
 					result = config
-							.getProperty("forward.manager.test.local.municipality.address");
+							.getProperty(Config.FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_ADDRESS);
 				}
 				if (municipality.equals(remoteName)) {
 					result = config
-							.getProperty("forward.manager.test.remote.municipality.address");
+							.getProperty(Config.FORWARD_MANAGER_TEST_REMOTE_MUNICIPALITY_ADDRESS);
 				}
 			} catch (ConfigException confex) {
 				log.error("caught ex: " + confex.toString());

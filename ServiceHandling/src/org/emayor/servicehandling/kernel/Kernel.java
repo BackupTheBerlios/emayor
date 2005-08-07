@@ -63,7 +63,7 @@ public class Kernel implements IKernel {
 			if (pe == null)
 				log.warn("the reference to the policy enforcer is NULL!!!!");
 			Config config = Config.getInstance();
-			if (config.getProperty("emayor.operating.mode")
+			if (config.getProperty(Config.EMAYOR_OPERATING_MODE)
 					.equals("production")) {
 				log.info("working with the production data - production mode");
 				//this.initDeployedServices();
@@ -529,9 +529,9 @@ public class Kernel implements IKernel {
 		IUserProfile ret = null;
 		try {
 			Config config = Config.getInstance();
-			String mode = config.getProperty("emayor.operating.mode.email",
+			String mode = config.getProperty(Config.EMAYOR_OPERATING_MODE_EMAIL,
 					"production");
-			String email = config.getProperty("emayor.email.test.user.address",
+			String email = config.getProperty(Config.EMAYOR_EMAIL_TEST_USER_ADDRESS,
 					"eMayor.User@localhost");
 			ret = this.repository.getUserProfile(userId);
 			if (ret == null) {

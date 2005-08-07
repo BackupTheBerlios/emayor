@@ -65,10 +65,10 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
 		try {
 			Config config = Config.getInstance();
 			String str = config.getProperty(
-					"emayor.admin.interface.is.enabled", "NO");
+					Config.EMAYOR_ADMIN_INTERFACE_IS_ENABLED, "NO");
 			this.isEnabled = str.equals("YES");
 			str = config
-					.getProperty("emayor.admin.interface.userid", "UNKNOWN");
+					.getProperty(Config.EMAYOR_ADMIN_INTERFACE_USERID, "UNKNOWN");
 			if (str == null || str.length() == 0 || str.equals("UNKNOWN")) {
 				log
 						.info("the admin uid is not set -> disable the admin interface at all");
@@ -77,7 +77,7 @@ public class AdminManagerEJB implements SessionBean, IAdmin {
 				log.debug("found the correct admin uid -> go on");
 				this.uid = str;
 			}
-			str = config.getProperty("emayor.admin.interface.password",
+			str = config.getProperty(Config.EMAYOR_ADMIN_INTERFACE_PASSWORD,
 					"UNKNOWN");
 			if (str == null || str.length() == 0 || str.equals("UNKNOWN")) {
 				log

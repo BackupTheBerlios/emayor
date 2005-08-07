@@ -36,7 +36,7 @@ public class IdGeneratorRoot {
 			b.append(cal.get(Calendar.MINUTE)).append("-");
 			this.root = b.toString();
 			Config config = Config.getInstance();
-			this.prefix = config.getProperty("emayor.platform.instance.id");
+			this.prefix = config.getProperty(Config.EMAYOR_PLATFORM_INSTANCE_ID);
 		} catch (Exception ex) {
 			log.error("caught ex: " + ex.toString());
 			this.root = DEF_ROOT;

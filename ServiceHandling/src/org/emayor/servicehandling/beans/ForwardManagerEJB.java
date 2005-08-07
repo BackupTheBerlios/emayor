@@ -139,12 +139,11 @@ public class ForwardManagerEJB implements SessionBean, IForward {
 			;
 			try {
 				Config config = Config.getInstance();
-				forwardMode = config.getProperty(
-						"emayor.operating.mode.forward", "test");
+				forwardMode = config.getProperty(Config.EMAYOR_OPERATING_MODE_FORWARD, "test");
 				local = config
-						.getProperty("forward.manager.test.local.municipality.name");
-				queueName = config.getProperty("forward.manager.queue.name");
-				host = config.getProperty("forward.manager.queue.host");
+						.getProperty(Config.FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME);
+				queueName = config.getProperty(Config.FORWARD_MANAGER_QUEUE_NAME);
+				host = config.getProperty(Config.FORWARD_MANAGER_QUEUE_HOST);
 				serviceId = forwardMessage.getServiceId();
 				if (log.isDebugEnabled()) {
 					log.debug("forward mode = " + forwardMode);

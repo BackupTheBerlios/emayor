@@ -737,13 +737,13 @@ public class ServiceLocator {
 			Config config = Config.getInstance();
 			// Standalone OC4J connection details
 			env.put(Context.INITIAL_CONTEXT_FACTORY, config
-					.getProperty("bpel.engine.ut.initial.context.factory"));
+					.getProperty(Config.BPEL_ENGINE_UT_INITIAL_CONTEXT_FACTORY));
 			env.put(Context.SECURITY_PRINCIPAL, config
-					.getProperty("bpel.engine.ut.security.principal"));
+					.getProperty(Config.BPEL_ENGINE_UT_SECURITY_PRINCIPAL));
 			env.put(Context.SECURITY_CREDENTIALS, config
-					.getProperty("bpel.engine.ut.security.credentials"));
+					.getProperty(Config.BPEL_ENGINE_UT_SECURITY_CREDENTIALS));
 			env.put(Context.PROVIDER_URL, config
-					.getProperty("bpel.engine.ut.provider.url"));
+					.getProperty(Config.BPEL_ENGINE_UT_PROVIDER_URL));
 			this.bpelInitialContext = new InitialContext(env);
 		} catch (NamingException ex) {
 			log.error("caught ex: " + ex.toString());
