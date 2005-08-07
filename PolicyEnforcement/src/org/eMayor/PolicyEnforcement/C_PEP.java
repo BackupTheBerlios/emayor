@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.config.Config;
 
 import com.sun.xacml.EvaluationCtx;
 import com.sun.xacml.attr.StringAttribute;
@@ -32,7 +33,14 @@ import com.sun.xacml.ctx.Subject;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class C_PEP {
-	private C_PDP MyPDP=null;
+
+	/**
+	 * 
+	 * @uml.property name="myPDP"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private C_PDP MyPDP = null;
+
 	private static final Logger log = Logger.getLogger(C_PEP.class);
 	public C_PEP (C_PDP currentPDP) throws E_PolicyEnforcementException{
 		MyPDP= currentPDP;
@@ -174,7 +182,9 @@ public class C_PEP {
 	        HashSet resource = new HashSet();
 
 	        // the resource being requested
-	        StringAttribute value1 = new StringAttribute("eMayorPlatformAachen");
+	        Config myconfig = Config.getInstance();
+	        
+	        StringAttribute value1 = new StringAttribute(myconfig.getProperty(Config.EMAYOR_PLATFORM_INSTANCE_ID));
 
 	        // create the resource using a standard, required identifier for
 	        // the resource being requested

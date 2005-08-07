@@ -74,19 +74,35 @@ public class DBPolicyModule extends PolicyFinderModule
 
     public static final String JAXP_SCHEMA_SOURCE =
         "http://java.sun.com/xml/jaxp/properties/schemaSource";
-    
 
-    // the finder that is using this module
-    private PolicyFinder finder;
+	/**
+	 * 
+	 * @uml.property name="finder"
+	 * @uml.associationEnd multiplicity="(0 1)"
+	 */
+	// the finder that is using this module
+	private PolicyFinder finder;
+
 
     //
     private File schemaFile;
 
-    //
-    private Set fileNames;
+	/**
+	 * 
+	 * @uml.property name="fileNames"
+	 * @uml.associationEnd multiplicity="(0 -1)" elementType="java.lang.String"
+	 */
+	//
+	private Set fileNames;
 
-    //
-    private Set policies;
+	/**
+	 * 
+	 * @uml.property name="policies"
+	 * @uml.associationEnd multiplicity="(0 -1)" elementType="com.sun.xacml.AbstractPolicy"
+	 */
+	//
+	public Set policies;
+
 
     // the logger we'll use for all messages
     private static final Logger logger =
@@ -149,26 +165,27 @@ public class DBPolicyModule extends PolicyFinderModule
         return true;
     }
 
-    /**
-     * Initializes the <code>FilePolicyModule</code> by loading
-     * the policies contained in the collection of files associated
-     * with this module. This method also uses the specified 
-     * <code>PolicyFinder</code> to help in instantiating PolicySets.
-     *
-     * @param finder a PolicyFinder used to help in instantiating PolicySets
-     */
-    public void init(PolicyFinder finder) {
-        this.finder = finder;
+	/**
+	 * Initializes the <code>FilePolicyModule</code> by loading
+	 * the policies contained in the collection of files associated
+	 * with this module. This method also uses the specified 
+	 * <code>PolicyFinder</code> to help in instantiating PolicySets.
+	 * 
+	 * @param finder a PolicyFinder used to help in instantiating PolicySets
+	 * 
+	 * @uml.property name="finder"
+	 */
+	public void init(PolicyFinder finder) {
+		this.finder = finder;
 
-        Iterator it = fileNames.iterator();
-        while (it.hasNext()) {
-            String fname = (String)(it.next());
-            AbstractPolicy policy = loadPolicy(fname, finder,
-                                               schemaFile, this);
-            if (policy != null)
-                policies.add(policy);
-        }
-    }
+		Iterator it = fileNames.iterator();
+		while (it.hasNext()) {
+			String fname = (String) (it.next());
+			AbstractPolicy policy = loadPolicy(fname, finder, schemaFile, this);
+			if (policy != null)
+				policies.add(policy);
+		}
+	}
 
     /**
      * Adds a file (containing a policy) to the collection of filenames

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>PolicyEnforcement</name>
-	<comment></comment>
+	<comment>@key 32303034313132352D32303020506F6C696379456E666F7263656D656E74 </comment>
 	<projects>
 		<project>CertificateValidator</project>
 	</projects>
@@ -11,8 +11,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.omondo.uml.std.Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.omondo.uml.std.Nature</nature>
 	</natures>
 </projectDescription>

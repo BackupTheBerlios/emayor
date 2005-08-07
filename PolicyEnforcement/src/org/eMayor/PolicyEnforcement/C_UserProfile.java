@@ -36,74 +36,182 @@ import org.xml.sax.*;
  */
 public class C_UserProfile implements Serializable{
 
+/**
+ * 
+ * @uml.property name="m_S_UserName" 
+ */
 private String m_S_UserName;
+
+/**
+ * 
+ * @uml.property name="m_S_UserEmail" 
+ */
 private String m_S_UserEmail;
+
+/**
+ * 
+ * @uml.property name="m_S_UserRole" 
+ */
 private String m_S_UserRole;
+
+/**
+ * 
+ * @uml.property name="m_S_OrganisationUnit" 
+ */
 private String m_S_OrganisationUnit;
+
+/**
+ * 
+ * @uml.property name="m_S_UserOrganisation" 
+ */
 private String m_S_UserOrganisation;
+
+/**
+ * 
+ * @uml.property name="m_S_UserST" 
+ */
 private String m_S_UserST;
+
+/**
+ * 
+ * @uml.property name="m_S_UserCountry" 
+ */
 private String m_S_UserCountry;
+
+/**
+ * 
+ * @uml.property name="m_X509_CertChain" 
+ */
 private X509Certificate m_X509_CertChain[];
 
-public String getUserName(){
+/**
+ * 
+ * @uml.property name="m_S_UserName"
+ */
+public String getUserName() {
 	return this.m_S_UserName;
-	
-	
+
 }
-public void setUserName(String sUserName){
+
+/**
+ * 
+ * @uml.property name="m_S_UserName"
+ */
+public void setUserName(String sUserName) {
 	this.m_S_UserName = sUserName;
 }
 
-public String getUserEmail(){
+/**
+ * 
+ * @uml.property name="m_S_UserEmail"
+ */
+public String getUserEmail() {
 	return this.m_S_UserEmail;
 }
-public void setUserEmail(String sUserEmail){
+
+/**
+ * 
+ * @uml.property name="m_S_UserEmail"
+ */
+public void setUserEmail(String sUserEmail) {
 	this.m_S_UserEmail = sUserEmail;
 }
 
-public String getUserRole(){
+/**
+ * 
+ * @uml.property name="m_S_UserRole"
+ */
+public String getUserRole() {
 	return this.m_S_UserRole;
 }
-public void setUserRole(String sUserRole){
+
+/**
+ * 
+ * @uml.property name="m_S_UserRole"
+ */
+public void setUserRole(String sUserRole) {
 	this.m_S_UserRole = sUserRole;
 }
 
-public String getOrganisationUnit(){
+/**
+ * 
+ * @uml.property name="m_S_OrganisationUnit"
+ */
+public String getOrganisationUnit() {
 	return this.m_S_OrganisationUnit;
 }
-public void setOrganisationUnit(String sOrganisationUnit){
+
+/**
+ * 
+ * @uml.property name="m_S_OrganisationUnit"
+ */
+public void setOrganisationUnit(String sOrganisationUnit) {
 	this.m_S_OrganisationUnit = sOrganisationUnit;
 }
 
-public String getUserOrganisation(){
+/**
+ * 
+ * @uml.property name="m_S_UserOrganisation"
+ */
+public String getUserOrganisation() {
 	return this.m_S_UserOrganisation;
 }
-public void setUserOrganisation(String sUserOrganisation){
+
+/**
+ * 
+ * @uml.property name="m_S_UserOrganisation"
+ */
+public void setUserOrganisation(String sUserOrganisation) {
 	this.m_S_UserOrganisation = sUserOrganisation;
 }
 
-
-public String getUserST(){
+/**
+ * 
+ * @uml.property name="m_S_UserST"
+ */
+public String getUserST() {
 	return this.m_S_UserST;
 }
-public void setUserST(String sUserST){
+
+/**
+ * 
+ * @uml.property name="m_S_UserST"
+ */
+public void setUserST(String sUserST) {
 	this.m_S_UserST = sUserST;
 }
 
-public String getUserCountry(){
+/**
+ * 
+ * @uml.property name="m_S_UserCountry"
+ */
+public String getUserCountry() {
 	return this.m_S_UserCountry;
 }
-public void setUserCountry(String sUserCountry){
+
+/**
+ * 
+ * @uml.property name="m_S_UserCountry"
+ */
+public void setUserCountry(String sUserCountry) {
 	this.m_S_UserCountry = sUserCountry;
 }
 
-public X509Certificate[] getX509_CertChain(){
+/**
+ * 
+ * @uml.property name="m_X509_CertChain"
+ */
+public X509Certificate[] getX509_CertChain() {
 	return this.m_X509_CertChain;
 }
-public void setX509_CertChain(X509Certificate[] newChain){
+
+/**
+ * 
+ * @uml.property name="m_X509_CertChain"
+ */
+public void setX509_CertChain(X509Certificate[] newChain) {
 	this.m_X509_CertChain = newChain;
 }
-
 
 // Constructors For XML and XML String
 public class E_UserProfileException extends Exception

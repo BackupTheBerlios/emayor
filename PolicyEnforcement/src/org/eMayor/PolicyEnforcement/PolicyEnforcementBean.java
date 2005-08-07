@@ -19,7 +19,7 @@ import javax.ejb.CreateException;
 
 import org.apache.log4j.Logger;
 
-
+import com.sun.xacml.finder.PolicyFinder;
 
 import java.security.cert.X509Certificate;
 
@@ -37,7 +37,6 @@ public class PolicyEnforcementBean implements SessionBean {
 
 	// Create the PEP and the PDP
 	private static C_PEP MyPEP = null;
-	
 
 	/**
 	 * 
@@ -46,7 +45,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	public PolicyEnforcementBean() {
 
 		super();
-		
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -122,52 +121,49 @@ public class PolicyEnforcementBean implements SessionBean {
 		// Get the configuation parameters
 		Config config = null;
 		int result = 0;
-		CertificateValidator cv=null;
+		CertificateValidator cv = null;
 		try {
 			config = Config.getInstance();
-		
-		
-		
-		// Validate the user certificate
-			String sCRL =config.getProperty(Config.EMAYOR_PE_CRL_DISTRIBUTION_URL);
-			boolean bUserDefCRL = new Boolean(config.getProperty(Config.EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL)).booleanValue(); 
-			
+
+			// Validate the user certificate
+			String sCRL = config
+				.getProperty(Config.EMAYOR_PE_CRL_DISTRIBUTION_URL);
+			boolean bUserDefCRL = new Boolean(config
+				.getProperty(Config.EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL))
+				.booleanValue();
+
 			//log.debug("Policy Enforcement->F_AuthorizeService:: get configuration as " + sCRL+ " :: " +  bUserDefCRL);
 			cv = new CertificateValidator(sCRL, bUserDefCRL);
 			result = CertificateValidator.CertUntrusted;
-		
-			if (MyPEP == null){
+
+			if (MyPEP == null) {
 				MyPEP = new C_PEP(new C_PDP());
-				log.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
+				log
+					.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
 			}
 			myUserProfile = new C_UserProfile(UserProfile);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new E_PolicyEnforcementException(
-					"PolicyEnforcement::F_AuthenticateUser:: Exception \n"
-						+ e.toString());
+				"PolicyEnforcement::F_AuthenticateUser:: Exception \n"
+					+ e.toString());
 		}
-		
+
 		result = cv.validateChain(myUserProfile.getX509_CertChain());
-		String sValidationResult="CertUntrusted";
-		if (result == CertificateValidator.CertTrusted) sValidationResult="CertTrusted";
-		else if (result == CertificateValidator.NoCRLConnection) sValidationResult="NoCRLConnection";
-		
-		
-		
-		java.security.Principal myIssuer = ((myUserProfile.getX509_CertChain())[0]).getIssuerDN();
-		String sCA="Not Available";
-		if (myIssuer!=null) sCA = myIssuer.getName();
-		
-		
-		return MyPEP.F_AuthenticateUser(sValidationResult, myUserProfile.getUserRole(), sCA, myUserProfile.getUserCountry() );
-		
-			
-			
-			
-			
-			
-			
+		String sValidationResult = "CertUntrusted";
+		if (result == CertificateValidator.CertTrusted)
+			sValidationResult = "CertTrusted";
+		else if (result == CertificateValidator.NoCRLConnection)
+			sValidationResult = "NoCRLConnection";
+
+		java.security.Principal myIssuer = ((myUserProfile.getX509_CertChain())[0])
+			.getIssuerDN();
+		String sCA = "Not Available";
+		if (myIssuer != null)
+			sCA = myIssuer.getName();
+
+		return MyPEP.F_AuthenticateUser(sValidationResult, myUserProfile
+			.getUserRole(), sCA, myUserProfile.getUserCountry());
+
 	}
 	/**
 	 * Business method
@@ -204,14 +200,16 @@ public class PolicyEnforcementBean implements SessionBean {
 		throws E_PolicyEnforcementException {
 		// TODO Auto-generated method stub
 		try {
-			if (MyPEP == null){
+			if (MyPEP == null) {
 				MyPEP = new C_PEP(new C_PDP());
-				log.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
+				log
+					.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
 			}
-				
-				
+
 			C_UserProfile MyUserProfile = new C_UserProfile(UserProfile);
-			log.debug("Policy Enforcement->F_AuthorizeService:: Got The User Profile with role" + MyUserProfile.getUserRole());
+			log
+				.debug("Policy Enforcement->F_AuthorizeService:: Got The User Profile with role"
+					+ MyUserProfile.getUserRole());
 			return MyPEP.F_CanStartService(
 				MyUserProfile.getUserRole(),
 				ServiceProfile);
@@ -241,26 +239,35 @@ public class PolicyEnforcementBean implements SessionBean {
 		// TODO Auto-generated method stub
 		try {
 			MyPEP = new C_PEP(new C_PDP());
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new E_PolicyEnforcementException(
-					"PolicyEnforcement->F_UpdatePolicies: Exeption ::"
-						+ e.toString());
+				"PolicyEnforcement->F_UpdatePolicies: Exeption ::"
+					+ e.toString());
 		}
-			
-			
-		
+
 	}
 
 	/**
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_NewUserProfile(String newUserProfile){
+	public boolean F_NewUserProfile(String newUserProfile) {
 		if (log.isDebugEnabled())
-		log.debug("Policy Enforcement->F_NewUserProfile::" + newUserProfile);
+			log
+				.debug("Policy Enforcement->F_NewUserProfile::"
+					+ newUserProfile);
 		return true;
-		
+
 	}
 
+	/**
+	 * Business method
+	 * @ejb.interface-method  view-type = "both"
+	 */
+	public boolean GetGeneralPolicyEffect() {
+		// TODO Auto-generated method stub
+		
+//		Set mypolicies = (this.MyPEP.F_getCurrentPDP()).MyPolicyModule.policies;
+		return false;
+	}
 }

@@ -44,8 +44,11 @@ public class eMayorTest extends HttpServlet {
 
 	/**
 	 * 
+	 * @uml.property name="home"
+	 * @uml.associationEnd multiplicity="(0 1)"
 	 */
 	private PolicyEnforcementHome home;
+
 	public eMayorTest() {
 		super();
 		// TODO Auto-generated constructor stub

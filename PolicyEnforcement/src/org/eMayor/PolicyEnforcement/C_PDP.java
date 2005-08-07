@@ -44,7 +44,15 @@ import com.sun.xacml.finder.impl.CurrentEnvModule;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class C_PDP {
-	private PDP MyPDP=null;
+
+	/**
+	 * 
+	 * @uml.property name="myPDP"
+	 * @uml.associationEnd multiplicity="(1 1)"
+	 */
+	private PDP MyPDP = null;
+	public static DBPolicyModule MyPolicyModule = null;
+
 	private static final Logger log = Logger.getLogger(C_PDP.class);
 	
 	public PDP F_getCurrentPDP(){
@@ -96,7 +104,8 @@ public class C_PDP {
 			
 				
 			
-				DBPolicyModule MyPolicyModule = new DBPolicyModule();
+				MyPolicyModule = new DBPolicyModule();
+				
 				CurrentEnvModule envModule = new CurrentEnvModule();
 			
 			
@@ -116,6 +125,7 @@ public class C_PDP {
 				PolicyFinder mypolicyFinder = new PolicyFinder();
 				Set policyModules = new HashSet();
 				policyModules.add(MyPolicyModule);
+				
 				mypolicyFinder.setModules(policyModules);
 				AttributeFinder myattrFinder = new AttributeFinder();
 				List attrModules = new ArrayList();
