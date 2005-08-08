@@ -9,7 +9,7 @@
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="jboss.xml"/>
 </zipfileset>
-<zipfileset dir="bin" includes="org.eMayor.AdaptationLayer/ejb/*.class, org.eMayor.AdaptationLayer/interfaces/*.class"/>
+<zipfileset dir="bin" includes="org/eMayor/AdaptationLayer/ejb/*.class, org/eMayor/AdaptationLayer/interfaces/*.class"/>
 </jar>
 </target>
 </project>
