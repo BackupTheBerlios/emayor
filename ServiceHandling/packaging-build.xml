@@ -254,6 +254,9 @@
 <zipfileset dir=".">
 <include name="PlatformTest-client.jar"/>
 </zipfileset>
+<zipfileset dir="../org.eMayor.AdaptationLayer">
+<include name="E2MEJB.jar"/>
+</zipfileset>
 </jar>
 </target>
 </project>

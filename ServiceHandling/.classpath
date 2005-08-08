@@ -14,12 +14,13 @@
 	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
 	<classpathentry kind="src" path="/NotificationService"/>
 	<classpathentry kind="src" path="/FormatTransformation"/>
-	<classpathentry kind="src" path="/ContentRouting"/>
 	<classpathentry kind="src" path="/NotificationServiceWrapper"/>
 	<classpathentry kind="lib" path="lib/cos.jar"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.junit-3.8.1"/>
 	<classpathentry kind="lib" path="lib/UTWrapper-client.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/javamail.jar"/>
+	<classpathentry kind="src" path="/ContentRouting"/>
+	<classpathentry kind="src" path="/org.eMayor.AdaptationLayer"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

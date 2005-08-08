@@ -25,6 +25,9 @@
 		<ejb>ContentRouting-ejb.jar</ejb>
 	</module>
 	<module>
+		<ejb>E2MEJB.jar</ejb>
+	</module>
+	<module>
 		<web>
 			<web-uri>eMayorWeb.war</web-uri>
 			<context-root>/sh</context-root>

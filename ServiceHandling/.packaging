@@ -111,5 +111,6 @@
 <file prefix="" project="" projectLocation="eMayorBPELServiceStarter.jar" name="eMayorBPELServiceStarter.jar" location="eMayorBPELServiceStarter.jar" used="true"/>
 <file prefix="" project="" projectLocation="ForwardManager-client.jar" name="ForwardManager-client.jar" location="ForwardManager-client.jar" used="true"/>
 <file prefix="" project="" projectLocation="PlatformTest-client.jar" name="PlatformTest-client.jar" location="PlatformTest-client.jar" used="true"/>
+<file prefix="" project="org.eMayor.AdaptationLayer" projectLocation="E2MEJB.jar" name="E2MEJB.jar" location="../org.eMayor.AdaptationLayer/E2MEJB.jar" used="true"/>
 </archive>
 </configurations>
