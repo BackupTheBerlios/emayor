@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="lib/javamail.jar"/>
 	<classpathentry kind="src" path="/ContentRouting"/>
 	<classpathentry kind="src" path="/org.eMayor.AdaptationLayer"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
