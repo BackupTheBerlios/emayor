@@ -4,8 +4,6 @@
 package org.emayor.servicehandling.gui.admin;
 
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 import javax.servlet.ServletException;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.config.Config;
-import org.emayor.servicehandling.config.ConfigException;
 
 /**
  * @author tku

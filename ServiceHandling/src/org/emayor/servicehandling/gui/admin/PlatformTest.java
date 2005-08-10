@@ -47,7 +47,6 @@ import org.emayor.servicehandling.kernel.BPELDomainCredentials;
 import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceInfo;
-import org.emayor.servicehandling.kernel.ServiceSessionException;
 import org.emayor.servicehandling.kernel.ServicesInfo;
 import org.emayor.servicehandling.kernel.Tasks;
 import org.emayor.servicehandling.model.UTWrapperEJB;

@@ -1,7 +1,7 @@
 /*
  * $ Created on Jun 14, 2005 by tku $
  */
-package org.emayor.ur;
+package org.emayor.services.ur;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.AbstracteMayorService;
