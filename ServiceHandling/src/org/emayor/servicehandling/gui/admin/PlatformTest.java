@@ -419,9 +419,10 @@ public class PlatformTest {
 		boolean result = true;
 		this.error = null;
 		
+		String domain = null;
 		try {
 			
-			String domain = config.getProperty(Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME);
+			domain = config.getProperty(Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME);
 			
 			PlatformTest_Service service = null;
 			InitialContext initialContext = this.getInitialContextForWSClient("PlatformTestClient");
@@ -474,6 +475,8 @@ public class PlatformTest {
 				this.error = "BPEL not available";
 			else if (e.getMessage().replaceAll("\n","").matches("^(.*?)PlatformTest(.*?)ORABPEL-05205(.*?)$"))
 				this.error = "BPEL available, but PlatformTest not deployed - functional check not complete";
+			else if (e.getMessage().replaceAll("\n","").matches("^(.*?)ORABPEL-02052(.*?)$"))
+				this.error = "BPEL available, but domain >"+ domain +"< not found - functional check not complete";
 			else
 				this.error = "BPEL Service lookup failed, caused by BPEL: " + e.getMessage();
 			e.printStackTrace();
@@ -497,8 +500,13 @@ public class PlatformTest {
 		this.error = null;
 		
 		AccessSessionLocal session = null;
+		String domain = null;
+		String password = null;
 		
 		try {
+			domain = config.getProperty(Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME);
+			password = config.getProperty(Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD);
+			
 			C_UserProfile profile = new C_UserProfile(certProfile);
 			Kernel kern = Kernel.getInstance();
 			String asid = kern.createAccessSession();
@@ -511,8 +519,8 @@ public class PlatformTest {
 			UTWrapperEJB ut_ejb = loc.getUTWrapperRemoteInterface();
 			
 			BPELDomainCredentials credentials = new BPELDomainCredentials();
-			credentials.setDomainName(config.getProperty(Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_NAME));
-			credentials.setDomainPassword(config.getProperty(Config.BPEL_ENGINE_UT_SECURITY_DOMAIN_PASSWORD));
+			credentials.setDomainName(domain);
+			credentials.setDomainPassword(password);
 			
 			Tasks tasks = ut_ejb.listTasksByAssignee(uid,credentials);
 			
@@ -551,7 +559,10 @@ public class PlatformTest {
 			e.printStackTrace();
 		} catch (UTWrapperException e) {
 			result = false;
-			this.error = "Error while accessing BPEL service: " +e.getMessage();
+			if (e.getMessage().replaceAll("\n","").matches("^(.*?)ORABPEL-02052(.*?)$"))
+				this.error = "BPEL domain >"+ domain +"< not found";
+			else
+				this.error = "Error while accessing BPEL service: " +e.getMessage();
 			e.printStackTrace();
 		} catch (Exception e) {
 			result = false;
