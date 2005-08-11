@@ -850,5 +850,23 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 *
 	 * @ejb.interface-method   view-type="local"
 	 */
-	public abstract void setEMayorPeCheckSignature(Boolean value);	
+	public abstract void setEMayorPeCheckSignature(Boolean value);
+	
+	/**
+	 * HTTP Session max. time to live
+	 *
+	 * @jboss.column-name name = "EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE"
+	 * @jboss.sql-type type = "INTEGER"
+	 * @jboss.jdbc-type type = "INTEGER" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract Integer getEMayorHTTPSessionMaxTimeToLive();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorHTTPSessionMaxTimeToLive(Integer value);
 }

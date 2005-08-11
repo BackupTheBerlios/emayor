@@ -451,6 +451,10 @@
             <description><![CDATA[PolicyEnforcer check signatures]]></description>
             <field-name>EMayorPeCheckSignature</field-name>
          </cmp-field>
+         <cmp-field >
+            <description><![CDATA[HTTP Session max time to live]]></description>
+            <field-name>EMayorHTTPSessionMaxTimeToLive</field-name>
+         </cmp-field>
           <primkey-field>configID</primkey-field>
 
          <query>

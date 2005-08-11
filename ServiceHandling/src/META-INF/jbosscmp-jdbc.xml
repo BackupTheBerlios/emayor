@@ -345,6 +345,15 @@
 
         </cmp-field>
         
+        <cmp-field>
+            <field-name>EMayorHTTPSessionMaxTimeToLive</field-name>
+            <column-name>EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE</column-name>
+
+            <jdbc-type>INTEGER</jdbc-type>
+            <sql-type>INTEGER</sql-type>
+
+        </cmp-field>
+        
       </entity>
       
       <entity>

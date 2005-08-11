@@ -216,5 +216,9 @@ public abstract class PlatformConfigurationEntityCMP
    public abstract Boolean getEMayorPeCheckSignature();
 
    public abstract void setEMayorPeCheckSignature(Boolean value);	
+   
+   public abstract Integer getEMayorHTTPSessionMaxTimeToLive();
+
+   public abstract void setEMayorHTTPSessionMaxTimeToLive(Integer value);
 
 }

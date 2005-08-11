@@ -111,6 +111,8 @@ public class Config {
 	public static final int EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL = 37;
 	public static final int EMAYOR_PE_CHECK_SIGNATURE = 38;
 	
+	public static final int EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE = 39;
+	
 	/*
 	 * INSERT NEW FIELDS HERE
 	 */
@@ -289,6 +291,8 @@ public class Config {
 				new Integer(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL).toString());
 		old2new.setProperty("emayor.pe.checkSignature",
 				new Integer(EMAYOR_PE_CHECK_SIGNATURE).toString());
+		old2new.setProperty("emayor.http.session.maxTimeToLive",
+				new Integer(EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE).toString());
 	}
 
 	public synchronized String getProperty(String propName, String defValue)
@@ -327,31 +331,33 @@ public class Config {
 		return result;
 	}
 	
+	/*
+	 * get property as String
+	 */
 	public synchronized String getProperty(String propertyName)
 	throws ConfigException {
 		return this.getProperty(propertyName, null);
 	}
 	
+	/*
+	 * get property as String
+	 */
 	public synchronized String getProperty(int propID)
 	throws ConfigException {
 		return this.getProperty(propID, null);
 	}
 	
-	public synchronized boolean getPropertyAsBoolean(String propertyName)
-	throws ConfigException {
-		return Boolean.getBoolean(this.getProperty(propertyName, null));
-	}
-	
-	public synchronized boolean getPropertyAsBoolean(int propID)
-	throws ConfigException {
-		return Boolean.getBoolean(this.getProperty(propID, null));
-	}
-	
+	/*
+	 * set property as String
+	 */
 	public synchronized String setProperty(int propID, String value)
 	throws ConfigException {
 		return this.propertyAction(propID, WRITE_CONFIG, value, this.local);
 	}
 	
+	/*
+	 * set property as String
+	 */
 	public synchronized String setProperty(String key, String value)
 	throws ConfigException {
 		int propID = -1;
@@ -361,11 +367,34 @@ public class Config {
 		return this.setProperty(propID,value);
 	}
 	
+	/*
+	 * get property as boolean
+	 */
+	public synchronized boolean getPropertyAsBoolean(String propertyName)
+	throws ConfigException {
+		return Boolean.getBoolean(this.getProperty(propertyName, null));
+	}
+	
+	/*
+	 * get property as boolean
+	 */
+	public synchronized boolean getPropertyAsBoolean(int propID)
+	throws ConfigException {
+		return Boolean.getBoolean(this.getProperty(propID, null));
+	}
+	
+	
+	/*
+	 * set property as boolean
+	 */
 	public synchronized String setProperty(int propID, boolean value)
 	throws ConfigException {
 		return this.propertyAction(propID, WRITE_CONFIG, Boolean.toString(value), this.local);
 	}
 
+	/*
+	 * set property as boolean
+	 */
 	public synchronized String setProperty(String key, boolean value)
 	throws ConfigException {
 		int propID = -1;
@@ -374,6 +403,42 @@ public class Config {
 		} 
 		return this.setProperty(propID,value);
 	}
+	
+	/*
+	 * set property as int
+	 */
+	public synchronized String setProperty(int propID, int value)
+	throws ConfigException {
+		return this.propertyAction(propID, WRITE_CONFIG, Integer.toString(value), this.local);
+	}
+
+	/*
+	 * set property as int
+	 */
+	public synchronized String setProperty(String key, int value)
+	throws ConfigException {
+		int propID = -1;
+		if (old2new.getProperty(key) != null) {
+			propID = Integer.parseInt(old2new.getProperty(key));
+		} 
+		return this.setProperty(propID,value);
+	}
+
+	/*
+	 * get property as int
+	 */
+	public synchronized int getPropertyAsInt(String propertyName)
+	throws ConfigException {
+		return Integer.parseInt(this.getProperty(propertyName, null));
+	}
+	
+	/*
+	 * get property as int
+	 */
+	public synchronized int getPropertyAsInt(int propID)
+	throws ConfigException {
+		return Integer.parseInt(this.getProperty(propID, null));
+	}	
 	
 	/*
 	 * performs a write or read from properties using
@@ -614,6 +679,11 @@ public class Config {
 			if (action && READ_CONFIG) result = local.getEMayorPeCheckSignature().toString();
 			else local.setEMayorPeCheckSignature(Boolean.valueOf(value));
 			break;
+		
+		case(EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE):
+			if (action && READ_CONFIG) result = Integer.toString(local.getEMayorHTTPSessionMaxTimeToLive().intValue());
+			else local.setEMayorHTTPSessionMaxTimeToLive(Integer.decode(value));
+			break;			
 			
 		}
 		
@@ -686,6 +756,7 @@ public class Config {
 		setProperty(EMAYOR_PE_CRL_DISTRIBUTION_URL,"https://testvalueForCRL/");
 		setProperty(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL,Boolean.TRUE.toString());
 		setProperty(EMAYOR_PE_CHECK_SIGNATURE,Boolean.TRUE.toString());
+		setProperty(EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE,2000);
 	}
 	
 	public synchronized Set getConfigNames() {

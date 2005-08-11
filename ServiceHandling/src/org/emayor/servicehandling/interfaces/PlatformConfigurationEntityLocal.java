@@ -409,5 +409,15 @@ public interface PlatformConfigurationEntityLocal
 	 */
 	public void setEMayorPeCheckSignature(Boolean value);	
 	
+	/**
+	 * HTTP Session max. time to live
+	 */
+	public Integer getEMayorHTTPSessionMaxTimeToLive();
+
+	/**
+	 * Setter for CMP Field
+	 */
+	public void setEMayorHTTPSessionMaxTimeToLive(Integer value);
+	
 
 }
