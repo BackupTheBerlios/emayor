@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<title>JSP Page</title>\n\
+	<title>Fatal Error</title>\n\
 </head>
 
 <body bgcolor="#FFFFFF">
