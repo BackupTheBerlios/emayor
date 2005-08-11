@@ -5,18 +5,11 @@ package org.emayor.servicehandling.gui.admin;
 
 import java.io.IOException;
 
-import javax.ejb.EJBException;
-import javax.ejb.RemoveException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.emayor.servicehandling.interfaces.AdminManagerLocal;
-import org.emayor.servicehandling.kernel.AdminException;
-import org.emayor.servicehandling.utils.ServiceLocator;
-import org.emayor.servicehandling.utils.ServiceLocatorException;
 
 /**
  * @author tku
@@ -34,6 +27,7 @@ public class AdminLoginProcessor extends AbstractRequestProcessor {
 	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String ret = "admin/WelcomePage.jsp";
+		/*
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			AdminManagerLocal mgr = locator.getAdminManagerLocal();
@@ -55,6 +49,7 @@ public class AdminLoginProcessor extends AbstractRequestProcessor {
 			} else {
 				ret = "admin/LoginForm.jsp";
 			}
+			
 			mgr.remove();
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
@@ -64,7 +59,7 @@ public class AdminLoginProcessor extends AbstractRequestProcessor {
 		} catch (RemoveException ex) {
 			log.error("caught ex: " + ex.toString());
 
-		}
+		}*/
 		return ret;
 	}
 

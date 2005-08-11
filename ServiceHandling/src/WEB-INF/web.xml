@@ -46,6 +46,14 @@
      <servlet-class>org.emayor.servicehandling.gui.admin.AdminManagerContollerServlet</servlet-class>
 
    </servlet>
+   
+   <servlet>
+      <servlet-name>AdminPEManagerController</servlet-name>
+      <display-name>Name for AdminPEManagerController</display-name>
+      <description><![CDATA[AdminPEManagerController]]></description>
+     <servlet-class>org.emayor.servicehandling.gui.admin.pe.AdminPEManagerControllerServlet</servlet-class>
+
+   </servlet>
 
    <servlet-mapping>
       <servlet-name>ServiceHandlingTest</servlet-name>
@@ -55,6 +63,11 @@
       <servlet-name>AdminManagerContoller</servlet-name>
       <url-pattern>/adm</url-pattern>
    </servlet-mapping>
+	<servlet-mapping>
+      <servlet-name>AdminPEManagerController</servlet-name>
+      <url-pattern>/admpe</url-pattern>
+   </servlet-mapping>
+	
 
    <!--
    To specify mime mappings, create a file named mime-mappings.xml, put it in your project's mergedir.

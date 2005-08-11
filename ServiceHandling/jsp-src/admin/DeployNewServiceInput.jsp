@@ -35,19 +35,19 @@
 			<tr>
 				<td>Unique id</td>
 				<td>
-					<input name="SID" type="text" value="q" size="60"/>
+					<input name="SID" type="text" value="" size="60"/>
 				</td>
 			</tr>
 			<tr bgcolor="#FFCCCC">
 				<td>Version</td>
 				<td>
-					<input name="VERSION" type="text" value="q" size="60"/>
+					<input name="VERSION" type="text" value="" size="60"/>
 				</td>
 			</tr>
 			<tr>
 				<td>Name</td>
 				<td>
-					<input name="NAME" type="text" value="q" size="60"/>
+					<input name="NAME" type="text" value="" size="60"/>
 				</td>
 			</tr>
 			<tr bgcolor="#FFCCCC">
@@ -83,7 +83,7 @@
   </tr>
   <tr> 
   	<td width="73" bgcolor="#99CCFF"><font size="2">(C) 2005</font></td>
-    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../adm?action=logout"><font size="2">logout</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../adm?action=mainmenu"><font size="2">menu</font></a></div></td>
+    <td width="787" bgcolor="#99CCFF"> <div align="center"><a href="../adm?action=logout"><font size="2">EXIT</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../adm?action=mainmenu"><font size="2">menu</font></a></div></td>
     <td width="208" bgcolor="#99CCFF"><div align="right"><a href="mailto:webmaster@emayor.org"><font size="2">webmaster</font></a></div></td>
   </tr>
 </table>

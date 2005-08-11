@@ -17,9 +17,9 @@ import org.emayor.servicehandling.gui.admin.AbstractRequestProcessor;
  *         size="-1">Tomasz Kusber </font> </a> <font size="-1"> FHI FOKUS (C)
  *         </font>
  */
-public class DoNothingProcessor extends AbstractRequestProcessor {
-	private static final Logger log = Logger
-			.getLogger(DoNothingProcessor.class);
+public class StartServiceProcessor extends AbstractRequestProcessor {
+	private final static Logger log = Logger
+			.getLogger(StartServiceProcessor.class);
 
 	/*
 	 * (non-Javadoc)
@@ -30,7 +30,9 @@ public class DoNothingProcessor extends AbstractRequestProcessor {
 	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
-		return "adminpe/WelcomePage.jsp";
+		String ret = "adminpe/WelcomePage.jsp";
+		log.debug("-> processing DONE");
+		return ret;
 	}
 
 }

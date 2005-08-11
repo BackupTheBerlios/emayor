@@ -57,11 +57,11 @@ public class StartServiceNewProcessor extends AbstractProcessor {
 						.debug("the platfrom admin service has been started -> redirect the input page");
 				session.setAttribute("ADMIN_SSID", ssid);
 				ret = "admin/WelcomePage.jsp";
-			} else if (serviceName.startsWith("PolicyEnforcerAdminService")) {
+			} else if (serviceName.startsWith("PEAdminService")) {
 				log
 						.debug("the policy enforcer admin service has been started -> redirect the input page");
 				session.setAttribute("ADMIN_PE_SSID", ssid);
-				ret = "peadmin/WelcomePage.jsp";
+				ret = "adminpe/WelcomePage.jsp";
 			} else {
 				session.setAttribute("SLEEP_TIME", "10");
 				session.setAttribute("REDIRECTION_URL",
