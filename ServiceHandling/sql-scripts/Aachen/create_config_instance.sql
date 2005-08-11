@@ -72,7 +72,7 @@ emayor_pe_check_signature
 @EMAYOR_CONTENTROUTING_USERID,
 @EMAYOR_CONTENTROUTING_PASSWORD,
 @CONFIG_IS_ACTIVE,
-'https://testValueforCRL/',
+'http://localhost:8080/EMayor-operational.crl',
 '1',
 '1'
 );
