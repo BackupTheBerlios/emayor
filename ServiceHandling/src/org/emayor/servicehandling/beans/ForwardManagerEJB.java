@@ -152,6 +152,10 @@ public class ForwardManagerEJB implements SessionBean, IForward {
 					log.debug("host         = " + host);
 					log.debug("service id   = " + serviceId);
 					log.debug("replay ID    = " + forwardMessage.getReplyID());
+					log.debug("doc1			= " + forwardMessage.getDocuments().getItem(1));
+					log.debug("doc2			= " + forwardMessage.getDocuments().getItem(2));
+					log.debug("doc3			= " + forwardMessage.getDocuments().getItem(3));
+					log.debug("doc4			= " + forwardMessage.getDocuments().getItem(4));
 				}
 			} catch (ConfigException confex) {
 				log.error("caught ex: " + confex.toString());
@@ -227,11 +231,15 @@ public class ForwardManagerEJB implements SessionBean, IForward {
 					message.setString("serviceId", forwardMessage
 							.getServiceId());
 					if (log.isDebugEnabled()) {
-						log.debug("local   = " + local);
-						log.debug("queue   = " + queueName);
-						log.debug("host    = " + host);
-						log.debug("replyto = " + replyTo);
-						log.debug("to      = " + to);
+						log.debug("local   	= " + local);
+						log.debug("queue   	= " + queueName);
+						log.debug("host    	= " + host);
+						log.debug("replyto 	= " + replyTo);
+						log.debug("to      	= " + to);
+						log.debug("doc1		= " + message.getString("doc1"));
+						log.debug("doc2		= " + message.getString("doc1"));
+						log.debug("doc3		= " + message.getString("doc1"));
+						log.debug("doc4		= " + message.getString("doc1"));
 					}
 					message.setString("replyTo", replyTo);
 					message.setString("to", to);
@@ -279,6 +287,10 @@ public class ForwardManagerEJB implements SessionBean, IForward {
 			log.debug("ssid       : " + message.getSsid());
 			log.debug("uid        : " + message.getUid());
 			log.debug("reqDoc     : " + message.getDocument());
+			log.debug("reqDoc1     : " + message.getDocument1());
+			log.debug("reqDoc2     : " + message.getDocument2());
+			log.debug("reqDoc3     : " + message.getDocument3());
+			log.debug("reqDoc4     : " + message.getDocument4());
 			log.debug("serviceId  : " + message.getServiceId());
 		}
 		log.debug("using callback invoker ...");

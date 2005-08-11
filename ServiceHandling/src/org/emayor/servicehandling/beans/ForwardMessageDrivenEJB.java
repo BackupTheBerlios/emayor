@@ -189,6 +189,10 @@ public class ForwardMessageDrivenEJB implements MessageDrivenBean,
 					log.debug("local uid    : " + localuid);
 					log.debug("origin ssid  : " + ssid);
 					log.debug("origin uid   : " + uid);
+					log.debug("doc1			: " + request.getDocuments().getItem(1));
+					log.debug("doc2			: " + request.getDocuments().getItem(2));
+					log.debug("doc3			: " + request.getDocuments().getItem(3));
+					log.debug("doc4			: " + request.getDocuments().getItem(4));
 				}
 				msg2.setType(msg.getInt("type"));
 				msg2.setReplyAddress(msg.getString("replyTo"));

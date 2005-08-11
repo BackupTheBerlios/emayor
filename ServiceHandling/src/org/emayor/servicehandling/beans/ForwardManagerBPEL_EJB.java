@@ -169,9 +169,13 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 			msg.setString("to", to);
 			if (log.isDebugEnabled()) {
 				log.debug("-------------------------------");
-				log.debug("to          : " + to);
-				log.debug("replyTo     : " + replyTo);
-				log.debug("host        : " + host);
+				log.debug("to          	: " + to);
+				log.debug("replyTo     	: " + replyTo);
+				log.debug("host        	: " + host);
+				log.debug("doc1			: " + msg.getString("doc1"));
+				log.debug("doc2			: " + msg.getString("doc2"));
+				log.debug("doc3			: " + msg.getString("doc3"));
+				log.debug("doc4			: " + msg.getString("doc4"));
 				log.debug("-------------------------------");
 			}
 			sender.send(msg);
