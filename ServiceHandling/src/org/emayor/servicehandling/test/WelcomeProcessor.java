@@ -35,7 +35,7 @@ public class WelcomeProcessor extends AbstractProcessor {
 		log.debug("-> start processing ...");
 		String ret = "ServiceListing.jsp";
 		HttpSession session = req.getSession(false);
-		if (session != null) {
+		if (session == null) {
 			log.debug("the session has been invalidated");
 			
 		} else {
