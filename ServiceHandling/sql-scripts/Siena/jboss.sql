@@ -34,3 +34,4 @@ SET @EMAYOR_OPERATING_MODE_EMAIL = 'test';
 SET @EMAYOR_OPERATING_MODE_FORWARD = 'production';
 
 SOURCE create_config_instance.sql;
+SOURCE admin_services.sql; 

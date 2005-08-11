@@ -51,6 +51,8 @@ public class LoginProcessor extends AbstractProcessor {
 			boolean b = access.startAccessSession(asid, certificates);
 			log.debug("user authenticated? : " + b);
 			HttpSession session = req.getSession(true);
+			log.debug("set the max inactive interval to 900 seconds (15 min)");
+			session.setMaxInactiveInterval(900);
 			session.setAttribute("ASID", asid);
 			if (log.isDebugEnabled())
 				log.debug("got following asid=" + asid);

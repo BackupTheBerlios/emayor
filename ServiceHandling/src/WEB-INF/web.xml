@@ -68,6 +68,11 @@
       <url-pattern>/admpe</url-pattern>
    </servlet-mapping>
 	
+	<listener>
+		<listener-class>
+			org.emayor.servicehandling.test.eMayorHttpSessionListener
+		</listener-class>
+	</listener>
 
    <!--
    To specify mime mappings, create a file named mime-mappings.xml, put it in your project's mergedir.

@@ -47,8 +47,12 @@ public class AdminUndeployServiceInputProcessor extends
 				AdminServiceProfileData[] profiles = admin
 						.listDeployedServices();
 				String[] ids = new String[profiles.length];
-				for (int i = 0; i < ids.length; i++)
-					ids[i] = profiles[i].getServiceId();
+				for (int i = 0; i < ids.length; i++) {
+					String id = profiles[i].getServiceId();
+					if (!id.startsWith("AdminService")
+							|| !id.startsWith("PEAdminService"))
+						ids[i] = profiles[i].getServiceId();
+				}
 				session.setAttribute("SERVICE_ID_ARRAY", ids);
 				ret = "admin/UndeployServiceInput.jsp";
 				admin.remove();
