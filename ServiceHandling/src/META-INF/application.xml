@@ -34,6 +34,12 @@
 		</web>
 	</module>
 	<module>
+		<web>
+			<web-uri>eMayorWebTier.war</web-uri>
+			<context-root>/eMayor</context-root>
+		</web>
+	</module>
+	<module>
 		<java>WorklistManager-client.jar</java>
 	</module>
 	<module>

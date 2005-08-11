@@ -257,6 +257,9 @@
 <zipfileset dir="../org.eMayor.AdaptationLayer">
 <include name="E2MEJB.jar"/>
 </zipfileset>
+<zipfileset dir="../eMayorWebTier">
+<include name="eMayorWebTier.war"/>
+</zipfileset>
 </jar>
 </target>
 </project>
