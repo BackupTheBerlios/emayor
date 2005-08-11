@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N100C5,N100D6,N100E7,N10124,N10155,N1019E,N101AF,N101F0,N10227,N10238,N10269,N1027A,N102AB"/>
+<target name="_packaging_generation_" depends="N10004,N100CD,N100DE,N100EF,N1012C,N1015D,N101A6,N101B7,N101F8,N1022F,N10240,N10271,N10282,N102B3"/>
 <target name="N10004" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -69,20 +69,23 @@
 <zipfileset dir="forward/server" prefix="META-INF/wsdl">
 <include name="ForwardManagerWS.wsdl"/>
 </zipfileset>
+<zipfileset dir="xml/Joerg" prefix="org/emayor/services/rc">
+<include name="SampleResidenceCertificationRequestDocument.xml"/>
+</zipfileset>
 <zipfileset dir="classes" includes="**/*.class"/>
 </jar>
 </target>
-<target name="N100C5" description="eMayorEJB-client.jar">
+<target name="N100CD" description="eMayorEJB-client.jar">
 <jar destfile="eMayorEJB-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N100D6" description="eMayorSH-GUI-client.jar">
+<target name="N100DE" description="eMayorSH-GUI-client.jar">
 <jar destfile="eMayorSH-GUI-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/Task.class,org/emayor/servicehandling/kernel/ITask.class,org/emayor/servicehandling/kernel/UserTaskException.class,org/emayor/servicehandling/utils/ServiceLocatorException.class,org/emayor/servicehandling/interfaces/AccessManagerLocal*.class,org/emayor/servicehandling/interfaces/UserTaskManager*.class,org/emayor/servicehandling/interfaces/AdminManager*.class,org/emayor/servicehandling/utclient*.class,org/emayor/servicehandling/kernel/IServiceInfo.class,org/emayor/servicehandling/kernel/ServiceInfo.class,org/emayor/servicehandling/kernel/ServicesInfo.class,org/emayor/servicehandling/bpel/task/_task.class,org/emayor/servicehandling/bpel/task/_task_status.class"/>
 </jar>
 </target>
-<target name="N100E7" description="eMayorWeb.war">
+<target name="N100EF" description="eMayorWeb.war">
 <jar destfile="eMayorWeb.war">
 <zipfileset dir="." prefix="WEB-INF/lib">
 <include name="eMayorSH-GUI-client.jar"/>
@@ -98,7 +101,7 @@
 <zipfileset dir="jsp-src"/>
 </jar>
 </target>
-<target name="N10124" description="WorklistManager-client.jar">
+<target name="N1012C" description="WorklistManager-client.jar">
 <jar destfile="WorklistManager-client.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -115,13 +118,13 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/bpel/task/*.class"/>
 </jar>
 </target>
-<target name="N10155" description="ResidenceCertificationService-client.jar"/>
-<target name="N1019E" description="BPELPolicyEnforcer-client.jar">
+<target name="N1015D" description="ResidenceCertificationService-client.jar"/>
+<target name="N101A6" description="BPELPolicyEnforcer-client.jar">
 <jar destfile="BPELPolicyEnforcer-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/BPELPolicyEnforcer*.class,org/emayor/servicehandling/kernel/*BPELPolicyEnforcer*.class"/>
 </jar>
 </target>
-<target name="N101AF" description="ForwardMgrBPEL-client.jar">
+<target name="N101B7" description="ForwardMgrBPEL-client.jar">
 <jar destfile="ForwardMgrBPEL-client.jar">
 <zipfileset dir="BPEL-forward/client" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -144,7 +147,7 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/bpel/forward/client/*.class,org/emayor/servicehandling/kernel/bpel/forward/data/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class"/>
 </jar>
 </target>
-<target name="N101F0" description="eMayorBPELServiceStarter.jar">
+<target name="N101F8" description="eMayorBPELServiceStarter.jar">
 <jar destfile="eMayorBPELServiceStarter.jar">
 <zipfileset dir="service_starter" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -166,12 +169,12 @@
 </zipfileset>
 </jar>
 </target>
-<target name="N10227" description="SH-client.jar">
+<target name="N1022F" description="SH-client.jar">
 <jar destfile="SH-client.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/*.class,org/emayor/servicehandling/utils/ServiceLocator*.class,org/emayor/servicehandling/kernel/KernelException.class,org/emayor/servicehandling/kernel/SessionException.class,org/emayor/servicehandling/kernel/*UserProfile.class"/>
 </jar>
 </target>
-<target name="N10238" description="ForwardManager-client.jar">
+<target name="N10240" description="ForwardManager-client.jar">
 <jar destfile="ForwardManager-client.jar">
 <zipfileset dir="forward/client" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -188,12 +191,12 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/kernel/forward/IForward*.class,org/emayor/servicehandling/kernel/forward/ForwardMessage.class,org/emayor/servicehandling/kernel/forward/ArrayOfStrings.class"/>
 </jar>
 </target>
-<target name="N10269" description="Config-Interface.jar">
+<target name="N10271" description="Config-Interface.jar">
 <jar destfile="Config-Interface.jar">
 <zipfileset dir="classes" includes="org/emayor/servicehandling/config/*.class"/>
 </jar>
 </target>
-<target name="N1027A" description="PlatformTest-client.jar">
+<target name="N10282" description="PlatformTest-client.jar">
 <jar destfile="PlatformTest-client.jar">
 <zipfileset dir="PlatformTest-client" prefix="META-INF">
 <include name="application-client.xml"/>
@@ -210,7 +213,7 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/gui/admin/PlatformTest_Service.class,org/emayor/servicehandling/gui/admin/PlatformTestProcessRequest.class,org/emayor/servicehandling/gui/admin/PlatformTestProcessResponse.class"/>
 </jar>
 </target>
-<target name="N102AB" description="eMayorApp.ear">
+<target name="N102B3" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
