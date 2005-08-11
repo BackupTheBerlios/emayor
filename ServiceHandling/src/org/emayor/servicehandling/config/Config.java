@@ -109,6 +109,7 @@ public class Config {
 	
 	public static final int EMAYOR_PE_CRL_DISTRIBUTION_URL = 36;
 	public static final int EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL = 37;
+	public static final int EMAYOR_PE_CHECK_SIGNATURE = 38;
 	
 	/*
 	 * INSERT NEW FIELDS HERE
@@ -286,6 +287,8 @@ public class Config {
 				new Integer(EMAYOR_PE_CRL_DISTRIBUTION_URL).toString());
 		old2new.setProperty("emayor.pe.crl.useDefaultURL",
 				new Integer(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL).toString());
+		old2new.setProperty("emayor.pe.checkSignature",
+				new Integer(EMAYOR_PE_CHECK_SIGNATURE).toString());
 	}
 
 	public synchronized String getProperty(String propName, String defValue)
@@ -607,6 +610,10 @@ public class Config {
 			else local.setEMayorPeCrlUseDefaultDistributionURL(Boolean.valueOf(value));
 			break;
 			
+		case(EMAYOR_PE_CHECK_SIGNATURE):
+			if (action && READ_CONFIG) result = local.getEMayorPeCheckSignature().toString();
+			else local.setEMayorPeCheckSignature(Boolean.valueOf(value));
+			break;
 			
 		}
 		
@@ -678,6 +685,7 @@ public class Config {
 		setProperty(CONFIG_IS_ACTIVE,Boolean.TRUE.toString());
 		setProperty(EMAYOR_PE_CRL_DISTRIBUTION_URL,"https://testvalueForCRL/");
 		setProperty(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL,Boolean.TRUE.toString());
+		setProperty(EMAYOR_PE_CHECK_SIGNATURE,Boolean.TRUE.toString());
 	}
 	
 	public synchronized Set getConfigNames() {

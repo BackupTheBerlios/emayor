@@ -212,5 +212,9 @@ public abstract class PlatformConfigurationEntityCMP
    public abstract java.lang.Boolean getEMayorPeCrlUseDefaultDistributionURL();
 
    public abstract void setEMayorPeCrlUseDefaultDistributionURL(Boolean value);
+   
+   public abstract Boolean getEMayorPeCheckSignature();
+
+   public abstract void setEMayorPeCheckSignature(Boolean value);	
 
 }

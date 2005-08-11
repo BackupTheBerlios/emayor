@@ -447,6 +447,10 @@
             <description><![CDATA[PolicyEnforcer CRL as default]]></description>
             <field-name>EMayorPeCrlDistributionURL</field-name>
          </cmp-field>
+         <cmp-field >
+            <description><![CDATA[PolicyEnforcer check signatures]]></description>
+            <field-name>EMayorPeCheckSignature</field-name>
+         </cmp-field>
           <primkey-field>configID</primkey-field>
 
          <query>

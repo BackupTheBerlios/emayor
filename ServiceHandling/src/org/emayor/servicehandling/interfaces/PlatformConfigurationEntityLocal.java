@@ -399,5 +399,15 @@ public interface PlatformConfigurationEntityLocal
 	 */
 	public void setEMayorPeCrlUseDefaultDistributionURL(Boolean value);
 	
+	/**
+	 * PolicyEnforcer Check Signatures or not
+	 */
+	public Boolean getEMayorPeCheckSignature();
+
+	/**
+	 * Setter for CMP Field
+	 */
+	public void setEMayorPeCheckSignature(Boolean value);	
+	
 
 }

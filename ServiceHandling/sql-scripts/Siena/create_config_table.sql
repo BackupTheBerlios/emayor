@@ -38,5 +38,6 @@ CREATE TABLE PLATFORMCONFIG (
 	config_is_active SMALLINT,
 	emayor_pe_crl_distribution_url VARCHAR(200),
 	emayor_pe_crl_use_default_distribution_url SMALLINT,
+	emayor_pe_check_signature SMALLINT,
 	CONSTRAINT pk_PLATFORMCONFIG PRIMARY KEY (CONFIGID)
 );

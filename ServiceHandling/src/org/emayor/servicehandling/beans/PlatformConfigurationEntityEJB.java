@@ -833,5 +833,22 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 * @ejb.interface-method   view-type="local"
 	 */
 	public abstract void setEMayorPeCrlUseDefaultDistributionURL(Boolean value);
-	
+
+	/**
+	 * PolicyEnforcer Check Signatures or not
+	 *
+	 * @jboss.column-name name = "emayor_pe_check_signature"
+	 * @jboss.sql-type type = "BOOLEAN"
+	 * @jboss.jdbc-type type = "TINYINT" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract Boolean getEMayorPeCheckSignature();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorPeCheckSignature(Boolean value);	
 }

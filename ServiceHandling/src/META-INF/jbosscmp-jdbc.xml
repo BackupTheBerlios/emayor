@@ -335,7 +335,16 @@
             <sql-type>VARCHAR(200)</sql-type>
 
         </cmp-field>
+        
+        <cmp-field>
+            <field-name>EMayorPeCheckSignature</field-name>
+            <column-name>emayor_pe_check_signature</column-name>
 
+            <jdbc-type>INTEGER</jdbc-type>
+            <sql-type>SMALLINT</sql-type>
+
+        </cmp-field>
+        
       </entity>
       
       <entity>

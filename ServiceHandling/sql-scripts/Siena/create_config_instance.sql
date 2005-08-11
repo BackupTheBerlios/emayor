@@ -37,7 +37,8 @@ emayor_content_routing_userid,
 emayor_content_routing_password,
 config_is_active,
 emayor_pe_crl_distribution_url,
-emayor_pe_crl_use_default_distribution_url
+emayor_pe_crl_use_default_distribution_url,
+emayor_pe_check_signature
 ) VALUES (
 @CONFIG_ID,
 @MUNICIPALITY_ID,
@@ -72,5 +73,6 @@ emayor_pe_crl_use_default_distribution_url
 @EMAYOR_CONTENTROUTING_PASSWORD,
 @CONFIG_IS_ACTIVE,
 'https://testValueforCRL/',
+'1',
 '1'
 );
