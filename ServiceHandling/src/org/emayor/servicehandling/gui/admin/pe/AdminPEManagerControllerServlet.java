@@ -48,7 +48,7 @@ public class AdminPEManagerControllerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
-		String page = "admin/LoginForm.jsp";
+		String page = "adminpe/DoNothing.jsp";
 		String action = req.getParameter("action");
 		IRequestProcessor p = null;
 		if (action.equalsIgnoreCase("START")) {
