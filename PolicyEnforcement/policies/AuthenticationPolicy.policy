@@ -118,6 +118,49 @@
     </Rule>
     
 </Policy>
+
+<Policy PolicyId="AdministratorAuthentication"
+    RuleCombiningAlgId="rule-combining-alg:allpermit">
+
+<Target>
+    <Subjects>
+        <AnySubject/>
+    </Subjects>
+    <Resources>
+        <AnyResource/>
+    </Resources>
+    <Actions>
+        <AnyAction/>
+    </Actions>
+</Target>
+											
+   <Rule RuleId="RoleCheck" Effect="Permit">
+      <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+          <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                      AttributeId="Role"/>
+        </Apply>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Administartor</AttributeValue>
+        
+      </Condition>
+    </Rule>
+
+   <Rule RuleId="CountryCheck" Effect="Permit">
+       <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+          <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                      AttributeId="Country"/>
+        </Apply>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">BE</AttributeValue>
+
+	
+        </Condition>
+      
+    </Rule>
+    
+</Policy>
+
+
 <Policy PolicyId="ServerAuthentication"
     RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides">
 
