@@ -96,7 +96,6 @@ public class TemplateManagerBean implements SessionBean {
 	 */
 	public XMLTransformationTemplate retrieveXMLTemplate(String typeOfTransformation, String typeOfDocument) {
 		// TODO Auto-generated method stub
-		
 		XMLTransformationTemplate tt = null;
 		
 		try {

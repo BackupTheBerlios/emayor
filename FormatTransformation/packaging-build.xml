@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Packaging Generator" default="_packaging_generation_">
-<target name="_packaging_generation_" depends="N65540,N65573,N65590"/>
-<target name="N65540" description="TransformerEJB.jar">
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004,N10015,N10040,N10051"/>
+<target name="N10004" description="Transformer-xsl.jar">
+<jar destfile="Transformer-xsl.jar">
+<zipfileset dir="xsl" prefix="xsl" includes="*.xsl"/>
+</jar>
+</target>
+<target name="N10015" description="TransformerEJB.jar">
 <jar destfile="TransformerEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="ejb-jar.xml"/>
@@ -10,14 +15,15 @@
 <include name="jboss.xml"/>
 </zipfileset>
 <zipfileset dir="bin" includes="org/eMayor/FormatTransformation/ejb/*.class,org/eMayor/FormatTransformation/interfaces/*.class,org/eMayor/FormatTransformation/ejb/*.xml"/>
+<zipfileset dir="xsl" prefix="org/eMayor/FormatTransformation/ejb/"/>
 </jar>
 </target>
-<target name="N65573" description="TransformerEJB-client.jar">
+<target name="N10040" description="TransformerEJB-client.jar">
 <jar destfile="TransformerEJB-client.jar">
 <zipfileset dir="bin" includes="org/eMayor/FormatTransformation/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N65590" description="TransformerApp.ear">
+<target name="N10051" description="TransformerApp.ear">
 <jar destfile="TransformerApp.ear" manifest="src/META-INF/MANIFEST.MF">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -25,7 +31,7 @@
 <zipfileset dir=".">
 <include name="TransformerEJB.jar"/>
 </zipfileset>
-<zipfileset dir="D:/Work/javaProjects/JavaLibraries/Xalan2.6" includes="*.jar"/>
+<zipfileset dir="C:/temp/xalan-j_2_6_0" includes="*.jar"/>
 </jar>
 </target>
 </project>

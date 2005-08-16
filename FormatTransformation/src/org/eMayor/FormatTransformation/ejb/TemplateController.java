@@ -6,7 +6,10 @@
 
 package org.eMayor.FormatTransformation.ejb;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
 
 import org.w3c.dom.Document;
 
@@ -62,8 +65,10 @@ public class TemplateController {
         } else {
         	throw new Exception("Transformation " + typeOfTransformation + " not supported.");
         }
+
         
-        Document xslDom = InputOutputHandler.parseDOMInput(fileToRetrieve);
+        InputStream fileIs = this.getClass().getResourceAsStream(fileToRetrieve);
+        Document xslDom = InputOutputHandler.parseDOMInput(fileIs);
         tt = new XMLTransformationTemplate(xslDom, typeOfTransformation, typeOfDocument);
         
         return tt;

@@ -5,6 +5,7 @@ package org.emayor.servicehandling.test;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +17,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.apache.log4j.Logger;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.apache.xpath.XPathAPI;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.utclient.CVDocumentTypes;
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -99,33 +103,31 @@ public class ShowTaskDetailsProcessor extends AbstractProcessor {
                             reqReceivingMunicipality);
                     ret = "RCSDataPage.jsp";
                 } else if (task.getTaskType() == CVDocumentTypes.CV_RESIDENCE_DOCUMENT) {
-                    log.debug("this is a residance certification document");
-                    String forename = XPathAPI
-                            .selectSingleNode(
-                                    root,
-                                    "/ResidenceCertificationDocument/CertifiedConcernedPersons/CitizenDetails/CitizenName/CitizenNameForename/text()")
-                            .getNodeValue();
-                    String surname = XPathAPI
-                            .selectSingleNode(
-                                    root,
-                                    "/ResidenceCertificationDocument/CertifiedConcernedPersons/CitizenDetails/ContactDetails/Email/EmailAddress/text()")
-                            .getNodeValue();
-                    String email = XPathAPI
-                            .selectSingleNode(
-                                    root,
-                                    "/ResidenceCertificationDocument/CertifiedConcernedPersons/CitizenDetails/CitizenName/CitizenNameSurname/text()")
-                            .getNodeValue();
-                    String sex = XPathAPI
-                            .selectSingleNode(
-                                    root,
-                                    "/ResidenceCertificationDocument/CertifiedConcernedPersons/CitizenDetails/CitizenSex/text()")
-                            .getNodeValue();
-                    session.setAttribute("CURR_TASK", task);
-                    session.setAttribute("FORENAME", forename);
-                    session.setAttribute("SURNAME", surname);
-                    session.setAttribute("EMAIL", email);
-                    session.setAttribute("SEX", sex);
-                    ret = "ShowTaskDetails.jsp";
+                		log.debug("this is a residance certification document");
+
+						DOMImplementation impl = builder.getDOMImplementation();
+						Document doc = builder.parse(new InputSource(new StringReader(xmldoc)));
+						   
+						  // Serialize the document
+						OutputFormat format = new OutputFormat(doc);
+						format.setLineWidth(65);
+						format.setIndenting(true);
+						format.setIndent(2);
+						StringWriter writer = new StringWriter();
+						XMLSerializer serializer = new XMLSerializer(writer, format);
+						serializer.serialize(doc);
+						 
+						String xmldocAsHTML = writer.toString();
+          		      
+						xmldocAsHTML = xmldocAsHTML.replaceAll("<","&lt;");
+						xmldocAsHTML = xmldocAsHTML.replaceAll(">","&gt;");
+						//xmldocAsHTML = xmldocAsHTML.replaceAll("&lt;/","<br>&lt;/");
+						//xmldocAsHTML = xmldocAsHTML.replaceAll("&gt;","&gt;<br>");
+						xmldocAsHTML = xmldocAsHTML.replaceAll("\"","&quot;");
+						
+						session.setAttribute("CURR_TASK", task);
+						session.setAttribute("RCD",xmldocAsHTML);
+						ret = "ShowTaskDetails.jsp";
                 } else {
                     log.debug("unknown document type");
                     session.setAttribute("ERR_MSG", "Unknown document type");

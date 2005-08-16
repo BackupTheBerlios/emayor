@@ -14,6 +14,8 @@ import javax.ejb.SessionContext;
 
 import javax.ejb.CreateException;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * @ejb.bean name="Transformer"
@@ -100,8 +102,22 @@ public class TransformerBean implements SessionBean {
 		String typeOfTransformation,
 		String typeOfDocument) {
 		// TODO Auto-generated method stub
+		Logger log = Logger.getLogger(this.getClass());
+		
+		if (log.isDebugEnabled()) {
+			log.debug("#############FORMAT TRANSFORMATION############");
+			log.debug("document		: " + documentToTransform);
+			log.debug("transtype	: " + typeOfTransformation);
+			log.debug("doctype 		: " + typeOfDocument);
+		}
+		
 		
 		String output = tc.transform(documentToTransform, typeOfTransformation, typeOfDocument);
+		
+		if (log.isDebugEnabled()) {
+			log.debug("result		: " + output);
+			log.debug("#############FORMAT TRANSFORMATION############");
+		}
 		
 		return output;
 	}

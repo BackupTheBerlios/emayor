@@ -5,6 +5,7 @@ package org.emayor.servicehandling.test;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +14,20 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.apache.xpath.XPathAPI;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.utclient.CVDocumentTypes;
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -89,7 +98,7 @@ public class CVDisplayTaskProcessor extends AbstractProcessor {
                     ret = "CVDisplayRCRequest.jsp";
                 } else if (task.getTaskType() == CVDocumentTypes.CV_RESIDENCE_DOCUMENT) {
                     log.debug("this is a residance certification document");
-                    String forename = XPathAPI
+                    /*String forename = XPathAPI
                             .selectSingleNode(
                                     root,
                                     "/ResidenceCertificationDocument/CertifiedConcernedPersons/CitizenDetails/CitizenName/CitizenNameForename/text()")
@@ -104,10 +113,52 @@ public class CVDisplayTaskProcessor extends AbstractProcessor {
                                     root,
                                     "/ResidenceCertificationDocument/CertifiedConcernedPersons/CitizenDetails/CitizenName/CitizenNameSurname/text()")
                             .getNodeValue();
-                    session.setAttribute("CURR_TASK", task);
                     session.setAttribute("FORENAME", forename);
                     session.setAttribute("SURNAME", surname);
-                    session.setAttribute("EMAIL", email);
+                    session.setAttribute("EMAIL", email);*/
+
+                    
+                    //TransformerFactory tFactory = TransformerFactory.newInstance();
+                    //Transformer transformer = tFactory.newTransformer();
+                    //transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+                    //transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+                    //transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+                    //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                    //transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                    
+                    // create output writer
+                    //StringWriter writer = new StringWriter();
+
+                    // do transform
+                    //transformer.transform(new StreamSource(xmldoc), new StreamResult(writer));
+                    
+                    //String xmldocAsHTML = writer.toString();
+                    
+      		      DOMImplementation impl = builder.getDOMImplementation();
+					Document doc = builder.parse(new InputSource(
+							new StringReader(xmldoc)));
+
+					// Serialize the document
+					OutputFormat format = new OutputFormat(doc);
+					format.setLineWidth(65);
+					format.setIndenting(true);
+					format.setIndent(2);
+					StringWriter writer = new StringWriter();
+					XMLSerializer serializer = new XMLSerializer(writer, format);
+					serializer.serialize(doc);
+
+					String xmldocAsHTML = writer.toString();
+
+					xmldocAsHTML = xmldocAsHTML.replaceAll("<", "&lt;");
+					xmldocAsHTML = xmldocAsHTML.replaceAll(">", "&gt;");
+					//xmldocAsHTML =
+					// xmldocAsHTML.replaceAll("&lt;/","<br>&lt;/");
+					//xmldocAsHTML =
+					// xmldocAsHTML.replaceAll("&gt;","&gt;<br>");
+					xmldocAsHTML = xmldocAsHTML.replaceAll("\"", "&quot;");
+
+					session.setAttribute("CURR_TASK", task);
+					session.setAttribute("RCD", xmldocAsHTML);
                     ret = "CVDisplayRCDocument.jsp";
                 } else if (task.getTaskType() == CVDocumentTypes.CV_USER_REGISTRATION_REQUEST) {
                     log.debug("this is a user registration request");

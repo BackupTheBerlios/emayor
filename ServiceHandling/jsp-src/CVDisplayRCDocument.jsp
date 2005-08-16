@@ -50,42 +50,11 @@
     <td><span class="style5">Document status </span></td>
     <td><span class="style3"><%= task.getStatus() %></span></td>
   </tr>
-  <tr>
-    <td><div align="left" class="style5">Forename </div></td>
-    <td><div align="right" class="style3">
-      <div align="left"><%= session.getAttribute("FORENAME") %></div>
-    </div></td>
-  </tr>
-  <tr bgcolor="#CCCCCC">
-    <td><div align="left" class="style5">Surname </div></td>
-    <td><div align="right" class="style3">
-      <div align="left"><%= session.getAttribute("SURNAME") %></div>
-    </div></td>
-  </tr>
-  <tr>
-    <td><div align="left" class="style5">Email </div></td>
-    <td><div align="right" class="style3">
-      <div align="left"><%= session.getAttribute("EMAIL") %></div>
-    </div></td>
-  </tr>
-  <tr bgcolor="#CCCCCC">
-    <td><span class="style5">Incoming date </span></td>
-    <td><div align="right" class="style3">
-      <div align="left"><%= incoming %></div>
-    </div></td>
-  </tr>
-  <tr>
-    <td><span class="style5">Deadline</span></td>
-    <td><div align="right" class="style3">
-      <div align="left"><%= deadline %></div>
-    </div></td>
-  </tr>
-  <tr bgcolor="#CCCCCC">
-    <td><span class="style5">Dig. signature</span></td>
-    <td><div align="right" class="style3">
-      <div align="left"><%= sigStatus %></div>
-    </div></td>
-  </tr>
+	<tr>
+		<td colspan="2">
+			<%= session.getAttribute("RCD") %>
+		</td>
+	</tr>
   <tr bgcolor="#CCCC66">
     <td colspan="2">&nbsp;</td>
   </tr>

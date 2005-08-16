@@ -6,6 +6,8 @@
 
 package org.eMayor.FormatTransformation.ejb;
 
+import java.io.Serializable;
+
 import org.w3c.dom.Document;
 
 /**
@@ -13,7 +15,7 @@ import org.w3c.dom.Document;
  * It extends the TransformationTemplate class.
  * @author  AlexK
  */
-public class XMLTransformationTemplate extends TransformationTemplate {
+public class XMLTransformationTemplate extends TransformationTemplate implements Serializable {
 
 	/**
 	 * 

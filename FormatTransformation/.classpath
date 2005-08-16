@@ -6,5 +6,6 @@
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
 	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.eclipse.tomcat_4.1.30/servlet.jar"/>
 	<classpathentry kind="lib" path="xalan/xalan.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
