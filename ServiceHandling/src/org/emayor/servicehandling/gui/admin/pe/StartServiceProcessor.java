@@ -3,6 +3,7 @@
  */
 package org.emayor.servicehandling.gui.admin.pe;
 
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.gui.admin.AbstractRequestProcessor;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author <a href="mailto:Tomasz.Kusber@fokus.fraunhofer.de"> <font
@@ -30,8 +32,15 @@ public class StartServiceProcessor extends AbstractRequestProcessor {
 	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		log.debug("-> start processing ...");
-		String ret = "adminpe/WelcomePage.jsp";
+		String ret = "admpe?action=ListPolicies";
 		log.debug("-> processing DONE");
+		
+		HttpSession MySession = req.getSession();
+		MySession.setAttribute("PolicyName", null);
+		MySession.setAttribute("PoliciesList", null);
+		MySession.setAttribute("PolicySet", null);
+		MySession.setAttribute("Rules", null);
+		
 		return ret;
 	}
 

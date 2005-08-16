@@ -61,7 +61,8 @@ public class StartServiceNewProcessor extends AbstractProcessor {
 				log
 						.debug("the policy enforcer admin service has been started -> redirect the input page");
 				session.setAttribute("ADMIN_PE_SSID", ssid);
-				ret = "peadmin/WelcomePage.jsp";
+				//ret = "adminpe/WelcomePage.jsp";
+				ret = "admpe?action=Start";
 			} else {
 				session.setAttribute("SLEEP_TIME", "10");
 				session.setAttribute("REDIRECTION_URL",

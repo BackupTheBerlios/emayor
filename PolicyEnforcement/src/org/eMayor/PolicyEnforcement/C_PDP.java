@@ -51,7 +51,7 @@ public class C_PDP {
 	 * @uml.associationEnd multiplicity="(1 1)"
 	 */
 	private PDP MyPDP = null;
-	public static DBPolicyModule MyPolicyModule = null;
+	public DBPolicyModule MyPolicyModule = null;
 
 	private static final Logger log = Logger.getLogger(C_PDP.class);
 	

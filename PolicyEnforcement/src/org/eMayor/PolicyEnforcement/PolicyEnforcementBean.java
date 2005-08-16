@@ -19,9 +19,19 @@ import javax.ejb.CreateException;
 
 import org.apache.log4j.Logger;
 
-import com.sun.xacml.finder.PolicyFinder;
+import com.sun.xacml.AbstractPolicy;
+import com.sun.xacml.Rule;
+
+
+
 
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * @ejb.bean name="PolicyEnforcement"
@@ -264,10 +274,406 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean GetGeneralPolicyEffect() {
+	public Set FPM_GetPoliciesList(String PolicySetID, List PolicyList) {
+		// TODO Auto-generated method stub
+		Set Result = new HashSet(); 
+		try {
+		
+		if (MyPEP == null) {
+			MyPEP = new C_PEP(new C_PDP());
+			log.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
+		}
+		Set mypolicies = (PolicyEnforcementBean.MyPEP.F_getCurrentPDP()).MyPolicyModule.policies;
+		 if (PolicySetID!=null) {
+		 	//============================
+//		 	We need to list the policies from the Policy Set
+        	//We check if we have a root policy
+		 	AbstractPolicy policy = null;
+        	if (PolicyList!=null) {
+//        		We have a policy from a policy set
+        		policy = FPM_findPollicy(PolicySetID, PolicyList);
+        		
+        		
+        	}  else {
+        	    // we look for a root policy
+        		Iterator it = mypolicies.iterator();
+    			while (it.hasNext()) {
+    	            AbstractPolicy Allpolicy = (AbstractPolicy)(it.next());
+    	            String myName = (Allpolicy.getId()).toString();
+    	            if (myName.equals(PolicySetID)) {
+    	            	
+    	            	policy =Allpolicy;
+    	            	break; // while
+    	            } //end if
+    	               
+    			} // end while
+        		
+    			
+        	} // end else
+        		
+        	if (policy!=null) {
+        		
+        	
+        		
+//        		 We have a root policy with sub policies
+        		//Let' find the Root policy
+        		if ((policy.getId().toString()).equalsIgnoreCase(PolicySetID)) {
+        			//we have our policy, let's list the child policies
+        			List myPoliciesChild = policy.getChildren();
+        			if (myPoliciesChild!=null){// We need to be shure
+        				Iterator itch = myPoliciesChild.iterator();
+        				while (itch.hasNext()) {
+        					Object myElement = itch.next();
+        					// We need only the policy elements
+        					String MyClassName = myElement.getClass().getName();
+        					
+        					if ((MyClassName.equals("com.sun.xacml.Policy")) || (MyClassName.equals("com.sun.xacml.PolicySet"))) {
+        						// OK Supper
+        						Result.add(((AbstractPolicy)myElement).getId().toString());
+        					} //end if 
+        					
+        				} // end while
+        			} //end if
+        			
+        		} else {
+        			// wrong policy
+        		} // end else
+        		
+        		
+        	
+        	
+        } // end if
+	
+		 	//===========Big Loop end================
+		 	
+		 } else 
+		 {
+		 	Iterator it = mypolicies.iterator();
+			while (it.hasNext()) {
+	            AbstractPolicy policy = (AbstractPolicy)(it.next());
+	            String myName = (policy.getId()).toString();
+	            
+	              
+	                Result.add(myName);
+			} //end while
+		 } // end else
+		
+		
+
+            
+		} catch (Exception e)
+		{
+			log.debug("PE::FPM_GetPoliciesList Exception" + e.toString());
+		}
+		
+		return Result;
+	}
+	
+	/**
+	 * Business method
+	 * @ejb.interface-method  view-type = "both"
+	 */
+	public boolean FPM_isPolicySet(String PolicyID, List PolicyList) {
+		boolean result = false;
+		//log.debug("FPM_isPolicySet:: Start Processing ...");
+		try {
+			Set mypolicies = (PolicyEnforcementBean.MyPEP.F_getCurrentPDP()).MyPolicyModule.policies;
+			 AbstractPolicy policy =null;
+			if (PolicyList!=null) {
+	         	// we need to find the right policy
+	         	policy = FPM_findPollicy(PolicyID, PolicyList);
+	         	
+	         }  //we have a root policy
+			else {
+			
+				Iterator it = mypolicies.iterator();
+				while (it.hasNext()) {
+					AbstractPolicy Newpolicy = (AbstractPolicy)(it.next());
+					String myName = (Newpolicy.getId()).toString();
+		         
+					if (myName.equals(PolicyID)) {
+						policy = Newpolicy;
+					} //end if
+				} //end while
+				
+				
+			} // end else
+			//log.debug("FPM_isPolicySet:: Get Policy : " + policy.getId().toString());
+			List myList = policy.getChildren();
+			if (myList!=null){
+         	// Check if the Childerns are Policies or Policy Sets
+				String FirtChild = myList.get(0).getClass().getName();
+				//log.debug("FPM_isPolicySet:: Class Name of the Firt Child is "+ FirtChild);
+				
+				result = FirtChild.equals("com.sun.xacml.Policy");
+				if (!result) result = FirtChild.equals("com.sun.xacml.PolicySet");
+				
+			} else
+				log.debug("FPM_isPolicySet:: Policy has no Children");
+		} catch (Exception e) {
+			log.debug("PE::FPM_isPolicySet Exception " + e.toString());
+		}
+		//log.debug("FPM_isPolicySet:: Stop Processing ...");
+		return result;
+	}
+	
+	private AbstractPolicy FPM_findPollicy(String PolicyID, List PolicyList) {
+		Set mypolicies = (PolicyEnforcementBean.MyPEP.F_getCurrentPDP()).MyPolicyModule.policies;
+		Iterator it = mypolicies.iterator();
+		//log.debug("FPM_findPollicy:: PolicyID" + PolicyID);
+	/*	for (int i=0; i<PolicyList.size(); i++) {
+			log.debug("FPM_findPollicy:: PolicySet[" +i+"]="+ (String)PolicyList.get(i));
+		} */
+		
+		while (it.hasNext()) {
+			 AbstractPolicy policy = (AbstractPolicy)(it.next());
+	         String myName = (policy.getId()).toString();
+	         if (PolicyList==null) {
+	         	// we look for a root policy
+	         	if (myName.equals(PolicyID)) return policy;
+	         	
+	         } else {
+	         	
+	         	// Find the Root
+	         	 
+	         	if (myName.equals((String)PolicyList.get(0))) {
+	         		AbstractPolicy TheRoot = policy ;
+	         	//	log.debug("PE::FPM_findPollicy:: find the Policy 0 = "+myName);
+	         		// Lets find the need root
+	         		for (int i=1; i<PolicyList.size();i++) {
+	         			List MyChilds = TheRoot.getChildren();
+	         			TheRoot = null; // we need to reset
+	         			if (MyChilds!=null) {
+	         				Iterator mynewIT = MyChilds.iterator();
+	         				while (mynewIT.hasNext()) {
+	         					Object MyNewObject = mynewIT.next();
+	         					String MyClassName = MyNewObject.getClass().getName();
+	         				//	log.debug("PE::FPM_findPollicy:: Object Type is = "+MyClassName);
+	         					if ((MyClassName.equals("com.sun.xacml.Policy")) || (MyClassName.equals("com.sun.xacml.PolicySet"))) {
+	         						String ChildPolicyID =((AbstractPolicy)MyNewObject).getId().toString();
+	         				//		log.debug("PE::FPM_findPollicy:: Child ID = "+ChildPolicyID);
+	         						if (ChildPolicyID.equals(((String) PolicyList.get(i)))) {
+	         						//	log.debug("PE::FPM_findPollicy:: Child Selected as Root has ID = "+ChildPolicyID);
+	         							TheRoot = (AbstractPolicy)MyNewObject;
+	         							break;
+	         						}  //end if
+	         						
+	         					} //end if
+	         				} //end while
+	         				
+	         				
+	         			} else 
+	         			{
+	         				log.debug("PE::FPM_findPollicy:: error, NoChildren-- shoud never happen!!!");
+	         			}
+	         			
+	         			if (TheRoot==null) {
+	         				log.debug("PE::FPM_findPollicy:. error the policy has not bean find");
+	         				break; //for
+	         				
+							
+	         			}  //end if
+	         			
+	         		} // end for
+	         		if (TheRoot==null) break; // the while cicle;
+	         		else {
+	         			// Lets find the policy
+	         			List MyChildren = TheRoot.getChildren();
+	         			Iterator ChildIT = MyChildren.iterator();
+	         			while (ChildIT.hasNext()) {
+	         				Object MyNewObject = ChildIT.next();
+	         				String MyClassName = MyNewObject.getClass().getName();
+         					if ((MyClassName.equals("com.sun.xacml.Policy")) || (MyClassName.equals("com.sun.xacml.PolicySet"))) {
+         						if (((AbstractPolicy)MyNewObject).getId().toString().equals( PolicyID )) {
+         							return (AbstractPolicy)MyNewObject;
+         						}
+         					}
+	         			}
+         						
+	         		}
+	         	} //end if
+	         	 
+	         	
+	         }// end if else
+	         	
+	         
+		} // end while
+			
+	         
+		
+		return null;
+	}
+	
+	//################################
+	/**
+	 * Business method
+	 * @ejb.interface-method  view-type = "both"
+	 */
+	public List FPM_GetRuleList(String PolicyID, List PolicyList) {
 		// TODO Auto-generated method stub
 		
-//		Set mypolicies = (this.MyPEP.F_getCurrentPDP()).MyPolicyModule.policies;
-		return false;
+		
+		
+		List Result = new ArrayList(); 
+	//	log.debug("FPM_GetRuleList:: Start Processing ...");
+	//	log.debug("FPM_GetRuleList:: PolicyID" + PolicyID);
+	/*	if (PolicyList==null) {
+			log.debug("FPM_GetRuleList:: PolicySet =null");
+		} else {
+			for (int i=0; i<PolicyList.size(); i++) {
+				log.debug("FPM_GetRuleList:: PolicySet[" +i+"]="+ (String)PolicyList.get(i));
+			}	
+		}
+		*/
+		try {
+		
+		if (MyPEP == null) {
+			MyPEP = new C_PEP(new C_PDP());
+			log.debug("Policy Enforcement->F_AuthorizeService:: Create the PEP");
+		}
+		Set mypolicies = (PolicyEnforcementBean.MyPEP.F_getCurrentPDP()).MyPolicyModule.policies;
+		 if (PolicyID!=null) {
+		 	//============================
+//		 	We need to list the policies from the Policy Set
+        	//We check if we have a root policy
+		 	AbstractPolicy policy = null;
+        	if (PolicyList!=null) {
+//        		We have a policy from a policy set
+        		policy = FPM_findPollicy(PolicyID, PolicyList);
+        		
+        		
+        	}  else {
+        	    // we look for a root policy
+        		Iterator it = mypolicies.iterator();
+    			while (it.hasNext()) {
+    	            AbstractPolicy Allpolicy = (AbstractPolicy)(it.next());
+    	            String myName = (Allpolicy.getId()).toString();
+    	            if (myName.equals(PolicyID)) {
+    	            	
+    	            	policy =Allpolicy;
+    	            	break; // while
+    	            } //end if
+    	               
+    			} // end while
+        		
+    			
+        	} // end else
+        		
+        	if (policy!=null) {
+        		
+        	
+        		
+//        		 We have a root policy with sub policies
+        		//Let' find the Root policy
+        		
+        			
+        		//	log.debug("FPM_GetRuleList:: The Root Policy is: " + policy.getId().toString());
+        			//we have our policy, let's list the child policies
+        			List myPoliciesChild = policy.getChildren();
+        			if (myPoliciesChild!=null){// We need to be shure
+        				Iterator itch = myPoliciesChild.iterator();
+        				while (itch.hasNext()) {
+        					Object myElement = itch.next();
+        					// We need only the policy elements
+        					String MyClassName = myElement.getClass().getName();
+        					
+        					if (MyClassName.equals("com.sun.xacml.Rule")) {
+        						// OK Supper add the Rule ID
+        					//	log.debug("FPM_GetRuleList:: Retrive Ruls:");
+        						String RuleID = ((com.sun.xacml.Rule)myElement).getId().toString();
+        					//	log.debug("FPM_GetRuleList:: " + RuleID);
+        						Result.add(RuleID);
+        						
+        						// Add the Effect
+        						int MyEffect = ((com.sun.xacml.Rule)myElement).getEffect();
+        						if (MyEffect==0) 
+        							Result.add("Permit");
+        						else Result.add("Deny");
+        						
+        						
+        					} //end if 
+        					
+        				} // end while
+        			
+        			
+        		} else {
+        			log.debug("FPM_GetRuleList:: The Root Policy has no childs ");
+        		}
+        		
+        		
+        	
+        	
+        } // end if
+	
+		 	//===========Big Loop end================
+		 	
+		 } else 
+		 {
+		 	//Error
+		 	log.debug("PE::FPM_GetRuleList -> Error PolicyID is missing");
+			 //end while
+		 } // end else
+		
+		
+
+            
+		} catch (Exception e)
+		{
+			log.debug("PE::FPM_GetRuleList Exception" + e.toString());
+		}
+		log.debug("FPM_GetRuleList:: End Processing ...");
+		return Result;
 	}
+	
+	private Rule FPM_FindRule(String RuleID, String PolicyID, List PolicyList) {
+		AbstractPolicy myPolicy = this.FPM_findPollicy(PolicyID, PolicyList);
+		if (myPolicy==null){
+			log.debug("FPM_FindRule:: error can not find the policy");
+			return null;
+		}
+		List myRools = myPolicy.getChildren();
+		if (myRools==null) {
+			log.debug("FPM_FindRule:: error can the policy " + myPolicy.getId().toString() + " has no Children");
+			
+		}
+		
+		Iterator it = myRools.iterator();
+		while (it.hasNext()){
+			Object MyObject = it.next();
+			String ObName = MyObject.getClass().getName();
+			if (ObName.equals("com.sun.xacml.Rule")){
+				Rule myRule= (Rule)MyObject;
+				String myRuleID = myRule.getId().toString();
+				if (myRuleID.equals(RuleID)) return myRule;
+				
+			}
+		}
+		
+		return null;
+	}
+	//################################
+	/**
+	 * Business method
+	 * @ejb.interface-method  view-type = "both"
+	 */
+	public void FPM_ChangeRuleEffect(String RuleID, String PolicyID, List PolicyList) {
+		Rule myRule = this.FPM_FindRule(RuleID, PolicyID,  PolicyList);
+		if (myRule==null) {
+			log.debug("FPM_ChangeRuleEffect:: error can not find role");
+			return;
+		}
+		int MyEffect = myRule.getEffect();
+		List myChildren = myRule.getChildren();
+		
+		
+		if (MyEffect==0) {
+			myRule.setEffect(1);
+			
+		} else myRule.setEffect(0);
+		
+		
+	}
+		
+		
 }
+

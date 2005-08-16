@@ -50,6 +50,7 @@ public class AdminPEManagerControllerServlet extends HttpServlet {
 		log.debug("-> start processing ...");
 		String page = "adminpe/DoNothing.jsp";
 		String action = req.getParameter("action");
+		log.debug("Get Action : " + action);
 		IRequestProcessor p = null;
 		if (action.equalsIgnoreCase("START")) {
 			p = new StartServiceProcessor();
@@ -57,9 +58,15 @@ public class AdminPEManagerControllerServlet extends HttpServlet {
 			p = new StopServiceProcessor();
 		} else if (action.equalsIgnoreCase("donothing")) {
 			p = new DoNothingProcessor();
-		} else {
+		} else if (action.equalsIgnoreCase("ListPolicies")){
+			p = new ListPoliciesProcessor();
+		} else if (action.equalsIgnoreCase("ShowPolicy")){
+			p = new ShowPolicySetProcessor();
+		} else if (action.equalsIgnoreCase("ChangeRule")){
+			p = new ChangeRuleProcessor();
+		} else
 			p = new DoNothingProcessor();
-		}
+		
 		page = p.process(req, resp);
 		log.debug("-> ... processing DONE!");
 		resp.sendRedirect(page);

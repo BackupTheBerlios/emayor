@@ -63,4 +63,28 @@ public interface PolicyEnforcement
    public boolean F_NewUserProfile( java.lang.String newUserProfile )
       throws java.rmi.RemoteException;
 
+   /**
+    * Business method
+    */
+   public java.util.Set FPM_GetPoliciesList( java.lang.String PolicySetID,java.util.List PolicyList )
+      throws java.rmi.RemoteException;
+
+   /**
+    * Business method
+    */
+   public boolean FPM_isPolicySet( java.lang.String PolicyID,java.util.List PolicyList )
+      throws java.rmi.RemoteException;
+
+   /**
+    * Business method
+    */
+   public java.util.List FPM_GetRuleList( java.lang.String PolicyID,java.util.List PolicyList )
+      throws java.rmi.RemoteException;
+
+   /**
+    * Business method
+    */
+   public void FPM_ChangeRuleEffect( java.lang.String RuleID,java.lang.String PolicyID,java.util.List PolicyList )
+      throws java.rmi.RemoteException;
+
 }

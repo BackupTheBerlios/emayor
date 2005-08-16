@@ -3,30 +3,63 @@
 <html>
 
 <head>
-	<title>Policy Enforcer Admin Interface (C) - v.1.0.0</title>\n\
+	<title>Policy Enforcer Admin Interface (C) - v.1.0.0</title>
 </head>
 
 <body bgcolor="#FFFFFF">
 <table border="0" width="800">
   <tr bgcolor="#999900"> 
     <td height="60" bgcolor="#99CCFF" colspan="3"> <div align="center"><strong><font size="7">eMayor 
-        Platform - Policy Enforcer</font></strong></div></td>
+        Platform - Policies Managment</font></strong></div></td>
   </tr>
   <tr> 
+<%
+	String CurrentPolicyName = (String)session.getAttribute("PolicyName");
+
+if (CurrentPolicyName!=null) {
+    %>
+    <tr> 
+    <td colspan="3"> <div align="center">Managed Policy: <%=CurrentPolicyName%> </div></td>
+  	</tr> <%
+}
+%>
+
     <td colspan="3"> <hr /></td>
   </tr>
   <tr> 
-    <td colspan="3"> <div align="left"><strong><font size="4">Please, choose an action:</font></strong> 
+    <td colspan="3"> <div align="left"><strong><font size="4">Please, choose a Policy to manage:</font></strong> 
       </div></td>
   </tr>
   <tr> 
     <td colspan="3"> 
 		<table width="388" cellpadding="4" cellspacing="4">
-		<tr>	
-          		<td>
-					- <a href="../admpe?action=donothing"><font size="2">Do nothing ...</font></a>
+	</tr>		
+          		
+<!-- List Policies -->
+<%
+	java.util.Set PoliciesSet = (java.util.Set)session.getAttribute("PoliciesList");
+    if (PoliciesSet!=null) {
+		java.util.Iterator it = PoliciesSet.iterator();
+		while (it.hasNext()) {
+			String MyName = (String)(it.next());
+			%>
+				<tr>
+				<td>
+						- <a href="../admpe?action=ShowPolicy&PolicyID=<%=MyName%>"><font size="2"><%=MyName%></font></a>
+				</td> 
+				</tr>
+			<%
+		}
+	} else {
+			%>	<tr>
+				<td>
+					- <a href="../admpe?action=ListPolicies"><font size="2">List Loaded Policies</font></a>
 				</td>
-			</tr>
+				</tr> <%
+}
+%>
+
+			
 		</table>
 	</td>
   </tr>

@@ -54,4 +54,24 @@ public interface PolicyEnforcementLocal
     */
    public boolean F_NewUserProfile( java.lang.String newUserProfile ) ;
 
+   /**
+    * Business method
+    */
+   public java.util.Set FPM_GetPoliciesList( java.lang.String PolicySetID,java.util.List PolicyList ) ;
+
+   /**
+    * Business method
+    */
+   public boolean FPM_isPolicySet( java.lang.String PolicyID,java.util.List PolicyList ) ;
+
+   /**
+    * Business method
+    */
+   public java.util.List FPM_GetRuleList( java.lang.String PolicyID,java.util.List PolicyList ) ;
+
+   /**
+    * Business method
+    */
+   public void FPM_ChangeRuleEffect( java.lang.String RuleID,java.lang.String PolicyID,java.util.List PolicyList ) ;
+
 }
