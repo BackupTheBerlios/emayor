@@ -54,6 +54,7 @@ public class VerifySignature {
    * Intall Log4j
    */
    	BasicConfigurator.configure();
+   	logger.setLevel(Level.ALL);
    	
 // '''''''''''''''''''''''''''''''''''''''''###################
       boolean schemaValidate = false;
