@@ -1,76 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ResidenceCertificationDocument 
-  xmlns="http://www.emayor.org/CertificationDocument.xsd" 
-  xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" 
-  xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" 
-  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" 
-  xmlns:ed="http://www.emayor.org/e-Document.xsd" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://www.emayor.org/CertificationDocument.xsd http://localhost:8080/eMayor/xsd/emayor/e-document-v0.3.xsd">
+<ResidenceCertificationDocument xmlns="http://www.emayor.org/CertificationDocument.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/CertificationDocument.xsd http://localhost:8080/eMayor/xsd/emayor/e-document-v0.3.xsd">
 	<CertifiedConcernedPersons>
 		<ed:CitizenDetails>
 			<ed:CitizenName>
-				<aapd:CitizenNameTitle></aapd:CitizenNameTitle>
+				<aapd:CitizenNameTitle/>
 				<aapd:CitizenNameForename>FirstName</aapd:CitizenNameForename>
 				<aapd:CitizenNameSurname>Name</aapd:CitizenNameSurname>
-				<aapd:CitizenNameSuffix></aapd:CitizenNameSuffix>
-				<aapd:CitizenNameRequestedName></aapd:CitizenNameRequestedName>
+				<aapd:CitizenNameSuffix/>
+				<aapd:CitizenNameRequestedName/>
 			</ed:CitizenName>
-			<ed:PreferredLanguages></ed:PreferredLanguages>
+			<ed:PreferredLanguages/>
 			<ed:ContactDetails>
 				<aapd:Email>
 					<aapd:EmailAddress>user@emayor.org</aapd:EmailAddress>
 				</aapd:Email>
 				<aapd:Telephone>
-					<aapd:TelNationalNumber></aapd:TelNationalNumber>
-					<aapd:TelExtensionNumber></aapd:TelExtensionNumber>
-					<aapd:TelCountryCode></aapd:TelCountryCode>
+					<aapd:TelNationalNumber/>
+					<aapd:TelExtensionNumber/>
+					<aapd:TelCountryCode/>
 				</aapd:Telephone>
 				<aapd:Fax>
-					<aapd:FaxNationalNumber></aapd:FaxNationalNumber>
-					<aapd:FaxExtensionNumber></aapd:FaxExtensionNumber>
-					<aapd:FaxCountryCode></aapd:FaxCountryCode>
+					<aapd:FaxNationalNumber/>
+					<aapd:FaxExtensionNumber/>
+					<aapd:FaxCountryCode/>
 				</aapd:Fax>
 			</ed:ContactDetails>
-			<ed:CitizenSex></ed:CitizenSex>
-			<ed:CitizenMaritalStatus></ed:CitizenMaritalStatus>
+			<ed:CitizenSex/>
+			<ed:CitizenMaritalStatus/>
 			<ed:CitizenBirthDetails>
 				<ed:DateOfBirth>
-					<aapd:BirthDate></aapd:BirthDate>
-					<aapd:VerifiedBy></aapd:VerifiedBy>
+					<aapd:BirthDate/>
+					<aapd:VerifiedBy/>
 				</ed:DateOfBirth>
-				<cbc:CityName></cbc:CityName>
-				<ed:BirthActNumber></ed:BirthActNumber>
+				<cbc:CityName/>
+				<ed:BirthActNumber/>
 			</ed:CitizenBirthDetails>
-			<ed:Nationality></ed:Nationality>
+			<ed:Nationality/>
 			<ed:IdentificationDetails>
-				<ed:IDCardNumber></ed:IDCardNumber>
-				<ed:PassportNumber></ed:PassportNumber>
+				<ed:IDCardNumber/>
+				<ed:PassportNumber/>
 			</ed:IdentificationDetails>
 		</ed:CitizenDetails>
 	</CertifiedConcernedPersons>
-	<ed:IssuanceDate></ed:IssuanceDate>
-	<ed:Observations></ed:Observations>
-	<ed:Terms></ed:Terms>
+	<ed:IssuanceDate/>
+	<ed:Observations/>
+	<ed:Terms/>
 	<Address>
-		<ed:Postbox></ed:Postbox>
-		<ed:Floor></ed:Floor>
-		<ed:Room></ed:Room>
-		<ed:StreetName></ed:StreetName>
-		<ed:AdditionalStreetName></ed:AdditionalStreetName>
-		<ed:BuildingName></ed:BuildingName>
-		<ed:BuildingNumber></ed:BuildingNumber>
-		<ed:Department></ed:Department>
-		<ed:CityName></ed:CityName>
-		<ed:PostalZone></ed:PostalZone>
-		<ed:CountrySubentity></ed:CountrySubentity>
-		<ed:District></ed:District>
+		<ed:Postbox/>
+		<ed:Floor/>
+		<ed:Room/>
+		<ed:StreetName/>
+		<ed:AdditionalStreetName/>
+		<ed:BuildingName/>
+		<ed:BuildingNumber/>
+		<ed:Department/>
+		<ed:CityName/>
+		<ed:PostalZone/>
+		<ed:CountrySubentity/>
+		<ed:District/>
 		<ed:Country>
-			<cac:IdentificationCode></cac:IdentificationCode>
-			<cbc:Name></cbc:Name>
+			<cac:IdentificationCode/>
+			<cbc:Name/>
 		</ed:Country>
-		<ed:Nucleus></ed:Nucleus>
-		<ed:StreetQualifier></ed:StreetQualifier>
-		<ed:Section></ed:Section>
+		<ed:Nucleus/>
+		<ed:StreetQualifier/>
+		<ed:Section/>
 	</Address>
 </ResidenceCertificationDocument>

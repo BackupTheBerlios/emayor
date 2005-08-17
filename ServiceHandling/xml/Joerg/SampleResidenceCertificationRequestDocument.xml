@@ -1,119 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ResidenceCertificationRequestDocument xmlns="http://www.emayor.org/BusinessDocument.xsd" 
-  xmlns:ed="http://www.emayor.org/e-Document.xsd" 
-  xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" 
-  xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
-  xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" 
-  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd http://localhost:8080/eMayor/xsd/emayor/BusinessDocument-v0.3.xsd">
+<ResidenceCertificationRequestDocument xmlns="http://www.emayor.org/BusinessDocument.xsd" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd http://localhost:8080/eMayor/xsd/emayor/BusinessDocument-v0.3.xsd">
 	<LoginServer>Aachen</LoginServer>
-	<TransactionId></TransactionId>
+	<TransactionId/>
 	<RequesterDetails>
 		<ed:CitizenName>
 			<aapd:CitizenNameTitle>Title</aapd:CitizenNameTitle>
 			<aapd:CitizenNameForename>FirstName</aapd:CitizenNameForename>
 			<aapd:CitizenNameSurname>Name</aapd:CitizenNameSurname>
-			<aapd:CitizenNameSuffix></aapd:CitizenNameSuffix>
-			<aapd:CitizenNameRequestedName></aapd:CitizenNameRequestedName>
+			<aapd:CitizenNameSuffix/>
+			<aapd:CitizenNameRequestedName/>
 		</ed:CitizenName>
-		<ed:PreferredLanguages></ed:PreferredLanguages>
+		<ed:PreferredLanguages/>
 		<ed:ContactDetails>
 			<aapd:Email>
 				<aapd:EmailAddress>user@emayor.org</aapd:EmailAddress>
 			</aapd:Email>
 			<aapd:Telephone>
-				<aapd:TelNationalNumber></aapd:TelNationalNumber>
-				<aapd:TelExtensionNumber></aapd:TelExtensionNumber>
-				<aapd:TelCountryCode></aapd:TelCountryCode>
+				<aapd:TelNationalNumber/>
+				<aapd:TelExtensionNumber/>
+				<aapd:TelCountryCode/>
 			</aapd:Telephone>
 			<aapd:Fax>
-				<aapd:FaxNationalNumber></aapd:FaxNationalNumber>
-				<aapd:FaxExtensionNumber></aapd:FaxExtensionNumber>
-				<aapd:FaxCountryCode></aapd:FaxCountryCode>
+				<aapd:FaxNationalNumber/>
+				<aapd:FaxExtensionNumber/>
+				<aapd:FaxCountryCode/>
 			</aapd:Fax>
 		</ed:ContactDetails>
-		<ed:CitizenSex></ed:CitizenSex>
-		<ed:CitizenMaritalStatus></ed:CitizenMaritalStatus>
+		<ed:CitizenSex/>
+		<ed:CitizenMaritalStatus/>
 		<ed:CitizenBirthDetails>
 			<ed:DateOfBirth>
-				<aapd:BirthDate></aapd:BirthDate>
-				<aapd:VerifiedBy></aapd:VerifiedBy>
+				<aapd:BirthDate/>
+				<aapd:VerifiedBy/>
 			</ed:DateOfBirth>
-			<cbc:CityName></cbc:CityName>
-			<ed:BirthActNumber></ed:BirthActNumber>
+			<cbc:CityName/>
+			<ed:BirthActNumber/>
 		</ed:CitizenBirthDetails>
-		<ed:Nationality></ed:Nationality>
+		<ed:Nationality/>
 		<ed:IdentificationDetails>
-			<ed:IDCardNumber></ed:IDCardNumber>
-			<ed:PassportNumber></ed:PassportNumber>
+			<ed:IDCardNumber/>
+			<ed:PassportNumber/>
 		</ed:IdentificationDetails>
 	</RequesterDetails>
 	<ConcernedPersonDetails>
 		<ed:CitizenName>
-			<aapd:CitizenNameTitle></aapd:CitizenNameTitle>
-			<aapd:CitizenNameForename></aapd:CitizenNameForename>
-			<aapd:CitizenNameSurname></aapd:CitizenNameSurname>
-			<aapd:CitizenNameSuffix></aapd:CitizenNameSuffix>
-			<aapd:CitizenNameRequestedName></aapd:CitizenNameRequestedName>
+			<aapd:CitizenNameTitle/>
+			<aapd:CitizenNameForename/>
+			<aapd:CitizenNameSurname/>
+			<aapd:CitizenNameSuffix/>
+			<aapd:CitizenNameRequestedName/>
 		</ed:CitizenName>
-		<ed:PreferredLanguages></ed:PreferredLanguages>
+		<ed:PreferredLanguages/>
 		<ed:ContactDetails>
 			<aapd:Email>
-				<aapd:EmailAddress></aapd:EmailAddress>
+				<aapd:EmailAddress/>
 			</aapd:Email>
 			<aapd:Telephone>
-				<aapd:TelNationalNumber></aapd:TelNationalNumber>
-				<aapd:TelExtensionNumber></aapd:TelExtensionNumber>
-				<aapd:TelCountryCode></aapd:TelCountryCode>
+				<aapd:TelNationalNumber/>
+				<aapd:TelExtensionNumber/>
+				<aapd:TelCountryCode/>
 			</aapd:Telephone>
 			<aapd:Fax>
-				<aapd:FaxNationalNumber></aapd:FaxNationalNumber>
-				<aapd:FaxExtensionNumber></aapd:FaxExtensionNumber>
-				<aapd:FaxCountryCode></aapd:FaxCountryCode>
+				<aapd:FaxNationalNumber/>
+				<aapd:FaxExtensionNumber/>
+				<aapd:FaxCountryCode/>
 			</aapd:Fax>
 		</ed:ContactDetails>
-		<ed:CitizenSex></ed:CitizenSex>
-		<ed:CitizenMaritalStatus></ed:CitizenMaritalStatus>
+		<ed:CitizenSex/>
+		<ed:CitizenMaritalStatus/>
 		<ed:CitizenBirthDetails>
 			<ed:DateOfBirth>
-				<aapd:BirthDate></aapd:BirthDate>
-				<aapd:VerifiedBy></aapd:VerifiedBy>
+				<aapd:BirthDate/>
+				<aapd:VerifiedBy/>
 			</ed:DateOfBirth>
-			<cbc:CityName></cbc:CityName>
-			<ed:BirthActNumber></ed:BirthActNumber>
+			<cbc:CityName/>
+			<ed:BirthActNumber/>
 		</ed:CitizenBirthDetails>
-		<ed:Nationality></ed:Nationality>
+		<ed:Nationality/>
 		<ed:IdentificationDetails>
-			<ed:IDCardNumber></ed:IDCardNumber>
-			<ed:PassportNumber></ed:PassportNumber>
+			<ed:IDCardNumber/>
+			<ed:PassportNumber/>
 		</ed:IdentificationDetails>
 	</ConcernedPersonDetails>
-	<RequestDate></RequestDate>
-	<ed:Observations></ed:Observations>
-	<NotificationMedium></NotificationMedium>
+	<RequestDate/>
+	<ed:Observations/>
+	<NotificationMedium/>
 	<ServingMunicipalityDetails>Aachen</ServingMunicipalityDetails>
 	<ReceivingMunicipalityDetails>Aachen</ReceivingMunicipalityDetails>
-	<RequestedDocumentFormat></RequestedDocumentFormat>
+	<RequestedDocumentFormat/>
 	<RequesterAddress>
-		<cbc:Postbox></cbc:Postbox>
-		<cbc:Floor></cbc:Floor>
-		<cbc:Room></cbc:Room>
-		<cbc:StreetName></cbc:StreetName>
-		<cbc:AdditionalStreetName></cbc:AdditionalStreetName>
-		<cbc:BuildingName></cbc:BuildingName>
-		<cbc:BuildingNumber></cbc:BuildingNumber>
-		<cbc:Department></cbc:Department>
-		<cbc:CityName></cbc:CityName>
-		<cbc:PostalZone></cbc:PostalZone>
-		<cbc:District></cbc:District>
+		<cbc:Postbox/>
+		<cbc:Floor/>
+		<cbc:Room/>
+		<cbc:StreetName/>
+		<cbc:AdditionalStreetName/>
+		<cbc:BuildingName/>
+		<cbc:BuildingNumber/>
+		<cbc:Department/>
+		<cbc:CityName/>
+		<cbc:PostalZone/>
+		<cbc:District/>
 		<cac:Country>
-			<cac:IdentificationCode></cac:IdentificationCode>
-			<cbc:Name></cbc:Name>
+			<cac:IdentificationCode/>
+			<cbc:Name/>
 		</cac:Country>
-		<ed:Nucleus></ed:Nucleus>
-		<ed:StreetQualifier></ed:StreetQualifier>
-		<ed:Section></ed:Section>
-		<ed:RegistrationSheet></ed:RegistrationSheet>
+		<ed:Nucleus/>
+		<ed:StreetQualifier/>
+		<ed:Section/>
+		<ed:RegistrationSheet/>
 	</RequesterAddress>
 </ResidenceCertificationRequestDocument>
