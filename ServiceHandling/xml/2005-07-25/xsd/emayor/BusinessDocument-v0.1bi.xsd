@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://www.emayor.org/BusinessDocumentBi.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:cdi="http://www.emayor.org/BusinessDocumentI.xsd" xmlns:cdg="http://www.emayor.org/BusinessDocumentG.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:edc="http://www.emayor.org/e-Document.xsd" xmlns:bus="http://www.emayor.org/BusinessDocument.xsd" 
+xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:edg="http://www.emayor.org/e-DocumentG.xsd" xmlns:edi="http://www.emayor.org/e-DocumentI.xsd" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" targetNamespace="http://www.emayor.org/BusinessDocumentBi.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.emayor.org/BusinessDocumentI.xsd" schemaLocation="BusinessDocument-v0.2i.xsd"/>
+	<xsd:import namespace="http://www.emayor.org/BusinessDocumentG.xsd" schemaLocation="BusinessDocument-v0.2g.xsd"/>
+	<xsd:import namespace="http://www.emayor.org/BusinessDocument.xsd" schemaLocation="BusinessDocument-v0.3.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="../xmldsig/xmldsig-core-schema.xsd"/>
+	<xsd:import namespace="http://www.emayor.org/e-Document.xsd" schemaLocation="e-document-v0.3.xsd"/>
+	<xsd:import namespace="http://www.emayor.org/e-DocumentG.xsd" schemaLocation="e-document-v0.1g.xsd"/>
+	<xsd:import namespace="http://www.emayor.org/e-DocumentI.xsd" schemaLocation="e-document-v0.2I.xsd"/>
+	<!-- Start of Elements based on types -->
+	<xsd:element name="CertificatoDiResidenza-Meldebescheinigung" type="BilingualCertificationDocumentStructure"/>
+	<xsd:element name="RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung" type="BilingualNegativeResponseCertificationDocumentStructure"/>
+	<!-- End of Elements based on types -->
+	<!-- Start of BilingualCertificationDocumentStructure -->
+	<xsd:complexType name="BilingualCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>Document structure for bilingual certification document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="cdi:CertificatoDiResidenza"/>
+			<xsd:element ref="cdg:Meldebescheinigung"/>
+			<xsd:element ref="ds:Signature" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of BilingualCertificationDocumentStructure -->
+	<!-- Start of BilingualNegativeResponseCertificationDocumentStructure -->
+	<xsd:complexType name="BilingualNegativeResponseCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>Document structure for bilingual negative response certification document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="cdi:RispostaNegativaCertificatoDiResidenza"/>
+			<xsd:element ref="cdg:NegativeMeldebescheinigungMeldung"/>
+			<xsd:element ref="ds:Signature" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of BilingualNegativeResponseCertificationDocumentStructure -->
+</xsd:schema>

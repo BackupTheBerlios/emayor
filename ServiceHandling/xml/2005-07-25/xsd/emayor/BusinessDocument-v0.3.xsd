@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns="http://www.emayor.org/BusinessDocument.xsd" targetNamespace="http://www.emayor.org/BusinessDocument.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.emayor.org/e-Document.xsd" schemaLocation="e-document-v0.3.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="../xmldsig/xmldsig-core-schema.xsd"/>
+	<xsd:import namespace="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" schemaLocation="../e-gif/PersonalDetailsTypes-v1-3.xsd"/>
+	<!-- Start of Elements based on types -->
+	<xsd:element name="ResidenceCertificationDocument" type="ResidenceCertificationDocumentStructure"/>
+	<xsd:element name="CertifiedConcernedPersons" type="CertifiedConcernedPersonsStructure"/>
+	<xsd:element name="NotificationDocument" type="NotificationDocumentStructure"/>
+	<xsd:element name="IssuingMunicipality" type="MunicipalityDetailsType"/>
+	<xsd:element name="UserProfile" type="UserProfileStructure"/>
+	<xsd:element name="NegativeResponseResidenceCertificationDocument" type="NegativeResponseResidenceCertificationDocumentStructure"/>
+	<!-- End of Elements based on types -->
+	<!-- Start CertifiedConcernedPersonsStructure -->
+	<xsd:complexType name="CertifiedConcernedPersonsStructure">
+		<xsd:annotation>
+			<xsd:documentation>Contains any number of citizens to be certified in this document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ed:CitizenDetails" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End CertifiedConcernedPersonsStructure -->
+	<!-- Start UserProfileStructure -->
+	<xsd:complexType name="UserProfileStructure">
+		<xsd:annotation>
+			<xsd:documentation>A representation of a user profile.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ed:CitizenDetails"/>
+			<xsd:element name="Address" type="ed:AddressStructure"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End UserProfileStructure -->
+	<!-- Certification documents -->
+	<!-- Start of CertificationDocumentStructure -->
+	<xsd:complexType name="CertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the base for all certification document to be produced. It contains the basic elements that all certification documents must possess.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ed:DocumentId"/>
+			<xsd:element ref="IssuingMunicipality"/>
+			<xsd:element ref="CertifiedConcernedPersons"/>
+			<xsd:element ref="ed:IssuanceDate"/>
+			<xsd:element ref="ed:Observations" minOccurs="0"/>
+			<xsd:element ref="ed:Terms" minOccurs="0"/>
+			<xsd:element ref="ds:Signature" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of CertificationDocumentStructure -->
+	<!-- Start of ResidenceCertificationDocumentStructure -->
+	<xsd:complexType name="ResidenceCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the typical Residence Certification e-document i.e. a residence certificate produced by the municipality.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CertificationDocumentStructure">
+				<xsd:sequence>
+					<xsd:element name="Address" type="ed:AddressStructure"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- End of ResidenceCertificationDocumentType -->
+	<!-- Start of NegativeResponseCertificationDocumentStructure -->
+	<xsd:complexType name="NegativeResponseCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the base for all certification document to be produced for negative answers coming from the municipality regarding a specific request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ed:Observations"/>
+			<xsd:element name="TimeReference" type="xsd:dateTime"/>
+			<xsd:element ref="ds:Signature" minOccurs="0"/>
+			<xsd:element name="Timestamp" type="TimestampType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of NegativeResponseCertificationDocumentStructure -->
+	<!-- Start of NegativeResponseResidenceCertificationDocumentStructure -->
+	<xsd:complexType name="NegativeResponseResidenceCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the  Residence Certification e-document returning a negative response message..</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="NegativeResponseCertificationDocumentStructure">
+				<xsd:sequence>
+					<xsd:element name="OriginalRequest" type="ResidenceCertificationRequestDocumentStructure"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- End of NegativeResponseResidenceCertificationDocumentStructure -->
+	<!-- Notification documents -->
+	<!-- Start of TransactionIdType -->
+	<xsd:simpleType name="TransactionIdType">
+		<xsd:annotation>
+			<xsd:documentation>The identifier of the transaction / process tied to this document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of TransactionIdType -->
+	<!-- Start of ServerIdType -->
+	<xsd:simpleType name="ServerIdType">
+		<xsd:annotation>
+			<xsd:documentation>The identifier of the server related to this document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of ServerIdType -->
+	<!-- Start of NotificationMessageType -->
+	<xsd:simpleType name="NotificationMessageType">
+		<xsd:annotation>
+			<xsd:documentation>A message explaining the reason for issuing this notification.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of NotificationMessageType -->
+	<!-- Start of StatusType -->
+	<xsd:simpleType name="NotificationQualifierType">
+		<xsd:annotation>
+			<xsd:documentation>The qualifier of the present notification.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Receipt"/>
+			<xsd:enumeration value="Completion"/>
+			<xsd:enumeration value="Exception"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- End of StatusType -->
+	<!-- Start NotificationDocumentStructure -->
+	<xsd:complexType name="NotificationDocumentStructure">
+		<xsd:sequence>
+			<xsd:element name="NotificationQualifier" type="NotificationQualifierType"/>
+			<xsd:element name="TransactionId" type="TransactionIdType"/>
+			<xsd:element name="NotificationMessage" type="NotificationMessageType"/>
+			<xsd:element name="Timestamp" type="TimestampType"/>
+			<xsd:element ref="ds:Signature" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End NotificationDocumentStructure -->
+	<!-- Request documents -->
+	<!--Start of NotificationMediumType-->
+	<xsd:simpleType name="NotificationMediumType">
+		<xsd:annotation>
+			<xsd:documentation>The medium selected for notification about service status.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Email"/>
+			<xsd:enumeration value="SMS"/>
+			<xsd:enumeration value="Telephone"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--End of NotificationMediumType -->
+	<!--Start of RequestedDocumentFormatType-->
+	<xsd:simpleType name="RequestedDocumentFormatType">
+		<xsd:annotation>
+			<xsd:documentation>The format at which the certification e-document will be issued, selecting between digital, paper or both.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Digital"/>
+			<xsd:enumeration value="Paper"/>
+			<xsd:enumeration value="Both"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--End of RequestedDocumentFormatType-->
+	<!--Start of MunicipalityDetailsType-->
+	<xsd:simpleType name="MunicipalityDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a specific municipality (Municipality name and/or identifier).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!--End of MunicipalityDetailsType-->
+	<!--Start of BankAccountNumberType-->
+	<xsd:simpleType name="BankAccountNumberType">
+		<xsd:annotation>
+			<xsd:documentation>The citizen's bank account number.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!--End of BankAccountNumberType-->
+	<!-- Start of TimestampType -->
+	<xsd:simpleType name="TimestampType">
+		<xsd:annotation>
+			<xsd:documentation>The timestamp in base64 encoding.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of TimeStampType -->
+	<!--Start of RequestDocumentStructure-->
+	<xsd:complexType name="RequestDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>The basic structure of a request document to be submitted to a municipality. All specific Request documents will add to this schema.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="LoginServer" type="ServerIdType"/>
+			<xsd:element name="TransactionId" type="TransactionIdType"/>
+			<xsd:element name="RequesterDetails" type="ed:CitizenDetailsStructure" minOccurs="0"/>
+			<xsd:element name="ConcernedPersonDetails" type="ed:CitizenDetailsStructure"/>
+			<xsd:element name="RequestDate" type="xsd:dateTime"/>
+			<xsd:element ref="ed:Observations"/>
+			<xsd:element name="NotificationMedium" type="NotificationMediumType"/>
+			<xsd:element ref="ds:Signature" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--End of RequestDocumentStructure-->
+	<!--Start of ResidenceCertificationRequestDocumentStructure-->
+	<xsd:complexType name="ResidenceCertificationRequestDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>The specific structure of a request for a certification document. Inherits all the elements of RequestDocumentStructure.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="RequestDocumentStructure">
+				<xsd:sequence>
+					<xsd:element name="ServingMunicipalityDetails" type="MunicipalityDetailsType"/>
+					<xsd:element name="ReceivingMunicipalityDetails" type="MunicipalityDetailsType"/>
+					<xsd:element name="RequestedDocumentFormat" type="RequestedDocumentFormatType"/>
+					<xsd:element name="RequesterAddress" type="ed:AddressStructure"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--End of ResidenceCertificationRequestDocumentStructure-->
+	<!--Start of BankAccountChangeRequestDocumentStructure-->
+	<xsd:complexType name="BankAccountChangeRequestDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>The specific structure of a request for change of bank account for a taxes management service. Inherits all the elements of RequestDocumentStructure.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="RequestDocumentStructure">
+				<xsd:sequence>
+					<xsd:element name="BankAccountNumber" type="BankAccountNumberType"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--End of TaxesManagementActivationRequestDocumentStructure-->
+	<!--Start of TaxesManagementRequestDocumentStructure-->
+	<xsd:complexType name="TaxesManagementActivationRequestDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>The specific structure of a request for taxes management service. Inherits all the elements of RequestDocumentStructure.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="RequestDocumentStructure">
+				<xsd:sequence>
+					<xsd:element name="BankAccountNumber" type="BankAccountNumberType"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--End of TaxesManagementRequestDocumentStructure-->
+	<!--Start of ResidenceCertificationRequestDocument-->
+	<xsd:element name="ResidenceCertificationRequestDocument" type="ResidenceCertificationRequestDocumentStructure"/>
+	<!--End of ResidenceCertificationRequestDocument-->
+	<!--Start of FamilyResidenceCertificationRequestDocument-->
+	<xsd:element name="FamilyResidenceCertificationRequestDocument" type="ResidenceCertificationRequestDocumentStructure"/>
+	<!--End of FamilyResidenceCertificationRequestDocument-->
+	<!--Start of TaxesManagementActivationRequestDocument-->
+	<xsd:element name="TaxesManagementActivationRequestDocument" type="TaxesManagementActivationRequestDocumentStructure"/>
+	<!--End of TaxesManagementActivationRequestDocument-->
+	<!--Start of BankAccountChangeRequestDocument-->
+	<xsd:element name="BankAccountChangeRequestDocument" type="BankAccountChangeRequestDocumentStructure"/>
+	<!--End of BankAccountChangeRequestDocument-->
+</xsd:schema>

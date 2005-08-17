@@ -1,0 +1,25 @@
+These are the changes from version 4.1 to 4.2:
+
+
+- The type of RequestDate in BusinessDocument-v0.3.xsd has been changed to dateTime.
+- The type of IssuanceDateType in e-document-v0.3.xsd has been changed to dateTime.
+
+- A set of namespaces have been added to BusinessDocument-v0.1bi.xsd.
+- The element RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung has been added to BusinessDocument-v0.1bi.xsd.
+- The structure BilingualNegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.1bi.xsd.
+
+- A set of namespaces have been added to BusinessDocument-v0.2g.xsd.
+- The element NegativeMeldebescheinigungMeldung has been added to BusinessDocument-v0.2g.xsd.
+- The structure NegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.2g.xsd.
+- The structure NegativeResponseResidenceCertificationDocumentStructure has been added to BusinessDocument-v0.2g.xsd.
+
+- A set of namespaces have been added to BusinessDocument-v0.2i.xsd.
+- The element RispostaNegativaCertificatoDiResidenza has been added to BusinessDocument-v0.2i.xsd.
+- The structure NegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.2i.xsd.
+- The structure NegativeResponseResidenceCertificationDocumentStructure has been added to BusinessDocument-v0.2i.xsd.
+
+- A set of namespaces have been added to BusinessDocument-v0.2s.xsd.
+- The element RespuestaNegativaCertificadoInscripcionPadronal has been added to BusinessDocument-v0.2s.xsd.
+- The structure NegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.2s.xsd.
+- The structure NegativeResponseResidenceCertificationDocumentStructure has been added to BusinessDocument-v0.2s.xsd.
+
