@@ -44,6 +44,7 @@ public class LogoutProcessor extends AbstractProcessor {
 				log.debug("the access sesson stoped successfuly");
 			log.debug("try to remove bean ref");
 			access.remove();
+			session.invalidate();
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			// TODO hadle exception
