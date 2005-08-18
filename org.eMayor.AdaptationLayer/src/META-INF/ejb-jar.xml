@@ -17,6 +17,8 @@
 
          <home>org.eMayor.AdaptationLayer.interfaces.E2MHome</home>
          <remote>org.eMayor.AdaptationLayer.interfaces.E2M</remote>
+         <local-home>org.eMayor.AdaptationLayer.interfaces.E2MLocalHome</local-home>
+         <local>org.eMayor.AdaptationLayer.interfaces.E2MLocal</local>
          <ejb-class>org.eMayor.AdaptationLayer.ejb.E2MBean</ejb-class>
          <session-type>Stateless</session-type>
          <transaction-type>Container</transaction-type>

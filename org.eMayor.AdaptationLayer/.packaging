@@ -6,6 +6,6 @@
 <file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" used="true"/>
 </archive>
 <archive destination="" exploded="false" name="E2M-ejb-client.jar" used="true">
-<folder excludes="" includes="org/eMayor/AdaptationLayer/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<folder excludes="" includes="org/eMayor/AdaptationLayer/interfaces/*.class,,org/eMayor/AdaptationLayer/ejb/M2Einterface.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
 </archive>
 </configurations>

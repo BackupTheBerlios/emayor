@@ -15,6 +15,7 @@
       <session>
          <ejb-name>E2M</ejb-name>
          <jndi-name>ejb/E2M</jndi-name>
+         <local-jndi-name>E2MLocal</local-jndi-name>
 
       </session>
 

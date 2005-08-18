@@ -14,7 +14,7 @@
 </target>
 <target name="N65573" description="E2M-ejb-client.jar">
 <jar destfile="E2M-ejb-client.jar">
-<zipfileset dir="bin" includes="org/eMayor/AdaptationLayer/interfaces/*.class"/>
+<zipfileset dir="bin" includes="org/eMayor/AdaptationLayer/interfaces/*.class,,org/eMayor/AdaptationLayer/ejb/M2Einterface.class"/>
 </jar>
 </target>
 </project>

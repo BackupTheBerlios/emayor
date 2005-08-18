@@ -6,17 +6,18 @@
  */
 package org.eMayor.AdaptationLayer.ejb;
 
+import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
+
+import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-import java.io.*;
-import java.rmi.*;
-import java.rmi.Naming;
-
-import javax.ejb.CreateException;
 
 import org.apache.log4j.Logger;
+import org.emayor.servicehandling.config.Config;
+import org.emayor.servicehandling.config.ConfigException;
 
 /**
  * @ejb.bean name="E2M" display-name="Name for E2M" description="Description for
@@ -98,25 +99,20 @@ public class E2MBean implements SessionBean {
 		}
 		log.debug("-> start processing ...");
 		// Store the ip of the RMI server
-		String RMIServerIP = new String();
+		String RMIServerIP = "";
+		try {
+			Config config = Config.getInstance();
+			RMIServerIP = config.getProperty(Config.EMAYOR_E2M_CONTEXT);
+			if (log.isDebugEnabled())
+				log.debug("working with following context string: "
+						+ RMIServerIP);
+		} catch (ConfigException ex) {
+			log.error("caught ex: " + ex.toString());
+		}
 		// Store the certificate document
 		String CertReply;
 		M2Einterface obj = null;
-		// Retrieve the RMI Server IP
-		try {
-			FileReader fr = new FileReader("RMIServerIP.txt");
-			BufferedReader br = new BufferedReader(fr);
-			RMIServerIP = br.readLine();
-			if (RMIServerIP == null) {
-				System.out
-						.println("Error: You must specify the RMI server IP in RMIServerIP.txt");
-				System.exit(1);
-			}
-		} catch (IOException e) {
-			// catch possible io errors from readLine()
-			System.out.println("IOException error!");
-			e.printStackTrace();
-		}
+
 		// Install the security manager: A security manager is required in every
 		// JVM that needs to download code
 		// like RMI stubs. In the case of an applet the security manager is
@@ -134,11 +130,10 @@ public class E2MBean implements SessionBean {
 			switch (ServiceSelection) {
 			case 1: {
 				log.debug("looking for M2E server");
-				obj = (M2Einterface) Naming.lookup("//"
-						+ RMIServerIP.toString() + "/M2EServer");
+				obj = (M2Einterface) Naming.lookup(RMIServerIP);
 				CertReply = obj.ResidenceRequest(ResidenceCertificationRequest);
 				// Display the return string
-				System.out.println(CertReply.toString());
+				System.out.println(CertReply);
 				System.out.println("Client Executed");
 				break;
 			}

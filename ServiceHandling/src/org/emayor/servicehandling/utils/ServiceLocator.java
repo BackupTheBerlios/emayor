@@ -16,6 +16,8 @@ import javax.rmi.PortableRemoteObject;
 import org.apache.log4j.Logger;
 import org.eMayor.AdaptationLayer.interfaces.E2M;
 import org.eMayor.AdaptationLayer.interfaces.E2MHome;
+import org.eMayor.AdaptationLayer.interfaces.E2MLocal;
+import org.eMayor.AdaptationLayer.interfaces.E2MLocalHome;
 import org.eMayor.FormatTransformation.interfaces.TemplateManager;
 import org.eMayor.FormatTransformation.interfaces.TemplateManagerHome;
 import org.eMayor.FormatTransformation.interfaces.Transformer;
@@ -495,6 +497,26 @@ public class ServiceLocator {
 		} catch (RemoteException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new ServiceLocatorException(ex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	public synchronized E2MLocal getE2MLocal() throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		E2MLocal ret = null;
+		try {
+			Object ref = this.initialContext.lookup(E2MLocalHome.JNDI_NAME);
+			E2MLocalHome home = (E2MLocalHome) PortableRemoteObject.narrow(ref,
+					E2MLocalHome.class);
+			ret = home.create();
+			log.debug("got the reference!");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		} catch (CreateException cex) {
+			log.error("caught ex: " + cex.toString());
+			throw new ServiceLocatorException(cex);
 		}
 		log.debug("-> ... processing DONE!");
 		return ret;

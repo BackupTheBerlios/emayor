@@ -11,7 +11,7 @@ import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 import org.apache.log4j.Logger;
-import org.eMayor.AdaptationLayer.interfaces.E2M;
+import org.eMayor.AdaptationLayer.interfaces.E2MLocal;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -26,7 +26,7 @@ public class E2MWrapperEJB implements SessionBean {
 
 	private SessionContext ctx = null;
 
-	private E2M e2m = null;
+	private E2MLocal e2m = null;
 
 	/**
 	 *  
@@ -84,8 +84,11 @@ public class E2MWrapperEJB implements SessionBean {
 	public void ejbCreate() throws CreateException {
 		log.debug("-> start processing ...");
 		try {
+			log.debug("get the locator ...");
 			ServiceLocator locator = ServiceLocator.getInstance();
-			this.e2m = locator.getE2M();
+			log.debug("get the E2M local reference ...");
+			this.e2m = locator.getE2MLocal();
+			log.debug("got the reference successfuly");
 		} catch (ServiceLocatorException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new CreateException(
@@ -105,9 +108,6 @@ public class E2MWrapperEJB implements SessionBean {
 			log.debug("get the E2M reference");
 			this.e2m.ServiceRequestPropagator(request, Integer.valueOf(type)
 					.intValue());
-		} catch (RemoteException ex) {
-			log.error("caught ex: " + ex.toString());
-			ret = "<ERROR/>";
 		} catch (Exception ex) {
 			log.error("caught ex: " + ex.toString());
 			ret = "<ERROR/>";
