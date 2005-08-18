@@ -869,4 +869,22 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 * @ejb.interface-method   view-type="local"
 	 */
 	public abstract void setEMayorHTTPSessionMaxTimeToLive(Integer value);
+
+	/**
+	 * E2M Host
+	 *
+	 * @jboss.column-name name = "EMAYOR_M2E_CONTEXT"
+	 * @jboss.sql-type type = "VARCHAR(200)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorE2MContext();
+
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorE2MContext(String value);	
 }

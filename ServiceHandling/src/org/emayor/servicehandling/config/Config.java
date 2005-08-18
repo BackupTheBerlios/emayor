@@ -113,6 +113,8 @@ public class Config {
 	
 	public static final int EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE = 39;
 	
+	public static final int EMAYOR_E2M_CONTEXT = 40;
+	
 	/*
 	 * INSERT NEW FIELDS HERE
 	 */
@@ -293,6 +295,8 @@ public class Config {
 				new Integer(EMAYOR_PE_CHECK_SIGNATURE).toString());
 		old2new.setProperty("emayor.http.session.maxTimeToLive",
 				new Integer(EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE).toString());
+		old2new.setProperty("emayor.e2m.context",
+				new Integer(EMAYOR_E2M_CONTEXT).toString());
 	}
 
 	public synchronized String getProperty(String propName, String defValue)
@@ -683,8 +687,12 @@ public class Config {
 		case(EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE):
 			if (action && READ_CONFIG) result = Integer.toString(local.getEMayorHTTPSessionMaxTimeToLive().intValue());
 			else local.setEMayorHTTPSessionMaxTimeToLive(Integer.decode(value));
-			break;			
+			break;
 			
+		case(EMAYOR_E2M_CONTEXT):
+			if (action && READ_CONFIG) result = local.getEMayorE2MContext();
+			else local.setEMayorE2MContext(value);
+			break;	
 		}
 		
 		
@@ -757,6 +765,7 @@ public class Config {
 		setProperty(EMAYOR_PE_CRL_USE_DEFAULT_DISTRIBUTION_URL,Boolean.TRUE.toString());
 		setProperty(EMAYOR_PE_CHECK_SIGNATURE,Boolean.TRUE.toString());
 		setProperty(EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE,2000);
+		setProperty(EMAYOR_E2M_CONTEXT,"localhost:2001");
 	}
 	
 	public synchronized Set getConfigNames() {

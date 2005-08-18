@@ -39,7 +39,8 @@ config_is_active,
 emayor_pe_crl_distribution_url,
 emayor_pe_crl_use_default_distribution_url,
 emayor_pe_check_signature,
-EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE
+EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE,
+EMAYOR_E2M_CONTEXT
 ) VALUES (
 @CONFIG_ID,
 @MUNICIPALITY_ID,
@@ -76,5 +77,6 @@ EMAYOR_HTTP_SESSION_MAX_TIME_TO_LIVE
 'http://localhost:8080/EMayor-operational.crl',
 '1',
 '1',
-2000
+2000,
+@EMAYOR_E2M_CONTEXT
 );

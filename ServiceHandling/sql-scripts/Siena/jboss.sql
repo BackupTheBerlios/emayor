@@ -33,5 +33,7 @@ SET @EMAYOR_OPERATING_MODE_CONTENT_ROUTING = 'production';
 SET @EMAYOR_OPERATING_MODE_EMAIL = 'test';
 SET @EMAYOR_OPERATING_MODE_FORWARD = 'production';
 
+SET @EMAYOR_E2M_CONTEXT = '//localhost:2001/Siena/E2MServer';
+
 SOURCE create_config_instance.sql;
 SOURCE admin_services.sql; 

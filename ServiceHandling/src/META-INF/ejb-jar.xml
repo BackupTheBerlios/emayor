@@ -455,6 +455,10 @@
             <description><![CDATA[HTTP Session max time to live]]></description>
             <field-name>EMayorHTTPSessionMaxTimeToLive</field-name>
          </cmp-field>
+         <cmp-field >
+            <description><![CDATA[E2M Context]]></description>
+            <field-name>EMayorE2MContext</field-name>
+         </cmp-field>
           <primkey-field>configID</primkey-field>
 
          <query>

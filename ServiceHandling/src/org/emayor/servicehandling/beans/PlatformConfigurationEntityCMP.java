@@ -220,5 +220,9 @@ public abstract class PlatformConfigurationEntityCMP
    public abstract Integer getEMayorHTTPSessionMaxTimeToLive();
 
    public abstract void setEMayorHTTPSessionMaxTimeToLive(Integer value);
+   
+   public abstract String getEMayorE2MContext();
+
+   public abstract void setEMayorE2MContext(String value);	
 
 }

@@ -353,6 +353,14 @@
             <sql-type>INTEGER</sql-type>
 
         </cmp-field>
+        <cmp-field>
+            <field-name>EMayorE2MContext</field-name>
+            <column-name>EMAYOR_E2M_CONTEXT</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
         
       </entity>
       

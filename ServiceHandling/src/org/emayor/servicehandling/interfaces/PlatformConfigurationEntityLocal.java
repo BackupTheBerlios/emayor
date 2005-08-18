@@ -419,5 +419,14 @@ public interface PlatformConfigurationEntityLocal
 	 */
 	public void setEMayorHTTPSessionMaxTimeToLive(Integer value);
 	
+	/**
+	 * E2M Host
+	 */
+	public String getEMayorE2MContext();
+
+	/**
+	 * Setter for CMP Field
+	 */
+	public void setEMayorE2MContext(String value);	
 
 }
