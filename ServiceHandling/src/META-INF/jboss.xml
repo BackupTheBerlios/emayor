@@ -77,6 +77,11 @@
 
       </session>
       <session>
+         <ejb-name>E2MWrapper</ejb-name>
+         <jndi-name>ejb/emayor/sh/E2MWrapper</jndi-name>
+
+      </session>
+      <session>
          <ejb-name>AccessSession</ejb-name>
          <local-jndi-name>AccessSessionLocal</local-jndi-name>
 

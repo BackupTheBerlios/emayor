@@ -63,6 +63,16 @@
 			<session-type>Stateless</session-type>
 			<transaction-type>Container</transaction-type>
 		</session>
+		<session >
+         		<description><![CDATA[Description for E2MWrapper]]></description>
+         		<display-name>Name for E2MWrapper</display-name>
+         		<ejb-name>E2MWrapper</ejb-name>
+         		<home>org.emayor.servicehandling.interfaces.E2MWrapperHome</home>
+         		<remote>org.emayor.servicehandling.interfaces.E2MWrapper</remote>
+         		<ejb-class>org.emayor.servicehandling.beans.E2MWrapperEJB</ejb-class>
+         		<session-type>Stateless</session-type>
+         		<transaction-type>Container</transaction-type>
+      		</session>
 		<session>
 			<description><![CDATA[Description for AccessSession]]></description>
 			<display-name>Name for AccessSession</display-name>

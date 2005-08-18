@@ -14,6 +14,8 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
 import org.apache.log4j.Logger;
+import org.eMayor.AdaptationLayer.interfaces.E2M;
+import org.eMayor.AdaptationLayer.interfaces.E2MHome;
 import org.eMayor.FormatTransformation.interfaces.TemplateManager;
 import org.eMayor.FormatTransformation.interfaces.TemplateManagerHome;
 import org.eMayor.FormatTransformation.interfaces.Transformer;
@@ -475,6 +477,29 @@ public class ServiceLocator {
 		return ret;
 	}
 
+	public synchronized E2M getE2M() throws ServiceLocatorException {
+		log.debug("-> starting processing ...");
+		E2M ret = null;
+		try {
+			Object ref = this.initialContext.lookup(E2MHome.JNDI_NAME);
+			E2MHome home = (E2MHome) PortableRemoteObject.narrow(ref,
+					E2MHome.class);
+			ret = home.create();
+			log.debug("got the reference!");
+		} catch (NamingException nex) {
+			log.error("caught ex: " + nex.toString());
+			throw new ServiceLocatorException(nex);
+		} catch (CreateException cex) {
+			log.error("caught ex: " + cex.toString());
+			throw new ServiceLocatorException(cex);
+		} catch (RemoteException ex) {
+			log.error("caught ex: " + ex.toString());
+			throw new ServiceLocatorException(ex);
+		}
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
 	/*
 	 * public synchronized UserProfileLocalHome getUserProfileLocalHome() throws
 	 * ServiceLocatorException { log.debug("-> starting processing ...");
@@ -736,8 +761,11 @@ public class ServiceLocator {
 			Hashtable env = new Hashtable();
 			Config config = Config.getInstance();
 			// Standalone OC4J connection details
-			env.put(Context.INITIAL_CONTEXT_FACTORY, config
-					.getProperty(Config.BPEL_ENGINE_UT_INITIAL_CONTEXT_FACTORY));
+			env
+					.put(
+							Context.INITIAL_CONTEXT_FACTORY,
+							config
+									.getProperty(Config.BPEL_ENGINE_UT_INITIAL_CONTEXT_FACTORY));
 			env.put(Context.SECURITY_PRINCIPAL, config
 					.getProperty(Config.BPEL_ENGINE_UT_SECURITY_PRINCIPAL));
 			env.put(Context.SECURITY_CREDENTIALS, config

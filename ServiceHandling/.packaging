@@ -97,6 +97,9 @@
 <file location="PlatformTest-client/PlatformTest.wsdl" name="PlatformTest.wsdl" prefix="META-INF/wsdl" project="" projectLocation="PlatformTest-client/PlatformTest.wsdl" used="true"/>
 <folder excludes="" includes="org/emayor/servicehandling/gui/admin/PlatformTest_Service.class,org/emayor/servicehandling/gui/admin/PlatformTestProcessRequest.class,org/emayor/servicehandling/gui/admin/PlatformTestProcessResponse.class" location="classes" name="classes" prefix="" project="" projectLocation="classes" used="true"/>
 </archive>
+<archive destination="" exploded="false" name="M2EWrapperClient.jar" used="true">
+<folder excludes="" includes="org/emayor/servicehandling/interfaces/E2MWrapper*.class" location="classes" name="classes" prefix="" project="" projectLocation="classes" used="true"/>
+</archive>
 <archive destination="" exploded="false" name="eMayorApp.ear" used="true">
 <file location="src/META-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" used="true"/>
 <file location="eMayorEJB.jar" name="eMayorEJB.jar" prefix="" project="" projectLocation="eMayorEJB.jar" used="true"/>
@@ -114,5 +117,7 @@
 <file location="PlatformTest-client.jar" name="PlatformTest-client.jar" prefix="" project="" projectLocation="PlatformTest-client.jar" used="true"/>
 <file location="../org.eMayor.AdaptationLayer/E2MEJB.jar" name="E2MEJB.jar" prefix="" project="org.eMayor.AdaptationLayer" projectLocation="E2MEJB.jar" used="true"/>
 <file location="../eMayorWebTier/eMayorWebTier.war" name="eMayorWebTier.war" prefix="" project="eMayorWebTier" projectLocation="eMayorWebTier.war" used="true"/>
+<file location="../TestLegacyAachen/dist/TestLegacyAachen.jar" name="TestLegacyAachen.jar" prefix="" project="TestLegacyAachen" projectLocation="dist/TestLegacyAachen.jar" used="true"/>
+<file location="M2EWrapperClient.jar" name="M2EWrapperClient.jar" prefix="" project="" projectLocation="M2EWrapperClient.jar" used="true"/>
 </archive>
 </configurations>

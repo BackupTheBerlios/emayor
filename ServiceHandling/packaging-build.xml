@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Packaging Generator" default="_packaging_generation_">
-<target name="_packaging_generation_" depends="N65540,N65741,N65758,N65775,N65836,N65885,N65958,N65975,N66040,N66095,N66112,N66161,N66178,N66227"/>
+<target name="_packaging_generation_" depends="N65540,N65741,N65758,N65775,N65836,N65885,N65958,N65975,N66040,N66095,N66112,N66161,N66178,N66227,N66244"/>
 <target name="N65540" description="eMayorEJB.jar">
 <jar destfile="eMayorEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -213,7 +213,12 @@
 <zipfileset dir="classes" includes="org/emayor/servicehandling/gui/admin/PlatformTest_Service.class,org/emayor/servicehandling/gui/admin/PlatformTestProcessRequest.class,org/emayor/servicehandling/gui/admin/PlatformTestProcessResponse.class"/>
 </jar>
 </target>
-<target name="N66227" description="eMayorApp.ear">
+<target name="N66227" description="M2EWrapperClient.jar">
+<jar destfile="M2EWrapperClient.jar">
+<zipfileset dir="classes" includes="org/emayor/servicehandling/interfaces/E2MWrapper*.class"/>
+</jar>
+</target>
+<target name="N66244" description="eMayorApp.ear">
 <jar destfile="eMayorApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -262,6 +267,12 @@
 </zipfileset>
 <zipfileset dir="../eMayorWebTier">
 <include name="eMayorWebTier.war"/>
+</zipfileset>
+<zipfileset dir="../TestLegacyAachen/dist">
+<include name="TestLegacyAachen.jar"/>
+</zipfileset>
+<zipfileset dir=".">
+<include name="M2EWrapperClient.jar"/>
 </zipfileset>
 </jar>
 </target>
