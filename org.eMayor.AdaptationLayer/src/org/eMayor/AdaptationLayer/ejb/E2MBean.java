@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @ejb.bean name="E2M" display-name="Name for E2M" description="Description for
- *           E2M" jndi-name="ejb/E2M" type="Stateless" view-type="remote"
+ *           E2M" jndi-name="ejb/E2M" type="Stateless" view-type="both"
  */
 public class E2MBean implements SessionBean {
 	private final static Logger log = Logger.getLogger(E2MBean.class);
@@ -87,7 +87,7 @@ public class E2MBean implements SessionBean {
 	/**
 	 * Business method
 	 * 
-	 * @ejb.interface-method view-type = "remote"
+	 * @ejb.interface-method view-type = "both"
 	 */
 	public String ServiceRequestPropagator(
 			String ResidenceCertificationRequest, int ServiceSelection) {
@@ -122,6 +122,7 @@ public class E2MBean implements SessionBean {
 		// like RMI stubs. In the case of an applet the security manager is
 		// already installed from the browser
 		if (System.getSecurityManager() == null) {
+			log.debug("THE SECURITY MANAGER WAS NULL _> CREATE A NEW ONE");
 			System.setSecurityManager(new RMISecurityManager());
 		}
 		try {
@@ -131,7 +132,8 @@ public class E2MBean implements SessionBean {
 			//Currently there is only one service
 			// represented by the service number: 1
 			switch (ServiceSelection) {
-			case 1:
+			case 1: {
+				log.debug("looking for M2E server");
 				obj = (M2Einterface) Naming.lookup("//"
 						+ RMIServerIP.toString() + "/M2EServer");
 				CertReply = obj.ResidenceRequest(ResidenceCertificationRequest);
@@ -139,6 +141,7 @@ public class E2MBean implements SessionBean {
 				System.out.println(CertReply.toString());
 				System.out.println("Client Executed");
 				break;
+			}
 			default:
 				System.out
 						.println("Service Error: You have to specify the correct service number");
