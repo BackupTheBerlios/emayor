@@ -105,10 +105,14 @@ public class ShowTaskDetailsProcessor extends AbstractProcessor {
                 } else if (task.getTaskType() == CVDocumentTypes.CV_RESIDENCE_DOCUMENT) {
                 		log.debug("this is a residance certification document");
 
-						DOMImplementation impl = builder.getDOMImplementation();
-						Document doc = builder.parse(new InputSource(new StringReader(xmldoc)));
+                		String ePF = task.getDocDigSig();
+                		int start = ePF.indexOf("<body>") + 6;
+                		int end = ePF.indexOf("</body>") -1;
+                		ePF = ePF.substring(start,end);
+                		
+						/*DOMImplementation impl = builder.getDOMImplementation();
+						Document doc = builder.parse(new InputSource(new StringReader(ePF)));
 						   
-						  // Serialize the document
 						OutputFormat format = new OutputFormat(doc);
 						format.setLineWidth(65);
 						format.setIndenting(true);
@@ -121,13 +125,12 @@ public class ShowTaskDetailsProcessor extends AbstractProcessor {
           		      
 						xmldocAsHTML = xmldocAsHTML.replaceAll("<","&lt;");
 						xmldocAsHTML = xmldocAsHTML.replaceAll(">","&gt;");
-						//xmldocAsHTML = xmldocAsHTML.replaceAll("&lt;/","<br>&lt;/");
-						//xmldocAsHTML = xmldocAsHTML.replaceAll("&gt;","&gt;<br>");
 						xmldocAsHTML = xmldocAsHTML.replaceAll("\"","&quot;");
-						
+						*/
+                		
 						session.setAttribute("CURR_TASK", task);
-						session.setAttribute("RCD",xmldocAsHTML);
-						ret = "ShowTaskDetails.jsp";
+						session.setAttribute("RCD",ePF);
+						ret = "ShowTaskDetailsRCD.jsp";
                 } else {
                     log.debug("unknown document type");
                     session.setAttribute("ERR_MSG", "Unknown document type");

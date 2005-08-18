@@ -91,8 +91,12 @@
 	<tr> 
       <td class="style4"><strong>Receiving Municipality: </strong></td>
       <td> <span class="style5">
-        <input name="REQ_RECEIVING_MUNICIPALITY" type="text" value="<%= receivingMunicipality %>" size="60" /> 
-        <font color="#FF0000">*</font> </span></td>
+         <select name="REQ_RECEIVING_MUNICIPALITY">
+          <option value="Siena">Municipality of Siena</option>
+          <option value="Aachen" selected="true">Municipality of Achen</option>
+          <option value="Bolzano-Bozen">Municipality of Bozen/Bolzano</option>
+        </select> 
+        <font color="#FF0000">*</font></span></td>
     </tr>
     <tr bgcolor="#CCCC66"> 
       <td colspan="2">&nbsp;</td>

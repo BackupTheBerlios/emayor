@@ -176,12 +176,16 @@ public class UserTaskManager implements IService {
 					ret.setXMLDocument(att.substring(1, att.length() - 1));
 				} else
 					ret.setXMLDocument(att);
-				String digSig = __task.getCustomKey();
-				if (digSig.startsWith("-")) {
-					log.debug("digSig starts with '-'");
-					ret.setDocDigSig(digSig.substring(1, digSig.length() - 1));
-				} else
-					ret.setDocDigSig(digSig);
+				/*
+				 * Digital Signatures Disabled
+				 */
+				//String digSig = __task.getCustomKey();
+				//if (digSig.startsWith("-")) {
+				//	log.debug("digSig starts with '-'");
+				//	ret.setDocDigSig(digSig.substring(1, digSig.length() - 1));
+				//} else
+				//	ret.setDocDigSig(digSig);
+				
 				//ret.setOriginalTask(__task);
 				//ret.setOrigTaskId(__task.getTaskId());
 				log.debug("processing OK");
