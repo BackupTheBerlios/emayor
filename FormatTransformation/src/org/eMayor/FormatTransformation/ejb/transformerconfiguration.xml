@@ -1,9 +1,9 @@
 <transformerConfiguration>
 	<documentType>
 		<ResidenceCertificationDocument>
-			<EUFtoELF>EUFtoItalianGermanELFv0.1.xsl</EUFtoELF>
-			<ELFtoEUF>ItalianGermanELFtoEUFv0.1.xsl</ELFtoEUF>
-			<ELFtoEPF>BolzanoELFtoEPFv0.1.xsl</ELFtoEPF>
+			<EUFtoELF>EUFtoGermanELFv0.1.xsl</EUFtoELF>
+			<ELFtoEUF>GermanELFtoEUFv0.1.xsl</ELFtoEUF>
+			<ELFtoEPF>AachenELFtoEPFv0.1.xsl</ELFtoEPF>
 			<EUFtoEPF>Not required.</EUFtoEPF>
 		</ResidenceCertificationDocument>
 	</documentType>
