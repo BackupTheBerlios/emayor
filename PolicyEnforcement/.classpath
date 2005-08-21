@@ -4,10 +4,11 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
-	<classpathentry kind="lib" path="/PrintingUtility/lib/log4j-1.2.9.jar"/>
 	<classpathentry kind="lib" path="lib/sunxacml.jar"/>
-	<classpathentry kind="lib" path="/ServiceHandling/eMayorEJB.jar"/>
 	<classpathentry kind="src" path="/CertificateValidator"/>
 	<classpathentry kind="lib" path="lib/xmlsec-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/ServiceHandling/eMayorEJB.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/Config-Interface.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
