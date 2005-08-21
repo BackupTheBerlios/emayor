@@ -268,9 +268,6 @@
 <zipfileset dir="../eMayorWebTier">
 <include name="eMayorWebTier.war"/>
 </zipfileset>
-<zipfileset dir="../TestLegacyAachen/dist">
-<include name="TestLegacyAachenClient.jar"/>
-</zipfileset>
 <zipfileset dir=".">
 <include name="M2EWrapperClient.jar"/>
 </zipfileset>

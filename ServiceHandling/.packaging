@@ -117,7 +117,7 @@
 <file prefix="" project="" projectLocation="PlatformTest-client.jar" name="PlatformTest-client.jar" location="PlatformTest-client.jar" used="true"/>
 <file prefix="" project="org.eMayor.AdaptationLayer" projectLocation="E2MEJB.jar" name="E2MEJB.jar" location="../org.eMayor.AdaptationLayer/E2MEJB.jar" used="true"/>
 <file prefix="" project="eMayorWebTier" projectLocation="eMayorWebTier.war" name="eMayorWebTier.war" location="../eMayorWebTier/eMayorWebTier.war" used="true"/>
-<file prefix="" project="TestLegacyAachen" projectLocation="dist/TestLegacyAachenClient.jar" name="TestLegacyAachenClient.jar" location="../TestLegacyAachen/dist/TestLegacyAachenClient.jar" used="true"/>
+<file prefix="" project="TestLegacyAachen" projectLocation="dist/TestLegacyAachenClient.jar" name="TestLegacyAachenClient.jar" location="../TestLegacyAachen/dist/TestLegacyAachenClient.jar" used="false"/>
 <file prefix="" project="" projectLocation="M2EWrapperClient.jar" name="M2EWrapperClient.jar" location="M2EWrapperClient.jar" used="true"/>
 </archive>
 </configurations>

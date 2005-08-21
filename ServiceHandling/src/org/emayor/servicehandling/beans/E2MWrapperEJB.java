@@ -106,7 +106,7 @@ public class E2MWrapperEJB implements SessionBean {
 		String ret = "";
 		try {
 			log.debug("get the E2M reference");
-			this.e2m.ServiceRequestPropagator(request, Integer.valueOf(type)
+			ret = this.e2m.ServiceRequestPropagator(request, Integer.valueOf(type)
 					.intValue());
 		} catch (Exception ex) {
 			log.error("caught ex: " + ex.toString());
