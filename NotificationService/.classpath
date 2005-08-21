@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/quartz.jar"/>
-	<classpathentry kind="lib" path="/ServiceHandling/eMayorEJB.jar"/>
+	<classpathentry kind="lib" path="lib/Config-Interface.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

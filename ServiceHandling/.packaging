@@ -24,7 +24,7 @@
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jbosscmp-jdbc.xml" name="jbosscmp-jdbc.xml" location="src/META-INF/jbosscmp-jdbc.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="forward/server/forward_server_mapping.xml" name="forward_server_mapping.xml" location="forward/server/forward_server_mapping.xml" used="true"/>
 <file prefix="META-INF/wsdl" project="" projectLocation="forward/server/ForwardManagerWS.wsdl" name="ForwardManagerWS.wsdl" location="forward/server/ForwardManagerWS.wsdl" used="true"/>
-<file prefix="org/emayor/services/rc" project="" projectLocation="xml/2005-07-25/xml/ResidenceCertificationRequestDocument.xml" name="ResidenceCertificationRequestDocument.xml" location="xml/2005-07-25/xml/ResidenceCertificationRequestDocument.xml" used="true"/>
+<file prefix="org/emayor/services/rc" project="" projectLocation="xml/SampleResidenceCertificationRequestDocument.xml" name="SampleResidenceCertificationRequestDocument.xml" location="xml/SampleResidenceCertificationRequestDocument.xml" used="true"/>
 </archive>
 <archive name="eMayorEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/servicehandling/interfaces/*.class" excludes="" project="" projectLocation="classes" name="classes" location="classes" used="true"/>

@@ -6,8 +6,8 @@
 	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
 	<classpathentry kind="src" path="/NotificationService"/>
 	<classpathentry kind="lib" path="/NotificationService/lib/javamail.jar"/>
-	<classpathentry kind="lib" path="lib/SH-client.jar"/>
 	<classpathentry kind="src" path="/PolicyEnforcement"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="/ServiceHandling/SH-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

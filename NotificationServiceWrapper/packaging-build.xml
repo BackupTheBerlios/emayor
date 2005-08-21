@@ -9,9 +9,6 @@
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="jboss.xml"/>
 </zipfileset>
-<zipfileset dir="../NotificationService" prefix="WEB-INF/lib">
-<include name="NotificationEJB-client.jar"/>
-</zipfileset>
 <zipfileset dir="bin" includes="org/emayor/notification/wrapper/ejb/*.class,org/emayor/notification/wrapper/interfaces/*.class"/>
 </jar>
 </target>

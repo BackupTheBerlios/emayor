@@ -4,7 +4,7 @@
 <folder prefix="" includes="org/emayor/notification/wrapper/ejb/*.class,org/emayor/notification/wrapper/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
-<file prefix="WEB-INF/lib" project="NotificationService" projectLocation="NotificationEJB-client.jar" name="NotificationEJB-client.jar" location="../NotificationService/NotificationEJB-client.jar" used="true"/>
+<file prefix="WEB-INF/lib" project="NotificationService" projectLocation="NotificationEJB-client.jar" name="NotificationEJB-client.jar" location="../NotificationService/NotificationEJB-client.jar" used="false"/>
 </archive>
 <archive name="NotificationWrapperEJB-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/emayor/notification/wrapper/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>

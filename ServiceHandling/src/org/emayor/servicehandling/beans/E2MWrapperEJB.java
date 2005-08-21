@@ -22,98 +22,107 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
  *           view-type="remote"
  */
 public class E2MWrapperEJB implements SessionBean {
-	private static final Logger log = Logger.getLogger(E2MWrapperEJB.class);
+    private static final Logger log = Logger.getLogger(E2MWrapperEJB.class);
 
-	private SessionContext ctx = null;
+    private SessionContext ctx = null;
 
-	private E2MLocal e2m = null;
+    private E2MLocal e2m = null;
 
-	/**
-	 *  
-	 */
-	public E2MWrapperEJB() {
-		super();
-		log.debug("-> start processing ...");
-	}
+    /**
+     *  
+     */
+    public E2MWrapperEJB() {
+        super();
+        log.debug("-> start processing ...");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
-	 */
-	public void setSessionContext(SessionContext ctx) throws EJBException,
-			RemoteException {
-		log.debug("-> start processing ...");
-		this.ctx = ctx;
-		log.debug("-> ... processing DONE!");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
+     */
+    public void setSessionContext(SessionContext ctx) throws EJBException,
+            RemoteException {
+        log.debug("-> start processing ...");
+        this.ctx = ctx;
+        log.debug("-> ... processing DONE!");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#ejbRemove()
-	 */
-	public void ejbRemove() throws EJBException, RemoteException {
-		log.debug("-> start processing ...");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbRemove()
+     */
+    public void ejbRemove() throws EJBException, RemoteException {
+        log.debug("-> start processing ...");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#ejbActivate()
-	 */
-	public void ejbActivate() throws EJBException, RemoteException {
-		log.debug("-> start processing ...");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbActivate()
+     */
+    public void ejbActivate() throws EJBException, RemoteException {
+        log.debug("-> start processing ...");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ejb.SessionBean#ejbPassivate()
-	 */
-	public void ejbPassivate() throws EJBException, RemoteException {
-		log.debug("-> start processing ...");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.ejb.SessionBean#ejbPassivate()
+     */
+    public void ejbPassivate() throws EJBException, RemoteException {
+        log.debug("-> start processing ...");
+    }
 
-	/**
-	 * Default create method
-	 * 
-	 * @throws CreateException
-	 * @ejb.create-method
-	 */
-	public void ejbCreate() throws CreateException {
-		log.debug("-> start processing ...");
-		try {
-			log.debug("get the locator ...");
-			ServiceLocator locator = ServiceLocator.getInstance();
-			log.debug("get the E2M local reference ...");
-			this.e2m = locator.getE2MLocal();
-			log.debug("got the reference successfuly");
-		} catch (ServiceLocatorException ex) {
-			log.error("caught ex: " + ex.toString());
-			throw new CreateException(
-					"Couldn't obtain reference to the M2E bean");
-		}
-	}
+    /**
+     * Default create method
+     * 
+     * @throws CreateException
+     * @ejb.create-method
+     */
+    public void ejbCreate() throws CreateException {
+        log.debug("-> start processing ...");
+        try {
+            log.debug("get the locator ...");
+            ServiceLocator locator = ServiceLocator.getInstance();
+            log.debug("get the E2M local reference ...");
+            this.e2m = locator.getE2MLocal();
+            log.debug("got the reference successfuly");
+        } catch (ServiceLocatorException ex) {
+            log.error("caught ex: " + ex.toString());
+            throw new CreateException(
+                    "Couldn't obtain reference to the M2E bean");
+        }
+    }
 
-	/**
-	 * Business method
-	 * 
-	 * @ejb.interface-method view-type = "remote"
-	 */
-	public String serviceRequestPropagator(String request, String type) {
-		log.debug("-> start processing ...");
-		String ret = "";
-		try {
-			log.debug("get the E2M reference");
-			ret = this.e2m.ServiceRequestPropagator(request, Integer.valueOf(type)
-					.intValue());
-		} catch (Exception ex) {
-			log.error("caught ex: " + ex.toString());
-			ret = "<ERROR/>";
-		}
-		log.debug("-> ... processing DONE!");
-		return ret;
-	}
+    /**
+     * Business method
+     * 
+     * @ejb.interface-method view-type = "remote"
+     */
+    public String serviceRequestPropagator(String request, String type) {
+        if (log.isDebugEnabled()) {
+            log.debug("-> start processing ...");
+            log.debug("request document:\n" + request);
+            log.debug("document type:\n:" + type);
+        }
+        request = request.replaceAll("__EMAY__LT__", "<");
+        request = request.replaceAll("__EMAY__GT__", ">");
+        String ret = "";
+        try {
+            log.debug("get the E2M reference");
+            ret = this.e2m.ServiceRequestPropagator(request, Integer.valueOf(
+                    type).intValue());
+            if (log.isDebugEnabled()) {
+                log.debug("got response:\n" + ret);
+            }
+        } catch (Exception ex) {
+            log.error("caught ex: " + ex.toString());
+            ret = "<ERROR/>";
+        }
+        log.debug("-> ... processing DONE!");
+        return ret;
+    }
 
 }

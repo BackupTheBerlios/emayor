@@ -69,8 +69,8 @@
 <zipfileset dir="forward/server" prefix="META-INF/wsdl">
 <include name="ForwardManagerWS.wsdl"/>
 </zipfileset>
-<zipfileset dir="xml/2005-07-25/xml" prefix="org/emayor/services/rc">
-<include name="ResidenceCertificationRequestDocument.xml"/>
+<zipfileset dir="xml" prefix="org/emayor/services/rc">
+<include name="SampleResidenceCertificationRequestDocument.xml"/>
 </zipfileset>
 <zipfileset dir="classes" includes="**/*.class"/>
 </jar>
