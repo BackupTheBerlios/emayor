@@ -89,6 +89,7 @@ public class E2MBean implements SessionBean {
      */
     public String ServiceRequestPropagator(
             String ResidenceCertificationRequest, int ServiceSelection) {
+        String CertReply = "";
         if (log.isDebugEnabled()) {
             log.debug("-> start processing ...");
             log.debug("document: " + ResidenceCertificationRequest);
@@ -110,7 +111,7 @@ public class E2MBean implements SessionBean {
             log.error("caught ex: " + ex.toString());
         }
         // Store the certificate document
-        String CertReply;
+
         M2Einterface m2e = null;
 
         // Install the security manager: A security manager is required in every
@@ -130,14 +131,16 @@ public class E2MBean implements SessionBean {
             switch (ServiceSelection) {
             case 1: {
                 log.debug("looking for M2E server");
-                Object obj = (M2Einterface) Naming.lookup(RMIServerIP);
+                Object obj = Naming.lookup(RMIServerIP);
                 if (log.isDebugEnabled())
                     log.debug("got from naming: " + obj.getClass().getName());
                 m2e = (M2Einterface) obj;
                 CertReply = m2e.ResidenceRequest(ResidenceCertificationRequest);
                 // Display the return string
-                System.out.println(CertReply);
-                System.out.println("Client Executed");
+                if (log.isDebugEnabled()) {
+                    log.debug("got replay document:\n" + CertReply);
+                    log.debug("Client Executed");
+                }
                 break;
             }
             default:
@@ -152,6 +155,6 @@ public class E2MBean implements SessionBean {
         }
 
         // TODO Auto-generated method stub
-        return null;
+        return CertReply;
     }
 }

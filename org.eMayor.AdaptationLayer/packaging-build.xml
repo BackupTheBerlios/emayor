@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10025,N10036,N10047"/>
+<target name="_packaging_generation_" depends="N10004,N1002D,N1003E,N1004F"/>
 <target name="N10004" description="E2MEJB.jar">
 <jar destfile="E2MEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -9,20 +9,23 @@
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="jboss.xml"/>
 </zipfileset>
+<zipfileset dir="../TestLegacyAachen/dist">
+<include name="TestLegacyAachenClient.jar"/>
+</zipfileset>
 <zipfileset dir="bin" includes="org/eMayor/AdaptationLayer/ejb/*.class, org/eMayor/AdaptationLayer/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N10025" description="E2M-ejb-client.jar">
+<target name="N1002D" description="E2M-ejb-client.jar">
 <jar destfile="E2M-ejb-client.jar">
 <zipfileset dir="bin" includes="org/eMayor/AdaptationLayer/interfaces/*.class,org/eMayor/AdaptationLayer/ejb/M2Einterface.class"/>
 </jar>
 </target>
-<target name="N10036" description="E2MInterface.jar">
+<target name="N1003E" description="E2MInterface.jar">
 <jar destfile="E2MInterface.jar">
 <zipfileset dir="bin" includes="org/eMayor/AdaptationLayer/ejb/M2Einterface.class"/>
 </jar>
 </target>
-<target name="N10047" description="E2MApp.ear">
+<target name="N1004F" description="E2MApp.ear">
 <jar destfile="E2MApp.ear">
 <zipfileset dir=".">
 <include name="E2MEJB.jar"/>

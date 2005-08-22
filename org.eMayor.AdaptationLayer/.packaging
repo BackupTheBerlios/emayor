@@ -4,6 +4,7 @@
 <folder prefix="" includes="org/eMayor/AdaptationLayer/ejb/*.class, org/eMayor/AdaptationLayer/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
 <file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
+<file prefix="" project="TestLegacyAachen" projectLocation="dist/TestLegacyAachenClient.jar" name="TestLegacyAachenClient.jar" location="../TestLegacyAachen/dist/TestLegacyAachenClient.jar" used="true"/>
 </archive>
 <archive name="E2M-ejb-client.jar" destination="" used="true" exploded="false">
 <folder prefix="" includes="org/eMayor/AdaptationLayer/interfaces/*.class,org/eMayor/AdaptationLayer/ejb/M2Einterface.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
