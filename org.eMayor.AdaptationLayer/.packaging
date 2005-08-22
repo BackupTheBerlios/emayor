@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations>
-<archive name="E2MEJB.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/eMayor/AdaptationLayer/ejb/*.class, org/eMayor/AdaptationLayer/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
-<file prefix="" project="TestLegacyAachen" projectLocation="dist/TestLegacyAachenClient.jar" name="TestLegacyAachenClient.jar" location="../TestLegacyAachen/dist/TestLegacyAachenClient.jar" used="true"/>
+<archive destination="" exploded="false" name="E2MEJB.jar" used="true">
+<folder excludes="" includes="org/eMayor/AdaptationLayer/ejb/*.class, org/eMayor/AdaptationLayer/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<file location="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" used="true"/>
+<file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" used="true"/>
+<file location="../TestLegacyAachen/dist/TestLegacyAachenClient.jar" name="TestLegacyAachenClient.jar" prefix="" project="TestLegacyAachen" projectLocation="dist/TestLegacyAachenClient.jar" used="true"/>
+<file location="../TestLegacyBozen/dist/TestLegacyBozenClient.jar" name="TestLegacyBozenClient.jar" prefix="" project="TestLegacyBozen" projectLocation="dist/TestLegacyBozenClient.jar" used="true"/>
+<file location="../TestLegacySeville/dist/TestLegacySevilleClient.jar" name="TestLegacySevilleClient.jar" prefix="" project="TestLegacySeville" projectLocation="dist/TestLegacySevilleClient.jar" used="true"/>
+<file location="../TestLegacySiena/dist/TestLegacySienaClient.jar" name="TestLegacySienaClient.jar" prefix="" project="TestLegacySiena" projectLocation="dist/TestLegacySienaClient.jar" used="true"/>
 </archive>
-<archive name="E2M-ejb-client.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/eMayor/AdaptationLayer/interfaces/*.class,org/eMayor/AdaptationLayer/ejb/M2Einterface.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+<archive destination="" exploded="false" name="E2M-ejb-client.jar" used="true">
+<folder excludes="" includes="org/eMayor/AdaptationLayer/interfaces/*.class,org/eMayor/AdaptationLayer/ejb/M2Einterface.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
 </archive>
-<archive name="E2MInterface.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/eMayor/AdaptationLayer/ejb/M2Einterface.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+<archive destination="" exploded="false" name="E2MInterface.jar" used="true">
+<folder excludes="" includes="org/eMayor/AdaptationLayer/ejb/M2Einterface.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
 </archive>
-<archive name="E2MApp.ear" destination="" used="true" exploded="false">
-<file prefix="" project="" projectLocation="E2MEJB.jar" name="E2MEJB.jar" location="E2MEJB.jar" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
-<file prefix="" project="" projectLocation="lib/Config-Interface.jar" name="Config-Interface.jar" location="lib/Config-Interface.jar" used="true"/>
+<archive destination="" exploded="false" name="E2MApp.ear" used="true">
+<file location="E2MEJB.jar" name="E2MEJB.jar" prefix="" project="" projectLocation="E2MEJB.jar" used="true"/>
+<file location="src/META-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" used="true"/>
+<file location="lib/Config-Interface.jar" name="Config-Interface.jar" prefix="" project="" projectLocation="lib/Config-Interface.jar" used="true"/>
 </archive>
 </configurations>
