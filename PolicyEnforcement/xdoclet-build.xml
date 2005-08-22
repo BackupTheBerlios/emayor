@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_xdoclet_generation_" name="XDoclet Generator">
 <property file="xdoclet-build.properties"/>
-<property name="eclipse.home" value="C:/eclipse"/>
-<property name="xdoclet.basedir" value="${eclipse.home}/plugins/org.jboss.ide.eclipse.xdoclet.core_1.4.1.e30"/>
-<property name="jboss.net.version" value="4.0"/>
+<property name="eclipse.home" value=""/>
+<property name="xdoclet.basedir" value="/e:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.xdoclet.core_1.4.0/"/>
+<property name="jboss.net.version" value=""/>
 <path id="project.classpath"><pathelement location="bin"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/endorsed/xalan.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/rt.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/sunrsasign.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/jsse.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/jce.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/charsets.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/ext/dnsns.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/ext/ldapsec.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/ext/localedata.jar"/>
-<pathelement location="C:/j2sdk1.4.2_08/jre/lib/ext/sunjce_provider.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/ejb-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/jacc-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/jca-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/jms-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/jsp-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/jta-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/servlet-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.1.e30/lib/j2ee-1.4/sql-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1.e30/lib/wsi-1.0/jaxr-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1.e30/lib/wsi-1.0/jaxrpc-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1.e30/lib/wsi-1.0/saaj-api.jar"/>
-<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.1.e30/lib/wsi-1.0/xml-api.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/rt.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/sunrsasign.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/jsse.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/jce.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/charsets.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/dnsns.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/ldapsec.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/localedata.jar"/>
+<pathelement location="E:/java/j2sdkse/jre/lib/ext/sunjce_provider.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/ejb-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jacc-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jca-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jms-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jsp-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/jta-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/servlet-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.4.0/lib/j2ee-1.4/sql-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/jaxr-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/jaxrpc-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/saaj-api.jar"/>
+<pathelement location="E:/Programme/eMayor/eclipse/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.4.0/lib/wsi-1.0/xml-api.jar"/>
 <pathelement location="lib/xmlsec-1.2RC2.jar"/>
 <pathelement location="../PrintingUtility/lib/log4j-1.2.9.jar"/>
-<pathelement location="../ServiceHandling/eMayorEJB.jar"/>
 <pathelement location="lib/sunxacml.jar"/>
+<pathelement location="../ServiceHandling/eMayorEJB.jar"/>
 </path>
 <path id="xdoclet.classpath">
 <path refid="project.classpath"/>
