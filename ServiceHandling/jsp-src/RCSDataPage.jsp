@@ -85,6 +85,11 @@
 		<% } else { %>
           <option value="Bolzano/Bozen">Municipality of Bozen/Bolzano</option>
 		<% } %>
+		<% if (servingMunicipality.equals("Seville")) { %>
+		  <option value="Seville" selected="true">Municipality of Seville</option>
+		<% } else { %>
+          <option value="Seville">Municipality of Seville</option>
+		<% } %>
         </select> 
         <font color="#FF0000">*</font></span></td>
     </tr>
@@ -95,6 +100,7 @@
           <option value="Siena">Municipality of Siena</option>
           <option value="Aachen" selected="true">Municipality of Achen</option>
           <option value="Bolzano-Bozen">Municipality of Bozen/Bolzano</option>
+		  <option value="Seville">Municipality of Seville</option>
         </select> 
         <font color="#FF0000">*</font></span></td>
     </tr>
