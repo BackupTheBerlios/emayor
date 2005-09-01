@@ -35,6 +35,9 @@ public class Utils {
             case CVDocumentTypes.CV_USER_REGISTRATION_REQUEST:
                 in[i].setExtraInfo("User registration request");
                 break;
+            case CVDocumentTypes.CV_NEGATIVE_RESIDENCE_CERTIFICATE_DOCUMENT:
+                in[i].setExtraInfo("Negative Residence Certification Document");
+                break;
             }
         }
         log.debug("-> ... processing DONE!");

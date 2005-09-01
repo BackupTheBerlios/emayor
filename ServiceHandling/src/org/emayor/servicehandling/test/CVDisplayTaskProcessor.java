@@ -202,6 +202,13 @@ public class CVDisplayTaskProcessor extends AbstractProcessor {
                     session.setAttribute("REQ_SEX", sex);
                     
                     ret = "CVDisplayURRequest.jsp";
+                } else if (task.getTaskType() == CVDocumentTypes.CV_NEGATIVE_RESIDENCE_CERTIFICATE_DOCUMENT) {
+                  
+                	log.debug("this is a NEGATIVE residance certification document");
+                    
+					session.setAttribute("CURR_TASK", task);
+					
+                    ret = "CVDisplayRCNegativeDocument.jsp";                    
                 } else {
                     log.debug("unknown document type");
                     session.setAttribute("ERR_MSG", "Unknown document type");

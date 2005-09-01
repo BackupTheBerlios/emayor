@@ -4,6 +4,7 @@
 package org.emayor.servicehandling.test;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,15 @@ public class CVHandleTaskProcessor extends AbstractProcessor {
 					task.setStatus("APPROVED");
 				else
 					task.setStatus("YES");
+			} else if (action.equalsIgnoreCase("Send")) {
+				log.debug("declined and reason given");
+				String reason = (String) req.getParameter("REASON");
+				if (reason != null) {
+					task.setDocDigSig(reason);
+				} else {
+					task.setDocDigSig("declined or rejected without a reason");
+				}
+				task.setStatus("YES");
 			} else {
 				log.debug("this is a case of declination");
 				task.setStatus("NO");

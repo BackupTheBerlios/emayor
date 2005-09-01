@@ -81,9 +81,9 @@
 		  <option value="Aachen">Municipality of Achen</option>
 		<% } %>
 		<% if (servingMunicipality.equals("Bolzano/Bozen")) { %>
-		  <option value="Bolzano/Bozen" selected="true">Municipality of Bozen/Bolzano</option>
+		  <option value="Bolzano-Bozen" selected="true">Municipality of Bozen/Bolzano</option>
 		<% } else { %>
-          <option value="Bolzano/Bozen">Municipality of Bozen/Bolzano</option>
+          <option value="Bolzano-Bozen">Municipality of Bozen/Bolzano</option>
 		<% } %>
 		<% if (servingMunicipality.equals("Seville")) { %>
 		  <option value="Seville" selected="true">Municipality of Seville</option>

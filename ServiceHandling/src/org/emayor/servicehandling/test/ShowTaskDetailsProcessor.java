@@ -110,27 +110,34 @@ public class ShowTaskDetailsProcessor extends AbstractProcessor {
                 		int end = ePF.indexOf("</body>") -1;
                 		ePF = ePF.substring(start,end);
                 		
-						/*DOMImplementation impl = builder.getDOMImplementation();
-						Document doc = builder.parse(new InputSource(new StringReader(ePF)));
-						   
-						OutputFormat format = new OutputFormat(doc);
-						format.setLineWidth(65);
-						format.setIndenting(true);
-						format.setIndent(2);
-						StringWriter writer = new StringWriter();
-						XMLSerializer serializer = new XMLSerializer(writer, format);
-						serializer.serialize(doc);
-						 
-						String xmldocAsHTML = writer.toString();
-          		      
-						xmldocAsHTML = xmldocAsHTML.replaceAll("<","&lt;");
-						xmldocAsHTML = xmldocAsHTML.replaceAll(">","&gt;");
-						xmldocAsHTML = xmldocAsHTML.replaceAll("\"","&quot;");
-						*/
-                		
 						session.setAttribute("CURR_TASK", task);
 						session.setAttribute("RCD",ePF);
 						ret = "ShowTaskDetailsRCD.jsp";
+                } else if (task.getTaskType() == CVDocumentTypes.CV_NEGATIVE_RESIDENCE_CERTIFICATE_DOCUMENT) {
+            		log.debug("this is a NEGATIVE residance certification document");
+            		
+					/*DOMImplementation impl = builder.getDOMImplementation();
+					Document doc = builder.parse(new InputSource(new StringReader(xmldoc)));
+					   
+					OutputFormat format = new OutputFormat(doc);
+					format.setLineWidth(65);
+					format.setIndenting(true);
+					format.setIndent(2);
+					StringWriter writer = new StringWriter();
+					XMLSerializer serializer = new XMLSerializer(writer, format);
+					serializer.serialize(doc);
+					 
+					String xmldocAsHTML = writer.toString();
+      		      
+					xmldocAsHTML = xmldocAsHTML.replaceAll("<","&lt;");
+					xmldocAsHTML = xmldocAsHTML.replaceAll(">","&gt;");
+					xmldocAsHTML = xmldocAsHTML.replaceAll("\"","&quot;");*/
+            		
+            		String reason = task.getDocumentResponseDigSig();
+            		
+					session.setAttribute("CURR_TASK", task);
+					session.setAttribute("RCD",reason);
+					ret = "ShowTaskDetailsRCD.jsp";						
                 } else {
                     log.debug("unknown document type");
                     session.setAttribute("ERR_MSG", "Unknown document type");
