@@ -99,7 +99,7 @@ public class ForwardManagerBPEL_EJB implements SessionBean, IForwardManagerBPEL 
 		try {
 			Config config = Config.getInstance();
 			local = config
-					.getProperty(Config.FORWARD_MANAGER_TEST_LOCAL_MUNICIPALITY_NAME);
+					.getProperty(Config.EMAYOR_PLATFORM_INSTANCE_ID);
 			remote = message.getRemoteMunicipalityId();
 			queueName = config.getProperty(Config.FORWARD_MANAGER_QUEUE_NAME);
 			host = config.getProperty(Config.FORWARD_MANAGER_QUEUE_HOST);
