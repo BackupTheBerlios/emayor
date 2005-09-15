@@ -1,10 +1,16 @@
 <transformerConfiguration>
 	<documentType>
 		<ResidenceCertificationDocument>
-			<EUFtoELF>EUFtoGermanELFv0.1.xsl</EUFtoELF>
+			<EUFtoELF>EUFtoGermabELFv0.1.xsl</EUFtoELF>
 			<ELFtoEUF>GermanELFtoEUFv0.1.xsl</ELFtoEUF>
 			<ELFtoEPF>AachenELFtoEPFv0.1.xsl</ELFtoEPF>
 			<EUFtoEPF>Not required.</EUFtoEPF>
 		</ResidenceCertificationDocument>
+		<NegativeDocument>
+			<EUFtoELF>Not done yet.</EUFtoELF>
+			<ELFtoEUF>Not done yet.</ELFtoEUF>
+			<ELFtoEPF>NRAachenELFtoEPFv0.1.xsl</ELFtoEPF>
+			<EUFtoEPF>Not required.</EUFtoEPF>
+		</NegativeDocument>
 	</documentType>
 </transformerConfiguration>

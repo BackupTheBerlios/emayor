@@ -133,11 +133,21 @@ public class ShowTaskDetailsProcessor extends AbstractProcessor {
 					xmldocAsHTML = xmldocAsHTML.replaceAll(">","&gt;");
 					xmldocAsHTML = xmldocAsHTML.replaceAll("\"","&quot;");*/
             		
-            		String reason = task.getDocumentResponseDigSig();
+
+            		String ePF = task.getDocDigSig();
+            		int start = ePF.indexOf("<body>") + 6;
+            		int end = ePF.indexOf("</body>") -1;
+            		ePF = ePF.substring(start,end);
+            		
+					session.setAttribute("CURR_TASK", task);
+					session.setAttribute("RCD",ePF);
+					ret = "ShowTaskDetailsRCD.jsp";
+            		
+            		/*String reason = task.getDocumentResponseDigSig();
             		
 					session.setAttribute("CURR_TASK", task);
 					session.setAttribute("RCD",reason);
-					ret = "ShowTaskDetailsRCD.jsp";						
+					ret = "ShowTaskDetailsRCD.jsp";*/						
                 } else {
                     log.debug("unknown document type");
                     session.setAttribute("ERR_MSG", "Unknown document type");

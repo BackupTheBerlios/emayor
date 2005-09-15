@@ -6,16 +6,16 @@
 	<TransactionId>String</TransactionId>
 	<RequesterDetails>
 		<ed:CitizenName>
-			<aapd:CitizenNameTitle>String</aapd:CitizenNameTitle>
-			<aapd:CitizenNameForename>String</aapd:CitizenNameForename>
-			<aapd:CitizenNameSurname>String</aapd:CitizenNameSurname>
+			<aapd:CitizenNameTitle>Mr.</aapd:CitizenNameTitle>
+			<aapd:CitizenNameForename>Heinz</aapd:CitizenNameForename>
+			<aapd:CitizenNameSurname>Mustermann</aapd:CitizenNameSurname>
 			<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
 			<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
 		</ed:CitizenName>
 		<ed:PreferredLanguages>en</ed:PreferredLanguages>
 		<ed:ContactDetails>
 			<aapd:Email>
-				<aapd:EmailAddress>A</aapd:EmailAddress>
+				<aapd:EmailAddress>heinz.mustermann@provider.de</aapd:EmailAddress>
 			</aapd:Email>
 			<aapd:Telephone>
 				<aapd:TelNationalNumber>0</aapd:TelNationalNumber>
