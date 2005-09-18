@@ -5,8 +5,8 @@ xmlns:edi="http://www.emayor.org/e-DocumentI.xsd">
  
 <xsl:output method="xml" indent="yes"/>
 
-<xsl:include href="C:/eMayor/xsl/SienaELFtoEPFv0.1.xsl"/>
-<xsl:include href="C:/eMayor/xsl/AachenELFtoEPFv0.1.xsl"/>
+<xsl:include href="SienaELFtoEPFv0.1.xsl"/>
+<xsl:include href="AachenELFtoEPFv0.1.xsl"/>
 
 <xsl:template match="/">
 	<html>
