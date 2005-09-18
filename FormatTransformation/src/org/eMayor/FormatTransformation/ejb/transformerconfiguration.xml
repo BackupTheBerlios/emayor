@@ -14,17 +14,19 @@
 			<EUFtoEPF>Not required.</EUFtoEPF>
 		</NegativeDocument>
 
-		<ResidenceCertificationDocumentBolzano>
+		<!--		
+		<ResidenceCertificationDocument>
 			<EUFtoELF>EUFtoItalianGermanELFv0.2.xsl</EUFtoELF>
 			<ELFtoEUF>ItalianGermanELFtoEUFv0.2.xsl</ELFtoEUF>
 			<ELFtoEPF>BolzanoELFtoEPFv0.2.xsl</ELFtoEPF>
 			<EUFtoEPF>Not required.</EUFtoEPF>
-		</ResidenceCertificationDocumentBolzano>
-		<NegativeDocumentBolzano>
+		</ResidenceCertificationDocument>
+		<NegativeDocument>
 			<EUFtoELF>Not done yet.</EUFtoELF>
 			<ELFtoEUF>Not done yet.</ELFtoEUF>
 			<ELFtoEPF>NRBolzanoELFtoEPFv0.2.xsl</ELFtoEPF>
 			<EUFtoEPF>Not required.</EUFtoEPF>
-		</NegativeDocumentBolzano>
+		</NegativeDocument>
+		-->
 	</documentType>
 </transformerConfiguration>
