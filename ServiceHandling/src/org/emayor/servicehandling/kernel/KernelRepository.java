@@ -893,7 +893,6 @@ public class KernelRepository {
 				uid = local.getUserId();
 				if (log.isDebugEnabled())
 					log.debug("got uid: " + uid);
-				ret[index] = new UserProfile();
 				ret[index].setUserId(uid);
 				log.debug("trying to set the c_UserProfile");
 				ret[++index].setPEUserProfile(new C_UserProfile(local
