@@ -877,12 +877,6 @@ public class KernelRepository {
 	public IUserProfile[] listKnownUserProfiles()
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		/*
-		 * IUserProfile[] ret = new
-		 * IUserProfile[this.userId2UserProfile.keySet() .size()]; int index =
-		 * 0; for (Iterator i = this.userId2UserProfile.values().iterator(); i
-		 * .hasNext();) { ret[index++] = (IUserProfile) i.next(); }
-		 */
 		IUserProfile[] ret = new UserProfile[0];
 		String uid = "";
 		try {
@@ -890,17 +884,25 @@ public class KernelRepository {
 			if (log.isDebugEnabled())
 				log.debug("found " + collection.size() + " items");
 			ret = new UserProfile[collection.size()];
+			if (log.isDebugEnabled())
+				log.debug("the ret array length is " + ret.length);
 			int index = 0;
 			for (Iterator i = collection.iterator(); i.hasNext();) {
 				UserProfileEntityLocal local = (UserProfileEntityLocal) i
 						.next();
 				uid = local.getUserId();
+				if (log.isDebugEnabled())
+					log.debug("got uid: " + uid);
+				ret[index] = new UserProfile();
 				ret[index].setUserId(uid);
+				log.debug("trying to set the c_UserProfile");
 				ret[++index].setPEUserProfile(new C_UserProfile(local
 						.getC_UserProfile()));
 			}
 		} catch (FinderException ex) {
 			log.error("caught ex:" + ex.toString());
+			if (log.isDebugEnabled())
+				ex.printStackTrace();
 			throw new KernelRepositoryException(
 					"Couldn't find the user profiles");
 		} catch (C_UserProfile.E_UserProfileException ex) {
