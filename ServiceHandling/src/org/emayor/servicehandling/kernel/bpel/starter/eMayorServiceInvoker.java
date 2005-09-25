@@ -57,6 +57,16 @@ public class eMayorServiceInvoker {
 			throws eMayorServiceInvokerException {
 		log.debug("-> start processing ...");
 		try {
+			/*
+			JFrame frame = new JFrame();
+			JTextArea ta = new JTextArea();
+			JScrollPane pane = new JScrollPane();
+			pane.setViewportView(ta);
+			frame.getContentPane().add(pane);
+			frame.setSize(400,400);
+			ta.append(req);
+			frame.setVisible(true);
+			*/
 			Config config = Config.getInstance();
 			String endpoint = config.getProperty(
 					Config.EMAYOR_SERVICE_INVOKER_ENDPOINT, DEF_ENDPOINT);

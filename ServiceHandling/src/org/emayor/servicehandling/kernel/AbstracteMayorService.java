@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.kernel.bpel.starter.eMayorServiceInvoker;
@@ -22,6 +23,8 @@ public abstract class AbstracteMayorService implements IeMayorService {
 			.getLogger(AbstracteMayorService.class);
 
 	protected String serviceId = "";
+	
+	private static final Charset charset = Charset.forName("UTF-8");
 
 	/*
 	 * (non-Javadoc)
@@ -97,7 +100,7 @@ public abstract class AbstracteMayorService implements IeMayorService {
 			URL url = this.getClass().getResource(fileName);
 			InputStream is = url.openStream();
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			BufferedReader br = new BufferedReader(new InputStreamReader(is, charset));
 			StringBuffer b = new StringBuffer();
 			String line = null;
 			while ((line = br.readLine()) != null)
