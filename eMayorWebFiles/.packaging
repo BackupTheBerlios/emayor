@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="" exploded="false" name="eMayorWebFiles.war" used="true">
+<folder excludes="" includes="" location="public" name="public" prefix="" project="" projectLocation="public" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="eMayorWebFiles.ear" used="true">
+<file location="src/META-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" used="true"/>
+<file location="eMayorWebFiles.war" name="eMayorWebFiles.war" prefix="" project="" projectLocation="eMayorWebFiles.war" used="true"/>
+</archive>
+</configurations>
