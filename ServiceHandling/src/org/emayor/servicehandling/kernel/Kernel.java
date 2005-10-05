@@ -63,8 +63,8 @@ public class Kernel implements IKernel {
 			if (pe == null)
 				log.warn("the reference to the policy enforcer is NULL!!!!");
 			Config config = Config.getInstance();
-			if (config.getProperty(Config.EMAYOR_OPERATING_MODE)
-					.equals("production")) {
+			if (config.getProperty(Config.EMAYOR_OPERATING_MODE).equals(
+					"production")) {
 				log.info("working with the production data - production mode");
 				//this.initDeployedServices();
 			} else {
@@ -80,8 +80,6 @@ public class Kernel implements IKernel {
 		}
 		log.debug("initialize the factories ...");
 		this.initializeServiceFactories();
-		//log.debug("initialize all existed service sessions");
-		//this.initializeServiceSessions();
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -89,6 +87,14 @@ public class Kernel implements IKernel {
 		log.debug("<<<<<<<static initializer:>>>>>>>>>>>>");
 	}
 
+	/**
+	 * Obtaining an instance of the Kernel class (singelton). If the internal
+	 * variable keeping reference to the kernel object is null the new one will
+	 * be created.
+	 * 
+	 * @return and instance of the Kerel class
+	 * @throws KernelException
+	 */
 	public static final synchronized Kernel getInstance()
 			throws KernelException {
 		log.debug("-> start processing ...");
@@ -101,7 +107,13 @@ public class Kernel implements IKernel {
 	}
 
 	/**
-	 *  
+	 * Creating a new instance of the Access Session. Note the session is not
+	 * active (started) yet.
+	 * 
+	 * @return the id of the newly created Access Session
+	 * @throws KernelException
+	 *             in case of eception an instance of the KernelException will
+	 *             be thrown
 	 */
 	public synchronized String createAccessSession() throws KernelException {
 		log.debug("-> start processing ...");
@@ -131,7 +143,14 @@ public class Kernel implements IKernel {
 	}
 
 	/**
-	 *  
+	 * Obtaining the reference to the local interface of an existing Service
+	 * Session.
+	 * 
+	 * @param asid
+	 *            the id of required Access Session
+	 * @return reference pointing to the local interface of the required Service
+	 *         Session
+	 * @throws KernelException
 	 */
 	public synchronized AccessSessionLocal getAccessSession(String asid)
 			throws KernelException {
@@ -149,10 +168,13 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Obtaining information about a required Access Session.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getAccessSessionInfo(java.lang.String)
+	 * @param asid
+	 * @return an instance of the AccessSessionInfo class containing the
+	 *         information about specified Access Session
+	 * @throws KernelException
 	 */
 	public synchronized AccessSessionInfo getAccessSessionInfo(String asid)
 			throws KernelException {
@@ -176,7 +198,11 @@ public class Kernel implements IKernel {
 	}
 
 	/**
-	 *  
+	 * Deleting the instance of the Access Session stored in the repository.
+	 * 
+	 * @param asid
+	 *            the id of the instance of the Access Session to be deleted
+	 * @throws KernelException
 	 */
 	public synchronized boolean deleteAccessSession(String asid)
 			throws KernelException {
@@ -194,11 +220,24 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Creating a new instance of the Service Session. Note the session is not
+	 * active (started) yet.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#createServiceSession(java.lang.String,
-	 *      java.lang.String, java.lang.String, java.lang.String)
+	 * @param asid
+	 *            the id of the access session will own the instance of the
+	 *            Service Session to be created
+	 * @param serviceId
+	 *            the id of the service will be hosted by the instance of the
+	 *            Service Session to be created
+	 * @param userId
+	 *            the id of the user is about to create the instance of the
+	 *            Service Session
+	 * @return the reference to the local interface of the newly created Service
+	 *         Session
+	 * @throws KernelException
+	 *             in case of eception an instance of the KernelException will
+	 *             be thrown
 	 */
 	public synchronized ServiceSessionLocal createServiceSession(String asid,
 			String serviceId, String userId) throws KernelException {
@@ -217,7 +256,7 @@ public class Kernel implements IKernel {
 		log.debug("Got Permition = " + bAccessResult);
 		if (bAccessResult == false) {
 			throw new KernelException("Access to the Service " + serviceId
-					+ " is not allowed");
+					+ " is not allowed!");
 		} else {
 
 			// ########### end of added by Sergiu :) ############
@@ -230,8 +269,6 @@ public class Kernel implements IKernel {
 				ret = serviceLocator.getServiceSessionLocal(asid);
 				if (log.isDebugEnabled() && ret != null)
 					log.debug("the new ssid = " + ret.getSessionId());
-				//IServiceInfo serviceInfo = this.repository
-				//        .getServiceInfo(serviceId);
 				ret.setCreatorId(userId);
 				log.debug("set service id into service session instance");
 				ret.setServiceId(serviceId);
@@ -262,10 +299,8 @@ public class Kernel implements IKernel {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceSession(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized ServiceSessionLocal getServiceSession(String ssid)
 			throws KernelException {
@@ -283,10 +318,8 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceSessionInfo(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized ServiceSessionInfo getServiceSessionInfo(String ssid)
 			throws KernelException {
@@ -310,10 +343,8 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#deleteServiceSession(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized boolean deleteServiceSession(String asid, String ssid)
 			throws KernelException {
@@ -341,10 +372,8 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listAvailableServices(org.emayor.policyenforcer.C_UserProfile)
+	/**
+	 *  
 	 */
 	public synchronized ServiceInfo[] listAvailableServices(
 			C_UserProfile userProfile) throws KernelException {
@@ -360,10 +389,8 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listAllAvailableServices()
+	/**
+	 *  
 	 */
 	public synchronized ServiceInfo[] listAllAvailableServices()
 			throws KernelException {
@@ -379,6 +406,9 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
+	/**
+	 *  
+	 */
 	public synchronized ServiceInfo[] listAllActiveServices()
 			throws KernelException {
 		log.debug("-> start processing ...");
@@ -413,6 +443,9 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
+	/**
+	 *  
+	 */
 	public synchronized String getUserIdByASID(String asid)
 			throws KernelException {
 		log.debug("-> start processing ...");
@@ -498,10 +531,8 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceClassNameByServiceName(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized String getServiceClassNameByServiceName(
 			String serviceName) throws KernelException {
@@ -518,10 +549,8 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getUserProfile(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized IUserProfile getUserProfile(String userId)
 			throws KernelException {
@@ -529,9 +558,10 @@ public class Kernel implements IKernel {
 		IUserProfile ret = null;
 		try {
 			Config config = Config.getInstance();
-			String mode = config.getProperty(Config.EMAYOR_OPERATING_MODE_EMAIL,
-					"production");
-			String email = config.getProperty(Config.EMAYOR_EMAIL_TEST_USER_ADDRESS,
+			String mode = config.getProperty(
+					Config.EMAYOR_OPERATING_MODE_EMAIL, "production");
+			String email = config.getProperty(
+					Config.EMAYOR_EMAIL_TEST_USER_ADDRESS,
 					"eMayor.User@localhost");
 			ret = this.repository.getUserProfile(userId);
 			if (ret == null) {
@@ -562,10 +592,8 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceProfile(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized IServiceProfile getServiceProfile(String ssid)
 			throws KernelException {
@@ -587,10 +615,8 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getServiceProfileByServiceId(java.lang.String)
+	/**
+	 *  
 	 */
 	public synchronized IServiceProfile getServiceProfileByServiceId(
 			String serviceId) throws KernelException {
@@ -616,10 +642,13 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Authenticating the given user.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#authenticateUser(javax.security.cert.X509Certificate[])
+	 * @param asid
+	 * @param certificates
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized String authenticateUser(String asid,
 			X509Certificate[] certificates) throws KernelException {
@@ -630,46 +659,38 @@ public class Kernel implements IKernel {
 		try {
 			// PE: get user profile
 			String cUserProfileStr = this.pe.F_getUserProfile(certificates);
-			if (log.isDebugEnabled())
-				log.debug("got C_UserProfile as string: \n" + cUserProfileStr);
-			log.debug("trying to get C_UserProfile as object");
-			C_UserProfile userProfile = new C_UserProfile(cUserProfileStr);
-			userId = String.valueOf(certificates[0].hashCode());
-			if (!this.repository.existUserProfile(userId)) {
-				IUserProfile up = new UserProfile();
-				up.setUserId(String.valueOf(certificates[0].hashCode()));
-				up.setPEUserProfile(userProfile);
-				repository.addUserProfile(up);
+			if (cUserProfileStr == null || cUserProfileStr.length() == 0) {
+				throw new KernelException("Couldn't authenticate given user!");
 			} else {
-				log.debug("the user already exists in the repository");
-			}
-			log.debug("try to authenticate the user!");
-			// PE: authenticate user by using the user profile
-			if (this.pe.F_AuthenticateUser(cUserProfileStr)) {
-				if (certificates != null) {
-					log.debug(">>>>>>>>>>> got user name: "
-							+ userProfile.getUserName());
-					log.debug(">>>>>>>>>>> got user mail: "
-							+ userProfile.getUserEmail());
-				}
-				ret = userId;
 				if (log.isDebugEnabled())
-					log.debug("returning the user id : " + ret);
-				// TODO check it !!!!!!
-				//this.repository.updateAccessSessionData(userId, asid);
-				/*
-				 * log.debug("try to handle the entity bean!"); ServiceLocator
-				 * locator = ServiceLocator.getInstance(); UserProfileLocalHome
-				 * upHome = locator.getUserProfileLocalHome(); UserProfileLocal
-				 * userProfileLocal = null; try { userProfileLocal =
-				 * upHome.findByPrimaryKey(userId); log.debug("found the record
-				 * in database"); } catch (FinderException fex) {
-				 * log.debug("caught finder exception: " + fex.toString());
-				 * userProfileLocal = upHome.create(userId, cUserProfileStr);
-				 * log.debug("the record has been new created !"); }
-				 */
-			} else {
-				ret = null;
+					log.debug("got C_UserProfile as string: \n"
+							+ cUserProfileStr);
+				log.debug("trying to get C_UserProfile as object");
+				C_UserProfile userProfile = new C_UserProfile(cUserProfileStr);
+				userId = String.valueOf(certificates[0].hashCode());
+				if (!this.repository.existUserProfile(userId)) {
+					IUserProfile up = new UserProfile();
+					up.setUserId(String.valueOf(certificates[0].hashCode()));
+					up.setPEUserProfile(userProfile);
+					repository.addUserProfile(up);
+				} else {
+					log.debug("the user already exists in the repository");
+				}
+				log.debug("try to authenticate the user!");
+				// PE: authenticate user by using the user profile
+				if (this.pe.F_AuthenticateUser(cUserProfileStr)) {
+					if (certificates != null) {
+						log.debug(">>>>>>>>>>> got user name: "
+								+ userProfile.getUserName());
+						log.debug(">>>>>>>>>>> got user mail: "
+								+ userProfile.getUserEmail());
+					}
+					ret = userId;
+					if (log.isDebugEnabled())
+						log.debug("returning the user id : " + ret);
+				} else {
+					ret = null;
+				}
 			}
 		} catch (KernelRepositoryException krex) {
 			log.error("caught ex: " + krex.toString());
@@ -683,19 +704,19 @@ public class Kernel implements IKernel {
 			log.error("caught ex: " + upex.toString());
 			throw new KernelException(
 					"authenticateUser failed: problem with user profile transformation");
-		} /*
-		   * catch (ServiceLocatorException slex) { log.error("caught ex: " +
-		   * slex.toString()); } catch (CreateException cex) { log.error("caught
-		   * ex: " + cex.toString()); }
-		   */
+		}
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Obtaining the Service Sessions of the user given by the id.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getUsersServiceSessions(java.lang.String)
+	 * @param userId
+	 *            the id of the use has started the sessions
+	 * @return an array containing the references of the all Service Sessions
+	 *         started by the specified user
+	 * @throws KernelException
 	 */
 	public synchronized ServiceSessionLocal[] getUsersServiceSessions(
 			String userId) throws KernelException {
@@ -712,10 +733,12 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Obtaining the Access Session Id corresponding the the given user id.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getAsidByUserID(java.lang.String)
+	 * @param userId
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized String getAsidByUserID(String userId)
 			throws KernelException {
@@ -733,10 +756,11 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Storing the forward callback data in the repository.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#addForwardBPELCallbackData(org.emayor.servicehandling.kernel.bpel.forward.data.ForwardBPELCallbackData)
+	 * @param data
+	 * @throws KernelException
 	 */
 	public synchronized void addForwardBPELCallbackData(
 			ForwardBPELCallbackData data) throws KernelException {
@@ -751,10 +775,12 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Restoring the forward callback data from the repository.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getForwardBPELCallbackData(java.lang.String)
+	 * @param ssid
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized ForwardBPELCallbackData getForwardBPELCallbackData(
 			String ssid) throws KernelException {
@@ -839,10 +865,10 @@ public class Kernel implements IKernel {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Reloading the information about the deployed services from repository.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#reloadDeployedServices()
+	 * @throws KernelException
 	 */
 	public synchronized void reloadDeployedServices() throws KernelException {
 		log.debug("-> start processing ...");
@@ -858,10 +884,11 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Listing all Access Sessions currently stored in the repository.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listAccessSessions()
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized AccessSessionInfo[] listAccessSessions()
 			throws KernelException {
@@ -892,10 +919,11 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Listing all Service Session currently stored in the repository.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listServiceSessions()
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized ServiceSessionInfo[] listServiceSessions()
 			throws KernelException {
@@ -927,10 +955,13 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Listing the information about all Service Sessions stored currently in
+	 * the repository belonging to the specified user.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listServiceSessions(java.lang.String)
+	 * @param uid
+	 * @return
+	 * @throws
 	 */
 	public synchronized ServiceSessionInfo[] listServiceSessions(String uid)
 			throws KernelException {
@@ -963,10 +994,11 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Listing the information about all known users to the system.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listUserProfiles()
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized IUserProfile[] listUserProfiles()
 			throws KernelException {
@@ -983,10 +1015,11 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Listing all currently logged in users at the system.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#listLoggedInUsers()
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized IUserProfile[] listLoggedInUsers()
 			throws KernelException {
@@ -1011,10 +1044,12 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Delivering the number of active (running) instances of specified service.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getNumberOfInstances(java.lang.String)
+	 * @param serviceId
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized String getNumberOfInstances(String serviceId)
 			throws KernelException {
@@ -1030,10 +1065,12 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Obtaining a mapping between the service id and number of active instance
+	 * of this service.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#getNumberOfInstancesMap()
+	 * @return
+	 * @throws KernelException
 	 */
 	public synchronized HashMap getNumberOfInstancesMap()
 			throws KernelException {
@@ -1049,10 +1086,10 @@ public class Kernel implements IKernel {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Reseting the number of instances of all services to 0.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#restNumberOfInstances()
+	 * @throws KernelException
 	 */
 	public synchronized void resetNumberOfInstances() throws KernelException {
 		log.debug("-> start processing ...");
@@ -1065,10 +1102,11 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Reseting the number of instances of specified service to 0.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#resetNumberOfInstances(java.lang.String)
+	 * @param serviceId
+	 * @throws KernelException
 	 */
 	public synchronized void resetNumberOfInstances(String serviceId)
 			throws KernelException {
@@ -1083,10 +1121,12 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Changing the status of the specified service.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#changeServiceStatus(boolean)
+	 * @param serviceId
+	 * @param active
+	 * @throws KernelException
 	 */
 	public synchronized void changeServiceStatus(String serviceId,
 			boolean active) throws KernelException {
@@ -1103,10 +1143,11 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Removing the profile of the specified user.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#removeUserProfile(java.lang.String)
+	 * @param uid
+	 * @throws KernelException
 	 */
 	public synchronized void removeUserProfile(String uid)
 			throws KernelException {
@@ -1120,10 +1161,13 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Deploying of a nes service. Note! The newly deployed service is not
+	 * active yet. It has to be activated explicitly (@see
+	 * Kernel#changeServiceStatus(String, boolean)).
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#deployService(org.emayor.servicehandling.kernel.IServiceProfile)
+	 * @param serviceProfile
+	 * @throws KernelException
 	 */
 	public synchronized void deployService(IServiceProfile serviceProfile)
 			throws KernelException {
@@ -1131,11 +1175,6 @@ public class Kernel implements IKernel {
 		try {
 			this.repository.addServiceInfo((ServiceInfo) serviceProfile
 					.getServiceInfo());
-			/*
-			 * this.initializeServiceFactory(serviceProfile.getServiceInfo()
-			 * .getServiceId(), serviceProfile.getServiceInfo()
-			 * .getServiceFactoryClassName());
-			 */
 		} catch (KernelRepositoryException ex) {
 			log.error("caught ex: " + ex.toString());
 			throw new KernelException("Couldn't deploy the new service!");
@@ -1143,10 +1182,11 @@ public class Kernel implements IKernel {
 		log.debug("-> ... processing DONE!");
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Undeploying the specified service.
 	 * 
-	 * @see org.emayor.servicehandling.kernel.IKernel#undeployService(java.lang.String)
+	 * @param serviceId
+	 * @throws KernelException
 	 */
 	public synchronized void undeployService(String serviceId)
 			throws KernelException {

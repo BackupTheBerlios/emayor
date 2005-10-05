@@ -44,36 +44,8 @@ public class KernelRepository {
 	// ssid -> serviceSessionLocal
 	private HashMap ssid2serviceSession;
 
-	// userID -> set{ssid1, ssid2, ssid3 ...}
-	//private HashMap userId2ssids;
-
-	///// ---- service management -----
-	// service id -> serviceInfo
-	//private HashMap serviceId2serviceInfo;
-
 	// service id -> factory
 	private HashMap serviceId2serviceFactory;
-
-	// serviceId -> number of runing instances
-	//private HashMap serviceId2NumberOfInstances;
-
-	// userdId -> UserProfile
-	//private HashMap userId2UserProfile;
-
-	// userId -> asid
-	//private HashMap userId2asid;
-
-	// asid -> userId
-	//private HashMap asid2userId;
-
-	// ssid -> userId
-	//private HashMap ssid2userId;
-
-	// ssid -> bpelCallbackData
-	//private HashMap ssid2bpelForwardCallbackData;
-
-	// ssid -> service id
-	//private HashMap ssid2serviceId;
 
 	private ServiceInfoEntityLocalHome serviceInfoEntityLocalHome = null;
 
@@ -86,22 +58,13 @@ public class KernelRepository {
 	private BPELCallbackDataEntityLocalHome bpelCallbackDataEntityLocalHome = null;
 
 	/**
-	 *  
+	 * The constructor.
 	 */
 	public KernelRepository() {
 		log.debug("-> start processing ...");
 		this.asid2accessSession = new HashMap();
 		this.ssid2serviceSession = new HashMap();
-		//this.userId2ssids = new HashMap();
-		//this.serviceId2serviceInfo = new HashMap();
 		this.serviceId2serviceFactory = new HashMap();
-		//this.serviceId2NumberOfInstances = new HashMap();
-		//this.userId2UserProfile = new HashMap();
-		//this.userId2asid = new HashMap();
-		//this.asid2userId = new HashMap();
-		//this.ssid2bpelForwardCallbackData = new HashMap();
-		//this.ssid2userId = new HashMap();
-		//this.ssid2serviceId = new HashMap();
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			this.serviceInfoEntityLocalHome = locator
@@ -121,16 +84,20 @@ public class KernelRepository {
 	}
 
 	/**
+	 * Adding an instance of Access Session into repository.
 	 * 
 	 * @param accessSession
+	 *            the reference pointing to the instance of Access Session to be
+	 *            put into repository
 	 * @throws KernelRepositoryException
+	 *             will be thrown in case the instance already exists in the
+	 *             repository
 	 */
 	public void addAccessSession(AccessSessionLocal accessSession)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		try {
 			String asid = accessSession.getSessionId();
-			//String uid = accessSession.getUserId();
 			if (!this.asid2accessSession.containsKey(asid)) {
 				this.asid2accessSession.put(asid, accessSession);
 			} else {
@@ -202,27 +169,11 @@ public class KernelRepository {
 			if (!this.ssid2serviceSession.containsKey(ssid)) {
 				// ssid -> ServiceSessionLocal
 				this.ssid2serviceSession.put(ssid, serviceSession);
-				// userId -> {ssid1, ssid2, ...}
-				/*
-				 * List ssids = new ArrayList(); if
-				 * (this.userId2ssids.containsKey(userId)) { log.debug("the list
-				 * of ssids already exist!"); ssids = (List)
-				 * this.userId2ssids.get(userId); } if (ssids.contains(ssid)) {
-				 * log.error("there already exists such ssid in the list");
-				 * throw new KernelRepositoryException( "addServiceSession
-				 * failed: the ssid already exist in the list"); } else {
-				 * log.debug("add the ssid to the list"); ssids.add(ssid); }
-				 * this.userId2ssids.remove(userId);
-				 * this.userId2ssids.put(userId, ssids);
-				 */
-				//this.ssid2userId.put(ssid, userId);
 				String serviceId = serviceSession.getServiceId();
 				if (log.isDebugEnabled())
 					log
 							.debug("working with following service id: "
 									+ serviceId);
-				//this.ssid2serviceId.put(ssid, serviceId);
-
 				int i = this.getNumberOfServiceInstancesAsInt(serviceId);
 				this.setNumberOfServiceInstances(serviceId, ++i);
 				if (log.isDebugEnabled())
@@ -265,32 +216,6 @@ public class KernelRepository {
 				if (log.isDebugEnabled())
 					log.debug("set the current number of instance to " + i
 							+ " for serviceId = " + serviceId);
-				/*
-				 * if (this.userId2ssids.containsKey(userId)) { List ssids =
-				 * (List) this.userId2ssids.get(userId); if
-				 * (ssids.contains(ssid)) { log .debug("everything's OK ->
-				 * removing session from data structures"); String serviceId =
-				 * (String) this.ssid2serviceId.get(ssid);
-				 * this.ssid2serviceId.remove(ssid); if (log.isDebugEnabled())
-				 * log.debug("working with following service id: " + serviceId);
-				 * int i = this.getNumberOfServiceInstancesAsInt(serviceId);
-				 * this.setNumberOfServiceInstances(serviceId, --i); if
-				 * (log.isDebugEnabled()) log.debug("set the current number of
-				 * instance to " + i + " for serviceId = " + serviceId);
-				 * log.debug("clear the ssid2serviceSession");
-				 * this.ssid2serviceSession.remove(ssid); ssids.remove(ssid);
-				 * log.debug("clear the userId2ssids");
-				 * this.userId2ssids.remove(userId);
-				 * this.userId2ssids.put(userId, ssids); log.debug("clear the
-				 * ssid2userId"); //this.ssid2userId.remove(ssid); } else {
-				 * log.error("the ssid doesn't exist in the list"); throw new
-				 * KernelRepositoryException( "removeServiceSession failed: the
-				 * ssid is not assigned to the given userId"); } } else {
-				 * log.error("current user doesn't have a list of ssids
-				 * assigned"); throw new KernelRepositoryException(
-				 * "removeServiceSession failed: given user id doesn't have a
-				 * list of ssids assigned"); }
-				 */
 			} else {
 				log.error("service session to be removed doesn't exist!");
 				throw new KernelRepositoryException(
@@ -306,8 +231,10 @@ public class KernelRepository {
 	}
 
 	/**
+	 * Removing of the exsisting Service Session allowed only to the admin.
 	 * 
 	 * @param ssid
+	 *            the id of the Service Session to be removed
 	 * @throws KernelRepositoryException
 	 */
 	public void adminRemoveServiceSession(String ssid)
@@ -315,7 +242,6 @@ public class KernelRepository {
 		log.debug("-> start processing ...");
 		try {
 			if (this.ssid2serviceSession.containsKey(ssid)) {
-				//String userId = (String) this.ssid2userId.get(ssid);
 				ServiceSessionBeanEntityLocal local = this.serviceSessionBeanEntityLocalHome
 						.findByPrimaryKey(ssid);
 				String userId = local.getUserId();
@@ -388,13 +314,6 @@ public class KernelRepository {
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		ServiceSessionLocal[] ret = new ServiceSessionLocal[0];
-		/*
-		 * if (this.userId2ssids.containsKey(userId)) { List ssids = (List)
-		 * this.userId2ssids.get(userId); ret = new
-		 * ServiceSessionLocal[ssids.size()]; int index = 0; for (Iterator i =
-		 * ssids.iterator(); i.hasNext();) { String ssid = (String) i.next();
-		 * ret[index++] = this.getServiceSession(ssid); } }
-		 */
 		try {
 			if (log.isDebugEnabled())
 				log.debug("find the ss's for userid = " + userId);
@@ -419,6 +338,11 @@ public class KernelRepository {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws KernelRepositoryException
+	 */
 	public ServiceSessionLocal[] listAllServiceSessions()
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
@@ -436,6 +360,11 @@ public class KernelRepository {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @param serviceInfo
+	 * @throws KernelRepositoryException
+	 */
 	public void addServiceInfo(ServiceInfo serviceInfo)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
@@ -482,6 +411,11 @@ public class KernelRepository {
 		log.debug("-> ... processing DONE!");
 	}
 
+	/**
+	 * 
+	 * @param serviceId
+	 * @throws KernelRepositoryException
+	 */
 	public void removeServiceInfo(String serviceId)
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
@@ -500,17 +434,6 @@ public class KernelRepository {
 			throw new KernelRepositoryException(
 					"Couldn't remove the service info for id: " + serviceId);
 		}
-		/*
-		 * if (serviceId == null || serviceId.length() == 0) throw new
-		 * KernelRepositoryException("invalid service id"); if
-		 * (this.serviceId2serviceInfo.containsKey(serviceId)) { if
-		 * (log.isDebugEnabled()) log.debug("removing the info for the serviceId = " +
-		 * serviceId); this.serviceId2serviceInfo.remove(serviceId);
-		 * this.serviceId2NumberOfInstances.remove(serviceId); } else {
-		 * log.error("info for specified service id doesn't exist!"); throw new
-		 * KernelRepositoryException( "info for specified service id doesn't
-		 * exist!"); }
-		 */
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -520,8 +443,6 @@ public class KernelRepository {
 	 */
 	public void emptyServiceInfo() throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		//this.serviceId2serviceInfo = new HashMap();
-		//this.serviceId2NumberOfInstances = new HashMap();
 		this.serviceId2serviceFactory = new HashMap();
 		log.debug("-> ... processing DONE!");
 	}
@@ -557,14 +478,6 @@ public class KernelRepository {
 			throw new KernelRepositoryException(
 					"Couldn't find the service info for id: " + serviceId);
 		}
-		/*
-		 * if (this.serviceId2serviceInfo.containsKey(serviceId)) {
-		 * log.debug("found the right info"); ret = (ServiceInfo)
-		 * this.serviceId2serviceInfo.get(serviceId); } else { log.error("info
-		 * for specified service id doesn't exist!"); throw new
-		 * KernelRepositoryException( "info for specified service id doesn't
-		 * exist!"); }
-		 */
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -626,7 +539,6 @@ public class KernelRepository {
 				log.debug("got collection size = " + ret.length);
 			int index = 0;
 			for (Iterator i = collection.iterator(); i.hasNext();) {
-				//log.debug("type = " + i.next().getClass().getName());
 				ServiceInfoEntityLocal si = (ServiceInfoEntityLocal) i.next();
 				ServiceInfo s = new ServiceInfo();
 				s.setActive(si.getActive().booleanValue());
@@ -641,15 +553,9 @@ public class KernelRepository {
 			}
 		} catch (FinderException ex) {
 			log.error("caught ex: " + ex.toString());
+			throw new KernelRepositoryException(
+					"Couldn't find the data into application servers database (FinderException");
 		}
-		/*
-		 * ret = new ServiceInfo[this.serviceId2serviceInfo.size()]; if
-		 * (log.isDebugEnabled()) log.debug("found " + ret.length + " items!");
-		 * int index = 0; for (Iterator i =
-		 * this.serviceId2serviceInfo.values().iterator(); i .hasNext();) { if
-		 * (log.isDebugEnabled()) log.debug("working with index = " + index);
-		 * ret[index++] = (ServiceInfo) i.next(); }
-		 */
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -743,13 +649,6 @@ public class KernelRepository {
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		String id = userProfile.getUserId();
-		/*
-		 * if (this.userId2UserProfile.containsKey(id)) { log.error("UserProfile
-		 * already exist in the repository"); throw new
-		 * KernelRepositoryException( "Couldn't add UserProfile into repository -
-		 * already exists!"); } else { this.userId2UserProfile.put(id,
-		 * userProfile); }
-		 */
 		try {
 			UserProfileEntityLocal local = this.userProfileEntityLocalHome
 					.create(id);
@@ -778,14 +677,6 @@ public class KernelRepository {
 		log.debug("-> start processing ...");
 		if (userId == null || userId.length() == 0)
 			throw new KernelRepositoryException("invalid user id");
-		/*
-		 * if (this.userId2UserProfile.containsKey(userId)) { if
-		 * (log.isDebugEnabled()) log.debug("removing the info for the userId = " +
-		 * userId); this.userId2UserProfile.remove(userId); } else {
-		 * log.error("info for specified user id doesn't exist!"); throw new
-		 * KernelRepositoryException( "info for specified user id doesn't
-		 * exist!"); }
-		 */
 		try {
 			UserProfileEntityLocal local = this.userProfileEntityLocalHome
 					.findByPrimaryKey(userId);
@@ -814,14 +705,6 @@ public class KernelRepository {
 		if (userId == null || userId.length() == 0)
 			throw new KernelRepositoryException("invalid user id");
 		IUserProfile ret = null;
-		/*
-		 * if (this.userId2UserProfile.containsKey(userId)) { log.debug("found
-		 * the right info"); ret = (IUserProfile)
-		 * this.userId2UserProfile.get(userId); } else { log.error("info for
-		 * specified user id doesn't exist!"); throw new
-		 * KernelRepositoryException( "info for specified user id doesn't
-		 * exist!"); }
-		 */
 		try {
 			UserProfileEntityLocal local = this.userProfileEntityLocalHome
 					.findByPrimaryKey(userId);
@@ -855,10 +738,6 @@ public class KernelRepository {
 		boolean ret = false;
 		if (userId == null || userId.length() == 0)
 			throw new KernelRepositoryException("invalid user id");
-		/*
-		 * ret = this.userId2UserProfile.containsKey(userId); log.debug("-> ...
-		 * processing DONE!");
-		 */
 		try {
 			UserProfileEntityLocal local = this.userProfileEntityLocalHome
 					.findByPrimaryKey(userId);
@@ -918,16 +797,6 @@ public class KernelRepository {
 	/**
 	 * 
 	 * @param userId
-	 * @param asid
-	 */
-	/*
-	 * public void updateAccessSessionData(String userId, String asid) {
-	 * this.userId2asid.put(userId, asid); this.asid2userId.put(asid, userId); }
-	 */
-
-	/**
-	 * 
-	 * @param userId
 	 * @return
 	 * @throws KernelRepositoryException
 	 */
@@ -935,12 +804,6 @@ public class KernelRepository {
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		String ret = "";
-		/*
-		 * if (this.userId2asid.containsKey(userId)) { ret = (String)
-		 * this.userId2asid.get(userId); } else { throw new
-		 * KernelRepositoryException( "mapping to asid for specified user id
-		 * doesn't exist"); }
-		 */
 		try {
 			Collection collection = this.accessSessionEntityLocalHome
 					.findByUserId(userId);
@@ -977,12 +840,6 @@ public class KernelRepository {
 	public String getUserIdByAsid(String asid) throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		String ret = "";
-		/*
-		 * if (this.asid2userId.containsKey(asid)) { ret = (String)
-		 * this.asid2userId.get(asid); } else { throw new
-		 * KernelRepositoryException( "mapping to user id for specified asid
-		 * doesn't exist"); }
-		 */
 		try {
 			AccessSessionEntityLocal local = this.accessSessionEntityLocalHome
 					.findByPrimaryKey(asid);
@@ -1005,14 +862,6 @@ public class KernelRepository {
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		String ssid = data.getSsid();
-		/*
-		 * if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
-		 * log.error("Callback data already exists in the repository"); throw
-		 * new KernelRepositoryException( "Couldn't add data into repository -
-		 * already exists!"); } else { if (log.isDebugEnabled()) log.debug("add
-		 * callbackdata for ssid = " + ssid);
-		 * this.ssid2bpelForwardCallbackData.put(ssid, data); }
-		 */
 		BPELCallbackDataEntityLocal local = null;
 		try {
 			local = this.bpelCallbackDataEntityLocalHome.findByPrimaryKey(ssid);
@@ -1059,15 +908,6 @@ public class KernelRepository {
 		if (ssid == null || ssid.length() == 0)
 			throw new KernelRepositoryException("invalid service session id");
 		ForwardBPELCallbackData ret = null;
-		/*
-		 * if (this.ssid2bpelForwardCallbackData.containsKey(ssid)) {
-		 * log.debug("found the right data"); ret = (ForwardBPELCallbackData)
-		 * this.ssid2bpelForwardCallbackData .get(ssid);
-		 * this.ssid2bpelForwardCallbackData.remove(ssid); } else {
-		 * log.error("data record for specified ssid doesn't exist!"); throw new
-		 * KernelRepositoryException( "data record for specified ssid doesn't
-		 * exist!"); }
-		 */
 		try {
 			BPELCallbackDataEntityLocal local = this.bpelCallbackDataEntityLocalHome
 					.findByPrimaryKey(ssid);
@@ -1110,12 +950,6 @@ public class KernelRepository {
 	public void resetNumberOfServiceInstances()
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
-		/*
-		 * for (Iterator i =
-		 * this.serviceId2NumberOfInstances.keySet().iterator(); i .hasNext();) {
-		 * String sid = (String) i.next();
-		 * this.serviceId2NumberOfInstances.put(sid, new Integer(0)); }
-		 */
 		try {
 			Collection collection = this.serviceInfoEntityLocalHome.findAll();
 			for (Iterator i = collection.iterator(); i.hasNext();) {
@@ -1162,14 +996,6 @@ public class KernelRepository {
 			throws KernelRepositoryException {
 		log.debug("-> start processing ...");
 		String ret = "0";
-		/*
-		 * if (this.serviceId2NumberOfInstances.containsKey(serviceId)) {
-		 * Integer i = (Integer) this.serviceId2NumberOfInstances
-		 * .get(serviceId); ret = i.toString(); } else { log.error("UNKNOWN
-		 * SERVICE ID: " + serviceId); throw new
-		 * KernelRepositoryException("Unknown service id = " + serviceId); }
-		 * log.debug("-> ... processing DONE!");
-		 */
 		try {
 			ServiceInfoEntityLocal local = this.serviceInfoEntityLocalHome
 					.findByPrimaryKey(serviceId);
@@ -1236,17 +1062,10 @@ public class KernelRepository {
 		IeMayorServiceFactory ret = null;
 		try {
 			Class _class = null;
-			/*
-			 * if (clazzName
-			 * .equals("org.emayor.servicehandling.kernel.eMayorServiceFactory")) {
-			 * log .debug("using the default factory -> so the def class loader
-			 * as well"); _class = Class.forName(clazzName); } else {
-			 */
 			log.debug("using the service class loader");
 			ClassLoader _loader = this.getClass().getClassLoader();
 			ServiceClassLoader loader = new ServiceClassLoader(_loader);
 			_class = loader.loadServiceFactoryClass(serviceId);
-			//}
 			if (_class != null)
 				log.debug("forName called successful - class NOT null");
 			ret = (IeMayorServiceFactory) _class.newInstance();

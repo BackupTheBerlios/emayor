@@ -46,16 +46,16 @@
 	</RequesterDetails>
 	<ConcernedPersonDetails>
 		<ed:CitizenName>
-			<aapd:CitizenNameTitle>String</aapd:CitizenNameTitle>
-			<aapd:CitizenNameForename>String</aapd:CitizenNameForename>
-			<aapd:CitizenNameSurname>String</aapd:CitizenNameSurname>
-			<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
-			<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
+			<aapd:CitizenNameTitle>Dr</aapd:CitizenNameTitle>
+			<aapd:CitizenNameForename>Pim</aapd:CitizenNameForename>
+			<aapd:CitizenNameSurname>Hengeveld</aapd:CitizenNameSurname>
+			<aapd:CitizenNameSuffix>-</aapd:CitizenNameSuffix>
+			<aapd:CitizenNameRequestedName>-</aapd:CitizenNameRequestedName>
 		</ed:CitizenName>
 		<ed:PreferredLanguages>en</ed:PreferredLanguages>
 		<ed:ContactDetails>
 			<aapd:Email>
-				<aapd:EmailAddress>A</aapd:EmailAddress>
+				<aapd:EmailAddress>PimHegenveld@netscape.net</aapd:EmailAddress>
 			</aapd:Email>
 			<aapd:Telephone>
 				<aapd:TelNationalNumber>0</aapd:TelNationalNumber>

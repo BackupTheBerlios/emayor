@@ -39,17 +39,9 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 
 	private ServiceSessionBeanEntityLocal serviceSessionData;
 
-	//private String asid;
-
-	//private String ssid;
-
-	//private String serviceId;
-
 	private SessionContext ctx;
 
 	private IeMayorService eMayorService;
-
-	//private Date startDate;
 
 	/**
 	 *  
@@ -105,7 +97,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#getAccessSessionId()
 	 */
 	public String getAccessSessionId() throws ServiceSessionException {
 		log.debug("getting asid ...");
@@ -116,7 +108,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#setAccessSessionId(String)
 	 */
 	public void setAccessSessionId(String asid) throws ServiceSessionException {
 		if (log.isDebugEnabled())
@@ -128,7 +120,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#getServiceId()
 	 */
 	public String getServiceId() throws ServiceSessionException {
 		log.debug("getting service name");
@@ -139,7 +131,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#setServiceId(String)
 	 */
 	public void setServiceId(String serviceId) throws ServiceSessionException {
 		log.debug("getting service id");
@@ -150,7 +142,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#stopService(String)
 	 */
 	public void stopService(String reason) throws ServiceSessionException {
 		log.debug("-> start processing ...");
@@ -161,7 +153,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see org.emayor.servicehandling.kernel.ISession#getSessionId()
 	 */
 	public String getSessionId() throws SessionException {
 		log.debug("-> start processing ...");
@@ -224,8 +216,10 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 			this.serviceSessionData = home.findByPrimaryKey(ssid);
 			if (log.isDebugEnabled()) {
 				if (this.serviceSessionData != null) {
-					log.debug("got the properly service session bean instance!");
-					log.debug("ssid from db: " + this.serviceSessionData.getSsid());
+					log
+							.debug("got the properly service session bean instance!");
+					log.debug("ssid from db: "
+							+ this.serviceSessionData.getSsid());
 				}
 			}
 		} catch (ServiceLocatorException ex) {
@@ -245,7 +239,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#geteMayorService()
 	 */
 	public IeMayorService geteMayorService() throws ServiceSessionException {
 		log.debug("-> start processing ...");
@@ -256,7 +250,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#seteMayorService(IeMayorService)
 	 */
 	public void seteMayorService(IeMayorService emayorService)
 			throws ServiceSessionException {
@@ -269,7 +263,8 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#startServiceRequestCompleted(String, boolean,
+	 *      String, String)
 	 */
 	public void startService(String userId, boolean isForwarded, String xmlDoc,
 			String docSig) throws ServiceSessionException {
@@ -294,7 +289,8 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#startServiceRequestCompleted(String, boolean,
+	 *      String, String)
 	 */
 	public void startServiceRequestCompleted(String userId,
 			boolean isForwarded, String xmlDoc, String docSig)
@@ -320,7 +316,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#endService()
 	 */
 	public void endService() throws ServiceSessionException {
 		log.debug("-> start processing ...");
@@ -351,7 +347,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see org.emayor.servicehandling.kernel.ISession#getStartDate()
 	 */
 	public Date getStartDate() throws SessionException {
 		log.debug("-> start processing ...");
@@ -362,7 +358,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#getCreatorId()
 	 */
 	public String getCreatorId() throws ServiceSessionException {
 		log.debug("-> start processing ...");
@@ -373,7 +369,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 * Business Method
 	 * 
 	 * @ejb.interface-method view-type = "local"
-	 *  
+	 * @see IServiceSession#setCreatorId(String)
 	 */
 	public void setCreatorId(String creatorId) throws ServiceSessionException {
 		log.debug("-> start processing ...");
