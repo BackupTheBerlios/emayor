@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N10047,N10058,N10089"/>
+<target name="_packaging_generation_" depends="N10004,N10041,N10052,N10083"/>
 <target name="N10004" description="eMayor_PolicyEnforcementEJB.jar">
 <jar destfile="eMayor_PolicyEnforcementEJB.jar">
 <zipfileset dir="src/META-INF" prefix="META-INF">
@@ -12,22 +12,17 @@
 <zipfileset dir="../CertificateValidator/IAIKJCE">
 <include name="iaik_jce.jar"/>
 </zipfileset>
-<zipfileset dir="lib">
-<include name="sunxacml.jar"/>
-</zipfileset>
-<zipfileset dir="lib">
-<include name="xmlsec-1.2.1.jar"/>
-</zipfileset>
 <zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class"/>
+<zipfileset dir="lib"/>
 <zipfileset dir="../CertificateValidator/bin" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class, org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class"/>
 </jar>
 </target>
-<target name="N10047" description="eMayor_PolicyEnforcementEJB-client.jar">
+<target name="N10041" description="eMayor_PolicyEnforcementEJB-client.jar">
 <jar destfile="eMayor_PolicyEnforcementEJB-client.jar">
 <zipfileset dir="bin" includes="org/eMayor/PolicyEnforcement/interfaces/*.class"/>
 </jar>
 </target>
-<target name="N10058" description="eMayor_PolicyEnforcementWeb.war">
+<target name="N10052" description="eMayor_PolicyEnforcementWeb.war">
 <jar destfile="eMayor_PolicyEnforcementWeb.war">
 <zipfileset dir="src/WEB-INF" prefix="WEB-INF">
 <include name="web.xml"/>
@@ -44,7 +39,7 @@
 <zipfileset dir="bin" prefix="WEB-INF/classes" includes="org/eMayor/Test/*.class"/>
 </jar>
 </target>
-<target name="N10089" description="eMayor_PolicyEnforcementApp.ear">
+<target name="N10083" description="eMayor_PolicyEnforcementApp.ear">
 <jar destfile="eMayor_PolicyEnforcementApp.ear">
 <zipfileset dir="src/META-INF" prefix="META-INF">
 <include name="application.xml"/>
@@ -54,12 +49,6 @@
 </zipfileset>
 <zipfileset dir=".">
 <include name="eMayor_PolicyEnforcementWeb.war"/>
-</zipfileset>
-<zipfileset dir="lib">
-<include name="log4j-1.2.9.jar"/>
-</zipfileset>
-<zipfileset dir="lib">
-<include name="Config-Interface.jar"/>
 </zipfileset>
 </jar>
 </target>

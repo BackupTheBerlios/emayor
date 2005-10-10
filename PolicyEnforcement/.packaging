@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations>
-<archive name="eMayor_PolicyEnforcementEJB.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" location="src/META-INF/ejb-jar.xml" used="true"/>
-<file prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" name="jboss.xml" location="src/META-INF/jboss.xml" used="true"/>
-<folder prefix="" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class, org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class" excludes="" project="CertificateValidator" projectLocation="bin" name="bin" location="../CertificateValidator/bin" used="true"/>
-<file prefix="" project="CertificateValidator" projectLocation="IAIKJCE/iaik_jce.jar" name="iaik_jce.jar" location="../CertificateValidator/IAIKJCE/iaik_jce.jar" used="true"/>
-<file prefix="" project="" projectLocation="lib/sunxacml.jar" name="sunxacml.jar" location="lib/sunxacml.jar" used="true"/>
-<file prefix="" project="" projectLocation="lib/xmlsec-1.2.1.jar" name="xmlsec-1.2.1.jar" location="lib/xmlsec-1.2.1.jar" used="true"/>
+<archive destination="" exploded="false" name="eMayor_PolicyEnforcementEJB.jar" used="true">
+<folder excludes="" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<file location="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" used="true"/>
+<file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" used="true"/>
+<folder excludes="" includes="" location="lib" name="lib" prefix="" project="" projectLocation="lib" used="true"/>
+<folder excludes="" includes="org/eMayor/PolicyEnforcement/CertificateValidation/CertificateValidator.class, org/eMayor/PolicyEnforcement/CertificateValidation/CRLFetcher.class" location="../CertificateValidator/bin" name="bin" prefix="" project="CertificateValidator" projectLocation="bin" used="true"/>
+<file location="../CertificateValidator/IAIKJCE/iaik_jce.jar" name="iaik_jce.jar" prefix="" project="CertificateValidator" projectLocation="IAIKJCE/iaik_jce.jar" used="true"/>
 </archive>
-<archive name="eMayor_PolicyEnforcementEJB-client.jar" destination="" used="true" exploded="false">
-<folder prefix="" includes="org/eMayor/PolicyEnforcement/interfaces/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
+<archive destination="" exploded="false" name="eMayor_PolicyEnforcementEJB-client.jar" used="true">
+<folder excludes="" includes="org/eMayor/PolicyEnforcement/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
 </archive>
-<archive name="eMayor_PolicyEnforcementWeb.war" destination="" used="true" exploded="false">
-<folder prefix="WEB-INF/classes" includes="org/eMayor/Test/*.class" excludes="" project="" projectLocation="bin" name="bin" location="bin" used="true"/>
-<file prefix="WEB-INF" project="" projectLocation="src/WEB-INF/web.xml" name="web.xml" location="src/WEB-INF/web.xml" used="true"/>
-<file prefix="WEB-INF" project="" projectLocation="src/WEB-INF/jboss-web.xml" name="jboss-web.xml" location="src/WEB-INF/jboss-web.xml" used="true"/>
-<file prefix="WEB-INF/lib" project="" projectLocation="eMayor_PolicyEnforcementEJB-client.jar" name="eMayor_PolicyEnforcementEJB-client.jar" location="eMayor_PolicyEnforcementEJB-client.jar" used="true"/>
-<file prefix="" project="" projectLocation="docroot/index.html" name="index.html" location="docroot/index.html" used="true"/>
+<archive destination="" exploded="false" name="eMayor_PolicyEnforcementWeb.war" used="true">
+<folder excludes="" includes="org/eMayor/Test/*.class" location="bin" name="bin" prefix="WEB-INF/classes" project="" projectLocation="bin" used="true"/>
+<file location="src/WEB-INF/web.xml" name="web.xml" prefix="WEB-INF" project="" projectLocation="src/WEB-INF/web.xml" used="true"/>
+<file location="src/WEB-INF/jboss-web.xml" name="jboss-web.xml" prefix="WEB-INF" project="" projectLocation="src/WEB-INF/jboss-web.xml" used="true"/>
+<file location="eMayor_PolicyEnforcementEJB-client.jar" name="eMayor_PolicyEnforcementEJB-client.jar" prefix="WEB-INF/lib" project="" projectLocation="eMayor_PolicyEnforcementEJB-client.jar" used="true"/>
+<file location="docroot/index.html" name="index.html" prefix="" project="" projectLocation="docroot/index.html" used="true"/>
 </archive>
-<archive name="eMayor_PolicyEnforcementApp.ear" destination="" used="true" exploded="false">
-<file prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" name="application.xml" location="src/META-INF/application.xml" used="true"/>
-<file prefix="" project="" projectLocation="eMayor_PolicyEnforcementEJB.jar" name="eMayor_PolicyEnforcementEJB.jar" location="eMayor_PolicyEnforcementEJB.jar" used="true"/>
-<file prefix="" project="" projectLocation="eMayor_PolicyEnforcementWeb.war" name="eMayor_PolicyEnforcementWeb.war" location="eMayor_PolicyEnforcementWeb.war" used="true"/>
-<file prefix="" project="" projectLocation="lib/log4j-1.2.9.jar" name="log4j-1.2.9.jar" location="lib/log4j-1.2.9.jar" used="true"/>
-<file prefix="" project="" projectLocation="lib/Config-Interface.jar" name="Config-Interface.jar" location="lib/Config-Interface.jar" used="true"/>
+<archive destination="" exploded="false" name="eMayor_PolicyEnforcementApp.ear" used="true">
+<file location="src/META-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="src/META-INF/application.xml" used="true"/>
+<file location="eMayor_PolicyEnforcementEJB.jar" name="eMayor_PolicyEnforcementEJB.jar" prefix="" project="" projectLocation="eMayor_PolicyEnforcementEJB.jar" used="true"/>
+<file location="eMayor_PolicyEnforcementWeb.war" name="eMayor_PolicyEnforcementWeb.war" prefix="" project="" projectLocation="eMayor_PolicyEnforcementWeb.war" used="true"/>
 </archive>
 </configurations>

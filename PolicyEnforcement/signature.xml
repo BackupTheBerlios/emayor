@@ -1,0 +1,48 @@
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:Reference URI="#TheFirstObject">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"></ds:Transform>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>ipbs0UyafkdRIcfIo9zyZLce+CE=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+nOMgqi49jMCRxsA1vQrsE2LRbtgLbzvvmCPi6t17nT8jCyENw+CK/PUdUtem7b2p4n5SqMmw1GrI
+EZzobWOI9rLT8FGQf5YSPE6GUsZ/aCiZtDjtej/arFVXEEevIkHQb7F1YUjBvau8I7IaTisNOQAz
+uCxGAvW1bu4gYuByvo8=
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIICrzCCAhigAwIBAgILAQAAAAABBV0ID9QwDQYJKoZIhvcNAQEFBQAwLTELMAkGA1UEBhMCQkUx
+HjAcBgNVBAMTFWVNYXlvciBPcGVyYXRpb25hbCBDQTAeFw0wNTA3MjgxMTE2NDhaFw0wNjA3Mjgx
+MTE2NDhaMEsxEjAQBgNVBAMTCUNpdGl6ZW4gMjELMAkGA1UEBhMCQkUxKDAmBgkqhkiG9w0BCQEW
+GWFiZGVsLnlvdXNzb3VmQHViaXplbi5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAL6i
+nnS9IYoZKYXJkdegRyPVJVk7XN19XyCVD+UwX6aKhy5912fGzN6B/ayHtQXbpWIkx+vGSNhLbnR6
+fDuy0Z9Yk5dF12SfpUZhKS4skSWLH3ixJqkRpxQGJU56pGA0Vxr7pLJBASCxAMj+c8douMFjHujZ
+zMSvqhc9B+0lqDblAgMBAAGjgbYwgbMwDgYDVR0PAQH/BAQDAgTwMB8GA1UdIwQYMBaAFCstpOtw
+0EAven5JTrS+/DuQr55YMDwGA1UdHwQ1MDMwMaAvoC2GK2h0dHA6Ly8yMTIuMTEzLjcwLjIyL2VN
+YXlvci1vcGVyYXRpb25hbC5jcmwwHQYDVR0OBBYEFAYEOO73rV3IAWCH/4v3MFD9ePwRMBEGCWCG
+SAGG+EIBAQQEAwIFoDAQBgMqAwQECRMHQ2l0aXplbjANBgkqhkiG9w0BAQUFAAOBgQBzg2J/5poF
++iS7HbJw0KybNbaEeuAl3wLIx2w159y8Rz7RAIG3nhTokc5OzuPjj9/oxPwjFc9/ac7h8FgRDkYr
+NRfzmBK31zs7vHkV+Ip74qc4y43VImrFZ+Pg6g0DyvglOYN1E0gNd1H2oSd7dYP5MLXEWT4wCGVz
+pGqjsmPzmA==
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+vqKedL0hihkphcmR16BHI9UlWTtc3X1fIJUP5TBfpoqHLn3XZ8bM3oH9rIe1BdulYiTH68ZI2Etu
+dHp8O7LRn1iTl0XXZJ+lRmEpLiyRJYsfeLEmqRGnFAYlTnqkYDRXGvukskEBILEAyP5zx2i4wWMe
+6NnMxK+qFz0H7SWoNuU=
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+<ds:Object Id="TheFirstObject"><InsideObject>A text in a box</InsideObject></ds:Object>
+</ds:Signature>

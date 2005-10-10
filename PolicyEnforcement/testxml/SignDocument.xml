@@ -1,0 +1,298 @@
+<ResidenceCertificationRequestDocument xmlns="http://www.emayor.org/BusinessDocument.xsd" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd..\xsd\emayor\BusinessDocument-v0.3.xsd">
+    <LoginServer>
+    String
+    </LoginServer>
+    <TransactionId>
+    String
+    </TransactionId>
+    <RequesterDetails>
+        <ed:CitizenName>
+            <aapd:CitizenNameTitle>
+            StringAAA+BBB
+            </aapd:CitizenNameTitle>
+            <aapd:CitizenNameForename>
+            String
+            </aapd:CitizenNameForename>
+            <aapd:CitizenNameSurname>
+            String
+            </aapd:CitizenNameSurname>
+            <aapd:CitizenNameSuffix>
+            String
+            </aapd:CitizenNameSuffix>
+            <aapd:CitizenNameRequestedName>
+            String
+            </aapd:CitizenNameRequestedName>
+        
+        </ed:CitizenName>
+        <ed:PreferredLanguages>
+        en
+        </ed:PreferredLanguages>
+        <ed:ContactDetails>
+            <aapd:Email>
+                <aapd:EmailAddress>
+                A
+                </aapd:EmailAddress>
+            
+            </aapd:Email>
+            <aapd:Telephone>
+                <aapd:TelNationalNumber>
+                0
+                </aapd:TelNationalNumber>
+                <aapd:TelExtensionNumber>
+                0
+                </aapd:TelExtensionNumber>
+                <aapd:TelCountryCode>
+                0
+                </aapd:TelCountryCode>
+            
+            </aapd:Telephone>
+            <aapd:Fax>
+                <aapd:FaxNationalNumber>
+                0
+                </aapd:FaxNationalNumber>
+                <aapd:FaxExtensionNumber>
+                0
+                </aapd:FaxExtensionNumber>
+                <aapd:FaxCountryCode>
+                0
+                </aapd:FaxCountryCode>
+            
+            </aapd:Fax>
+        
+        </ed:ContactDetails>
+        <ed:CitizenSex>
+        Male
+        </ed:CitizenSex>
+        <ed:CitizenMaritalStatus>
+        Single
+        </ed:CitizenMaritalStatus>
+        <ed:CitizenBirthDetails>
+            <ed:DateOfBirth>
+                <aapd:BirthDate>
+                1967-08-13
+                </aapd:BirthDate>
+                <aapd:VerifiedBy>
+                not verified
+                </aapd:VerifiedBy>
+            
+            </ed:DateOfBirth>
+            <cbc:CityName>
+            String
+            </cbc:CityName>
+            <ed:BirthActNumber>
+            String
+            </ed:BirthActNumber>
+        
+        </ed:CitizenBirthDetails>
+        <ed:Nationality>
+        String
+        </ed:Nationality>
+        <ed:IdentificationDetails>
+            <ed:IDCardNumber>
+            AAAAAAAAAA
+            </ed:IDCardNumber>
+            <ed:PassportNumber>
+            000000000
+            </ed:PassportNumber>
+        
+        </ed:IdentificationDetails>
+    
+    </RequesterDetails>
+    <ConcernedPersonDetails>
+        <ed:CitizenName>
+            <aapd:CitizenNameTitle>
+            String
+            </aapd:CitizenNameTitle>
+            <aapd:CitizenNameForename>
+            String
+            </aapd:CitizenNameForename>
+            <aapd:CitizenNameSurname>
+            String
+            </aapd:CitizenNameSurname>
+            <aapd:CitizenNameSuffix>
+            String
+            </aapd:CitizenNameSuffix>
+            <aapd:CitizenNameRequestedName>
+            String
+            </aapd:CitizenNameRequestedName>
+        
+        </ed:CitizenName>
+        <ed:PreferredLanguages>
+        en
+        </ed:PreferredLanguages>
+        <ed:ContactDetails>
+            <aapd:Email>
+                <aapd:EmailAddress>
+                A
+                </aapd:EmailAddress>
+            
+            </aapd:Email>
+            <aapd:Telephone>
+                <aapd:TelNationalNumber>
+                0
+                </aapd:TelNationalNumber>
+                <aapd:TelExtensionNumber>
+                0
+                </aapd:TelExtensionNumber>
+                <aapd:TelCountryCode>
+                0
+                </aapd:TelCountryCode>
+            
+            </aapd:Telephone>
+            <aapd:Fax>
+                <aapd:FaxNationalNumber>
+                0
+                </aapd:FaxNationalNumber>
+                <aapd:FaxExtensionNumber>
+                0
+                </aapd:FaxExtensionNumber>
+                <aapd:FaxCountryCode>
+                0
+                </aapd:FaxCountryCode>
+            
+            </aapd:Fax>
+        
+        </ed:ContactDetails>
+        <ed:CitizenSex>
+        Male
+        </ed:CitizenSex>
+        <ed:CitizenMaritalStatus>
+        Single
+        </ed:CitizenMaritalStatus>
+        <ed:CitizenBirthDetails>
+            <ed:DateOfBirth>
+                <aapd:BirthDate>
+                1967-08-13
+                </aapd:BirthDate>
+                <aapd:VerifiedBy>
+                not verified
+                </aapd:VerifiedBy>
+            
+            </ed:DateOfBirth>
+            <cbc:CityName>
+            String
+            </cbc:CityName>
+            <ed:BirthActNumber>
+            String
+            </ed:BirthActNumber>
+        
+        </ed:CitizenBirthDetails>
+        <ed:Nationality>
+        String
+        </ed:Nationality>
+        <ed:IdentificationDetails>
+            <ed:IDCardNumber>
+            AAAAAAAAAA
+            </ed:IDCardNumber>
+            <ed:PassportNumber>
+            000000000
+            </ed:PassportNumber>
+        
+        </ed:IdentificationDetails>
+    
+    </ConcernedPersonDetails>
+    <RequestDate>
+    1967-08-13
+    </RequestDate>
+    <ed:Observations>
+    String
+    </ed:Observations>
+    <NotificationMedium>
+    Email
+    </NotificationMedium>
+    <ServingMunicipalityDetails>
+    String
+    </ServingMunicipalityDetails>
+    <ReceivingMunicipalityDetails>
+    String
+    </ReceivingMunicipalityDetails>
+    <RequestedDocumentFormat>
+    Digital
+    </RequestedDocumentFormat>
+    <RequesterAddress>
+        <cbc:Postbox>
+        String
+        </cbc:Postbox>
+        <cbc:Floor>
+        String
+        </cbc:Floor>
+        <cbc:Room>
+        String
+        </cbc:Room>
+        <cbc:StreetName>
+        String
+        </cbc:StreetName>
+        <cbc:AdditionalStreetName>
+        String
+        </cbc:AdditionalStreetName>
+        <cbc:BuildingName>
+        String
+        </cbc:BuildingName>
+        <cbc:BuildingNumber>
+        String
+        </cbc:BuildingNumber>
+        <cbc:Department>
+        String
+        </cbc:Department>
+        <cbc:CityName>
+        String
+        </cbc:CityName>
+        <cbc:PostalZone>
+        String
+        </cbc:PostalZone>
+        <cbc:District>
+        String
+        </cbc:District>
+        <cac:Country>
+            <cac:IdentificationCode>
+            AD
+            </cac:IdentificationCode>
+            <cbc:Name>
+            String
+            </cbc:Name>
+        
+        </cac:Country>
+        <ed:Nucleus>
+        String
+        </ed:Nucleus>
+        <ed:StreetQualifier>
+        String
+        </ed:StreetQualifier>
+        <ed:Section>
+        String
+        </ed:Section>
+        <ed:RegistrationSheet>
+        String
+        </ed:RegistrationSheet>
+    
+    </RequesterAddress>
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+<ds:Reference URI="">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<ds:DigestValue>2iPaZBv20MduRV47WTjm+MzjBl4=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+ftix9f4hceo9lEt0RTJBXBkJIQXnqAKAlm8MoQucGNaZxr+s1rRb9q798JTYYvJyH/qsSD3FqL8U
+aJpman0Q6ukXtEXrFjBhLS2zWRb5o3H5t/fcskruu08InPZqtVFnd1bqRLLQhT+FWaUN7iSzp2Db
+alVar99ezrL1DOD/tKw=
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+vqKedL0hihkphcmR16BHI9UlWTtc3X1fIJUP5TBfpoqHLn3XZ8bM3oH9rIe1BdulYiTH68ZI2Etu
+dHp8O7LRn1iTl0XXZJ+lRmEpLiyRJYsfeLEmqRGnFAYlTnqkYDRXGvukskEBILEAyP5zx2i4wWMe
+6NnMxK+qFz0H7SWoNuU=
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+</ds:Signature></ResidenceCertificationRequestDocument>

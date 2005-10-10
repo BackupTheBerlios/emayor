@@ -32,6 +32,7 @@ import java.util.Iterator;
 
 import java.util.List;
 import java.util.Set;
+import org.eMayor.PolicyEnforcement.XMLSignature.VerifySignature;
 
 /**
  * @ejb.bean name="PolicyEnforcement"
@@ -47,6 +48,7 @@ public class PolicyEnforcementBean implements SessionBean {
 
 	// Create the PEP and the PDP
 	private static C_PEP MyPEP = null;
+	private static VerifySignature  MyVerifier= new VerifySignature();
 
 	/**
 	 * 
@@ -181,8 +183,8 @@ public class PolicyEnforcementBean implements SessionBean {
 	 */
 	public boolean F_VerifyXMLSignature(String xmlDocument)
 		throws E_PolicyEnforcementException {
-		// TODO Auto-generated method stub
-		return true;
+		
+		return MyVerifier.Verify(xmlDocument);
 	}
 	/**
 	 * Business method
