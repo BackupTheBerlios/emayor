@@ -23,6 +23,7 @@ package org.eMayor.PolicyEnforcement.XMLSignature;
 
 
 
+import java.io.StringReader;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 
@@ -38,8 +39,10 @@ import org.apache.xml.security.utils.XMLUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.apache.log4j.*;
 import org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
+
 
 /**
  *
@@ -56,6 +59,8 @@ public class VerifySignature {
    public boolean Verify(String SignedDocument) throws E_PolicyEnforcementException {
       if (log.isDebugEnabled()) 
    		log.debug("PE::VerifySignature:: Startig process ...");
+      log.debug("PE::VerifySignature:: Got XML Document \n" + SignedDocument);
+      if (SignedDocument==null) throw new E_PolicyEnforcementException("PE::VerifySignature:: Ivalid String"); 
       javax.xml.parsers.DocumentBuilderFactory dbf =
       javax.xml.parsers.DocumentBuilderFactory.newInstance();
 
@@ -70,7 +75,12 @@ public class VerifySignature {
       	
       		javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
       		db.setErrorHandler(new org.apache.xml.security.utils.IgnoreAllErrorHandler());
-     		org.w3c.dom.Document doc = db.parse(SignedDocument);
+      		StringReader myStrReader = new StringReader(SignedDocument);
+    		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::got the String Reader...");
+    		
+    		InputSource myInputSource = new InputSource(myStrReader);
+      		
+      		org.w3c.dom.Document doc = db.parse(myInputSource);
      		
      		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Document parsed .. looking for ds:Signature elements ..");
             Element nscontext = XMLUtils.createDSctx(doc, "ds",

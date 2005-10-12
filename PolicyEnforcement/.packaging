@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations>
 <archive destination="" exploded="false" name="eMayor_PolicyEnforcementEJB.jar" used="true">
-<folder excludes="" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<folder excludes="" includes="org/eMayor/PolicyEnforcement/*.class, org/eMayor/PolicyEnforcement/interfaces/*.class, org/eMayor/PolicyEnforcement/XMLSignature/*.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
 <file location="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" prefix="META-INF" project="" projectLocation="src/META-INF/ejb-jar.xml" used="true"/>
 <file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="src/META-INF/jboss.xml" used="true"/>
 <folder excludes="" includes="" location="lib" name="lib" prefix="" project="" projectLocation="lib" used="true"/>

@@ -21,11 +21,12 @@ import javax.xml.transform.stream.StreamResult;
 
 
 
+import org.apache.log4j.Logger;
 import org.apache.xml.security.keys.content.x509.XMLX509Certificate;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 //import InputSource;
-
+import org.apache.xml.security.utils.Constants;
 
 
 /**
@@ -35,6 +36,9 @@ import org.xml.sax.*;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class C_UserProfile implements Serializable{
+	private static final Logger log = Logger
+	.getLogger(C_UserProfile.class);
+
 
 /**
  * 
@@ -224,8 +228,11 @@ public class E_UserProfileException extends Exception
 
 public C_UserProfile(X509Certificate[] x509_CertChain) throws
 E_UserProfileException{
+	
+	if (log.isDebugEnabled()) log.debug("C_UserProfile(X509Cert)::Start processing...");
+	
 	if ((x509_CertChain==null) || (x509_CertChain.length < 1)) {
-		throw new E_UserProfileException("C_UserProfile:: No Certificate Provided");
+		throw new E_UserProfileException("C_UserProfile(X509Certificate):: No Certificate Provided");
 		
 	} else {
 		
@@ -255,17 +262,20 @@ E_UserProfileException{
 		
 		
 	}
+	if (log.isDebugEnabled()) log.debug("C_UserProfile(X509Certificate)::End processing...");
 }
 
 public C_UserProfile(Document InputDocument) throws
 E_UserProfileException {
-	if (InputDocument == null) throw new E_UserProfileException("C_UserProfile:: No Document Provided");
+	if (log.isDebugEnabled()) log.debug("C_UserProfile(Document)::Start processing...");
+	if (InputDocument == null) throw new E_UserProfileException("C_UserProfile(Document):: No Document Provided");
 	F_CreateUserProfile(InputDocument);
+	if (log.isDebugEnabled()) log.debug("C_UserProfile(Document)::End processing...");
 }
 
 private boolean F_CreateUserProfile(Document InputDocument) throws
 E_UserProfileException {
-	
+	if (log.isDebugEnabled()) log.debug("F_CreateUserProfile(Document)::Start processing...");
 	try {
 		
 		// Chek if this document is an User Profile Docuemnt
@@ -332,56 +342,71 @@ private X509Certificate m_X509_CertChain[];
 			
 			
 			
-			
+			if (log.isDebugEnabled()) log.debug("F_CreateUserProfile(Document)::End processing...");	
 	return true;
 	
 	}
 	catch (Exception e){
-		throw new E_UserProfileException("C_UserProfile::Parce Error \n" + e.toString());
+		throw new E_UserProfileException("F_CreateUserProfile::Parce Error \n" + e.toString());
 	}
 	}
 private Document F_StringtoDocument(String myXMLDocument) throws E_UserProfileException{
+	
+	
+	if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Start processing...\n");
 	if (myXMLDocument==null) throw new E_UserProfileException("C_UserProfile::F_StringtoDocument:: Ivalid String"); 
+	
 	try {
 		
 		
 		DocumentBuilderFactory myFactory = DocumentBuilderFactory.newInstance();
 		
 		myFactory.setNamespaceAware(true);
-
+		
 		
 		
 		DocumentBuilder myDocBuilder = myFactory.newDocumentBuilder();
 	
 				
 		StringReader myStrReader = new StringReader(myXMLDocument);
-		
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::got the String Reader...");
 		
 		InputSource myInputSource = new InputSource(myStrReader);
-		
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::got the Input Source...");
 		Document myDocument = myDocBuilder.parse(myInputSource);
-		
+		//Document myDocument = myDocBuilder.parse(myXMLDocument);
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::got the DOM Document...");
 		
 		
 		
 		
 		//Reparce the Document
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Rebuild The Document...");
 		Document myNewDocument = myDocBuilder.newDocument();
-		
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Got New Document...");
 		Element myRoot = myDocument.getDocumentElement();
-	
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Got Root node of the Old Document...");
 		Element myNewRoot = (Element) myNewDocument.importNode(myRoot, false);
-		
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Import the root into the new Document...");
 		NodeList MyCertChainList = myDocument.getElementsByTagName("X509CertChain");
+		
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Got the Certificate Chain List with " + MyCertChainList.getLength() + "Elements...");
+		
 		
 		Element myCertChain = (Element) MyCertChainList.item(0);
 		
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Got the First Certificate Chain from List...");
 		Element myNewCertChain = (Element)myNewDocument.importNode(myCertChain, false);
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Import the Chain in the new Document...");
 		
-		int iCerts = Integer.parseInt(myCertChain.getAttribute("Length"));
+		String LenghtAttrib = myCertChain.getAttribute("Length");
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Got Attribute Lenght = "+LenghtAttrib+"...");
+		int iCerts = Integer.parseInt(LenghtAttrib);
+		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::Parced Attribute Lenght = "+iCerts+"...");
 		
 		NodeList MyCertsList = myDocument.getElementsByTagName("X509Certificate");
-		
+		//if (MyCertsList.getLength()<1) MyCertsList = myDocument.getElementsByTagName("ds:X509Certificate");
+		if (MyCertsList.getLength()<1) throw new E_UserProfileException("F_StringtoDocument(String)::Error: Unable to get retrive the X509Certificate Node");
 		for (int i = 0; i< iCerts; i++)
 		{
 			Node myCert = MyCertsList.item(i);
@@ -399,28 +424,36 @@ private Document F_StringtoDocument(String myXMLDocument) throws E_UserProfileEx
 		myNewDocument.appendChild(myNewRoot);
 		
 		
-		 
+		if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::End processing..."); 
 		return myNewDocument;
 	}
 	catch (Exception e)
 	{
-		throw new E_UserProfileException("C_UserProfile(String)::Error \n  " + e.toString());
+		e.printStackTrace();
+		throw new E_UserProfileException("F_StringtoDocument(String)::Error \n  " + e.toString());
+		
 	}
 	
 }
 	
 public C_UserProfile(String myXMLDocument) throws E_UserProfileException{
-	
+	if (log.isDebugEnabled()) log.debug("C_UserProfile(String)::Start processing...");
+	if (myXMLDocument == null) throw new E_UserProfileException("C_UserProfile(String)::Error:: received a null string  ");
+		
    this.F_CreateUserProfile(F_StringtoDocument(myXMLDocument));
+   if (log.isDebugEnabled()) log.debug("C_UserProfile(String)::End processing...");
 	
 	
 }
 public Document F_getUserProfileasDomDocument() throws
 E_UserProfileException {
+	if (log.isDebugEnabled()) log.debug("F_getUserProfileasDomDocument::Start processing...");
 	Document myDocument = null;
 	try {
-		
+		String sigConst = Constants.getSignatureSpecNSprefix();
+		Constants.setSignatureSpecNSprefix("");
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		//dbf.setNamespaceAware(true);
 		DocumentBuilder db = dbf.newDocumentBuilder();
 	    
 		myDocument = db.newDocument();
@@ -492,6 +525,9 @@ E_UserProfileException {
 		}
 		myDocument.appendChild(newRoot);
 		
+		Constants.setSignatureSpecNSprefix(sigConst);
+		if (log.isDebugEnabled()) log.debug("F_getUserProfileasDomDocument::End processing...");
+		
 		return myDocument;
 		
 	}
@@ -503,6 +539,7 @@ E_UserProfileException {
 	}
 	public String F_getUserProfileasString() throws
 	E_UserProfileException{
+		if (log.isDebugEnabled()) log.debug("F_getUserProfileasString::Start processing...");
 		try{
 			Document myDocument = this.F_getUserProfileasDomDocument();
 			TransformerFactory myFactory = TransformerFactory.newInstance();
@@ -513,6 +550,9 @@ E_UserProfileException {
 			StringWriter mySW = new StringWriter();
 			StreamResult myResult = new StreamResult(mySW);
 			myTransformer.transform(mySource, myResult);
+			
+			if (log.isDebugEnabled()) log.debug("F_getUserProfileasString::End processing...");
+			
 			return mySW.toString();
 			//return myResult.toString();
 		} catch (Exception e)
