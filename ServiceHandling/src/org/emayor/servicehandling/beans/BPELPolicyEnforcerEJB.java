@@ -111,6 +111,9 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 	public boolean F_VerifyXMLSignature(String xmlDocument)
 			throws BPELPolicyEnforcerException {
 		log.debug("-> start processing ...");
+		xmlDocument = xmlDocument.replaceAll("&lt;","<");
+		xmlDocument = xmlDocument.replaceAll("&gt;",">");
+		log.debug(xmlDocument);
 		boolean ret = false;
 		try {
 			ret = this.policyEnforcement.F_VerifyXMLSignature(xmlDocument);
