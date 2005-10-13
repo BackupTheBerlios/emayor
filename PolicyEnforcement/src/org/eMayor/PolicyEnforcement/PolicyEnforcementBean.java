@@ -181,7 +181,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public boolean F_VerifyXMLSignature(String xmlDocument)
+	public boolean F_VerifyXMLSignature(String xmlDocument, String sUserProfile)
 		throws E_PolicyEnforcementException {
 		
 		return MyVerifier.Verify(xmlDocument);

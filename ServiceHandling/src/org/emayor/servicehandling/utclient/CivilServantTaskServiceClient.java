@@ -38,7 +38,7 @@ public class CivilServantTaskServiceClient extends UserTaskServiceClient {
 				PolicyEnforcementLocal pe = locator.getPolicyEnforcementLocal();
 				for (int i = 0; i < ret.length; i++) {
 					String xml = ret[i].getXMLDocument();
-					ret[i].setSignatureStatus(pe.F_VerifyXMLSignature(xml));
+					ret[i].setSignatureStatus(pe.F_VerifyXMLSignature(xml, ""));
 				}
 			} catch (ServiceLocatorException slex) {
 				log.error("caught ex: " + slex.toString());

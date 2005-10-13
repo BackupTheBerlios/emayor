@@ -22,7 +22,7 @@ public interface PolicyEnforcementLocal
    /**
     * Business method
     */
-   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
+   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument,java.lang.String sUserProfile ) throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 
    /**
     * Business method

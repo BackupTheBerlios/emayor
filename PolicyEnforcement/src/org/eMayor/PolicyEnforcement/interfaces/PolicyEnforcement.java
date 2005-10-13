@@ -24,7 +24,7 @@ public interface PolicyEnforcement
    /**
     * Business method
     */
-   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument )
+   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument,java.lang.String sUserProfile )
       throws org.eMayor.PolicyEnforcement.E_PolicyEnforcementException, java.rmi.RemoteException;
 
    /**
