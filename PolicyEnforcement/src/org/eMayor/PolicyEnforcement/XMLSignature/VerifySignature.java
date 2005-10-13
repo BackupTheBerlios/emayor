@@ -113,7 +113,7 @@ public class VerifySignature {
 	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Try to verify the signature using the X509 Certificate: " + cert);
 	               
 	            	boolean SigResult = signature.checkSignatureValue(cert);
-	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Result is: " +(SigResult ? "valid (good)"
+	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Result for Signature Nr."+i+" is: " +(SigResult ? "valid (good)"
                             : "invalid !!!!! (bad)"));
 	               result = result && SigResult;
 	            } else {
