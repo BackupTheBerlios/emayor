@@ -12,7 +12,7 @@ public interface BPELPolicyEnforcerLocal
    /**
     * Business method
     */
-   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument ) throws org.emayor.servicehandling.kernel.BPELPolicyEnforcerException;
+   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument, java.lang.String ssid ) throws org.emayor.servicehandling.kernel.BPELPolicyEnforcerException;
 
    /**
     * Business method

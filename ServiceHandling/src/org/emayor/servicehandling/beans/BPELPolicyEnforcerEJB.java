@@ -15,6 +15,7 @@ import org.eMayor.PolicyEnforcement.C_ServiceProfile;
 import org.eMayor.PolicyEnforcement.C_ServiceStep;
 import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
+import org.eMayor.PolicyEnforcement.C_UserProfile.E_UserProfileException;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcement;
 import org.eMayor.PolicyEnforcement.interfaces.PolicyEnforcementLocal;
 import org.emayor.servicehandling.interfaces.KernelLocal;
@@ -22,7 +23,9 @@ import org.emayor.servicehandling.kernel.BPELPolicyEnforcerException;
 import org.emayor.servicehandling.kernel.IBPELPolicyEnforcer;
 import org.emayor.servicehandling.kernel.IServiceProfile;
 import org.emayor.servicehandling.kernel.IUserProfile;
+import org.emayor.servicehandling.kernel.Kernel;
 import org.emayor.servicehandling.kernel.KernelException;
+import org.emayor.servicehandling.kernel.ServiceSessionException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
@@ -108,15 +111,38 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 	 * 
 	 * @ejb.interface-method view-type = "both"
 	 */
-	public boolean F_VerifyXMLSignature(String xmlDocument)
+	public boolean F_VerifyXMLSignature(String xmlDocument, String ssid)
 			throws BPELPolicyEnforcerException {
 		log.debug("-> start processing ...");
 		xmlDocument = xmlDocument.replaceAll("&lt;","<");
 		xmlDocument = xmlDocument.replaceAll("&gt;",">");
-		log.debug(xmlDocument);
+		log.debug("got xml document: "+xmlDocument);
+		
+		Kernel kern;
+		String uid;
+		String userProfile = null;
+		try {
+			kern = Kernel.getInstance();
+			uid = kern.getUserIdByASID(kern.getServiceSession(ssid).getAccessSessionId());
+			IUserProfile profile = kern.getUserProfile(uid);
+			userProfile = profile.getPEUserProfile().F_getUserProfileasString();
+			log.debug("got user profile: "+userProfile);
+		} catch (KernelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiceSessionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (E_UserProfileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		boolean ret = false;
 		try {
-			ret = this.policyEnforcement.F_VerifyXMLSignature(xmlDocument, "");
+			ret = this.policyEnforcement.F_VerifyXMLSignature(xmlDocument, userProfile);
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new BPELPolicyEnforcerException(rex.toString());

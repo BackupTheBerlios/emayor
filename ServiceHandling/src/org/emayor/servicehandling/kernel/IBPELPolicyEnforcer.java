@@ -8,7 +8,7 @@ package org.emayor.servicehandling.kernel;
  */
 public interface IBPELPolicyEnforcer {
 
-	public boolean F_VerifyXMLSignature(String xmlDocument)
+	public boolean F_VerifyXMLSignature(String xmlDocument, String ssid)
 			throws BPELPolicyEnforcerException;
 
 	public String F_TimeStampXMLDocument(String xmlDocumentDoc)

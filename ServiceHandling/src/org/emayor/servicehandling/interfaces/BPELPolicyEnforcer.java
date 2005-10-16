@@ -12,7 +12,7 @@ public interface BPELPolicyEnforcer
    /**
     * Business method
     */
-   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument )
+   public boolean F_VerifyXMLSignature( java.lang.String xmlDocument, java.lang.String ssid )
       throws org.emayor.servicehandling.kernel.BPELPolicyEnforcerException, java.rmi.RemoteException;
 
    /**
