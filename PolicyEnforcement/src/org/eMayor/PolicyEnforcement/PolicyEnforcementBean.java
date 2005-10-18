@@ -9,6 +9,7 @@ package org.eMayor.PolicyEnforcement;
 import org.eMayor.PolicyEnforcement.CertificateValidation.*;
 import org.emayor.servicehandling.config.Config;
 
+import java.io.StringReader;
 import java.rmi.RemoteException;
 
 import javax.ejb.EJBException;
@@ -18,6 +19,10 @@ import javax.ejb.SessionContext;
 import javax.ejb.CreateException;
 
 import org.apache.log4j.Logger;
+import org.apache.xml.security.signature.XMLSignature;
+import org.apache.xml.security.utils.Constants;
+import org.apache.xml.security.utils.XMLUtils;
+import org.apache.xpath.XPathAPI;
 
 import com.sun.xacml.AbstractPolicy;
 import com.sun.xacml.Rule;
@@ -33,6 +38,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.eMayor.PolicyEnforcement.XMLSignature.VerifySignature;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * @ejb.bean name="PolicyEnforcement"
@@ -684,6 +692,65 @@ public class PolicyEnforcementBean implements SessionBean {
 	 */
 	public String FPM_getSignerRole(String SignedDocument) {
 		String SignerRole="N/A";
+		log.debug("FPM_getSignerRole:: StartProcessing...");
+		if (SignedDocument!=null) {
+			// let's parce the string 
+			javax.xml.parsers.DocumentBuilderFactory dbf =
+			javax.xml.parsers.DocumentBuilderFactory.newInstance();
+			dbf.setNamespaceAware(true);
+			
+			try {
+				javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
+	      		db.setErrorHandler(new org.apache.xml.security.utils.IgnoreAllErrorHandler());
+	      		StringReader myStrReader = new StringReader(SignedDocument);
+	    		//if (log.isDebugEnabled()) log.debug("F_StringtoDocument(String)::got the String Reader...");
+	    		
+	    		InputSource myInputSource = new InputSource(myStrReader);
+	      		
+	      		org.w3c.dom.Document doc = db.parse(myInputSource);
+	     		
+	      		log.debug("FPM_getSignerRole:: Document parsed, looking for signatures");
+	            Element nscontext = XMLUtils.createDSctx(doc, "ds",
+	                                                  Constants.SignatureSpecNS);
+	     		NodeList myNodeList = XPathAPI.selectNodeList(doc,
+	     				"//ds:Signature", nscontext);
+	     		if (myNodeList!=null) {
+	     			     		
+	     			int Nodes = myNodeList.getLength();
+	     			log.debug("FPM_getSignerRole:: Found " + Nodes+ " Signatures, looking in the last one");
+	     			Element sigElement = (Element)myNodeList.item(Nodes-1);
+	     			XMLSignature signature = new XMLSignature(sigElement,"");
+	     			X509Certificate cert = signature.getKeyInfo().getX509Certificate();
+	     			if (cert != null) {
+	     				X509Certificate [] MyCertChain = new X509Certificate[1];
+	     				MyCertChain[1] = cert;
+	     				C_UserProfile myTempProfile = new C_UserProfile(MyCertChain);
+	     				if (myTempProfile!=null) {
+	     					SignerRole = myTempProfile.getUserRole();
+	     					log.debug("FPM_getSignerRole:: The Role is "+ SignerRole);
+	     				} else {
+	     					log.debug("FPM_getSignerRole::Error cannot create a temporary UserProfile");
+	     				}
+	     				
+	     			} else {
+	     				log.debug("FPM_getSignerRole::Error cannot find a certificate in the signature");
+	     			}
+	     			
+	     		} else {
+	     			log.debug("FPM_getSignerRole::Error Can not find a signature in the Document");
+	     		}
+	     		
+			}catch (Exception e) {
+				e.printStackTrace();
+				SignerRole="N/A";
+			}
+			
+		} else
+		{
+			log.debug("FPM_getSignerRole::Error The signed Document is null");
+		}
+		
+		log.debug("FPM_getSignerRole:: EndProcessing...");
 		return SignerRole;
 		
 	}
