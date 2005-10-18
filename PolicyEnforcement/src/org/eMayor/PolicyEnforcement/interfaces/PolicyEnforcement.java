@@ -87,4 +87,10 @@ public interface PolicyEnforcement
    public void FPM_ChangeRuleEffect( java.lang.String RuleID,java.lang.String PolicyID,java.util.List PolicyList )
       throws java.rmi.RemoteException;
 
+   /**
+    * Business method
+    */
+   public java.lang.String FPM_getSignerRole( java.lang.String SignedDocument )
+      throws java.rmi.RemoteException;
+
 }

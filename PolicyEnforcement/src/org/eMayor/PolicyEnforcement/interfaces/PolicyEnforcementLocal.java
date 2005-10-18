@@ -74,4 +74,9 @@ public interface PolicyEnforcementLocal
     */
    public void FPM_ChangeRuleEffect( java.lang.String RuleID,java.lang.String PolicyID,java.util.List PolicyList ) ;
 
+   /**
+    * Business method
+    */
+   public java.lang.String FPM_getSignerRole( java.lang.String SignedDocument ) ;
+
 }

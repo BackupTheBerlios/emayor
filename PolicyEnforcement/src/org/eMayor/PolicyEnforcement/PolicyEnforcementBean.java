@@ -675,6 +675,18 @@ public class PolicyEnforcementBean implements SessionBean {
 		
 		
 	}
+	
+	
+	//################################
+	/**
+	 * Business method
+	 * @ejb.interface-method  view-type = "both"
+	 */
+	public String FPM_getSignerRole(String SignedDocument) {
+		String SignerRole="N/A";
+		return SignerRole;
+		
+	}
 		
 		
 }

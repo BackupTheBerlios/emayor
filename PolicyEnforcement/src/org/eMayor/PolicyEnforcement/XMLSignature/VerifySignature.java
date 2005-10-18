@@ -93,12 +93,22 @@ public class VerifySignature {
      		
      		
      		for (int i=0;i<Nodes;i++) {
-	         Element sigElement = (Element)myNodeList.item(i);
+	         
+     		
+     			
+     		 Element sigElement = (Element)myNodeList.item(i);
+     		
+     	
+     		 
+     		
+     		 
+     		 
+     		 
 	         if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Get Signature number " + Nodes);
 	        
 	         XMLSignature signature = new XMLSignature(sigElement,
 	         		"");
-	
+	         
 	        
 	         KeyInfo ki = signature.getKeyInfo();
 	
