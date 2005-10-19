@@ -723,7 +723,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	     			X509Certificate cert = signature.getKeyInfo().getX509Certificate();
 	     			if (cert != null) {
 	     				X509Certificate [] MyCertChain = new X509Certificate[1];
-	     				MyCertChain[1] = cert;
+	     				MyCertChain[0] = cert;
 	     				C_UserProfile myTempProfile = new C_UserProfile(MyCertChain);
 	     				if (myTempProfile!=null) {
 	     					SignerRole = myTempProfile.getUserRole();
