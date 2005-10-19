@@ -8,6 +8,9 @@ package org.emayor.servicehandling.kernel;
  */
 public interface IBPELPolicyEnforcer {
 
+	public String FPM_GetSignerRole(String xmlDocument) 
+			throws BPELPolicyEnforcerException;
+	
 	public boolean F_VerifyXMLSignature(String xmlDocument, String ssid)
 			throws BPELPolicyEnforcerException;
 

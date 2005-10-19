@@ -128,12 +128,17 @@ public class UserTaskManagerOverEJB implements IService {
 			throws ServiceException {
 		log.debug("-> start processing ...");
 		try {
-			this.wrapper.completeTask(task,getBPELCredentials());
+			// get userid and transfer it to bpel
+			String userID = this.kernel.getUserIdByASID(asid);
+			this.wrapper.completeTask(task,getBPELCredentials(),userID);
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceException("Couldn't complete task !");
 		} catch (UTWrapperException utwex) {
 			log.error("caught ex: " + utwex.toString());
+			throw new ServiceException("Couldn't complete task!");
+		} catch (KernelException e) {
+			log.error("caught ex: " + e.toString());
 			throw new ServiceException("Couldn't complete task!");
 		}
 		log.debug("-> ... processing DONE!");

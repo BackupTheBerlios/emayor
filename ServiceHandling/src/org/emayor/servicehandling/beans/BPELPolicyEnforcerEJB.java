@@ -111,7 +111,7 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 	 * 
 	 * @ejb.interface-method view-type = "both"
 	 */
-	public boolean F_VerifyXMLSignature(String xmlDocument, String ssid)
+	public boolean F_VerifyXMLSignature(String xmlDocument, String userId)
 			throws BPELPolicyEnforcerException {
 		log.debug("-> start processing ...");
 		xmlDocument = xmlDocument.replaceAll("&lt;","<");
@@ -119,18 +119,13 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		log.debug("got xml document: "+xmlDocument);
 		
 		Kernel kern;
-		String uid;
 		String userProfile = null;
 		try {
 			kern = Kernel.getInstance();
-			uid = kern.getUserIdByASID(kern.getServiceSession(ssid).getAccessSessionId());
-			IUserProfile profile = kern.getUserProfile(uid);
+			IUserProfile profile = kern.getUserProfile(userId);
 			userProfile = profile.getPEUserProfile().F_getUserProfileasString();
 			log.debug("got user profile: "+userProfile);
 		} catch (KernelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ServiceSessionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (E_UserProfileException e) {
@@ -154,6 +149,32 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		return ret;
 	}
 
+	
+	/**
+	 * Business method
+	 * 
+	 * @ejb.interface-method view-type = "both"
+	 */
+	public String FPM_GetSignerRole(String xmlDocument)
+			throws BPELPolicyEnforcerException {
+		log.debug("-> start processing ...");
+		xmlDocument = xmlDocument.replaceAll("&lt;","<");
+		xmlDocument = xmlDocument.replaceAll("&gt;",">");
+		log.debug("got xml document: "+xmlDocument);
+		
+		String ret = "";
+		
+		try {
+			ret = this.policyEnforcement.FPM_getSignerRole(xmlDocument);
+		} catch (RemoteException rex) {
+			log.error("caught ex: " + rex.toString());
+			throw new BPELPolicyEnforcerException(rex.toString());
+		}
+		
+		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+	
 	/**
 	 * Business method
 	 * 

@@ -9,6 +9,13 @@ package org.emayor.servicehandling.interfaces;
 public interface BPELPolicyEnforcer
    extends javax.ejb.EJBObject
 {
+	
+	/**
+     * Business method
+     */
+	public String FPM_GetSignerRole( java.lang.String xmlDocument)  
+		throws org.emayor.servicehandling.kernel.BPELPolicyEnforcerException, java.rmi.RemoteException;
+	
    /**
     * Business method
     */
