@@ -84,7 +84,7 @@
       <session>
          <ejb-name>AccessSession</ejb-name>
          <local-jndi-name>AccessSessionLocal</local-jndi-name>
-
+		<configuration-name>Always Active Statefull Session Beans</configuration-name>
       </session>
       <session>
          <ejb-name>ForwardManager</ejb-name>
@@ -103,7 +103,7 @@
       <session>
          <ejb-name>ServiceSession</ejb-name>
          <local-jndi-name>ServiceSessionLocal</local-jndi-name>
-
+		<configuration-name>Always Active Statefull Session Beans</configuration-name>
       </session>
       <session>
          <ejb-name>eMayorServiceFactory</ejb-name>
@@ -130,5 +130,32 @@
 
    <resource-managers>
    </resource-managers>
+   
+   <container-configurations>
+	   <container-configuration extends="Standard Stateful SessionBean">
+				<container-name>Always Active Statefull Session Beans</container-name>
+				<container-cache-conf>
+					<cache-policy>org.jboss.ejb.plugins.NoPassivationCachePolicy</cache-policy> <!-- turn off the passivaion entirely -->
+				</container-cache-conf>
+		</container-configuration>
+		<container-configuration extends="Standard Stateful SessionBean">
+			<container-name>Longlife Statefull Session Beans</container-name>
+			<container-cache-conf>
+				<cache-policy-conf>
+					<min-capacity>50</min-capacity>
+					<max-capacity>1000000</max-capacity>
+					<remover-period>1800</remover-period>
+					<max-bean-life>120000</max-bean-life> <!-- keep it alive 200 min activated -->
+					<overager-period>1800</overager-period>
+					<overager-period>1800</overager-period>
+					<max-bean-age>6000</max-bean-age> <!-- keep it 10 min activated -->
+					<resizer-period>400</resizer-period>
+					<max-cache-miss-period>60</max-cache-miss-period>
+					<min-cache-miss-period>1</min-cache-miss-period>
+					<cache-load-factor>0.75</cache-load-factor>
+				</cache-policy-conf>
+			</container-cache-conf>
+		</container-configuration>
+   </container-configurations>
 
 </jboss>
