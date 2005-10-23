@@ -428,5 +428,15 @@ public interface PlatformConfigurationEntityLocal
 	 * Setter for CMP Field
 	 */
 	public void setEMayorE2MContext(String value);	
+	
+	/**
+	 * ReplyTo Address
+	 */
+	public String getEMayorNotificationEmailReplyTo();
+	
+	/**
+	 * Setter for CMP Field
+	 */
+	public void setEMayorNotificationEmailReplyTo(String value);
 
 }

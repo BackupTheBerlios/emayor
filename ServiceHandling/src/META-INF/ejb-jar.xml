@@ -469,6 +469,10 @@
             <description><![CDATA[E2M Context]]></description>
             <field-name>EMayorE2MContext</field-name>
          </cmp-field>
+         <cmp-field >
+            <description><![CDATA[ReplyTo Address]]></description>
+            <field-name>EMayorNotificationEmailReplyTo</field-name>
+         </cmp-field>
           <primkey-field>configID</primkey-field>
 
          <query>

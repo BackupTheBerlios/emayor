@@ -887,4 +887,22 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 * @ejb.interface-method   view-type="local"
 	 */
 	public abstract void setEMayorE2MContext(String value);	
+	
+	/**
+	 * ReplyTo Address
+	 *
+	 * @jboss.column-name name = "EMAYOR_NOTIFICATION_EMAIL_REPLYTO"
+	 * @jboss.sql-type type = "VARCHAR(200)"
+	 * @jboss.jdbc-type type = "VARCHAR" 
+	 * @ejb.persistent-field
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract String getEMayorNotificationEmailReplyTo();
+	
+	/**
+	 * Setter for CMP Field
+	 *
+	 * @ejb.interface-method   view-type="local"
+	 */
+	public abstract void setEMayorNotificationEmailReplyTo(String value);	
 }

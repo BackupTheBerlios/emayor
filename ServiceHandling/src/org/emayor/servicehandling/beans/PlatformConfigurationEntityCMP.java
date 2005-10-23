@@ -224,5 +224,9 @@ public abstract class PlatformConfigurationEntityCMP
    public abstract String getEMayorE2MContext();
 
    public abstract void setEMayorE2MContext(String value);	
+   
+   public abstract String getEMayorNotificationEmailReplyTo();
+	
+   public abstract void setEMayorNotificationEmailReplyTo(String value);
 
 }

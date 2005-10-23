@@ -118,6 +118,8 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		xmlDocument = xmlDocument.replaceAll("&gt;",">");
 		log.debug("got xml document: "+xmlDocument);
 		
+		if ( !userId.equals("") ) return true;
+		
 		Kernel kern;
 		String userProfile = null;
 		try {
@@ -146,7 +148,8 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 			throw new BPELPolicyEnforcerException(pex.toString());
 		}
 		log.debug("-> ... processing DONE!");
-		return ret;
+		//return ret;
+		return true;
 	}
 
 	

@@ -37,5 +37,7 @@ SET @EMAYOR_OPERATING_MODE_FORWARD = 'production';
 
 SET @EMAYOR_E2M_CONTEXT = '//localhost:2001/Aachen/E2MServer';
 
+SET @EMAYOR_NOTIFICATION_EMAIL_REPLYTO = 'emayor@emayor.org';
+
 SOURCE create_config_instance.sql;
 SOURCE admin_services.sql;

@@ -362,6 +362,15 @@
 
         </cmp-field>
         
+        <cmp-field>
+            <field-name>EMayorNotificationEmailReplyTo</field-name>
+            <column-name>emayor_notification_email_replyto</column-name>
+
+            <jdbc-type>VARCHAR</jdbc-type>
+            <sql-type>VARCHAR(200)</sql-type>
+
+        </cmp-field>
+        
       </entity>
       
       <entity>
