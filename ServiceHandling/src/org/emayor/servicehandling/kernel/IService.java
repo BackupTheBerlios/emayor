@@ -46,6 +46,13 @@ public interface IService {
 	 */
 	public Task lookupTask(String taskId) throws ServiceException;
 
+	/**
+	 * 
+	 * @param asid
+	 * @param ssid
+	 * @return
+	 * @throws ServiceException
+	 */
 	public Task lookupTaskByServiceSession(String asid, String ssid)
 			throws ServiceException;
 }
