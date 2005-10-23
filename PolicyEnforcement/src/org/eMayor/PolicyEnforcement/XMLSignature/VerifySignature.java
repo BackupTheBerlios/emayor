@@ -38,6 +38,7 @@ import org.apache.xml.security.utils.Constants;
 import org.apache.xml.security.utils.XMLUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.apache.log4j.*;
@@ -93,12 +94,35 @@ public class VerifySignature {
      		
      		
      		for (int i=0;i<Nodes;i++) {
-	         
-     		
      			
-     		 Element sigElement = (Element)myNodeList.item(i);
+     			// Remove not needed Signatures
+     			org.w3c.dom.Document docTemp = (org.w3c.dom.Document)doc.cloneNode(true);
+     			for (int j=i+1; j<Nodes; j++) {
+     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removing" + j + "Signature");
+     				NodeList TempNodeList= docTemp.getElementsByTagName("ds:Signature");
+     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNodeList with " +TempNodeList.getLength()+" Items" );
+             		
+     				Node TempNode = TempNodeList.item(j);
+     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode " +j);
+     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode " +j+" is null error");
+             		Node MyTempRoot = TempNode.getParentNode();
+             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode Root ");
+     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode Root is null: error!!!!");
+             		
+             		MyTempRoot.removeChild(TempNode);
+             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removed the SignatureNode " +j);
+             		
+     			}
+     			
+         		
+         		Element nscontextTemp = XMLUtils.createDSctx(docTemp, "ds",
+                        Constants.SignatureSpecNS);
+         		NodeList myNodeListTemp = XPathAPI.selectNodeList(docTemp,
+         				"//ds:Signature", nscontextTemp);
+         		Element sigElement = (Element)myNodeListTemp.item(i);
+         		
      		
-     	
+     		
      		 
      		
      		 
