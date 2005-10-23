@@ -7,7 +7,6 @@
 package org.emayor.notification.wrapper.ejb;
 
 import java.rmi.RemoteException;
-import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.ejb.CreateException;
@@ -20,13 +19,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
-
 import org.emayor.notification.exception.NotificationException;
 import org.emayor.notification.interfaces.INotificationManager;
 import org.emayor.notification.manager.NotificationManagerHome;
 import org.emayor.servicehandling.interfaces.KernelLocal;
 import org.emayor.servicehandling.kernel.KernelException;
-import org.emayor.servicehandling.kernel.SessionException;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
 
