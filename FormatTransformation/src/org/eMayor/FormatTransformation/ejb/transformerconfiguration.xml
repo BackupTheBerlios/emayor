@@ -14,7 +14,23 @@
 			<EUFtoEPF>Not required.</EUFtoEPF>
 		</NegativeDocument>
 
-		<!--		
+					<!--
+
+
+
+		<ResidenceCertificationDocument>
+			<EUFtoELF>EUFtoItalianELFv0.1.xsl</EUFtoELF>
+			<ELFtoEUF>ItalianELFtoEUFv0.1.xsl</ELFtoEUF>
+			<ELFtoEPF>SienaELFtoEPFv0.1.xsl</ELFtoEPF>
+			<EUFtoEPF>Not required.</EUFtoEPF>
+		</ResidenceCertificationDocument>
+		<NegativeDocument>
+			<EUFtoELF>Not done yet.</EUFtoELF>
+			<ELFtoEUF>Not done yet.</ELFtoEUF>
+			<ELFtoEPF>NRSienaELFtoEPFv0.1.xsl</ELFtoEPF>
+			<EUFtoEPF>Not required.</EUFtoEPF>
+		</NegativeDocument>
+		
 		<ResidenceCertificationDocument>
 			<EUFtoELF>EUFtoItalianGermanELFv0.2.xsl</EUFtoELF>
 			<ELFtoEUF>ItalianGermanELFtoEUFv0.2.xsl</ELFtoEUF>
@@ -27,6 +43,20 @@
 			<ELFtoEPF>NRBolzanoELFtoEPFv0.2.xsl</ELFtoEPF>
 			<EUFtoEPF>Not required.</EUFtoEPF>
 		</NegativeDocument>
-		-->
+
+						
+		<ResidenceCertificationDocument>
+			<EUFtoELF>EUFtoSpanishELFv0.1.xsl</EUFtoELF>
+			<ELFtoEUF>SpanishELFtoEUFv0.1.xsl</ELFtoEUF>
+			<ELFtoEPF>SevilleELFtoEPFv0.1.xsl</ELFtoEPF>
+			<EUFtoEPF>Not required.</EUFtoEPF>
+		</ResidenceCertificationDocument>
+		<NegativeDocument>
+			<EUFtoELF>Not done yet.</EUFtoELF>
+			<ELFtoEUF>Not done yet.</ELFtoEUF>
+			<ELFtoEPF>NRSevilleELFtoEPFv0.1.xsl</ELFtoEPF>
+			<EUFtoEPF>Not required.</EUFtoEPF>
+		</NegativeDocument>
+						-->
 	</documentType>
 </transformerConfiguration>
