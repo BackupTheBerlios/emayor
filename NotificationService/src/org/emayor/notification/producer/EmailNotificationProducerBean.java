@@ -39,6 +39,7 @@ import org.apache.log4j.Logger;
 import org.emayor.notification.exception.NotificationException;
 import org.emayor.notification.gateway.EmailGateway;
 import org.emayor.notification.interfaces.INotificationProducer;
+import org.emayor.servicehandling.config.Config;
 
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -166,17 +167,22 @@ public class EmailNotificationProducerBean
 			String subject 		= config.getProperty("subject");
 			String body 		= config.getProperty("body");
 			
+			Config shConfig = Config.getInstance();
+			
+			String replyTo 	= shConfig.getProperty(Config.EMAYOR_NOTIFICATION_EMAIL_REPLYTO);
+			
 			// set defaults if not present
 			if (body == null) 		body 		= "";
 			if (subject == null) 	subject 	= "no subject";
 			if (directory == null) 	directory 	= "";
 			if (sessionId == null) 	sessionId 	= Long.toString(System.currentTimeMillis());
+			if (replyTo == null) 	replyTo		= emailAddress;
 			
 			/*
 			 * create a new message out of the values read
 			 */
 			Message msg = new MimeMessage(sess);
-			msg.setFrom(new InternetAddress(emailAddress));
+			msg.setFrom(new InternetAddress(replyTo));
 			msg.setSubject(subject);
 			msg.setText(body);
 			msg.setSentDate(new Date());
@@ -184,7 +190,7 @@ public class EmailNotificationProducerBean
 			
 			if (log.isDebugEnabled()) {
 				log.debug("TO:        : "+emailAddress);
-				log.debug("FROM       : "+emailAddress);
+				log.debug("FROM       : "+replyTo);
 				log.debug("subject    : "+subject);
 				log.debug("body       : "+body);
 				log.debug("SSID       : "+sessionId);
