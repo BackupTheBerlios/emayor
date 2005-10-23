@@ -169,21 +169,21 @@ public class PostTaskAndWaitProcessor extends AbstractProcessor {
                 Node node = XPathAPI
                         .selectSingleNode(
                                 root,
-                                "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()");
+                                "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameForename/text()");
                 node
                         .setNodeValue((reqForename != null && reqForename
                                 .length() != 0) ? (reqForename) : ("-"));
                 node = XPathAPI
                         .selectSingleNode(
                                 root,
-                                "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()");
+                                "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameSurname/text()");
                 node
                         .setNodeValue((reqSurname != null && reqSurname
                                 .length() != 0) ? (reqSurname) : ("-"));
                 node = XPathAPI
                         .selectSingleNode(
                                 root,
-                                "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()");
+                                "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ContactDetails/Email/EmailAddress/text()");
                 node
                         .setNodeValue((reqEmail != null && reqEmail.length() != 0) ? (reqEmail)
                                 : ("-"));

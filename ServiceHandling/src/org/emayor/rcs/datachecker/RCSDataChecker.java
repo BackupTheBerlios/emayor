@@ -87,9 +87,9 @@ public class RCSDataChecker {
             throws DataCheckerException {
         log.debug("checkRequesterDetails -> start processing ...");
         boolean ret = false;
-        final String XP_FORNAME = "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()";
-        final String XP_SURNAME = "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()";
-        final String XP_EMAILADR = "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()";
+        final String XP_FORNAME = "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameForename/text()";
+        final String XP_SURNAME = "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameSurname/text()";
+        final String XP_EMAILADR = "/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ContactDetails/Email/EmailAddress/text()";
         try {
             String forename = XPathAPI.selectSingleNode(root, XP_FORNAME)
                     .getNodeValue();

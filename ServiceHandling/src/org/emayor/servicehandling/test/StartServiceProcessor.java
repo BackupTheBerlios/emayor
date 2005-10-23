@@ -84,17 +84,17 @@ public class StartServiceProcessor extends AbstractProcessor {
 			String reqForename = XPathAPI
 					.selectSingleNode(
 							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()")
+							"/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameForename/text()")
 					.getNodeValue();
 			String reqSurname = XPathAPI
 					.selectSingleNode(
 							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()")
+							"/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameSurname/text()")
 					.getNodeValue();
 			String reqEMail = XPathAPI
 					.selectSingleNode(
 							root,
-							"/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
+							"/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ContactDetails/Email/EmailAddress/text()")
 					.getNodeValue();
 			session.setAttribute("CURR_TASK", task);
 			session.setAttribute("REQ_FORENAME", reqForename);

@@ -38,6 +38,7 @@ public class Utils {
             case CVDocumentTypes.CV_NEGATIVE_RESIDENCE_CERTIFICATE_DOCUMENT:
                 in[i].setExtraInfo("Negative Residence Certification Document");
                 break;
+                
             }
         }
         log.debug("-> ... processing DONE!");
