@@ -79,11 +79,15 @@ public class UserTaskManagerOverEJB implements IService {
 				log.debug("got following role: " + role);
 			if (role.equalsIgnoreCase("citizen")) {
 				log.debug("try to call the listTasks operation for citizen");
-				ret = this.wrapper.listTasksByAssignee(uid,getBPELCredentials());
+				ret = this.wrapper.listTasksByAssignee(uid,
+						getBPELCredentials());
 			} else {
 				log
 						.debug("try to call the listTasks operation for civil servant");
-				ret = this.wrapper.listTasksByAssignee("CivilServant",getBPELCredentials());
+				//ret =
+				// this.wrapper.listTasksByAssignee("CivilServant",getBPELCredentials());
+				ret = this.wrapper.listTasksByAssignee(role,
+						getBPELCredentials());
 			}
 			if (log.isDebugEnabled())
 				log.debug("got following number of tasks: "
@@ -130,7 +134,7 @@ public class UserTaskManagerOverEJB implements IService {
 		try {
 			// get userid and transfer it to bpel
 			String userID = this.kernel.getUserIdByASID(asid);
-			this.wrapper.completeTask(task,getBPELCredentials(),userID);
+			this.wrapper.completeTask(task, getBPELCredentials(), userID);
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceException("Couldn't complete task !");
@@ -155,7 +159,7 @@ public class UserTaskManagerOverEJB implements IService {
 		if (log.isDebugEnabled())
 			log.debug("got taskId = " + taskId);
 		try {
-			ret = (Task) this.wrapper.lookupTask(taskId,getBPELCredentials());
+			ret = (Task) this.wrapper.lookupTask(taskId, getBPELCredentials());
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new ServiceException("Couldn't lookup task !");
@@ -186,7 +190,8 @@ public class UserTaskManagerOverEJB implements IService {
 			if (log.isDebugEnabled())
 				log.debug("got the uid: " + uid);
 			log.debug("try to call the listTasks operation");
-			Tasks tasks = this.wrapper.lookupTasksByAssigneeAndTitle(uid, ssid,getBPELCredentials());
+			Tasks tasks = this.wrapper.lookupTasksByAssigneeAndTitle(uid, ssid,
+					getBPELCredentials());
 			if (tasks != null) {
 				log.debug("got SOME tasks from remote bean !");
 				ITask[] _tasks = tasks.getTasks();
