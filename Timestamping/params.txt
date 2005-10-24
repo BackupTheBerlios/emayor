@@ -1,0 +1,4 @@
+tsaIP:10.0.0.210:318
+tsaOID:1.1.1.1
+tsaName:Reshen TSA
+tsaCert:http://10.0.0.210:80/ReshenTSA.crt

@@ -1,0 +1,137 @@
+  
+import com.baltimore.timestamp.*;
+import com.baltimore.jcrypto.*;
+import com.baltimore.jpkiplus.*;
+
+
+  String timestampXML(String filename) {
+    String timeinfo = new String("");
+  //First start timestamping service - the TSA server must be on!
+    Properties prop = new Properties();
+    Vector v = MainFrame.readParam("params.txt");
+    prop.setProperty("tsa.url", (String) v.elementAt(0));
+    prop.setProperty("hash.algorithm", "SHA1");
+    prop.setProperty("tsa.policy", (String) v.elementAt(1));
+    prop.setProperty("tsa.name", (String) v.elementAt(2));
+    prop.setProperty("tsa.certificate", (String) v.elementAt(3));
+/*
+    prop.setProperty("host.url", "147.102.33.99:318");
+    prop.setProperty("hash.algorithm", "SHA1");
+    prop.setProperty("tsa.policy", "1.1.1.2");
+    prop.setProperty("tsa.name", "RTSA");
+    prop.setProperty("tsa.certificate", "http://147.102.33.99:81/rtsa.crt");
+*/
+    Security.addProvider(new com.baltimore.jcrypto.provider.JCRYPTO());
+    try {
+      TimeStampService tss = new TimeStampService(prop);
+      System.out.println("TimeStamp Service started!");
+      //Create timestamp of data in xml file
+      File fileout = new File(filename);
+      int size = (int)fileout.length();
+      byte buff[] = new byte[size];
+      try {
+        InputStream fileIn = new FileInputStream(fileout);
+        int i = fileIn.read(buff);
+        try {
+          TimeStamp ts = tss.requestTimeStamp(buff);
+          System.out.println("TimeStamp created OK!");
+          byte[] timestamp = ts.toDER();
+          BASE64Encoder base64 = new BASE64Encoder();
+          String base64ts = base64.encode(timestamp);
+          System.out.println(base64ts);
+          xmltstamp.setText(base64ts);
+          String year = ts.getTime().substring(0, 4);
+          String month = ts.getTime().substring(4, 6);
+          String day = ts.getTime().substring(6, 8);
+          String hours = ts.getTime().substring(8, 12) + "h";
+            if (MainApplication.language.equalsIgnoreCase("English")) typeText = "Data created at: " + day + "-" + month + "-" + year + " ," + hours;
+            else typeText = "Τα δεδομένα δημιουργήθηκαν την: " + day + "-" + month + "-" + year + " ," + hours;
+
+          String time = typeText;
+            if (MainApplication.language.equalsIgnoreCase("English")) typeText = "TSA authority: " + ts.getTSAName().getName();
+            else typeText = "Αρχή Πιστοποίησης: " + ts.getTSAName().getName();
+
+
+          String tsainfo = typeText;
+          timeinfo = time + "\n" + tsainfo;
+          tsOK = true;
+          }
+         catch (TimeStampException tsex1) {
+
+            if (MainApplication.language.equalsIgnoreCase("English")) {
+                  typeText = "Error in timestamp generation!"; typeText2 = "Error message";}
+            else {typeText = "Σφάλμα κατά την δημιουργία της χρονοσφραγίδας!"; typeText2 = "Μήνυμα σφάλματος";}
+
+            JOptionPane.showMessageDialog(null, typeText, typeText2, JOptionPane.ERROR_MESSAGE);
+            tsex1.printStackTrace();}
+      }
+      catch (FileNotFoundException f1) {System.out.println("File not found");}
+      catch (IOException h) { System.out.println("IO Exception");}
+  }
+  catch (TimeStampException tsex) {System.out.println("Error in starting timestamp service");
+            if (MainApplication.language.equalsIgnoreCase("English")) {
+                  typeText = "Error in timestamp generation!"; typeText2 = "Error message";}
+            else {typeText = "Σφάλμα κατά την δημιουργία της χρονοσφραγίδας!"; typeText2 = "Μήνυμα σφάλματος";}
+            JOptionPane.showMessageDialog(null, typeText, typeText2, JOptionPane.ERROR_MESSAGE);
+          tsex.printStackTrace();}
+
+  Security.removeProvider("JCRYPTO");
+  return timeinfo;
+  }
+
+
+public void verifyts(String ts, String filedata) {
+
+    //First start timestamping service - the TSA server must be on!
+    Vector v = MainFrame.readParam("params.txt");
+
+    Properties prop = new Properties();
+    Security.addProvider(new com.baltimore.jcrypto.provider.JCRYPTO());
+
+    try {
+
+      //Open xml file with data
+      File fileout = new File(filedata);
+      int size = (int)fileout.length();
+      byte buff[] = new byte[size];
+      try {
+        InputStream fileIn = new FileInputStream(fileout);
+        int i = fileIn.read(buff);
+        // Verify timestamp and read data
+        BASE64Decoder base64d = new BASE64Decoder();
+        byte[] timestampd = base64d.decodeBuffer(ts);
+        TimeStamp ts1 = new TimeStamp(timestampd);
+        try {
+          boolean verifyOK = ts1.verify();
+          System.out.println("Signature in timestamp OK!");
+          if (verifyOK == true) {
+            try{
+              validateOK = ts1.validate(buff);
+              if (validateOK == true) {
+              System.out.println("Timestamp data OK!");
+              time = ts1.getTime();
+              tsa = ts1.getTSAName().getName();
+              System.out.println("Data timestampted at: " + time);
+              BASE64Encoder base64e = new BASE64Encoder();
+              String tstampen = base64e.encode(timestampd);
+              xmltstamp.setText(tstampen);
+              }
+              else {
+              System.out.println("Timestamp in data not valid");
+              if (MainApplication.language.equalsIgnoreCase("English")) {typeText = "The timestamp in data is not valid!" +
+              "\nData cannot be retrieved, please try again"; typeText2 = "Error message";}
+              else {typeText = "Η χρονοσφραγίδα των δεδομένων είναι άκυρη!\nΤα δεδομένα δεν είναι δυνατόν να ανακτηθούν.";
+                    typeText2 = "Μήνυμα σφάλματος";}
+              JOptionPane.showMessageDialog(null, typeText, typeText2, JOptionPane.ERROR_MESSAGE);
+              } }
+            catch (TimeStampException tsex3) {tsex3.printStackTrace();}
+            }
+          }
+          catch (TimeStampException tsex2) {tsex2.printStackTrace();}
+        }
+        catch (FileNotFoundException f1) {f1.printStackTrace();}
+        catch (IOException h) { h.printStackTrace();}
+      }
+      catch (TimeStampException tsex) {tsex.printStackTrace();}
+    Security.removeProvider("JCRYPTO");
+  }
