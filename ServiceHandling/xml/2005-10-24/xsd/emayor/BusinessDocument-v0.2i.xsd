@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://www.emayor.org/BusinessDocumentI.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:ed="http://www.emayor.org/e-DocumentI.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:edc="http://www.emayor.org/e-Document.xsd" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:bus="http://www.emayor.org/BusinessDocument.xsd" targetNamespace="http://www.emayor.org/BusinessDocumentI.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.emayor.org/e-DocumentI.xsd" schemaLocation="e-document-v0.2I.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="../xmldsig/xmldsig-core-schema.xsd"/>
+	<xsd:import namespace="http://www.emayor.org/BusinessDocument.xsd" schemaLocation="BusinessDocument-v0.3.xsd"/>
+	<xsd:import namespace="http://www.emayor.org/e-Document.xsd" schemaLocation="e-document-v0.3.xsd"/>
+	<!-- Start of Elements based on types -->
+	<xsd:element name="CertificatoDiResidenza" type="ResidenceCertificationDocumentStructure"/>
+	<xsd:element name="IntestatariCertificati" type="CertifiedConcernedPersonsStructure"/>
+	<xsd:element name="ComuneDiEmissione" type="MunicipalityDetailsType"/>
+	<xsd:element name="RispostaNegativaCertificatoDiResidenza" type="NegativeResponseResidenceCertificationDocumentStructure"/>
+	<!-- End of Elements based on types -->
+	<!-- Start CertifiedRecipientStructure -->
+	<xsd:complexType name="CertifiedConcernedPersonsStructure">
+		<xsd:annotation>
+			<xsd:documentation>Contains any number of citizens to be certified in this document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ed:DettagliCittadino" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End CertifiedRecipientStructure -->
+	<!-- Start of CertificationDocumentStructure -->
+	<xsd:complexType name="CertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the base for all certification document to be produced. It contains the basic elements that all certification documents must possess.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ed:IdDocumento"/>
+			<xsd:element ref="ComuneDiEmissione"/>
+			<xsd:element ref="IntestatariCertificati"/>
+			<xsd:element ref="ed:DataEmissione"/>
+			<xsd:element ref="ed:Osservazioni" minOccurs="0"/>
+			<xsd:element ref="ed:Termini" minOccurs="0"/>
+			<xsd:element name="Timestamp" type="bus:TimestampType" minOccurs="0"/>
+			<xsd:element name="TimbroDiAccettazione" type="bus:AcknowledgementStampType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of CertificationDocumentStructure -->
+	<!-- Start of ResidenceCertificationDocumentStructure -->
+	<xsd:complexType name="ResidenceCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the typical Residence Certification e-document i.e. a residence certificate produced by the municipality.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CertificationDocumentStructure">
+				<xsd:sequence>
+					<xsd:element name="Indirizzo" type="ed:AddressStructure"/>
+					<xsd:element ref="ds:Signature" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- End of ResidenceCertificationDocumentType -->
+	<!--Start of MunicipalityDetailsType-->
+	<xsd:simpleType name="MunicipalityDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a specific municipality (Municipality name and/or identifier).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!--End of MunicipalityDetailsType-->
+	<!-- Start of NegativeResponseCertificationDocumentStructure -->
+	<xsd:complexType name="NegativeResponseCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the base for all certification document to be produced for negative answers coming from the municipality regarding a specific request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ed:Osservazioni"/>
+			<xsd:element name="RiferimentoOrario" type="xsd:dateTime"/>
+			<xsd:element name="Timestamp" type="bus:TimestampType" minOccurs="0"/>
+			<xsd:element name="TimbroDiAccettazione" type="bus:AcknowledgementStampType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of NegativeResponseCertificationDocumentStructure -->
+	<!-- Start of NegativeResponseResidenceCertificationDocumentStructure -->
+	<xsd:complexType name="NegativeResponseResidenceCertificationDocumentStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is the  Residence Certification e-document returning a negative response message..</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="NegativeResponseCertificationDocumentStructure">
+				<xsd:sequence>
+					<xsd:element name="RichiestaOriginaria" type="bus:ResidenceCertificationRequestDocumentStructure"/>
+			        <xsd:element ref="ds:Signature" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- End of NegativeResponseResidenceCertificationDocumentStructure -->
+</xsd:schema>
