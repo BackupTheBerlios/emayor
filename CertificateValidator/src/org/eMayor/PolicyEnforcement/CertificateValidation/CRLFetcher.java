@@ -7,6 +7,7 @@ import java.net.URLConnection;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.security.cert.CRLException;
 
@@ -32,7 +33,22 @@ public class CRLFetcher {
 			
 			URL crlurl = new URL(url);
 			URLConnection crlcon = crlurl.openConnection();
-			crl = new X509CRL(crlcon.getInputStream());
+			InputStream myStream = crlcon.getInputStream();
+			
+			System.out.println("=============fetchCRL============");
+			System.out.println("from URL:"+url);
+			System.out.println("=============End ================");
+			try {
+				crl = new X509CRL(myStream);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				//Hack, try once more if error
+				myStream = crlurl.openStream();
+				crl = new X509CRL(myStream);
+			}
+			
 
 		return crl;
 	}

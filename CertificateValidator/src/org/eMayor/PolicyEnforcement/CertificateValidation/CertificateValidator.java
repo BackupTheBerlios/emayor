@@ -210,8 +210,9 @@ public class CertificateValidator {
 
 		} catch (Exception ce) {
 			// In case we fail to connect we use the predefined CDP and get a ConnectException
-			
-			if (!DefaultCRL) {
+			ce.printStackTrace();
+			if (!DefaultCRL)
+			{
 				System.out.println("no Connection to CRL from the Certificate, Use default");
 				try {
 				/*	CDPConfiguration cdpConf = new CDPConfiguration();
@@ -227,6 +228,7 @@ public class CertificateValidator {
 					  else Response = CertNotRevoked;
 					
 				} catch (Exception ex) {
+					ex.printStackTrace();
 					Response = NoCRLConnection;
 					
 				}
