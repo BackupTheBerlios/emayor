@@ -69,17 +69,17 @@ public class ShowTaskDetailsProcessor extends AbstractProcessor {
 					String reqForename = XPathAPI
 							.selectSingleNode(
 									root,
-									"/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameForename/text()")
+									"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()")
 							.getNodeValue();
 					String reqSurname = XPathAPI
 							.selectSingleNode(
 									root,
-									"/ResidenceCertificationRequestDocument/ConcernedPersonDetails/CitizenName/CitizenNameSurname/text()")
+									"/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()")
 							.getNodeValue();
 					String reqEmail = XPathAPI
 							.selectSingleNode(
 									root,
-									"/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ContactDetails/Email/EmailAddress/text()")
+									"/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()")
 							.getNodeValue();
 					String reqServingMunicipality = XPathAPI
 							.selectSingleNode(root,

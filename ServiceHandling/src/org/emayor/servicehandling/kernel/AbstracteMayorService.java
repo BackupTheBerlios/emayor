@@ -11,6 +11,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 import org.apache.log4j.Logger;
+import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.emayor.servicehandling.kernel.bpel.starter.eMayorServiceInvoker;
 
 /**
@@ -77,6 +78,21 @@ public abstract class AbstracteMayorService implements IeMayorService {
 			throw new eMayorServiceException("");
 		}
 		log.debug("-> ... processing DONE!");
+	}
+	
+	protected C_UserProfile getUserProfile(String uid) {
+		Kernel kern = null;
+		C_UserProfile profile = null;
+		
+		try {
+			kern = Kernel.getInstance();
+			profile = kern.getUserProfile(uid).getPEUserProfile();
+		} catch (KernelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return profile;
 	}
 	
 	/*
