@@ -165,7 +165,9 @@ public class BPELNotificationWrapperEJB implements SessionBean {
 			prop.put("address",address);
 			prop.put("body",body);
 			prop.put("subject",subject);
-			prop.put("message",message);
+			try {
+				prop.put("message",message.getBytes("UTF-8"));
+			} catch (Exception e) {}
 			prop.put("type",medium);
 			prop.put("sessionId",ssId);
 		}
