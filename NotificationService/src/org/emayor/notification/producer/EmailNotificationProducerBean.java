@@ -201,7 +201,7 @@ public class EmailNotificationProducerBean
 			if (message != null) {
 				// create file for attachment
 				FileOutputStream out = new FileOutputStream(directory+File.separatorChar+sessionId);
-				PrintStream p = new PrintStream( out );
+				PrintStream p = new PrintStream( out,true,"UTF-8" );
 				p.println (message);
 				p.close();
 				out.close();
