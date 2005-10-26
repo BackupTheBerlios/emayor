@@ -39,3 +39,4 @@ SET @EMAYOR_NOTIFICATION_EMAIL_REPLYTO = 'emayor@emayor.org';
 
 SOURCE create_config_instance.sql;
 SOURCE admin_services.sql; 
+SOURCE RCS_v10.sql;
