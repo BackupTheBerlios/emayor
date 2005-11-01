@@ -78,9 +78,9 @@ public class ResidenceCertificationService extends AbstracteMayorService {
 		        	XPathAPI.selectSingleNode(document, "/ResidenceCertificationRequestDocument/RequesterDetails/ContactDetails/Email/EmailAddress/text()").setNodeValue(value);
 		        
 		        /* language */
-		        value = profile.getUserCountry();
-		        if (value != null)
-		        	XPathAPI.selectSingleNode(document, "/ResidenceCertificationRequestDocument/RequesterDetails/PreferredLanguages/text()").setNodeValue(value);
+		        //value = profile.getUserCountry();
+		        //if (value != null)
+		        //	XPathAPI.selectSingleNode(document, "/ResidenceCertificationRequestDocument/RequesterDetails/PreferredLanguages/text()").setNodeValue(value);
 		        
 		        /* loginserver/receiving/serving set to local */
 		        Config config = Config.getInstance();

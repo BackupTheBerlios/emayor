@@ -118,7 +118,7 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		xmlDocument = xmlDocument.replaceAll("&gt;",">");
 		log.debug("got xml document: "+xmlDocument);
 		
-		if ( !userId.equals("") ) return true;
+		//if ( !userId.equals("") ) return true;
 		
 		Kernel kern;
 		String userProfile = null;
