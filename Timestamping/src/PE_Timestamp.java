@@ -37,7 +37,7 @@ public class PE_Timestamp {
 	      prop.setProperty("tsa.certificate", (String) v.elementAt(3));
 	      */
 	  
-	      prop.setProperty("host.url", "212.113.70.188:318");
+	      prop.setProperty("tsa.url", "212.113.70.188:318");
 	      prop.setProperty("hash.algorithm", "SHA1");
 	      prop.setProperty("tsa.policy", "1.2.3.4");
 	      prop.setProperty("tsa.name", "TSS");
