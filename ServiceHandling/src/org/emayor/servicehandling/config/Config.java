@@ -819,7 +819,7 @@ public class Config {
 	 * switch to existing config
 	 * (and create if not exists)
 	 */
-	public boolean switchConfig(String configID) {
+	public synchronized boolean switchConfig(String configID) {
 		boolean result = false;
 		
 		PlatformConfigurationEntityLocal oldLocal = local;
@@ -850,7 +850,7 @@ public class Config {
 	/*
 	 * create new config
 	 */
-	public boolean createConfig(String configID, Properties configValues) throws ConfigException {
+	public synchronized boolean createConfig(String configID, Properties configValues) throws ConfigException {
 		boolean result = true;
 		
 		PlatformConfigurationEntityLocal tempLocal;
@@ -888,7 +888,7 @@ public class Config {
 		return result;
 	}
 	
-	public String getConfigID() {
+	public synchronized String getConfigID() {
 		return this.configID;
 	}
 	
