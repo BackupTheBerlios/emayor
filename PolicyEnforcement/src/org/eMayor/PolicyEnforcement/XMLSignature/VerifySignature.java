@@ -43,6 +43,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.apache.log4j.*;
 import org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
+import org.emayor.servicehandling.config.Config;
 
 
 /**
@@ -90,7 +91,14 @@ public class VerifySignature {
      				"//ds:Signature", nscontext);
      		int Nodes = myNodeList.getLength();
      		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Found " + Nodes + "Signatures");
-     		
+     		if (Nodes<0) {
+     			
+     			Config config = Config.getInstance();
+     			if (config.getPropertyAsBoolean(Config.EMAYOR_PE_CHECK_SIGNATURE)) {
+     				throw new E_PolicyEnforcementException(
+     				"PolicyEnforcement::VerifySignature:: Error : The document contains no Signature!");
+     			} 	else return true;
+     		}
      		
      		
      		for (int i=0;i<Nodes;i++) {
