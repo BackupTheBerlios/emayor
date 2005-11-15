@@ -212,8 +212,36 @@ public class Config {
 		log.debug("-> start processing ...");
 		if (_self == null)
 			_self = new Config();
+		else {
+			_self.local = null;
+			_self.home  = null;
+			_self.local = getPCEL(_self.configID);
+		}
 		log.debug("-> ... processing DONE!");
 		return _self;
+	}
+	
+	private static PlatformConfigurationEntityLocal getPCEL(String configID) {
+		Object ref;
+		PlatformConfigurationEntityLocalHome home = null;
+		try {
+			ref = new InitialContext()
+			.lookup(PlatformConfigurationEntityLocalHome.JNDI_NAME);
+			home = (PlatformConfigurationEntityLocalHome) PortableRemoteObject
+			.narrow(ref, PlatformConfigurationEntityLocalHome.class);
+			return home.create(configID);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CreateException e) {
+			try {
+				return home.findByPrimaryKey(configID);
+			} catch (FinderException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	private void init() {
