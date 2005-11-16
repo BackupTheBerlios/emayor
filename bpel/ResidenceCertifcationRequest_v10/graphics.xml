@@ -1,18 +1,18 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <graphics>
    <partnerlink_locations>
-      <partnerlink name="client" x="0" y="397" side="left"/>
-      <partnerlink name="localProcessingPL" x="0" y="1904" side="left"/>
-      <partnerlink name="userInteractionPL" x="0" y="20" side="left"/>
-      <partnerlink name="forwardPL" x="0" y="87" side="left"/>
-      <partnerlink name="notificationPL" x="0" y="175" side="left"/>
-      <partnerlink name="policyenforcerPL" x="0" y="242" side="left"/>
-      <partnerlink name="translationPL" x="0" y="1577" side="left"/>
-      <partnerlink name="negativeResponsePL" x="0" y="330" side="left"/>
-      <partnerlink name="dataCollectionPL" x="1919" y="20" side="right"/>
-      <partnerlink name="civilServantPL" x="1919" y="87" side="right"/>
-      <partnerlink name="callbackMgrPartnerLink" x="1919" y="6148" side="right"/>
-      <partnerlink name="forwardResponsePL" x="1919" y="207" side="right"/>
+      <partnerlink name="client" x="0" y="109" side="left"/>
+      <partnerlink name="localProcessingPL" x="0" y="3741" side="left"/>
+      <partnerlink name="userInteractionPL" x="0" y="11198" side="left"/>
+      <partnerlink name="forwardPL" x="0" y="6552" side="left"/>
+      <partnerlink name="notificationPL" x="0" y="20" side="left"/>
+      <partnerlink name="policyenforcerPL" x="0" y="2416" side="left"/>
+      <partnerlink name="translationPL" x="0" y="988" side="left"/>
+      <partnerlink name="negativeResponsePL" x="0" y="3567" side="left"/>
+      <partnerlink name="dataCollectionPL" x="2487" y="652" side="right"/>
+      <partnerlink name="civilServantPL" x="2487" y="5157" side="right"/>
+      <partnerlink name="callbackMgrPartnerLink" x="2487" y="11743" side="right"/>
+      <partnerlink name="forwardResponsePL" x="2487" y="20" side="right"/>
    </partnerlink_locations>
    <diagram popupeditor="false" centerzoom="true" validateonload="true" confirmbeforedelete="true" SELECTED_PARTNERLINK_COLOR="0,0,153" SWIMLANE_BACKGROUND="255,255,225" SWIMLANE_DIVIDER_BACKGROUND="236,233,216" GRAPH_BACKGROUND="255,255,255" SELECTED_BORDER_BACKGROUND="204,255,204" CONNECTED_PARTNERLINK_COLOR="204,204,255" CONNECTABLE_PARTNERLINK_COLOR="0,0,255" UNCONNECTED_PARTNERLINK_COLOR="192,192,192"/>
 </graphics>

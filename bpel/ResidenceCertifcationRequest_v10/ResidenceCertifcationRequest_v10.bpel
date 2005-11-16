@@ -56,7 +56,7 @@
     <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
    </copy>
    <copy>
-    <from expression="'YES'"/>
+    <from expression="'open'"/>
     <to variable="g_currentProcessStepStatus"/>
    </copy>
    <copy>
@@ -335,7 +335,7 @@ System.out.println("caught ex: "+ex.toString());
             </bpelx:annotation>
             <sequence name="Sequence_26">
              <switch name="acceptedOrRejected">
-              <case condition="bpws:getVariableData('requestData','payload','/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status') = 'NO'">
+              <case condition="bpws:getVariableData('requestData','payload','/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status') = 'closed'">
                <bpelx:annotation>
                 <bpelx:pattern>rejected
                 </bpelx:pattern>
@@ -518,7 +518,7 @@ System.out.println("caught ex: "+ex.toString());
          </copy>
         </assign>
         <switch name="resetDocumentType">
-         <case condition="bpws:getVariableData('requestData','payload','/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status') != 'YES'">
+         <case condition="bpws:getVariableData('requestData','payload','/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status') = 'closed'">
           <bpelx:annotation>
            <bpelx:pattern>negative answer
            </bpelx:pattern>
@@ -530,7 +530,7 @@ System.out.println("caught ex: "+ex.toString());
              <to variable="g_currentDocumentType"/>
             </copy>
             <copy>
-             <from expression="'NO'"/>
+             <from expression="'closed'"/>
              <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
             </copy>
            </assign>
@@ -661,7 +661,7 @@ System.out.println("caught ex: "+ex.toString());
             </bpelx:annotation>
             <sequence name="Sequence_26">
              <switch name="Switch_3">
-              <case condition="bpws:getVariableData('g_remoteServingPassed') = 'YES' and bpws:getVariableData('cvInteractionOut','payload','/nsxml4:CivilServantInteraction_v10Response/nsxml0:status') != 'NO'">
+              <case condition="bpws:getVariableData('g_remoteServingPassed') = 'YES' and bpws:getVariableData('cvInteractionOut','payload','/nsxml4:CivilServantInteraction_v10Response/nsxml0:status') != 'closed'">
                <bpelx:annotation>
                 <bpelx:pattern>accepted and remote served
                 </bpelx:pattern>
@@ -681,7 +681,7 @@ System.out.println("caught ex: "+ex.toString());
                 </copy>
                </assign>
               </case>
-              <case condition="bpws:getVariableData('cvInteractionOut','payload','/nsxml4:CivilServantInteraction_v10Response/nsxml0:status') = 'NO'">
+              <case condition="bpws:getVariableData('cvInteractionOut','payload','/nsxml4:CivilServantInteraction_v10Response/nsxml0:status') = 'closed'">
                <bpelx:annotation>
                 <bpelx:pattern>rejected
                 </bpelx:pattern>
@@ -730,7 +730,7 @@ System.out.println("caught ex: "+ex.toString());
      </otherwise>
     </switch>
     <switch name="checkForNegativeDocument">
-     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') and bpws:getVariableData('g_remoteServingPassed') = 'NO'">
+     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') and bpws:getVariableData('g_remoteServingPassed') = 'closed'">
       <bpelx:annotation>
        <bpelx:pattern>negative document available and not filled in yet
        </bpelx:pattern>
@@ -818,7 +818,7 @@ System.out.println("caught ex: "+ex.toString());
              <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
             </copy>
             <copy>
-             <from expression="'NO'"/>
+             <from expression="'closed'"/>
              <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
             </copy>
            </assign>
@@ -1006,7 +1006,7 @@ System.out.println("caught ex: "+ex.toString());
             </copy>
            </assign>
            <switch name="Switch_5">
-            <case condition="bpws:getVariableData('forwardOut','payload','/nsxml10:ForwardRequest_v10Response/nsxml0:status') != 'YES'">
+            <case condition="bpws:getVariableData('forwardOut','payload','/nsxml10:ForwardRequest_v10Response/nsxml0:status') = 'closed'">
              <bpelx:annotation>
               <bpelx:pattern>rejected
               </bpelx:pattern>
@@ -1021,7 +1021,7 @@ System.out.println("caught ex: "+ex.toString());
                <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:extraField2"/>
               </copy>
               <copy>
-               <from expression="'NO'"/>
+               <from expression="'closed'"/>
                <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
               </copy>
               <copy>

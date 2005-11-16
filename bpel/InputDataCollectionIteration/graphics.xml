@@ -2,7 +2,7 @@
 <graphics>
    <partnerlink_locations>
       <partnerlink name="client" x="15" y="585" side="left"/>
-      <partnerlink name="UserInteractionManager" x="818" y="580" side="right"/>
+      <partnerlink name="UserInteractionManager" x="757" y="580" side="right"/>
    </partnerlink_locations>
    <diagram popupeditor="false" centerzoom="true" validateonload="true" confirmbeforedelete="true" SELECTED_PARTNERLINK_COLOR="0,0,153" SWIMLANE_BACKGROUND="255,255,225" SWIMLANE_DIVIDER_BACKGROUND="236,233,216" GRAPH_BACKGROUND="255,255,255" SELECTED_BORDER_BACKGROUND="204,255,204" CONNECTED_PARTNERLINK_COLOR="204,204,255" CONNECTABLE_PARTNERLINK_COLOR="0,0,255" UNCONNECTED_PARTNERLINK_COLOR="192,192,192"/>
 </graphics>
