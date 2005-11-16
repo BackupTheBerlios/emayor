@@ -23,6 +23,10 @@ public class LoginAction extends Action
                                 HttpServletRequest request,
                                 HttpServletResponse response )
   {
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 1);
+
     LoginForm loginForm = (LoginForm)form;
     System.out.println("LoginAction.execute(). Passed parameter names:");
     Enumeration namesEnumeration = request.getParameterNames();

@@ -39,6 +39,10 @@ public class FormTestAction extends DispatchAction
                                        HttpServletRequest request,
                                        HttpServletResponse response )
   {
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 1);
+
     System.out.println(" ");
     System.out.println("-------------------------------FormTestAction.executeService()");
     Enumeration namesEnumeration = request.getParameterNames();

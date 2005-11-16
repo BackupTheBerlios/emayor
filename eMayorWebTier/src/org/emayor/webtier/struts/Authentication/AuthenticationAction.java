@@ -23,6 +23,10 @@ public class AuthenticationAction extends Action
                                 HttpServletRequest request,
                                 HttpServletResponse response )
   {
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 1);
+  
     AuthenticationForm authenticationForm = (AuthenticationForm)form;
     System.out.println("AuthenticationAction.execute(). Passed parameter names:");
     Enumeration namesEnumeration = request.getParameterNames();

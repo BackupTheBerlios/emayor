@@ -68,6 +68,10 @@ public class ServiceAction extends DispatchAction
                                        HttpServletRequest request,
                                        HttpServletResponse response )
   {
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 1);
+
     ServiceForm serviceForm = (ServiceForm)form;
  
     System.out.println(" ");
@@ -550,6 +554,10 @@ public class ServiceAction extends DispatchAction
                                      HttpServletRequest request,
                                      HttpServletResponse response )
   {
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 1);
+
     ServiceForm serviceForm = (ServiceForm)form;
     
     System.out.println(" ");
@@ -700,6 +708,10 @@ public class ServiceAction extends DispatchAction
                                                HttpServletRequest request,
                                                HttpServletResponse response )
    {
+     response.setHeader("Pragma", "No-cache");
+     response.setHeader("Cache-Control", "no-cache");
+     response.setDateHeader("Expires", 1);
+
      ServiceForm serviceForm = (ServiceForm)form;
      
      System.out.println(" ");
@@ -1167,6 +1179,10 @@ public class ServiceAction extends DispatchAction
             HttpServletRequest request,
             HttpServletResponse response )
     {
+      response.setHeader("Pragma", "No-cache");
+      response.setHeader("Cache-Control", "no-cache");
+      response.setDateHeader("Expires", 1);
+
       ServiceForm serviceForm = (ServiceForm)form;
       HttpSession session = request.getSession();
          
@@ -1204,6 +1220,10 @@ public class ServiceAction extends DispatchAction
                                   HttpServletRequest request,
                                   HttpServletResponse response )
      {     
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 1);
+
         ServiceForm serviceForm = (ServiceForm)form;
 
         System.out.println(" ");
@@ -1281,6 +1301,10 @@ public class ServiceAction extends DispatchAction
                                                           HttpServletRequest request,
                                                           HttpServletResponse response )
      {
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 1);
+
         ServiceForm serviceForm = (ServiceForm)form;
         HttpSession session = request.getSession();
 
@@ -1369,6 +1393,10 @@ public class ServiceAction extends DispatchAction
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response )
     {
+       response.setHeader("Pragma", "No-cache");
+       response.setHeader("Cache-Control", "no-cache");
+       response.setDateHeader("Expires", 1);
+
        ServiceForm serviceForm = (ServiceForm)form;
        HttpSession session = request.getSession();
        

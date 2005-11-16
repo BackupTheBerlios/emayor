@@ -43,6 +43,10 @@ public class MunicipalityListAction extends Action
                                 HttpServletRequest request,
                                 HttpServletResponse response )
   {
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 1);
+
     MunicipalityListForm municipalityListForm = (MunicipalityListForm)form;
  
   	Utilities.PrintLn("MunicipalityListAction.execute(). Passed parameter names:");

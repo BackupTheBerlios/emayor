@@ -297,14 +297,33 @@ public class GUIBuilder
         else
         if( actionClass.equals("XMLSignatureSubmitter") )
         {
-          ImageIcon icon = this.loadIconFromResource("/pictures/applet/ok.gif");
+          // The icon is dependent of the submitter parameter:
+          // If none is set, use ok.gif
+          // If there is one set, use ok gif, unless, the value of
+          // the submitter is "Deny", in shich case invalid.gif is used:
+          ImageIcon icon = null;
+          if( submitterParameter != null )
+          {
+            if( submitterParameter.equals("Deny") )
+            {
+              icon = this.loadIconFromResource("/pictures/applet/invalid.gif");
+            }
+            else
+            {
+              icon = this.loadIconFromResource("/pictures/applet/ok.gif");
+            }
+          }
+          else
+          {
+            icon = this.loadIconFromResource("/pictures/applet/ok.gif");
+          }
           if( icon != null ) jButton.setIcon(icon);
           jButton.addActionListener( new XMLSignatureSubmitter( this.modelNode, this.mainApplet,submitterParameter ) );
         }
         else
         if( actionClass.equals("RedirectSubmitter") )
         {
-          ImageIcon icon = this.loadIconFromResource("/pictures/applet/bluerightarrow.jpg");
+          ImageIcon icon = this.loadIconFromResource("/pictures/applet/bluerightarrow.gif");
           if( icon != null ) jButton.setIcon(icon);
           jButton.addActionListener( new RedirectSubmitter( this.modelNode, this.mainApplet,submitterParameter ) );
         }

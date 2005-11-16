@@ -39,6 +39,10 @@ public class MunicipalityAction extends Action
                                 HttpServletRequest request,
                                 HttpServletResponse response )
   {
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 1);
+
     MunicipalityForm municipalityForm = (MunicipalityForm)form;
     System.out.println("MunicipalityAction.execute(). Passed parameter names:");
     Enumeration namesEnumeration = request.getParameterNames();
