@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="WebRoot" exploded="false" name="eMayorApplet.jar" used="true">
+<folder excludes="" includes="" location="bin/org/emayor/client" name="client" prefix="" project="" projectLocation="bin/org/emayor/client" used="true"/>
+<folder excludes="" includes="" location="bin/org/apache/xml" name="xml" prefix="org.apache.xml" project="" projectLocation="bin/org/apache/xml" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="eMayorWebTier.war" used="true">
+<folder excludes="" includes="" location="WebRoot/WEB-INF" name="WEB-INF" prefix="WEB-INF" project="" projectLocation="WebRoot/WEB-INF" used="true"/>
+<folder excludes="**/WEB-INF/**" includes="" location="WebRoot" name="WebRoot" prefix="" project="" projectLocation="WebRoot" used="true"/>
+<folder excludes="" includes="" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="eMayorWebTier.ear" used="true">
+<file location="eMayorWebTier.war" name="eMayorWebTier.war" prefix="" project="" projectLocation="eMayorWebTier.war" used="true"/>
+<file location="WebRoot/WEB-INF/application.xml" name="application.xml" prefix="META-INF" project="" projectLocation="WebRoot/WEB-INF/application.xml" used="true"/>
+</archive>
+</configurations>

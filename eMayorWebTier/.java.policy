@@ -1,0 +1,11 @@
+/* AUTOMATICALLY GENERATED ON Thu Aug 18 15:51:59 CEST 2005*/
+/* DO NOT EDIT */
+
+grant {
+  permission java.util.PropertyPermission "jnlpx.splashport", "read, read, write";
+  permission java.util.PropertyPermission "user.dir", "read, read, write";
+  permission java.io.FilePermission "<<ALL FILES>>", "read, write, delete";
+  permission java.lang.RuntimePermission "loadLibrary.pkcs11wrapper";
+  permission java.security.AllPermission;
+};
+

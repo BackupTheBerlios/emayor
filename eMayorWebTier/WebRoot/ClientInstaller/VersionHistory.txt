@@ -1,0 +1,36 @@
+New in Version 1.6
+------------------
+Some schema files are changed, so that
+the client applet will display
+drop down boxes for the entries of
+login server, receiving and sending
+municipality.
+
+
+New in version 1.5
+------------------
+Better feedback, when errors
+occure.
+
+
+New in Version 1.4:
+-------------------
+3 libraries for xerces 2.7.1 added.
+This parser is required for parsing
+the e-document initially with full
+xsd schema information output.
+
+
+New in Version 1.3:
+-------------------
+BusinessDocument-v0.2g.xsd has been
+updated by AlexK
+
+
+New in version 1.2:
+-------------------
+
+Added updated CommonSimpleTypes-v1-3.xsd schema
+file from Alexandros. This contains all
+required languages for language selection
+entries. Previous one only contained en and cy.

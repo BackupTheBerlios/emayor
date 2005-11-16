@@ -1,0 +1,75 @@
+
+<!-- Example for a template with almost no style, a minimal template  äöü -->
+
+
+<!-- This template is used for creating HTML replies by ALL
+     Java Server Pages.The webtier requires the occurence of
+     ALL the following identifiers in this template:
+     
+     Logic.LanguageSelection : Contains the links for selecting the language.
+                               Must be inside a <tbody> tag
+                           
+     Logic.NavigationBar     : Contains the navigation bar and a link to the help page.
+                               Must be inside a <tbody> tag
+                           
+     Logic.PageContent       : Contains the specific content of that page
+                               Must be inside a <tbody> tag
+                           
+     Logic.AboutLinkText     : Contains the translation of the text
+                               "About eMayor" in the selected language
+                               Use it for the [required] link to the About page.
+
+     These identifiers are replaced by page and language specific contents by the
+     Java Server Pages. Each identifier must occure exactly one time somewhere
+     in the html content (outside html comments).
+     If the webtier logic detects syntactical errors in this template, it
+     will automatically skip this one and use the default html template stored in the
+     webtier WAR file on the server instead.     
+-->
+     
+
+<!-- 
+     The head section is managed by the JSP's.
+     In this template, only the body section should be customized.
+-->
+
+     
+<body>
+
+<table style="width: 660px; align: right;">
+  <tbody>
+    <tr>
+       <td style="text-align: right;">
+          <table right=""
+                 style="text-align: right; margin-left: auto; margin-right: 0px;">
+            <tbody>
+              Logic.LanguageSelection
+            </tbody>
+          </table>
+       </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+
+<table style="width: 660px;">
+  <tbody>              
+    Logic.NavigationBar
+  </tbody>
+</table>
+
+<p>
+
+<table style="width: 660px;">
+  <tbody>              
+    Logic.PageContent
+  </tbody>
+</table>
+
+<p>
+
+<a href="http://www.emayor.org/">Logic.AboutLinkText</a>
+
+</body>
+     

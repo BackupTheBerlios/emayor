@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<eMayorForm1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/eMayorFormsSchema.xsd eMayorFormsSchema.xsd "> 
+  <Model>
+              <!-- The RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung xml document is filled in here by the webtier logic -->
+  </Model>
+
+
+  <!-- xml Swing combined view-controler descriptions follow here  äöü -->
+
+
+  <View>  <!-- The view always has a BorderLayout -->
+      <JPanel LayoutClass="FlowLayout" 
+              LayoutParameter="FlowLayout.LEFT" 
+              AddParameter="BorderLayout.NORTH"
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="0"
+              VerticalBorderSize="12">
+         <JLabel Background="255,255,255">$Title.NegativeResponseResidenceCertificationDocument$</JLabel>
+      </JPanel>
+      
+
+      <JPanel LayoutClass="BoxLayout" 
+              LayoutParameter="BoxLayout.Y_AXIS" 
+              AddParameter="BorderLayout.CENTER"
+              Background="255,255,255">
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="224,224,224"
+                AlignmentX="0">
+          <JLabel Background="255,255,255">$Form.Observations$</JLabel>
+          <JTextArea ModelPath="Model/RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung/cdi:RispostaNegativaCertificatoDiResidenza/edi:Osservazioni"
+                     Rows="10" Columns="28" Editable="false"></JTextArea>
+        </JPanel>
+
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="255,255,255">$Form.DateOfCreation$</JLabel>
+          <JLabel ModelPath="Model/RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung/cdi:RispostaNegativaCertificatoDiResidenza/cdi:RiferimentoOrario" 
+                      Columns="14"></JLabel>
+        </JPanel>
+
+
+
+<!-- some entries from the citizen: -->
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+<!-- some entries from the civil servant: -->
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+        <!-- Title Label: -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="224,224,224"
+                AlignmentX="0">
+          <JLabel Background="255,255,255">$Form.ConcernedPersonDetails$</JLabel>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="255,255,255">$Form.Forename$</JLabel>
+          <JLabel ModelPath="Model/RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung/cdi:RispostaNegativaCertificatoDiResidenza/cdi:RichiestaOriginaria/bus:ConcernedPersonDetails/edc:CitizenName/aapd:CitizenNameForename" 
+                      Columns="14"></JLabel>
+        </JPanel>
+        
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="255,255,255">$Form.Surname$</JLabel>
+          <JLabel ModelPath="Model/RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung/cdi:RispostaNegativaCertificatoDiResidenza/cdi:RichiestaOriginaria/bus:ConcernedPersonDetails/edc:CitizenName/aapd:CitizenNameSurname" 
+                      Columns="14"></JLabel>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="255,255,255">$Form.BirthDate$</JLabel>
+          <JLabel ModelPath="Model/RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung/cdi:RispostaNegativaCertificatoDiResidenza/cdi:RichiestaOriginaria/bus:ConcernedPersonDetails/edc:CitizenBirthDetails/edc:DateOfBirth/aapd:BirthDate" 
+                      Columns="14"></JLabel>
+        </JPanel>
+
+
+<!-- buttons for readonly epf role: -->
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+        <JPanel Background="224,224,224" AlignmentX="0">
+          <JButton ActionClass="RedirectSubmitter">       $Form.Done$       </JButton>
+          <JButton ActionClass="SaveModelToDiskSubmitter">       $Form.SaveToDisk$       </JButton>
+          <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
+          <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+
+      </JPanel>
+
+  </View>
+</eMayorForm1>
+
+

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config SYSTEM "struts-config_1_2.dtd">
+
+<!-- original was: (without XXXX ):
+<!DOCTYPE struts-config SYSTEM "http://XXXXjakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+-->
+
+
+<struts-config>
+
+  <!-- ========== Form Bean Definitions ============================== -->
+
+  <form-beans>
+
+    <form-bean name="testForm"      type="test.ssl.TestForm" />
+
+  </form-beans>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+
+  <action-mappings type="org.apache.struts.config.SecureActionConfig">
+
+    <action path="/true"
+            type="test.ssl.NullAction"
+           >
+    <set-property property="secure" value="true"/>
+      <forward name="success" path="/true.jsp" />
+     </action>
+    <action path="/false"
+            type="test.ssl.NullAction"
+           >
+    <set-property property="secure" value="false"/>
+      <forward name="success" path="/false.jsp" />
+    </action>
+     <action path="/any"
+             type="test.ssl.NullAction"
+            >
+     <set-property property="secure" value="any"/>
+       <forward name="success" path="/any.jsp" />
+     </action>
+
+    <action path="/falsetag"
+            type="test.ssl.NullAction"
+           >
+    <set-property property="secure" value="true"/>
+      <forward name="success" path="/falsetag.jsp" />
+    </action>
+
+    <action path="/truetag"
+            type="test.ssl.NullAction"
+           >
+    <set-property property="secure" value="false"/>
+      <forward name="success" path="/truetag.jsp" />
+    </action>
+
+     <action path="/anytag"
+             type="test.ssl.NullAction"
+            >
+     <set-property property="secure" value="any"/>
+       <forward name="success" path="/anytag.jsp" />
+     </action>
+
+    <action path="/secureSubmit"
+            type="test.ssl.NullAction"
+            name="testForm"
+           >
+    <set-property property="secure" value="true"/>
+      <forward name="success" path="/submitted.jsp" />
+     </action>
+
+    <action path="/nonsecureSubmit"
+            type="test.ssl.NullAction"
+            name="testForm"
+           >
+    <set-property property="secure" value="false"/>
+      <forward name="success" path="/submitted.jsp" />
+     </action>
+
+    <action path="/formAction"
+            type="test.ssl.NullAction"
+           >
+    <set-property property="secure" value="false"/>
+      <forward name="success" path="/form.jsp" />
+     </action>
+
+  </action-mappings>
+  
+  <controller processorClass="org.apache.struts.action.SecureRequestProcessor" />
+  
+  <!-- <message-resources
+      parameter="org.apache.struts.webapp.example.ApplicationResources"/> -->
+
+  <plug-in className="org.apache.struts.action.SecurePlugIn">
+    <set-property property="httpPort" value="8080"/>
+    <set-property property="httpsPort" value="8443"/>  	
+    <set-property property="enable" value="true"/>  	
+    <set-property property="addSession" value="true"/>  	
+  </plug-in>
+  
+</struts-config>

@@ -1,0 +1,103 @@
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "struts-config_1_2.dtd">
+<!-- dtd locations: You can choose: --><!-- --><!-- original one is: "http://struts.apache.org/dtds/struts-config_1_2.dtd" --><!-- This one will be requested over the internet from JBoss, when the webtier is edployed --><!-- --><!-- local one: "struts-config_1_2.dtd"--><!-- This one will be searched in the filesystem, and be found when it --><!-- is located in the current directory, which usually is jboss/bin   --><struts-config>
+
+
+  <!-- ========== Form Bean Definitions ============================== -->
+
+  <form-beans>
+    <form-bean name="testForm" type="test.ssl.TestForm" />
+    <form-bean name="municipalityListForm" type="org.emayor.webtier.struts.MunicipalityList.MunicipalityListForm" />
+    <form-bean name="municipalityForm" type="org.emayor.webtier.struts.Municipality.MunicipalityForm" />
+    <form-bean name="serviceForm" type="org.emayor.webtier.struts.Service.ServiceForm" />
+    <form-bean name="loginForm" type="org.emayor.webtier.struts.login.LoginForm" />
+    <form-bean name="repositoryForm" type="org.emayor.webtier.struts.repository.RepositoryForm" />
+    
+    <form-bean name="documentRequestForm" type="org.emayor.webtier.struts.Service.DocumentRequestForm" />
+    <form-bean name="errorPageForm" type="org.emayor.webtier.struts.errors.ErrorPageForm" />
+  <form-bean name="helpForm" type="org.emayor.webtier.struts.help.HelpForm" /><form-bean name="formTestForm" type="org.emayor.webtier.struts.FormTest.FormTestForm" /><form-bean name="authenticationForm" type="org.emayor.webtier.struts.Authentication.AuthenticationForm" /></form-beans>
+  
+  <global-exceptions>
+    <exception type="java.lang.Exception" key="global.error.Message" scope="request" handler="org.emayor.webtier.struts.errors.GlobalErrorHandler" path="/error.jsp" />
+  </global-exceptions>
+  
+  <global-forwards>
+    <forward name="municipalityList" path="/default.do" redirect="true" />
+  <forward name="showErrorGlobal" path="/error.do" redirect="false" /><forward name="formtest" path="/formtest" redirect="false" /><forward name="login" path="/login" redirect="false" /></global-forwards>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+
+  <action-mappings type="org.apache.struts.config.SecureActionConfig">
+
+    <action path="/true" type="test.ssl.NullAction" unknown="false">
+    <set-property property="secure" value="true" />
+      <forward name="success" path="/true.jsp" />
+     </action>
+    <action path="/false" type="test.ssl.NullAction">
+    <set-property property="secure" value="false" />
+      <forward name="success" path="/false.jsp" />
+    </action>
+     <action path="/any" type="test.ssl.NullAction">
+     <set-property property="secure" value="any" />
+       <forward name="success" path="/any.jsp" />
+     </action>
+
+    <action path="/falsetag" type="test.ssl.NullAction">
+    <set-property property="secure" value="true" />
+      <forward name="success" path="/falsetag.jsp" />
+    </action>
+
+    <action path="/truetag" type="test.ssl.NullAction">
+    <set-property property="secure" value="false" />
+      <forward name="success" path="/truetag.jsp" />
+    </action>
+
+     <action path="/anytag" type="test.ssl.NullAction">
+     <set-property property="secure" value="any" />
+       <forward name="success" path="/anytag.jsp" />
+     </action>
+
+    <action path="/secureSubmit" type="test.ssl.NullAction" name="testForm">
+    <set-property property="secure" value="true" />
+      <forward name="success" path="/submitted.jsp" />
+     </action>
+
+    <action path="/nonsecureSubmit" type="test.ssl.NullAction" name="testForm">
+    <set-property property="secure" value="false" />
+      <forward name="success" path="/submitted.jsp" />
+     </action>
+
+    <action path="/formAction" type="test.ssl.NullAction">
+    <set-property property="secure" value="false" />
+      <forward name="success" path="/form.jsp" />
+     </action>
+
+    <action path="/default" unknown="true" type="org.emayor.webtier.struts.MunicipalityList.MunicipalityListAction" name="municipalityListForm" input="/municipalityList.jsp" scope="session">
+    <forward name="showMunicipalityList" redirect="false" path="/municipalityList.jsp" contextRelative="false" />
+    </action>
+    
+    <action path="/municipality" type="org.emayor.webtier.struts.Municipality.MunicipalityAction" name="municipalityForm" input="/municipality.jsp" scope="session"><set-property property="secure" value="true" />
+    <forward name="showMunicipalityServices" redirect="false" path="/municipality.jsp" /><forward name="showAuthenticationInformation" path="/showAuthenticationInformation.jsp" redirect="false" />
+    </action>
+    
+    <action path="/service" type="org.emayor.webtier.struts.Service.ServiceAction" name="serviceForm" scope="session" parameter="do" validate="false">
+      <set-property property="secure" value="false" />
+      <forward name="processService" redirect="false" path="/requestdocument.jsp" />
+      <forward name="processLogin" redirect="false" path="/login.jsp" /><forward name="showCitizenRepository" path="/repositoryforcitizen.jsp" redirect="false" /><forward name="showAcknowledgement" path="/serviceAcknowledgement.jsp" redirect="false" /><forward name="WaitForServiceRequestResponse" path="/WaitForServiceRequestResponse.jsp" redirect="false" /><forward name="showCivilServantRepository" path="/repositoryforcivilservant.jsp" redirect="false" /><forward name="showDocumentForCitizen" path="/showDocumentForCitizen.jsp" redirect="false" /><forward name="requestdocumentAcknowledgement" path="/requestdocumentAcknowledgement.jsp" redirect="false" /><forward name="requestdocumentFailure" path="/requestdocumentFailure.jsp" redirect="false" /><forward name="showDocumentForCivilServant" path="/showDocumentForCivilServant.jsp" redirect="false" /><forward name="sendEMayorForm" path="/sendEMayorForm.jsp" redirect="false" /><forward name="getAppletProperties" path="/getAppletProperties.jsp" redirect="false" /><forward name="showServiceError" path="/ServiceError.jsp" redirect="false" /><forward name="postAcknowledgement" path="/postAcknowledgement.jsp" redirect="false" /><forward name="showSessionExpired" path="/showSessionExpired.jsp" redirect="false" />
+    </action>
+  
+  <action path="/requestdocument" type="org.emayor.webtier.struts.Service.DocumentRequestAction" name="documentRequestForm" scope="session"><forward name="requestdocument" path="/requestdocument.jsp" redirect="false" /><forward name="showAcknowledgement" path="/requestdocumentacknowledgement.jsp" redirect="false" /></action><action path="/error" parameter="do" type="org.emayor.webtier.struts.errors.ErrorPageAction" name="errorPageForm" scope="session" validate="false"><forward name="showErrorPage" path="/error.jsp" redirect="false" /></action><action path="/help" type="org.emayor.webtier.struts.help.HelpAction" name="helpForm" input="/help.jsp"><forward name="showHelp" path="/help.jsp" redirect="false" /></action><action path="/login" type="org.emayor.webtier.struts.login.LoginAction" name="loginForm" scope="request" parameter="do"><set-property property="secure" value="false" /><forward name="showLoginPage" path="/login.jsp" redirect="false" /><forward name="showLoginInformation" path="/showLoginInformation.jsp" redirect="false" /><forward name="showIncorrectWebTierInstallationPage" path="/showIncorrectWebTierInstallationPage.jsp" redirect="false" /><forward name="showLoginURLInformation" path="/showLoginURLInformation.jsp" redirect="false" /></action><action path="/formtest" type="org.emayor.webtier.struts.FormTest.FormTestAction" parameter="do" name="formTestForm" scope="session" validate="false"><forward name="testemayorform" path="/testemayorform.jsp" redirect="false" /><forward name="testgetappletproperties" path="/testgetappletproperties.jsp" redirect="false" /><forward name="testsendemayorform" path="/testsendemayorform.jsp" redirect="false" /><forward name="testformtestindex" path="/testformtestindex.jsp" redirect="false" /><forward name="testpostAcknowledgement" path="/testpostAcknowledgement.jsp" redirect="false" /></action><action path="/authenticateUser" type="org.emayor.webtier.struts.Authentication.AuthenticationAction" name="authenticationForm" scope="session" parameter="do"><set-property property="secure" value="true" /><forward name="authenticateUser" path="/authenticateUser.jsp" redirect="false" /></action></action-mappings>
+  
+  <controller /><message-resources parameter="Test.properties" />
+    
+   
+
+  <plug-in className="org.apache.struts.action.SecurePlugIn">
+    <set-property property="httpPort" value="8080" />
+    <set-property property="httpsPort" value="8443" />  	
+    <set-property property="enable" value="true" />  	
+    <set-property property="addSession" value="true" />  	
+  </plug-in>
+  
+  
+  
+</struts-config>

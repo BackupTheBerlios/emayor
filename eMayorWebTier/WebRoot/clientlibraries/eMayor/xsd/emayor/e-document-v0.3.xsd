@@ -1,0 +1,207 @@
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by AlexK (Home) -->
+<xsd:schema xmlns="http://www.emayor.org/e-Document.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:pdt="http://www.govtalk.gov.uk/people/PersonDescriptives" xmlns:core="http://www.govtalk.gov.uk/core" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:udt="urn:oasis:names:specification:ubl:schema:xsd:UnspecializedDatatypes-1.0" xmlns:ccts="urn:oasis:names:specification:ubl:schema:xsd:CoreComponentParameters-1.0" targetNamespace="http://www.emayor.org/e-Document.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" schemaLocation="../e-gif/PersonalDetailsTypes-v1-3.xsd"/>
+	<xsd:import namespace="http://www.govtalk.gov.uk/core" schemaLocation="../e-gif/CommonSimpleTypes-v1-3.xsd"/>
+	<xsd:import namespace="http://www.govtalk.gov.uk/people/PersonDescriptives" schemaLocation="../e-gif/PersonDescriptiveTypes-v1-1.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" schemaLocation="../ubl/common/UBL-commonAggregateComponents-1.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" schemaLocation="../ubl/common/UBL-CommonBasicComponents-1.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:UnspecializedDatatypes-1.0" schemaLocation="../ubl/common/UBL-UnspecializedDatatypes-1.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CoreComponentParameters-1.0" schemaLocation="../ubl/common/UBL-CoreComponentParameters-1.0.xsd"/>
+	<!-- Elements that are based on types -->
+	<xsd:element name="IssuanceDate" type="IssuanceDateType"/>
+	<xsd:element name="Terms" type="cbc:TermsType"/>
+	<xsd:element name="Observations" type="ObservationsType"/>
+	<xsd:element name="Nucleus" type="NucleusType"/>
+	<xsd:element name="StreetQualifier" type="StreetQualifierType"/>
+	<xsd:element name="Section" type="SectionType"/>
+	<xsd:element name="CitizenDetails" type="CitizenDetailsStructure"/>
+	<xsd:element name="DocumentId" type="DocumentIdType"/>
+	<xsd:element name="RegistrationSheet" type="RegistrationSheetType"/>
+	<!-- End of Elements that are based on types -->
+	<!-- Start of DocumentIdType -->
+	<xsd:simpleType name="DocumentIdType">
+		<xsd:annotation>
+			<xsd:documentation>The identifier of the document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of DocumentIdType -->
+	<!-- Start of IssuanceDateType -->
+	<xsd:simpleType name="IssuanceDateType">
+		<xsd:annotation>
+			<xsd:documentation>The date of issuance of the e-document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime"/>
+	</xsd:simpleType>
+	<!-- End of IssuanceDateType -->
+	<!-- Start of ObservationsType -->
+	<xsd:simpleType name="ObservationsType">
+		<xsd:annotation>
+			<xsd:documentation>Any extra text to be included in the document by the authority that issues it.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of ObservationsType -->
+	<!-- Start of BirthActNumberType -->
+	<xsd:simpleType name="BirthActNumberType">
+		<xsd:annotation>
+			<xsd:documentation>The identification number that identifies the act of birth of the citizen in the corresponding registries. This is municipality specific. Specific restrictions for the format of this number may be proposed for the next version.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of BirthActNumberType -->
+	<!-- Start of IDCardNumberType -->
+	<xsd:simpleType name="IDCardNumberType">
+		<xsd:annotation>
+			<xsd:documentation>The number of the citizen's Identity Card.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z,0-9,a-z]{10}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- End of IDCardNumberType -->
+	<!-- Start of NationalityType -->
+	<xsd:simpleType name="NationalityType">
+		<xsd:annotation>
+			<xsd:documentation>The nationality of the citizen. This may be further restricted in a future version.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of NationalityType -->
+	<!-- Start of SexType -->
+	<xsd:simpleType name="SexType">
+		<xsd:annotation>
+			<xsd:documentation>The sex of the citizen.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Male"/>
+			<xsd:enumeration value="Female"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- End of SexType -->
+	<!-- Start of MaritalStatusType -->
+	<xsd:simpleType name="MaritalStatusType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Single"/>
+			<xsd:enumeration value="Married"/>
+			<xsd:enumeration value="Divorced"/>
+			<xsd:enumeration value="Widowed"/>
+			<xsd:enumeration value="Separated"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- End of MaritalStatusType -->
+	<!-- Start of NucleusType -->
+	<xsd:simpleType name="NucleusType">
+		<xsd:annotation>
+			<xsd:documentation>A nucleus is a type of cluster for addresses. Required by Seville.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of NucleusType -->
+	<!-- Start of StreetQualifierType -->
+	<xsd:simpleType name="StreetQualifierType">
+		<xsd:annotation>
+			<xsd:documentation>A special characterization of a street. Required by Seville.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of StreetQualifierType -->
+	<!-- Start of SectionType -->
+	<xsd:simpleType name="SectionType">
+		<xsd:annotation>
+			<xsd:documentation>The Section of the city the specific address corresponds to. Required by Seville. It may have to be ellaborated in a future version to restrict the number of sections.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of SectionType -->
+	<!-- Start of RegistrationSheetType -->
+	<xsd:simpleType name="RegistrationSheetType">
+		<xsd:annotation>
+			<xsd:documentation>Required by Seville. It refers to the traditional paper sheet number where the census registration of this citizen is recorded.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<!-- End of RegistrationSheetType -->
+	<!-- Start of CitizenBirthDetailsStructure -->
+	<xsd:complexType name="CitizenBirthDetailsStructure">
+		<xsd:annotation>
+			<xsd:documentation>Contains the information related to a citizen's birth details.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DateOfBirth" type="aapd:CitizenBirthDateStructure"/>
+			<xsd:element ref="cbc:CityName" minOccurs="0"/>
+			<xsd:element name="BirthActNumber" type="BirthActNumberType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of CitizenBirthDetailsStructure-->
+	<!-- Start of IdentificationDetailsStructure -->
+	<xsd:complexType name="IdentificationDetailsStructure">
+		<xsd:annotation>
+			<xsd:documentation>Contains the details for any data that identify the citizen.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="IDCardNumber" type="IDCardNumberType" minOccurs="0"/>
+			<xsd:element name="PassportNumber" type="aapd:PassportNumber_NewType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of IdentificationDetailsStructure -->
+	<!-- Start of ModifiedAddressStructure -->
+	<xsd:complexType name="ModifiedAddressStructure">
+		<xsd:annotation>
+			<xsd:documentation>This is restricted version of the AddressStructure from the UBL library. Some elements have been stripped off because they are considered too detailed or not required in the eMayor context.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:restriction base="cac:AddressType">
+				<xsd:sequence>
+					<xsd:element ref="cbc:Postbox" minOccurs="0"/>
+					<xsd:element ref="cbc:Floor" minOccurs="0"/>
+					<xsd:element ref="cbc:Room" minOccurs="0"/>
+					<xsd:element ref="cbc:StreetName" minOccurs="0"/>
+					<xsd:element ref="cbc:AdditionalStreetName" minOccurs="0"/>
+					<xsd:element ref="cbc:BuildingName" minOccurs="0"/>
+					<xsd:element ref="cbc:BuildingNumber" minOccurs="0"/>
+					<xsd:element ref="cbc:Department" minOccurs="0"/>
+					<xsd:element ref="cbc:CityName" minOccurs="0"/>
+					<xsd:element ref="cbc:PostalZone" minOccurs="0"/>
+					<xsd:element ref="cbc:District" minOccurs="0"/>
+					<xsd:element ref="cac:Country" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:restriction>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- End of ModifiedAddressStructure -->
+	<!-- Start of AddressStructure -->
+	<xsd:complexType name="AddressStructure">
+		<xsd:annotation>
+			<xsd:documentation>Contains all the information to identify a citizen's address. This structure extends the ModifiedAddressStructure to cover specific needs of eMayor municipalities.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ModifiedAddressStructure">
+				<xsd:sequence>
+					<xsd:element ref="Nucleus" minOccurs="0"/>
+					<xsd:element ref="StreetQualifier" minOccurs="0"/>
+					<xsd:element ref="Section" minOccurs="0"/>
+					<xsd:element ref="RegistrationSheet" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- End of AddressStructure -->
+	<!-- Start of CitizenDetailsStructure -->
+	<xsd:complexType name="CitizenDetailsStructure">
+		<xsd:annotation>
+			<xsd:documentation>Contains all the required citizen details. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CitizenName" type="aapd:CitizenNameStructure"/>
+			<xsd:element name="PreferredLanguages" type="core:LanguageType" minOccurs="0"/>
+			<xsd:element name="ContactDetails" type="aapd:CitizenContactDetailsStructure"/>
+			<xsd:element name="CitizenSex" type="SexType" minOccurs="0"/>
+			<xsd:element name="CitizenMaritalStatus" type="MaritalStatusType" minOccurs="0"/>
+			<xsd:element name="CitizenBirthDetails" type="CitizenBirthDetailsStructure" minOccurs="0"/>
+			<xsd:element name="Nationality" type="NationalityType" minOccurs="0"/>
+			<xsd:element name="IdentificationDetails" type="IdentificationDetailsStructure" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- End of CitizenDetailsStructure -->
+</xsd:schema>
