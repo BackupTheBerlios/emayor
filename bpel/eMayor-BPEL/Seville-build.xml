@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project name="eMayor" default="eMayor" basedir=".">
+<property name="deploy" id="deploy" value="Seville"/>
+<property name="rev" value="1.0"/>	
+
+	<target name="eMayor">
+		<ant antfile="build.xml" target="eMayor"/>
+	</target>
+	<target name="beans">
+			<ant antfile="build.xml" target="beans"/>
+	</target>
+
+</project>

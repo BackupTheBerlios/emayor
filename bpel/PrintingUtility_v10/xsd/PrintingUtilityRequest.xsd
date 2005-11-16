@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.emayor.org/PrintingUtilityRequest.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://www.emayor.org/PrintingUtilityRequest.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="PrintingServiceRequestType">
+		<xs:sequence>
+			<xs:element name="url" type="xs:string"/>
+			<xs:element name="fileTypeName" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

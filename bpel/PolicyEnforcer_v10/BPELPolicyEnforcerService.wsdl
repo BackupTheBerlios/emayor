@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://kernel.servicehandling.emayor.org" xmlns:intf="http://kernel.servicehandling.emayor.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ejb="http://schemas.xmlsoap.org/wsdl/ejb/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:format="http://schemas.xmlsoap.org/wsdl/formatbinding/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://kernel.servicehandling.emayor.org">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://kernel.servicehandling.emayor.org">
+			<!-- <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/> -->
+			<complexType name="BPELPolicyEnforcerException">
+				<sequence/>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="F_TimeStampXMLDocumentRequest">
+		<wsdl:part name="in0" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="F_VerifyXMLSignatureResponse">
+		<wsdl:part name="F_VerifyXMLSignatureReturn" type="xsd:boolean"/>
+	</wsdl:message>
+	<wsdl:message name="FPM_GetSignatureRoleResponse">
+		<wsdl:part name="FPM_GetSignatureRoleReturn" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="F_VerifyXMLTimeStampedDocumentResponse">
+		<wsdl:part name="F_VerifyXMLTimeStampedDocumentReturn" type="xsd:boolean"/>
+	</wsdl:message>
+	<wsdl:message name="F_AuthorizeServiceStepResponse">
+		<wsdl:part name="F_AuthorizeServiceStepReturn" type="xsd:boolean"/>
+	</wsdl:message>
+	<wsdl:message name="F_VerifyXMLSignatureRequest">
+		<wsdl:part name="in0" type="xsd:string"/>
+	    <wsdl:part name="in1" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="FPM_GetSignatureRoleRequest">
+		<wsdl:part name="in0" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="F_VerifyXMLTimeStampedDocumentRequest">
+		<wsdl:part name="in0" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="F_AuthorizeServiceStepRequest">
+		<wsdl:part name="in0" type="xsd:string"/>
+		<wsdl:part name="in1" type="xsd:string"/>
+		<wsdl:part name="in2" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="F_TimeStampXMLDocumentResponse">
+		<wsdl:part name="F_TimeStampXMLDocumentReturn" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="BPELPolicyEnforcerException">
+		<wsdl:part name="fault" type="impl:BPELPolicyEnforcerException"/>
+	</wsdl:message>
+	<wsdl:message name="F_NewUserProfileDocumentRequest">
+		<wsdl:part name="in0" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="F_NewUserProfileDocumentResponse">
+		<wsdl:part name="newUserProfileResult" type="xsd:boolean"/>
+	</wsdl:message>
+	<wsdl:portType name="IBPELPolicyEnforcer">
+		<wsdl:operation name="F_VerifyXMLSignature" parameterOrder="in0">
+			<wsdl:input name="F_VerifyXMLSignatureRequest" message="impl:F_VerifyXMLSignatureRequest"/>
+			<wsdl:output name="F_VerifyXMLSignatureResponse" message="impl:F_VerifyXMLSignatureResponse"/>
+			<wsdl:fault name="BPELPolicyEnforcerException" message="impl:BPELPolicyEnforcerException"/>
+		</wsdl:operation>
+		<wsdl:operation name="FPM_GetSignerRole" parameterOrder="in0">
+			<wsdl:input name="FPM_GetSignatureRoleRequest" message="impl:FPM_GetSignatureRoleRequest"/>
+			<wsdl:output name="FPM_GetSignatureRoleResponse" message="impl:FPM_GetSignatureRoleResponse"/>
+			<wsdl:fault name="BPELPolicyEnforcerException" message="impl:BPELPolicyEnforcerException"/>
+		</wsdl:operation>
+		<wsdl:operation name="F_TimeStampXMLDocument" parameterOrder="in0">
+			<wsdl:input name="F_TimeStampXMLDocumentRequest" message="impl:F_TimeStampXMLDocumentRequest"/>
+			<wsdl:output name="F_TimeStampXMLDocumentResponse" message="impl:F_TimeStampXMLDocumentResponse"/>
+			<wsdl:fault name="BPELPolicyEnforcerException" message="impl:BPELPolicyEnforcerException"/>
+		</wsdl:operation>
+		<wsdl:operation name="F_VerifyXMLTimeStampedDocument" parameterOrder="in0">
+			<wsdl:input name="F_VerifyXMLTimeStampedDocumentRequest" message="impl:F_VerifyXMLTimeStampedDocumentRequest"/>
+			<wsdl:output name="F_VerifyXMLTimeStampedDocumentResponse" message="impl:F_VerifyXMLTimeStampedDocumentResponse"/>
+			<wsdl:fault name="BPELPolicyEnforcerException" message="impl:BPELPolicyEnforcerException"/>
+		</wsdl:operation>
+		<wsdl:operation name="F_AuthorizeServiceStep" parameterOrder="in0 in1 in2">
+			<wsdl:input name="F_AuthorizeServiceStepRequest" message="impl:F_AuthorizeServiceStepRequest"/>
+			<wsdl:output name="F_AuthorizeServiceStepResponse" message="impl:F_AuthorizeServiceStepResponse"/>
+			<wsdl:fault name="BPELPolicyEnforcerException" message="impl:BPELPolicyEnforcerException"/>
+		</wsdl:operation>
+		<wsdl:operation name="F_NewUserProfile" parameterOrder="in0">
+			<wsdl:input name="F_NewUserProfileDocumentRequest" message="impl:F_NewUserProfileDocumentRequest"/>
+			<wsdl:output name="F_NewUserProfileDocumentResponse" message="impl:F_NewUserProfileDocumentResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="PEBindingEJB" type="impl:IBPELPolicyEnforcer">
+		<ejb:binding/>
+		<format:typeMapping encoding="Java" style="Java">
+			<format:typeMap typeName="xsd:string" formatType="java.lang.String"/>
+			<format:typeMap typeName="xsd:boolean" formatType="boolean"/>
+			<format:typeMap typeName="impl:BPELPolicyEnforcerException" formatType="org.emayor.servicehandling.kernel.BPELPolicyEnforcerException"/>
+		</format:typeMapping>
+		<operation name="F_VerifyXMLSignature">
+			<ejb:operation 
+				methodName="F_VerifyXMLSignature" 
+				parameterOrder="in0 in1" 
+				interface="remote" 
+				returnPart="F_VerifyXMLSignatureReturn"/>
+			<input name="F_VerifyXMLSignatureRequest"/>
+			<output name="F_VerifyXMLSignatureResponse"/>
+			<fault name="BPELPolicyEnforcerException"/>
+		</operation>
+		<operation name="FPM_GetSignerRole">
+			<ejb:operation 
+				methodName="FPM_GetSignerRole" 
+				parameterOrder="in0" 
+				interface="remote" 
+				returnPart="FPM_GetSignatureRoleReturn"/>
+			<input name="FPM_GetSignatureRoleRequest"/>
+			<output name="FPM_GetSignatureRoleResponse"/>
+			<fault name="BPELPolicyEnforcerException"/>
+		</operation>
+		<operation name="F_TimeStampXMLDocument">
+			<ejb:operation 
+				methodName="F_TimeStampXMLDocument" 
+				parameterOrder="in0" 
+				interface="remote" 
+				returnPart="F_TimeStampXMLDocumentReturn"/>
+			<input name="F_TimeStampXMLDocumentRequest"/>
+			<output name="F_TimeStampXMLDocumentResponse"/>
+			<fault name="BPELPolicyEnforcerException"/>
+		</operation>
+		<operation name="F_VerifyXMLTimeStampedDocument">
+			<ejb:operation 
+				methodName="F_VerifyXMLTimeStampedDocument" 
+				parameterOrder="in0" 
+				interface="remote" 
+				returnPart="F_VerifyXMLTimeStampedDocumentReturn"/>
+			<input name="F_VerifyXMLTimeStampedDocumentRequest"/>
+			<output name="F_VerifyXMLTimeStampedDocumentResponse"/>
+			<fault name="BPELPolicyEnforcerException"/>
+		</operation>
+		<operation name="F_AuthorizeServiceStep">
+			<ejb:operation 
+				methodName="F_AuthorizeServiceStep" 
+				parameterOrder="in0 in1 in2" 
+				interface="remote" 
+				returnPart="F_AuthorizeServiceStepReturn"/>
+			<input name="F_AuthorizeServiceStepRequest"/>
+			<output name="F_AuthorizeServiceStepResponse"/>
+			<fault name="BPELPolicyEnforcerException"/>
+		</operation>
+		<operation name="F_NewUserProfile">
+			<ejb:operation 
+				methodName="F_NewUserProfile" 
+				parameterOrder="in0" 
+				interface="remote" 
+				returnPart="newUserProfileResult"/>
+			<input name="F_NewUserProfileDocumentRequest"/>
+			<output name="F_NewUserProfileDocumentResponse"/>
+		</operation>
+	</wsdl:binding>
+	<wsdl:service name="IBPELPolicyEnforcerService">
+		<wsdl:port name="EJBPort" binding="impl:PEBindingEJB">
+			<ejb:address className="org.emayor.servicehandling.interfaces.BPELPolicyEnforcerHome" jndiName="ejb/emayor/sh/BPELPolicyEnforcer" initialContextFactory="org.jnp.interfaces.NamingContextFactory" jndiProviderURL="localhost:1099"/>
+		</wsdl:port>
+	</wsdl:service>
+	<plnk:partnerLinkType name="PEService">
+		<plnk:role name="PEServiceProvider">
+			<plnk:portType name="impl:IBPELPolicyEnforcer"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="ProcessStepAuthorization_v10" src="ProcessStepAuthorization_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">ProcessStepAuthorization_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="policyEnforcerPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/PolicyEnforcer_v10/PolicyEnforcer_v10?wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

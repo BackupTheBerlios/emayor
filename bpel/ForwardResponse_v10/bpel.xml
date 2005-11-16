@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="ForwardResponse_v10" src="ForwardResponse_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">ForwardResponse_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="forwardPL">
+            <property name="wsdlLocation">ForwardManagerBPEL.wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

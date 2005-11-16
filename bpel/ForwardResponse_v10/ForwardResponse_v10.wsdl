@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<definitions name="ForwardResponse_v10"
+        targetNamespace="http://emayor.org/ForwardResponse_v10"
+        xmlns:tns="http://emayor.org/ForwardResponse_v10"
+        xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+        xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        >
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of services participating in this BPEL process 
+     The default output of the BPEL designer uses strings as input and 
+     output to the BPEL Process. But you can define or import any XML 
+     Schema type and us them as part of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <types>  
+        <schema attributeFormDefault="qualified" 
+                elementFormDefault="qualified" 
+                targetNamespace="http://emayor.org/ForwardResponse_v10" 
+                xmlns="http://www.w3.org/2001/XMLSchema"
+                >
+            <import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>    
+            <element name="ForwardResponse_v10Request" type="request:eMayorServiceRequestType"/>
+            <element name="ForwardResponse_v10Response" type="string"/>
+        </schema>
+    </types>
+  
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="ForwardResponse_v10RequestMessage">
+        <part name="payload" element="tns:ForwardResponse_v10Request"/>
+    </message>
+    
+    <message name="ForwardResponse_v10ResponseMessage">
+        <part name="payload" element="tns:ForwardResponse_v10Response"/>
+    </message>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- portType implemented by the ForwardResponse_v10 BPEL process -->
+    <portType name="ForwardResponse_v10">
+        <operation name="initiate">
+            <input message="tns:ForwardResponse_v10RequestMessage"/>
+        </operation>
+    </portType>
+
+    <!-- portType implemented by the requester of ForwardResponse_v10 BPEL process 
+         for asynchronous callback purposes
+         -->
+    <portType name="ForwardResponse_v10Callback">
+        <operation name="onResult">
+            <input message="tns:ForwardResponse_v10ResponseMessage"/>
+        </operation>
+    </portType>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+         the ForwardResponse_v10 partnerLinkType binds the provider and
+         requester portType into an asynchronous conversation.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="ForwardResponse_v10">
+        <plnk:role name="ForwardResponse_v10Provider">
+            <plnk:portType name="tns:ForwardResponse_v10"/>
+        </plnk:role>
+        <plnk:role name="ForwardResponse_v10Requester">
+            <plnk:portType name="tns:ForwardResponse_v10Callback"/>
+        </plnk:role>
+    </plnk:partnerLinkType>   
+</definitions>

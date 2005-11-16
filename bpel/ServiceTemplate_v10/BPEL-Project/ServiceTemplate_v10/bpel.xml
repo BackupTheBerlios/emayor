@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="${PROCESSNAME}" src="${PROCESSNAME}.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">${PROCESSNAME}.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="PartnerLink_1">
+            <property name="wsdlLocation">ServiceCallbackManagerRef.wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

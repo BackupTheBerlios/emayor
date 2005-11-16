@@ -1,0 +1,273 @@
+<!-- MyWorklistManager BPEL Process -->
+<process name="MyWorklistManager" targetNamespace="http://emayor.org/servicehandling/bpel/task" suppressJoinFailure="yes" xmlns:tns="http://emayor.org/servicehandling/bpel/task" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:nsxml0="http://services.oracle.com/bpel/task">
+	<bpelx:exec import="org.w3c.dom.Element"/>
+	<bpelx:exec import="com.oracle.bpel.client.Locator"/>
+	<bpelx:exec import="com.oracle.bpel.client.NormalizedMessage"/>
+	<bpelx:exec import="com.oracle.bpel.client.auth.DomainAuth"/>
+	<bpelx:exec import="com.oracle.bpel.client.auth.DomainAuthFactory"/>
+	<bpelx:exec import="com.oracle.bpel.client.dispatch.IDeliveryService"/>
+	<bpelx:exec import="com.oracle.bpel.client.util.WhereCondition"/>
+	<bpelx:exec import="com.oracle.services.bpel.task.ITask"/>
+	<bpelx:exec import="com.oracle.services.bpel.task.IWorklistService"/>
+	<bpelx:exec import="com.oracle.services.bpel.task.TaskFactory"/>
+	<bpelx:exec import="com.oracle.services.bpel.task.Tasklist"/>
+	<bpelx:exec import="com.oracle.services.bpel.task.TasklistFactory"/>
+	<bpelx:exec import="com.oracle.services.bpel.task.IWhereCondition"/>
+	<bpelx:exec import="com.oracle.services.bpel.task.WhereConditionFactory"/>
+	<bpelx:exec import="org.collaxa.xml.IBaseFacade"/>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNERLINKS:List of services participating in this BPEL process 
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<partnerLinks>
+		<!-- The 'client' role represents the requester of this service. -->
+		<partnerLink name="client" partnerLinkType="tns:MyWorklistManager" myRole="MyWorklistManagerProvider"/>
+	</partnerLinks>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     VARIABLES: List of messages and XML documents used in this process 
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<variables>
+		<!-- Reference to the message passed as input during initiation -->
+		<variable messageType="tns:lookupTaskRequestMessage" name="lookupTaskRequest"/>
+		<variable messageType="tns:listTasksRequestMessage" name="listTasksRequest"/>
+		<!-- 
+          Reference to the message that will be returned to the requester
+          -->
+		<variable name="listTasksResponse" messageType="tns:listTasksResponseMessage"/>
+		<variable messageType="lookupTaskResponseMessage" name="lookupTaskResponse"/>
+		<variable messageType="tns:taskRequestMessage" name="taskRequest"/>
+		<variable messageType="tns:taskResponseMessage" name="taskResponse"/>
+		<variable name="origTask" element="nsxml0:task"/>
+		<variable name="lookupTasksByACKRequest" messageType="tns:lookupTasksByAssigneeAndCustomKeyRequestMessage"/>
+	</variables>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     ORCHESTRATION LOGIC: Set of activities coordinating the flow of 
+     messages across the services integrated within this business process 
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<sequence name="main">
+		<!-- Receive input from requester. 
+             Note: This maps to operation defined in MyWorklistManager.wsdl 
+             -->
+		<pick createInstance="yes">
+			<onMessage partnerLink="client" portType="tns:MyWorklistManager" operation="listTasksByAssignee" variable="listTasksRequest">
+				<sequence>
+					<bpelx:exec xmlns:bpelx="http://schemas.oracle.com/bpel/extension" language="java" version="1.4">
+						<![CDATA[
+							try
+							{
+					            // Lookup the worklist service.
+					                 	
+					            Element  assignee =
+					                (Element)getVariableData("listTasksRequest","payload","/tns:assignee");
+					                 						                 						            
+					            Locator locator = getLocator( );
+					             
+        						IWorklistService worklist = 
+            						(IWorklistService)locator.lookupService( IWorklistService.SERVICE_NAME );  
+						 	    
+						 	    ITask[] tasks  = worklist.listTasksByAssignee( assignee.getNodeValue() );
+						 	    
+						 	    Tasklist tasklist = TasklistFactory.createFacade();
+						 	    
+						 	    for(int i = 0; i < tasks.length; i ++ )
+									tasklist.addTask( tasks[i] );  
+						 	          
+						        
+						        setVariableData("listTasksResponse","payload",tasklist.getRootElement() );
+					        }
+					        catch( Exception e )
+					        {
+					            e.printStackTrace();
+					            addAuditTrailEntry(e);
+					        }						    						       
+    	  ]]>
+					</bpelx:exec>
+					<reply name="replyOutput" partnerLink="client" portType="tns:MyWorklistManager" variable="listTasksResponse" operation="listTasksByAssignee"/>
+				</sequence>
+			</onMessage>
+			<onMessage partnerLink="client" portType="tns:MyWorklistManager" operation="lookupTasksByAssigneeAndCustomKey" variable="lookupTasksByACKRequest">
+				<sequence><sequence>
+						<bpelx:exec xmlns:bpelx="http://schemas.oracle.com/bpel/extension" language="java" version="1.4">
+							<![CDATA[
+							try
+							{
+					            // Lookup the worklist service.
+					                 	
+					            Element  assignee =
+					                (Element)getVariableData("lookupTasksByACKRequest","payload","/tns:assigneeAndCustomKey/tns:assignee");
+					            // error in case of customKey - column doesn't exists in the database
+					            Element title =
+					            	(Element)getVariableData("lookupTasksByACKRequest","payload","/tns:assigneeAndCustomKey/tns:customKey");
+					                 						                 						            
+					            Locator locator = getLocator( );
+					             
+        						IWorklistService worklist = 
+            						(IWorklistService)locator.lookupService( IWorklistService.SERVICE_NAME );  
+            						
+            					WhereCondition where = new WhereCondition();
+            					
+            					WhereCondition whereAssignee = new WhereCondition( "assignee = '" + assignee.getNodeValue() + "'" );
+            					where.append( whereAssignee);
+            					WhereCondition whereCustomKey = new WhereCondition( "title = '" + title.getNodeValue() + "'" );
+            					where.append("and").append( whereCustomKey );
+						 	    
+						 	    ITask[] tasks  = worklist.listTasks( where );
+						 	    
+						 	    Tasklist tasklist = TasklistFactory.createFacade();
+						 	    
+						 	    for(int i = 0; i < tasks.length; i ++ )
+									tasklist.addTask( tasks[i] );  
+						 	          
+						        
+						        setVariableData("listTasksResponse","payload",tasklist.getRootElement() );
+					        }
+					        catch( Exception e )
+					        {
+					            e.printStackTrace();
+					            addAuditTrailEntry(e);
+					        }						    						       
+    	  ]]>
+						</bpelx:exec>
+						<reply name="replyOutput" partnerLink="client" portType="tns:MyWorklistManager" variable="listTasksResponse" operation="lookupTasksByAssigneeAndCustomKey"/>
+					</sequence>
+				</sequence>
+			</onMessage>
+			<onMessage partnerLink="client" portType="tns:MyWorklistManager" operation="lookupTask" variable="lookupTaskRequest">
+				<sequence>
+					<bpelx:exec xmlns:bpelx="http://schemas.oracle.com/bpel/extension" language="java" version="1.4">
+						<![CDATA[
+							try
+							{
+							
+					            Element  taskId=
+					                (Element)getVariableData("lookupTaskRequest","payload","/tns:taskId");
+					                 	// Lookup the worklist service.
+					                 						                 						            
+					            Locator locator = getLocator( );
+					             
+        						IWorklistService worklist = 
+            						(IWorklistService)locator.lookupService( IWorklistService.SERVICE_NAME );  
+        
+						        // Lookup the specific task the user has selected.
+						        IBaseFacade task  = (IBaseFacade)worklist.lookupTask( taskId.getNodeValue() );
+						        
+						        setVariableData("lookupTaskResponse","payload",task.getRootElement() );
+					        }
+					        catch( Exception e )
+					        {
+					            e.printStackTrace();
+					            addAuditTrailEntry(e);
+					        }						    						       
+    	  ]]>
+					</bpelx:exec>
+					<reply partnerLink="client" portType="tns:MyWorklistManager" operation="lookupTask" variable="lookupTaskResponse" name="replyOutput"/>
+				</sequence>
+			</onMessage>
+			<onMessage partnerLink="client" portType="tns:MyWorklistManager" operation="completeTask" variable="taskRequest">
+				<sequence>
+					<assign name="assignOrigTask">
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:taskId"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:taskId"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:title"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:title"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:creationDate"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:creationDate"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:creator"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:creator"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:modifyDate"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:modifyDate"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:modifier"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:modifier"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:assignee"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:assignee"/>
+						</copy>
+						<!--
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:status"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:status"/>
+						</copy>
+						-->
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:expired"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:expired"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:expirationDate"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:expirationDate"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:duration"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:duration"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:priority"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:priority"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:template"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:template"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:customKey"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:customKey"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:conclusion"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:conclusion"/>
+						</copy>
+						<copy>
+							<from variable="taskRequest" part="payload" query="/tns:task/tns:attachment"></from>
+							<to variable="origTask" query="/nsxml0:task/nsxml0:attachment"/>
+						</copy>
+					</assign>
+					<sequence>
+						<bpelx:exec xmlns:bpelx="http://schemas.oracle.com/bpel/extension" language="java" version="1.4">
+							<![CDATA[
+							try
+							{							
+					            Element  element =
+					                (Element)getVariableData("origTask","/nsxml0:task");
+					                 	// Lookup the worklist service.
+					                 						                 						            
+					            //ITask task1 = TaskFactory.createFacade( element );
+					            ITask task = TaskFactory.createFacade( element );
+					            //System.out.println("taskId= "+task.getTaskId());
+					            //task.setAttachment((java.lang.Object)task1.getAttachment());
+					            
+					            Locator locator = getLocator( );
+					             
+        						IWorklistService worklist = 
+            						(IWorklistService)locator.lookupService( IWorklistService.SERVICE_NAME );  
+        
+						        // update the specific task the user has selected.
+						        worklist.completeTask( task );
+						        //ITask[] tasks = worklist.listTasksByAssignee("defid");
+						        //System.out.println("reminding tasks: " + tasks.length);
+					        }
+					        catch( Exception e )
+					        {
+					            e.printStackTrace();
+					            addAuditTrailEntry(e);
+					        }
+    	  ]]>
+						</bpelx:exec>
+						<reply partnerLink="client" portType="tns:MyWorklistManager" operation="completeTask" variable="taskResponse" name="replyOutput"/>
+					</sequence>
+				</sequence>
+			</onMessage>
+		</pick>
+		<!-- Generate reply to synchronous request -->
+	</sequence>
+</process>

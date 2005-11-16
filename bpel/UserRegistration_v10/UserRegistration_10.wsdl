@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="UserRegistration_10" targetNamespace="http://emayor.org/UserRegistration_10" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://emayor.org/UserRegistration_10" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd">
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and us them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<types>
+		<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/UserRegistration_10" xmlns="http://www.w3.org/2001/XMLSchema">
+		<import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+			<element name="UserRegistration_10ProcessRequest">
+				<complexType>
+					<sequence>
+						<element name="input" type="request:eMayorServiceRequestType"/>
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</types>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<message name="UserRegistration_10RequestMessage">
+		<part name="payload" element="client:UserRegistration_10ProcessRequest"/>
+	</message>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the UserRegistration_10 BPEL process -->
+	<portType name="UserRegistration_10">
+		<operation name="initiate">
+			<input message="client:UserRegistration_10RequestMessage"/>
+		</operation>
+	</portType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the UserRegistration_10 partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="UserRegistration_10">
+		<plnk:role name="UserRegistration_10Provider">
+			<plnk:portType name="client:UserRegistration_10"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

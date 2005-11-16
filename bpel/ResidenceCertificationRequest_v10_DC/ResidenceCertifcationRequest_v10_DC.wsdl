@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<definitions xmlns:tns="http://emayor.org/ResidenceCertifcationRequest_v10/DC" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10/DC" name="ResidenceCertifcationRequest_v10_DC">
+	<types>
+		<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10/DC" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+			<element name="ResidenceCertifcationRequest_v10_DCRequest" type="request:eMayorServiceRequestType"/>
+			<element name="ResidenceCertifcationRequest_v10_DCResponse" type="request:eMayorServiceRequestType"/>
+			<element name="DocumentType" type="int"/>
+		</schema>
+	</types>
+	<message name="ResidenceCertifcationRequest_v10_DCRequestMessage">
+		<part name="payload" element="tns:ResidenceCertifcationRequest_v10_DCRequest"/>
+		<part name="docType" element="tns:DocumentType"/>
+	</message>
+	<message name="ResidenceCertifcationRequest_v10_DCResponseMessage">
+		<part name="payload" element="tns:ResidenceCertifcationRequest_v10_DCResponse"/>
+	</message>
+	<portType name="ResidenceCertifcationRequest_v10_DC">
+		<operation name="initiate">
+			<input message="tns:ResidenceCertifcationRequest_v10_DCRequestMessage"/>
+		</operation>
+	</portType>
+	<portType name="ResidenceCertifcationRequest_v10_DCCallback">
+		<operation name="onResult">
+			<input message="tns:ResidenceCertifcationRequest_v10_DCResponseMessage"/>
+		</operation>
+	</portType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of services participating in this BPEL process 
+     The default output of the BPEL designer uses strings as input and 
+     output to the BPEL Process. But you can define or import any XML 
+     Schema type and us them as part of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the ResidenceCertifcationRequest_v10_DC BPEL process -->
+	<!-- portType implemented by the requester of ResidenceCertifcationRequest_v10_DC BPEL process 
+         for asynchronous callback purposes
+         -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+         the ResidenceCertifcationRequest_v10_DC partnerLinkType binds the provider and
+         requester portType into an asynchronous conversation.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="ResidenceCertifcationRequest_v10_DC">
+		<plnk:role name="ResidenceCertifcationRequest_v10_DCProvider">
+			<plnk:portType name="tns:ResidenceCertifcationRequest_v10_DC"/>
+		</plnk:role>
+		<plnk:role name="ResidenceCertifcationRequest_v10_DCRequester">
+			<plnk:portType name="tns:ResidenceCertifcationRequest_v10_DCCallback"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

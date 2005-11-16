@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<definitions
+     name="ResidenceCertifcationRequest_v10"
+     targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://emayor.org/ResidenceCertifcationRequest_v10"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd"
+     xmlns:tranlation="http://www.emayor.org/FormatTransformationSchema.xsd"
+    >
+    <types>
+        <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/ResidenceCertifcationRequest_v10"
+             xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://emayor.org/ResidenceCertifcationRequest_v10"
+             xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+            <import namespace="http://www.emayor.org/FormatTransformationSchema.xsd" schemaLocation="xsd/FormatTransformationSchema.xsd"/>
+            <element name="ResidenceCertifcationRequest_v10Request" type="request:eMayorServiceRequestType"/>
+        </schema>
+    </types>
+    <message name="ResidenceCertifcationRequest_v10RequestMessage">
+        <part name="payload" element="tns:ResidenceCertifcationRequest_v10Request"/>
+    </message>
+    <portType name="ResidenceCertifcationRequest_v10">
+        <operation name="initiate">
+            <input message="tns:ResidenceCertifcationRequest_v10RequestMessage"/>
+        </operation>
+    </portType>
+    <plnk:partnerLinkType name="ResidenceCertifcationRequest_v10">
+        <plnk:role name="ResidenceCertifcationRequest_v10Provider">
+            <plnk:portType name="tns:ResidenceCertifcationRequest_v10"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

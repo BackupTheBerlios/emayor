@@ -1,0 +1,351 @@
+<!--
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+  // Oracle JDeveloper BPEL Designer 
+  // 
+  // Created: Wed Jun 01 10:08:20 CEST 2005
+  // Author:  tku
+  // Purpose: Asynchronous BPEL Process
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+-->
+<process name="ResidenceCertificationService_v20" targetNamespace="http://www.emayor.org/ResidenceCertificationService_v20" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns4="http://emayor.org/MunicipalityAdaptationLayer_v10" xmlns:ns7="http://emayor.org/UserInteraction_v10" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://emayor.org/ForwardRequest_v10" xmlns:client="http://www.emayor.org/ResidenceCertificationService_v20" xmlns:ns6="http://emayor.org/NotificationRequest" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:ns9="http://emayor.org/ServiceCallbackManager" xmlns:ns1="http://www.emayor.org/eMayorServiceRequest.xsd" xmlns:ns3="http://emayor.org/CivilServantInteraction_v10" xmlns:ns2="http://www.w3.org/2001/XMLSchema" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:orcl="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:ns8="http://emayor.org/ForwardResponse_v10"><!-- ================================================================= --><!-- PARTNERLINKS                                                      --><!-- List of services participating in this BPEL process               --><!-- ================================================================= -->
+  <partnerLinks><!-- 
+    The 'client' role represents the requester of this service. It is 
+    used for callback. The location and correlation information associated
+    with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="client" partnerLinkType="client:ResidenceCertificationService_v20" myRole="ResidenceCertificationService_v20Provider"/>
+    <partnerLink myRole="CivilServantInteraction_v10Requester" name="CivilServantInteractionPL" partnerRole="CivilServantInteraction_v10Provider" partnerLinkType="ns3:CivilServantInteraction_v10"/>
+    <partnerLink name="maLayerPL" partnerRole="MunicipalityAdaptationLayer_v10Provider" partnerLinkType="ns4:MunicipalityAdaptationLayer_v10"/>
+    <partnerLink myRole="ForwardRequest_v10Requester" name="ForwardRequestPL" partnerRole="ForwardRequest_v10Provider" partnerLinkType="ns5:ForwardRequest_v10"/>
+    <partnerLink name="notificationServicePL" partnerRole="NotificationRequestProvider" partnerLinkType="ns6:NotificationRequest"/>
+    <partnerLink myRole="UserInteraction_v10Requester" name="UserInteractionPL" partnerRole="UserInteraction_v10Provider" partnerLinkType="ns7:UserInteraction_v10"/>
+    <partnerLink myRole="ForwardResponse_v10Requester" name="ForwardResponsePL" partnerRole="ForwardResponse_v10Provider" partnerLinkType="ns8:ForwardResponse_v10"/>
+    <partnerLink name="ServiceCallbackPL" partnerRole="IServiceCallbackManager_Role" partnerLinkType="ns9:IServiceCallbackManager_PL"/>
+  </partnerLinks><!-- ================================================================= --><!-- VARIABLES                                                         --><!-- List of messages and XML documents used within this BPEL process  --><!-- ================================================================= -->
+  <variables><!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:ResidenceCertificationService_v20RequestMessage"/>
+    <variable name="workingVar" element="client:ResidenceCertificationService_v20ProcessRequest"/>
+    <variable name="g_Forwarded" type="ns2:string"/>
+    <variable name="g_currentProcessStepStatus" type="ns2:string"/>
+    <variable name="CV_RESIDENCE_CERTIFICATE_REQUEST" type="xsd:int"/>
+    <variable name="CV_RESIDENCE_DOCUMENT" type="xsd:int"/>
+  </variables><!-- ================================================================= --><!-- ORCHESTRATION LOGIC                                               --><!-- Set of activities coordinating the flow of messages across the    --><!-- services integrated within this business process                  --><!-- ================================================================= -->
+  <sequence name="main"><!-- Receive input from requestor. 
+    Note: This maps to operation defined in ResidenceCertificationService_v20.wsdl
+    -->
+    <receive name="receiveInput" partnerLink="client" portType="client:ResidenceCertificationService_v20" operation="initiate" variable="inputVariable" createInstance="yes"/><!-- Asynchronous callback to the requester.
+     Note: the callback location and correlation id is transparently handled 
+     using WS-addressing.
+     -->
+    <assign name="GlobalInitialAssignment">
+      <copy>
+        <from variable="inputVariable" part="payload" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+        <to variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:forwarded"/>
+        <to variable="g_Forwarded"/>
+      </copy>
+      <copy>
+        <from expression="'OK'"/>
+        <to variable="g_currentProcessStepStatus"/>
+      </copy>
+      <copy>
+        <from expression="1001"/>
+        <to variable="CV_RESIDENCE_CERTIFICATE_REQUEST"/>
+      </copy>
+      <copy>
+        <from expression="5001"/>
+        <to variable="CV_RESIDENCE_DOCUMENT"/>
+      </copy>
+    </assign>
+    <scope name="CivilServantApproval">
+      <variables>
+        <variable name="csInteractionInput" messageType="ns3:CivilServantInteraction_v10RequestMessage"/>
+        <variable name="csInteractionOutput" messageType="ns3:CivilServantInteraction_v10ResponseMessage"/>
+      </variables>
+      <sequence name="Sequence_1">
+        <assign name="PrepareInput">
+          <copy>
+            <from expression="'NO'"/>
+            <to variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:status"/>
+          </copy>
+          <copy>
+            <from variable="CV_RESIDENCE_CERTIFICATE_REQUEST"/>
+            <to variable="csInteractionInput" part="docType" query="/ns3:DocumentType"/>
+          </copy>
+          <copy>
+            <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+            <to variable="csInteractionInput" part="payload" query="/ns3:CivilServantInteraction_v10Request"/>
+          </copy>
+        </assign>
+        <invoke name="Invoke_1" partnerLink="CivilServantInteractionPL" portType="ns3:CivilServantInteraction_v10" operation="initiate" inputVariable="csInteractionInput"/>
+        <receive name="Receive_1" partnerLink="CivilServantInteractionPL" portType="ns3:CivilServantInteraction_v10Callback" operation="onResult" variable="csInteractionOutput" createInstance="no"/>
+        <assign name="PrepareOutput">
+          <copy>
+            <from variable="csInteractionOutput" part="payload" query="/ns3:CivilServantInteraction_v10Response"/>
+            <to variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+          </copy>
+        </assign>
+      </sequence>
+    </scope>
+    <switch name="HasBeenApproved">
+      <case condition="bpws:getVariableData('workingVar','/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:status') = 'YES'">
+        <sequence name="Sequence_2">
+          <scope name="RequestProcessing">
+            <variables>
+              <variable name="shouldBeForwarded" type="xsd:string"/>
+            </variables>
+            <sequence name="Sequence_3">
+              <scope name="ShouldBeForwarded">
+                <switch name="ShouldBeForwarded">
+                  <case condition="bpws:getVariableData('g_Forwarded')  = 'NO'">
+                    <bpelx:exec import="org.emayor.service.bpel.forward.DecisionMaker"/>
+                    <bpelx:exec import="org.w3c.dom.Element"/>
+                    <bpelx:exec name="ForwardDecisionMaker" language="Java" version="1.4"><![CDATA[try {
+  System.out.println("----------------START-----------------------");
+  Element elem = (Element)getVariableData("workingVar", "/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:reqestDocument");
+  System.out.println("trying to get the xml string");
+  String xmlDocument = elem.getNodeValue();
+  System.out.println("got xml document: " + xmlDocument);
+  DecisionMaker decisionMaker = new DecisionMaker();
+  String result = decisionMaker.shouldBeForwarded(xmlDocument);
+  System.out.println("got xml result: " + result);
+  setVariableData("shouldBeForwarded",result);
+  System.out.println("----------------DONE------------------------");
+}catch(Exception ex) {
+  System.out.println("caught ex: "+ex.toString());
+  ex.printStackTrace();
+}]]>
+                    </bpelx:exec>
+                  </case>
+                  <otherwise>
+                    <assign name="PrepareVariable">
+                      <copy>
+                        <from expression="'NO'"/>
+                        <to variable="shouldBeForwarded"/>
+                      </copy>
+                    </assign>
+                  </otherwise>
+                </switch>
+              </scope>
+              <switch name="LocalOrRemoteProcessing">
+                <case condition="bpws:getVariableData('shouldBeForwarded')  = 'NO'">
+                  <scope name="LocalProcessing">
+                    <variables>
+                      <variable name="maLayerInput" messageType="ns4:MunicipalityAdaptationLayer_v10RequestMessage"/>
+                      <variable name="maLayerOutput" messageType="ns4:MunicipalityAdaptationLayer_v10ResponseMessage"/>
+                    </variables>
+                    <sequence name="Sequence_4">
+                      <assign name="PrepareInput">
+                        <copy>
+                          <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                          <to variable="maLayerInput" part="payload" query="/ns4:MunicipalityAdaptationLayer_v10Request"/>
+                        </copy>
+                      </assign>
+                      <invoke name="InvokeMALayer" partnerLink="maLayerPL" portType="ns4:MunicipalityAdaptationLayer_v10" operation="process" inputVariable="maLayerInput" outputVariable="maLayerOutput"/>
+                      <assign name="PrepareOutput">
+                        <copy>
+                          <from variable="maLayerOutput" part="payload" query="/ns4:MunicipalityAdaptationLayer_v10Response"/>
+                          <to variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                        </copy>
+                      </assign>
+                    </sequence>
+                  </scope>
+                </case>
+                <otherwise>
+                  <scope name="RemoteProcessing">
+                    <variables>
+                      <variable name="forwardRequestInput" messageType="ns5:ForwardRequest_v10RequestMessage"/>
+                      <variable name="forwardRequestOutput" messageType="ns5:ForwardRequest_v10ResponseMessage"/>
+                    </variables>
+                    <sequence name="Sequence_5">
+                      <assign name="PrepareInput">
+                        <copy>
+                          <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                          <to variable="forwardRequestInput" part="payload" query="/ns5:ForwardRequest_v10Request"/>
+                        </copy>
+                        <copy>
+                          <from variable="shouldBeForwarded"/>
+                          <to variable="forwardRequestInput" part="payload" query="/ns5:ForwardRequest_v10Request/ns1:extraField4"/>
+                        </copy>
+                      </assign>
+                      <invoke name="InvokeForwardRequest" partnerLink="ForwardRequestPL" portType="ns5:ForwardRequest_v10" operation="initiate" inputVariable="forwardRequestInput"/>
+                      <receive name="ReceiveForwardRequest" partnerLink="ForwardRequestPL" portType="ns5:ForwardRequest_v10Callback" operation="onResult" variable="forwardRequestOutput" createInstance="no"/>
+                      <assign name="PrepareOutput">
+                        <copy>
+                          <from variable="forwardRequestOutput" part="payload" query="/ns5:ForwardRequest_v10Response"/>
+                          <to variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                        </copy>
+                      </assign>
+                    </sequence>
+                  </scope>
+                </otherwise>
+              </switch>
+            </sequence>
+          </scope>
+          <scope name="CivilServantResultApproval">
+            <variables>
+              <variable name="cvInteractionInput" messageType="ns3:CivilServantInteraction_v10RequestMessage"/>
+              <variable name="cvInteractionOutput" messageType="ns3:CivilServantInteraction_v10ResponseMessage"/>
+            </variables>
+            <sequence name="Sequence_6">
+              <assign name="PrepareInput">
+                <copy>
+                  <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                  <to variable="cvInteractionInput" part="payload" query="/ns3:CivilServantInteraction_v10Request"/>
+                </copy>
+                <copy>
+                  <from expression="'open'"/>
+                  <to variable="cvInteractionInput" part="payload" query="/ns3:CivilServantInteraction_v10Request/ns1:status"/>
+                </copy>
+                <copy>
+                  <from variable="CV_RESIDENCE_DOCUMENT"/>
+                  <to variable="cvInteractionInput" part="docType" query="/ns3:DocumentType"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeDocumentApproval" partnerLink="CivilServantInteractionPL" portType="ns3:CivilServantInteraction_v10" operation="initiate" inputVariable="cvInteractionInput"/>
+              <receive name="ReceiveDocumentApprovalResult" partnerLink="CivilServantInteractionPL" portType="ns3:CivilServantInteraction_v10Callback" operation="onResult" variable="cvInteractionOutput" createInstance="no"/>
+              <assign name="PrepareOutput">
+                <copy>
+                  <from variable="cvInteractionOutput" part="payload" query="/ns3:CivilServantInteraction_v10Response"/>
+                  <to variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                </copy>
+              </assign>
+            </sequence>
+          </scope>
+          <switch name="HasBeenApproved">
+            <case condition="bpws:getVariableData('workingVar','/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:status') = 'YES'">
+              <sequence name="Sequence_11">
+                <scope name="ResultProcessing">
+                  <switch name="hasBeenForwarded">
+                    <case condition="bpws:getVariableData('g_Forwarded') = 'NO'">
+                      <scope name="LocalResultProcessing">
+                        <sequence name="Sequence_7">
+                          <scope name="UserNotification">
+                            <variables>
+                              <variable name="userNotificationInput" messageType="ns6:NotificationRequestRequestMessage"/>
+                              <variable name="userNotificationOutput" messageType="ns6:NotificationRequestResponseMessage"/>
+                            </variables>
+                            <sequence name="Sequence_8">
+                              <assign name="PrepareInput">
+                                <copy>
+                                  <from expression="'Blah, blah, blah'"/>
+                                  <to variable="userNotificationInput" part="payload" query="/ns6:NotificationRequestDocument/ns6:NotificationMessage"/>
+                                </copy>
+                                <copy>
+                                  <from expression="'Requested document is ready.'"/>
+                                  <to variable="userNotificationInput" part="payload" query="/ns6:NotificationRequestDocument/ns6:NotificationSubject"/>
+                                </copy>
+                                <copy>
+                                  <from expression="'completion'"/>
+                                  <to variable="userNotificationInput" part="payload" query="/ns6:NotificationRequestDocument/ns6:NotificationQualifier"/>
+                                </copy>
+                                <copy>
+                                  <from expression="'email'"/>
+                                  <to variable="userNotificationInput" part="payload" query="/ns6:NotificationRequestDocument/ns6:NotificationMedium"/>
+                                </copy>
+                                <copy>
+                                  <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:uid"/>
+                                  <to variable="userNotificationInput" part="payload" query="/ns6:NotificationRequestDocument/ns6:UserId"/>
+                                </copy>
+                                <copy>
+                                  <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:ssid"/>
+                                  <to variable="userNotificationInput" part="payload" query="/ns6:NotificationRequestDocument/ns6:TransactionId"/>
+                                </copy>
+                              </assign>
+                              <invoke name="InvokeUserNotification" partnerLink="notificationServicePL" portType="ns6:NotificationRequest" operation="process" inputVariable="userNotificationInput" outputVariable="userNotificationOutput"/>
+                            </sequence>
+                          </scope>
+                          <scope name="UserInteraction">
+                            <variables>
+                              <variable name="userInteractionInput" messageType="ns7:UserInteraction_v10RequestMessage"/>
+                              <variable name="userInteractionOutput" messageType="ns7:UserInteraction_v10ResponseMessage"/>
+                            </variables>
+                            <sequence name="Sequence_9">
+                              <assign name="PrepareInput">
+                                <copy>
+                                  <from variable="CV_RESIDENCE_DOCUMENT"/>
+                                  <to variable="userInteractionInput" part="docType" query="/ns7:DocumentType"/>
+                                </copy>
+                                <copy>
+                                  <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                                  <to variable="userInteractionInput" part="payload" query="/ns7:UserInteraction_v10Request"/>
+                                </copy>
+                                <copy>
+                                  <from expression="'open'"/>
+                                  <to variable="userInteractionInput" part="payload" query="/ns7:UserInteraction_v10Request/ns1:status"/>
+                                </copy>
+                              </assign>
+                              <invoke name="InvokeCitizenInteraction" partnerLink="UserInteractionPL" portType="ns7:UserInteraction_v10" operation="initiate" inputVariable="userInteractionInput"/>
+                              <receive name="ReceiveUserInteractionResult" partnerLink="UserInteractionPL" portType="ns7:UserInteraction_v10Callback" operation="onResult" variable="userInteractionOutput" createInstance="no"/>
+                              <assign name="PrepareOutput">
+                                <copy>
+                                  <from variable="userInteractionOutput" part="payload" query="/ns7:UserInteraction_v10Response"/>
+                                  <to variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                                </copy>
+                              </assign>
+                            </sequence>
+                          </scope>
+                        </sequence>
+                      </scope>
+                    </case>
+                    <otherwise>
+                      <scope name="RemoteResultProcessing">
+                        <variables>
+                          <variable name="forwardResponseInput" messageType="ns8:ForwardResponse_v10RequestMessage"/>
+                        </variables>
+                        <sequence name="Sequence_10">
+                          <assign name="PrepareInput">
+                            <copy>
+                              <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input"/>
+                              <to variable="forwardResponseInput" part="payload" query="/ns8:ForwardResponse_v10Request"/>
+                            </copy>
+                          </assign>
+                          <invoke name="InvokeForwardResponse" partnerLink="ForwardResponsePL" portType="ns8:ForwardResponse_v10" operation="initiate" inputVariable="forwardResponseInput"/>
+                        </sequence>
+                      </scope>
+                    </otherwise>
+                  </switch>
+                </scope>
+              </sequence>
+            </case>
+            <otherwise>
+              <empty name="Empty_2"/>
+            </otherwise>
+          </switch>
+        </sequence>
+      </case>
+      <otherwise>
+        <empty name="Empty_1"/>
+      </otherwise>
+    </switch>
+    <scope name="CallbackProcessing">
+      <variables>
+        <variable name="callbackInput" messageType="ns9:onResultRequest"/>
+        <variable name="callbackOutput" messageType="ns9:onResultResponse"/>
+      </variables>
+      <sequence name="Sequence_12">
+        <assign name="PrepareInput">
+          <copy>
+            <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:ssid"/>
+            <to variable="callbackInput" part="result" query="/ns9:result/ssid"/>
+          </copy>
+          <copy>
+            <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:uid"/>
+            <to variable="callbackInput" part="result" query="/ns9:result/uid"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:reqestDocument"/>
+            <to variable="callbackInput" part="result" query="/ns9:result/requestDocument"/>
+          </copy>
+          <copy>
+            <from variable="workingVar" query="/client:ResidenceCertificationService_v20ProcessRequest/client:input/ns1:reqestDocument"/>
+            <to variable="callbackInput" part="result" query="/ns9:result/resultDocument"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeCallbackManager" partnerLink="ServiceCallbackPL" portType="ns9:IServiceCallbackManager" operation="onResult" inputVariable="callbackInput" outputVariable="callbackOutput"/>
+      </sequence>
+    </scope>
+  </sequence>
+</process>

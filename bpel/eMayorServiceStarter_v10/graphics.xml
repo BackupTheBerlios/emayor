@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<graphics>
+   <partnerlink_locations>
+      <partnerlink name="client" x="15" y="109" side="left"/>
+      <partnerlink name="rcs1PL" x="988" y="492" side="right"/>
+      <partnerlink name="UserRegistrationPL" x="988" y="20" side="right"/>
+      <partnerlink name="rcs2PL" x="988" y="87" side="right"/>
+   </partnerlink_locations>
+   <diagram popupeditor="false" centerzoom="true" validateonload="true" confirmbeforedelete="true" SELECTED_PARTNERLINK_COLOR="0,0,153" SWIMLANE_BACKGROUND="255,255,225" SWIMLANE_DIVIDER_BACKGROUND="236,233,216" GRAPH_BACKGROUND="255,255,255" SELECTED_BORDER_BACKGROUND="204,255,204" CONNECTED_PARTNERLINK_COLOR="204,204,255" CONNECTABLE_PARTNERLINK_COLOR="0,0,255" UNCONNECTED_PARTNERLINK_COLOR="192,192,192"/>
+</graphics>

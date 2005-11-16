@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BPELSuitcase>
+  <BPELProcess src="MyWorklistManager.bpel" id="MyWorklistManager">
+    <partnerLinkBindings>
+      <partnerLinkBinding name="client">
+        <property name="wsdlLocation">MyWorklistManager.wsdl</property>
+      </partnerLinkBinding>
+    </partnerLinkBindings>
+  </BPELProcess>
+</BPELSuitcase>

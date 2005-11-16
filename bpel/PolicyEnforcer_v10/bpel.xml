@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="PolicyEnforcer_v10" src="PolicyEnforcer_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">PolicyEnforcer_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="policyEnforcer">
+            <property name="wsdlLocation">BPELPolicyEnforcerServiceDesign.wsdl</property>
+            <property name="wsdlRuntimeLocation">BPELPolicyEnforcerService.wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<schema targetNamespace="http://emayor.org/servicehandling/bpel/task" elementFormDefault="qualified" blockDefault="#all" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://emayor.org/servicehandling/bpel/task">
+	<!-- //////////////////// BPEL Process Manager Task XML types//////////////////// -->
+	<element name="task">
+		<complexType>
+			<sequence>
+				<element name="taskId" type="string" minOccurs="0"/>
+				<element name="title" type="string" minOccurs="0"/>
+				<element name="creationDate" type="dateTime" minOccurs="0"/>
+				<element name="creator" type="string" minOccurs="0"/>
+				<element name="modifyDate" type="dateTime" minOccurs="0"/>
+				<element name="modifier" type="string" minOccurs="0"/>
+				<element name="assignee" type="string" minOccurs="0"/>
+				<element name="status" minOccurs="0">
+					<simpleType>
+						<restriction base="string">
+							<enumeration value="active"/>
+							<enumeration value="completed"/>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="expired" type="boolean" minOccurs="0"/>
+				<element name="expirationDate" type="dateTime" minOccurs="0"/>
+				<element name="duration" type="duration" minOccurs="0"/>
+				<element name="priority" type="int" minOccurs="0"/>
+				<element name="template" type="string" minOccurs="0"/>
+				<element name="customKey" type="string" minOccurs="0"/>
+				<element name="conclusion" type="string" minOccurs="0"/>
+				<element name="attachment" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="tasklist">
+		<complexType>
+			<sequence>
+				<element ref="tns:task" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="taskId" type="string"/>
+	<!-- propably I don't need where condition -->
+	<element name="whereCondition">
+		<complexType>
+			<sequence>
+				<element name="title" type="string" minOccurs="0"/>
+				<element name="creator" type="string" minOccurs="0"/>
+				<element name="modifier" type="string" minOccurs="0"/>
+				<element name="assignee" type="string" minOccurs="0"/>
+				<element name="status" minOccurs="0">
+					<simpleType>
+						<restriction base="string">
+							<enumeration value="active"/>
+							<enumeration value="completed"/>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="priority" type="int" minOccurs="0"/>
+				<element name="customKey" type="string" minOccurs="0"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

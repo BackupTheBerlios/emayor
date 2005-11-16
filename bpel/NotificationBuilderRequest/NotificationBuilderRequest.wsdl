@@ -1,0 +1,68 @@
+<definitions
+     name="NotificationBuilderRequest"
+     targetNamespace="http://xmlns.oracle.com/NotificationBuilderRequest"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:ns1="http://www.emayor.org/eMayorServiceRequest.xsd"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:ns3="http://emayor.org/NotificationRequest"
+     xmlns:ns2="http://www.emayor.org/eMayorNotificationBuilderRequest.xsd"
+     xmlns:client="http://xmlns.oracle.com/NotificationBuilderRequest"
+    >
+    <types>
+    	<import namespace="http://emayor.org/NotificationRequest" location="xsd/eMayorNotificationRequest.xsd"/>
+        <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/NotificationBuilderRequest"
+             xmlns="http://www.w3.org/2001/XMLSchema">    
+            <import namespace="http://www.emayor.org/eMayorNotificationBuilderRequest.xsd" schemaLocation="xsd/eMayorNotificationBuilderRequest.xsd"/>
+            <import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+            <element name="NotificationBuilderRequestProcessRequest">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="ns1:eMayorServiceRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="NotificationBuilderRequestProcessResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="NotificationBuilderRequestComposeType">
+                <complexType>
+                    <sequence>
+                        <element name="data" type="ns2:eMayorNotificationBuilderRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+    <message name="NotificationBuilderRequestComposeMessage">
+        <part name="payload" element="client:NotificationBuilderRequestComposeType"/>
+    </message>
+    <message name="NotificationBuilderRequestResponseMessage">
+        <part name="payload" element="client:NotificationBuilderRequestProcessResponse"/>
+    </message>
+    <message name="NotificationBuilderRequestRequestMessage">
+        <part name="request" element="client:NotificationBuilderRequestProcessRequest"/>
+        <part name="data" element="client:NotificationBuilderRequestComposeType"/>
+    </message>
+    <portType name="NotificationBuilderRequest">
+        <operation name="initiate">
+            <input message="client:NotificationBuilderRequestRequestMessage"/>
+        </operation>
+    </portType>
+    <portType name="NotificationBuilderRequestCallback">
+        <operation name="onResult">
+            <input message="client:NotificationBuilderRequestResponseMessage"/>
+        </operation>
+    </portType>
+    <plnk:partnerLinkType name="NotificationBuilderRequest">
+        <plnk:role name="NotificationBuilderRequestProvider">
+            <plnk:portType name="client:NotificationBuilderRequest"/>
+        </plnk:role>
+        <plnk:role name="NotificationBuilderRequestRequester">
+            <plnk:portType name="client:NotificationBuilderRequestCallback"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

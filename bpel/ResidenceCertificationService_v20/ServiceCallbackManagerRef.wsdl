@@ -1,0 +1,16 @@
+<definitions
+    
+     targetNamespace="http://emayor.org/ServiceCallbackManager"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:impl="http://emayor.org/ServiceCallbackManager"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    >
+    <import namespace="http://emayor.org/ServiceCallbackManager" location="services/ServiceCallbackManager.wsdl"/>
+    <plnk:partnerLinkType name="IServiceCallbackManager_PL">
+        <plnk:role name="IServiceCallbackManager_Role">
+            <plnk:portType name="impl:IServiceCallbackManager"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

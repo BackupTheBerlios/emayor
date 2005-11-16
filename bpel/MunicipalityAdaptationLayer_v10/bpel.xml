@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="MunicipalityAdaptationLayer_v10" src="MunicipalityAdaptationLayer_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">MunicipalityAdaptationLayer_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="M2EPL">
+            <property name="wsdlLocation">M2EServiceDesign.wsdl</property>
+            <property name="wsdlRuntimeLocation">M2EService.wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

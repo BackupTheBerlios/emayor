@@ -1,0 +1,143 @@
+<!--
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+  // Oracle JDeveloper BPEL Designer 
+  // 
+  // Created: Tue Jun 14 10:35:55 CEST 2005
+  // Author:  tku
+  // Purpose: Asynchronous BPEL Process
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+-->
+<process name="UserRegistration_10" targetNamespace="http://emayor.org/UserRegistration_10" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns4="http://emayor.org/CivilServantInteraction_v10" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns:client="http://emayor.org/UserRegistration_10" xmlns:ns6="http://www.emayor.org" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:ns1="http://www.emayor.org/eMayorServiceRequest.xsd" xmlns:ns3="http://emayor.org/InputDataCollectionIteration" xmlns:ns2="http://emayor.org/ServiceCallbackManager" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:orcl="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"><!-- ================================================================= --><!-- PARTNERLINKS                                                      --><!-- List of services participating in this BPEL process               --><!-- ================================================================= -->
+  <partnerLinks><!-- 
+    The 'client' role represents the requester of this service. It is 
+    used for callback. The location and correlation information associated
+    with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="client" myRole="UserRegistration_10Provider" partnerLinkType="client:UserRegistration_10"/>
+    <partnerLink name="PartnerLink_1" partnerRole="IServiceCallbackManager_Role" partnerLinkType="ns2:IServiceCallbackManager_PL"/>
+    <partnerLink myRole="InputDataCollectionIterationRequester" name="DataCollectionPL" partnerRole="InputDataCollectionIterationProvider" partnerLinkType="ns3:InputDataCollectionIteration"/>
+    <partnerLink myRole="CivilServantInteraction_v10Requester" name="CivilServantPL" partnerRole="CivilServantInteraction_v10Provider" partnerLinkType="ns4:CivilServantInteraction_v10"/>
+    <partnerLink name="PolicyEnforcerPL" partnerRole="PolicyEnforcer_v10Provider" partnerLinkType="ns5:PolicyEnforcer_v10"/>
+    <partnerLink name="RegistrationNotificationPL" partnerRole="UserRegistrationNotificationProvider" partnerLinkType="ns6:UserRegistrationNotification"/>
+  </partnerLinks><!-- ================================================================= --><!-- VARIABLES                                                         --><!-- List of messages and XML documents used within this BPEL process  --><!-- ================================================================= -->
+  <variables><!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:UserRegistration_10RequestMessage"/>
+    <variable name="Invoke_1_onResult_InputVariable" messageType="ns2:onResultRequest"/>
+    <variable name="Invoke_1_onResult_OutputVariable" messageType="ns2:onResultResponse"/>
+    <variable name="Receive_1_onResult_InputVariable" messageType="ns3:InputDataCollectionIterationResponseMessage"/>
+    <variable name="approval_onResult" messageType="ns4:CivilServantInteraction_v10ResponseMessage"/>
+    <variable name="NewUserProfile_OutputVariable" messageType="ns5:NewUserProfileDocumentResponse"/>
+  </variables><!-- ================================================================= --><!-- ORCHESTRATION LOGIC                                               --><!-- Set of activities coordinating the flow of messages across the    --><!-- services integrated within this business process                  --><!-- ================================================================= -->
+  <sequence name="main"><!-- Receive input from requestor. 
+    Note: This maps to operation defined in UserRegistration_10.wsdl
+    -->
+    <receive name="receiveInput" partnerLink="client" portType="client:UserRegistration_10" operation="initiate" variable="inputVariable" createInstance="yes"/>
+    <scope name="UserInteraction">
+      <variables>
+        <variable name="Invoke_2_initiate_InputVariable" messageType="ns3:InputDataCollectionIterationRequestMessage"/>
+      </variables>
+      <sequence name="Sequence_1">
+        <assign name="Assign_1">
+          <copy>
+            <from variable="inputVariable" part="payload" query="/client:UserRegistration_10ProcessRequest/client:input"/>
+            <to variable="Invoke_2_initiate_InputVariable" part="payload" query="/ns3:InputDataCollectionIterationRequest"/>
+          </copy>
+          <copy>
+            <from expression="7001"/>
+            <to variable="Invoke_2_initiate_InputVariable" part="docType" query="/ns3:DocumentType"/>
+          </copy>
+        </assign>
+        <invoke name="Invoke_2" partnerLink="DataCollectionPL" portType="ns3:InputDataCollectionIteration" operation="initiate" inputVariable="Invoke_2_initiate_InputVariable"/>
+        <receive name="Receive_1" partnerLink="DataCollectionPL" portType="ns3:InputDataCollectionIterationCallback" operation="onResult" variable="Receive_1_onResult_InputVariable" createInstance="no"/>
+      </sequence>
+    </scope>
+    <scope name="aprroval">
+      <variables>
+        <variable name="Invoke_3_initiate_InputVariable" messageType="ns4:CivilServantInteraction_v10RequestMessage"/>
+      </variables>
+      <sequence name="Sequence_2">
+        <assign name="Assign_2">
+          <copy>
+            <from expression="7001"/>
+            <to variable="Invoke_3_initiate_InputVariable" part="docType" query="/ns4:DocumentType"/>
+          </copy>
+          <copy>
+            <from variable="Receive_1_onResult_InputVariable" part="payload" query="/ns3:InputDataCollectionIterationResponse"/>
+            <to variable="Invoke_3_initiate_InputVariable" part="payload" query="/ns4:CivilServantInteraction_v10Request"/>
+          </copy>
+        </assign>
+        <invoke name="Invoke_3" partnerLink="CivilServantPL" portType="ns4:CivilServantInteraction_v10" operation="initiate" inputVariable="Invoke_3_initiate_InputVariable"/>
+        <receive name="civilServantReceive" createInstance="no" partnerLink="CivilServantPL" portType="ns4:CivilServantInteraction_v10Callback" operation="onResult" variable="approval_onResult"/>
+      </sequence>
+    </scope>
+    <switch name="Switch_1">
+      <case condition="bpws:getVariableData('approval_onResult','payload',' /ns4:CivilServantInteraction_v10Response/ns1:status')  = &quot;PENDING&quot;">
+        <empty name="Empty_2"/>
+      </case>
+      <case condition="bpws:getVariableData('approval_onResult','payload',' /ns4:CivilServantInteraction_v10Response/ns1:status')  = &quot;DENIED&quot;">
+        <empty name="Empty_3"/>
+      </case>
+      <case condition="bpws:getVariableData('approval_onResult','payload',' /ns4:CivilServantInteraction_v10Response/ns1:status')  = &quot;APPROVED&quot;">
+        <bpelx:annotation>
+          <bpelx:pattern>Approved
+          </bpelx:pattern>
+        </bpelx:annotation>
+        <sequence name="Sequence_3">
+          <scope name="Registration">
+            <variables>
+              <variable name="NewUserProfile_InputVariable" messageType="ns5:NewUserProfileServiceRequest"/>
+            </variables>
+            <sequence name="Sequence_4">
+              <assign name="Assign_3">
+                <copy>
+                  <from variable="approval_onResult" part="payload" query="/ns4:CivilServantInteraction_v10Response/ns1:reqestDocument"/>
+                  <to variable="NewUserProfile_InputVariable" part="userProfile" query="/ns5:NewUserProfileInput"/>
+                </copy>
+              </assign>
+              <invoke name="Invoke_4" partnerLink="PolicyEnforcerPL" portType="ns5:PolicyEnforcer_v10" operation="NewUserProfile" inputVariable="NewUserProfile_InputVariable" outputVariable="NewUserProfile_OutputVariable"/>
+            </sequence>
+          </scope>
+          <scope name="Notification">
+            <variables>
+              <variable name="notifyUser_process_InputVariable" messageType="ns6:UserRegistrationNotificationRequestMessage"/>
+              <variable name="notifyUser_process_OutputVariable" messageType="ns6:UserRegistrationNotificationResponseMessage"/>
+            </variables>
+            <sequence name="Sequence_5">
+              <assign name="createRequest">
+                <copy>
+                  <from variable="approval_onResult" part="payload" query="/ns4:CivilServantInteraction_v10Response/ns1:reqestDocument"/>
+                  <to variable="notifyUser_process_InputVariable" part="payload" query="/payload/ns1:reqestDocument"/>
+                </copy>
+                <copy>
+                  <from variable="inputVariable" part="payload" query="/client:UserRegistration_10ProcessRequest/client:input/ns1:uid"/>
+                  <to variable="notifyUser_process_InputVariable" part="payload" query="/payload/ns1:uid"/>
+                </copy>
+                <copy>
+                  <from variable="inputVariable" part="payload" query="/client:UserRegistration_10ProcessRequest/client:input/ns1:ssid"/>
+                  <to variable="notifyUser_process_InputVariable" part="payload" query="/payload/ns1:ssid"/>
+                </copy>
+              </assign>
+              <invoke name="notifyUser" partnerLink="RegistrationNotificationPL" portType="ns6:UserRegistrationNotification" operation="process" inputVariable="notifyUser_process_InputVariable" outputVariable="notifyUser_process_OutputVariable"/>
+            </sequence>
+          </scope>
+        </sequence>
+      </case>
+      <otherwise>
+        <sequence name="Sequence_6">
+          <empty name="Empty_1"/>
+        </sequence>
+      </otherwise>
+    </switch>
+    <assign name="Assign_4">
+      <copy>
+        <from variable="inputVariable" part="payload" query="/client:UserRegistration_10ProcessRequest/client:input/ns1:ssid"/>
+        <to variable="Invoke_1_onResult_InputVariable" part="result" query="/ns2:result/ssid"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload" query="/client:UserRegistration_10ProcessRequest/client:input/ns1:uid"/>
+        <to variable="Invoke_1_onResult_InputVariable" part="result" query="/ns2:result/uid"/>
+      </copy>
+    </assign>
+    <invoke name="Invoke_1" partnerLink="PartnerLink_1" portType="ns2:IServiceCallbackManager" operation="onResult" inputVariable="Invoke_1_onResult_InputVariable" outputVariable="Invoke_1_onResult_OutputVariable"/>
+  </sequence>
+</process>

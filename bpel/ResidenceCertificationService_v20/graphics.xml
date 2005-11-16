@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<graphics>
+   <partnerlink_locations>
+      <partnerlink name="client" x="0" y="423" side="left"/>
+      <partnerlink name="maLayerPL" x="0" y="21" side="left"/>
+      <partnerlink name="notificationServicePL" x="0" y="88" side="left"/>
+      <partnerlink name="ForwardResponsePL" x="0" y="155" side="left"/>
+      <partnerlink name="ForwardRequestPL" x="0" y="222" side="left"/>
+      <partnerlink name="UserInteractionPL" x="0" y="289" side="left"/>
+      <partnerlink name="ServiceCallbackPL" x="0" y="356" side="left"/>
+      <partnerlink name="CivilServantInteractionPL" x="926" y="21" side="right"/>
+   </partnerlink_locations>
+   <diagram popupeditor="false" centerzoom="true" validateonload="true" confirmbeforedelete="true" SELECTED_PARTNERLINK_COLOR="0,0,153" SWIMLANE_BACKGROUND="255,255,225" SWIMLANE_DIVIDER_BACKGROUND="236,233,216" GRAPH_BACKGROUND="255,255,255" SELECTED_BORDER_BACKGROUND="204,255,204" CONNECTED_PARTNERLINK_COLOR="204,204,255" CONNECTABLE_PARTNERLINK_COLOR="0,0,255" UNCONNECTED_PARTNERLINK_COLOR="192,192,192"/>
+</graphics>

@@ -1,0 +1,9 @@
+Sehr geehrter Herr ${TITLE} ${FORENAME} ${SURNAME},
+
+Ihre Anfrage bzgl. einer Melderegisterbescheinigung (datiert vom ${REQ_DATE})
+wurde bearbeitet. Sie können Ihre Melderegisterbescheinigung von Ihrer
+ortlich zuständigen Behörde abholen.
+
+Mit freundlichen Grüßen,
+
+Landeseinwohneramt ${STATE}

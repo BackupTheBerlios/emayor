@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="eMayorServiceStarter_v10"
+             targetNamespace="http://www.emayor.org/eMayorServiceStarter_v10"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://www.emayor.org/eMayorServiceStarter_v10"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+             xmlns:request="http://www.emayor.org/eMayorServiceStarterRequest.xsd">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and us them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<types>
+		<schema attributeFormDefault="qualified"
+			elementFormDefault="qualified"
+			targetNamespace="http://www.emayor.org/eMayorServiceStarter_v10"
+			xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://www.emayor.org/eMayorServiceStarterRequest.xsd" schemaLocation="xsd/eMayorServiceStarterRequest.xsd"/>
+			<element name="eMayorServiceStarter_v10ProcessRequest">
+				<complexType>
+					<sequence>
+						<element name="input" type="request:eMayorServiceStarterRequestType"/>
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<message name="eMayorServiceStarter_v10RequestMessage">
+		<part name="payload" element="client:eMayorServiceStarter_v10ProcessRequest"/>
+	</message>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the eMayorServiceStarter_v10 BPEL process -->
+	<portType name="eMayorServiceStarter_v10">
+		<operation name="initiate">
+			<input message="client:eMayorServiceStarter_v10RequestMessage"/>
+		</operation>
+	</portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the eMayorServiceStarter_v10 partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="eMayorServiceStarter_v10">
+		<plnk:role name="eMayorServiceStarter_v10Provider">
+			<plnk:portType name="client:eMayorServiceStarter_v10"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="CivilServantInteraction_v10" src="CivilServantInteraction_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">CivilServantInteraction_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="taskManagerPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/TaskManager/TaskManager?wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

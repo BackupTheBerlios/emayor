@@ -1,0 +1,31 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="ResidenceCertificationService_v20" src="ResidenceCertificationService_v20.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">ResidenceCertificationService_v20.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="CivilServantInteractionPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/CivilServantInteraction_v10/CivilServantInteraction_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="maLayerPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/MunicipalityAdaptationLayer_v10/MunicipalityAdaptationLayer_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="ForwardRequestPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/ForwardRequest_v10/ForwardRequest_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="notificationServicePL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/NotificationRequest/NotificationRequest?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="UserInteractionPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/UserInteraction_v10/UserInteraction_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="ForwardResponsePL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/ForwardResponse_v10/ForwardResponse_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="ServiceCallbackPL">
+            <property name="wsdlLocation">ServiceCallbackManagerRef.wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

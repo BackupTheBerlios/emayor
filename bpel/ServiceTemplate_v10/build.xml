@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<project name="Service" default="main" basedir=".">
+	
+	<!-- CHANGE -->
+	
+	<!-- service name -->
+	<property name="PROCESS_NAME" value="TestService_v10"/>
+	<!-- namespace -->
+	<property name="NAMESPACE" value="http://www.emayor.org/TestService_v10"/>	
+	<!-- service version -->
+	<property name="VERSION" value="1.0"/>
+	<!-- bpel domain -->
+	<property name="DOMAIN" value="Bozen"/>
+	<!-- parent directory of new service -->
+	<property name="DESTINATION" value="../"/>
+
+	<!-- LEAVE UNMODIFIED -->		
+    <property name="src" value="src/"/>
+    <property name="build" value="bin/"/>
+
+     <target name="init">
+          <mkdir dir="${build}"/>
+     </target>
+
+     <target name="compile" depends="init">
+          <javac srcdir="${src}" destdir="${build}"/>
+     </target>
+	
+     <target name="main" depends="compile">
+     	<java classname="ProjectComposer">
+			<arg value="${PROCESS_NAME}"/>
+     		<arg value="${NAMESPACE}"/>
+     		<arg value="${VERSION}"/>
+     		<arg value="${DOMAIN}"/>
+     		<arg value="${DESTINATION}"/>
+            <classpath path="${build}"/>
+ 	     	</java>
+        </target>
+	
+</project>

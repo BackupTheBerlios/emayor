@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://interfaces.FormatTransformation.eMayor.org" xmlns:intf="http://interfaces.FormatTransformation.eMayor.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ejb="http://schemas.xmlsoap.org/wsdl/ejb/" xmlns:format="http://schemas.xmlsoap.org/wsdl/formatbinding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://interfaces.FormatTransformation.eMayor.org">
+	<wsdl:message name="transformRequest">
+		<wsdl:part name="documentToTransform" type="xsd:string"/>
+		<wsdl:part name="typeOfTransformation" type="xsd:string"/>
+		<wsdl:part name="typeOfDocument" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="transformResponse">
+		<wsdl:part name="transformReturn" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:portType name="Transformer">
+		<wsdl:operation name="transform" parameterOrder="documentToTransform typeOfTransformation typeOfDocument">
+			<wsdl:input name="transformRequest" message="impl:transformRequest"/>
+			<wsdl:output name="transformResponse" message="impl:transformResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="FormatTrnasformationServiceBindingEJB" type="impl:Transformer">
+		<ejb:binding/>
+		<format:typeMapping encoding="Java" style="Java">
+			<format:typeMap typeName="xsd:string" formatType="java.lang.String"/>
+		</format:typeMapping>
+		<operation name="transform">
+			<ejb:operation 
+				methodName="transform" 
+				parameterOrder="documentToTransform typeOfTransformation typeOfDocument" 
+				interface="remote"
+				returnPart="transformReturn"/>
+			<input name="transformRequest"/>
+			<output name="transformResponse"/>
+		</operation>
+	</wsdl:binding>
+	<wsdl:service name="FormatTransformationService">
+		<wsdl:port name="TransformerEJB" binding="impl:FormatTrnasformationServiceBindingEJB">
+			<ejb:address className="org.eMayor.FormatTransformation.interfaces.TransformerHome" jndiName="ejb/Transformer" initialContextFactory="org.jnp.interfaces.NamingContextFactory" jndiProviderURL="localhost:1099"/>
+		</wsdl:port>
+	</wsdl:service>	
+	
+	<plnk:partnerLinkType name="FormatTransformationService">
+		<plnk:role name="FormatTransformationServiceProvider">
+			<plnk:portType name="impl:Transformer"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

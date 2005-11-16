@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org" xmlns:intf="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ejb="http://schemas.xmlsoap.org/wsdl/ejb/" xmlns:format="http://schemas.xmlsoap.org/wsdl/formatbinding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org">
+	<wsdl:message name="printRequest">
+		<wsdl:part name="url" type="xsd:string"/>
+		<wsdl:part name="fileTypeName" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:portType name="Printer">
+		<wsdl:operation name="print" parameterOrder="url fileTypeName">
+			<wsdl:input name="printRequest" message="impl:printRequest"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="PrintingServiceBindingEJB" type="impl:Printer">
+		<ejb:binding/>
+		<format:typeMapping encoding="Java" style="Java">
+			<format:typeMap typeName="xsd:string" formatType="java.lang.String"/>
+		</format:typeMapping>
+		<operation name="print">
+			<ejb:operation 
+				methodName="print" 
+				parameterOrder="url fileTypeName" 
+				interface="remote"/>
+			<input name="printRequest"/>
+		</operation>
+	</wsdl:binding>
+	<wsdl:service name="PrinterService">
+		<wsdl:port name="PrinterEJB" binding="impl:PrintingServiceBindingEJB">
+			<ejb:address className="org.eMayor.ServiceHandling.PrintingUtility.interfaces.PrinterHome" jndiName="ejb/Printer" initialContextFactory="org.jnp.interfaces.NamingContextFactory" jndiProviderURL="localhost:1099"/>
+		</wsdl:port>
+	</wsdl:service>
+	<plnk:partnerLinkType name="PrintingService">
+		<plnk:role name="PrintingServiceProvider">
+			<plnk:portType name="impl:Printer"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

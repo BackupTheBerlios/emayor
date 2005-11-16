@@ -1,0 +1,48 @@
+<definitions
+     name="UserRegistrationNotification"
+     targetNamespace="http://www.emayor.org"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://www.emayor.org"
+     xmlns:ns1="http://www.emayor.org/eMayorServiceRequest.xsd"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+    >
+    <types>
+        <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.emayor.org"
+             xmlns="http://www.w3.org/2001/XMLSchema">
+            <element name="UserRegistrationNotificationRequest">
+                <complexType>
+                    <sequence>
+                        <element name="input" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="UserRegistrationNotificationResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="./xsd/eMayorServiceRequest.xsd"/>
+        </schema>
+    </types>
+    <message name="UserRegistrationNotificationRequestMessage">
+        <part name="payload" type="ns1:eMayorServiceRequestType"/>
+    </message>
+    <message name="UserRegistrationNotificationResponseMessage">
+        <part name="payload" element="tns:UserRegistrationNotificationResponse"/>
+    </message>
+    <portType name="UserRegistrationNotification">
+        <operation name="process">
+            <input message="tns:UserRegistrationNotificationRequestMessage"/>
+            <output message="tns:UserRegistrationNotificationResponseMessage"/>
+        </operation>
+    </portType>
+    <plnk:partnerLinkType name="UserRegistrationNotification">
+        <plnk:role name="UserRegistrationNotificationProvider">
+            <plnk:portType name="tns:UserRegistrationNotification"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,83 @@
+<!--
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+  // Oracle JDeveloper BPEL Designer 
+  // 
+  // Created: Wed Jun 01 18:53:10 CEST 2005
+  // Author:  tku
+  // Purpose: Asynchronous BPEL Process
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+-->
+<process name="eMayorServiceStarter_v10" targetNamespace="http://www.emayor.org/eMayorServiceStarter_v10" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns4="http://www.emayor.org/ResidenceCertificationService_v20" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://www.emayor.org/eMayorServiceStarter_v10" xmlns:client="http://www.emayor.org/eMayorServiceStarter_v10" xmlns:ns6="http://emayor.org/UserRegistration_10" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:ns1="http://www.emayor.org/eMayorServiceStarterRequest.xsd" xmlns:ns3="http://emayor.org/ResidenceCertifcationRequest_v10" xmlns:ns2="http://www.emayor.org/eMayorServiceRequest.xsd" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:orcl="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"><!-- ================================================================= --><!-- PARTNERLINKS                                                      --><!-- List of services participating in this BPEL process               --><!-- ================================================================= -->
+  <partnerLinks><!-- 
+    The 'client' role represents the requester of this service. It is 
+    used for callback. The location and correlation information associated
+    with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="client" partnerLinkType="ns5:eMayorServiceStarter_v10" myRole="eMayorServiceStarter_v10Provider"/>
+    <partnerLink name="rcs1PL" partnerRole="ResidenceCertifcationRequest_v10Provider" partnerLinkType="ns3:ResidenceCertifcationRequest_v10"/>
+    <partnerLink name="rcs2PL" partnerRole="ResidenceCertificationService_v20Provider" partnerLinkType="ns4:ResidenceCertificationService_v20"/>
+    <partnerLink name="UserRegistrationPL" partnerRole="UserRegistration_10Provider" partnerLinkType="ns6:UserRegistration_10"/>
+  </partnerLinks><!-- ================================================================= --><!-- VARIABLES                                                         --><!-- List of messages and XML documents used within this BPEL process  --><!-- ================================================================= -->
+  <variables><!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:eMayorServiceStarter_v10RequestMessage"/>
+    <variable name="rcs1In" messageType="ns3:ResidenceCertifcationRequest_v10RequestMessage"/>
+    <variable name="rcs2In" messageType="ns4:ResidenceCertificationService_v20RequestMessage"/>
+    <variable name="Invoke_1_initiate_InputVariable" messageType="ns6:UserRegistration_10RequestMessage"/>
+  </variables><!-- ================================================================= --><!-- ORCHESTRATION LOGIC                                               --><!-- Set of activities coordinating the flow of messages across the    --><!-- services integrated within this business process                  --><!-- ================================================================= -->
+  <sequence name="main"><!-- Receive input from requestor. 
+    Note: This maps to operation defined in eMayorServiceStarter_v10.wsdl
+    -->
+    <receive name="receiveInput" partnerLink="client" portType="client:eMayorServiceStarter_v10" operation="initiate" variable="inputVariable" createInstance="yes"/><!-- Asynchronous callback to the requester.
+     Note: the callback location and correlation id is transparently handled 
+     using WS-addressing.
+     -->
+    <switch name="Switch_1">
+      <case condition="bpws:getVariableData('inputVariable','payload',' /ns5:eMayorServiceStarter_v10ProcessRequest/ns5:input /ns1:eMayorServiceId') = &quot;UserRegistration_v10&quot;">
+        <scope name="UserRegistration">
+          <sequence name="Sequence_5">
+            <assign name="Assign_1">
+              <copy>
+                <from variable="inputVariable" part="payload" query="/ns5:eMayorServiceStarter_v10ProcessRequest/ns5:input/ns1:eMayorServiceRequest"/>
+                <to variable="Invoke_1_initiate_InputVariable" part="payload" query="/ns6:UserRegistration_10ProcessRequest/ns6:input"/>
+              </copy>
+            </assign>
+            <invoke name="UserRegistrationInvoke" partnerLink="UserRegistrationPL" portType="ns6:UserRegistration_10" operation="initiate" inputVariable="Invoke_1_initiate_InputVariable"/>
+          </sequence>
+        </scope>
+      </case>
+      <case condition="bpws:getVariableData('inputVariable','payload',' /ns5:eMayorServiceStarter_v10ProcessRequest/ns5:input /ns1:eMayorServiceId') = 'ResidenceCertificationService_v10'">
+        <sequence name="Sequence_2">
+          <scope name="RCS1">
+            <sequence name="Sequence_3">
+              <assign name="PrepareInput">
+                <copy>
+                  <from variable="inputVariable" part="payload" query="/ns5:eMayorServiceStarter_v10ProcessRequest/ns5:input/ns1:eMayorServiceRequest"/>
+                  <to variable="rcs1In" part="payload" query="/ns3:ResidenceCertifcationRequest_v10Request"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeRCS1" partnerLink="rcs1PL" portType="ns3:ResidenceCertifcationRequest_v10" operation="initiate" inputVariable="rcs1In"/>
+            </sequence>
+          </scope>
+        </sequence>
+      </case>
+      <case condition="bpws:getVariableData('inputVariable','payload',' /ns5:eMayorServiceStarter_v10ProcessRequest/ns5:input /ns1:eMayorServiceId') =  'RCS2_v10'">
+        <sequence name="Sequence_1">
+          <scope name="RCS2">
+            <sequence name="Sequence_4">
+              <assign name="PrepareInput">
+                <copy>
+                  <from variable="inputVariable" part="payload" query="/ns5:eMayorServiceStarter_v10ProcessRequest/ns5:input/ns1:eMayorServiceRequest"/>
+                  <to variable="rcs2In" part="payload" query="/ns4:ResidenceCertificationService_v20ProcessRequest/ns4:input"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeRCS2" partnerLink="rcs2PL" portType="ns4:ResidenceCertificationService_v20" operation="initiate" inputVariable="rcs2In"/>
+            </sequence>
+          </scope>
+        </sequence>
+      </case>
+      <otherwise>
+        <empty name="Empty_1"/>
+      </otherwise>
+    </switch>
+  </sequence>
+</process>

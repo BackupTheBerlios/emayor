@@ -1,0 +1,40 @@
+<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/NotificationRequest">
+
+	<element name="NotificationDocument">
+
+	<complexType>
+
+	<sequence>
+<element name="NotificationQualifier" type="string"/>
+<element name="TransactionId" type="string"/>
+<element name="NotificationMessage" type="string"/>
+<element name="Timestamp" type="string"/>
+</sequence>
+</complexType>
+</element>
+
+	<element name="NotificationRequestDocument">
+
+	<complexType>
+
+	<sequence>
+<element name="NotificationMedium" type="string"/>
+<element name="NotificationQualifier" type="string"/>
+<element name="NotificationSubject" type="string"/>
+<element name="NotificationMessage" type="string"/>
+<element name="UserId" type="string"/>
+<element name="TransactionId" type="string"/>
+</sequence>
+</complexType>
+</element>
+
+	<element name="NotificationResponseDocument">
+
+	<complexType>
+
+	<sequence>
+<element name="result" type="string"/>
+</sequence>
+</complexType>
+</element>
+</schema>

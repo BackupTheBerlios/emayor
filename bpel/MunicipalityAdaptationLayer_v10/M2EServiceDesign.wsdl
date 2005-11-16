@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+xmlns="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:apachesoap="http://xml.apache.org/xml-soap" 
+xmlns:impl="http://interfaces.AdaptationLayer.eMayor.org" 
+xmlns:intf="http://interfaces.AdaptationLayer.eMayor.org" 
+xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://interfaces.AdaptationLayer.eMayor.org" 
+xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+	<wsdl:message name="ServiceRequestPropagatorResponseMessage">
+		<wsdl:part name="ServiceRequestPropagatorReturn" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="ServiceRequestPropagatorRequestMessage">
+		<wsdl:part name="document" type="xsd:string"/>
+		<wsdl:part name="documentType" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:portType name="E2M">
+		<wsdl:operation name="serviceRequestPropagator" parameterOrder="document documentType">
+			<wsdl:input name="ServiceRequestPropagatorRequest" message="impl:ServiceRequestPropagatorRequestMessage"/>
+			<wsdl:output name="ServiceRequestPropagatorResponse" message="impl:ServiceRequestPropagatorResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<plnk:partnerLinkType name="E2MService">
+		<plnk:role name="E2MServiceProvider">
+			<plnk:portType name="impl:E2M"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

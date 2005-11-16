@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by Kay-Uwe Schmidt (FhG Fokus) -->
+<definitions xmlns:tns="http://emayor.org/servicehandling/bpel/task" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:ns0="http://services.oracle.com/bpel/task" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://emayor.org/servicehandling/bpel/task" name="MyWorklistManager">
+	<types>
+		<schema targetNamespace="http://emayor.org/servicehandling/bpel/task" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" blockDefault="#all">
+			<import namespace="http://services.oracle.com/bpel/task" schemaLocation="WorklistManager.xsd"/>
+			<!-- //////////////////// BPEL Process Manager Task XML types//////////////////// -->
+			<element name="task">
+				<complexType>
+					<sequence>
+						<element name="taskId" type="string" minOccurs="0"/>
+						<element name="title" type="string" minOccurs="0"/>
+						<element name="creationDate" type="dateTime" minOccurs="0"/>
+						<element name="creator" type="string" minOccurs="0"/>
+						<element name="modifyDate" type="dateTime" minOccurs="0"/>
+						<element name="modifier" type="string" minOccurs="0"/>
+						<element name="assignee" type="string" minOccurs="0"/>
+						<element name="status" minOccurs="0">
+							<simpleType>
+								<restriction base="string">
+									<enumeration value="active"/>
+									<enumeration value="completed"/>
+								</restriction>
+							</simpleType>
+						</element>
+						<element name="expired" type="boolean" minOccurs="0"/>
+						<element name="expirationDate" type="dateTime" minOccurs="0"/>
+						<element name="duration" type="duration" minOccurs="0"/>
+						<element name="priority" type="int" minOccurs="0"/>
+						<element name="template" type="string" minOccurs="0"/>
+						<element name="customKey" type="string" minOccurs="0"/>
+						<element name="conclusion" type="string" minOccurs="0"/>
+						<element name="attachment" type="string"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="tasklist">
+				<complexType>
+					<sequence>
+						<element ref="tns:task" maxOccurs="unbounded"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="taskId" type="string"/>
+			<element name="assignee" type="string"/>
+			<element name="customKey" type="string"/>
+			<element name="assigneeAndCustomKey">
+				<complexType>
+					<sequence>
+						<element ref="tns:assignee"/>
+						<element ref="tns:customKey"/>
+					</sequence>
+				</complexType>
+			</element>
+			<!-- propably I don't need where condition -->
+		</schema>
+	</types>
+	<message name="taskRequestMessage">
+		<part name="payload" element="tns:task"/>
+	</message>
+	<message name="taskResponseMessage">
+    </message>
+	<message name="lookupTaskRequestMessage">
+		<part name="payload" element="tns:taskId"/>
+	</message>
+	<message name="lookupTaskResponseMessage">
+		<part name="payload" element="tns:task"/>
+	</message>
+	<message name="listTasksRequestMessage">
+		<part name="payload" element="tns:assignee"/>
+	</message>
+	<message name="listTasksResponseMessage">
+		<part name="payload" element="tns:tasklist"/>
+	</message>
+	<message name="lookupTasksByAssigneeAndCustomKeyRequestMessage">
+		<part name="payload" element="tns:assigneeAndCustomKey"/>
+	</message>
+	<portType name="MyWorklistManager">
+		<operation name="completeTask">
+			<input message="tns:taskRequestMessage"/>
+			<output message="tns:taskResponseMessage"/>
+		</operation>
+		<operation name="lookupTask">
+			<input message="tns:lookupTaskRequestMessage"/>
+			<output message="tns:lookupTaskResponseMessage"/>
+		</operation>
+		<operation name="listTasksByAssignee">
+			<input message="tns:listTasksRequestMessage"/>
+			<output message="tns:listTasksResponseMessage"/>
+		</operation>
+		<operation name="lookupTasksByAssigneeAndCustomKey">
+			<input message="tns:lookupTasksByAssigneeAndCustomKeyRequestMessage"/>
+			<output message="tns:listTasksResponseMessage"/>
+		</operation>
+	</portType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the WorklistManager BPEL process -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="MyWorklistManager">
+		<plnk:role name="MyWorklistManagerProvider">
+			<plnk:portType name="tns:MyWorklistManager"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

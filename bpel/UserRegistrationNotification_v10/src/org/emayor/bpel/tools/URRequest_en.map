@@ -1,0 +1,5 @@
+TITLE=/UserProfile/CitizenDetails/CitizenName/CitizenNameTitle
+FORENAME=/UserProfile/CitizenDetails/CitizenName/CitizenNameForename
+SURNAME=/UserProfile/CitizenDetails/CitizenName/CitizenNameSurname
+REQ_DATE=/UserProfile/RequestDate
+STATE=/UserProfile/ReceivingMunicipalityDetails

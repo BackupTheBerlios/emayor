@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="http://emayor.org/NotificationDocument.xsd" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	xmlns:tns="http://emayor.org/NotificationDocument.xsd" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<xs:complexType name="NotificationDocumentType">
+		<xs:sequence>
+			<xs:element name="NotificationQualifier" type="xs:string"/>
+			<xs:element name="TransactionId" type="xs:string"/>
+			<xs:element name="NotificationMessage" type="xs:string"/>
+			<xs:element name="Timestamp" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<project name="eMayor" default="eMayor" basedir=".">
+<property name="deploy" id="deploy" value="default"/>
+<property name="rev" value="1.0"/>
+
+	<target name="eMayorDomainReset">
+		<ant dir="${basedir}/../eMayorDomainRename/" target="reset" />
+	</target>
+	
+	<target name="eMayorDomainRename">
+		<ant dir="${basedir}/../eMayorDomainRename/" target="rename">
+	        <reference refid="deploy"/>
+	</ant>
+	
+	</target>	
+	<target name="eMayorTaskManager">
+		<ant dir="${basedir}/../eMayorTaskManager/"/>
+	</target>	
+	<target name="PlatformTest">
+		<ant dir="${basedir}/../PlatformTest/"/>
+	</target>	
+	<target name="CivilServantInteraction_v10">
+		<ant dir="${basedir}/../CivilServantInteraction_v10/"/>
+	</target>
+	<target name="UserInteraction_v10">
+		<ant dir="${basedir}/../UserInteraction_v10/"/>
+	</target>
+	<target name="PolicyEnforcer_v10">
+		<ant dir="${basedir}/../PolicyEnforcer_v10/"/>
+	</target>
+	<target name="NotificationService">
+		<ant dir="${basedir}/../NotificationRequest/"/>
+	</target>
+	<target name="NotificationBuilderRequest">
+		<ant dir="${basedir}/../NotificationBuilderRequest/"/>
+	</target>
+	<target name="PrintingUtility_v10">
+		<ant dir="${basedir}/../PrintingUtility_v10/"/>
+	</target>
+	<target name="FormatTransformation_10">
+		<ant dir="${basedir}/../FormatTransformation_v10/"/>
+	</target>
+	<target name="InputDataCollectionIteration">
+		<ant dir="${basedir}/../InputDataCollectionIteration/"/>
+	</target>
+	<target name="ResidenceCertificationRequest_v10_DC">
+		<ant dir="${basedir}/../ResidenceCertificationRequest_v10_DC/"/>
+	</target>
+	<target name="ProcessStepAuthorization_v10">
+		<ant dir="${basedir}/../ProcessStepAuthorization_v10/"/>
+	</target>
+	<target name="ForwardRequest_v10">
+		<ant dir="${basedir}/../ForwardRequest_v10/"/>
+	</target>
+	<target name="ForwardResponse_v10">
+		<ant dir="${basedir}/../ForwardResponse_v10/"/>
+	</target>
+	<target name="MunicipalityAdaptationLayer_v10">
+		<ant dir="${basedir}/../MunicipalityAdaptationLayer_v10/"/>
+	</target>
+	<target name="RCRLocalProcessing_v10">
+		<ant dir="${basedir}/../RCRLocalProcessing_v10/"/>
+	</target>
+	<target name="ResidenceCertifcationRequest_v10">
+		<ant dir="${basedir}/../ResidenceCertifcationRequest_v10/"/>
+	</target>
+	<target name="ResidenceCertificationService_v20">
+		<ant dir="${basedir}/../ResidenceCertificationService_v20/"/>
+	</target>
+	<target name="UserRegistrationNotification_v10">
+		<ant dir="${basedir}/../UserRegistrationNotification_v10/"/>
+	</target>
+	<target name="UserRegistration_v10">
+		<ant dir="${basedir}/../UserRegistration_v10/"/>
+	</target>
+	<target name="eMayorServiceStarter_v10">
+		<ant dir="${basedir}/../eMayorServiceStarter_v10/"/>
+	</target>
+	<target name="NegativeResponse_v10">
+		<ant dir="${basedir}/../NegativeResponse_v10/"/>
+	</target>
+
+	<!-- LAST SHOULD BE "eMayorDomainReset"
+		 FIRST SHOULD BE "eMayorDomainRename" -->
+	<target name="eMayor" depends="
+		eMayorDomainRename,
+		PlatformTest,
+		CivilServantInteraction_v10,
+		UserInteraction_v10,
+		PolicyEnforcer_v10,
+		NotificationService,
+		NotificationBuilderRequest,
+		PrintingUtility_v10,
+		FormatTransformation_10,
+		InputDataCollectionIteration,
+		ResidenceCertificationRequest_v10_DC,
+		ProcessStepAuthorization_v10,
+		ForwardRequest_v10,
+		ForwardResponse_v10,
+		NegativeResponse_v10,
+		MunicipalityAdaptationLayer_v10,
+		RCRLocalProcessing_v10,
+		ResidenceCertifcationRequest_v10,
+		ResidenceCertificationService_v20,
+		UserRegistrationNotification_v10,
+		UserRegistration_v10,
+		eMayorServiceStarter_v10,
+     	eMayorDomainReset"/>
+	
+	<target name="beans" depends="eMayorTaskManager"/>
+</project>

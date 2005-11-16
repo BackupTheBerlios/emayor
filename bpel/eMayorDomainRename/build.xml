@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project name="Domain" default="rename" basedir=".">
+	
+	<!-- LEAVE UNMODIFIED -->		
+	<property name="deploy" id="deploy" value="default"/>
+    <property name="src" value="src/"/>
+    <property name="build" value="bin/"/>
+
+     <target name="init">
+          <mkdir dir="${build}"/>
+     </target>
+
+     <target name="compile" depends="init">
+          <javac srcdir="${src}" destdir="${build}"/>
+     </target>
+	
+     <target name="rename" depends="compile">
+     	<java classname="DomainComposer">
+			<arg value="rename"/>
+			<arg value="${deploy}"/>
+            <classpath path="${build}"/>
+ 	     	</java>
+     </target>
+	
+    <target name="reset" depends="compile">
+    	<java classname="DomainComposer">
+			<arg value="reset"/>
+           <classpath path="${build}"/>
+	     	</java>
+    </target>
+	
+</project>

@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="NotificationBuilderRequest" src="NotificationBuilderRequest.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">NotificationBuilderRequest.wsdl</property>
+            <property name="replyToServiceQName">{http://xmlns.oracle.com/NotificationBuilderRequest}NotificationBuilderRequestCallbackService</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="NotificationRequest">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/NotificationRequest/NotificationRequest?wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

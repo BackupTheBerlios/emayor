@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="FormatTransformation_v10" src="FormatTransformation_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">FormatTransformation_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="formatTransformationServicePL">
+            <property name="wsdlLocation">FormatTransformationServiceDesign.wsdl</property>
+            <property name="wsdlRuntimeLocation">FormatTransformationService.wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

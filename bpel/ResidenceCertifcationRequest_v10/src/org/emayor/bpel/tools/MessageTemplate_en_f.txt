@@ -1,0 +1,9 @@
+Dear ${TITLE} ${FORENAME} ${SURNAME},
+
+your request for a Residence Certification (dated ${REQ_DATE}) has been 
+performed. Please, receive your Residence Certification Document from your
+local document storage.
+
+Best Regards,
+
+Municipality of ${STATE}

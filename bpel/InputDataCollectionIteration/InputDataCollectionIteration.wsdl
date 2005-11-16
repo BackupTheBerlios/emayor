@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<definitions xmlns:tns="http://emayor.org/InputDataCollectionIteration" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd" targetNamespace="http://emayor.org/InputDataCollectionIteration" name="InputDataCollectionIteration">
+	<types>
+		<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/InputDataCollectionIteration" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+			<element name="InputDataCollectionIterationRequest" type="request:eMayorServiceRequestType"/>
+			<element name="InputDataCollectionIterationResponse" type="request:eMayorServiceRequestType"/>
+			<element name="DocumentType" type="int"/>
+		</schema>
+	</types>
+	<message name="InputDataCollectionIterationRequestMessage">
+		<part name="payload" element="tns:InputDataCollectionIterationRequest"/>
+		<part name="docType" element="tns:DocumentType"/>
+	</message>
+	<message name="InputDataCollectionIterationResponseMessage">
+		<part name="payload" element="tns:InputDataCollectionIterationResponse"/>
+	</message>
+	<portType name="InputDataCollectionIteration">
+		<operation name="initiate">
+			<input message="tns:InputDataCollectionIterationRequestMessage"/>
+		</operation>
+	</portType>
+	<portType name="InputDataCollectionIterationCallback">
+		<operation name="onResult">
+			<input message="tns:InputDataCollectionIterationResponseMessage"/>
+		</operation>
+	</portType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of services participating in this BPEL process 
+     The default output of the BPEL designer uses strings as input and 
+     output to the BPEL Process. But you can define or import any XML 
+     Schema type and us them as part of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the InputDataCollectionIteration BPEL process -->
+	<!-- portType implemented by the requester of InputDataCollectionIteration BPEL process 
+         for asynchronous callback purposes
+         -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+         the InputDataCollectionIteration partnerLinkType binds the provider and
+         requester portType into an asynchronous conversation.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="InputDataCollectionIteration">
+		<plnk:role name="InputDataCollectionIterationProvider">
+			<plnk:portType name="tns:InputDataCollectionIteration"/>
+		</plnk:role>
+		<plnk:role name="InputDataCollectionIterationRequester">
+			<plnk:portType name="tns:InputDataCollectionIterationCallback"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

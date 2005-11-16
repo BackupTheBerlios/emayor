@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="UserRegistrationNotification" src="UserRegistrationNotification.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">UserRegistrationNotification.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="NotificationBuilder">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/NotificationBuilderRequest/NotificationBuilderRequest?wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

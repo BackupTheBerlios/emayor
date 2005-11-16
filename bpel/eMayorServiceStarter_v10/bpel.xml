@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="eMayorServiceStarter_v10" src="eMayorServiceStarter_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">eMayorServiceStarter_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="rcs1PL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/ResidenceCertifcationRequest_v10/ResidenceCertifcationRequest_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="rcs2PL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/ResidenceCertificationService_v20/ResidenceCertificationService_v20?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="UserRegistrationPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/UserRegistration_10/UserRegistration_10?wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

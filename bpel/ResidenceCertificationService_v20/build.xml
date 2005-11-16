@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Run cxant on this file to build, package and deploy the
+     ResidenceCertifcationRequest_v10 BPEL process
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<project name="ResidenceCertifcationRequest_v10" default="all" basedir=".">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Name of the domain the generated BPEL suitcase will be deployed to
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<property name="deploy" value="default"/>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     What version number should be used to tag the generated BPEL archive?
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <property name="rev" value="1.0"/>
+    
+    <target name="CompileJava">
+      <mkdir dir="${basedir}/BPEL-INF/classes"/>
+    	<javac srcdir="${basedir}/src" destdir="${basedir}/BPEL-INF/classes" 
+        classpath="${basedir}/lib/log4j-1.2.8.jar">
+    	</javac>
+    	<copy todir="${basedir}/BPEL-INF/classes/org/emayor/service/bpel/forward" 
+        file="${basedir}/src/org/emayor/service/bpel/forward/municipality.properties"/>
+    </target>
+    
+    <target name="main">
+    
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     the bpelc task compiles and package BPEL processes into versioned BPEL 
+     archives (bpel_...jar). See the "Programming BPEL" guide for more 
+     information on the options of this task.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <bpelc  input="${basedir}/bpel.xml" 
+                rev="${rev}" 
+                deploy="${deploy}"
+                />
+    </target>
+    
+    <target name="all" depends="CompileJava, main"/>
+</project>

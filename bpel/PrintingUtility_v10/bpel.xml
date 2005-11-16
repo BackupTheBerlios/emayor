@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="PrintingUtility_v10" src="PrintingUtility_v10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">PrintingUtility_v10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="printingServicePL">
+            <property name="wsdlLocation">PrintingUtilityServiceDesign.wsdl</property>
+            <property name="wsdlRuntimeLocation">PrintingUtilityService.wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

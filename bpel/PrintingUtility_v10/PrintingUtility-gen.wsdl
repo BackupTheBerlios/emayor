@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org" xmlns:impl="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org" xmlns:intf="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+   <wsdl:message name="printRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="printResponse">
+
+   </wsdl:message>
+
+   <wsdl:portType name="Printer">
+
+      <wsdl:operation name="print" parameterOrder="in0 in1">
+
+         <wsdl:input name="printRequest" message="impl:printRequest"/>
+
+         <wsdl:output name="printResponse" message="impl:printResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="PrinterSoapBinding" type="impl:Printer">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="print">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="printRequest">
+
+            <wsdlsoap:body use="literal" namespace="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="printResponse">
+
+            <wsdlsoap:body use="literal" namespace="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="PrinterService">
+
+      <wsdl:port name="Printer" binding="impl:PrinterSoapBinding">
+
+         <wsdlsoap:address location="http://localhost:8080/"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

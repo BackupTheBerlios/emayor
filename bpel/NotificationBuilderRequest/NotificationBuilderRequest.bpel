@@ -1,0 +1,118 @@
+<!--
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+  // Oracle JDeveloper BPEL Designer 
+  // 
+  // Created: Thu May 26 12:29:08 CEST 2005
+  // Author:  mxs
+  // Purpose: Asynchronous BPEL Process
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+-->
+<process name="NotificationBuilderRequest" targetNamespace="http://xmlns.oracle.com/NotificationBuilderRequest" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:ns1="http://www.emayor.org/eMayorServiceRequest.xsd" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://emayor.org/NotificationRequest" xmlns:ns2="http://www.emayor.org/eMayorNotificationBuilderRequest.xsd" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:client="http://xmlns.oracle.com/NotificationBuilderRequest" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:orcl="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"><!-- ================================================================= --><!-- PARTNERLINKS                                                      --><!-- List of services participating in this BPEL process               --><!-- ================================================================= -->
+  <bpelx:exec import="org.apache.log4j.Logger"/>
+  <bpelx:exec import="org.w3c.dom.Element"/>
+  <bpelx:exec import="org.w3c.dom.NodeList"/>
+  <bpelx:exec import="org.w3c.dom.Document"/>
+  <bpelx:exec import="org.w3c.dom.DOMImplementation"/>
+  <bpelx:exec import="javax.xml.parsers.DocumentBuilderFactory"/>
+  <bpelx:exec import="javax.xml.parsers.DocumentBuilder"/>
+  <bpelx:exec import="org.apache.xml.serialize.XMLSerializer"/>
+  <bpelx:exec import="org.apache.xml.serialize.OutputFormat"/>
+  <bpelx:exec import="java.io.StringWriter"/>
+  <bpelx:exec import="org.emayor.notification.composer.MessageComposer"/>
+  <bpelx:exec import="java.io.StringReader"/>
+  <bpelx:exec import="org.xml.sax.InputSource"/>
+  <partnerLinks><!-- 
+    The 'client' role represents the requester of this service. It is 
+    used for callback. The location and correlation information associated
+    with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="client" partnerLinkType="client:NotificationBuilderRequest" myRole="NotificationBuilderRequestProvider" partnerRole="NotificationBuilderRequestRequester"/>
+    <partnerLink myRole="NotificationRequestProvider" name="NotificationRequest" partnerRole="NotificationRequestProvider" partnerLinkType="ns3:NotificationRequest"/>
+  </partnerLinks><!-- ================================================================= --><!-- VARIABLES                                                         --><!-- List of messages and XML documents used within this BPEL process  --><!-- ================================================================= -->
+  <variables><!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:NotificationBuilderRequestRequestMessage"/><!-- Reference to the message that will be sent back to the 
+    requester during callback
+    -->
+    <variable name="outputVariable" messageType="client:NotificationBuilderRequestResponseMessage"/>
+    <variable name="sendRequest_process_InputVariable" messageType="ns3:NotificationRequestRequestMessage"/>
+    <variable name="sendRequest_process_OutputVariable" messageType="ns3:NotificationRequestResponseMessage"/>
+  </variables><!-- ================================================================= --><!-- ORCHESTRATION LOGIC                                               --><!-- Set of activities coordinating the flow of messages across the    --><!-- services integrated within this business process                  --><!-- ================================================================= -->
+  <sequence name="main"><!-- Receive input from requestor. 
+    Note: This maps to operation defined in NotificationBuilderRequest.wsdl
+    -->
+    <receive name="receiveInput" partnerLink="client" portType="client:NotificationBuilderRequest" operation="initiate" variable="inputVariable" createInstance="yes"/><!-- Asynchronous callback to the requester.
+     Note: the callback location and correlation id is transparently handled 
+     using WS-addressing.
+     -->
+    <bpelx:exec name="createMessage" language="Java" version="1.4"><![CDATA[
+    
+    
+    //Logger log = Logger.getLogger("BPEL Debug");
+			
+			// catch exception messages
+			String result = null;
+			
+			// for input processing
+			Element input = null;
+      
+      // Message template + mappings & XML profile
+			String mapping = null;
+      String profile = null;
+      String message = null;
+      
+			int i;
+		
+			try {
+                
+                /* copy request document to variable */
+	            	input = (Element) getVariableData("inputVariable","data","/client:NotificationBuilderRequestComposeType/client:data/ns2:mapping");
+                mapping = input.getNodeValue();
+                
+                input = (Element) getVariableData("inputVariable","data","/client:NotificationBuilderRequestComposeType/client:data/ns2:message");
+                message = input.getNodeValue();
+                
+                input = (Element) getVariableData("inputVariable","data","/client:NotificationBuilderRequestComposeType/client:data/ns2:profile");
+                profile = input.getNodeValue();
+                
+                MessageComposer composer = new MessageComposer(profile,input.toString(),mapping,message);
+                
+                message = composer.getMessage();
+            
+                if (message == null) message = "";
+                
+                setVariableData("sendRequest_process_InputVariable","payload","/ns3:NotificationRequestDocument/ns3:NotificationMessage",message);
+                    
+				} catch (Exception e) {
+					result = e.getMessage();
+					e.printStackTrace();
+				}
+				
+				result = result == null ? "DONE" : result;
+]]>
+    </bpelx:exec>
+    <assign name="createRequest">
+      <copy>
+        <from variable="inputVariable" part="request" query="/client:NotificationBuilderRequestProcessRequest/client:request/ns1:ssid"/>
+        <to variable="sendRequest_process_InputVariable" part="payload" query="/ns3:NotificationRequestDocument/ns3:TransactionId"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="request" query="/client:NotificationBuilderRequestProcessRequest/client:request/ns1:uid"/>
+        <to variable="sendRequest_process_InputVariable" part="payload" query="/ns3:NotificationRequestDocument/ns3:UserId"/>
+      </copy>
+      <copy>
+        <from expression="&quot;email&quot;"/>
+        <to variable="sendRequest_process_InputVariable" part="payload" query="/ns3:NotificationRequestDocument/ns3:NotificationMedium"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="data" query="/client:NotificationBuilderRequestComposeType/client:data/ns2:subject"/>
+        <to variable="sendRequest_process_InputVariable" part="payload" query="/ns3:NotificationRequestDocument/ns3:NotificationSubject"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="data" query="/client:NotificationBuilderRequestComposeType/client:data/ns2:qualifier"/>
+        <to variable="sendRequest_process_InputVariable" part="payload" query="/ns3:NotificationRequestDocument/ns3:NotificationQualifier"/>
+      </copy>
+    </assign>
+    <invoke name="sendRequest" partnerLink="NotificationRequest" portType="ns3:NotificationRequest" operation="process" inputVariable="sendRequest_process_InputVariable" outputVariable="sendRequest_process_OutputVariable"/>
+    <invoke name="callbackClient" partnerLink="client" portType="client:NotificationBuilderRequestCallback" operation="onResult" inputVariable="outputVariable"/>
+  </sequence>
+</process>

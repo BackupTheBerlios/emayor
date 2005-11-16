@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<definitions name="MunicipalityAdaptationLayer_v10"
+        targetNamespace="http://emayor.org/MunicipalityAdaptationLayer_v10"
+        xmlns:tns="http://emayor.org/MunicipalityAdaptationLayer_v10"
+        xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+        xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd" 
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        >
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <types>
+        <schema attributeFormDefault="qualified" elementFormDefault="qualified" 
+                targetNamespace="http://emayor.org/MunicipalityAdaptationLayer_v10" 
+                xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+			<element name="MunicipalityAdaptationLayer_v10Request" type="request:eMayorServiceRequestType"/>
+			<element name="MunicipalityAdaptationLayer_v10Response" type="request:eMayorServiceRequestType"/>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="MunicipalityAdaptationLayer_v10RequestMessage">
+        <part name="payload" element="tns:MunicipalityAdaptationLayer_v10Request"/>
+    </message>
+    <message name="MunicipalityAdaptationLayer_v10ResponseMessage">
+        <part name="payload" element="tns:MunicipalityAdaptationLayer_v10Response"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the MunicipalityAdaptationLayer_v10 BPEL process -->
+    <portType name="MunicipalityAdaptationLayer_v10">
+        <operation name="process">
+            <input  message="tns:MunicipalityAdaptationLayer_v10RequestMessage" />
+            <output message="tns:MunicipalityAdaptationLayer_v10ResponseMessage"/>
+        </operation>
+    </portType>
+  
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="MunicipalityAdaptationLayer_v10">
+        <plnk:role name="MunicipalityAdaptationLayer_v10Provider">
+            <plnk:portType name="tns:MunicipalityAdaptationLayer_v10"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    
+</definitions>

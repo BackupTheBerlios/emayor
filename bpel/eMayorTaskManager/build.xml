@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project name="employee" default="all" basedir=".">
+
+   <target name="init">
+      <property name="app.name" value="UTWrapperApp" />
+      <property name="app.pkg" value="org.emayor.servicehandling.model"/>
+      <property name="ear.name" value="${app.name}" />
+      <property name="ejb.name" value="${ear.name}-ejb" />
+      <property name="web.name" value="${ear.name}-web" />
+      <property name="cli.name" value="UTWrapper-client" />
+      <property name="cli.class" value="${app.pkg}.UTWrapperEJBClient" />
+      <property name="bld.dir" value="./build" />
+      <property name="lib.dir" value="./lib" />
+      <property name="etc.dir" value="./src/META-INF" />
+      <property name="src.ejb.dir" value="./src" />
+      <property name="src.cli.dir" value="./src" />
+      <property name="bld.ear.dir" value="${bld.dir}/${ear.name}" />
+      <property name="bld.ejb.dir" value="${bld.ear.dir}/${ejb.name}" />
+      <property name="bld.web.dir" value="${bld.ear.dir}/${web.name}" />
+      <property name="bld.cli.dir" value="${bld.ear.dir}/${cli.name}" />
+      <property name="bld.compiler" value="classic" />
+      <property name="class.files" value="**/*.class" />
+      <property name="bak.files" value="**/*~" />
+      <property name="orabpel.host" value="localhost"/>
+      <property name="orabpel.host.admin.pswd" value="welcome"/>
+   </target>
+
+   <target name="clean" depends="init">
+      <delete dir="${bld.dir}" />
+      <delete dir="${lib.dir}" />
+      <delete>
+         <fileset dir="." includes="${bak.files}" defaultexcludes="no"/>
+      </delete>
+   </target>
+
+   <target name="setup" depends="init">
+      <mkdir dir="${lib.dir}" />
+      <mkdir dir="${bld.dir}" />
+      <mkdir dir="${bld.ear.dir}" />
+      <mkdir dir="${bld.ear.dir}/META-INF" />
+      <mkdir dir="${bld.ejb.dir}/META-INF" />
+      <mkdir dir="${bld.cli.dir}/META-INF" />
+   </target>
+
+   <target name="ejb-classes" depends="setup">
+      <javac srcdir="${src.ejb.dir}"
+             destdir="${bld.ejb.dir}"
+             debug="on">
+         <classpath>
+            <pathelement path="${common.class.path}" />
+            <pathelement location="${bld.ejb.dir}" />
+            <pathelement location="${lib.dir}/${ejb.name}.jar" />
+         </classpath>
+      </javac>
+   </target>
+
+   <target name="ejb-descriptor" depends="setup">
+      <copy todir="${bld.ejb.dir}/META-INF">
+         <fileset dir="${etc.dir}" includes="ejb-jar.xml, orion-ejb-jar.xml"/>
+      </copy>
+   </target>
+
+   <target name="ejb-jar" depends="ejb-classes,ejb-descriptor">
+      <jar jarfile="${lib.dir}/${ejb.name}.jar">
+         <fileset dir="${bld.ejb.dir}" includes="**" />
+      </jar>
+   </target>
+
+   <target name="cli-classes" depends="setup">
+      <javac srcdir="${src.cli.dir}"
+             destdir="${bld.cli.dir}"
+             debug="on">
+         <classpath>
+            <pathelement path="${common.class.path}" />
+            <pathelement location="${bld.cli.dir}" />
+            <pathelement location="${lib.dir}/${ejb.name}.jar" />
+         </classpath>
+      </javac>
+   </target>
+
+   <target name="cli-descriptor" depends="setup">
+      <copy todir="${bld.cli.dir}/META-INF">
+         <fileset dir="${etc.dir}" includes="application-client.xml,
+                                             orion-application-client.xml"
+         />
+      </copy>
+      <copy todir="${bld.cli.dir}">
+         <fileset dir="${etc.dir}" includes="jndi.properties" />
+      </copy>
+   </target>
+
+   <target name="cli-jar" depends="cli-classes,cli-descriptor">
+      <jar jarfile="${lib.dir}/${cli.name}.jar">
+         <fileset dir="${bld.cli.dir}">
+			 <include name="**/UTWrapperEJB.class"/>
+			 <include name="**/UTWrapperEJBHome.class"/>
+			 <include name="**/UTWrapperException.class"/>
+         </fileset>
+      </jar>
+   </target>
+
+   <target name="j2ee-descriptor" depends="setup">
+      <copy todir="${bld.ear.dir}/META-INF">
+         <fileset dir="${etc.dir}" includes="application.xml,
+                                             orion-application.xml,
+                                             data-sources.xml,
+                                             principals.xml"/>
+      </copy>
+   </target>
+
+   <target name="j2ee-ear" depends="ejb-jar,cli-jar,j2ee-descriptor">
+      <jar jarfile="${lib.dir}/${ear.name}.ear">
+         <fileset dir="${lib.dir}" includes="${ejb.name}.jar" />
+         <fileset dir="${bld.ear.dir}" includes="META-INF/*.xml" />
+      </jar>
+   </target>
+
+	<target name="deployBean" depends="j2ee-ear">
+		<java jar="${home}/system/appserver/oc4j/j2ee/home/admin.jar"
+		      fork="true">
+		 <arg line="ormi://${orabpel.host} admin ${orabpel.host.admin.pswd} -deploy -file ${lib.dir}/${ear.name}.ear -deploymentName ${ear.name}"/>
+	   </java>
+     </target>
+
+	<target name="all" depends="deployBean" />
+	
+</project>

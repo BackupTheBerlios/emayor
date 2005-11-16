@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions 
+	targetNamespace="http://emayor.org/ServiceCallbackManager" 
+	xmlns:tns="http://emayor.org/ServiceCallbackManager" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+	>
+	<import location="ServiceCallbackManager.wsdl"/>
+
+	<plnk:partnerLinkType name="IServiceCallbackManagerLink">
+		<plnk:role name="IServiceCallbackManagerProvider">
+			<plnk:portType name="tns:IServiceCallbackManager" />
+		</plnk:role>
+	</plnk:partnerLinkType>	
+</definitions>

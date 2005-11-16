@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="ResidenceCertificationService_v20"
+             targetNamespace="http://www.emayor.org/ResidenceCertificationService_v20"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://www.emayor.org/ResidenceCertificationService_v20"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+             xmlns:request="http://www.emayor.org/eMayorServiceRequest.xsd">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and us them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<types>
+		<schema attributeFormDefault="qualified"
+			elementFormDefault="qualified"
+			targetNamespace="http://www.emayor.org/ResidenceCertificationService_v20"
+			xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://www.emayor.org/eMayorServiceRequest.xsd" schemaLocation="xsd/eMayorServiceRequest.xsd"/>
+			<element name="ResidenceCertificationService_v20ProcessRequest">
+				<complexType>
+					<sequence>
+						<element name="input" type="request:eMayorServiceRequestType"/>
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<message name="ResidenceCertificationService_v20RequestMessage">
+		<part name="payload" element="client:ResidenceCertificationService_v20ProcessRequest"/>
+	</message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the ResidenceCertificationService_v20 BPEL process -->
+	<portType name="ResidenceCertificationService_v20">
+		<operation name="initiate">
+			<input message="client:ResidenceCertificationService_v20RequestMessage"/>
+		</operation>
+	</portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the ResidenceCertificationService_v20 partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="ResidenceCertificationService_v20">
+		<plnk:role name="ResidenceCertificationService_v20Provider">
+			<plnk:portType name="client:ResidenceCertificationService_v20"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="ResidenceCertifcationRequest_v10_DC" src="ResidenceCertifcationRequest_v10_DC.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">ResidenceCertifcationRequest_v10_DC.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="inputDataCollectorPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/InputDataCollectionIteration/InputDataCollectionIteration?wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>

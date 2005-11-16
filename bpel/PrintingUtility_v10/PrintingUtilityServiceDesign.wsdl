@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org" xmlns:intf="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://interfaces.PrintingUtility.ServiceHandling.eMayor.org">
+	<wsdl:message name="printRequest">
+		<wsdl:part name="url" type="xsd:string"/>
+		<wsdl:part name="fileTypeName" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:portType name="Printer">
+		<wsdl:operation name="print" parameterOrder="url fileTypeName">
+			<wsdl:input name="printRequest" message="impl:printRequest"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<plnk:partnerLinkType name="PrintingService">
+		<plnk:role name="PrintingServiceProvider">
+			<plnk:portType name="impl:Printer"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

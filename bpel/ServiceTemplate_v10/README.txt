@@ -1,0 +1,1 @@
+Edit build.xml and change the properties of the process name and namespace.

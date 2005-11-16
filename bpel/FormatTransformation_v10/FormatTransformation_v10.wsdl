@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<definitions xmlns:tns="http://emayor.org/FormatTransformation_v10" xmlns:ft="http://www.emayor.org/FormatTransformationSchema.xsd" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://emayor.org/FormatTransformation_v10" name="FormatTransformation_v10">
+	<types>
+		<schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://emayor.org/FormatTransformation_v10" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.emayor.org/FormatTransformationSchema.xsd" schemaLocation="xsd/FormatTransformationSchema.xsd"/>
+			<element name="FormatTransformation_v10Request" type="ft:FormatTransformationRequestType"/>
+			<element name="FormatTransformation_v10Response" type="ft:FormatTransformationResponseType"/>
+		</schema>
+	</types>
+	<message name="FormatTransformation_v10RequestMessage">
+		<part name="payload" element="tns:FormatTransformation_v10Request"/>
+	</message>
+	<message name="FormatTransformation_v10ResponseMessage">
+		<part name="payload" element="tns:FormatTransformation_v10Response"/>
+	</message>
+	<portType name="FormatTransformation_v10">
+		<operation name="process">
+			<input message="tns:FormatTransformation_v10RequestMessage"/>
+			<output message="tns:FormatTransformation_v10ResponseMessage"/>
+		</operation>
+	</portType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the FormatTransformation_v10 BPEL process -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="FormatTransformation_v10">
+		<plnk:role name="FormatTransformation_v10Provider">
+			<plnk:portType name="tns:FormatTransformation_v10"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</definitions>

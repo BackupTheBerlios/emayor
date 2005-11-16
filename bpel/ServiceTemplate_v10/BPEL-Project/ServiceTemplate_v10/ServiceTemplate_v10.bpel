@@ -1,0 +1,30 @@
+<!--
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+  // Oracle JDeveloper BPEL Designer 
+  // 
+  // Created: Tue Jun 14 10:35:55 CEST 2005
+  // Author:  tku
+  // Purpose: Asynchronous BPEL Process
+  ///////////////////////////////////////////////////////////////////////////////////////////// 
+-->
+<process name="${PROCESSNAME}" targetNamespace="${NAMESPACE}" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:client="${NAMESPACE}" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:ns1="http://www.emayor.org/eMayorServiceRequest.xsd" xmlns:ns2="http://emayor.org/ServiceCallbackManager" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:orcl="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"><!-- ================================================================= --><!-- PARTNERLINKS                                                      --><!-- List of services participating in this BPEL process               --><!-- ================================================================= -->
+  <partnerLinks><!-- 
+    The 'client' role represents the requester of this service. It is 
+    used for callback. The location and correlation information associated
+    with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="client" myRole="${PROCESSNAME}Provider" partnerLinkType="client:${PROCESSNAME}"/>
+    <partnerLink name="PartnerLink_1" partnerRole="IServiceCallbackManager_Role" partnerLinkType="ns2:IServiceCallbackManager_PL"/>
+  </partnerLinks><!-- ================================================================= --><!-- VARIABLES                                                         --><!-- List of messages and XML documents used within this BPEL process  --><!-- ================================================================= -->
+  <variables><!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:${PROCESSNAME}RequestMessage"/>
+    <variable name="Invoke_1_onResult_InputVariable" messageType="ns2:onResultRequest"/>
+    <variable name="Invoke_1_onResult_OutputVariable" messageType="ns2:onResultResponse"/>
+  </variables><!-- ================================================================= --><!-- ORCHESTRATION LOGIC                                               --><!-- Set of activities coordinating the flow of messages across the    --><!-- services integrated within this business process                  --><!-- ================================================================= -->
+  <sequence name="main"><!-- Receive input from requestor. 
+    Note: This maps to operation defined in ${PROCESSNAME}.wsdl
+    -->
+    <receive name="receiveInput" partnerLink="client" portType="client:${PROCESSNAME}" operation="initiate" variable="inputVariable" createInstance="yes"/>
+    <invoke name="Invoke_1" partnerLink="PartnerLink_1" portType="ns2:IServiceCallbackManager" operation="onResult" inputVariable="Invoke_1_onResult_InputVariable" outputVariable="Invoke_1_onResult_OutputVariable"/>
+  </sequence>
+</process>

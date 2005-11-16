@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BPELSuitcase>
+   <BPELProcess id="UserRegistration_10" src="UserRegistration_10.bpel">
+      <partnerLinkBindings>
+         <partnerLinkBinding name="client">
+            <property name="wsdlLocation">UserRegistration_10.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="PartnerLink_1">
+            <property name="wsdlLocation">ServiceCallbackManagerRef.wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="DataCollectionPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/InputDataCollectionIteration/InputDataCollectionIteration?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="CivilServantPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/CivilServantInteraction_v10/CivilServantInteraction_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="PolicyEnforcerPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/PolicyEnforcer_v10/PolicyEnforcer_v10?wsdl</property>
+         </partnerLinkBinding>
+         <partnerLinkBinding name="RegistrationNotificationPL">
+            <property name="wsdlLocation">http://localhost:9700/orabpel/default/UserRegistrationNotification/UserRegistrationNotification?wsdl</property>
+         </partnerLinkBinding>
+      </partnerLinkBindings>
+   </BPELProcess>
+</BPELSuitcase>
