@@ -242,7 +242,7 @@ System.out.println("caught ex: "+ex.toString());
       </assign>
       <invoke name="getRole" partnerLink="policyenforcerPL" portType="tns:PolicyEnforcer_v10" operation="GetSignatureRole" inputVariable="Invoke_5_GetSignatureRole_InputVariable" outputVariable="Invoke_5_GetSignatureRole_OutputVariable"/>
       <switch name="Switch_9">
-       <case condition="bpws:getVariableData('Invoke_5_GetSignatureRole_OutputVariable','role','/tns:XMLDocument') != (&quot;Citizen&quot;  or &quot;Civil Servant&quot;)">
+       <case condition="bpws:getVariableData('Invoke_5_GetSignatureRole_OutputVariable','role','/tns:XMLDocument') = 'N/A'">
         <bpelx:annotation>
          <bpelx:pattern>role not given
          </bpelx:pattern>
