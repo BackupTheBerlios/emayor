@@ -16,7 +16,7 @@
 
 <head>
 	<title>Wait For Response</title>
-	<META HTTP-EQUIV="Refresh" CONTENT="10; URL=<bean:write name="serviceForm" property="waitPageRedirectURL"/>">
+	<META HTTP-EQUIV="Refresh" CONTENT="6; URL=<bean:write name="serviceForm" property="waitPageRedirectURL"/>">
 </head>
 
 <%--  Note: This JSP fills in 5 different partitions (0..4) which

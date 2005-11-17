@@ -146,9 +146,9 @@ public class Repository extends ActionForm
       remarks = serviceForm.getTextFromResource(TextResourceKeys.Status_RemarksAboutEmailInfo);
     }
         
-    long startDateTime = task.getIncoming().getTimeInMillis();
+    Calendar startTime = task.getIncoming();
     // enddate:
-    long endDateTime   = task.getDeadline().getTimeInMillis();
+    Calendar endTime = task.getDeadline();
 
     String xmlDocument = task.getXMLDocument();
     String documentResponse = task.getDocumentResponse();
@@ -161,7 +161,7 @@ public class Repository extends ActionForm
     int documentIndex = this.documents.size();
   	RepositoryDocument doc = new RepositoryDocument( serviceIdentifier,municipalityNameKey,language,
                                                      status,statusKey,remarks,
-                                                     startDateTime,endDateTime,
+                                                     startTime,endTime,
                                                      xmlDocument,
                                                      documentResponse,
 													 documentIndex,

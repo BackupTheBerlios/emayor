@@ -28,13 +28,12 @@ public class RepositoryDocument implements Serializable
   private String documentStatus  = "";
   private String documentStatusKey = "";
   private String documentRemarks = "";
-  private long dateOfRequest = 0;
-  private long dateOfRemoval = 0;
+  private Calendar startTime;
+  private Calendar endTime;
   private int documentIndex = 0;
    
   private String xmlDocument = null;
   private String documentResponse = null;
-  private Calendar deadline = null;
   
   // The associated kernel task object:
   private Task task = null;
@@ -46,8 +45,8 @@ public class RepositoryDocument implements Serializable
                              final String _documentStatus,
 							 final String _documentStatusKey,
                              final String _documentRemarks,
-                             final long _dateOfRequest,
-                             final long _dateOfRemoval,
+                             final Calendar _startTime,
+                             final Calendar _endTime,
                              final String _xmlDocument,
                              final String _documentResponse,
                              final int _documentIndex,
@@ -60,8 +59,8 @@ public class RepositoryDocument implements Serializable
     this.documentStatus  = _documentStatus;
     this.documentStatusKey = _documentStatusKey;
     this.documentRemarks = _documentRemarks;
-    this.dateOfRequest   = _dateOfRequest;
-    this.dateOfRemoval   = _dateOfRemoval;
+    this.startTime   = _startTime;
+    this.endTime     = _endTime;
     this.xmlDocument = _xmlDocument;
     this.documentResponse = _documentResponse;
     this.documentIndex = _documentIndex;
@@ -72,15 +71,54 @@ public class RepositoryDocument implements Serializable
   
   public String getDateOfRemoval()
   {
-    FormattedDate date = new FormattedDate( this.dateOfRemoval );
-    return date.getDateAsString("dd.MM.yyyy");
+    int day    = this.endTime.get(Calendar.DAY_OF_MONTH) + 1;  // 1..30/31
+    int month  = this.endTime.get(Calendar.MONTH);
+    int year   = this.endTime.get(Calendar.YEAR);    
+    int hour24 = this.endTime.get(Calendar.HOUR);            // 0..23
+    int min    = this.endTime.get(Calendar.MINUTE);          // 0..59
+    int sec    = this.endTime.get(Calendar.SECOND);          // 0..59
+    int ms     = this.endTime.get(Calendar.MILLISECOND);     // 0..999
+      
+    StringBuffer date = new StringBuffer();
+    date.append( String.valueOf(day) );
+    date.append( "." );
+    date.append( String.valueOf(month) );
+    date.append(".");
+    date.append( String.valueOf(year) );
+    date.append("   ");
+    date.append( String.valueOf(hour24) );
+    date.append(":");
+    date.append( String.valueOf(min) );
+  
+    return date.toString();
   }
+  
+
+  
   
   
   public String getDateOfRequest()
   {
-    FormattedDate date = new FormattedDate( this.dateOfRequest );
-    return date.getDateAsString("dd.MM.yyyy");
+    int day    = this.startTime.get(Calendar.DAY_OF_MONTH) + 1;  // 1..30/31
+    int month  = this.startTime.get(Calendar.MONTH);
+    int year   = this.startTime.get(Calendar.YEAR);    
+    int hour24 = this.startTime.get(Calendar.HOUR);            // 0..23
+    int min    = this.startTime.get(Calendar.MINUTE);          // 0..59
+    int sec    = this.startTime.get(Calendar.SECOND);          // 0..59
+    int ms     = this.startTime.get(Calendar.MILLISECOND);     // 0..999
+      
+    StringBuffer date = new StringBuffer();
+    date.append( String.valueOf(day) );
+    date.append( "." );
+    date.append( String.valueOf(month) );
+    date.append(".");
+    date.append( String.valueOf(year) );
+    date.append("   ");
+    date.append( String.valueOf(hour24) );
+    date.append(":");
+    date.append( String.valueOf(min) );
+  
+    return date.toString();
   }
   
   
@@ -121,11 +159,6 @@ public class RepositoryDocument implements Serializable
     return this.documentResponse;
   }
 
-
-  public Calendar getDeadline()
-  {
-    return this.deadline;
-  }
 
   
   public int getDocumentIndex()
