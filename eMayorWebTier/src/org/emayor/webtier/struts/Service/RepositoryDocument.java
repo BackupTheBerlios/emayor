@@ -71,10 +71,10 @@ public class RepositoryDocument implements Serializable
   
   public String getDateOfRemoval()
   {
-    int day    = this.endTime.get(Calendar.DAY_OF_MONTH) + 1;  // 1..30/31
-    int month  = this.endTime.get(Calendar.MONTH);
+    int day    = this.endTime.get(Calendar.DAY_OF_MONTH);  // 1..30/31
+    int month  = this.endTime.get(Calendar.MONTH) + 1;
     int year   = this.endTime.get(Calendar.YEAR);    
-    int hour24 = this.endTime.get(Calendar.HOUR);            // 0..23
+    int hour24 = this.endTime.get(Calendar.HOUR_OF_DAY);     // 0..23
     int min    = this.endTime.get(Calendar.MINUTE);          // 0..59
     int sec    = this.endTime.get(Calendar.SECOND);          // 0..59
     int ms     = this.endTime.get(Calendar.MILLISECOND);     // 0..999
@@ -99,10 +99,10 @@ public class RepositoryDocument implements Serializable
   
   public String getDateOfRequest()
   {
-    int day    = this.startTime.get(Calendar.DAY_OF_MONTH) + 1;  // 1..30/31
-    int month  = this.startTime.get(Calendar.MONTH);
+    int day    = this.startTime.get(Calendar.DAY_OF_MONTH);  // 1..30/31
+    int month  = this.startTime.get(Calendar.MONTH) + 1;
     int year   = this.startTime.get(Calendar.YEAR);    
-    int hour24 = this.startTime.get(Calendar.HOUR);            // 0..23
+    int hour24 = this.startTime.get(Calendar.HOUR_OF_DAY);     // 0..23
     int min    = this.startTime.get(Calendar.MINUTE);          // 0..59
     int sec    = this.startTime.get(Calendar.SECOND);          // 0..59
     int ms     = this.startTime.get(Calendar.MILLISECOND);     // 0..999
