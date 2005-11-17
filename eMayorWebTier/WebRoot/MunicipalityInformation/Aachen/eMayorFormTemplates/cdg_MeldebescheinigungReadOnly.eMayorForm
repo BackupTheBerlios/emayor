@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<eMayorForm1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/eMayorFormsSchema.xsd eMayorFormsSchema.xsd "> 
+  <Model>
+              <!-- The cdg:Meldebescheinigung xml document is filled in here by the webtier logic -->
+  </Model>
+
+  <!-- xml Swing combined view-controler descriptions follow here   äöü -->
+
+  <View>  <!-- The view always has a BorderLayout -->
+      <JPanel LayoutClass="FlowLayout" 
+              LayoutParameter="FlowLayout.LEFT" 
+              AddParameter="BorderLayout.NORTH"
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="0"
+              VerticalBorderSize="12">
+         <JLabel Background="255,255,255">$Title.Meldebescheinigung$</JLabel>
+      </JPanel>
+      
+
+      <JPanel LayoutClass="BoxLayout" 
+              LayoutParameter="BoxLayout.Y_AXIS" 
+              AddParameter="BorderLayout.CENTER"
+              Background="255,255,255">
+
+
+<!-- START   Entries for the citizen's name -->
+
+        <!-- Title Label: -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Background="242,236,224">$Form.ServingMunicipalityDetails$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:AusstellendeGemeinde"
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+        <!-- Title Label: -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Background="242,236,224">$Form.Requester$</JLabel>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Forename$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:EinwohnerName/aapd:CitizenNameForename" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Surname$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:EinwohnerName/aapd:CitizenNameSurname" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+<!-- END   Entries for the citizen's name -->
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.PreferredLanguages$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:BevorzugteSprachen" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.EmailAddress$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:KontaktDetails/aapd:Email/aapd:EmailAddress" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:EinwohnerGeschlecht" 
+                      Columns="6" Editable="false"></JTextField>
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:EinwohnerGeburtsdaten/edg:Geburtsdatum/aapd:BirthDate" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.VerifiedBy$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:EinwohnerGeburtsdaten/edg:Geburtsdatum/aapd:VerifiedBy" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.BirthActNumber$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:BescheinigteBeteiligten/edg:EinwohnerAngaben/edg:EinwohnerGeburtsdaten/edg:GeburtsurkundeNummer" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.RequestDate$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/edg:AusgestelltAm" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Observations$</JLabel>
+          <JTextArea ModelPath="Model/cdg:Meldebescheinigung/edg:Bemerkungen" 
+                     Rows="4" Columns="28" Editable="false"></JTextArea>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.ValidUntil$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/edg:Gültigkeitszeitraum" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.StreetName$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Straße" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.BuildingNumber$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:GebäudeNummer" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.CityName$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Stadt" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>        
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Country$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Land/cbc:Name" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Postbox$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Postfach" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.PostalZone$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Postbezirk" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Room$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Raum" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>        
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Floor$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Etage" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.District$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Kreis" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Nucleus$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Nukleus" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.StreetQualifier$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:StraßeQualifizierer" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Section$</JLabel>
+          <JTextField ModelPath="Model/cdg:Meldebescheinigung/cdg:Adresse/edg:Sektion" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="40"/>
+
+
+<!-- buttons for readonly epf role: -->
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+        <JPanel Background="255,255,255" AlignmentX="0">
+          <JButton ActionClass="RedirectSubmitter">       $Form.Done$       </JButton>
+          <JButton ActionClass="SaveModelToDiskSubmitter">       $Form.SaveToDisk$       </JButton>
+          <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
+          <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+
+      </JPanel>
+
+  </View>
+
+
+</eMayorForm1>
+
+
