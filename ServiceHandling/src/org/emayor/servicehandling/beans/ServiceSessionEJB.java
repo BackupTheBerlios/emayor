@@ -43,8 +43,10 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 
 	private IeMayorService eMayorService;
 
+	private String entityBeanKey;
+
 	/**
-	 *  
+	 * 
 	 */
 	public ServiceSessionEJB() {
 		super();
@@ -69,9 +71,16 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	public void ejbRemove() throws EJBException, RemoteException {
 		log.debug("-> start processing ...");
 		try {
+			this.renewEntityBeanReference();
 			this.serviceSessionData.remove();
 		} catch (RemoveException ex) {
 			log.error("caught ex: " + ex.toString());
+			if (log.isDebugEnabled())
+				ex.printStackTrace();
+		} catch (ServiceSessionException ex) {
+			log.error("caught ex: " + ex.toString());
+			if (log.isDebugEnabled())
+				ex.printStackTrace();
 		}
 	}
 
@@ -101,6 +110,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public String getAccessSessionId() throws ServiceSessionException {
 		log.debug("getting asid ...");
+		this.renewEntityBeanReference();
 		return this.serviceSessionData.getAsid();
 	}
 
@@ -113,6 +123,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	public void setAccessSessionId(String asid) throws ServiceSessionException {
 		if (log.isDebugEnabled())
 			log.debug("setting asid to " + asid);
+		this.renewEntityBeanReference();
 		this.serviceSessionData.setAsid(asid);
 	}
 
@@ -124,6 +135,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public String getServiceId() throws ServiceSessionException {
 		log.debug("getting service name");
+		this.renewEntityBeanReference();
 		return this.serviceSessionData.getServiceId();
 	}
 
@@ -135,6 +147,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public void setServiceId(String serviceId) throws ServiceSessionException {
 		log.debug("getting service id");
+		this.renewEntityBeanReference();
 		this.serviceSessionData.setServiceId(serviceId);
 	}
 
@@ -157,6 +170,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public String getSessionId() throws SessionException {
 		log.debug("-> start processing ...");
+		this.renewEntityBeanReference();
 		return this.serviceSessionData.getSsid();
 	}
 
@@ -181,6 +195,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 			ServiceSessionBeanEntityLocalHome home = serviceLocator
 					.getServiceSessionBeanEntityLocalHome();
 			this.serviceSessionData = home.create(ssid);
+			this.entityBeanKey = ssid;
 			this.serviceSessionData.setAsid(asid);
 			Calendar cal = Calendar.getInstance();
 			this.serviceSessionData.setStartDate(cal.getTime());
@@ -269,6 +284,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	public void startService(String userId, boolean isForwarded, String xmlDoc,
 			String docSig) throws ServiceSessionException {
 		log.debug("-> start processing ...");
+		this.renewEntityBeanReference();
 		try {
 			log.debug("starting the service :-)");
 			if (isForwarded)
@@ -296,6 +312,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 			boolean isForwarded, String xmlDoc, String docSig)
 			throws ServiceSessionException {
 		log.debug("-> start processing ...");
+		this.renewEntityBeanReference();
 		try {
 			log.debug("starting the service :-)");
 			if (isForwarded)
@@ -320,6 +337,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public void endService() throws ServiceSessionException {
 		log.debug("-> start processing ...");
+		this.renewEntityBeanReference();
 		try {
 			ServiceLocator locator = ServiceLocator.getInstance();
 			KernelLocal kernel = locator.getKernelLocal();
@@ -351,6 +369,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public Date getStartDate() throws SessionException {
 		log.debug("-> start processing ...");
+		this.renewEntityBeanReference();
 		return this.serviceSessionData.getStartDate();
 	}
 
@@ -362,6 +381,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public String getCreatorId() throws ServiceSessionException {
 		log.debug("-> start processing ...");
+		this.renewEntityBeanReference();
 		return this.serviceSessionData.getUserId();
 	}
 
@@ -373,6 +393,30 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	 */
 	public void setCreatorId(String creatorId) throws ServiceSessionException {
 		log.debug("-> start processing ...");
+		this.renewEntityBeanReference();
 		this.serviceSessionData.setUserId(creatorId);
+	}
+
+	private void renewEntityBeanReference() throws ServiceSessionException {
+		this.renewEntityBeanReference();
+		try {
+			this.serviceSessionData.getAsid();
+		} catch (Exception ex) {
+			log.debug("the reference is probably timed out -> renew it ...");
+			try {
+				ServiceLocator serviceLocator = ServiceLocator.getInstance();
+				ServiceSessionBeanEntityLocalHome home = serviceLocator
+						.getServiceSessionBeanEntityLocalHome();
+				this.serviceSessionData = home
+						.findByPrimaryKey(this.entityBeanKey);
+			} catch (Exception ex1) {
+				log.error("caught ex: " + ex1.toString());
+				if (log.isDebugEnabled())
+					ex1.printStackTrace();
+				throw new ServiceSessionException(
+						"Couldn't get the persistent data of service session with id: "
+								+ this.entityBeanKey);
+			}
+		}
 	}
 }
