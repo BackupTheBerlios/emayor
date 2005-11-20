@@ -398,7 +398,7 @@ public class ServiceSessionEJB implements SessionBean, IServiceSession {
 	}
 
 	private void renewEntityBeanReference() throws ServiceSessionException {
-		this.renewEntityBeanReference();
+		//this.renewEntityBeanReference();
 		try {
 			this.serviceSessionData.getAsid();
 		} catch (Exception ex) {
