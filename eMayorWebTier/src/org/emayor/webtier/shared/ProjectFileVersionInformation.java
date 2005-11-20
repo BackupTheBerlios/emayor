@@ -26,7 +26,7 @@ public class ProjectFileVersionInformation
   // Version checking:
   // This value must be contained in all files, which are 
   // tested to have an uptodate version.
-  public static final String WebTierFilesVersion="1.3";
+  public static final String WebTierFilesVersion="1.4";
 
 
   private static ProjectFileVersionInformation Instance = null;

@@ -230,8 +230,11 @@ public class SchemaValidator extends Thread
                                           final String parserViolationMessage )
   {
 
-    System.out.println(">parser schema violation: " + parserViolationMessage );
-  
+    if( (parserViolationMessage != null) && (parserViolationMessage.length() > 0) )
+    {
+      System.out.println(">parser schema violation: " + parserViolationMessage );
+    }
+    
     // Search the associated entry:
     SchemaValidatorEntry entry;
     boolean isCorrect = ( parserViolationMessage.length() == 0 );

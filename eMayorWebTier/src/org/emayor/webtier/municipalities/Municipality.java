@@ -3,9 +3,10 @@ package org.emayor.webtier.municipalities;
 /**
  * 
  *  Holds all published UI elements for a municipality.
- *  Typically this is the name of the municipality and
- *  the currently available services.
- *
+ *  Typically this is the name of the municipality,
+ *  the currently available services and property
+ *  files, which are requested by the applet possibly.
+ * 
  *  May 12, 2005 created, Joerg Plaz
  * 
  */
@@ -28,8 +29,16 @@ public class Municipality implements Serializable
   private MunicipalityService[] services;
   
   private NamedProperties municipalityProperties;
-
+ 
+  // appletProperties contains the content of the eMayorForms_XX.properties
+  // file, where XX is the actual language set in the current session.
+  // key is the language and value is the content of the associated property file as String.
   private Properties appletProperties;
+
+  // enumerationProperties contains the content of the Enumeration.properties
+  // file,which is used for replacing english schema enumeration values
+  // by language specific ones for the input process.
+  private String enumerationPropertiesString;
 
   
   
@@ -37,15 +46,24 @@ public class Municipality implements Serializable
   public Municipality( final String _municipalityNameKey,
                        final NamedProperties _municipalityProperties,
                        final MunicipalityService[] _services,
-                       final Properties _appletProperties  )
+                       final Properties _appletProperties,
+                       final String _enumerationPropertiesString )
   {
     this.municipalityNameKey = _municipalityNameKey;
     this.municipalityProperties = _municipalityProperties;
     this.services = _services;
     this.appletProperties = _appletProperties;
+    this.enumerationPropertiesString = _enumerationPropertiesString;
   } // constructor
 
 
+
+  
+  public String getEnumerationProperties()
+  {
+    return this.enumerationPropertiesString;
+  }
+  
   
   
   public String getAppletPropertyFileForLanguage( String language )
@@ -60,13 +78,7 @@ public class Municipality implements Serializable
       System.out.println("*** ");
       System.out.println("*** Municipality.getAppletPropertyFileForLanguage():");
       System.out.println("*** Failed to return a propertyfile for the calling eMayorForms applet.");
-    }
-    
-    //System.out.println("------");
-    //System.out.println("------Municipality.getAppletPropertyFileForLanguage() returns:");
-    //System.out.println(propertyFile);
-    //System.out.println("------");
-        
+    }       
     return propertyFile;
   }
 

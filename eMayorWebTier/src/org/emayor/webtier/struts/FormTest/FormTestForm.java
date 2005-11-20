@@ -53,8 +53,19 @@ public class FormTestForm extends ExtendedActionForm
    }
 
    
+   /**
+    *  Returns the enumeration property file.
+    *  This is called by a jsp, envoked by the eMayor client applet over the net.
+    */ 
+    public String getEnumerationProperties()
+    {
+      FormTestRepository formTestRepository = FormTestRepository.GetInstance();
+      return formTestRepository.getEnumerationPropertiesFile();
+    }
     
-   
+
+    
+    
   /**
    *   Called by the testformtesinindex.jsp
    */

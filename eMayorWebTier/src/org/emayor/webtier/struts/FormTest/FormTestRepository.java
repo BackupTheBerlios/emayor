@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import org.emayor.client.parser.XMLParser;
 import org.emayor.client.parser.xml.*;
+import org.emayor.webtier.shared.ProjectFileVersionInformation;
 import org.emayor.webtier.shared.Utilities;
 
 
@@ -36,6 +37,8 @@ public class FormTestRepository
    private Properties eMayorFormTemplates;
    private Properties eDocuments;
    private Properties eDocumentFileNames;
+   
+   private String enumerationPropertiesString =""; // is optional
    
    private static FormTestRepository Instance = null;
 
@@ -116,6 +119,7 @@ public class FormTestRepository
          if( directory.getName().equals("AppletProperties") )
          {
            this.collectAppletProperties( directory );
+           this.enumerationPropertiesString = this.readEnumerationProperties( directory );
            does_AppletProperties_exist = true;
          }
          else
@@ -148,6 +152,77 @@ public class FormTestRepository
 
 
    
+   /**
+    *   Read the Enumeration.properties file, returns it as String.
+    *   It is optional.
+    *   It holds mappings for enumerations, which occur in referenced xsd schema files.
+    * 
+    *   The returned Properties object can be empty.
+    */
+    private String readEnumerationProperties( final File appletPropertiesDirectory )
+    {
+      String enumerationPropertiesString = ""; // empty String if nothing could be read
+      String enumerationFilePath = appletPropertiesDirectory.getPath() + File.separator + "Enumeration.properties";
+      File file = new File(enumerationFilePath);
+      if( file.exists() )
+      {
+        try
+        {
+          enumerationPropertiesString = this.readUTF8TextFileAsString( file );     
+          ByteArrayInputStream bis = new ByteArrayInputStream( enumerationPropertiesString.getBytes("UTF-8") );
+          Properties props = new Properties(); // Only used for checking
+          props.load( bis );        
+          if( !this.isPropertyFileUpToDate(props,enumerationFilePath) )
+          {     
+            // This is a serious configuration error - the webtier may produce wrong / not readable
+            // textual output, if property files were outdated, so tell this the
+            // used through text and dialog output:
+            String filePath = file.getPath();
+            System.out.println("*** ");
+            System.out.println("*** ");
+            System.out.println("*** WebTier: Fatal Error: Municipalitiesmanager");
+            System.out.println("*** ");
+            System.out.println("*** Outdated Property file detected.");
+            System.out.println("*** path: " + filePath );
+            System.out.println("*** ");
+            System.out.println("*** The web tier cannot work properly, if it cannot");
+            System.out.println("*** access up to date property files.");
+            System.out.println("*** ");
+            System.out.println("*** Your webtier installation is NOT correct.");
+            System.out.println("*** Please update the MunicipalityInformation directory");
+            System.out.println("*** in JBoss/server/default/conf and restart JBoss.");
+            System.out.println("*** ");
+            System.out.println("*** ");
+            System.out.println("*** ");
+            System.out.println("*** ");          
+            // Add this information to the fileInformation object.
+            // This will force the webtier not to call jsp's, because correct
+            // operation cannot be guaranteed, but show an error information
+            // page instead. 
+            ProjectFileVersionInformation fileInformation = ProjectFileVersionInformation.GetInstance();
+            String failureMessage = "The property file " + filePath + " has not the actual version." +
+                                    "\nThe webtier cannot work properly with old files." +
+                                    "\nPlease update the MunicipalityInformation directory" +
+                                    "\nin JBoss/server/default/conf and restart JBoss." +
+                                    "\nContact the eMayor developpers if the problem remains.";
+            fileInformation.signalizeFilesAreNotUptodate(failureMessage);            
+
+            System.out.println("Available keys in this property file are: ");
+            Enumeration enumeration = props.keys();
+            while( enumeration.hasMoreElements() )
+            {
+              System.out.println("key: " + enumeration.nextElement().toString() );
+            }                
+          } // if      
+        }
+        catch( Exception ee )
+        {
+          System.out.println("MunicipalitiesManager.readEnumerationProperties(): Optional file " +
+                             enumerationFilePath + " not found.");
+        }
+      } // if
+      return enumerationPropertiesString;
+    } // readEnumerationProperties
    
    
    
@@ -222,6 +297,40 @@ public class FormTestRepository
    
    
 
+   /**
+    *   Compares the version number of the properties object
+    *   with the version number stored here in this class.
+    *   It is ***important***, that the version is uptodate,
+    *   otherwise the proper functionality of the web tier is not guaranteed.
+    */ 
+    private boolean isPropertyFileUpToDate( final Properties properties, String fileName )
+    {  
+      boolean isUpToDate = false;  
+      try  // catch any exception, like invalid casts
+      {
+        String propertiesVersion = (String)properties.get("File.VersionNumber");
+        if( propertiesVersion != null )
+        {
+          propertiesVersion = propertiesVersion.trim();
+          isUpToDate = ( propertiesVersion.equals(ProjectFileVersionInformation.WebTierFilesVersion) );
+
+          System.out.println("MunicipalitiesManager.isPropertyFileUpToDate()");
+          System.out.println("File.VersionNumber is $" + propertiesVersion + "$ for file " + fileName );
+          System.out.println("File.VersionNumber required for webtier is: $" + ProjectFileVersionInformation.WebTierFilesVersion + "$");
+
+        }
+        else
+        {
+          System.out.println("MunicipalitiesManager.isPropertyFileUpToDate()");
+          System.out.println("File.VersionNumber key does not exist for file " + fileName );
+        }
+      }
+      catch( Exception e )
+      {
+        System.out.println("*** WebTier: MunicipalitiesManager: Outdated property file detected. Message= " + e.getMessage() );
+      }
+      return isUpToDate;  
+    } // isPropertyFileUpToDate
    
    
    
@@ -307,8 +416,14 @@ public class FormTestRepository
      return propertyFile;
    } // getAppletPropertyFileForLanguage
  
+
    
    
+   
+   public String getEnumerationPropertiesFile()
+   {
+     return this.enumerationPropertiesString;
+   }
    
    
    

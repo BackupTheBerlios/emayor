@@ -1544,8 +1544,26 @@ public class ServiceAction extends DispatchAction
     
 
      
+     /**
+      *  Execution method of this DispatchAction
+      *  Called by an eMayorapplet for getting the enumeration properties
+      *  file in the current language. 
+      */    
+      public ActionForward getEnumerationProperties( ActionMapping mapping,
+                                                     ActionForm form,
+                                                     HttpServletRequest request,
+                                                     HttpServletResponse response )
+      {
+         // No parameters are required here - just return the applet property file
+         // for the current language. The ServiceForm can perform this task
+         // without further information - it already knows the current language,
+         // and it has session scope anyway.
+         return mapping.findForward( "getEnumerationProperties" );
+      } // getEnumerationProperties
 
      
-     
+ 
+      
+      
 } // ServiceAction
 

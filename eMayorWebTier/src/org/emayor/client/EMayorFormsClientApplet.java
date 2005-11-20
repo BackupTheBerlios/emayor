@@ -58,11 +58,13 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   private DocumentProcessor docProcessor = null;
 
   private LanguageProperties languageProperties = null;
+  private EnumerationProperties enumerationProperties = null;
 
   private JTabbedPane tabPane = null;
   
   private String postURL = "";
   private String appletPropertiesURL = "";
+  private String enumerationPropertiesURL = "";
   private String redirectionAddressAfterPost = null;
   
   private JSenseButton print_eDocumentButton;
@@ -74,8 +76,8 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   // Use UTF-8 for file read operations
   private static final Charset charset = Charset.forName("UTF-8");
 
-  
-  
+  // The language for the UI. It's set in the init() method.
+  private String language = "en"; // english as defaul
   
   public EMayorFormsClientApplet()
   {               
@@ -117,7 +119,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     interactionScrollPane.getVerticalScrollBar().setBlockIncrement( blockIncrement );
             
     // Note: The tab titles can be updated (translated into the specific languages)
-    //       in the init lemthod when the languageProperties object has been created.
+    //       in the init method when the languageProperties object has been created.
     
     tabPane.addTab("Interaction", interactionScrollPane);
     tabPane.addTab("Model Data",new JScrollPane( this.formsModelPanel ) );
@@ -386,26 +388,44 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     String eMayorFormName = getParameter("eMayorFormName");
     if( eMayorFormName != null )
     {
-      String language = super.getParameter("Language");
-      if( language == null ) language = "en"; // english as default 
-
+      // Set the language member attribute:
+      this.language = super.getParameter("Language");
+      if( this.language == null ) this.language = "en"; // english as default 
+      
+      // Request the applet properties:
       this.appletPropertiesURL = getParameter("appletPropertiesURL");
       if( this.appletPropertiesURL != null )
       {
-        System.out.println("Got the following appletPropertiesURL: " + this.redirectionAddressAfterPost);
+        System.out.println("Got the following appletPropertiesURL: " + this.appletPropertiesURL );
       }
       else
       {
         System.out.println("No appletPropertiesURL. Set default.");
         this.appletPropertiesURL = "service.do?do=getAppletProperties"; //default
       }
-      
+
+      // Request the enumeration properties:
+      this.enumerationPropertiesURL = getParameter("enumerationPropertiesURL");
+      if( this.enumerationPropertiesURL != null )
+      {
+        System.out.println("Got the following enumerationPropertiesURL: " + this.enumerationPropertiesURL);
+      }
+      else
+      {
+        System.out.println("No enumerationPropertiesURL. Set default.");
+        this.enumerationPropertiesURL = "service.do?do=getEnumerationProperties"; //default
+      }
+      System.out.println( "Init(): Language is: " + language );
+
       // Following specification:
       // If a Language parameter is specified, try to download
       // a language properties file with name: 
       // languageFileName = "eMayorForms_" + language + ".properties";
       languageProperties = new LanguageProperties( language,super.getDocumentBase(),this.appletPropertiesURL );
-      System.out.println( "Init(): Language is: " + language );
+      
+      // Then try to download the optional enumeration properties:      
+      this.enumerationProperties = new EnumerationProperties(super.getDocumentBase(),this.enumerationPropertiesURL);
+            
       try
       {
       	// Update some GUI text now: (do nothing on error here)
@@ -793,6 +813,8 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
         this.docProcessor = new DocumentProcessor( this.formsInteractionPanel,
                                                    this.formsModelTextArea,
                                                    this.languageProperties,
+                                                   this.enumerationProperties,
+                                                   this.language,
                                                    this );
         this.docProcessor.processDocument( this.eMayorFormDocument );
       }

@@ -131,6 +131,7 @@
   <param name="postURL" value="/eMayor/service.do?do=processPostedDocument"/>
   <param name="redirectionAddressAfterPost" value="/eMayor/service.do?do=completeDocumentPostAction&caller=ClientApplet"/>
   <param name="appletPropertiesURL" value="service.do?do=getAppletProperties"/>
+  <param name="enumerationPropertiesURL" value="service.do?do=getEnumerationProperties"/>
   <param name="Language" value="<bean:write name="serviceForm" property="language" />" />
   <param name="cache_option" value="Plugin"/> 
 Your browser must be configured for displaying Java V.1.5+ applets.

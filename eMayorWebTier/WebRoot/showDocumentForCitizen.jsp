@@ -133,6 +133,7 @@
   <param name="postURL" value="/eMayor/service.do?do=processDocumentViewedByCitizen"/>
   <param name="redirectionAddressAfterPost" value="/eMayor/municipality.do?do=selectMunicipality"/>
   <param name="appletPropertiesURL" value="service.do?do=getAppletProperties"/>
+  <param name="enumerationPropertiesURL" value="service.do?do=getEnumerationProperties"/>
   <param name="Language" value="<bean:write name="serviceForm" property="language" />" />
   <param name="cache_option" value="Plugin"/> 
 Your browser must be configured for displaying Java v1.4+ applets.

@@ -83,12 +83,12 @@
 		</xsd:annotation>
 		<xsd:restriction base="xsd:string">
 			<xsd:pattern value="[A-Za-z]{2}"/>
-			<xsd:enumeration value="en"/>
 			<xsd:enumeration value="cy"/>
-			<xsd:enumeration value="it"/>
 			<xsd:enumeration value="de"/>
-			<xsd:enumeration value="es"/>
 			<xsd:enumeration value="el"/>
+			<xsd:enumeration value="en"/>
+			<xsd:enumeration value="es"/>
+			<xsd:enumeration value="it"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="EmailAddressType">

@@ -39,9 +39,12 @@ public class DocumentProcessor
   private EMayorFormsClientApplet mainApplet;
 
   private LanguageProperties languageProperties;
+  private EnumerationProperties enumerationProperties;
 
   private GUIBuilder guiBuilder = null;
  
+  private String language = "en"; // the language for the UI
+  
   
   // Must use java.home, because this is most problably
   // a path without special non ascii characters, for which
@@ -78,14 +81,17 @@ public class DocumentProcessor
   public DocumentProcessor( final JPanel _formsInteractionPanel,
                             final JTextArea _formsModelTextArea,
 							final LanguageProperties _languageProperties,
+                            final EnumerationProperties _enumerationProperties,
+                            final String _language,
                             final EMayorFormsClientApplet _mainApplet )
   {
     this.formsInteractionPanel = _formsInteractionPanel;
     this.formsModelTextArea = _formsModelTextArea;
     this.languageProperties = _languageProperties;
+    this.enumerationProperties = _enumerationProperties;
+    this.language = _language;
     this.mainApplet = _mainApplet;
     this.eMayorDocumentParser = new EMayorDocumentParser(_languageProperties);
-
     System.out.println("DocumentProcessor: java home is: " + this.javaHomeDirectory );
   } // Constructor
 
@@ -97,11 +103,9 @@ public class DocumentProcessor
     String doc = raw_eMayorFormsDocument.toString();
   	
     System.out.println("DocumentProcessor.processDocument() starts.");
-
     // Debug file write:
     // DataUtilities.DebugFileWriteTo(doc,"applet_DocumentProcessor_Constructor.xml");
-    
-    
+        
     // Get the Model and the View xml subtrees from this document:
     XML_Node[] nodes = this.eMayorDocumentParser.translate_eMayorFormsDocument( new StringBuffer(doc) );
     this.modelNode = nodes[0]; // contains the xml model
@@ -116,36 +120,13 @@ public class DocumentProcessor
     // so the validating parser finds the schema files stored in the
     // local filesystem in the used JRE java.home directory.
     this.setLocalSchemaLocation(true);
-    
-    
-    // Build the interaction GUI - this also starts the
-    // Validator thread.
+        
+    // Build the interaction GUI - this also starts the Validator thread.
     this.guiBuilder = new GUIBuilder( this.modelNode, this.viewNode, 
-                                      this.mainApplet, this.languageProperties, this.eMayorDocumentParser );
-    
+                                      this.mainApplet, this.languageProperties, this.enumerationProperties,
+                                      this.language,this.eMayorDocumentParser );
     this.guiBuilder.buildGraphicalUserInterfaceOn( this.formsInteractionPanel );
-
-    
-    /* Start test code -----------
-       For testing: Make the inverse transformation on the XML trees,
-       and display them:
-    final StringBuffer reverse_Model_Document = this.eMayorDocumentParser.translateXMLTree( modelNode,false );
-    final StringBuffer reverse_View_Document  = this.eMayorDocumentParser.translateXMLTree( viewNode,false );
-    EventQueue.invokeLater( new Runnable()
-    {
-      public void run()
-      {   
-        formsModelTextArea.setText(""); // clear
-        formsModelTextArea.append( "\nReversed generated model document:\n\n" );
-        formsModelTextArea.append( reverse_Model_Document.toString() + "\n\n" );
-        formsViewTextArea.setText(""); // clear
-        formsViewTextArea.append( "\nReversed generated view document:\n\n" );
-        formsViewTextArea.append( reverse_View_Document.toString() + "\n\n" );
-      }
-    });         
-    end test code ------------ */
-    
-    
+    // Switch to EDT for Swing:
     EventQueue.invokeLater( new Runnable()
     {
       public void run()
@@ -153,7 +134,6 @@ public class DocumentProcessor
         formsInteractionPanel.updateUI();
       }
     });
-
     System.out.println("DocumentProcessor.processDocument() has ended.");
   } // processDocument
 

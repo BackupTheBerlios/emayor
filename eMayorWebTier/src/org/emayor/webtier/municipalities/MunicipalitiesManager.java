@@ -149,8 +149,11 @@ public class MunicipalitiesManager implements Serializable
             Properties appletProperties = this.readAvailableAppletPropertyFiles( appletPropertiesDirectory );
             if( appletProperties != null )
             {
+              // Read the optional enumeration properties as a String:
+              String enumerationPropertiesString = this.readEnumerationProperties( appletPropertiesDirectory );            
               // All needed stuff is present, so one can create the municipality instance:
-              municipality = new Municipality( municipalityNameIdentifier,municipalityProperties,services,appletProperties );        
+              municipality = new Municipality( municipalityNameIdentifier,municipalityProperties,services,
+                                               appletProperties,enumerationPropertiesString );        
             }
             else
             {
@@ -192,15 +195,90 @@ public class MunicipalitiesManager implements Serializable
 
 
 
+
+  
+ /**
+  *   Read the Enumeration.properties file, returns it as String.
+  *   It is optional.
+  *   It holds mappings for enumerations, which occur in referenced xsd schema files.
+  * 
+  *   The returned Properties object can be empty.
+  */
+  private String readEnumerationProperties( final File appletPropertiesDirectory )
+  {
+    String enumerationPropertiesString = ""; // empty String if nothing could be read
+    String enumerationFilePath = appletPropertiesDirectory.getPath() + File.separator + "Enumeration.properties";
+    File file = new File(enumerationFilePath);
+    if( file.exists() )
+    {
+      try
+      {
+        enumerationPropertiesString = this.readUTF8TextFileAsString( file );     
+        ByteArrayInputStream bis = new ByteArrayInputStream( enumerationPropertiesString.getBytes("UTF-8") );
+        Properties props = new Properties(); // Only used for checking
+        props.load( bis );        
+        if( !this.isPropertyFileUpToDate(props,enumerationFilePath) )
+        {     
+          // This is a serious configuration error - the webtier may produce wrong / not readable
+          // textual output, if property files were outdated, so tell this the
+          // used through text and dialog output:
+          String filePath = file.getPath();
+          System.out.println("*** ");
+          System.out.println("*** ");
+          System.out.println("*** WebTier: Fatal Error: Municipalitiesmanager");
+          System.out.println("*** ");
+          System.out.println("*** Outdated Property file detected.");
+          System.out.println("*** path: " + filePath );
+          System.out.println("*** ");
+          System.out.println("*** The web tier cannot work properly, if it cannot");
+          System.out.println("*** access up to date property files.");
+          System.out.println("*** ");
+          System.out.println("*** Your webtier installation is NOT correct.");
+          System.out.println("*** Please update the MunicipalityInformation directory");
+          System.out.println("*** in JBoss/server/default/conf and restart JBoss.");
+          System.out.println("*** ");
+          System.out.println("*** ");
+          System.out.println("*** ");
+          System.out.println("*** ");          
+          // Add this information to the fileInformation object.
+          // This will force the webtier not to call jsp's, because correct
+          // operation cannot be guaranteed, but show an error information
+          // page instead. 
+          ProjectFileVersionInformation fileInformation = ProjectFileVersionInformation.GetInstance();
+          String failureMessage = "The property file " + filePath + " has not the actual version." +
+                                  "\nThe webtier cannot work properly with old files." +
+                                  "\nPlease update the MunicipalityInformation directory" +
+                                  "\nin JBoss/server/default/conf and restart JBoss." +
+                                  "\nContact the eMayor developpers if the problem remains.";
+          fileInformation.signalizeFilesAreNotUptodate(failureMessage);            
+
+          System.out.println("Available keys in this property file are: ");
+          Enumeration enumeration = props.keys();
+          while( enumeration.hasMoreElements() )
+          {
+            System.out.println("key: " + enumeration.nextElement().toString() );
+          }                
+        } // if      
+      }
+      catch( Exception ee )
+      {
+        System.out.println("MunicipalitiesManager.readEnumerationProperties(): Optional file " +
+                           enumerationFilePath + " not found.");
+      }
+    } // if
+    return enumerationPropertiesString;
+  } // readEnumerationProperties
+  
+  
   
   
   
  /** 
-  * Finally load all property files required for the eMayorForms applets:
-  * They are located in the AppletProperties subdirectory and have the form
-  * eMayorForms_xx.properties where xx = en,ger,it,sp denotes the language.
-  * properties structure is <key>   == language
-  *                         <value> == the file as string
+  *  Finally load all property files required for the eMayorForms applets:
+  *  They are located in the AppletProperties subdirectory and have the form
+  *  eMayorForms_xx.properties where xx = en,ger,it,sp denotes the language.
+  *  properties structure is <key>   == language
+  *                          <value> == the file as string
   */
   private Properties readAvailableAppletPropertyFiles( final File appletPropertiesDirectory )
   {

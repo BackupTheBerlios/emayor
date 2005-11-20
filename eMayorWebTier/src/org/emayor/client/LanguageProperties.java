@@ -85,11 +85,10 @@ public class LanguageProperties implements Serializable
   *  callParameter usually is like "service.do?do=getAppletProperties"
   *  or for the test service like formtest.do?do=getAppletProperties.
   */ 
-  private StringBuffer readLanguagePropertiesFromHost( final URL documentBase,
-                                                       final String callParameter ) throws Exception
+  private void readLanguagePropertiesFromHost( final URL documentBase,
+                                               final String callParameter ) throws Exception
   {
   	// Possible exceptions raised by this method are catched and processed by the caller.
-  	StringBuffer s = null;
     // The server is aware of the current language and will return
     // the correct property file:
     URL documentURL = new URL( documentBase ,callParameter );
@@ -105,7 +104,6 @@ public class LanguageProperties implements Serializable
     
     translateUnicodeShortcutsIn(this.properties);
     System.out.println(">>Download has been successful. Language properties are set.");
-    return s;
   } // readLanguagePropertiesFromHost
   
   

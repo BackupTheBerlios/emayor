@@ -49,6 +49,7 @@ public class GUIBuilder
 
   
   private EMayorFormsClientApplet mainApplet;
+  private String language = "en"; // The language used for the UI.
 
   private XML_Node modelNode;
   private XML_Node viewNode;
@@ -58,16 +59,23 @@ public class GUIBuilder
   
   private EMayorDocumentParser eMayorDocumentParser;
   
+  private EnumerationProperties enumerationProperties;
 
+  
+  
   public GUIBuilder( final XML_Node _modelNode,
                      final XML_Node _viewNode,
                      final EMayorFormsClientApplet _mainApplet,
                      final LanguageProperties _languageProperties,
+                     final EnumerationProperties _enumerationProperties,
+                     final String _language,
                      final EMayorDocumentParser _eMayorDocumentParser )
   {
     this.modelNode = _modelNode;
     this.viewNode = _viewNode;
     this.mainApplet = _mainApplet;
+    this.enumerationProperties = _enumerationProperties;
+    this.language = _language;
     this.eMayorDocumentParser = _eMayorDocumentParser;
     
     System.out.println("GUIBuilder.constructor: Set tooltips to react immediately.");
@@ -120,8 +128,6 @@ public class GUIBuilder
   	viewPanel.setLayout( new BorderLayout(0,0) );
     viewPanel.setBackground( new Color(210,255,210) );
 
-    
-    
     // Preparation for a special feature for JTextFields:
     // If schemas are present and a schema contains an enumeration
     // a JComboBox is used instead of a JTextField, and the
@@ -191,16 +197,10 @@ public class GUIBuilder
   */
   private void buildUI( final JPanel parentPanel,
                         final XML_Node parentNode ) throws Exception
-  {
-  	
-  	//System.out.println("buildUI called for parentNode " + parentNode.getTagName() );
-  	
+  {  	
     for( int i=0; i < parentNode.getNumberOfChildren(); i++ )
     {
-      XML_Node childNode = parentNode.getChildAt(i);
-
-      //System.out.println("has childnode " + childNode.getTagName() );
-            
+      XML_Node childNode = parentNode.getChildAt(i);            
       if( childNode.getTagName().equals("JPanel") )
       {
         this.buildJPanelUI( parentPanel,childNode ); // can call buildUI() again for children
@@ -362,6 +362,7 @@ public class GUIBuilder
     this.addComponent(parentPanel,jButton,addParameter,
     		          alignmentX_Parameter,alignmentY_Parameter );
   }
+
 
 
   
@@ -534,7 +535,7 @@ public class GUIBuilder
       XML_Node modelValueNode = XMLPath.GetNode( firstPath,this.modelNode );      
       if( modelValueNode != null ) // connected and valid
       {
-        // See if we get an enumeration for this one:
+        // See if we get an enumeration for this one from the xsd schemas:
         enumerationMapValue = this.schemaEnumerationMap.getEnumerationForNodePath(firstPath);
 
         boolean enumFound = ( enumerationMapValue != null );
@@ -543,20 +544,17 @@ public class GUIBuilder
       
       }
     }
-
     System.out.println("buildTextInputUI: isReadOnly= " + isReadOnly );
 
     if( ( enumerationMapValue == null ) || (isReadOnly) )
     {
-      System.out.println("buildTextInputUI: making JTextField");
-    
+      System.out.println("buildTextInputUI: making JTextField");    
       // No enumeration constraints -> use a simple JTextField:
       this.buildJTextFieldUI(parentPanel,textInputNode);
     }
     else
     { 
-      System.out.println("buildTextInputUI: making JComboBox");
-      
+      System.out.println("buildTextInputUI: making JComboBox");      
       // We have an editable entry with enumeration constraints, 
       // so use a JComboBox instead of a simple textfield:
       this.buildEditableJComboBoxUI( parentPanel,textInputNode,enumerationMapValue );    
@@ -566,6 +564,8 @@ public class GUIBuilder
 
 
 
+  
+  
 
  /**
   *  Create a JComboBox and use the values passed in enumerationMapValue as list entries.
@@ -599,10 +599,44 @@ public class GUIBuilder
         // the selected entry following how JComboBoxes are built.
         value = modelValueNode.getTagValue();
         // Create the String array with all values:
-        String[] enumerationValues = enumerationMapValue.getEnumerationValues();
+        final String[] enumerationValues = enumerationMapValue.getEnumerationValues();
       
-        // Create it:
-        final JComboBox jComboBox = new JComboBox(enumerationValues);
+        // On top of these enumerationValues from the xsd schemas, we put another map
+        // which translates these to the current language set on the client.
+        // We display values in the current language on the client, if a translation map
+        // is found in this.enumerationProperties but use the original values for
+        // writing back data to the e-document.
+        // Catch any exceptions - don't allow this optional service to crash execution:
+        String[] translatedEnumerationValues = new String[0];
+        try
+        {
+          translatedEnumerationValues = 
+                 this.enumerationProperties.getTranslatedEnumerationValuesFor( 
+                      this.language,enumerationValues );
+        }
+        catch( Exception eee )
+        {
+          translatedEnumerationValues = new String[0]; // for security - a defined state
+          System.out.println("GUIBuilder: Optional getTranslatedEnumerationValuesFor() cancelled.");
+          eee.printStackTrace();
+        }
+        System.out.println("GUIBuilder: XX translated values for enumeration");
+        for( int i=0; i < enumerationValues.length; i++ )
+        {
+          System.out.println("source enumeration> " + enumerationValues[i]);
+        }
+        for( int i=0; i < translatedEnumerationValues.length; i++ )
+        {
+          System.out.println("translated enumeration> " + translatedEnumerationValues[i]);
+        }
+        
+        final boolean transformationIsDefined = ( enumerationValues.length == translatedEnumerationValues.length );
+        // Create it, use the translated enumeration values, if defined:
+        String[] dropDownValues = (transformationIsDefined) ? translatedEnumerationValues : enumerationValues;
+
+        System.out.println("GUIBuilder: translationIsDefined= " + transformationIsDefined);
+        
+        final JComboBox jComboBox = new JComboBox(dropDownValues);
         jComboBox.setEditable(true); // always - only this makes sense
         // and the associated label for the display of schema validation error informations:
         // Must be wide enough, because geometry isn't changed after creation.
@@ -613,7 +647,12 @@ public class GUIBuilder
         jComboBox.setEditor( comboboxEditor );
 
         // Set the initial value in the editor:
-        String selectedInitialValue = DataUtilities.TranslateUnicodeShortcutsInLine( value );
+        String selectedInitialValue = value;
+        // forwardtransform if mapping is defined:
+        if( transformationIsDefined )
+        {
+          selectedInitialValue = enumerationProperties.forwardTransform( selectedInitialValue,translatedEnumerationValues,enumerationValues);
+        }
         comboboxEditor.setText( selectedInitialValue );
         
         System.out.println("combobox initial value = $" + selectedInitialValue + "$" );
@@ -626,6 +665,8 @@ public class GUIBuilder
           if( columns > 4 ) columns -=2;
           comboboxEditor.setColumns(columns);
         }
+        
+        final String[] finalTranslatedEnumerationValues = translatedEnumerationValues;
         // Connect it with the model:
         DocumentListener docListener = new DocumentListener()
          {
@@ -643,6 +684,12 @@ public class GUIBuilder
 
                  System.out.println("combobox new value = $" + newText + "$" );
 
+                 // backtransform if mapping is defined:
+                 if( transformationIsDefined )
+                 {
+                   newText = enumerationProperties.backTransform( newText,finalTranslatedEnumerationValues,enumerationValues);
+                 }
+                 
                  modelFieldNode.setTagValue( newText );
                }
                // Inform the validator:
@@ -665,7 +712,15 @@ public class GUIBuilder
                    for( int i=0; i < modelPaths.length; i++ )
                    {
                      XML_Node modelFieldNode = XMLPath.GetNode(modelPaths[i],modelNode);
-                     modelFieldNode.setTagValue( (String)comboboxEditor.getText() );
+                     String newText = (String)comboboxEditor.getText();
+                     
+                     // backtransform if mapping is defined:
+                     if( transformationIsDefined )
+                     {
+                       newText = enumerationProperties.backTransform( newText,finalTranslatedEnumerationValues,enumerationValues);
+                     }
+                     
+                     modelFieldNode.setTagValue( newText );
                    }
                    // Inform the validator:
                    schemaValidator.fireContentHasChanged();
@@ -704,7 +759,7 @@ public class GUIBuilder
     }
     else
     {
-      // SHould never happen - this method must not be called, when no modelpath is set.
+      // Should never happen - this method must not be called, when no modelpath is set.
       System.out.println("*** JComboBox Fatal Error: modelpaths must be set for comboboxes.");    
     }
     //System.out.println("Added JComboBox");
@@ -804,6 +859,8 @@ public class GUIBuilder
   
   
   
+  
+  
   private void buildJTextAreaUI( final JPanel parentPanel,
                                  final XML_Node jTextAreaNode ) throws Exception
   {
@@ -891,6 +948,8 @@ public class GUIBuilder
   
   
   
+
+  
   
 
   private void buildJPanelUI( final JPanel parentPanel,
@@ -967,8 +1026,7 @@ public class GUIBuilder
                              final String addParameter,
 							 final String alignmentX_Parameter,
 							 final String alignmentY_Parameter )
-  {
-  	
+  {  	
   	//System.out.println("> addComponent called with:");
   	//System.out.println("> addParameter= " + addParameter);
   	//System.out.println("> alignmentX_Parameter= " + alignmentX_Parameter);
@@ -1127,6 +1185,8 @@ public class GUIBuilder
 
   
   
+  
+  
   private void setGraphicalAttributes( JComponent component ,
   		                               final String backgroundParameter,
 									   final String borderTypeParameter,
@@ -1135,8 +1195,7 @@ public class GUIBuilder
   {
   	// backgroundParameter holds decimal commaseparated rgb values
   	if( backgroundParameter != null )
-  	{
-      
+  	{      
       //System.out.println("backgroundParameter= " + backgroundParameter);
       
   	  StringTokenizer tok = new StringTokenizer(backgroundParameter,",");
@@ -1210,6 +1269,8 @@ public class GUIBuilder
 
   
   
+  
+  
   /**
    *  Called when the applet terminates.
    */
@@ -1218,6 +1279,8 @@ public class GUIBuilder
      this.schemaValidator.terminateThread();
    }
 
+
+   
    
    
   

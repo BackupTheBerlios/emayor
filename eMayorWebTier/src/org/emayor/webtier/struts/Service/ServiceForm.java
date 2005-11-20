@@ -154,6 +154,8 @@ public class ServiceForm extends ExtendedActionForm
   	return this.repository.getDocumentAt( index );
   }
   
+ 
+  
   
  /**
   *  Returns the name of the municipality in the current language.
@@ -177,9 +179,9 @@ public class ServiceForm extends ExtendedActionForm
   }
 
   
-  /**
-   *  Returns the name of the service in the current language.
-   */ 
+ /**
+  *  Returns the name of the service in the current language.
+  */ 
   public String getNameOfService()
   {
     String serviceName = "<undefined>"; 
@@ -225,12 +227,12 @@ public class ServiceForm extends ExtendedActionForm
   
   public void setServiceIdentifier( final String identifier )
   {
-  this.serviceIdentifier = identifier;
+    this.serviceIdentifier = identifier;
   
-  System.out.println("ServiceForm setServiceIdentifier() called with arg= " + this.serviceIdentifier );
-
+    System.out.println("ServiceForm setServiceIdentifier() called with arg= " + this.serviceIdentifier );
   }
   
+
   
   public String getMunicipalityNameKey()
   {
@@ -250,7 +252,6 @@ public class ServiceForm extends ExtendedActionForm
   
   
 
-  
   public String getTaskInformation()
   {
     String xmlDoc = serviceTaskInformation.getXMLDocument();
@@ -258,6 +259,8 @@ public class ServiceForm extends ExtendedActionForm
     return "xmldoc=\n" + xmlDoc + "\nreponseDoc=\n" + responseDoc;
   }
 
+  
+  
   public Task getTask()
   {
   	if( this.serviceTaskInformation == null )
@@ -273,16 +276,19 @@ public class ServiceForm extends ExtendedActionForm
   	return this.serviceTaskInformation.getTask();
   }
   
+  
   public String getTaskInformationId()
   {
   	return this.serviceTaskInformation.getTaskId();
   }
+  
   
   public String getTaskInformationStatus()
   {
   	return this.serviceTaskInformation.getTaskStatus();
   }
 
+  
   public String getTaskXMLDocument()
   {
   	return this.serviceTaskInformation.getXMLDocument();
@@ -293,6 +299,8 @@ public class ServiceForm extends ExtendedActionForm
   {
     return this.serviceTaskInformation;
   }
+  
+ 
   
   
   /**
@@ -315,14 +323,40 @@ public class ServiceForm extends ExtendedActionForm
      return municipality.getAppletPropertyFileForLanguage( super.getLanguage() );
    }
   
-  
-  public String getHelpTopicKey()
-  {
-  	return TextResourceKeys.HelpTopic_ServiceKey;
-  }
-  
 
+   
+   
+      
+   /**
+    *  Returns the enumeration property file.
+    *  This is called by a jsp, envoked by the eMayor client applet over the net.
+    */ 
+    public String getEnumerationProperties()
+    {
+      MunicipalitiesManager mm = MunicipalitiesManager.GetInstance();
+      Municipality municipality = null;
+      if( mm != null )
+      {
+        municipality = mm.getMunicipalityByKey(this.municipalityNameKey);
+      }
+      else
+      {
+        System.out.println("*** ServiceForm.getEnumerationProperties(): Fatal error:");
+        System.out.println("*** MunicipalitiesManager is null.");
+      }
+      return municipality.getEnumerationProperties();
+    }
+   
+   
+
+    
+    
+    public String getHelpTopicKey()
+    {
+  	  return TextResourceKeys.HelpTopic_ServiceKey;
+    }
   
   
   
-}
+} // ServiceForm
+

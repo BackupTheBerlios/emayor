@@ -110,6 +110,7 @@
   <param name="postURL" value="/eMayor/formtest.do?do=processPostedDocument"/>
   <param name="redirectionAddressAfterPost" value="/eMayor/formtest.do?do=executeService"/>
   <param name="appletPropertiesURL" value="formtest.do?do=getAppletProperties"/>
+  <param name="enumerationPropertiesURL" value="formtest.do?do=getEnumerationProperties"/>
   <param name="Language" value="<bean:write name="formTestForm" property="language" />" />
   <param name="cache_option" value="Plugin"/> 
 Your browser must be configured for displaying Java V.1.5+ applets.
