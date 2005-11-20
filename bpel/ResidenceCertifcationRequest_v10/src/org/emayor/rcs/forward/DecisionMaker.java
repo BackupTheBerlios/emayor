@@ -35,17 +35,6 @@ public class DecisionMaker {
   private String receivingName = "";
   
     public DecisionMaker() {
-    try {
-      Properties props = new Properties();
-      props.load(this.getClass().getResourceAsStream("municipality.properties"));
-      this.localName = props.getProperty("forward.municipality.local.name","UNKNOWN");
-      if (log.isDebugEnabled())
-        log.debug("local name = " + this.localName);
-    } catch(IOException ioex) 
-    {
-      log.error("caught ex: " + ioex.toString());
-    }
-    
   }
   
   public String getLoginServer(String rcsRequest) 
