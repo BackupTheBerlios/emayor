@@ -86,8 +86,10 @@ public class RepositoryDocument implements Serializable
     date.append(".");
     date.append( String.valueOf(year) );
     date.append("   ");
+    if( hour24 < 10 ) date.append("0");  // always 2 columns
     date.append( String.valueOf(hour24) );
     date.append(":");
+    if( min < 10 ) date.append("0");  // always 2 columns
     date.append( String.valueOf(min) );
   
     return date.toString();
@@ -114,8 +116,10 @@ public class RepositoryDocument implements Serializable
     date.append(".");
     date.append( String.valueOf(year) );
     date.append("   ");
+    if( hour24 < 10 ) date.append("0");  // always 2 columns
     date.append( String.valueOf(hour24) );
     date.append(":");
+    if( min < 10 ) date.append("0");  // always 2 columns
     date.append( String.valueOf(min) );
   
     return date.toString();
