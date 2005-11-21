@@ -445,7 +445,7 @@ System.out.println("caught ex: "+ex.toString());
               </bpelx:annotation>
               <assign name="setNegativeDocumentAvailable">
                <copy>
-                <from expression="'yes'"/>
+                <from expression="'YES'"/>
                 <to variable="negativeDocumentAvailable"/>
                </copy>
               </assign>
@@ -730,14 +730,14 @@ System.out.println("caught ex: "+ex.toString());
      </otherwise>
     </switch>
     <switch name="checkForNegativeDocument">
-     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') and bpws:getVariableData('g_remoteServingPassed') = 'closed'">
+     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') and bpws:getVariableData('g_remoteServingPassed') = 'NO'">
       <bpelx:annotation>
        <bpelx:pattern>negative document available and not filled in yet
        </bpelx:pattern>
       </bpelx:annotation>
       <sequence name="Sequence_27">
        <switch name="Switch_13">
-        <case condition="bpws:getVariableData('negativeDocumentAvailable') = 'yes'">
+        <case condition="bpws:getVariableData('negativeDocumentAvailable') = 'YES'">
          <bpelx:annotation>
           <bpelx:pattern>negative document already filled in
           </bpelx:pattern>
