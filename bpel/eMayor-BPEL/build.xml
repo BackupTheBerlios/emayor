@@ -5,79 +5,124 @@
 
 	<target name="eMayorDomainReset">
 		<ant dir="${basedir}/../eMayorDomainRename/" target="reset" />
+		<sleep seconds="5"/>
 	</target>
 	
 	<target name="eMayorDomainRename">
 		<ant dir="${basedir}/../eMayorDomainRename/" target="rename">
 	        <reference refid="deploy"/>
-	</ant>
-	
+		</ant>
+		<sleep seconds="5"/>	
 	</target>	
+	
 	<target name="eMayorTaskManager">
 		<ant dir="${basedir}/../eMayorTaskManager/"/>
+		<sleep seconds="5"/>
 	</target>	
+	
 	<target name="PlatformTest">
 		<ant dir="${basedir}/../PlatformTest/"/>
+		<sleep seconds="5"/>
 	</target>	
+	
 	<target name="CivilServantInteraction_v10">
 		<ant dir="${basedir}/../CivilServantInteraction_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="UserInteraction_v10">
 		<ant dir="${basedir}/../UserInteraction_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+			
 	<target name="PolicyEnforcer_v10">
 		<ant dir="${basedir}/../PolicyEnforcer_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="NotificationService">
 		<ant dir="${basedir}/../NotificationRequest/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="NotificationBuilderRequest">
 		<ant dir="${basedir}/../NotificationBuilderRequest/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="PrintingUtility_v10">
 		<ant dir="${basedir}/../PrintingUtility_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="FormatTransformation_10">
 		<ant dir="${basedir}/../FormatTransformation_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="InputDataCollectionIteration">
 		<ant dir="${basedir}/../InputDataCollectionIteration/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="ResidenceCertificationRequest_v10_DC">
 		<ant dir="${basedir}/../ResidenceCertificationRequest_v10_DC/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="ProcessStepAuthorization_v10">
 		<ant dir="${basedir}/../ProcessStepAuthorization_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="ForwardRequest_v10">
 		<ant dir="${basedir}/../ForwardRequest_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="ForwardResponse_v10">
 		<ant dir="${basedir}/../ForwardResponse_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="MunicipalityAdaptationLayer_v10">
 		<ant dir="${basedir}/../MunicipalityAdaptationLayer_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="RCRLocalProcessing_v10">
 		<ant dir="${basedir}/../RCRLocalProcessing_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="ResidenceCertifcationRequest_v10">
 		<ant dir="${basedir}/../ResidenceCertifcationRequest_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="ResidenceCertificationService_v20">
 		<ant dir="${basedir}/../ResidenceCertificationService_v20/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="UserRegistrationNotification_v10">
 		<ant dir="${basedir}/../UserRegistrationNotification_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+		
 	<target name="UserRegistration_v10">
 		<ant dir="${basedir}/../UserRegistration_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="eMayorServiceStarter_v10">
 		<ant dir="${basedir}/../eMayorServiceStarter_v10/"/>
+		<sleep seconds="5"/>
 	</target>
+	
 	<target name="NegativeResponse_v10">
 		<ant dir="${basedir}/../NegativeResponse_v10/"/>
+		<sleep seconds="5"/>
 	</target>
 
 	<!-- LAST SHOULD BE "eMayorDomainReset"
