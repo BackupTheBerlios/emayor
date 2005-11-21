@@ -489,13 +489,13 @@ System.out.println("caught ex: "+ex.toString());
         <bpelx:exec name="setLoginServer" language="Java" version="1.4"><![CDATA[// Java code snippet goes here ...
 try {
 System.out.println("----------------START-----------------------");
-String xmlDocument = ((Element) getVariableData("forwardIn","payload","/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument")).getNodeValue();
+String xmlDocument = ((Element) getVariableData("forwardIn","payload","/nsxml10:ForwardRequest_v10Request/nsxml0:reqestDocument")).getNodeValue();
 String server = (String)getVariableData("servingMunicipality");
 System.out.println("got xml document: " + xmlDocument);
 System.out.println("got serving municipality: " + server);
 DecisionMaker decisionMaker = new DecisionMaker();
 xmlDocument = decisionMaker.setLoginServer(xmlDocument,server);
-setVariableData("forwardIn","payload","/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument",xmlDocument);
+setVariableData("forwardIn","payload","/nsxml10:ForwardRequest_v10Request/nsxml0:reqestDocument",xmlDocument);
 System.out.println("----------------DONE------------------------");
 }catch(Exception ex) {
 System.out.println("caught ex: "+ex.toString());
