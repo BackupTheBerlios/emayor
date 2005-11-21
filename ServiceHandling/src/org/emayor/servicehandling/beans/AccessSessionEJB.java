@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
+import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
@@ -42,14 +43,16 @@ import org.emayor.servicehandling.utils.ServiceLocatorException;
 public class AccessSessionEJB implements SessionBean, IAccessSession {
 	private static Logger log = Logger.getLogger(AccessSessionEJB.class);
 
-	private AccessSessionEntityLocal accessSessionData;
+	// private AccessSessionEntityLocal accessSessionData;
+
+	private String asid;
 
 	private SessionContext ctx;
 
 	private AccessSessionSSRepository repository = null;
 
 	/**
-	 *  
+	 * 
 	 */
 	public AccessSessionEJB() {
 		super();
@@ -75,9 +78,15 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	public void ejbRemove() throws EJBException, RemoteException {
 		log.debug("-> start processing ...");
 		try {
-			this.accessSessionData.remove();
+			this.getReference().remove();
 		} catch (RemoveException ex) {
 			log.error("caught ex: " + ex.toString());
+			if (log.isDebugEnabled())
+				ex.printStackTrace();
+		} catch (AccessSessionException ex) {
+			log.error("caught ex: " + ex.toString());
+			if (log.isDebugEnabled())
+				ex.printStackTrace();
 		}
 		log.debug("-> ... processing DONE!");
 	}
@@ -117,11 +126,11 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 					certificates);
 			if (str != null && str.length() != 0) {
 				log.debug("the user has been authenticated!");
-				//this.userId = str;
+				// this.userId = str;
 				this.setUserId(str);
 				if (log.isDebugEnabled())
 					log.debug("the user id = " + str);
-				//this.isSessionActive = true;
+				// this.isSessionActive = true;
 				ret = true;
 				ServiceSessionLocal[] serviceSessions = kernel
 						.getUsersServiceSessions(str);
@@ -401,7 +410,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 * @see org.emayor.servicehandling.kernel.ISession#getSessionId()
 	 */
 	public String getSessionId() throws SessionException {
-		return this.accessSessionData.getAsid();
+		return this.getReference().getAsid();
 	}
 
 	/**
@@ -416,17 +425,17 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 			ServiceLocator serviceLocator = ServiceLocator.getInstance();
 			SimpleIdGeneratorLocal simpleIdGeneratorLocal = serviceLocator
 					.getSimpleIdGeneratorLocal();
-			String asid = simpleIdGeneratorLocal.generateId();
+			asid = simpleIdGeneratorLocal.generateId();
 			simpleIdGeneratorLocal.remove();
 			AccessSessionEntityLocalHome entHome = serviceLocator
 					.getAccessSessionEntityLocalHome();
-			//AccessSessionEntityLocal local = entHome.create(this.asid);
-			this.accessSessionData = entHome.create(asid);
+			// AccessSessionEntityLocal local = entHome.create(this.asid);
+			AccessSessionEntityLocal accessSessionData = entHome.create(asid);
 			Calendar cal = Calendar.getInstance();
-			//this.startDate = cal.getTime();
-			//local.setStartDate(cal.getTime());
+			// this.startDate = cal.getTime();
+			// local.setStartDate(cal.getTime());
 			log.debug("setting the current date and time");
-			this.accessSessionData.setStartDate(cal.getTime());
+			accessSessionData.setStartDate(cal.getTime());
 		} catch (ServiceLocatorException slex) {
 			throw new CreateException(slex.toString());
 		} catch (RemoveException rex) {
@@ -444,7 +453,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public String getUserId() throws AccessSessionException {
 		log.debug("-> start processing ...");
-		String ret = this.accessSessionData.getUserId();
+		String ret = this.getReference().getUserId();
 		log.debug("-> ... processing DONE!");
 		return ret;
 	}
@@ -457,7 +466,7 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public void setUserId(String userId) throws AccessSessionException {
 		log.debug("-> start processing ...");
-		this.accessSessionData.setUserId(userId);
+		this.getReference().setUserId(userId);
 		log.debug("-> ... processing DONE!");
 	}
 
@@ -469,8 +478,35 @@ public class AccessSessionEJB implements SessionBean, IAccessSession {
 	 */
 	public Date getStartDate() throws SessionException {
 		log.debug("-> start processing ...");
-		Date ret = this.accessSessionData.getStartDate();
+		Date ret = this.getReference().getStartDate();
 		log.debug("-> ... processing DONE!");
+		return ret;
+	}
+
+	// ------------------------------------------------------------
+
+	private AccessSessionEntityLocal getReference()
+			throws AccessSessionException {
+		AccessSessionEntityLocal ret = null;
+		try {
+			ServiceLocator serviceLocator = ServiceLocator.getInstance();
+			AccessSessionEntityLocalHome entHome = serviceLocator
+					.getAccessSessionEntityLocalHome();
+			ret = entHome.findByPrimaryKey(this.asid);
+		} catch (ServiceLocatorException ex) {
+			log.error("caught ex: " + ex.toString());
+			if (log.isDebugEnabled())
+				ex.printStackTrace();
+			throw new AccessSessionException(
+					"Couldn't obtain the reference to AccessSessionEntityLocalHome");
+		} catch (FinderException ex) {
+			log.error("caught ex: " + ex.toString());
+			if (log.isDebugEnabled())
+				ex.printStackTrace();
+			throw new AccessSessionException(
+					"Couldn't find the reference to AccessSessionEntity specified by primary key (asid) "
+							+ this.asid);
+		}
 		return ret;
 	}
 }
