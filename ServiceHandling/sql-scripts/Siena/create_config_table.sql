@@ -29,7 +29,7 @@ CREATE TABLE PLATFORMCONFIG (
 	emayor_notification_email_smtp_host VARCHAR(50), 
 	emayor_notification_email_smtp_user VARCHAR(20), 
 	emayor_notification_email_smtp_pass VARCHAR(16), 
-	emayor_notification_email_smtp_auth VARCHAR(4),
+	emayor_notification_email_smtp_auth VARCHAR(5),
 	emayor_content_routing_local_inquiry VARCHAR(200),
 	emayor_content_routing_remote_inquiry VARCHAR(200),
 	emayor_content_routing_local_publish VARCHAR(200),

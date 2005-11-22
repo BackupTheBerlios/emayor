@@ -676,7 +676,7 @@ public abstract class PlatformConfigurationEntityEJB implements EntityBean {
 	 * Notification (Email Gateway) Configuration
 	 *
 	 * @jboss.column-name name = "emayor_notification_email_smtp_auth"
-	 * @jboss.sql-type type = "VARCHAR(4)"
+	 * @jboss.sql-type type = "VARCHAR(5)"
 	 * @jboss.jdbc-type type = "VARCHAR" 
 	 * @ejb.persistent-field
 	 * @ejb.interface-method   view-type="local"
