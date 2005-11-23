@@ -13,7 +13,7 @@ import org.emayor.webtier.shared.*;
 public class FormTestForm extends ExtendedActionForm
 {
 
-  private String testEMayorForm = null;
+  private String testEMayorForm = ""; // default - important for expectedAppletHeight()
  
   private String templateName = null;
   
@@ -134,17 +134,13 @@ public class FormTestForm extends ExtendedActionForm
 
    
    
-   
-   
    public void setTemplateName( String _templateName )
    {
      this.templateName = _templateName;
    }
 
    
-   
-   
-   
+      
   /**
    *  Called by the testemayorform.jsp for restarting the testEmayor site
    *  after the user has changed the language.
@@ -155,6 +151,23 @@ public class FormTestForm extends ExtendedActionForm
      serviceParameters.put( "templateName",this.templateName );
      return serviceParameters;
    }
+   
+
+   
+   
+   
+  /**
+   *  Returns the expected applet height based on the
+   *  member attribute testEMayorForm.
+   *  It is called by JSP's carrying an applet directive.
+   */ 
+   public String getExpectedAppletHeight()
+   { 
+     int expectedAppletHeight = 1100; // default return value
+     
+     return String.valueOf(expectedAppletHeight);
+   }
+   
    
    
 } // DocumentRequestForm

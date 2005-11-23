@@ -69,6 +69,20 @@ public class RepositoryDocument implements Serializable
   
 
   
+  public long getUTFTimeOfRemoval()
+  {
+    return this.endTime.getTimeInMillis();
+  }
+
+  
+  
+  public long getUTFTimeOfRequest()
+  {
+    return this.startTime.getTimeInMillis();
+  }
+  
+  
+  
   public String getDateOfRemoval()
   {
     int day    = this.endTime.get(Calendar.DAY_OF_MONTH);  // 1..30/31

@@ -166,12 +166,48 @@ public class Repository extends ActionForm
                                                      documentResponse,
 													 documentIndex,
                                                      task );
-    this.documents.addElement( doc );  	
+    this.addDocumentSortedByTime( doc );
   } // addTask
   
   
   
-   
+  
+  
+  private void addDocumentSortedByTime( final RepositoryDocument document )
+  {
+     synchronized( this.documents )
+     {
+        long documentTime = document.getUTFTimeOfRequest();
+        int i=0;
+        long registeredDocTime = 0;
+        int elementIndexForNewDocument = -1;
+        while( i < this.documents.size() )
+        {
+          registeredDocTime = ((RepositoryDocument)this.documents.elementAt(i)).getUTFTimeOfRequest();
+          if( registeredDocTime > documentTime ) // take this slot
+          {
+            elementIndexForNewDocument = i;
+            break;
+          }
+          i++;
+        }
+        // Now either insert or add:
+        // If the elementIndexForNewDocument is -1, one can add. This occurs
+        // if either the vector is empty, or all entries are newer.
+        // Otherwise insert:
+        if( elementIndexForNewDocument == -1 )
+        {
+          this.documents.addElement( document );
+        }
+        else
+        {
+          this.documents.insertElementAt( document, elementIndexForNewDocument );        
+        }
+     } // sync  
+  }
+  
+  
+  
   
   
 } // RepositoryForm

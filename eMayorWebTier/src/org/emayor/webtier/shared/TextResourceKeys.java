@@ -17,7 +17,9 @@ public class TextResourceKeys
  public final static String AuthenticationInformation="Message.AuthenticationInformation";
  public final static String AuthenticationFailureInformation="Message.AuthenticationFailureInformation";
  public final static String NumberOfAuthenticationFailures="Message.NumberOfAuthenticationFailures";
-  
+ 
+ public final static String JavaPluginIsUpToDate = "Information.JavaPluginIsUpToDate";
+ public final static String JavaPluginUpdate = "Information.JavaPluginUpdate";
  public final static String SessionHasExpiredInformation="Message.SessionHasExpiredInformation";
  
  public final static String TryAgain="Message.TryAgain";

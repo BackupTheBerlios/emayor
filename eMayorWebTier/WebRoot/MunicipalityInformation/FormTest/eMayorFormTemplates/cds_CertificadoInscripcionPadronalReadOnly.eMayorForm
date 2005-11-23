@@ -55,6 +55,21 @@
 
 <!-- END   Entries for the citizen's name -->
 
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
+          <JTextField ModelPath="Model/cds:CertificadoInscripcionPadronal/cds:PersonasInscritasCertificado/eds:DatosCiudadano/eds:SexoCiudadano" 
+                      Columns="6" Editable="false"></JTextField>
+        </JPanel>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
+          <JTextField ModelPath="Model/cds:CertificadoInscripcionPadronal/cds:PersonasInscritasCertificado/eds:DatosCiudadano/eds:DatosNacimientoCiudadano/eds:FechaNacimiento/aapd:BirthDate" 
+                      Columns="14" Editable="false"></JTextField>
+        </JPanel>
+
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
@@ -71,23 +86,6 @@
                       Columns="14" Editable="false"></JTextField>
         </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
-          <JTextField ModelPath="Model/cds:CertificadoInscripcionPadronal/cds:PersonasInscritasCertificado/eds:DatosCiudadano/eds:SexoCiudadano" 
-                      Columns="6" Editable="false"></JTextField>
-        </JPanel>
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
-          <JTextField ModelPath="Model/cds:CertificadoInscripcionPadronal/cds:PersonasInscritasCertificado/eds:DatosCiudadano/eds:DatosNacimientoCiudadano/eds:FechaNacimiento/aapd:BirthDate" 
-                      Columns="14" Editable="false"></JTextField>
-        </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="_packaging_generation_" name="Packaging Generator">
-<target name="_packaging_generation_" depends="N10004,N1001F,N10044"/>
+<target name="_packaging_generation_" depends="N10004,N1001F"/>
 <target name="N10004" description="eMayorApplet.jar">
 <mkdir dir="WebRoot"/>
 <jar destfile="WebRoot/eMayorApplet.jar">
@@ -11,18 +11,8 @@
 <target name="N1001F" description="eMayorWebTier.war">
 <jar destfile="eMayorWebTier.war">
 <zipfileset dir="WebRoot/WEB-INF" prefix="WEB-INF"/>
-<zipfileset dir="WebRoot" excludes="**/WEB-INF/**"/>
+<zipfileset dir="WebRoot" excludes="**/WEB-INF/**, **/ClientInstaller/**, **/original.pic/**"/>
 <zipfileset dir="bin"/>
-</jar>
-</target>
-<target name="N10044" description="eMayorWebTier.ear">
-<jar destfile="eMayorWebTier.ear">
-<zipfileset dir=".">
-<include name="eMayorWebTier.war"/>
-</zipfileset>
-<zipfileset dir="WebRoot/WEB-INF" prefix="META-INF">
-<include name="application.xml"/>
-</zipfileset>
 </jar>
 </target>
 </project>

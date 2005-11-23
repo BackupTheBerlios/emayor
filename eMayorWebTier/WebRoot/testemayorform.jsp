@@ -104,7 +104,7 @@
         codebase=""
         archive="eMayorApplet.jar"
         width="636"
-        height="500"
+        height="<bean:write name="formTestForm" property="expectedAppletHeight" />"
         mayscript="true">
   <param name="eMayorFormName" value="/eMayor/formtest.do?do=getEMayorForm"/>
   <param name="postURL" value="/eMayor/formtest.do?do=processPostedDocument"/>

@@ -128,16 +128,19 @@
 <td>
 <%--  ..................... JSP LOGIC START .....................  --%>	
 <emayorbean:writeLanguage name="loginForm" resourceElementKey="<%=TextResourceKeys.LoginInformation%>"/>
-<%-- start with an iterate over the services --%>
 <p>
-<html:form action="authenticateUser.do?">
-  <html:hidden name="loginForm" 
-               property="municipalityNameKey" />
-  <html:hidden name="loginForm" property="language"/>
-  <p>
-  <html:submit>   Login   </html:submit>
-  </p>  
-</html:form>
+<applet code="LoginButtonApplet.class"
+        width="500"
+        height="90"
+        ALT="Java is not enabled on your browser.">
+  <param name="BackgroundColor" value="234,228,212"/>
+  <param name="buttonTarget" value="<bean:write name="loginForm" property="authenticationURL" />"/>
+  <param name="JavaPluginIsUpToDateMessage" value="<bean:write name="loginForm" property="javaPluginIsUpToDateMessage" />" />
+  <param name="OutDatedPluginMessage" value="<bean:write name="loginForm" property="outDatedPluginMessage" />" />
+  <param name="Language" value="<bean:write name="loginForm" property="language" />" />
+  <param name="cache_option" value="Plugin"/> 
+Your browser must be configured for displaying Java V.1.5 applets.
+</applet>
 </p>
 <%--  ..................... JSP LOGIC END .....................  --%>	
 </td>

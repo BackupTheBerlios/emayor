@@ -34,7 +34,7 @@ public class ServiceForm extends ExtendedActionForm
   private String waitPageRedirectURL = null;
   
   // The eMayorForm, which will be sent to the client applet on request.
-  private String eMayorForm = "";
+  private String eMayorForm = "";  // default - important for expectedAppletHeight()
   
   
   private String xmlDocument = null;
@@ -347,8 +347,23 @@ public class ServiceForm extends ExtendedActionForm
       return municipality.getEnumerationProperties();
     }
    
-   
 
+    
+    
+    /**
+     *  Returns the expected applet height based on the
+     *  member attribute testEMayorForm. 
+     *  It is called by JSP's carrying an applet directive.
+     */ 
+     public String getExpectedAppletHeight()
+     {
+       int expectedAppletHeight = 1100; // default return value
+       
+       return String.valueOf(expectedAppletHeight);
+     }
+
+     
+     
     
     
     public String getHelpTopicKey()

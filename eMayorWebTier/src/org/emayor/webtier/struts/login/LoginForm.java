@@ -78,5 +78,38 @@ public class LoginForm extends ExtendedActionForm
   
 
    
+   
+  /** 
+   *  Called by the LoginButtonApplet.
+   *  Returns the information in correct language, that
+   *  the client computer has not a required version of the Java Plugin.
+   */
+   public String getOutDatedPluginMessage()
+   {
+     return super.getTextFromResource(TextResourceKeys.JavaPluginUpdate);
+   }
+   
+ 
+   public String getJavaPluginIsUpToDateMessage()
+   {
+    return super.getTextFromResource(TextResourceKeys.JavaPluginIsUpToDate);   
+   }
+
+   
+   
+  /**
+   *  Called by the LoginButtonApplet.
+   *  Returns the URL string for the next page, which is
+   *  the authentication page.
+   */ 
+   public String getAuthenticationURL()
+   {
+     return "/eMayor/authenticateUser.do?municipalityNameKey=" +
+            this.getMunicipalityNameKey() +
+            "&language=" + super.getLanguage();
+   }
+   
+   
+   
 } // LoginForm
 

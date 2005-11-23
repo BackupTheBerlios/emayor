@@ -33,9 +33,7 @@
           <JLabel Background="242,236,224">$Form.ConcernedPersonDetails$</JLabel>
         </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
+        <Box BoxType="createVerticalStrut" BoxSize="10"/>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
@@ -51,6 +49,23 @@
         </JPanel>
 
 
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenSex" 
+                      Columns="6"></JTextField>
+        </JPanel>
+
+
+        <!--  birthdate -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenBirthDetails/ed:DateOfBirth/aapd:BirthDate" 
+                      Columns="14"></JTextField>
+        </JPanel>
+
+
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
 
@@ -61,7 +76,6 @@
                       Columns="14"></JTextField>
         </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
         <!-- Contact Details: -->
 
@@ -69,28 +83,6 @@
                 AlignmentX="0">
           <JLabel Columns="14" Background="242,236,224">$Form.EmailAddress$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Email/aapd:EmailAddress" 
-                      Columns="14"></JTextField>
-        </JPanel>
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
-          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenSex" 
-                      Columns="6"></JTextField>
-        </JPanel>
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-        <!--  birthdate -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
-          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenBirthDetails/ed:DateOfBirth/aapd:BirthDate" 
                       Columns="14"></JTextField>
         </JPanel>
 
@@ -116,7 +108,7 @@
 
 
 
-        <Box BoxType="createVerticalStrut" BoxSize="40"/>
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
 
 

@@ -111,7 +111,13 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     
     
     this.tabPane = new JTabbedPane();
-    JScrollPane interactionScrollPane = new JScrollPane( this.formsInteractionPanel );
+    
+    // The formsInteractionPanel shall be displayed on the top,
+    // so insert a borderlayout wrapper panel:
+    JPanel wrapPanel = new JPanel( new BorderLayout(0,0) );
+    wrapPanel.add(this.formsInteractionPanel, BorderLayout.NORTH );
+    
+    JScrollPane interactionScrollPane = new JScrollPane( wrapPanel);
     
     int unitIncrement = UIManager.getFont("Label.font").getSize();
     interactionScrollPane.getVerticalScrollBar().setUnitIncrement( unitIncrement );

@@ -127,7 +127,7 @@
         codebase=""
         archive="eMayorApplet.jar"
         width="636"
-        height="500"
+        height="<bean:write name="serviceForm" property="expectedAppletHeight" />"
         mayscript="true">
   <param name="eMayorFormName" value="/eMayor/service.do?do=getEMayorForm"/>
   <param name="postURL" value="/eMayor/service.do?do=processDocumentViewedByCitizen"/>
