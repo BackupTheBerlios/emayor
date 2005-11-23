@@ -2,7 +2,9 @@
 
 Ihre Anfrage bzgl. einer Melderegisterbescheinigung für ${CP_FORENAME} ${CP_SURNAME}
 (datiert vom ${REQ_DATE}) wurde bearbeitet. 
-Sie können Ihre Melderegisterbescheinigung von Ihrer örtlich zuständigen Behörde abholen.
+Sie können das Dokument jetzt auf der eMayor-Plattform herunterladen und auf Ihrem Rechner absichern. 
+Danach können Sie das Formular ausdrucken.
+
 
 Mit freundlichen Grüßen,
 
