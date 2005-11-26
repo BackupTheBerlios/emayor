@@ -45,7 +45,17 @@ public class HTMLTemplate implements Serializable
   private static final Charset charset = Charset.forName("UTF-8");
 
   
+  
+  
   private HTMLTemplate()
+  {
+    this.loadTemplateFromFileSystem();
+  }
+
+  
+  
+  
+  private void loadTemplateFromFileSystem()
   {
     StringBuffer municipalitiesInformationDirPath = new StringBuffer();  
     municipalitiesInformationDirPath.append( System.getProperty("jboss.server.home.dir") );
@@ -202,21 +212,31 @@ public class HTMLTemplate implements Serializable
   *  created the partitions.
   */ 
   public String getPartition0()
-  {
+  {  
+    // TEST: Load template.htm from disk on every call, by outcommenting this call:
+    // this.loadTemplateFromFileSystem();  
     return this.templatePartition[0];
   }
+  
+  
   public String getPartition1()
   {
     return this.templatePartition[1];
   }
+  
+  
   public String getPartition2()
   {
     return this.templatePartition[2];
   }
+  
+  
   public String getPartition3()
   {
     return this.templatePartition[3];
   }
+  
+  
   public String getPartition4()
   {
     return this.templatePartition[4];

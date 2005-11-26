@@ -7,9 +7,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/iaik_jce.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jakarta-oro.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/iaikPkcs11Wrapper.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/javaws.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jnlp.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/plugin.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sslext.jar"/>
 	<classpathentry kind="src" path="/PolicyEnforcement"/>
 	<classpathentry kind="src" path="/ServiceHandling"/>
@@ -18,5 +16,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xml-apis.jar"/>
 	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.axis-1.2"/>
+	<classpathentry kind="lib" path="WebRoot/javaws.jar"/>
+	<classpathentry kind="lib" path="WebRoot/plugin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

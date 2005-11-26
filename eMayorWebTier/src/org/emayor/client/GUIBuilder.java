@@ -258,33 +258,6 @@ public class GUIBuilder
     String value = jButtonNode.getTagValue();
     // Create it:
     final JSenseButton jButton = new JSenseButton(true);
-    // For each jbutton, we add one actionlistener, which deactivates the button
-    // for 2 seconds after it has been clicked. This prevents the user from
-    // starting actions multiple times, or starting actions two times, if it is
-    // doubleclicked:
-    jButton.addActionListener( new ActionListener()
-    {
-      public void actionPerformed( ActionEvent e )
-      {
-        jButton.setEnabled(false);
-        Thread reenablerThread = new Thread()
-        {
-          public void run()
-          {
-            try{ Thread.sleep(1999); } catch( Exception ee ){}
-            // reenabling is a swing task, so add to EDT queue:
-            EventQueue.invokeLater( new Runnable()
-            {
-              public void run()
-              {
-                jButton.setEnabled(true);              
-              }
-            });
-          }
-        };
-        reenablerThread.start();
-      }
-    });
     if( value != null ) jButton.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
     if( actionClass != null )
     {
@@ -292,6 +265,7 @@ public class GUIBuilder
         {
           ImageIcon icon = this.loadIconFromResource("/pictures/applet/ok.gif");
           if( icon != null ) jButton.setIcon(icon);
+          this.addListenerForTemporaryDisabling(jButton,0); // disable it forever after a click
           jButton.addActionListener( new DefaultSubmitter( this.modelNode, this.mainApplet,submitterParameter ) );
         }
         else
@@ -318,6 +292,7 @@ public class GUIBuilder
             icon = this.loadIconFromResource("/pictures/applet/ok.gif");
           }
           if( icon != null ) jButton.setIcon(icon);
+          this.addListenerForTemporaryDisabling(jButton,0); // disable it forever after a click
           jButton.addActionListener( new XMLSignatureSubmitter( this.modelNode, this.mainApplet,submitterParameter ) );
         }
         else
@@ -325,6 +300,7 @@ public class GUIBuilder
         {
           ImageIcon icon = this.loadIconFromResource("/pictures/applet/bluerightarrow.gif");
           if( icon != null ) jButton.setIcon(icon);
+          this.addListenerForTemporaryDisabling(jButton,0); // disable it forever after a click
           jButton.addActionListener( new RedirectSubmitter( this.modelNode, this.mainApplet,submitterParameter ) );
         }
         else
@@ -332,6 +308,7 @@ public class GUIBuilder
         {
           ImageIcon icon = this.loadIconFromResource("/pictures/applet/save.gif");
           if( icon != null ) jButton.setIcon(icon);
+          this.addListenerForTemporaryDisabling(jButton,2048); // disable it for 2 secs after a click
           jButton.addActionListener( new SaveModelToDiskSubmitter( this.modelNode, this.mainApplet,submitterParameter ) );
         }
         else
@@ -339,6 +316,7 @@ public class GUIBuilder
         {
           ImageIcon icon = this.loadIconFromResource("/pictures/applet/printicon.gif");
           if( icon != null ) jButton.setIcon(icon);
+          this.addListenerForTemporaryDisabling(jButton,2048); // disable it for 2 secs after a click
           jButton.addActionListener( new PrintFormToPrinterSubmitter( this.mainApplet,submitterParameter ) );
         }
         else
@@ -346,6 +324,7 @@ public class GUIBuilder
         {
           ImageIcon icon = this.loadIconFromResource("/pictures/applet/printicon.gif");
           if( icon != null ) jButton.setIcon(icon);
+          this.addListenerForTemporaryDisabling(jButton,2048); // disable it for 2 secs after a click
           jButton.addActionListener( new PrintDocumentToPrinterSubmitter( this.modelNode, this.mainApplet,submitterParameter ) );
         }
         else
@@ -365,6 +344,53 @@ public class GUIBuilder
 
 
 
+  
+ /**
+  *   This helper is used for temporary disabling a button
+  *   after it has been clicked and thus not allow button actions
+  *   which may run concurrently in user threads or thread queues
+  *   to be triggered multiple times on double or multiple clicks.
+  * 
+  *   If button shall be disabled for ever, pass zero as disabledIntervall
+  * 
+  *   disabledIntervall: in millisecs
+  * 
+  */ 
+  private void addListenerForTemporaryDisabling( final JButton jButton,
+                                                 final long disabledIntervall )
+  {
+    // For a jbutton, we add one actionlistener, which deactivates the button
+    // for disabledIntervall milliseconds after it has been clicked. This prevents the user from
+    // starting actions multiple times, or starting actions two times, if it is
+    // doubleclicked:
+    jButton.addActionListener( new ActionListener()
+    {
+      public void actionPerformed( ActionEvent e )
+      {
+        jButton.setEnabled(false);
+        if( disabledIntervall > 0 ) // reenable it
+        {
+          Thread reenablerThread = new Thread()
+          {
+            public void run()
+            {
+              try{ Thread.sleep(disabledIntervall); } catch( Exception ee ){}
+              // reenabling is a swing task, so add to EDT queue:
+              EventQueue.invokeLater( new Runnable()
+              {
+                public void run()
+                {
+                  jButton.setEnabled(true);              
+                }
+              });
+            }
+          };
+          reenablerThread.start();
+        }  
+      }
+    });
+  }
+  
   
   
  /**
