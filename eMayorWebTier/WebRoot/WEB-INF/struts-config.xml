@@ -28,48 +28,21 @@
 
   <action-mappings type="org.apache.struts.config.SecureActionConfig">
 
-    <action path="/true" type="test.ssl.NullAction" unknown="false">
-    <set-property property="secure" value="true" />
-      <forward name="success" path="/true.jsp" />
-     </action>
-    <action path="/false" type="test.ssl.NullAction">
-    <set-property property="secure" value="false" />
-      <forward name="success" path="/false.jsp" />
-    </action>
-     <action path="/any" type="test.ssl.NullAction">
-     <set-property property="secure" value="any" />
-       <forward name="success" path="/any.jsp" />
-     </action>
+    
+    
+     
 
-    <action path="/falsetag" type="test.ssl.NullAction">
-    <set-property property="secure" value="true" />
-      <forward name="success" path="/falsetag.jsp" />
-    </action>
+    
 
-    <action path="/truetag" type="test.ssl.NullAction">
-    <set-property property="secure" value="false" />
-      <forward name="success" path="/truetag.jsp" />
-    </action>
+    
 
-     <action path="/anytag" type="test.ssl.NullAction">
-     <set-property property="secure" value="any" />
-       <forward name="success" path="/anytag.jsp" />
-     </action>
+     
 
-    <action path="/secureSubmit" type="test.ssl.NullAction" name="testForm">
-    <set-property property="secure" value="true" />
-      <forward name="success" path="/submitted.jsp" />
-     </action>
+    
 
-    <action path="/nonsecureSubmit" type="test.ssl.NullAction" name="testForm">
-    <set-property property="secure" value="false" />
-      <forward name="success" path="/submitted.jsp" />
-     </action>
+    
 
-    <action path="/formAction" type="test.ssl.NullAction">
-    <set-property property="secure" value="false" />
-      <forward name="success" path="/form.jsp" />
-     </action>
+    
 
     <action path="/default" unknown="true" type="org.emayor.webtier.struts.MunicipalityList.MunicipalityListAction" name="municipalityListForm" input="/municipalityList.jsp" scope="session">
     <forward name="showMunicipalityList" redirect="false" path="/municipalityList.jsp" contextRelative="false" />

@@ -12,6 +12,7 @@
 <jsp:useBean id="TextResourceKeys" class="org.emayor.webtier.shared.TextResourceKeys" />	
 
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>

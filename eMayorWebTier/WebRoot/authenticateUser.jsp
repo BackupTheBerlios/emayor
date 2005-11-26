@@ -16,11 +16,11 @@
 <jsp:useBean id="TextResourceKeys" class="org.emayor.webtier.shared.TextResourceKeys" />	
 
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<META HTTP-EQUIV="Refresh" CONTENT="1; URL=<bean:write name="authenticationForm" property="municipalityURL"/>"></META>
-    <META http-equiv="Content-Type" content="text/html;charset=utf-8"></META>
+	<META HTTP-EQUIV="Refresh" CONTENT="1; URL=<bean:write name="authenticationForm" property="municipalityURL"/>">
+    <META http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<title>eMayor Authentication</title>
 </head>
 

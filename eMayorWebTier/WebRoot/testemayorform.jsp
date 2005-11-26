@@ -12,10 +12,10 @@
 <jsp:useBean id="TextResourceKeys" class="org.emayor.webtier.shared.TextResourceKeys" />	
 
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<title>Test eMayorForm Interaction</title>
 </head>
 
@@ -105,7 +105,8 @@
         archive="eMayorApplet.jar"
         width="636"
         height="<bean:write name="formTestForm" property="expectedAppletHeight" />"
-        mayscript="true">
+        mayscript="true"
+        ALT="This applet shows the eMayor input forms">
   <param name="eMayorFormName" value="/eMayor/formtest.do?do=getEMayorForm"/>
   <param name="postURL" value="/eMayor/formtest.do?do=processPostedDocument"/>
   <param name="redirectionAddressAfterPost" value="/eMayor/formtest.do?do=executeService"/>

@@ -13,10 +13,10 @@
 <jsp:useBean id="TextResourceKeys" class="org.emayor.webtier.shared.TextResourceKeys" />	
 
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<title>eMayor Login</title>
 </head>
 
@@ -132,7 +132,7 @@
 <applet code="LoginButtonApplet.class"
         width="500"
         height="90"
-        ALT="Java is not enabled on your browser.">
+        ALT="This applet tests your Java software and lets you login, if the software is ok.">
   <param name="BackgroundColor" value="234,228,212"/>
   <param name="buttonTarget" value="<bean:write name="loginForm" property="authenticationURL" />"/>
   <param name="JavaPluginIsUpToDateMessage" value="<bean:write name="loginForm" property="javaPluginIsUpToDateMessage" />" />

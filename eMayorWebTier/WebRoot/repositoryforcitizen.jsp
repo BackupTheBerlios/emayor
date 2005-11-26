@@ -13,10 +13,10 @@
 <jsp:useBean id="TextResourceKeys" class="org.emayor.webtier.shared.TextResourceKeys" />	
 
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<title>eMayor <emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryPageTitle%>"/></title>
 </head>
 
@@ -124,15 +124,20 @@
 
 
     <tr>
-    <td text-align="" left=""><span style="font-weight: bold;"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryDocument%>"/></span></td>
-    <td text-align="" left=""><span style="font-weight: bold;"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryDateOfRequest%>"/></span></td>
-    <td text-align="" left=""><span style="font-weight: bold;"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryAvailableUntil%>"/></span></td>
+    <td>&nbsp;</td>
+    <td style="text-align: left;"><span style="font-weight: bold;"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryDocument%>"/></span></td>
+    <td style="text-align: left;"><span style="font-weight: bold;"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryDateOfRequest%>"/></span></td>
+    <td style="text-align: left;"><span style="font-weight: bold;"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryAvailableUntil%>"/></span></td>
     </tr>
 <%--  ..................... JSP LOGIC START .....................  --%>	
 <%-- Show the repository entries --%>
+    <% int i=1; %>
 	<logic:iterate name="serviceForm" property="repositoryDocuments" id="repositorydocument">    
     <tr>
-    <td text-align="" left="">
+    <td>
+       <%= i %><% i++; %>
+    </td>
+    <td style="text-align: left;">
       <html:form action="service.do?do=showDocument">
          <span style="font-weight: bold;"><bean:write name="repositorydocument" property="documentTitle" /></span>&nbsp;
          <br>
@@ -145,14 +150,13 @@
          <html:hidden name="repositorydocument" property="documentTitle" />
          <html:hidden name="repositorydocument" property="documentIndex" />
          <html:hidden name="serviceForm" property="language" />
-
          <html:submit><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryDownload%>"/></html:submit>  
       </html:form>
     </td>
-    <td text-align="" left="">
+    <td style="text-align: left;">
          <bean:write name="repositorydocument" property="dateOfRequest" />&nbsp;
     </td>
-    <td text-align="" left="">
+    <td style="text-align: left;">
          <bean:write name="repositorydocument" property="dateOfRemoval" />&nbsp;
     </td>
     </tr>

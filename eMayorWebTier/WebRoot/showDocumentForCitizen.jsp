@@ -12,11 +12,12 @@
 <jsp:useBean id="TextResourceKeys" class="org.emayor.webtier.shared.TextResourceKeys" />	
 
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
 	<title>Show repository document for citizen</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 
@@ -128,7 +129,8 @@
         archive="eMayorApplet.jar"
         width="636"
         height="<bean:write name="serviceForm" property="expectedAppletHeight" />"
-        mayscript="true">
+        mayscript="true"
+        ALT="This applet shows the eMayor readonly forms">
   <param name="eMayorFormName" value="/eMayor/service.do?do=getEMayorForm"/>
   <param name="postURL" value="/eMayor/service.do?do=processDocumentViewedByCitizen"/>
   <param name="redirectionAddressAfterPost" value="/eMayor/municipality.do?do=selectMunicipality"/>
