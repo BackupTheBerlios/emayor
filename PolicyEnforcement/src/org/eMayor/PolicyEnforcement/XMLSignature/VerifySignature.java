@@ -105,7 +105,7 @@ public class VerifySignature {
      			
      			// Remove not needed Signatures
      			org.w3c.dom.Document docTemp = (org.w3c.dom.Document)doc.cloneNode(true);
-     			for (int j=i+1; j<Nodes; j++) {
+     			for (int j=Nodes-1; j<=(i+1); j--) {
      				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removing" + j + "Signature");
      				NodeList TempNodeList= docTemp.getElementsByTagName("ds:Signature");
      				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNodeList with " +TempNodeList.getLength()+" Items" );
