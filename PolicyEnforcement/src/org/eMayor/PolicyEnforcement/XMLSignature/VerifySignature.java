@@ -103,25 +103,29 @@ public class VerifySignature {
      		
      		for (int i=0;i<Nodes;i++) {
      			
-     			// Remove not needed Signatures
-     			org.w3c.dom.Document docTemp = (org.w3c.dom.Document)doc.cloneNode(true);
-     			for (int j=Nodes-1; j<=(i+1); j--) {
-     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removing" + j + "Signature");
-     				NodeList TempNodeList= docTemp.getElementsByTagName("ds:Signature");
-     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNodeList with " +TempNodeList.getLength()+" Items" );
-             		
-     				Node TempNode = TempNodeList.item(j);
-     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode " +j);
-     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode " +j+" is null error");
-             		Node MyTempRoot = TempNode.getParentNode();
-             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode Root ");
-     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode Root is null: error!!!!");
-             		
-             		MyTempRoot.removeChild(TempNode);
-             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removed the SignatureNode " +j);
-             		
-     			}
      			
+     			// Remove not needed Signatures
+     			
+     			org.w3c.dom.Document docTemp = (org.w3c.dom.Document)doc.cloneNode(true);
+     			
+     			if (Nodes>1){
+	     			for (int j=Nodes-1; j<=(i+1); j--) {
+	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removing" + j + "Signature");
+	     				NodeList TempNodeList= docTemp.getElementsByTagName("ds:Signature");
+	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNodeList with " +TempNodeList.getLength()+" Items" );
+	             		
+	     				Node TempNode = TempNodeList.item(j);
+	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode " +j);
+	     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode " +j+" is null error");
+	             		Node MyTempRoot = TempNode.getParentNode();
+	             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode Root ");
+	     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode Root is null: error!!!!");
+	             		
+	             		MyTempRoot.removeChild(TempNode);
+	             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removed the SignatureNode " +j);
+	             		
+	     			}
+     			}
          		
          		Element nscontextTemp = XMLUtils.createDSctx(docTemp, "ds",
                         Constants.SignatureSpecNS);
@@ -136,7 +140,7 @@ public class VerifySignature {
      		 
      		 
      		 
-	         if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Get Signature number " + Nodes);
+	         if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Get Signature number " + i+1);
 	        
 	         XMLSignature signature = new XMLSignature(sigElement,
 	         		"");
@@ -155,7 +159,7 @@ public class VerifySignature {
 	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Try to verify the signature using the X509 Certificate: " + cert);
 	               
 	            	boolean SigResult = signature.checkSignatureValue(cert);
-	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Result for Signature Nr."+i+" is: " +(SigResult ? "valid (good)"
+	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Result for Signature Nr."+(i+1)+" is: " +(SigResult ? "valid (good)"
                             : "invalid !!!!! (bad)"));
 	               result = result && SigResult;
 	            } else {
