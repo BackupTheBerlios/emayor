@@ -109,7 +109,7 @@ public class VerifySignature {
      			org.w3c.dom.Document docTemp = (org.w3c.dom.Document)doc.cloneNode(true);
      			
      			if (Nodes>1){
-	     			for (int j=Nodes-1; j<=(i+1); j--) {
+	     			for (int j=Nodes-1; j>=(i+1); j--) {
 	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removing" + j + "Signature");
 	     				NodeList TempNodeList= docTemp.getElementsByTagName("ds:Signature");
 	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNodeList with " +TempNodeList.getLength()+" Items" );
