@@ -188,7 +188,7 @@ public class VerifySignature {
 	            		
 	            		
 	            		
-	            		if (log.isDebugEnabled()) log.debug("PE: VerifySignature::Valid Signature, validate the Signer ... end");
+	            		if (log.isDebugEnabled()) log.debug("PE: VerifySignature::End validate the Signer");
 	            		
 	            	}
 	               result = result && SigResult;
