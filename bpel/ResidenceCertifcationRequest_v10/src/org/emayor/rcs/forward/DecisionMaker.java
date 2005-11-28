@@ -35,6 +35,14 @@ public class DecisionMaker {
   private String receivingName = "";
   
     public DecisionMaker() {
+    try {
+      Properties props = new Properties();
+      props.load(this.getClass().getResourceAsStream("municipality.properties"));
+      this.localName = props.getProperty("forward.municipality.local.name","UNKNOWN");
+    } catch(IOException ioex) 
+    {
+    }
+
   }
   
   public String getLoginServer(String rcsRequest) 

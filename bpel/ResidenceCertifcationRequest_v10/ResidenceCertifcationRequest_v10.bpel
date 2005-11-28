@@ -204,7 +204,7 @@ setVariableData("receivingMunicipality",result);
 result = decisionMaker.getServingMunicipality(xmlDocument);
 System.out.println("got xml serving municipality: " + result);
 setVariableData("servingMunicipality",result);
-result = decisionMaker.getLoginServer(xmlDocument);
+result = decisionMaker.getLocalMunicipality();
 System.out.println("got xml local municipality: " + result);
 setVariableData("localMunicipality",result);
 result = decisionMaker.setRequestDate(xmlDocument);
@@ -486,21 +486,6 @@ System.out.println("caught ex: "+ex.toString());
           <to variable="forwardIn" part="payload" query="/nsxml10:ForwardRequest_v10Request/nsxml0:extraField4"/>
          </copy>
         </assign>
-        <bpelx:exec name="setLoginServer" language="Java" version="1.4"><![CDATA[// Java code snippet goes here ...
-try {
-System.out.println("----------------START-----------------------");
-String xmlDocument = ((Element) getVariableData("forwardIn","payload","/nsxml10:ForwardRequest_v10Request/nsxml0:reqestDocument")).getNodeValue();
-String server = (String)getVariableData("servingMunicipality");
-System.out.println("got xml document: " + xmlDocument);
-System.out.println("got serving municipality: " + server);
-DecisionMaker decisionMaker = new DecisionMaker();
-xmlDocument = decisionMaker.setLoginServer(xmlDocument,server);
-setVariableData("forwardIn","payload","/nsxml10:ForwardRequest_v10Request/nsxml0:reqestDocument",xmlDocument);
-System.out.println("----------------DONE------------------------");
-}catch(Exception ex) {
-System.out.println("caught ex: "+ex.toString());
-}]]>
-        </bpelx:exec>
         <invoke name="invokeForward" partnerLink="forwardPL" portType="nsxml10:ForwardRequest_v10" operation="initiate" inputVariable="forwardIn"/>
         <receive createInstance="no" name="receiveForward" partnerLink="forwardPL" portType="nsxml10:ForwardRequest_v10Callback" operation="onResult" variable="forwardOut"/>
         <assign name="prepareOutput">
@@ -1003,21 +988,6 @@ System.out.println("caught ex: "+ex.toString());
              <to variable="forwardIn" part="payload" query="/nsxml10:ForwardRequest_v10Request/nsxml0:extraField2"/>
             </copy>
            </assign>
-           <bpelx:exec name="setLoginServer" language="Java" version="1.4"><![CDATA[// Java code snippet goes here ...
-try {
-System.out.println("----------------START-----------------------");
-String xmlDocument = ((Element) getVariableData("forwardIn","payload","/nsxml10:ForwardRequest_v10Request/nsxml0:reqestDocument")).getNodeValue();
-String server = (String)getVariableData("receivingMunicipality");
-System.out.println("got xml document: " + xmlDocument);
-System.out.println("got receiving municipality: " + server);
-DecisionMaker decisionMaker = new DecisionMaker();
-xmlDocument = decisionMaker.setLoginServer(xmlDocument,server);
-setVariableData("forwardIn","payload","/nsxml10:ForwardRequest_v10Request/nsxml0:reqestDocument",xmlDocument);
-System.out.println("----------------DONE------------------------");
-}catch(Exception ex) {
-System.out.println("caught ex: "+ex.toString());
-}]]>
-           </bpelx:exec>
            <invoke name="sendRemoteTranslationRequest" partnerLink="forwardPL" portType="nsxml10:ForwardRequest_v10" operation="initiate" inputVariable="forwardIn"/>
            <receive name="getRemoteTranslationResult" partnerLink="forwardPL" portType="nsxml10:ForwardRequest_v10Callback" operation="onResult" variable="forwardOut" createInstance="no"/>
            <assign name="prepareOutput">
