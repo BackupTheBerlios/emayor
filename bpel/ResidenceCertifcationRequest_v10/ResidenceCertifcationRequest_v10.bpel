@@ -625,7 +625,7 @@ System.out.println("caught ex: "+ex.toString());
      </otherwise>
     </switch>
     <switch name="civilServantApproval-IfNoNegativeDocumentYet">
-     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') or bpws:getVariableData('RequesterRole')  = 'Civil Servant'">
+     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') or (bpws:getVariableData('RequesterRole')  = 'Civil Servant' and bpws:getVariableData('wasForwarded') = 'NO')">
       <bpelx:annotation>
        <bpelx:pattern>negative document - no result yet
        </bpelx:pattern>
