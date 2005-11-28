@@ -274,7 +274,7 @@ System.out.println("caught ex: "+ex.toString());
    </variables>
    <sequence>
     <switch name="getCivilServantApproval">
-     <case condition="(bpws:getVariableData('localMunicipality') != bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('wasForwarded') != 'NO') or bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') or (bpws:getVariableData('localMunicipality') = bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant') or (bpws:getVariableData('localMunicipality') != bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant') or (bpws:getVariableData('localMunicipality') = bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') != bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant')">
+     <case condition="(bpws:getVariableData('localMunicipality') != bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('wasForwarded') != 'NO') or bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') or (bpws:getVariableData('localMunicipality') = bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant') or (bpws:getVariableData('localMunicipality') != bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant') or (bpws:getVariableData('localMunicipality') = bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') != bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant' and bpws:getVariableData('wasForwarded') = 'NO')">
       <bpelx:annotation>
        <bpelx:pattern>only translation from remote or negative result or citizen is delegate
        </bpelx:pattern>
@@ -625,7 +625,7 @@ System.out.println("caught ex: "+ex.toString());
      </otherwise>
     </switch>
     <switch name="civilServantApproval-IfNoNegativeDocumentYet">
-     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT')">
+     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') or bpws:getVariableData('RequesterRole')  = 'Civil Servant'">
       <bpelx:annotation>
        <bpelx:pattern>negative document - no result yet
        </bpelx:pattern>
