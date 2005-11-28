@@ -42,6 +42,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.apache.log4j.*;
+import org.eMayor.PolicyEnforcement.C_UserProfile;
 import org.eMayor.PolicyEnforcement.E_PolicyEnforcementException;
 import org.emayor.servicehandling.config.Config;
 
@@ -58,10 +59,22 @@ public class VerifySignature {
 	private static final Logger log = Logger.getLogger(VerifySignature.class);
 	
   
-   public boolean Verify(String SignedDocument) throws E_PolicyEnforcementException {
+   public boolean Verify(String SignedDocument, String sUserProfile) throws E_PolicyEnforcementException {
       if (log.isDebugEnabled()) 
    		log.debug("PE::VerifySignature:: Startig process ...");
-      log.debug("PE::VerifySignature:: Got XML Document \n" + SignedDocument);
+      C_UserProfile myUserProfile = null;
+      boolean bCheckUserProfile = false;
+      if (sUserProfile!=null) {
+	      try {
+	      	myUserProfile=new C_UserProfile(sUserProfile);
+	      	bCheckUserProfile = true;
+	      } catch (Exception e) {
+	      	log.error("PE::VerifySignature:: Error createing user profile: " + e.toString());
+	      	
+	      }
+      } else if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: User Profile is null, simple verification will be done");
+	      
+      if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got XML Document \n" + SignedDocument);
       if (SignedDocument==null) throw new E_PolicyEnforcementException("PE::VerifySignature:: Ivalid String"); 
       javax.xml.parsers.DocumentBuilderFactory dbf =
       javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -161,6 +174,23 @@ public class VerifySignature {
 	            	boolean SigResult = signature.checkSignatureValue(cert);
 	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Result for Signature Nr."+(i+1)+" is: " +(SigResult ? "valid (good)"
                             : "invalid !!!!! (bad)"));
+	            	if (SigResult && (i==(Nodes-1))) {
+	            		if (log.isDebugEnabled()) log.debug("PE: VerifySignature::Valid Signature, validate the Signer begin...");
+	            		
+	            		X509Certificate certProf = (myUserProfile.getX509_CertChain())[0];
+	            		if (cert.equals(certProf)) {
+	            			// Certs are The same
+	            			if (log.isDebugEnabled()) log.debug("PE: VerifySignature::Valid Signature, validate the Signer Reult is: The Signture was made using the Login Certificate");
+	            		} else {
+	            			log.error("PE: VerifySignature::Error, The document was signed not by the autheticated person!!!");
+	            			result = false;
+	            		}
+	            		
+	            		
+	            		
+	            		if (log.isDebugEnabled()) log.debug("PE: VerifySignature::Valid Signature, validate the Signer ... end");
+	            		
+	            	}
 	               result = result && SigResult;
 	            } else {
 	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Did not find a Certificate, try to get the key info...");

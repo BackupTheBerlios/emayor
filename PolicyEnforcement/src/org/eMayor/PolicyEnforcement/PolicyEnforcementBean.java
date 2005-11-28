@@ -192,7 +192,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	public boolean F_VerifyXMLSignature(String xmlDocument, String sUserProfile)
 		throws E_PolicyEnforcementException {
 		
-		return MyVerifier.Verify(xmlDocument);
+		return MyVerifier.Verify(xmlDocument, sUserProfile);
 	}
 	/**
 	 * Business method
