@@ -97,6 +97,35 @@
        <variable name="dataCollectionOut" messageType="nsxml1:ResidenceCertifcationRequest_v10_DCResponseMessage"/>
       </variables>
       <sequence>
+       <scope name="setDate">
+        <sequence name="Sequence_37">
+         <assign name="prepareInput">
+          <copy>
+           <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
+           <to variable="requestDocument"/>
+          </copy>
+         </assign>
+         <bpelx:exec name="setDate" language="Java" version="1.4"><![CDATA[// Java code snippet goes here ...
+try {
+System.out.println("----------------START-----------------------");
+DecisionMaker decisionMaker = new DecisionMaker();
+String xmlDocument = (String)getVariableData("requestDocument");
+String result = decisionMaker.setRequestDate(xmlDocument);
+setVariableData("requestDocument",result);
+System.out.println("----------------DONE------------------------");
+}catch(Exception ex) {
+System.out.println("caught ex: "+ex.toString());
+}
+]]>
+         </bpelx:exec>
+         <assign name="prepareOutput">
+          <copy>
+           <from variable="requestDocument"/>
+           <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
+          </copy>
+         </assign>
+        </sequence>
+       </scope>
        <assign name="prepareInput">
         <copy>
          <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
@@ -207,8 +236,6 @@ setVariableData("servingMunicipality",result);
 result = decisionMaker.getLocalMunicipality();
 System.out.println("got xml local municipality: " + result);
 setVariableData("localMunicipality",result);
-result = decisionMaker.setRequestDate(xmlDocument);
-setVariableData("requestDocument",result);
 System.out.println("----------------DONE------------------------");
 }catch(Exception ex) {
 System.out.println("caught ex: "+ex.toString());
@@ -610,7 +637,7 @@ System.out.println("caught ex: "+ex.toString());
      </otherwise>
     </switch>
     <switch name="civilServantApproval-IfNoNegativeDocumentYet">
-     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') or (bpws:getVariableData('RequesterRole')  = 'Civil Servant' and bpws:getVariableData('wasForwarded') = 'NO')">
+     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT')">
       <bpelx:annotation>
        <bpelx:pattern>negative document - no result yet
        </bpelx:pattern>
@@ -1406,6 +1433,10 @@ System.out.println("---6---");
              <copy>
               <from variable="responseNegativeTranslationOut" part="payload" query="/ns7:FormatTransformation_v10Response/ns8:transformedDocument"/>
               <to variable="forwardIn" part="payload" query="/nsxml11:ForwardResponse_v10Request/nsxml0:reqestDocument"/>
+             </copy>
+             <copy>
+              <from expression="'closed'"/>
+              <to variable="forwardIn" part="payload" query="/nsxml11:ForwardResponse_v10Request/nsxml0:extraField1"/>
              </copy>
             </assign>
            </sequence>
