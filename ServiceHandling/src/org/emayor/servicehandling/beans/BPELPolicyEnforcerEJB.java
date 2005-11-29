@@ -128,11 +128,11 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 			userProfile = profile.getPEUserProfile().F_getUserProfileasString();
 			log.debug("got user profile: "+userProfile);
 		} catch (KernelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("caught ex: " + e.toString());
+			throw new BPELPolicyEnforcerException(e);
 		} catch (E_UserProfileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("caught ex: " + e.toString());
+			throw new BPELPolicyEnforcerException(e);
 		}
 		
 		
@@ -149,7 +149,7 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		}
 		log.debug("-> ... processing DONE!");
 		//return ret;
-		return true;
+		return ret;
 	}
 
 	

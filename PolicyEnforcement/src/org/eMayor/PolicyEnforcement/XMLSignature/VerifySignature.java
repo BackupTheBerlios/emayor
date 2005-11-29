@@ -103,7 +103,7 @@ public class VerifySignature {
      		NodeList myNodeList = XPathAPI.selectNodeList(doc,
      				"//ds:Signature", nscontext);
      		int Nodes = myNodeList.getLength();
-     		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Found " + Nodes + "Signatures");
+     		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Found " + Nodes + " Signatures");
      		if (Nodes<0) {
      			
      			Config config = Config.getInstance();
@@ -123,19 +123,19 @@ public class VerifySignature {
      			
      			if (Nodes>1){
 	     			for (int j=Nodes-1; j>=(i+1); j--) {
-	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removing" + j + "Signature");
+	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removing" + (j+1) + "Signature");
 	     				NodeList TempNodeList= docTemp.getElementsByTagName("ds:Signature");
 	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNodeList with " +TempNodeList.getLength()+" Items" );
 	             		
 	     				Node TempNode = TempNodeList.item(j);
-	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode " +j);
-	     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode " +j+" is null error");
+	     				if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode " +(j+1));
+	     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode " +(j+1)+" is null error");
 	             		Node MyTempRoot = TempNode.getParentNode();
 	             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Got the SignatureNode Root ");
 	     				if (TempNode==null) if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: the SignatureNode Root is null: error!!!!");
 	             		
 	             		MyTempRoot.removeChild(TempNode);
-	             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removed the SignatureNode " +j);
+	             		if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Removed the SignatureNode " +(j+1));
 	             		
 	     			}
      			}
@@ -153,7 +153,7 @@ public class VerifySignature {
      		 
      		 
      		 
-	         if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Get Signature number " + i+1);
+	         if (log.isDebugEnabled()) log.debug("PE::VerifySignature:: Get Signature number " + (i+1));
 	        
 	         XMLSignature signature = new XMLSignature(sigElement,
 	         		"");
