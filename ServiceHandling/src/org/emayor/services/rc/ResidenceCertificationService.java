@@ -62,13 +62,28 @@ public class ResidenceCertificationService extends AbstracteMayorService {
 		        InputSource inputSource = new InputSource(stringReader);
 		        Document document = builder.parse(inputSource);
 		        
+		        String[] nameSplit = profile.getUserName().split(" ");
+		        
 		        /* forename */
-		        String value = profile.getUserName().split(" ")[0];
+		        String value = null;
+		        if (nameSplit != null && nameSplit.length > 0) {
+		        	value =nameSplit[0];
+		        } else
+		        	value =profile.getUserName();
+		        
 		        if (value != null)
 		        	XPathAPI.selectSingleNode(document, "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameForename/text()").setNodeValue(value);
 		        
 		        /* surename */
-		        value = profile.getUserName().split(" ")[1];
+		        value = null;
+		        if (nameSplit != null && nameSplit.length > 1) {
+		        	value = new String();
+		        	for (int i=1; i<nameSplit.length;i++) {
+		        		value += nameSplit[i];
+		        	}
+		        } else
+		        	value =profile.getUserName();
+		        
 		        if (value != null)
 		        	XPathAPI.selectSingleNode(document, "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()").setNodeValue(value);
 		        
