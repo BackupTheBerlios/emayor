@@ -1,18 +1,18 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <graphics>
    <partnerlink_locations>
-      <partnerlink name="client" x="0" y="221" side="left"/>
-      <partnerlink name="localProcessingPL" x="0" y="3265" side="left"/>
-      <partnerlink name="userInteractionPL" x="0" y="20" side="left"/>
-      <partnerlink name="forwardPL" x="0" y="1628" side="left"/>
-      <partnerlink name="notificationPL" x="0" y="87" side="left"/>
-      <partnerlink name="policyenforcerPL" x="0" y="385" side="left"/>
-      <partnerlink name="translationPL" x="0" y="558" side="left"/>
-      <partnerlink name="negativeResponsePL" x="0" y="154" side="left"/>
-      <partnerlink name="dataCollectionPL" x="2509" y="1063" side="right"/>
-      <partnerlink name="civilServantPL" x="2509" y="20" side="right"/>
-      <partnerlink name="callbackMgrPartnerLink" x="2509" y="7188" side="right"/>
-      <partnerlink name="forwardResponsePL" x="2509" y="140" side="right"/>
+      <partnerlink name="client" x="0" y="397" side="left"/>
+      <partnerlink name="localProcessingPL" x="0" y="20" side="left"/>
+      <partnerlink name="userInteractionPL" x="0" y="6688" side="left"/>
+      <partnerlink name="forwardPL" x="0" y="87" side="left"/>
+      <partnerlink name="notificationPL" x="0" y="175" side="left"/>
+      <partnerlink name="policyenforcerPL" x="0" y="242" side="left"/>
+      <partnerlink name="translationPL" x="0" y="464" side="left"/>
+      <partnerlink name="negativeResponsePL" x="0" y="330" side="left"/>
+      <partnerlink name="dataCollectionPL" x="1384" y="20" side="right"/>
+      <partnerlink name="civilServantPL" x="1384" y="2731" side="right"/>
+      <partnerlink name="callbackMgrPartnerLink" x="1384" y="7233" side="right"/>
+      <partnerlink name="forwardResponsePL" x="1384" y="87" side="right"/>
    </partnerlink_locations>
    <diagram popupeditor="false" centerzoom="true" validateonload="true" confirmbeforedelete="true" SELECTED_PARTNERLINK_COLOR="0,0,153" SWIMLANE_BACKGROUND="255,255,225" SWIMLANE_DIVIDER_BACKGROUND="236,233,216" GRAPH_BACKGROUND="255,255,255" SELECTED_BORDER_BACKGROUND="204,255,204" CONNECTED_PARTNERLINK_COLOR="204,204,255" CONNECTABLE_PARTNERLINK_COLOR="0,0,255" UNCONNECTED_PARTNERLINK_COLOR="192,192,192"/>
 </graphics>

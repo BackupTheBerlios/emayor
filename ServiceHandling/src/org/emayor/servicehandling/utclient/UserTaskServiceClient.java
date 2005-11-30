@@ -7,6 +7,9 @@ import javax.ejb.RemoveException;
 
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.interfaces.UserTaskManagerLocal;
+import org.emayor.servicehandling.kernel.IUserProfile;
+import org.emayor.servicehandling.kernel.Kernel;
+import org.emayor.servicehandling.kernel.KernelException;
 import org.emayor.servicehandling.kernel.ServiceException;
 import org.emayor.servicehandling.kernel.Task;
 import org.emayor.servicehandling.kernel.Tasks;
@@ -25,6 +28,7 @@ public class UserTaskServiceClient extends UserTaskAbstractClient {
 
     public Task[] getMyTasks(String asid) throws UserTaskException {
         log.debug("-> start processing ...");
+        
         Task[] ret = new Task[0];
         try {
             ServiceLocator serviceLocator = ServiceLocator.getInstance();
@@ -34,6 +38,29 @@ public class UserTaskServiceClient extends UserTaskAbstractClient {
             ret = _tasks.getTasks();
             if (log.isDebugEnabled())
                 log.debug("got tasks from service - number = " + ret.length);
+            
+            Kernel kern;
+			try {
+				kern = Kernel.getInstance();
+			} catch (KernelException e) {
+				kern = null;
+			}
+            
+			for (int i=0; i<ret.length; i++) {
+	           	String uid = ret[i].getRequester();
+	           	IUserProfile profile;
+	           	String username;
+				try {
+					profile = kern.getUserProfile(uid);
+					username = profile.getPEUserProfile().getUserName();
+				} catch (Exception e) {
+					username = "N/A";
+				}
+				log.debug("task: "+ret[i].getTaskId()+", requester:"+username);
+				ret[i].setRequester(username);
+	        }
+            
+            
             utm.remove();
         } catch (ServiceLocatorException ex) {
             log.error("caught ex: " + ex.toString());

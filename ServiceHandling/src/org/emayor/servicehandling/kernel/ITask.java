@@ -102,4 +102,17 @@ public interface ITask extends Serializable {
      *            The ssid to set.
      */
     public void setSsid(String ssid);
+    
+    /**
+     * 
+     * @return Returns the requester´s name
+     */
+    public String getRequester();
+    
+    /**
+     * 
+     * @param name
+     * 				The name to set
+     */
+    public void setRequester(String name);
 }

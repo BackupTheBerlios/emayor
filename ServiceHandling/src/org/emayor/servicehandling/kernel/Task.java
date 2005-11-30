@@ -43,6 +43,8 @@ public class Task implements ITask {
 	private String documentResponse;
 
 	private String documentResponseDigSig;
+	
+	private String requester;
 
 	/**
 	 * @return Returns the incoming.
@@ -245,4 +247,16 @@ public class Task implements ITask {
 	public void setSsid(String ssid) {
 		this.ssid = ssid;
 	}
+
+	/**
+	 * 
+	 */
+	public String getRequester() {
+		return this.requester;
+	}
+
+	public void setRequester(String name) {
+		this.requester = name;
+	}
+	
 }

@@ -38,6 +38,7 @@
   <variable name="g_remoteServingPassed" type="xsd:string"/>
   <variable name="RequesterRole" type="xsd:string"/>
   <variable name="negativeDocumentAvailable" type="xsd:string"/>
+  <variable name="requesterUID" type="xsd:string"/>
  </variables><!-- ================================================================= --><!-- ORCHESTRATION LOGIC                                               --><!-- Set of activities coordinating the flow of messages across the    --><!-- services integrated within this business process                  --><!-- ================================================================= -->
  <sequence name="main"><!-- Receive input from requestor. 
              Note: This maps to operation defined in ResidenceCertifcationRequest_v10.wsdl 
@@ -47,6 +48,10 @@
              using WS-addressing.
              -->
   <assign name="GlobalDataPreparation">
+   <copy>
+    <from variable="input" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:uid"/>
+    <to variable="requesterUID"/>
+   </copy>
    <copy>
     <from variable="input" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:forwarded"/>
     <to variable="wasForwarded"/>
@@ -323,6 +328,10 @@ System.out.println("caught ex: "+ex.toString());
          <copy>
           <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
           <to variable="civilServantIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request"/>
+         </copy>
+         <copy>
+          <from variable="requesterUID"/>
+          <to variable="civilServantIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField4"/>
          </copy>
         </assign>
         <invoke name="invoke-3" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10" operation="initiate" inputVariable="civilServantIn"/>
@@ -664,6 +673,10 @@ System.out.println("caught ex: "+ex.toString());
           <from expression="'open'"/>
           <to variable="cvInteractionIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:status"/>
          </copy>
+         <copy>
+          <from variable="requesterUID"/>
+          <to variable="cvInteractionIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField4"/>
+         </copy>
         </assign>
         <invoke name="invoke-2" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10" operation="initiate" inputVariable="cvInteractionIn"/>
         <receive createInstance="no" name="receive-1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10Callback" operation="onResult" variable="cvInteractionOut"/>
@@ -849,6 +862,10 @@ System.out.println("caught ex: "+ex.toString());
             <copy>
              <from variable="CV_NEGATIVE_DOCUMENT"/>
              <to variable="g_currentDocumentType"/>
+            </copy>
+            <copy>
+             <from variable="requesterUID"/>
+             <to variable="CVSignNegativeIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField4"/>
             </copy>
            </assign>
            <invoke name="Invoke_1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10" operation="initiate" inputVariable="CVSignNegativeIn"/>
@@ -1222,6 +1239,10 @@ System.out.println("---6---");]]>
              <from variable="input" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:uid"/>
              <to variable="userInteractionIn" part="payload" query="/nsxml7:UserInteraction_v10Request/nsxml0:uid"/>
             </copy>
+            <copy>
+             <from variable="requesterUID"/>
+             <to variable="userInteractionIn" part="payload" query="/nsxml7:UserInteraction_v10Request/nsxml0:extraField4"/>
+            </copy>
            </assign>
           </sequence>
          </case>
@@ -1321,6 +1342,10 @@ System.out.println("---6---");
             <copy>
              <from variable="input" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:uid"/>
              <to variable="userInteractionIn" part="payload" query="/nsxml7:UserInteraction_v10Request/nsxml0:uid"/>
+            </copy>
+            <copy>
+             <from variable="requesterUID"/>
+             <to variable="userInteractionIn" part="payload" query="/nsxml7:UserInteraction_v10Request/nsxml0:extraField4"/>
             </copy>
            </assign>
           </sequence>

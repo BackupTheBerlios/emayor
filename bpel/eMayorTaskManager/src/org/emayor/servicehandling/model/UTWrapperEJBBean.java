@@ -231,6 +231,7 @@ public class UTWrapperEJBBean implements SessionBean
       ret.setIncoming(input.getCreationDate());
       ret.setDeadline(input.getExpirationDate());
       ret.setSsid(input.getTitle());
+      ret.setRequester(input.getCreator());
      
       log.info("split attachment BEGIN....");
       ret = splitAttachment(ret,input);
