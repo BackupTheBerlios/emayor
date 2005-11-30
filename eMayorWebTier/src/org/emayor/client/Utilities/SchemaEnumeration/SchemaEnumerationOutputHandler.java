@@ -158,7 +158,12 @@ public class SchemaEnumerationOutputHandler extends DefaultHandler
       // output the schema information:
       ElementPSVI schemaElement =  this.postSchemaValidationProvider.getElementPSVI();
       this.processSchemaEnumerationInformation( schemaElement, attrs );
-                                 
+       
+      // output other simple types, which can be mapped
+      // to custom eMayorForm UI elements:
+      this.processSimpleTypesInformation( schemaElement, attrs );
+      
+            
       //System.out.println("\n---> Call processValidationResultFor from startElement()");
     
     }
@@ -188,33 +193,18 @@ public class SchemaEnumerationOutputHandler extends DefaultHandler
       startNewLine();
       System.out.print("[Enumerations: ");
       XSTypeDefinition typedef = schemaElement.getTypeDefinition();
-      this.processPSVITypeDefinition(typedef);
+      if( typedef != null )
+      {
+        if (typedef.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE) 
+        {
+          this.processPSVIFacets( (XSSimpleTypeDefinition)typedef );
+        }
+      }
       System.out.println(" ]");
     }
   }
 
 
-
-
-
-
-
-    private void processPSVITypeDefinition(XSTypeDefinition type) throws SAXException 
-    {
-      if (type == null) return;
-      if (type.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE) 
-      {
-          processPSVISimpleTypeDefinition((XSSimpleTypeDefinition)type);
-      }
-    }
-
-
-
-    private void processPSVISimpleTypeDefinition(XSSimpleTypeDefinition type) throws SAXException
-    {
-      if (type == null) return;
-      processPSVIFacets( type );
-    } // processPSVISimpleTypeDefinition
 
           
 
@@ -288,6 +278,35 @@ public class SchemaEnumerationOutputHandler extends DefaultHandler
 
          
 
+    
+  /**
+   *  Output simple types for the current entry.
+   */
+   private void processSimpleTypesInformation( final ElementPSVI schemaElement,Attributes attributes ) throws SAXException
+   {
+     if( schemaElement != null )
+     {
+       startNewLine();
+       System.out.print("[Simple type: ");
+       XSTypeDefinition typedef = schemaElement.getTypeDefinition();
+       if( typedef != null )
+       {
+         if (typedef.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE) 
+         {
+            System.out.print( typedef.getName() );
+            
+            String currentXPath = this.getCurrentXPathTrackerContentForModel();
+            this.schemaEnumerationMapCreator.addSimpleTypeEntry( currentXPath,
+                                                                 typedef.getName() );
+         }
+       }
+       System.out.println(" ]");
+     }
+   }
+   
+   
+   
+   
                                                                                                                                
   public void endElement( String namespaceURI, 
                           String sName, // simple name                                                              

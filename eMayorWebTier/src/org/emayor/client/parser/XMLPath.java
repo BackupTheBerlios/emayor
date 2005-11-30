@@ -36,9 +36,9 @@ public class XMLPath
         // error feedback:
         if( pathElement == null )
         {
-          String msg1 = "Error for path element of path: " + path;
-          String msg2 = "This node couldn't be found by XMLPath.GetNode()";
-          String msg3 = "Please correct the associated eMayorForm template.";
+          String msg1 = "Error for path element: " + path;
+          String msg2 = "There is no node with this path.";
+          String msg3 = "Please correct the e-document, or its associated eMayorForm template.";
           PrintError(msg1,msg2);
           // This exeption is propagated back to the main applet,
           // which then will use the message of this exception
@@ -52,8 +52,8 @@ public class XMLPath
         if( node == null )
         {
           String msg1 = "Error for node with path: " + path;
-          String msg2 = "This node couldn't be found by XMLPath.GetNode()";
-          String msg3 = "Please correct the associated eMayorForm template.";
+          String msg2 = "There is no node with this path.";
+          String msg3 = "Please correct the e-document, or its associated eMayorForm template.";
           PrintError(msg1,msg2);
           // This exeption is propagated back to the main applet,
           // which then will use the message of this exception

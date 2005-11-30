@@ -15,12 +15,100 @@
          <nodeClass>oracle.tip.tools.ide.pm.wizard.BPELXMLNode</nodeClass>
       </Item>
       <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/rcs/forward/DecisionMaker.java"/>
+         <nodeClass>oracle.jdeveloper.model.JavaSourceNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="xsd/eMayorServiceRequest.xsd"/>
+         <nodeClass>oracle.jdevimpl.xml.schema.XmlSchemaNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/MessageUtils.java"/>
+         <nodeClass>oracle.jdeveloper.model.JavaSourceNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/rcs/forward/municipality.properties"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/rcs/forward/NegativeMeldebescheinigungMeldung.xml"/>
+         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/rcs/forward/NegativeResponseResidenceCertificationRequest.xml"/>
+         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCFailed_de_f.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCFailed_de_m.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCFailed_de.map"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCFailed_en_f.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCFailed_en_m.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCFailed_en.map"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCRequest_de_f.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCRequest_de_m.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCRequest_de.map"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCRequest_en_f.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCRequest_en_m.msg"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/RCRequest_en.map"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
          <URL path="ResidenceCertifcationRequest_v10.bpel"/>
          <nodeClass>oracle.tip.tools.ide.pm.PMNode</nodeClass>
       </Item>
       <Item class="oracle.ide.model.Reference">
          <URL path="ResidenceCertifcationRequest_v10.wsdl"/>
          <nodeClass>oracle.tip.tools.ide.common.utils.BPELWSDLNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/rcs/forward/RespuestaNegativaCertificadoInscripcionPadronal.xml"/>
+         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/rcs/forward/RispostaNegativaCertificatoDiResidenza.xml"/>
+         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/rcs/forward/RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung.xml"/>
+         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
+      </Item>
+      <Item class="oracle.ide.model.Reference">
+         <URL path="src/org/emayor/bpel/tools/utils.properties"/>
+         <nodeClass>oracle.ide.model.DeployableTextNode</nodeClass>
       </Item>
    </listOfChildren>
    <ownerMap/>

@@ -91,7 +91,7 @@ public class TextResourceKeys
  public static final String Status_RemarksAboutEmailInfo = "Repository.Status_RemarksAboutEmailInfo";
  
  
- 
+ public static final String Name_Requester = "Name.Requester"; 
  
  // login
  public static final String LoginInformation = "Login.Information";

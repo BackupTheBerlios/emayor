@@ -13,8 +13,7 @@ import org.emayor.client.controlers.*;
 import org.emayor.client.Utilities.DataUtilities;
 import org.emayor.client.Utilities.SchemaEnumeration.SchemaEnumerationMapCreator;
 import org.emayor.client.Utilities.SchemaEnumeration.SchemaEnumerationMap;
-import org.emayor.client.Utilities.gui.JSenseButton;
-import org.emayor.client.Utilities.gui.StringComboBoxEditor;
+import org.emayor.client.Utilities.gui.*;
 import org.emayor.client.controlers.SchemaValidator;
 
 
@@ -57,10 +56,14 @@ public class GUIBuilder
   private SchemaValidator schemaValidator = null;
   private SchemaEnumerationMap schemaEnumerationMap = null;
   
+  private LanguageProperties languageProperties;
+  
   private EMayorDocumentParser eMayorDocumentParser;
   
   private EnumerationProperties enumerationProperties;
 
+  private Hashtable simpleTypesTable = null;
+  
   
   
   public GUIBuilder( final XML_Node _modelNode,
@@ -74,6 +77,7 @@ public class GUIBuilder
     this.modelNode = _modelNode;
     this.viewNode = _viewNode;
     this.mainApplet = _mainApplet;
+    this.languageProperties = _languageProperties;
     this.enumerationProperties = _enumerationProperties;
     this.language = _language;
     this.eMayorDocumentParser = _eMayorDocumentParser;
@@ -141,6 +145,8 @@ public class GUIBuilder
     {
       SchemaEnumerationMapCreator c = new SchemaEnumerationMapCreator();
       this.schemaEnumerationMap = c.createSchemaEnumerationMap( this.modelNode, this.eMayorDocumentParser );
+      // get the list of all xpaths and associated simple types:
+      this.simpleTypesTable = c.getSimpleTypeTable();
     }
     catch( Exception ex )
     {
@@ -158,7 +164,18 @@ public class GUIBuilder
     {
       this.schemaEnumerationMap.printMap();
     }
-    
+    if( this.simpleTypesTable != null )
+    {
+      String tableContent = this.simpleTypesTable.toString();
+      tableContent = tableContent.replaceAll(", ",",\n");
+      System.out.println(">>");
+      System.out.println(">> SimpleTypesTable content:");
+      System.out.println(">>");
+      System.out.println(tableContent);
+      System.out.println(">>");
+      System.out.println(">>");
+      System.out.println(">>");
+    }
     // build the UI - the method uses recursion:
     this.buildUI( viewPanel, this.viewNode );
 
@@ -546,13 +563,17 @@ public class GUIBuilder
     System.out.println("buildTextInputUI called.");
     
     String isEditable_Parameter = textInputNode.getAttributeValueForName(Attribute_IsEditable);
-    boolean isReadOnly = false;
+    boolean isEditable = true;
     if( ( isEditable_Parameter != null ) && (isEditable_Parameter.equals("false") ) )
     {
-      isReadOnly = true;
+      isEditable = false;
     }
+    System.out.println("buildTextInputUI: isEditable= " + isEditable );
+
+    // Check for enumeration maps:
     SchemaEnumerationMapValue enumerationMapValue = null;
     final String[] modelPaths = textInputNode.getAttributeValuesForNameStartingWith(Attribute_ModelPath);    
+    boolean isDateType = false;
     if( modelPaths != null )
     {
       String firstPath = modelPaths[0];
@@ -563,32 +584,63 @@ public class GUIBuilder
       {
         // See if we get an enumeration for this one from the xsd schemas:
         enumerationMapValue = this.schemaEnumerationMap.getEnumerationForNodePath(firstPath);
-
-        boolean enumFound = ( enumerationMapValue != null );
-        System.out.println("buildTextInputUI enumerationmapvalue for " + firstPath + "  found=  " +
-                            enumFound );
-      
+        //boolean enumFound = ( enumerationMapValue != null );
+        //System.out.println("buildTextInputUI enumerationmapvalue for " + firstPath + "  found=  " +
+        //                    enumFound );
       }
-    }
-    System.out.println("buildTextInputUI: isReadOnly= " + isReadOnly );
+      
+      // Check for simple type association of this node:
+      // 1. Check for DateType:
+      if( firstPath != null )
+      {
+        String simpleType = this.getSimpleTypeForPath(firstPath);
+        if( simpleType != null )
+        {
+          isDateType = ( simpleType.equals("DateType") );
+        }
+      }
+      
+    } // if nodelPaths are defined
 
-    if( ( enumerationMapValue == null ) || (isReadOnly) )
+       
+    // Now decide on the UI representation:
+    // drop down values: only make sense, if it's not readonly:
+    if( ( enumerationMapValue != null ) && (isEditable) )  // enumeration present: add drop down list
     {
-      System.out.println("buildTextInputUI: making JTextField");    
-      // No enumeration constraints -> use a simple JTextField:
-      this.buildJTextFieldUI(parentPanel,textInputNode);
-    }
-    else
-    { 
       System.out.println("buildTextInputUI: making JComboBox");      
       // We have an editable entry with enumeration constraints, 
       // so use a JComboBox instead of a simple textfield:
-      this.buildEditableJComboBoxUI( parentPanel,textInputNode,enumerationMapValue );    
+      this.buildEditableJComboBoxUI( parentPanel,textInputNode,enumerationMapValue );          
+    }
+    else if( isDateType ) // ok for editable and readonly
+    {
+      System.out.println("buildTextInputUI: making date-Type JTextFields");    
+      // No enumeration constraints -> use a simple JTextField:
+      this.buildDateTypeInputUI(parentPanel,textInputNode);          
+    }
+    else // else the standard case: make an editable JTextField
+    {
+      System.out.println("buildTextInputUI: making editable JTextField");    
+      // No enumeration constraints -> use a simple JTextField:
+      this.buildJTextFieldUI(parentPanel,textInputNode);    
     }
   } // buildTextInputUI
 
 
 
+  
+  
+  
+  private String getSimpleTypeForPath( final String path )
+  {
+    String simpleType = (String)this.simpleTypesTable.get(path);
+    
+    System.out.println(">> getSimpleTypeForNode() for documentPath= " + 
+                       path +
+                       " returns " + simpleType );
+    
+    return simpleType;
+  }
 
   
   
@@ -882,6 +934,176 @@ public class GUIBuilder
 
 
 
+  
+  
+  
+  
+  
+    
+  private void buildDateTypeInputUI( final JPanel parentPanel,
+                                     final XML_Node dateInputNode ) throws Exception
+  {
+    String isEditable_Parameter = dateInputNode.getAttributeValueForName(Attribute_IsEditable);
+
+    boolean isEditable = true;
+    if( ( isEditable_Parameter != null ) && (isEditable_Parameter.equals("false") ) )
+    {
+      isEditable = false;
+    }
+    if( isEditable )
+    {
+      this.buildEditableDateTypeInputUI( parentPanel,dateInputNode );    
+    }
+    else
+    {
+      this.buildReadonlyDateTypeInputUI( parentPanel,dateInputNode );        
+    }
+  }
+
+  
+  
+    
+  private void buildEditableDateTypeInputUI( final JPanel parentPanel,
+                                             final XML_Node dateInputNode ) throws Exception
+  {
+    String addParameter = dateInputNode.getAttributeValueForName(Attribute_AddParameter);
+    String columnsParameter = dateInputNode.getAttributeValueForName(Attribute_Columns);
+    int columns = this.getIntegerFromParameter(columnsParameter);
+
+    String alignmentX_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentX);
+    String alignmentY_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentY);
+
+    // A value is optional, if it's not connected with the model.
+    // If one or multiple modelPaths are set, the value will not be used.
+    String value = dateInputNode.getTagValue();
+    final String[] modelPaths = dateInputNode.getAttributeValuesForNameStartingWith(Attribute_ModelPath);    
+
+    // Create it / we need the text for year,month and day in the
+    //             specific language for that:
+    String yearText  = this.languageProperties.getTextFromLanguageResource("ShortCut.Year");
+    String monthText = this.languageProperties.getTextFromLanguageResource("ShortCut.Month");
+    String dayText   = this.languageProperties.getTextFromLanguageResource("ShortCut.Day");
+   
+    final EditableDateTypeInputComponent dateTypeInputComponent = 
+      new EditableDateTypeInputComponent( yearText,monthText,dayText );    
+    // and the associated label for the display of schema validation error informations:
+    // Must be wide enough, because geometry isn't changed after creation.
+    final JLabel schemaValidationInfoLabel = new JLabel("                                                ");
+    schemaValidationInfoLabel.setOpaque(false); // == transparent background
+    if( modelPaths != null )
+    {
+      // The value is connected with a model xml value, get it.
+      // If there are multiple, take the first one:
+      XML_Node modelValueNode = XMLPath.GetNode( modelPaths[0],this.modelNode );      
+      if( modelValueNode != null )
+      {
+        value = modelValueNode.getTagValue();
+        // Connect it with the model:
+        DocumentListener docListener = new DocumentListener()
+         {
+           public void insertUpdate(DocumentEvent e){ transferTextToModel(); }
+           public void removeUpdate(DocumentEvent e){ transferTextToModel(); }
+           public void changedUpdate(DocumentEvent e){ transferTextToModel(); }
+           private void transferTextToModel()
+           {
+             try
+             {
+               for( int i=0; i < modelPaths.length; i++ )
+               {
+                 XML_Node modelFieldNode = XMLPath.GetNode(modelPaths[i],modelNode);
+                 modelFieldNode.setTagValue( dateTypeInputComponent.getText() );
+               }
+               // Inform the validator:
+               schemaValidator.fireContentHasChanged();
+             }
+             catch( Exception e )
+             {
+               e.printStackTrace();
+             }
+           }
+         };
+         dateTypeInputComponent.addDocumentListener( docListener );
+         // Inform the validator:
+         this.schemaValidator.addEntry( dateTypeInputComponent,schemaValidationInfoLabel,modelValueNode );         
+      }
+      else
+      {
+        String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
+               " is not valid. Such an element does not exist in the xml model node.";
+        System.out.println(msg);
+        value = "Invalid reference.";
+        dateTypeInputComponent.setBackground( new Color(255,100,100) );
+      }       
+    }
+    if( columns > 0 ) dateTypeInputComponent.setColumns( columns );
+    if( value != null ) dateTypeInputComponent.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
+    // Add the jtextfield and the schema validation info label :
+    int hGap = UIManager.getFont("Label.font").getSize();
+    JPanel textInputPanel = new JPanel( new BorderLayout(hGap,0) );
+    textInputPanel.setOpaque(false);
+    textInputPanel.add(dateTypeInputComponent, BorderLayout.CENTER );
+    textInputPanel.add(schemaValidationInfoLabel, BorderLayout.EAST );
+    this.addComponent(parentPanel,textInputPanel,addParameter,alignmentX_Parameter,alignmentY_Parameter);
+  } // buildEditableDateTypeInputUI
+  
+  
+  
+
+  
+  
+  private void buildReadonlyDateTypeInputUI( final JPanel parentPanel,
+                                             final XML_Node dateInputNode ) throws Exception
+  {
+    String addParameter = dateInputNode.getAttributeValueForName(Attribute_AddParameter);
+    String columnsParameter = dateInputNode.getAttributeValueForName(Attribute_Columns);
+    String backgroundParameter = dateInputNode.getAttributeValueForName(Attribute_Background);
+    String borderTypeParameter = dateInputNode.getAttributeValueForName(Attribute_BorderType);
+    String horizontalBorderSizeParameter = dateInputNode.getAttributeValueForName(Attribute_HorizontalBorderSize);
+    String verticalBorderSizeParameter = dateInputNode.getAttributeValueForName(Attribute_VerticalBorderSize);
+
+    String alignmentX_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentX);
+    String alignmentY_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentY);
+        
+    // A value is optional, if it's not connected with the model.
+    // If a modelPath is set, the value will not be used.
+    String value = dateInputNode.getTagValue();
+    int columns = this.getIntegerFromParameter(columnsParameter);    
+    String modelPath = dateInputNode.getAttributeValueForName(Attribute_ModelPath);
+    if( modelPath != null )
+    {
+      // The value is connected with a model xml value, get it:
+      XML_Node modelValueNode = XMLPath.GetNode(modelPath,this.modelNode);
+      if( modelValueNode != null )
+      {
+        value = modelValueNode.getTagValue();
+        //System.out.println("buildJLabellUI: ..overwritten by modelpath value= " + value );
+      }
+      else
+      {
+        value = "[undefined]";
+        System.out.println("*** buildJLabellUI: a JLabel model reference points to a not existing address. ");
+        System.out.println("*** buildJLabellUI: The reference is: " + modelPath );      
+      }
+    
+    }
+    // Create it:
+    ReadonlyDateTypeComponent roDateComponent = new ReadonlyDateTypeComponent();    
+    this.setGraphicalAttributes( roDateComponent,backgroundParameter,
+                                 borderTypeParameter,
+                                 horizontalBorderSizeParameter,verticalBorderSizeParameter );
+    if( value != null ) roDateComponent.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
+    if( columns > 0 )
+    {
+      //System.out.println("buildJLabellUI: Add jLabel with number of columns set to " + columns );
+      int fontSize = UIManager.getFont("Label.font").getSize();      
+      int labelWidth = fontSize*columns;
+      int labelHeight = (5*fontSize)/4;
+      roDateComponent.setPreferredSize( new Dimension(labelWidth,labelHeight) );
+    } // if columns    
+    // Add it:
+    this.addComponent( parentPanel,roDateComponent,addParameter,alignmentX_Parameter,alignmentY_Parameter);
+  } // buildReadonlyDateTypeInputUI
+  
   
   
   

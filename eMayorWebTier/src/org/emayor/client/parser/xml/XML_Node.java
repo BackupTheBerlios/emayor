@@ -14,7 +14,8 @@ public class XML_Node
   // where the first attribute declaration starts
   private String textAfterTagName = "";
   
-  private String tagValue = null;
+  private String tagValue = ""; // no content == empty String
+  
   private Vector attributes = null;  // -> memory,resource and time consumption:
                                      //    Only instanciate, if at least
                                      //    one attribute is added, otherwise null.
@@ -157,6 +158,7 @@ public class XML_Node
   
   public String getTagValue()
   {
+    //System.out.println("QQQQQQQQQQQ getTagValue() returns: " + this.tagValue );
     return this.tagValue;
   }
 

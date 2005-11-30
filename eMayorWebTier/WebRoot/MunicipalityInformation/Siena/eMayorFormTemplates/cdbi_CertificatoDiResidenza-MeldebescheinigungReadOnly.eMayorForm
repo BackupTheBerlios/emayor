@@ -29,7 +29,7 @@
                 AlignmentX="0">
           <JLabel Background="242,236,224">$Form.ServingMunicipalityDetails$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:ComuneDiEmissione"
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <!-- Title Label: -->
@@ -41,16 +41,16 @@
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Forename$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Forename$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:NomeCittadino/aapd:CitizenNameForename" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Surname$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Surname$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:NomeCittadino/aapd:CitizenNameSurname" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 <!-- END   Entries for the citizen's name -->
@@ -59,23 +59,23 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.PreferredLanguages$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.PreferredLanguages$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:LinguePreferite" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.EmailAddress$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.EmailAddress$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:DettagliContatto/aapd:Email/aapd:EmailAddress" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Sex$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:SessoCittadino" 
                       Columns="6" Editable="false"></JTextField>
         </JPanel>
@@ -84,37 +84,37 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.BirthDate$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:DettagliNascitaCittadino/edi:DataDiNascita/aapd:BirthDate" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.VerifiedBy$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.VerifiedBy$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:DettagliNascitaCittadino/edi:DataDiNascita/aapd:VerifiedBy" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthActNumber$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.BirthActNumber$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:DettagliNascitaCittadino/edi:NumeroAttoNascita" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
         
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.RequestDate$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.RequestDate$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/edi:DataEmissione" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Observations$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Observations$</JLabel>
           <JTextArea ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/edi:Osservazioni" 
                      Rows="4" Columns="28" Editable="false"></JTextArea>
         </JPanel>
@@ -122,9 +122,9 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.ValidUntil$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.ValidUntil$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/edi:Termini" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
@@ -132,77 +132,77 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.StreetName$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.StreetName$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:NomeVia" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BuildingNumber$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.BuildingNumber$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:NumeroCivico" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.CityName$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.CityName$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:NomeCittà" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Name$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Name$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:Nazione/cbc:Name" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Postbox$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Postbox$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:CasellaPostale" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.PostalZone$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.PostalZone$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:CAP" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Room$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Room$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:Stanza" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Floor$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Floor$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:Piano" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.District$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.District$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:Provincia" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Nucleus$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Nucleus$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:Quartiere" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.StreetQualifier$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.StreetQualifier$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:IdentificativoVia" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Section$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Section$</JLabel>
           <JTextField ModelPath="Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:Indirizzo/edi:Sezione" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 

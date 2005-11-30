@@ -39,37 +39,37 @@
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">doc0</JLabel>
+          <JLabel Columns="18" Background="242,236,224">doc0</JLabel>
           <JTextField ModelPath="Model/taskRequest/doc0" 
-                      Columns="14"></JTextField>
+                      Columns="18"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">doc1</JLabel>
+          <JLabel Columns="18" Background="242,236,224">doc1</JLabel>
           <JTextField ModelPath="Model/taskRequest/doc1" 
-                      Columns="14"></JTextField>
+                      Columns="18"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">doc2</JLabel>
+          <JLabel Columns="18" Background="242,236,224">doc2</JLabel>
           <JTextField ModelPath="Model/taskRequest/doc2" 
-                      Columns="14"></JTextField>
+                      Columns="18"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">doc3</JLabel>
+          <JLabel Columns="18" Background="242,236,224">doc3</JLabel>
           <JTextField ModelPath="Model/taskRequest/doc3" 
-                      Columns="14"></JTextField>
+                      Columns="18"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">doc4</JLabel>
+          <JLabel Columns="18" Background="242,236,224">doc4</JLabel>
           <JTextField ModelPath="Model/taskRequest/doc4" 
-                      Columns="14"></JTextField>
+                      Columns="18"></JTextField>
         </JPanel>
 
 

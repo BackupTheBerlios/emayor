@@ -145,7 +145,16 @@ public class Repository extends ActionForm
       status  = serviceForm.getTextFromResource(TextResourceKeys.Status_ProblemsHaveArised);
       remarks = serviceForm.getTextFromResource(TextResourceKeys.Status_RemarksAboutEmailInfo);
     }
-        
+
+    // Insert the requester name at the beginning of the remarks:
+    String requesterName = task.getRequester();
+    if( requesterName != null )
+    {
+      remarks = serviceForm.getTextFromResource(TextResourceKeys.Name_Requester) +
+                " : " + requesterName + "   " + remarks;
+
+    }
+    
     Calendar startTime = task.getIncoming();
     // enddate:
     Calendar endTime = task.getDeadline();

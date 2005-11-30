@@ -277,6 +277,7 @@ public class LanguageProperties implements Serializable
     	line = line.replaceAll("&ugrave;","" + '\u00F9');
 
     	line = line.replaceAll("&ccedil;","" + '\u00E7');
+        line = line.replaceAll("&ntilde;","" + '\u00F1');
 
     	line = line.replaceAll("&auml;","" + '\u00E4');
     	line = line.replaceAll("&ouml;","" + '\u00F6');

@@ -268,7 +268,18 @@ public class ServiceAction extends DispatchAction
   		                                        ServiceForm serviceForm )
   {
   	boolean success = true;
-  	try
+
+    System.out.println("*** ");
+    System.out.println("*** createEMayorFormFromTemplate()");
+    System.out.println("*** raw eDocument is: ");
+    System.out.println(raw_eDocument);
+    System.out.println("*** ");
+    System.out.println("*** ");
+    System.out.println("*** ");
+    System.out.println("*** ");
+    System.out.println("*** ");
+  
+    try
 	{
       StringBuffer eDocument = new StringBuffer(raw_eDocument);       
       // Step one: Find out the name of the associated eMayorForms template:
@@ -324,17 +335,28 @@ public class ServiceAction extends DispatchAction
         }
         else
         {
+
+          System.out.println("*** ");
+          System.out.println("*** eMayorFormsTemplate with path: " + templatePath );
+          System.out.println("*** has zero length.");
+          System.out.println("*** ");
+
           // If loadEMayorFormsTemplate() has worked w.o. exception, but the template is empty,
           // use an error form for informing the user:
           String title = serviceForm.getTextFromResource(TextResourceKeys.ServiceFailureInformation1);
           String message = serviceForm.getTextFromResource(TextResourceKeys.ServiceFailureInformation2) +
-                           "\n\nThe eMayorForm template file is empty.";
+                           "\n\nThe eMayorForm template file is empty (zero length).";
           String errorForm = this.createErrorForm(title,message);
           completeForm.append(errorForm);
         }
       }
       catch( Exception e )
       {
+
+        System.out.println("*** ");
+        System.out.println("*** The template file does not exist. Use an error form for informing the user:");
+        System.out.println("*** ");
+      
         // The template file does not exist. Use an error form for informing the user:
         String title = serviceForm.getTextFromResource(TextResourceKeys.ServiceFailureInformation1);
         String message = serviceForm.getTextFromResource(TextResourceKeys.ServiceFailureInformation2) +
@@ -635,12 +657,26 @@ public class ServiceAction extends DispatchAction
           // Second parameter = namesuffix (empty or ReadOnly) here: ReadOnly.
           // -> loads template with name <eDocument root tag>ReadOnly.eMayorForm
           
+          // default decision:
           String nameSuffix = ( role.equalsIgnoreCase("citizen") ) ? "ReadOnly" : "CivilServant";
+          // plus for civil servant role, use the status flag from the ServiceHandling:
+          if( !role.equalsIgnoreCase("citizen") ) // is a civil servant
+          {
+            if( task.getStatus().equals("closed") )
+            {
+              nameSuffix = "ReadOnly"; // Take the readonly (ePF) eMayorForms template
+            }
+          }
+          System.out.println(">+> Selected emayorForms role for:");
+          System.out.println(">+> user role= " + role );
+          System.out.println(">+> SH task status= " + task.getStatus() );
+          System.out.println(">+> is: " + nameSuffix );
           
+          // The code above should make the following hack unnecessary:
           // -----------------------------------------------------------------------------------
           // !!!! TEMPORARY !!!!
           // Here comes the temporary hack for a civil servant acting as local delegate
-          // for sergiu, Aachen:
+          // for Sergiu, Aachen:
           // If the user role is CivilServant, we decide here, if it is acting as
           // local delegate for a citizen:
           // CS delegate <-> if the document is not the request document and if
@@ -648,21 +684,21 @@ public class ServiceAction extends DispatchAction
           // Falls CS als delegate operiert, setze ich hier einfach "ReadOnly" postfix
           // fuer die eMayorForm templates.
           // Also:
-          if( !role.equalsIgnoreCase("citizen") ) // is a civil servant
-          {
-            // Make sure, the document is not a request document:
-            if( xmlDocument.indexOf("<ResidenceCertificationRequestDocument ") < 0 )
-            {
-              // It is not a ResidenceCertificationRequestDocument document, so continue
-              // Check if it already contains a valid signature:
-              if( xmlDocument.indexOf("<ds:CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"/>") > 0 )
-              {
-                // It already contains a signature made by the AET xmlsigner.
-                // so only treat this, if the CS was a citizen - set citizen role here:
-                nameSuffix = "ReadOnly";
-              } // else nothing        
-            } // else nothing     
-          } // delegate hack      
+          //if( !role.equalsIgnoreCase("citizen") ) // is a civil servant
+          //{
+          //  // Make sure, the document is not a request document:
+          //  if( xmlDocument.indexOf("<ResidenceCertificationRequestDocument ") < 0 )
+          //  {
+          //    // It is not a ResidenceCertificationRequestDocument document, so continue
+          //    // Check if it already contains a valid signature:
+          //    if( xmlDocument.indexOf("<ds:CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"/>") > 0 )
+          //    {
+          //      // It already contains a signature made by the AET xmlsigner.
+          //      // so only treat this, if the CS was a citizen - set citizen role here:
+          //      nameSuffix = "ReadOnly";
+          //    } // else nothing        
+          //  } // else nothing     
+          //} // delegate hack      
           // end of temporary hack
           // -----------------------------------------------------------------------------------
           
@@ -670,13 +706,12 @@ public class ServiceAction extends DispatchAction
           // Create an store the eMayorForm template, depending from the nameSuffix set above:
           if( this.createEMayorFormFromTemplate( xmlDocument,nameSuffix,serviceForm ) )
           {
-          System.out.println("The e-document has been packed into the associated eMayorForm template.");
+            System.out.println("The e-document has been packed into the associated eMayorForm template.");
           }
           else
           {
-          System.out.println("*** The e-document COULD NOT BE packed into the associated eMayorForm template.");
-          }
-                
+            System.out.println("*** The e-document COULD NOT BE packed into the associated eMayorForm template.");
+          }                
         }
         catch( Exception e)
         {
@@ -851,18 +886,21 @@ public class ServiceAction extends DispatchAction
          //TextFrame f = new TextFrame("XML received from the ServiceHandling in getIsRequestResponseAvailable()",
          //                            task.getXMLDocument() );
          
-         /* Debug info:
+         /* Debug info: */
          System.out.println(" ");
          System.out.println(" ");
+         System.out.println(" The web tier has received the following document");
+         System.out.println(" from the ServiceHandling:");
          System.out.println(" ");
-         System.out.println("************** Content of the available task *************");
+         System.out.println("************** e-document of the available task *************");
+         System.out.println(" ");
          System.out.println("task.getXMLDocument():");
          System.out.println(task.getXMLDocument());
          System.out.println(" ");                           
          System.out.println(" ");
          System.out.println(" ");
-         System.out.println(" ");
-         */
+         System.out.println(" ************** e-document of the available task *************");
+         
          
          gotResponse = true; // return positive result
        }
@@ -1111,6 +1149,21 @@ public class ServiceAction extends DispatchAction
 
         // Debug file write:
         // Utilities.DebugFileWriteTo(xmlDocumentPostedByClient,"webtier_passed_to_ServiceHandling.xml");
+        
+        
+        /* Debug info: */
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(" The web tier send the the following document");
+        System.out.println(" to the ServiceHandling:");
+        System.out.println(" ");
+        System.out.println("************** e-document passed to SH *************");
+        System.out.println(" ");
+        System.out.println(xmlDocumentPostedByClient);
+        System.out.println(" ");                           
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(" ************** e-document passed to SH *************");
 
         
         // Store the xml document received from the client on the serviceform:

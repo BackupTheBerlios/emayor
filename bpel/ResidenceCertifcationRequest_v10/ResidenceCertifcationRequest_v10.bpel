@@ -834,103 +834,48 @@ System.out.println("caught ex: "+ex.toString());
          </scope>
         </otherwise>
        </switch>
-       <switch name="Switch_14">
-        <case condition="bpws:getVariableData('RequesterRole') = 'Citizen'">
-         <bpelx:annotation>
-          <bpelx:pattern>request from citizen
-          </bpelx:pattern>
-         </bpelx:annotation>
-         <scope name="signNegativeDocument">
-          <variables>
-           <variable name="CVSignNegativeIn" messageType="nsxml4:CivilServantInteraction_v10RequestMessage"/>
-           <variable name="CVSignNegativeOut" messageType="nsxml4:CivilServantInteraction_v10ResponseMessage"/>
-          </variables>
-          <sequence name="Sequence_19">
-           <assign name="prepareInput">
-            <copy>
-             <from variable="CV_NEGATIVE_DOCUMENT"/>
-             <to variable="CVSignNegativeIn" part="docType" query="/nsxml4:DocumentType"/>
-            </copy>
-            <copy>
-             <from expression="'open'"/>
-             <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
-            </copy>
-            <copy>
-             <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
-             <to variable="CVSignNegativeIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request"/>
-            </copy>
-            <copy>
-             <from variable="CV_NEGATIVE_DOCUMENT"/>
-             <to variable="g_currentDocumentType"/>
-            </copy>
-            <copy>
-             <from variable="requesterUID"/>
-             <to variable="CVSignNegativeIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField4"/>
-            </copy>
-           </assign>
-           <invoke name="Invoke_1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10" operation="initiate" inputVariable="CVSignNegativeIn"/>
-           <receive name="Receive_1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10Callback" operation="onResult" variable="CVSignNegativeOut" createInstance="no"/>
-           <assign name="prepareOutput">
-            <copy>
-             <from variable="CVSignNegativeOut" part="payload" query="/nsxml4:CivilServantInteraction_v10Response"/>
-             <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
-            </copy>
-            <copy>
-             <from expression="'closed'"/>
-             <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
-            </copy>
-           </assign>
-          </sequence>
-         </scope>
-        </case>
-        <otherwise>
-         <empty name="doNothing"/>
-        </otherwise>
-       </switch>
-       <switch name="Switch_11">
-        <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT')">
-         <bpelx:annotation>
-          <bpelx:pattern>dummy
-          </bpelx:pattern>
-         </bpelx:annotation>
-         <empty name="AlwaysUseThisBranch"/>
-        </case>
-        <otherwise>
-         <scope name="editNegativeDocument">
-          <variables>
-           <variable name="negativeIn" messageType="ns9:NegativeResponse_v10RequestMessage"/>
-           <variable name="negativeOut" messageType="ns9:NegativeResponse_v10ResponseMessage"/>
-          </variables>
-          <sequence name="Sequence_31">
-           <assign name="prepareInput">
-            <copy>
-             <from variable="localMunicipality"/>
-             <to variable="negativeIn" part="payload" query="/ns9:NegativeResponse_v10Request/nsxml0:extraField1"/>
-            </copy>
-            <copy>
-             <from expression="'edit'"/>
-             <to variable="negativeIn" part="payload" query="/ns9:NegativeResponse_v10Request/nsxml0:extraField3"/>
-            </copy>
-            <copy>
-             <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqDocDigSig"/>
-             <to variable="negativeIn" part="payload" query="/ns9:NegativeResponse_v10Request/nsxml0:extraField4"/>
-            </copy>
-            <copy>
-             <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
-             <to variable="negativeIn" part="payload" query="/ns9:NegativeResponse_v10Request/nsxml0:reqestDocument"/>
-            </copy>
-           </assign>
-           <invoke name="Invoke_4" partnerLink="negativeResponsePL" portType="ns9:NegativeResponse_v10" operation="process" inputVariable="negativeIn" outputVariable="negativeOut"/>
-           <assign name="prepareOutput">
-            <copy>
-             <from variable="negativeOut" part="payload" query="/ns9:NegativeResponse_v10Response/nsxml0:reqestDocument"/>
-             <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
-            </copy>
-           </assign>
-          </sequence>
-         </scope>
-        </otherwise>
-       </switch>
+       <scope name="signNegativeDocument">
+        <variables>
+         <variable name="CVSignNegativeIn" messageType="nsxml4:CivilServantInteraction_v10RequestMessage"/>
+         <variable name="CVSignNegativeOut" messageType="nsxml4:CivilServantInteraction_v10ResponseMessage"/>
+        </variables>
+        <sequence name="Sequence_19">
+         <assign name="prepareInput">
+          <copy>
+           <from variable="CV_NEGATIVE_DOCUMENT"/>
+           <to variable="CVSignNegativeIn" part="docType" query="/nsxml4:DocumentType"/>
+          </copy>
+          <copy>
+           <from expression="'open'"/>
+           <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
+          </copy>
+          <copy>
+           <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
+           <to variable="CVSignNegativeIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request"/>
+          </copy>
+          <copy>
+           <from variable="CV_NEGATIVE_DOCUMENT"/>
+           <to variable="g_currentDocumentType"/>
+          </copy>
+          <copy>
+           <from variable="requesterUID"/>
+           <to variable="CVSignNegativeIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField4"/>
+          </copy>
+         </assign>
+         <invoke name="Invoke_1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10" operation="initiate" inputVariable="CVSignNegativeIn"/>
+         <receive name="Receive_1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10Callback" operation="onResult" variable="CVSignNegativeOut" createInstance="no"/>
+         <assign name="prepareOutput">
+          <copy>
+           <from variable="CVSignNegativeOut" part="payload" query="/nsxml4:CivilServantInteraction_v10Response"/>
+           <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
+          </copy>
+          <copy>
+           <from expression="'closed'"/>
+           <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
+          </copy>
+         </assign>
+        </sequence>
+       </scope>
        <scope name="translateELFtoEPF">
         <variables>
          <variable name="negativeTranslationIn" messageType="ns7:FormatTransformation_v10RequestMessage"/>

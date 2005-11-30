@@ -440,8 +440,21 @@ public class DocumentProcessor
       // If no schema is specified, an empty string will be returned. 
       // This is allowed, because schemas are optional.
       System.out.println("raw SchemaLocationPath= " + currentSchemaLocationPath );
-      // replace backslashes ba slashes:
+      // replace backslashes by slashes:
       currentSchemaLocationPath = currentSchemaLocationPath.replace('\\','/');
+      // and important: replace any white spaces by real ' ' spaces:
+      // Note that  newline,cr and lf's are white spaces too.
+      StringBuffer currentSchemaLocationPathBuffer = new StringBuffer(currentSchemaLocationPath);
+      for( int i=0; i < currentSchemaLocationPathBuffer.length(); i++ )
+      {
+        if( Character.isWhitespace( currentSchemaLocationPathBuffer.charAt(i) ) )
+        {
+          currentSchemaLocationPathBuffer.setCharAt(i,' '); 
+        }
+      }
+      // continue with the string:      
+      currentSchemaLocationPath = currentSchemaLocationPathBuffer.toString();
+            
       // get the URI, if available:
       int firstSpaceLocation = currentSchemaLocationPath.indexOf(" ");
       String uri = "";

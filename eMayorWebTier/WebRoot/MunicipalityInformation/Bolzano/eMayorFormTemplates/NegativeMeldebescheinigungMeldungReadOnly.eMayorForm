@@ -38,9 +38,9 @@
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.DateOfCreation$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.DateOfCreation$</JLabel>
           <JLabel ModelPath="Model/NegativeMeldebescheinigungMeldung/Erstellungszeitpunkt" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
 
@@ -64,25 +64,25 @@
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.Forename$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.Forename$</JLabel>
           <JLabel ModelPath="Model/NegativeMeldebescheinigungMeldung/UrspruenglicheAnforderung/bus:ConcernedPersonDetails/edc:CitizenName/aapd:CitizenNameForename" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.Surname$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.Surname$</JLabel>
           <JLabel ModelPath="Model/NegativeMeldebescheinigungMeldung/UrspruenglicheAnforderung/bus:ConcernedPersonDetails/edc:CitizenName/aapd:CitizenNameSurname" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.BirthDate$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.BirthDate$</JLabel>
           <JLabel ModelPath="Model/NegativeMeldebescheinigungMeldung/UrspruenglicheAnforderung/bus:ConcernedPersonDetails/edc:CitizenBirthDetails/edc:DateOfBirth/aapd:BirthDate" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
 

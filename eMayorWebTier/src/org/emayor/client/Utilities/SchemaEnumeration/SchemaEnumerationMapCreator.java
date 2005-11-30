@@ -2,6 +2,7 @@ package org.emayor.client.Utilities.SchemaEnumeration;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Hashtable;
 
 
 import org.xml.sax.InputSource;
@@ -37,13 +38,25 @@ import org.apache.xerces.xs.PSVIProvider;
 public class SchemaEnumerationMapCreator
 {
 
+  // The simpleTypeTable is created when createSchemaEnumerationMap has been called.
+  private Hashtable simpleTypeTable = new Hashtable();
 
-
+  
   public SchemaEnumerationMapCreator()
   {  
   }
 
 
+  public Hashtable getSimpleTypeTable()
+  {
+    return this.simpleTypeTable;
+  }
+  
+  
+  public void addSimpleTypeEntry( String xpath, String simpleTypeName )
+  {
+     this.simpleTypeTable.put(xpath,simpleTypeName);
+  }
   
   
  /**
@@ -59,6 +72,8 @@ public class SchemaEnumerationMapCreator
                                                           final EMayorDocumentParser eMayorDocumentParser )
   {
     System.out.println("SchemaEnumerationMapCreator.createSchemaEnumerationMap() starts.");
+    
+    this.simpleTypeTable.clear();
     
     // The schemaEnumerationMap will hold the results of this parser run and is returned
     // from this method:

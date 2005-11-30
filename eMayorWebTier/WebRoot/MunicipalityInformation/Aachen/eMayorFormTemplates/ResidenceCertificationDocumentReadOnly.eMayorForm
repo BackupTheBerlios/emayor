@@ -39,49 +39,49 @@
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.Title$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.Title$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationDocument/CertifiedConcernedPersons/ed:CitizenDetails/ed:CitizenName/aapd:CitizenNameTitle" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.Forename$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.Forename$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationDocument/CertifiedConcernedPersons/ed:CitizenDetails/ed:CitizenName/aapd:CitizenNameForename" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.Surname$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.Surname$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationDocument/CertifiedConcernedPersons/ed:CitizenDetails/ed:CitizenName/aapd:CitizenNameSurname" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.Suffix$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.Suffix$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationDocument/CertifiedConcernedPersons/ed:CitizenDetails/ed:CitizenName/aapd:CitizenNameSuffix" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.RequestedName$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.RequestedName$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationDocument/CertifiedConcernedPersons/ed:CitizenDetails/ed:CitizenName/aapd:CitizenNameRequestedName" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="255,255,255">$Form.EmailAddress$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.EmailAddress$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationDocument/CertifiedConcernedPersons/ed:CitizenDetails/ed:ContactDetails/aapd:Email/aapd:EmailAddress" 
-                      Columns="14"></JLabel>
+                      Columns="18"></JLabel>
         </JPanel>
 
 

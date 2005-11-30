@@ -31,7 +31,7 @@
                 AlignmentX="0">
           <JLabel Background="242,236,224">$Form.ServingMunicipalityDetails$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/AusstellendeGemeinde"
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <!-- Title Label: -->
@@ -43,23 +43,23 @@
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Forename$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Forename$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:EinwohnerName/aapd:CitizenNameForename" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Surname$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Surname$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:EinwohnerName/aapd:CitizenNameSurname" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 <!-- END   Entries for the citizen's name -->
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Sex$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:EinwohnerGeschlecht" 
                       Columns="6" Editable="false"></JTextField>
         </JPanel>
@@ -67,9 +67,9 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.BirthDate$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:EinwohnerGeburtsdaten/ed:Geburtsdatum/aapd:BirthDate" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 
@@ -77,32 +77,32 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.PreferredLanguages$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.PreferredLanguages$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:BevorzugteSprachen" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.EmailAddress$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.EmailAddress$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:KontaktDetails/aapd:Email/aapd:EmailAddress" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.VerifiedBy$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.VerifiedBy$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:EinwohnerGeburtsdaten/ed:Geburtsdatum/aapd:VerifiedBy" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthActNumber$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.BirthActNumber$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/BescheinigteBeteiligten/ed:EinwohnerAngaben/ed:EinwohnerGeburtsdaten/ed:GeburtsurkundeNummer" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 
@@ -112,22 +112,22 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.RequestDate$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.RequestDate$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/ed:AusgestelltAm" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Observations$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Observations$</JLabel>
           <JTextArea ModelPath="Model/Meldebescheinigung/ed:Bemerkungen" 
                      Rows="4" Columns="28" Editable="false"></JTextArea>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.ValidUntil$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.ValidUntil$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/ed:Gültigkeitszeitraum" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
@@ -135,77 +135,77 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.StreetName$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.StreetName$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Straße" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BuildingNumber$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.BuildingNumber$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:GebäudeNummer" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.CityName$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.CityName$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Stadt" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>        
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Country$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Country$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Land/cbc:Name" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Postbox$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Postbox$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Postfach" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.PostalZone$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.PostalZone$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Postbezirk" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Room$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Room$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Raum" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>        
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Floor$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Floor$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Etage" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.District$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.District$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Kreis" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Nucleus$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Nucleus$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Nukleus" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.StreetQualifier$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.StreetQualifier$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:StraßeQualifizierer" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Section$</JLabel>
+          <JLabel Columns="18" Background="242,236,224">$Form.Section$</JLabel>
           <JTextField ModelPath="Model/Meldebescheinigung/Adresse/ed:Sektion" 
-                      Columns="14" Editable="false"></JTextField>
+                      Columns="18" Editable="false"></JTextField>
         </JPanel>
 
 

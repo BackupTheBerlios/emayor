@@ -103,7 +103,7 @@ public class LoginButtonApplet extends Applet implements ActionListener
       
       String jvmVersion = System.getProperty("java.version");
       String message = "";
-      if( jvmVersion.compareTo("1.5.0_05") >= 0 )
+      if( jvmVersion.compareTo("1.5.0_04") >= 0 )
       {
         this.loginButtonTarget = getParameter("buttonTarget");
         message = getParameter("JavaPluginIsUpToDateMessage");    // is language specific
@@ -192,7 +192,8 @@ public class LoginButtonApplet extends Applet implements ActionListener
       line = line.replaceAll("&ugrave;","" + '\u00F9');
 
       line = line.replaceAll("&ccedil;","" + '\u00E7');
-
+      line = line.replaceAll("&ntilde;","" + '\u00F1');
+      
       line = line.replaceAll("&auml;","" + '\u00E4');
       line = line.replaceAll("&ouml;","" + '\u00F6');
       line = line.replaceAll("&uuml;","" + '\u00FC');

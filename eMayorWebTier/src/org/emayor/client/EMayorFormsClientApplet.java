@@ -36,7 +36,7 @@ import org.emayor.client.Utilities.gui.JHTMLEditorPane;
 
 import org.emayor.client.controlers.printing.Print2DGraphicsPanel;
 import org.emayor.client.controlers.printing.XMLDocumentPrinterDialog;
-import org.emayor.client.controlers.printing.PrintableJPanel; 
+import org.emayor.client.controlers.printing.PrintableJPanel;
 
 public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
 {
@@ -79,6 +79,13 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   // The language for the UI. It's set in the init() method.
   private String language = "en"; // english as defaul
   
+  
+  // The error manager displays error messages and controls
+  // the JTextArea for the error display at the bottom of the applet.
+  private ErrorManager errorManager = new ErrorManager();  
+  
+  
+  
   public EMayorFormsClientApplet()
   {               
     // Add custom UI components :
@@ -118,8 +125,8 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     wrapPanel.add(this.formsInteractionPanel, BorderLayout.NORTH );
     
     JScrollPane interactionScrollPane = new JScrollPane( wrapPanel);
-    
-    int unitIncrement = UIManager.getFont("Label.font").getSize();
+    int labelFontSize = UIManager.getFont("Label.font").getSize();
+    int unitIncrement = labelFontSize;
     interactionScrollPane.getVerticalScrollBar().setUnitIncrement( unitIncrement );
     int blockIncrement = unitIncrement*4;
     interactionScrollPane.getVerticalScrollBar().setBlockIncrement( blockIncrement );
@@ -143,6 +150,13 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     });
 
     this.getContentPane().add( tabPane, BorderLayout.CENTER );
+    
+    // add the error manager textarea to the south:
+    JScrollPane errorManagerScrollPane = new JScrollPane( this.errorManager.getErrorTextArea(),
+                                                          JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                                                          JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+    this.getContentPane().add( errorManagerScrollPane, BorderLayout.SOUTH );
+    
   } // Constructor
 
 
@@ -492,7 +506,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
                         
       }
       catch( Exception e )
-      {
+      {      
         e.printStackTrace();
         this.hasError = true; // causes start() to do nothing.
         final String eMessage = e.getMessage();
@@ -510,6 +524,11 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
         {
         }
       }
+      System.out.println("*** ");
+      System.out.println("*** The applet was not able to get required information");
+      System.out.println("*** from the server. It should display an error page");
+      System.out.println("*** with the reason on it now.");
+      System.out.println("*** ");
     } // if
     else
     {
@@ -842,9 +861,44 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
         {
         }
       }  
-    }  
+    }
+    // always tell the user, if errors are present:
+    if( this.errorManager.getNumberOfErrors() > 0 )
+    {
+      // decouple from the active thread:      
+      Thread errorInfoThread = new Thread()
+      {
+        public void run()
+        {
+          // Give Swing some time first:
+          try{ Thread.sleep(444); } catch( Exception ee ){}
+          // then add an info task to the EDT:
+          if( languageProperties == null )
+          {
+            errorManager.addErrorMessage("Multilingual support not possible: Property files could not be downloaded from the server.");         
+          }          
+          final String message = (languageProperties != null) ?
+                                  languageProperties.getTextFromLanguageResource("Applet.ErrorDialogText"):
+                                  "Warning";
+          final String title = (languageProperties != null) ?
+                                languageProperties.getTextFromLanguageResource("Applet.ErrorDialogTitle"):
+                                "Some errors have occured. See the description on the bottom of the applet.";
+          EventQueue.invokeLater( new Runnable()
+          {
+            public void run()
+            {
+              JOptionPane.showMessageDialog(EMayorFormsClientApplet.this,message,title,JOptionPane.WARNING_MESSAGE);      
+            }
+          });
+        }   
+      };
+      errorInfoThread.start();
+    }
   } // start
 
+  
+  
+  
   
   
  /**
@@ -886,33 +940,38 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   *  Try to load it from the file system, from resource or from a host.
   */
   public ImageIcon loadImageIcon( String pathName )
-  {
+  {  
+    System.out.println("loadImageIcon() called for pathname= " + pathName );
     ImageIcon icon = null;
-    try // in each case INTERCEPT nullpointer exceptions - just return null
-    {
-       URL url = this.getClass().getResource(pathName);
-       if( url != null )
-       {
-          icon = new ImageIcon( Toolkit.getDefaultToolkit().getImage(url) );
-       }
-       //System.out.println("icon 1 =" + icon );
-       if( icon == null ) // next attempt
-       {
-          icon = this.loadImageFromHost(pathName);
-          //System.out.println("icon 2 =" + icon );
-          if( icon == null ) // last attempt
-          {
-            icon = new ImageIcon(pathName);
-            //System.out.println("icon 3 =" + icon );
-          }
-       }
-    }
-    catch( Exception e )
-    {
-       e.printStackTrace();   
-    }  
+      try // in each case INTERCEPT nullpointer exceptions - just return null
+      {
+         URL url = this.getClass().getResource(pathName);
+         if( url != null )
+         {
+            System.out.println("URL= " + url.toString());
+            icon = new ImageIcon( Toolkit.getDefaultToolkit().getImage(url) );
+         }
+         System.out.println("icon 1 =" + icon );
+         if( icon == null ) // next attempt
+         {
+            icon = this.loadImageFromHost(pathName);
+            System.out.println("icon 2 =" + icon );
+            if( icon == null ) // last attempt
+            {
+              icon = new ImageIcon(pathName);
+              System.out.println("icon 3 =" + icon );
+            }
+         }
+      }
+      catch( Exception ee )
+      {
+        this.errorManager.addErrorMessage( "Unable to download " + pathName );
+        ee.printStackTrace();
+        System.err.println("*** Applet.loadImageIcon() connection is down for file request.");
+      }  
     return icon; 
   }
+
 
 
  /**                       
@@ -920,21 +979,22 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   * this runs as an applet, we use getResourceAsStream for 
   * efficiency and so it'll work in older versions of Java Plug-in.
   */
-  private ImageIcon loadImageFromHost( String pathName ) 
+  private ImageIcon loadImageFromHost( String pathName ) throws Exception 
   {                                                
     int MAX_IMAGE_SIZE = 128000;  //Change this to the size of your biggest image, in bytes.
     BufferedInputStream imageStream = null;
     try
     {
-      //System.out.println("loadImageFromHost name= " + pathName );
-      URL imageURL = new URL( super.getDocumentBase() ,pathName );
-      InputStream rawInputStream = imageURL.openStream();
-      imageStream = new BufferedInputStream( rawInputStream );
+        System.out.println("loadImageFromHost name= " + pathName + " ....." );
+        URL imageURL = new URL( super.getDocumentBase() ,pathName );
+        InputStream rawInputStream = imageURL.openStream();
+        imageStream = new BufferedInputStream( rawInputStream );
+        System.out.println("completed." );
     }
     catch( Exception ee )
     {
       ee.printStackTrace();
-    }
+    }      
     //BufferedInputStream imgStream = new BufferedInputStream( super.getClass().getResourceAsStream(pathName));
     if (imageStream != null)
     {     
@@ -944,9 +1004,10 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
         {
           count = imageStream.read(buf);
           imageStream.close();
-        } catch (java.io.IOException ioe) 
+        } 
+        catch (java.io.IOException ioe) 
         {
-          System.err.println("Couldn't read stream from file: " + pathName);
+          this.errorManager.addErrorMessage( "Couldn't read stream from file: " + pathName );
           return null;
         }
         if (count <= 0) 
@@ -958,7 +1019,8 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     } 
     else 
     {
-      System.err.println("Couldn't find file: " + pathName);
+      String errorMessage = "Couldn't find file: " + pathName;
+      this.errorManager.addErrorMessage( errorMessage );
       return null;
     }
   }

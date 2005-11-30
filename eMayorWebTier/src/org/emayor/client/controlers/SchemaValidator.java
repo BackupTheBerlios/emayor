@@ -8,8 +8,8 @@ package org.emayor.client.controlers;
  *  small CPU power, except when it is validating.
  * 
  * 
- *  Created on 11.08.2005,           jpl
- *  Changed September,October 2005   jpl
+ *  Created on 11.08.2005, J.Plaz
+ *  Changed September,October,November 2005 J.Plaz
  *
  */
 
@@ -34,7 +34,7 @@ public class SchemaValidator extends Thread
 {
 
 
-  private final static long MinimumWaitTime = 1888;
+  private final static long MinimumWaitTime = 2222;
   
   private boolean doTerminate = false; // the thread ends, when this is set
   

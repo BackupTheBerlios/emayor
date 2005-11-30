@@ -46,8 +46,8 @@
 	</RequesterDetails>
 	<ConcernedPersonDetails>
 		<ed:CitizenName>
-			<aapd:CitizenNameTitle>String</aapd:CitizenNameTitle>
-			<aapd:CitizenNameForename>String</aapd:CitizenNameForename>
+			<aapd:CitizenNameTitle></aapd:CitizenNameTitle>
+			<aapd:CitizenNameForename></aapd:CitizenNameForename>
 			<aapd:CitizenNameSurname>String</aapd:CitizenNameSurname>
 			<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
 			<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
