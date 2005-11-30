@@ -25,13 +25,13 @@
 	</RequesterDetails>
 	<ConcernedPersonDetails>
 		<ed:CitizenName>
-			<aapd:CitizenNameForename></aapd:CitizenNameForename>
-			<aapd:CitizenNameSurname></aapd:CitizenNameSurname>
+			<aapd:CitizenNameForename>Max</aapd:CitizenNameForename>
+			<aapd:CitizenNameSurname>Mustermann</aapd:CitizenNameSurname>
 		</ed:CitizenName>
 		<ed:PreferredLanguages>cy</ed:PreferredLanguages>
 		<ed:ContactDetails>
 			<aapd:Email>
-				<aapd:EmailAddress></aapd:EmailAddress>
+				<aapd:EmailAddress>max@myhost.com</aapd:EmailAddress>
 			</aapd:Email>
 		</ed:ContactDetails>
 		<ed:CitizenSex>Male</ed:CitizenSex>
