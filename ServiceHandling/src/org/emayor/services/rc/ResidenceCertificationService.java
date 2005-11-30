@@ -79,13 +79,13 @@ public class ResidenceCertificationService extends AbstracteMayorService {
 		        if (nameSplit != null && nameSplit.length > 1) {
 		        	value = new String();
 		        	for (int i=1; i<nameSplit.length;i++) {
-		        		value += nameSplit[i];
+		        		value += nameSplit[i]+" ";
 		        	}
 		        } else
-		        	value =profile.getUserName();
+		        	value = "N/A";
 		        
 		        if (value != null)
-		        	XPathAPI.selectSingleNode(document, "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()").setNodeValue(value);
+		        	XPathAPI.selectSingleNode(document, "/ResidenceCertificationRequestDocument/RequesterDetails/CitizenName/CitizenNameSurname/text()").setNodeValue(value.trim());
 		        
 		        /* email */
 		        value = profile.getUserEmail();
