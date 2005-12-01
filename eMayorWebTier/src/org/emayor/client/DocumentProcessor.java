@@ -15,11 +15,7 @@ package org.emayor.client;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
 
-import org.emayor.client.Utilities.DataUtilities;
 import org.emayor.client.parser.EMayorDocumentParser;
 import org.emayor.client.parser.XMLPath;
 import org.emayor.client.parser.xml.*;
@@ -75,7 +71,7 @@ public class DocumentProcessor
   private String originalSchemaLocationPath = "";
   
   
-  
+  private boolean produceVersionForPrinting;  
   
   
   public DocumentProcessor( final JPanel _formsInteractionPanel,
@@ -83,7 +79,8 @@ public class DocumentProcessor
 							final LanguageProperties _languageProperties,
                             final EnumerationProperties _enumerationProperties,
                             final String _language,
-                            final EMayorFormsClientApplet _mainApplet )
+                            final EMayorFormsClientApplet _mainApplet,
+                            final boolean _produceVersionForPrinting )
   {
     this.formsInteractionPanel = _formsInteractionPanel;
     this.formsModelTextArea = _formsModelTextArea;
@@ -91,6 +88,7 @@ public class DocumentProcessor
     this.enumerationProperties = _enumerationProperties;
     this.language = _language;
     this.mainApplet = _mainApplet;
+    this.produceVersionForPrinting = _produceVersionForPrinting;
     this.eMayorDocumentParser = new EMayorDocumentParser(_languageProperties);
     System.out.println("DocumentProcessor: java home is: " + this.javaHomeDirectory );
   } // Constructor
@@ -125,7 +123,7 @@ public class DocumentProcessor
     this.guiBuilder = new GUIBuilder( this.modelNode, this.viewNode, 
                                       this.mainApplet, this.languageProperties, this.enumerationProperties,
                                       this.language,this.eMayorDocumentParser );
-    this.guiBuilder.buildGraphicalUserInterfaceOn( this.formsInteractionPanel );
+    this.guiBuilder.buildGraphicalUserInterfaceOn( this.formsInteractionPanel,this.produceVersionForPrinting );
     // Switch to EDT for Swing:
     EventQueue.invokeLater( new Runnable()
     {

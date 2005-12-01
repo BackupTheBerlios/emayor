@@ -108,7 +108,7 @@ public class GUIBuilder
   {
     try
     {
-      this.buildGraphicalUserInterfaceOn( viewPanel );
+      this.buildGraphicalUserInterfaceOn( viewPanel,false );
     }
     catch( Exception e )
     {
@@ -124,8 +124,12 @@ public class GUIBuilder
  /**
   *  Build the GUI on the interactionPanel, based on
   *  the viewNode and modelNode.
+  * 
+  *  If produceVersionForPrinting is set, button controlers
+  *  will be skipped.
   */
-  public void buildGraphicalUserInterfaceOn( JPanel viewPanel ) throws Exception
+  public void buildGraphicalUserInterfaceOn( JPanel viewPanel,
+                                             boolean produceVersionForPrinting ) throws Exception
   {
   	viewPanel.removeAll();
     // The view always has BorderLayout.
@@ -177,7 +181,7 @@ public class GUIBuilder
       System.out.println(">>");
     }
     // build the UI - the method uses recursion:
-    this.buildUI( viewPanel, this.viewNode );
+    this.buildUI( viewPanel, this.viewNode, produceVersionForPrinting );
 
     // Call Swing for the update:
     final JPanel finalViewPanel = viewPanel;
@@ -213,14 +217,15 @@ public class GUIBuilder
   *  Recursive worker of buildGraphicalUserInterfaceOn()
   */
   private void buildUI( final JPanel parentPanel,
-                        final XML_Node parentNode ) throws Exception
+                        final XML_Node parentNode,
+                        final boolean produceVersionForPrinting ) throws Exception
   {  	
     for( int i=0; i < parentNode.getNumberOfChildren(); i++ )
     {
       XML_Node childNode = parentNode.getChildAt(i);            
       if( childNode.getTagName().equals("JPanel") )
       {
-        this.buildJPanelUI( parentPanel,childNode ); // can call buildUI() again for children
+        this.buildJPanelUI( parentPanel,childNode,produceVersionForPrinting ); // can call buildUI() again for children
       }
       else
       if( childNode.getTagName().equals("JLabel") )
@@ -240,7 +245,11 @@ public class GUIBuilder
       else
       if( childNode.getTagName().equals("JButton") )
       {
-        this.buildJButtonUI( parentPanel,childNode ); // can call buildUI() again for children
+        // skip buttons for representations to be printed:
+        if( !produceVersionForPrinting )
+        {
+          this.buildJButtonUI( parentPanel,childNode ); // can call buildUI() again for children
+        }
       }
       else
       if( childNode.getTagName().equals("Box") )
@@ -1201,7 +1210,8 @@ public class GUIBuilder
   
 
   private void buildJPanelUI( final JPanel parentPanel,
-                              final XML_Node jPanelNode ) throws Exception
+                              final XML_Node jPanelNode,
+                              final boolean produceVersionForPrinting ) throws Exception
   {
     //System.out.println("Adding JPanel...");
     String addParameter = jPanelNode.getAttributeValueForName(Attribute_AddParameter);
@@ -1235,7 +1245,7 @@ public class GUIBuilder
     }
     //System.out.println("JPanel added.");
     // Process its children:
-    this.buildUI(jPanel,jPanelNode);
+    this.buildUI(jPanel,jPanelNode,produceVersionForPrinting);
   } // buildJPanelUI
 
 

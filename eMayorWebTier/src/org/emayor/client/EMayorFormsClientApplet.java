@@ -30,12 +30,11 @@ import java.nio.charset.Charset;
 
 
 import org.emayor.client.Utilities.DataUtilities;
-import org.emayor.client.Utilities.ThreadEngine.ThreadEngine;
 import org.emayor.client.Utilities.gui.*;
 import org.emayor.client.Utilities.gui.JHTMLEditorPane;
 
-import org.emayor.client.controlers.printing.Print2DGraphicsPanel;
 import org.emayor.client.controlers.printing.XMLDocumentPrinterDialog;
+import org.emayor.client.controlers.printing.FormPrinterDialog;
 import org.emayor.client.controlers.printing.PrintableJPanel;
 
 public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
@@ -225,7 +224,6 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   */ 
   public void print_EMayorForm_XML_Document()
   {
-    // Ask what to print: Either the form or the electronic document:
     String eMayorFormModelAsString = this.docProcessor.get_EMayorFormModelAsString();
     // For the dialog, we need the parent frame to make it modal on this one:
     Frame appletParentFrame = JOptionPane.getFrameForComponent(this);
@@ -246,37 +244,37 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
    */ 
    public void print_EMayorForm_InteractionPanel()
    {
-     // Switch to thread queue - give Swing EDT free
-     Runnable printRunnable = new Runnable()
-     {      
-       public void run()
-       {
-         print_EMayorForm_InteractionPanel_InThread();
-       }
-     };
-    ThreadEngine.getInstance().addRunnable( printRunnable,"Print_Panel" );     
+     // Recreate the formsInteractionPanel, but use an other instance
+     // and set the version for printing flag:
+     try
+     {
+       PrintableJPanel formsPanelForPrinting = new PrintableJPanel( new BorderLayout(0,0) );
+       // process it and display the result in the context pane:
+       DocumentProcessor printableDocProcessor = 
+                           new DocumentProcessor( formsPanelForPrinting,
+                                                  this.formsModelTextArea,
+                                                  this.languageProperties,
+                                                  this.enumerationProperties,
+                                                  this.language,
+                                                  this,
+                                                  true /* for printing */ );
+       printableDocProcessor.processDocument( this.eMayorFormDocument );
+       // For the dialog, we need the parent frame to make it modal on this one:
+       Frame appletParentFrame = JOptionPane.getFrameForComponent(this);
+       String dialogTitle = this.languageProperties.getTextFromLanguageResource("PrinterDialog.Title");
+       FormPrinterDialog printerDialog = 
+            new FormPrinterDialog( appletParentFrame,this,this.languageProperties,dialogTitle,
+                                   formsPanelForPrinting );
+       printerDialog.setVisible(true);    
+      }
+      catch( Exception e )
+      {
+        e.printStackTrace();
+      }   
    } // print_EMayorForm_InteractionPanel
 
    
    
-   
-   
-   private void print_EMayorForm_InteractionPanel_InThread()
-   {
-     // For the dialog, we need the parent frame to make it modal on this one:
-     Frame appletParentFrame = JOptionPane.getFrameForComponent(this);
-     // Set some required attributes:
-     PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
-     attributes.add( OrientationRequested.PORTRAIT );
-     attributes.add( new Copies(1) );
-     attributes.add( new JobName("eMayor_PrintDocument", null));
-     // and print:
-     Print2DGraphicsPanel print2DGraphicsDoc =
-              new Print2DGraphicsPanel( this.formsInteractionPanel,
-                                        attributes,appletParentFrame,
-                                        this,this.languageProperties );
-     print2DGraphicsDoc.printTheDocument();
-   }
    
    
   
@@ -840,7 +838,8 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
                                                    this.languageProperties,
                                                    this.enumerationProperties,
                                                    this.language,
-                                                   this );
+                                                   this,
+                                                   false /* not for printing */ );
         this.docProcessor.processDocument( this.eMayorFormDocument );
       }
       catch( Exception e )
