@@ -235,12 +235,12 @@ public class GUIBuilder
       else
         if( childNode.getTagName().equals("JTextField") )
         {
-          this.buildTextInputUI( parentPanel,childNode ); // can call buildUI() again for children
+          this.buildTextInputUI( parentPanel,childNode,produceVersionForPrinting ); // can call buildUI() again for children
         }
       else
       if( childNode.getTagName().equals("JTextArea") )
       {
-        this.buildJTextAreaUI( parentPanel,childNode ); // can call buildUI() again for children
+        this.buildJTextAreaUI( parentPanel,childNode,produceVersionForPrinting ); // can call buildUI() again for children
       }
       else
       if( childNode.getTagName().equals("JButton") )
@@ -566,7 +566,8 @@ public class GUIBuilder
   *  If it's associated with enumeration values, it creates a JComboBox instead.
   */ 
   private void buildTextInputUI( final JPanel parentPanel,
-                                 final XML_Node textInputNode ) throws Exception
+                                 final XML_Node textInputNode,
+                                 final boolean produceVersionForPrinting) throws Exception
   {
     
     System.out.println("buildTextInputUI called.");
@@ -577,8 +578,11 @@ public class GUIBuilder
     {
       isEditable = false;
     }
-    System.out.println("buildTextInputUI: isEditable= " + isEditable );
 
+    if( produceVersionForPrinting ) isEditable = false; // always make objects readonly for print view
+
+    System.out.println("buildTextInputUI: isEditable= " + isEditable );
+    
     // Check for enumeration maps:
     SchemaEnumerationMapValue enumerationMapValue = null;
     final String[] modelPaths = textInputNode.getAttributeValuesForNameStartingWith(Attribute_ModelPath);    
@@ -619,19 +623,19 @@ public class GUIBuilder
       System.out.println("buildTextInputUI: making JComboBox");      
       // We have an editable entry with enumeration constraints, 
       // so use a JComboBox instead of a simple textfield:
-      this.buildEditableJComboBoxUI( parentPanel,textInputNode,enumerationMapValue );          
+      this.buildEditableJComboBoxUI( parentPanel,textInputNode,enumerationMapValue,produceVersionForPrinting );          
     }
     else if( isDateType ) // ok for editable and readonly
     {
       System.out.println("buildTextInputUI: making date-Type JTextFields");    
       // No enumeration constraints -> use a simple JTextField:
-      this.buildDateTypeInputUI(parentPanel,textInputNode);          
+      this.buildDateTypeInputUI(parentPanel,textInputNode,produceVersionForPrinting);          
     }
     else // else the standard case: make an editable JTextField
     {
       System.out.println("buildTextInputUI: making editable JTextField");    
       // No enumeration constraints -> use a simple JTextField:
-      this.buildJTextFieldUI(parentPanel,textInputNode);    
+      this.buildJTextFieldUI(parentPanel,textInputNode,produceVersionForPrinting);    
     }
   } // buildTextInputUI
 
@@ -661,7 +665,8 @@ public class GUIBuilder
   */
   private void buildEditableJComboBoxUI( final JPanel parentPanel,
                                          final XML_Node jTextFieldNode,
-                                         final SchemaEnumerationMapValue enumerationMapValue  ) throws Exception
+                                         final SchemaEnumerationMapValue enumerationMapValue,
+                                         final boolean produceVersionForPrinting ) throws Exception
   {
     String addParameter = jTextFieldNode.getAttributeValueForName(Attribute_AddParameter);
     String columnsParameter = jTextFieldNode.getAttributeValueForName(Attribute_Columns);
@@ -824,7 +829,7 @@ public class GUIBuilder
          JPanel textInputPanel = new JPanel( new BorderLayout(hGap,0) );
          textInputPanel.setOpaque(false);
          textInputPanel.add(jComboBox, BorderLayout.CENTER );
-         textInputPanel.add(schemaValidationInfoLabel, BorderLayout.EAST );
+         if(!produceVersionForPrinting) textInputPanel.add(schemaValidationInfoLabel, BorderLayout.EAST );
          this.addComponent(parentPanel,textInputPanel,addParameter,alignmentX_Parameter,alignmentY_Parameter);
                   
          // Inform the validator:
@@ -858,7 +863,8 @@ public class GUIBuilder
   
   
   private void buildJTextFieldUI( final JPanel parentPanel,
-                                  final XML_Node jTextFieldNode ) throws Exception
+                                  final XML_Node jTextFieldNode,
+                                  final boolean produceVersionForPrinting ) throws Exception
   {
     String addParameter = jTextFieldNode.getAttributeValueForName(Attribute_AddParameter);
     String columnsParameter = jTextFieldNode.getAttributeValueForName(Attribute_Columns);
@@ -868,6 +874,9 @@ public class GUIBuilder
     String alignmentY_Parameter = jTextFieldNode.getAttributeValueForName(Attribute_AlignmentY);
     String isEditable_Parameter = jTextFieldNode.getAttributeValueForName(Attribute_IsEditable);
 
+
+    if( produceVersionForPrinting ) isEditable_Parameter = "false"; // always readonly for print view
+    
     // A value is optional, if it's not connected with the model.
     // If one or multiple modelPaths are set, the value will not be used.
     String value = jTextFieldNode.getTagValue();
@@ -936,7 +945,8 @@ public class GUIBuilder
     JPanel textInputPanel = new JPanel( new BorderLayout(hGap,0) );
     textInputPanel.setOpaque(false);
     textInputPanel.add(jTextField, BorderLayout.CENTER );
-    textInputPanel.add(schemaValidationInfoLabel, BorderLayout.EAST );
+    if( !produceVersionForPrinting )
+        textInputPanel.add(schemaValidationInfoLabel, BorderLayout.EAST );
     this.addComponent(parentPanel,textInputPanel,addParameter,alignmentX_Parameter,alignmentY_Parameter);
     //System.out.println("Added JTextField");
   }
@@ -950,7 +960,8 @@ public class GUIBuilder
   
     
   private void buildDateTypeInputUI( final JPanel parentPanel,
-                                     final XML_Node dateInputNode ) throws Exception
+                                     final XML_Node dateInputNode,
+                                     final boolean produceVersionForPrinting ) throws Exception
   {
     String isEditable_Parameter = dateInputNode.getAttributeValueForName(Attribute_IsEditable);
 
@@ -959,6 +970,9 @@ public class GUIBuilder
     {
       isEditable = false;
     }
+    
+    if( produceVersionForPrinting ) isEditable = false; // always readonly for print view
+    
     if( isEditable )
     {
       this.buildEditableDateTypeInputUI( parentPanel,dateInputNode );    
@@ -1116,10 +1130,11 @@ public class GUIBuilder
   
   
   
-  
+
   
   private void buildJTextAreaUI( final JPanel parentPanel,
-                                 final XML_Node jTextAreaNode ) throws Exception
+                                 final XML_Node jTextAreaNode,
+                                 final boolean produceVersionForPrinting ) throws Exception
   {
     String addParameter = jTextAreaNode.getAttributeValueForName(Attribute_AddParameter);
     String columnsParameter = jTextAreaNode.getAttributeValueForName(Attribute_Columns);
@@ -1130,6 +1145,8 @@ public class GUIBuilder
     String alignmentX_Parameter = jTextAreaNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = jTextAreaNode.getAttributeValueForName(Attribute_AlignmentY);
     String isEditable_Parameter = jTextAreaNode.getAttributeValueForName(Attribute_IsEditable);
+
+    if( produceVersionForPrinting ) isEditable_Parameter = "false"; // always readonly fro printing view 
 
     // A value is optional, if it's not connected with the model.
     // If one or multiple modelPaths are set, the value will not be used.
@@ -1198,7 +1215,8 @@ public class GUIBuilder
     JPanel textInputPanel = new JPanel( new BorderLayout(hGap,0) );
     textInputPanel.setOpaque(false);
     textInputPanel.add(jTextArea, BorderLayout.CENTER );
-    textInputPanel.add(schemaValidationInfoLabel, BorderLayout.EAST );
+    if( !produceVersionForPrinting )
+        textInputPanel.add(schemaValidationInfoLabel, BorderLayout.EAST );
     this.addComponent(parentPanel,textInputPanel,addParameter,alignmentX_Parameter,alignmentY_Parameter);
     //System.out.println("Added JTextArea");
   }

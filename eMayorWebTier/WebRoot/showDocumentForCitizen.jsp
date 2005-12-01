@@ -127,7 +127,7 @@
         code="org.emayor.client.EMayorFormsClientApplet"
         codebase=""
         archive="eMayorApplet.jar"
-        width="636"
+        width="736"
         height="<bean:write name="serviceForm" property="expectedAppletHeight" />"
         mayscript="true"
         ALT="This applet shows the eMayor readonly forms">
