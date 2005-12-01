@@ -27,7 +27,6 @@
 
 
 <!-- RequesterDetails -->
-<!-- START   Entries for the citizen's name -->
 
         <!-- Title Label: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
@@ -36,13 +35,6 @@
         </JPanel>
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Title$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenName/aapd:CitizenNameTitle" 
-                      Columns="14"></JLabel>
-        </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
@@ -57,24 +49,6 @@
           <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenName/aapd:CitizenNameSurname" 
                       Columns="14"></JLabel>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Suffix$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenName/aapd:CitizenNameSuffix" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.RequestedName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenName/aapd:CitizenNameRequestedName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-
-<!-- END   Entries for the citizen's name -->
-
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
@@ -94,15 +68,6 @@
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.MaritalStatus$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenMaritalStatus" 
-                      Columns="6"></JLabel>
-        </JPanel>
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
           <JLabel Columns="14" Background="242,236,224">$Form.BirthDate$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenBirthDetails/ed:DateOfBirth/aapd:BirthDate" 
                       Columns="14"></JLabel>
@@ -113,77 +78,19 @@
           <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenBirthDetails/ed:DateOfBirth/aapd:VerifiedBy" 
                       Columns="14"></JLabel>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.CityName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenBirthDetails/cbc:CityName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthActNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:CitizenBirthDetails/ed:BirthActNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Nationality$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:Nationality" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
 
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
         
-        <!-- sub title: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
-                AlignmentX="0">
-          <JLabel Background="242,236,224">$Form.IdentificationDetails$</JLabel>
-        </JPanel>
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.IDCardNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:IdentificationDetails/ed:IDCardNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.PassportNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterDetails/ed:IdentificationDetails/ed:PassportNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
         <!-- subtitle: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 AlignmentX="0">
           <JLabel Background="242,236,224">$Form.ConcernedPersonDetails$</JLabel>
         </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+        <Box BoxType="createVerticalStrut" BoxSize="10"/>
 
 
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Title$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameTitle" 
-                      Columns="14"></JLabel>
-        </JPanel>
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
           <JLabel Columns="14" Background="242,236,224">$Form.Forename$</JLabel>
@@ -196,22 +103,6 @@
           <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameSurname" 
                       Columns="14"></JLabel>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Suffix$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameSuffix" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.RequestedName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameRequestedName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
@@ -231,66 +122,11 @@
                       Columns="14"></JLabel>
         </JPanel>
 
-        <!-- telephone: -->
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.TelNationalNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Telephone/aapd:TelNationalNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.TelExtensionNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Telephone/aapd:TelExtensionNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.TelCountryCode$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Telephone/aapd:TelCountryCode" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
-        <!-- fax: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.FaxNationalNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Fax/aapd:FaxNationalNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.FaxExtensionNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Fax/aapd:FaxExtensionNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.FaxCountryCode$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Fax/aapd:FaxCountryCode" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
           <JLabel Columns="14" Background="242,236,224">$Form.Sex$</JLabel>
           <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenSex" 
-                      Columns="6"></JLabel>
-        </JPanel>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.MaritalStatus$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenMaritalStatus" 
                       Columns="6"></JLabel>
         </JPanel>
 
@@ -310,62 +146,17 @@
           <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenBirthDetails/ed:DateOfBirth/aapd:VerifiedBy" 
                       Columns="14"></JLabel>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.CityName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenBirthDetails/cbc:CityName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BirthActNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenBirthDetails/ed:BirthActNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
 
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Nationality$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:Nationality" 
-                      Columns="14"></JLabel>
-        </JPanel>
         
-
-
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
         <!-- sub title: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
-                AlignmentX="1>
+                AlignmentX="0">
           <JLabel Background="242,236,224">$Form.IdentificationDetails$</JLabel>
         </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.IDCardNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:IdentificationDetails/ed:IDCardNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.PassportNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:IdentificationDetails/ed:PassportNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-        <!-- end of ConcernedPersonDetails -->
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+        <Box BoxType="createVerticalStrut" BoxSize="10"/>
 
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
@@ -406,137 +197,16 @@
         </JPanel>
 
 
-
-        <!-- RequesterAddress -->
-
-
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-        <!-- subtitle: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
-                AlignmentX="1>
-          <JLabel Background="242,236,224">$Form.RequesterAddress$</JLabel>
-        </JPanel>
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Postbox$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:Postbox" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Floor$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:Floor" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Room$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:Room" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.StreetName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:StreetName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.AdditionalStreetName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:AdditionalStreetName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BuildingName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:BuildingName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.BuildingNumber$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:BuildingNumber" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Department$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:Department" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.CityName$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:CityName" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.PostalZone$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:PostalZone" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.District$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cbc:District" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.IdentificationCode$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cac:Country/cac:IdentificationCode" 
-                      Columns="14"></JLabel>
-        </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Name$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/cac:Country/cbc:Name" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Nucleus$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/ed:Nucleus" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.StreetQualifier$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/ed:StreetQualifier" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Columns="14" Background="242,236,224">$Form.Section$</JLabel>
-          <JLabel ModelPath="Model/ResidenceCertificationRequestDocument/RequesterAddress/ed:Section" 
-                      Columns="14"></JLabel>
-        </JPanel>
-
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-
 
         <JPanel Background="255,255,255" AlignmentX="0">
           <JButton ActionClass="RedirectSubmitter">       $Form.Done$       </JButton>
           <JButton ActionClass="SaveModelToDiskSubmitter">       $Form.SaveToDisk$       </JButton>
-          <JButton ActionClass="PrintModelToPrinterSubmitter">       $Form.Print$       </JButton>
+          <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
+          <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
         </JPanel>
 
-
-        <Box BoxType="createVerticalStrut" BoxSize="40"/>
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
       </JPanel>
 

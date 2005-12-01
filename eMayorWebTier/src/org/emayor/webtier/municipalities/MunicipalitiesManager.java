@@ -668,7 +668,7 @@ public class MunicipalitiesManager implements Serializable
   */ 
   public static MunicipalitiesManager GetInstance()
   {
-    if( ClassReference == null )
+    if( ClassReference == null ) // comment this line out, if you want to force loading on each call
         ClassReference = new MunicipalitiesManager();
     return ClassReference;
   }
