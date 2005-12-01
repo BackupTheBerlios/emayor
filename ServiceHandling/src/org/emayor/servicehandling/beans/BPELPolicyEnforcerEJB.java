@@ -168,7 +168,7 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 		String ret = "";
 		
 		try {
-			ret = this.policyEnforcement.FPM_getSignerRole(xmlDocument);
+			ret = this.policyEnforcement.F_getSignerRole(xmlDocument);
 		} catch (RemoteException rex) {
 			log.error("caught ex: " + rex.toString());
 			throw new BPELPolicyEnforcerException(rex.toString());

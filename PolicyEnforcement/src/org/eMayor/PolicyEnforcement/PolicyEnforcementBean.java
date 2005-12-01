@@ -690,9 +690,9 @@ public class PolicyEnforcementBean implements SessionBean {
 	 * Business method
 	 * @ejb.interface-method  view-type = "both"
 	 */
-	public String FPM_getSignerRole(String SignedDocument) {
+	public String F_getSignerRole(String SignedDocument) {
 		String SignerRole="N/A";
-		log.debug("FPM_getSignerRole:: StartProcessing...");
+		log.debug("F_getSignerRole:: StartProcessing...");
 		if (SignedDocument!=null) {
 			// let's parce the string 
 			javax.xml.parsers.DocumentBuilderFactory dbf =
@@ -709,7 +709,7 @@ public class PolicyEnforcementBean implements SessionBean {
 	      		
 	      		org.w3c.dom.Document doc = db.parse(myInputSource);
 	     		
-	      		log.debug("FPM_getSignerRole:: Document parsed, looking for signatures");
+	      		log.debug("F_getSignerRole:: Document parsed, looking for signatures");
 	            Element nscontext = XMLUtils.createDSctx(doc, "ds",
 	                                                  Constants.SignatureSpecNS);
 	     		NodeList myNodeList = XPathAPI.selectNodeList(doc,
@@ -727,17 +727,17 @@ public class PolicyEnforcementBean implements SessionBean {
 	     				C_UserProfile myTempProfile = new C_UserProfile(MyCertChain);
 	     				if (myTempProfile!=null) {
 	     					SignerRole = myTempProfile.getUserRole();
-	     					log.debug("FPM_getSignerRole:: The Role is "+ SignerRole);
+	     					log.debug("F_getSignerRole:: The Role is "+ SignerRole);
 	     				} else {
-	     					log.debug("FPM_getSignerRole::Error cannot create a temporary UserProfile");
+	     					log.debug("F_getSignerRole::Error cannot create a temporary UserProfile");
 	     				}
 	     				
 	     			} else {
-	     				log.debug("FPM_getSignerRole::Error cannot find a certificate in the signature");
+	     				log.debug("F_getSignerRole::Error cannot find a certificate in the signature");
 	     			}
 	     			
 	     		} else {
-	     			log.debug("FPM_getSignerRole::Error Can not find a signature in the Document");
+	     			log.debug("F_getSignerRole::Error Can not find a signature in the Document");
 	     		}
 	     		
 			}catch (Exception e) {
@@ -747,10 +747,10 @@ public class PolicyEnforcementBean implements SessionBean {
 			
 		} else
 		{
-			log.debug("FPM_getSignerRole::Error The signed Document is null");
+			log.debug("F_getSignerRole::Error The signed Document is null");
 		}
 		
-		log.debug("FPM_getSignerRole:: EndProcessing...");
+		log.debug("F_getSignerRole:: EndProcessing...");
 		return SignerRole;
 		
 	}

@@ -90,7 +90,7 @@ public interface PolicyEnforcement
    /**
     * Business method
     */
-   public java.lang.String FPM_getSignerRole( java.lang.String SignedDocument )
+   public java.lang.String F_getSignerRole( java.lang.String SignedDocument )
       throws java.rmi.RemoteException;
 
 }
