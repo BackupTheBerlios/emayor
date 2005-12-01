@@ -185,6 +185,11 @@ public class RepositoryDocument implements Serializable
   }
   
   
+  public void setDocumentIndex( final int newIndex )
+  {
+    this.documentIndex = newIndex;
+  }
+  
  /**
   *  Return the ServiceHandling task object associated
   *  to this repository object.

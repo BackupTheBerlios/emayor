@@ -175,7 +175,15 @@ public class Repository extends ActionForm
                                                      documentResponse,
 													 documentIndex,
                                                      task );
-    this.addDocumentSortedByTime( doc );
+    // sort them after time:
+    this.addDocumentSortedByTime( doc );    
+    // after having changed the order, we must update the indices again:
+    for( int i=0; i < this.documents.size(); i++ )
+    {
+      RepositoryDocument theDocument = (RepositoryDocument)this.documents.elementAt(i);
+      theDocument.setDocumentIndex(i);
+    }
+    
   } // addTask
   
   

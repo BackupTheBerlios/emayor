@@ -152,6 +152,10 @@ public class XML_Node
   
   public void setTagValue( final String value )
   {
+    if( ( value != null ) && (value.length() > 0 ) )
+    {
+      this.isDirectlyClosed = false; // important - once it carries values    
+    }                                // this flag must be clear in any case.
     this.tagValue = value;
   }                     
   
