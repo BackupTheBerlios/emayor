@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.io.*;
 import java.util.*;
 import org.emayor.client.parser.xml.*;
 import org.emayor.client.parser.EMayorDocumentParser;
@@ -42,6 +41,12 @@ public class GUIBuilder
   public static final String Attribute_SubmitterParameter="SubmitterParameter";
   public static final String Attribute_IsEditable="Editable";
 
+  public static final String Attribute_FontStyle = "FontStyle";
+  public static final String Attribute_FontSize  = "FontSize";
+  public static final String Attribute_FontName  = "FontName";
+  
+  public static final String Attribute_RelativeURL  = "RelativeURL";
+  
   // Alignments used for boxlayouts:
   public static final String Attribute_AlignmentX="AlignmentX";
   public static final String Attribute_AlignmentY="AlignmentY";
@@ -230,17 +235,17 @@ public class GUIBuilder
       else
       if( childNode.getTagName().equals("JLabel") )
       {
-        this.buildJLabellUI( parentPanel,childNode ); // can call buildUI() again for children
+        this.buildJLabellUI( parentPanel,childNode );
       }
       else
         if( childNode.getTagName().equals("JTextField") )
         {
-          this.buildTextInputUI( parentPanel,childNode,produceVersionForPrinting ); // can call buildUI() again for children
+          this.buildTextInputUI( parentPanel,childNode,produceVersionForPrinting );
         }
       else
       if( childNode.getTagName().equals("JTextArea") )
       {
-        this.buildJTextAreaUI( parentPanel,childNode,produceVersionForPrinting ); // can call buildUI() again for children
+        this.buildJTextAreaUI( parentPanel,childNode,produceVersionForPrinting );
       }
       else
       if( childNode.getTagName().equals("JButton") )
@@ -248,13 +253,18 @@ public class GUIBuilder
         // skip buttons for representations to be printed:
         if( !produceVersionForPrinting )
         {
-          this.buildJButtonUI( parentPanel,childNode ); // can call buildUI() again for children
+          this.buildJButtonUI( parentPanel,childNode );
         }
       }
       else
       if( childNode.getTagName().equals("Box") )
       {
-        this.buildBoxUI( parentPanel,childNode ); // can call buildUI() again for children
+        this.buildBoxUI( parentPanel,childNode );
+      }
+      else
+      if( childNode.getTagName().equals("Image") )
+      {
+        this.buildImageUI( parentPanel,childNode );
       }
       else
       {
@@ -267,6 +277,44 @@ public class GUIBuilder
 
 
 
+  
+  
+  
+  private void buildImageUI( final JPanel parentPanel,
+                             final XML_Node imageNode )
+  {
+    String relativeURL_Parameter = imageNode.getAttributeValueForName(Attribute_RelativeURL); 
+    String addParameter = imageNode.getAttributeValueForName(Attribute_AddParameter);
+    String alignmentX_Parameter = imageNode.getAttributeValueForName(Attribute_AlignmentX);
+    String alignmentY_Parameter = imageNode.getAttributeValueForName(Attribute_AlignmentY);
+    if( relativeURL_Parameter != null )
+    {
+      try   // working example:  "/pictures/applet/notvalidated.gif"
+      {
+        ImageIcon icon = this.mainApplet.loadImageIcon(relativeURL_Parameter);
+        JLabel imageLabel = new JLabel();
+        imageLabel.setOpaque(false);
+        imageLabel.setIcon(icon);
+        // Add it:
+        this.addComponent( parentPanel,imageLabel,addParameter,
+                           alignmentX_Parameter,alignmentY_Parameter );        
+      }
+      catch( Exception eee )
+      {
+        System.out.println("*** GUIBuilder.buildImageUI(): Unable to process Image element.");
+        System.out.println("*** The following exception has been raised:");
+        eee.printStackTrace();      
+        System.out.println("*** Skipping the image because of the exception above.");
+      }
+    }
+    else
+    {
+      System.out.println("*** GUIBuilder.buildImageUI(): Unable to process Image element,");
+      System.out.println("*** because the required RelativeURL parameter is missing.");
+    }
+  } // buildImageUI
+  
+  
   
   
   
@@ -508,6 +556,10 @@ public class GUIBuilder
     String horizontalBorderSizeParameter = jLabelNode.getAttributeValueForName(Attribute_HorizontalBorderSize);
     String verticalBorderSizeParameter = jLabelNode.getAttributeValueForName(Attribute_VerticalBorderSize);
 
+    String fontStyleParameter = jLabelNode.getAttributeValueForName(Attribute_FontStyle);
+    String fontSizeParameter  = jLabelNode.getAttributeValueForName(Attribute_FontSize );
+    String fontNameParameter  = jLabelNode.getAttributeValueForName(Attribute_FontName );
+
     String alignmentX_Parameter = jLabelNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = jLabelNode.getAttributeValueForName(Attribute_AlignmentY);
         
@@ -538,6 +590,7 @@ public class GUIBuilder
     this.setGraphicalAttributes( jLabel,backgroundParameter,
     		                     borderTypeParameter,
     		                     horizontalBorderSizeParameter,verticalBorderSizeParameter );
+    this.setFontAttributesFor(jLabel,fontStyleParameter,fontSizeParameter,fontNameParameter);
     if( value != null ) jLabel.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
     if( columns > 0 )
     {
@@ -672,6 +725,10 @@ public class GUIBuilder
     String columnsParameter = jTextFieldNode.getAttributeValueForName(Attribute_Columns);
     int columns = this.getIntegerFromParameter(columnsParameter);
 
+    String fontStyleParameter = jTextFieldNode.getAttributeValueForName(Attribute_FontStyle);
+    String fontSizeParameter  = jTextFieldNode.getAttributeValueForName(Attribute_FontSize );
+    String fontNameParameter  = jTextFieldNode.getAttributeValueForName(Attribute_FontName );
+    
     String alignmentX_Parameter = jTextFieldNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = jTextFieldNode.getAttributeValueForName(Attribute_AlignmentY);
 
@@ -738,6 +795,8 @@ public class GUIBuilder
         final StringComboBoxEditor comboboxEditor = new StringComboBoxEditor();
         jComboBox.setEditor( comboboxEditor );
 
+        this.setFontAttributesFor(comboboxEditor,fontStyleParameter,fontSizeParameter,fontNameParameter);
+        
         // Set the initial value in the editor:
         String selectedInitialValue = value;
         // forwardtransform if mapping is defined:
@@ -870,6 +929,10 @@ public class GUIBuilder
     String columnsParameter = jTextFieldNode.getAttributeValueForName(Attribute_Columns);
     int columns = this.getIntegerFromParameter(columnsParameter);
 
+    String fontStyleParameter = jTextFieldNode.getAttributeValueForName(Attribute_FontStyle);
+    String fontSizeParameter  = jTextFieldNode.getAttributeValueForName(Attribute_FontSize );
+    String fontNameParameter  = jTextFieldNode.getAttributeValueForName(Attribute_FontName );
+
     String alignmentX_Parameter = jTextFieldNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = jTextFieldNode.getAttributeValueForName(Attribute_AlignmentY);
     String isEditable_Parameter = jTextFieldNode.getAttributeValueForName(Attribute_IsEditable);
@@ -889,6 +952,7 @@ public class GUIBuilder
     {
       jTextField.setEditable(false);
     }
+    this.setFontAttributesFor(jTextField,fontStyleParameter,fontSizeParameter,fontNameParameter);
     // and the associated label for the display of schema validation error informations:
     // Must be wide enough, because geometry isn't changed after creation.
     final JLabel schemaValidationInfoLabel = new JLabel("                                                ");
@@ -993,6 +1057,15 @@ public class GUIBuilder
     String columnsParameter = dateInputNode.getAttributeValueForName(Attribute_Columns);
     int columns = this.getIntegerFromParameter(columnsParameter);
 
+    String backgroundParameter = dateInputNode.getAttributeValueForName(Attribute_Background);
+    String borderTypeParameter = dateInputNode.getAttributeValueForName(Attribute_BorderType);
+    String horizontalBorderSizeParameter = dateInputNode.getAttributeValueForName(Attribute_HorizontalBorderSize);
+    String verticalBorderSizeParameter = dateInputNode.getAttributeValueForName(Attribute_VerticalBorderSize);
+
+    String fontStyleParameter = dateInputNode.getAttributeValueForName(Attribute_FontStyle);
+    String fontSizeParameter  = dateInputNode.getAttributeValueForName(Attribute_FontSize );
+    String fontNameParameter  = dateInputNode.getAttributeValueForName(Attribute_FontName );
+
     String alignmentX_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentY);
 
@@ -1009,6 +1082,11 @@ public class GUIBuilder
    
     final EditableDateTypeInputComponent dateTypeInputComponent = 
       new EditableDateTypeInputComponent( yearText,monthText,dayText );    
+    this.setGraphicalAttributes( dateTypeInputComponent,backgroundParameter,
+                                 borderTypeParameter,
+                                 horizontalBorderSizeParameter,verticalBorderSizeParameter ); 
+    this.setFontAttributesFor(dateTypeInputComponent,fontStyleParameter,fontSizeParameter,fontNameParameter);
+
     // and the associated label for the display of schema validation error informations:
     // Must be wide enough, because geometry isn't changed after creation.
     final JLabel schemaValidationInfoLabel = new JLabel("                                                ");
@@ -1084,6 +1162,10 @@ public class GUIBuilder
     String horizontalBorderSizeParameter = dateInputNode.getAttributeValueForName(Attribute_HorizontalBorderSize);
     String verticalBorderSizeParameter = dateInputNode.getAttributeValueForName(Attribute_VerticalBorderSize);
 
+    String fontStyleParameter = dateInputNode.getAttributeValueForName(Attribute_FontStyle);
+    String fontSizeParameter  = dateInputNode.getAttributeValueForName(Attribute_FontSize );
+    String fontNameParameter  = dateInputNode.getAttributeValueForName(Attribute_FontName );
+
     String alignmentX_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = dateInputNode.getAttributeValueForName(Attribute_AlignmentY);
         
@@ -1114,6 +1196,7 @@ public class GUIBuilder
     this.setGraphicalAttributes( roDateComponent,backgroundParameter,
                                  borderTypeParameter,
                                  horizontalBorderSizeParameter,verticalBorderSizeParameter );
+    this.setFontAttributesFor(roDateComponent,fontStyleParameter,fontSizeParameter,fontNameParameter);
     if( value != null ) roDateComponent.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
     if( columns > 0 )
     {
@@ -1142,6 +1225,10 @@ public class GUIBuilder
     String rowsParameter = jTextAreaNode.getAttributeValueForName(Attribute_Rows);
     int rows = this.getIntegerFromParameter(rowsParameter);
 
+    String fontStyleParameter = jTextAreaNode.getAttributeValueForName(Attribute_FontStyle);
+    String fontSizeParameter  = jTextAreaNode.getAttributeValueForName(Attribute_FontSize );
+    String fontNameParameter  = jTextAreaNode.getAttributeValueForName(Attribute_FontName );
+
     String alignmentX_Parameter = jTextAreaNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = jTextAreaNode.getAttributeValueForName(Attribute_AlignmentY);
     String isEditable_Parameter = jTextAreaNode.getAttributeValueForName(Attribute_IsEditable);
@@ -1159,6 +1246,7 @@ public class GUIBuilder
     {
       jTextArea.setEditable(false);
     }
+    this.setFontAttributesFor(jTextArea,fontStyleParameter,fontSizeParameter,fontNameParameter);
     jTextArea.setBorder( BorderFactory.createLineBorder( new Color(80,80,80),1));
     // and the associated label for the display of schema validation error informations:
     final JLabel schemaValidationInfoLabel = new JLabel("                                                ");
@@ -1241,6 +1329,10 @@ public class GUIBuilder
     String horizontalBorderSizeParameter = jPanelNode.getAttributeValueForName(Attribute_HorizontalBorderSize);
     String verticalBorderSizeParameter = jPanelNode.getAttributeValueForName(Attribute_VerticalBorderSize);
         
+    String fontStyleParameter = jPanelNode.getAttributeValueForName(Attribute_FontStyle);
+    String fontSizeParameter  = jPanelNode.getAttributeValueForName(Attribute_FontSize );
+    String fontNameParameter  = jPanelNode.getAttributeValueForName(Attribute_FontName );
+
     String alignmentX_Parameter = jPanelNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = jPanelNode.getAttributeValueForName(Attribute_AlignmentY);
     
@@ -1250,6 +1342,7 @@ public class GUIBuilder
     this.setGraphicalAttributes( jPanel,backgroundParameter,
     		                     borderTypeParameter,
 								 horizontalBorderSizeParameter,verticalBorderSizeParameter );
+    this.setFontAttributesFor(jPanel,fontStyleParameter,fontSizeParameter,fontNameParameter);
     // Add it:
     if( (useScrollPane != null) && (useScrollPane.equals("true")) )
     {
@@ -1267,6 +1360,90 @@ public class GUIBuilder
   } // buildJPanelUI
 
 
+
+
+  
+  
+ /**
+  *  Sets the font attributes for the given component.
+  */ 
+  public void setFontAttributesFor( final JComponent component,
+                                    final String fontStyleParameter,
+                                    final String fontSizeParameter,
+                                    final String fontNameParameter )
+  {
+    // Do nothing, if not at least one parameter is set:
+    if( (fontStyleParameter != null) || (fontSizeParameter != null) || (fontNameParameter != null) )
+    {
+      // Take the Label font for defaults:
+      Font defaultFont = UIManager.getFont("Label.font");
+      String fontName = defaultFont.getName();
+      int fontStyle = defaultFont.getStyle();
+      int fontSize = defaultFont.getSize();
+      // Overwrite these attributes with the ones from the parameters:
+      if( fontStyleParameter != null )
+      {
+        if( fontStyleParameter.equals("Normal") )
+        {
+          fontStyle = Font.PLAIN;
+        }
+        else
+        if( fontStyleParameter.equals("Bold") )
+        {
+          fontStyle = Font.BOLD;
+        }
+        else
+        if( fontStyleParameter.equals("Italic") )
+        {
+          fontStyle = Font.ITALIC;
+        }
+        else
+        if( fontStyleParameter.equals("BoldItalic") )
+        {
+          fontStyle = Font.BOLD | Font.ITALIC;
+        }
+        else
+        {
+          System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontStyle parameter: " + fontStyleParameter);
+          System.out.println("*** This parameter has been skipped.");        
+          System.out.println("*** Valid values are: Normal,Bold,Italic and BoldItalic");        
+        }
+      }
+      if( fontSizeParameter != null )
+      {
+        try
+        {
+          fontSize = Integer.valueOf(fontSizeParameter).intValue();
+        }
+        catch( Exception ee )
+        {
+          System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontSize parameter: " + fontSizeParameter);
+          System.out.println("*** This parameter has been skipped.");
+        }      
+      }
+      if( fontNameParameter != null )
+      {
+        if( fontNameParameter.equals("Dialog"      ) ||
+            fontNameParameter.equals("DialogInput" ) ||
+            fontNameParameter.equals("Monospaced"  ) ||
+            fontNameParameter.equals("Serif"       ) ||
+            fontNameParameter.equals("SansSerif"   )    )
+        {
+          fontName = fontNameParameter;
+        }
+        else
+        {
+          System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontName parameter: " + fontNameParameter);
+          System.out.println("*** This parameter has been skipped.");
+          System.out.println("***  Valid values are: Dialog,DialogInput,Monospaced,Serif and SansSerif");
+        }
+      }      
+      // Set this font:
+      Font font = new Font( fontName,fontStyle,fontSize );      
+      component.setFont(font);
+    }
+  } // setFontAttributesFor
+ 
   
   
   
