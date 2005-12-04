@@ -9,28 +9,43 @@
 
 
   <View>  <!-- The view always has a BorderLayout -->
-      <JPanel LayoutClass="FlowLayout" 
-              LayoutParameter="FlowLayout.LEFT" 
+  
+  
+      <JPanel LayoutClass="BorderLayout" 
               AddParameter="BorderLayout.NORTH"
-              Background="255,255,255"
+              Background="242,236,224"
               BorderType="EmptyBorder"
-              HorizontalBorderSize="0"
-              VerticalBorderSize="12">
-         <JLabel Background="242,236,224">$Title.RequestLine$</JLabel>
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
+        <JPanel LayoutClass="BoxLayout"
+                LayoutParameter="BoxLayout.Y_AXIS" 
+                AddParameter="BorderLayout.CENTER"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="8"
+                VerticalBorderSize="8">
+           <Image RelativeURL="/pictures/applet/epf_logo.jpg"></Image>
+           <Box BoxType="createVerticalStrut" BoxSize="16"/>
+           <JLabel Background="242,236,224" FontStyle="Bold" FontSize="14">$Title.RequestLine$</JLabel>         
+           <Box BoxType="createVerticalStrut" BoxSize="10"/>
+        </JPanel>
       </JPanel>
       
 
       <JPanel LayoutClass="BoxLayout" 
               LayoutParameter="BoxLayout.Y_AXIS" 
               AddParameter="BorderLayout.CENTER"
-              Background="242,236,224">
+              Background="242,236,224"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
 
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+        <Box BoxType="createVerticalStrut" BoxSize="10"/>
 
         <!-- subtitle: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                 AlignmentX="0">
-          <JLabel Background="242,236,224">$Form.ConcernedPersonDetails$</JLabel>
+          <JLabel Background="242,236,224" FontStyle="Bold" FontSize="14">$Form.ConcernedPersonDetails$</JLabel>
         </JPanel>
 
         <Box BoxType="createVerticalStrut" BoxSize="10"/>
@@ -136,16 +151,23 @@
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
 
+        <JPanel LayoutClass="BoxLayout" 
+                LayoutParameter="BoxLayout.Y_AXIS" 
+                Background="255,255,255"
+                BorderType="EtchedBorder"
+                DisplayTarget="Screen">
 
-        <JPanel Background="255,255,255" AlignmentX="0">
-          <JButton ActionClass="XMLSignatureSubmitter">       $Form.SignAndSubmit$       </JButton>
-        </JPanel>
+          <JPanel Background="255,255,255" AlignmentX="0">
+            <JButton ActionClass="XMLSignatureSubmitter">       $Form.SignAndSubmit$       </JButton>
+          </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="10"/>
+          <Box BoxType="createVerticalStrut" BoxSize="10"/>
 
-        <JPanel Background="255,255,255" AlignmentX="0">
-          <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
-          <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
+          <JPanel Background="255,255,255" AlignmentX="0">
+            <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
+            <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
+          </JPanel>
+          
         </JPanel>
 
         <Box BoxType="createVerticalStrut" BoxSize="10"/>

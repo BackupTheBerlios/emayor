@@ -109,7 +109,7 @@
 <%-- name of municipality as link: --%>
 <td><bean:write name="loginForm" property="nameOfMunicipality" /></td>
 <td>&nbsp;login&nbsp;</td>                
-<td style="width: 50%;></td>                
+<td style="width: 50%;"></td>                
 <%--  ..................... JSP LOGIC END .....................  --%>	
                   <td style="width: 40%;"></td>
                   <td style="text-align: center; background-color: rgb(240, 240, 220);">

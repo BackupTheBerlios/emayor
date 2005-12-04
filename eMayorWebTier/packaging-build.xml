@@ -5,7 +5,7 @@
 <mkdir dir="WebRoot"/>
 <jar destfile="WebRoot/eMayorApplet.jar">
 <zipfileset dir="bin/org/emayor/client"/>
-<zipfileset dir="bin/org/apache/xml" prefix="org.apache.xml"/>
+<zipfileset dir="bin/org/apache/xml" prefix="org.apache.xml" excludes="**/**.html"/>
 </jar>
 </target>
 <target name="N1001F" description="eMayorWebTier.war">

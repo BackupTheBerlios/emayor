@@ -45,13 +45,15 @@ public class GUIBuilder
   public static final String Attribute_FontSize  = "FontSize";
   public static final String Attribute_FontName  = "FontName";
   
+  public static final String Attribute_DisplayTarget  = "DisplayTarget";
+  
+  // This is used for images:
   public static final String Attribute_RelativeURL  = "RelativeURL";
   
-  // Alignments used for boxlayouts:
+  // Alignments used for nodes and leafs under boxlayouts:
   public static final String Attribute_AlignmentX="AlignmentX";
   public static final String Attribute_AlignmentY="AlignmentY";
 
-  
   private EMayorFormsClientApplet mainApplet;
   private String language = "en"; // The language used for the UI.
 
@@ -250,11 +252,7 @@ public class GUIBuilder
       else
       if( childNode.getTagName().equals("JButton") )
       {
-        // skip buttons for representations to be printed:
-        if( !produceVersionForPrinting )
-        {
-          this.buildJButtonUI( parentPanel,childNode );
-        }
+        this.buildJButtonUI( parentPanel,childNode );
       }
       else
       if( childNode.getTagName().equals("Box") )
@@ -1335,7 +1333,26 @@ public class GUIBuilder
 
     String alignmentX_Parameter = jPanelNode.getAttributeValueForName(Attribute_AlignmentX);
     String alignmentY_Parameter = jPanelNode.getAttributeValueForName(Attribute_AlignmentY);
+
     
+    String displayTarget_Parameter = jPanelNode.getAttributeValueForName(Attribute_DisplayTarget);
+    // The display target can have the following values:
+    // - Both
+    // - Printer
+    // - Screen
+    // if the display target is not set, it defaults to Both.
+    if( displayTarget_Parameter != null )
+    {
+      if( displayTarget_Parameter.equals("Screen") && (produceVersionForPrinting) )
+      {
+        return; // don't display this panel and any children      
+      }
+      if( displayTarget_Parameter.equals("Printer") && (!produceVersionForPrinting) )
+      {
+        return; // don't display this panel and any children      
+      }
+    }
+        
     // Create it:
     JPanel jPanel = new JPanel();
     this.setLayout(jPanel,layoutClass,layoutParameter);

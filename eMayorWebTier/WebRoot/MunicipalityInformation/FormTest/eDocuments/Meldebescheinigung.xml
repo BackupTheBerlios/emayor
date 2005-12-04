@@ -3,7 +3,7 @@
 E:\working\eMayor\dev\ServiceHandling\xml\2005-07-25\xsd\emayor\BusinessDocument-v0.2g.xsd">
 <!--  äöü -->
 	<ed:DokumentId>001</ed:DokumentId>
-	<AusstellendeGemeinde>Stadt Aachen</AusstellendeGemeinde>
+	<AusstellendeGemeinde>Aachen</AusstellendeGemeinde>
 	<BescheinigteBeteiligten>
 		<ed:EinwohnerAngaben>
 			<ed:EinwohnerName>

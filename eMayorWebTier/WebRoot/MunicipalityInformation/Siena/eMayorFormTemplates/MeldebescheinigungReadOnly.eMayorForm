@@ -7,37 +7,54 @@
   <!-- xml Swing combined view-controler descriptions follow here   äöü -->
 
   <View>  <!-- The view always has a BorderLayout -->
-      <JPanel LayoutClass="FlowLayout" 
-              LayoutParameter="FlowLayout.LEFT" 
+
+      <JPanel LayoutClass="BorderLayout" 
               AddParameter="BorderLayout.NORTH"
-              Background="255,255,255"
+              Background="242,236,224"
               BorderType="EmptyBorder"
-              HorizontalBorderSize="0"
-              VerticalBorderSize="12">
-         <JLabel Background="255,255,255">$Title.Meldebescheinigung$</JLabel>
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
+        <JPanel LayoutClass="BoxLayout"
+                LayoutParameter="BoxLayout.Y_AXIS" 
+                AddParameter="BorderLayout.CENTER"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="8"
+                VerticalBorderSize="8">
+           <Image RelativeURL="/pictures/applet/epf_logo.jpg"></Image>
+           <Box BoxType="createVerticalStrut" BoxSize="16"/>
+           <JLabel Background="255,255,255" FontStyle="Bold" FontSize="14">$Title.Meldebescheinigung$$</JLabel>         
+           <!-- Title Label: -->
+           <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+                   AlignmentX="0">
+             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="14">$Form.ServingMunicipalityDetails$</JLabel>
+             <JTextField ModelPath="Model/Meldebescheinigung/AusstellendeGemeinde"
+                         Columns="18" Editable="false" FontStyle="Bold" FontSize="14"></JTextField>
+           </JPanel>
+           <Box BoxType="createVerticalStrut" BoxSize="10"/>
+        </JPanel>
       </JPanel>
-      
+
+
+
+
 
       <JPanel LayoutClass="BoxLayout" 
               LayoutParameter="BoxLayout.Y_AXIS" 
               AddParameter="BorderLayout.CENTER"
-              Background="255,255,255">
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
 
 
 <!-- START   Entries for the citizen's name -->
 
-        <!-- Title Label: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Background="242,236,224">$Form.ServingMunicipalityDetails$</JLabel>
-          <JTextField ModelPath="Model/Meldebescheinigung/AusstellendeGemeinde"
-                      Columns="18" Editable="false"></JTextField>
-        </JPanel>
 
         <!-- Title Label: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
                 AlignmentX="0">
-          <JLabel Background="242,236,224">$Form.Requester$</JLabel>
+          <JLabel Background="242,236,224" FontStyle="Bold" FontSize="14">$Form.Requester$</JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
@@ -214,14 +231,14 @@
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
-        <JPanel Background="255,255,255" AlignmentX="0">
+        <JPanel Background="255,255,255" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
           <JButton ActionClass="RedirectSubmitter">       $Form.Done$       </JButton>
           <JButton ActionClass="SaveModelToDiskSubmitter">       $Form.SaveToDisk$       </JButton>
           <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
           <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
         </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+        <Box BoxType="createVerticalStrut" BoxSize="10"/>
 
 
 

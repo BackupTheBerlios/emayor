@@ -163,7 +163,7 @@ public class FormTestForm extends ExtendedActionForm
    */ 
    public String getExpectedAppletHeight()
    { 
-     int expectedAppletHeight = 1100; // default return value
+     int expectedAppletHeight = 1400; // default return value
      
      return String.valueOf(expectedAppletHeight);
    }
