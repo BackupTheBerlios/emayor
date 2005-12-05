@@ -23,8 +23,16 @@ public class HTMLTemplate implements Serializable
 {
 
 
-  private static HTMLTemplate instance = null;
- 
+  private static HTMLTemplate GlobalInstance = null;
+  private static HTMLTemplate LocalizedInstance = null;
+  
+  // The MunicipalityName "" means, that the global template.htm
+  // directly from the MunicipalityInformation folder is used.
+  // Otherwise its the municipalityName of the localized instance.
+  private static String LocalizedMunicipalityName = "";
+  
+  
+  
   // The html template is partitioned at these identifiers, which are removed
   // and do not occure in the partitions:
   private final String[]  insertionIdentifiers = 
@@ -47,15 +55,15 @@ public class HTMLTemplate implements Serializable
   
   
   
-  private HTMLTemplate()
+  private HTMLTemplate( final String municipalityName )
   {
-    this.loadTemplateFromFileSystem();
+    this.loadTemplateFromFileSystem( municipalityName );
   }
 
   
   
   
-  private void loadTemplateFromFileSystem()
+  private void loadTemplateFromFileSystem( final String municipalityName )
   {
     StringBuffer municipalitiesInformationDirPath = new StringBuffer();  
     municipalitiesInformationDirPath.append( System.getProperty("jboss.server.home.dir") );
@@ -64,6 +72,11 @@ public class HTMLTemplate implements Serializable
     municipalitiesInformationDirPath.append( File.separator );
     municipalitiesInformationDirPath.append( "MunicipalityInformation" );
     municipalitiesInformationDirPath.append( File.separator );
+    if( municipalityName.length() > 0 ) // take the localized template
+    {
+      municipalitiesInformationDirPath.append( municipalityName );
+      municipalitiesInformationDirPath.append( File.separator );
+    }
     File municipalitiesInformationDirectory = new File( municipalitiesInformationDirPath.toString() );
     StringBuffer htmlTemplateText = new StringBuffer();
     if( municipalitiesInformationDirectory.exists() )
@@ -308,10 +321,52 @@ public class HTMLTemplate implements Serializable
   
 
   
-  public static HTMLTemplate getInstance()
+ /**
+  *  Creates or retrieves the instance.
+  *  A new instance is created if
+  *  - its the first call
+  *  - the numicipalityName has changed
+  * 
+  *  If its called with municipalityName = empty string,
+  *  the global template.htm from the MunicipalityInformation folder
+  *  is used. Otherwise, the localized template.htm from
+  *  MunicipalityInformation/municipalityName is used.
+  */ 
+  public static synchronized HTMLTemplate getInstance( final String _municipalityName )
   {
-    if( instance == null ) instance = new HTMLTemplate();
-    return instance;
+    HTMLTemplate returnedInstance = null;
+    if( _municipalityName.length() == 0 ) // global instance
+    {
+      // if a localized instance exists, take this one:
+      if( LocalizedInstance != null )
+      {
+        returnedInstance = LocalizedInstance;
+      }
+      else
+      {
+        if( GlobalInstance == null ) GlobalInstance = new HTMLTemplate("");
+        returnedInstance = GlobalInstance;
+      }  
+    }
+    else // localized instance
+    {
+      if( LocalizedInstance == null )
+      {
+        LocalizedInstance = new HTMLTemplate(_municipalityName );
+        LocalizedMunicipalityName = _municipalityName;
+      }
+      else
+      {
+        // Check for change of municipality:
+        if( !LocalizedMunicipalityName.equals(_municipalityName ) )
+        {
+          LocalizedInstance = new HTMLTemplate(_municipalityName );
+          LocalizedMunicipalityName = _municipalityName;
+        }      
+      }
+      returnedInstance = LocalizedInstance;
+    }
+    return returnedInstance;
   }
 
   

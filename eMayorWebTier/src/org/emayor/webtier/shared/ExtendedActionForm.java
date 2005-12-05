@@ -48,7 +48,10 @@ public class ExtendedActionForm extends ActionForm
   	this.setLanguageFromInt( LanguageProperties.English ); // default
   
     // Read the html template file used for all jsp generated html replies:
-    this.htmlTemplate = HTMLTemplate.getInstance();
+    // Here, the global template.htm directly in the MunicipalityInformation
+    // folder will be read. Localized version is used later, as soon as
+    // a municipality is chosen.
+    this.htmlTemplate = HTMLTemplate.getInstance("");
   
   	System.out.println("%%");
   	System.out.println("%% ExtendedActionForm INSTANCE CREATED (with english as default)");
@@ -56,29 +59,47 @@ public class ExtendedActionForm extends ActionForm
   } // constructor
   
  
+
+  
+
+  
+ /**
+  *  This is called as soon as a municipality hs been
+  *  chosen. From then on, the localized template.htm from the
+  *  folder of this municipality will be used.
+  */ 
+  public synchronized void loadLocalizedHTMLTemplateForMunicipality( final String municipalityName )
+  {
+    // This is handled by the singleton automatically, so just call it
+    // passing the municipalityName: 
+    this.htmlTemplate = HTMLTemplate.getInstance(municipalityName);  
+  } // loadLocalizedHTMLTemplateForMunicipality
+  
+
+  
   
   
   /**
    *  The getPartitionX() methods are called by JSP's and are valid, after
    *  this.htmlTemplate has been initialized and has created the partitions.
    */ 
-   public String getPartition0()
+   public synchronized String getPartition0()
    {
      return this.htmlTemplate.getPartition0();
    }
-   public String getPartition1()
+   public synchronized String getPartition1()
    {
     return this.htmlTemplate.getPartition1();
    }
-   public String getPartition2()
+   public synchronized String getPartition2()
    {
     return this.htmlTemplate.getPartition2();
    }
-   public String getPartition3()
+   public synchronized String getPartition3()
    {
     return this.htmlTemplate.getPartition3();
    }
-   public String getPartition4()
+   public synchronized String getPartition4()
    {
     return this.htmlTemplate.getPartition4();
    }

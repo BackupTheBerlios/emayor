@@ -606,7 +606,10 @@ public class GUIBuilder
       // adjust the columns so that in any case, the complete text is shown - skipping
       // text is not allowed:
       int minimumWidth = this.calculateStringWidth( jLabel.getText(),jLabel.getFont() );
-      if( labelWidth < minimumWidth ) labelWidth = minimumWidth;
+      if( labelWidth < minimumWidth ) 
+      {
+        labelWidth = minimumWidth;
+      }
       jLabel.setPreferredSize( new Dimension(labelWidth,labelHeight) );
     } // if columns    
     // Add it:
@@ -987,7 +990,7 @@ public class GUIBuilder
     final String[] modelPaths = jTextFieldNode.getAttributeValuesForNameStartingWith(Attribute_ModelPath);    
 
     // Create it:
-    final JTextField jTextField = new JTextField();    
+    final JTextField jTextField = new JTextField("");    
     // Set the textfield readonly only if the editable parameter is specified as false:
     if( ( isEditable_Parameter != null ) && (isEditable_Parameter.equals("false") ) )
     {
@@ -1044,14 +1047,22 @@ public class GUIBuilder
       }       
     }
     if( value != null ) jTextField.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
-    if( columns > 0 ) 
-    {
+    if( columns > 0 )
+    {      
+      //System.out.println("buildJLabellUI: Add jLabel with number of columns set to " + columns );
+      int fontSize = jTextField.getFont().getSize();      
+      int labelWidth = fontSize*columns;
+      int labelHeight = (5*fontSize)/4;
       // Security check: If the initial text length is greater than columns, we must
       // adjust the columns so that in any case, the complete text is shown - skipping
       // text is not allowed:
-      if( columns < jTextField.getText().length() ) columns = jTextField.getText().length();          
-      jTextField.setColumns( columns );
-    }   
+      int minimumWidth = this.calculateStringWidth( jTextField.getText(),jTextField.getFont() );
+      if( labelWidth < minimumWidth ) 
+      {
+        labelWidth = minimumWidth;
+      }
+      jTextField.setPreferredSize( new Dimension(labelWidth,labelHeight) );
+    } // if columns    
     // Add the jtextfield and the schema validation info label :
     int hGap = UIManager.getFont("Label.font").getSize();
     JPanel textInputPanel = new JPanel( new BorderLayout(hGap,0) );

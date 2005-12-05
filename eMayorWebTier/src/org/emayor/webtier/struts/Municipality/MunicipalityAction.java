@@ -69,6 +69,26 @@ public class MunicipalityAction extends Action
     {
       municipalityKey = municipalityForm.getNameKeyOfMunicipality();    
     }
+    // if its found now, switch to localized template.htm:
+    if( municipalityKey != null )
+    {
+        // and change to the localized template.htm now, if possible:
+        try
+        {
+          // The name key is point separated: f.ex. Name.Aachen, take the part after the point:
+          StringTokenizer tok = new StringTokenizer(municipalityKey,".");
+          tok.nextToken();
+          String municipalityFolderName = tok.nextToken();
+          municipalityForm.loadLocalizedHTMLTemplateForMunicipality(municipalityFolderName);
+          System.out.println("Switched to localized template.htm for " + municipalityFolderName);
+        }
+        catch( Exception eee )
+        {
+          System.out.println("*** Unable to set localized template.htm.");
+          eee.printStackTrace();
+          System.out.println("*** -> Using global template.htm.");
+        }              
+    } // if
     // If no language has been passed, set the cached on from the form:
     if( languageParameterValue == null )
     {

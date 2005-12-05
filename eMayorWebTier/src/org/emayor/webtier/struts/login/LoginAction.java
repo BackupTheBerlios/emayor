@@ -75,7 +75,23 @@ public class LoginAction extends Action
       {
         if( municipalityKey != null ) // normal processing
         {
-          mappingForwardName= "showLoginPage";    
+          mappingForwardName= "showLoginPage";
+          // and change to the localized template.htm now, if possible:
+          try
+          {
+            // The name key is point separated: f.ex. Name.Aachen, take the part after the point:
+            StringTokenizer tok = new StringTokenizer(municipalityKey,".");
+            tok.nextToken();
+            String municipalityFolderName = tok.nextToken();
+            loginForm.loadLocalizedHTMLTemplateForMunicipality(municipalityFolderName);
+            System.out.println("Switched to localized template.htm for " + municipalityFolderName);
+          }
+          catch( Exception eee )
+          {
+            System.out.println("*** Unable to set localized template.htm.");
+            eee.printStackTrace();
+            System.out.println("*** -> Using global template.htm.");
+          }          
         }
         else
         {
