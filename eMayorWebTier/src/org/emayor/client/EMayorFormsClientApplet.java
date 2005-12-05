@@ -521,12 +521,11 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
         catch( Exception e3465 )
         {
         }
+        System.out.println("*** ");
+        System.out.println("*** Unable to get required files from the server.");
+        System.out.println("*** ");
+        this.errorManager.addErrorMessage("Unable to get required files from the server.");
       }
-      System.out.println("*** ");
-      System.out.println("*** The applet was not able to get required information");
-      System.out.println("*** from the server. It should display an error page");
-      System.out.println("*** with the reason on it now.");
-      System.out.println("*** ");
     } // if
     else
     {

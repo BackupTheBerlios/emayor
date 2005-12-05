@@ -1,6 +1,8 @@
 package org.emayor.client;
 
 import java.awt.*;
+import java.awt.font.*;
+import java.awt.geom.AffineTransform;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -163,11 +165,15 @@ public class GUIBuilder
     {
       System.out.println("*** GUIBuilder: Unable to get schema enumeration map.[This is optional]");
       System.out.println("*** Exception message= " + ex.getMessage() );
+      ex.printStackTrace();
+      System.out.println("*** [Schema enumeration processing skipped] ");
     }
     catch( Error err )
     {
       System.out.println("*** GUIBuilder: Unable to get schema enumeration map.[This is optional]");
-      System.out.println("*** Error message= " + err.getMessage() );    
+      System.out.println("*** Error message= " + err.getMessage() );
+      err.printStackTrace();
+      System.out.println("*** [Schema enumeration processing skipped] ");
     }
     
     // debug:
@@ -584,18 +590,23 @@ public class GUIBuilder
     
     }
     // Create it:
-    JLabel jLabel = new JLabel();    
+    JLabel jLabel = new JLabel("");    
     this.setGraphicalAttributes( jLabel,backgroundParameter,
     		                     borderTypeParameter,
     		                     horizontalBorderSizeParameter,verticalBorderSizeParameter );
     this.setFontAttributesFor(jLabel,fontStyleParameter,fontSizeParameter,fontNameParameter);
     if( value != null ) jLabel.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
     if( columns > 0 )
-    {
+    {      
       //System.out.println("buildJLabellUI: Add jLabel with number of columns set to " + columns );
-      int fontSize = UIManager.getFont("Label.font").getSize();      
+      int fontSize = jLabel.getFont().getSize();      
       int labelWidth = fontSize*columns;
       int labelHeight = (5*fontSize)/4;
+      // Security check: If the initial text length is greater than columns, we must
+      // adjust the columns so that in any case, the complete text is shown - skipping
+      // text is not allowed:
+      int minimumWidth = this.calculateStringWidth( jLabel.getText(),jLabel.getFont() );
+      if( labelWidth < minimumWidth ) labelWidth = minimumWidth;
       jLabel.setPreferredSize( new Dimension(labelWidth,labelHeight) );
     } // if columns    
     // Add it:
@@ -606,7 +617,7 @@ public class GUIBuilder
   
   
   
-
+  
   
   
   
@@ -695,14 +706,47 @@ public class GUIBuilder
   
   
   
+ /**
+  *  Returns the width of the passed String using the passed font.
+  *  Assumes standard painting without using user defined scale functions
+  *  in overwritten paint methods.
+  */ 
+  private int calculateStringWidth( final String text, final Font font )
+  {
+    int stringWidth = 0;
+    if( ( text != null ) && ( text.length() > 0 ) )
+    {
+      FontRenderContext frc = new FontRenderContext( new AffineTransform(),true,true );
+      GlyphVector glyphVector = font.createGlyphVector(frc,text);
+      Rectangle glyphVectorBounds = glyphVector.getOutline().getBounds();
+      stringWidth = glyphVectorBounds.width;
+    }
+    
+    System.out.println("calculateStringWidth() for text= " + text +
+                       "  (with given font) returns " + stringWidth );
+    
+    return stringWidth;
+  }
+
+   
+   
+   
+  
+  
   private String getSimpleTypeForPath( final String path )
   {
-    String simpleType = (String)this.simpleTypesTable.get(path);
-    
+    String simpleType = null;
+    if( this.simpleTypesTable != null )
+    {
+      simpleType = (String)this.simpleTypesTable.get(path);
+    }
+    else
+    {
+      System.out.println(">> getSimpleTypeForNode(): simpleTypesTable is null.");    
+    }
     System.out.println(">> getSimpleTypeForNode() for documentPath= " + 
-                       path +
-                       " returns " + simpleType );
-    
+            path +
+            " returns " + simpleType );    
     return simpleType;
   }
 
@@ -867,8 +911,7 @@ public class GUIBuilder
                      if( transformationIsDefined )
                      {
                        newText = enumerationProperties.backTransform( newText,finalTranslatedEnumerationValues,enumerationValues);
-                     }
-                     
+                     }                     
                      modelFieldNode.setTagValue( newText );
                    }
                    // Inform the validator:
@@ -1000,8 +1043,15 @@ public class GUIBuilder
       	jTextField.setBackground( new Color(255,100,100) );
       }       
     }
-    if( columns > 0 ) jTextField.setColumns( columns );
     if( value != null ) jTextField.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
+    if( columns > 0 ) 
+    {
+      // Security check: If the initial text length is greater than columns, we must
+      // adjust the columns so that in any case, the complete text is shown - skipping
+      // text is not allowed:
+      if( columns < jTextField.getText().length() ) columns = jTextField.getText().length();          
+      jTextField.setColumns( columns );
+    }   
     // Add the jtextfield and the schema validation info label :
     int hGap = UIManager.getFont("Label.font").getSize();
     JPanel textInputPanel = new JPanel( new BorderLayout(hGap,0) );
