@@ -601,7 +601,7 @@ public class GUIBuilder
       //System.out.println("buildJLabellUI: Add jLabel with number of columns set to " + columns );
       int fontSize = jLabel.getFont().getSize();      
       int labelWidth = fontSize*columns;
-      int labelHeight = (5*fontSize)/4;
+      int labelHeight = (6*fontSize)/4;
       // Security check: If the initial text length is greater than columns, we must
       // adjust the columns so that in any case, the complete text is shown - skipping
       // text is not allowed:
@@ -1052,7 +1052,7 @@ public class GUIBuilder
       //System.out.println("buildJLabellUI: Add jLabel with number of columns set to " + columns );
       int fontSize = jTextField.getFont().getSize();      
       int labelWidth = fontSize*columns;
-      int labelHeight = (5*fontSize)/4;
+      int labelHeight = (7*fontSize)/4;
       // Security check: If the initial text length is greater than columns, we must
       // adjust the columns so that in any case, the complete text is shown - skipping
       // text is not allowed:
