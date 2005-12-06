@@ -210,38 +210,32 @@ public class Config {
 	
 	public static synchronized Config getInstance() throws ConfigException {
 		log.debug("-> start processing ...");
-		if (_self == null)
+		if (_self == null) {
 			_self = new Config();
-		else {
-			_self.local = null;
-			_self.home  = null;
-			_self.local = getPCEL(_self.configID);
 		}
 		log.debug("-> ... processing DONE!");
 		return _self;
 	}
 	
-	private static PlatformConfigurationEntityLocal getPCEL(String configID) {
+	private void getPCEL(String configID) {
 		Object ref;
-		PlatformConfigurationEntityLocalHome home = null;
 		try {
 			ref = new InitialContext()
 			.lookup(PlatformConfigurationEntityLocalHome.JNDI_NAME);
-			home = (PlatformConfigurationEntityLocalHome) PortableRemoteObject
+			this.home = (PlatformConfigurationEntityLocalHome) PortableRemoteObject
 			.narrow(ref, PlatformConfigurationEntityLocalHome.class);
-			return home.create(configID);
+			this.local = home.create(configID);
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CreateException e) {
 			try {
-				return home.findByPrimaryKey(configID);
+				this.local = home.findByPrimaryKey(configID);
 			} catch (FinderException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		return null;
 	}
 
 	private void init() {
@@ -485,6 +479,9 @@ public class Config {
 	 */
 	public synchronized String propertyAction(int propID, boolean action, String value, PlatformConfigurationEntityLocal local)
 			throws ConfigException {
+		
+		// refresh
+		this.getPCEL(this.configID);
 		
 		if ((!action) && (!WRITE_CONFIG))
 			log.debug("property set ("+local.getConfigID()+") [ID:"+propID+"="+value+"]");
