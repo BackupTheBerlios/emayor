@@ -211,7 +211,7 @@
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
-        <JPanel Background="255,255,255" AlignmentX="0">
+        <JPanel Background="255,255,255" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
           <JButton ActionClass="RedirectSubmitter">       $Form.Done$       </JButton>
           <JButton ActionClass="SaveModelToDiskSubmitter">       $Form.SaveToDisk$       </JButton>
           <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>

@@ -116,13 +116,18 @@ public class XMLDocumentPrinterDialog extends JDialog
     JPanel southPanel = new JPanel( new BorderLayout() );
     southPanel.add( buttonPanel, BorderLayout.CENTER );
 
-    this.getContentPane().add( mainPanel, BorderLayout.CENTER  );
-    this.getContentPane().add( southPanel, BorderLayout.SOUTH );
+    // Use a wrap panel on the north, so that content
+    // is not stretched over the whole frame, is its
+    // smaller than the frame:
+    JPanel wrapPanel = new JPanel( new BorderLayout(0,0) );
+    wrapPanel.add( mainPanel, BorderLayout.CENTER  );
+    wrapPanel.add( southPanel, BorderLayout.SOUTH );    
+    this.getContentPane().add( wrapPanel, BorderLayout.NORTH  );
 
     GraphicsEnvironment localEnvirnonment = GraphicsEnvironment.getLocalGraphicsEnvironment();
     Rectangle usableRect = localEnvirnonment.getMaximumWindowBounds();        
     int pHeight = (3*usableRect.height)/4;
-    int pWidth  = (3*usableRect.width)/4;
+    int pWidth  = pHeight;
     int hOffset = (usableRect.width-pWidth)/2;
     int vOffset = (usableRect.height-pHeight)/2;
     

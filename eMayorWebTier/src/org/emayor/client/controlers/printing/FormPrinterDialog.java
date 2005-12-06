@@ -119,7 +119,7 @@ public class FormPrinterDialog extends JDialog
     GraphicsEnvironment localEnvirnonment = GraphicsEnvironment.getLocalGraphicsEnvironment();
     Rectangle usableRect = localEnvirnonment.getMaximumWindowBounds();        
     int pHeight = (3*usableRect.height)/4;
-    int pWidth  = (3*usableRect.width)/4;
+    int pWidth  = pHeight;
     int hOffset = (usableRect.width-pWidth)/2;
     int vOffset = (usableRect.height-pHeight)/2;
     
