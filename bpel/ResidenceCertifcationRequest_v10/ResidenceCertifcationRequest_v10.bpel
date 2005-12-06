@@ -715,26 +715,6 @@ System.out.println("caught ex: "+ex.toString());
             </bpelx:annotation>
             <sequence name="Sequence_26">
              <switch name="Switch_3">
-              <case condition="bpws:getVariableData('g_remoteServingPassed') = 'YES' and bpws:getVariableData('cvInteractionOut','payload','/nsxml4:CivilServantInteraction_v10Response/nsxml0:status') != 'closed'">
-               <bpelx:annotation>
-                <bpelx:pattern>accepted and remote served
-                </bpelx:pattern>
-               </bpelx:annotation>
-               <assign name="acceptedFromRemoteServingSoSwapValuesForCorrectUserInteraction">
-                <copy>
-                 <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
-                 <to variable="requestDocument"/>
-                </copy>
-                <copy>
-                 <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:extraField2"/>
-                 <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
-                </copy>
-                <copy>
-                 <from variable="requestDocument"/>
-                 <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:extraField2"/>
-                </copy>
-               </assign>
-              </case>
               <case condition="bpws:getVariableData('cvInteractionOut','payload','/nsxml4:CivilServantInteraction_v10Response/nsxml0:status') = 'closed'">
                <bpelx:annotation>
                 <bpelx:pattern>rejected
