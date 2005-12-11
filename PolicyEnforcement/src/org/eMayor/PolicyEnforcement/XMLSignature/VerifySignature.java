@@ -174,7 +174,7 @@ public class VerifySignature {
 	            	boolean SigResult = signature.checkSignatureValue(cert);
 	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Result for Signature Nr."+(i+1)+" is: " +(SigResult ? "valid (good)"
                             : "invalid !!!!! (bad)"));
-	            	if (SigResult && (i==(Nodes-1))) {
+	            	if (bCheckUserProfile&&SigResult && (i==(Nodes-1))) {
 	            		if (log.isDebugEnabled()) log.debug("PE: VerifySignature::Valid Signature, validate the Signer begin...");
 	            		
 	            		X509Certificate certProf = (myUserProfile.getX509_CertChain())[0];
