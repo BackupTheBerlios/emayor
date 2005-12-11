@@ -136,6 +136,8 @@ public class Config {
 	
 	private Properties old2new = null;
 	
+	private Properties db2mem = null;
+	
 	/**
 	 *  
 	 */
@@ -200,10 +202,15 @@ public class Config {
 		}
 		
 		this.old2new = new Properties();
-		this.init();
+		this.db2mem = new Properties();
+		
+		this.initOLD();
+		
 		this.JBOSS_HOME_DIR = System.getProperty("jboss.server.home.dir");
 		
 		if (!exists) this.loadConfiguration();
+		
+		this.initMEM();
 		
 		log.debug("-> ... processing DONE!");
 	}
@@ -238,7 +245,7 @@ public class Config {
 		}
 	}
 
-	private void init() {
+	private void initOLD() {
 		old2new.setProperty("emayor.platform.instance.id",
 				new Integer(EMAYOR_PLATFORM_INSTANCE_ID).toString());
 		old2new.setProperty("emayor.municipality.name",
@@ -325,6 +332,24 @@ public class Config {
 				new Integer(EMAYOR_NOTIFICATION_EMAIL_REPLYTO).toString());
 	}
 
+	private void initMEM() {
+		Enumeration old = old2new.keys();
+		while (old.hasMoreElements()) {
+			String key = (String) old.nextElement();
+			String value = old2new.getProperty(key);
+			String config;
+			try {
+				config = this.propertyAction(Integer.parseInt(value),this.READ_CONFIG,null,this.local);
+				db2mem.setProperty(value,config);
+				log.debug("Config: "+key+" ("+value+") => "+config);
+			} catch (NumberFormatException e) {
+				// ignore
+			} catch (ConfigException e) {
+				// ignore
+			}
+		}
+	}
+	
 	public synchronized String getProperty(String propName, String defValue)
 			throws ConfigException {
 		
@@ -480,13 +505,23 @@ public class Config {
 	public synchronized String propertyAction(int propID, boolean action, String value, PlatformConfigurationEntityLocal local)
 			throws ConfigException {
 		
-		// refresh
-		this.getPCEL(this.configID);
-		
-		if ((!action) && (!WRITE_CONFIG))
-			log.debug("property set ("+local.getConfigID()+") [ID:"+propID+"="+value+"]");
 		
 		String result = null;
+		
+		if ((!action) && (!WRITE_CONFIG)) {
+			log.debug("property set ("+this.getConfigID()+") [ID:"+propID+"="+value+"]");
+			this.db2mem.setProperty(Integer.toString(propID),value);
+		} else {
+			// use existent config instead of calling DB
+			result = this.db2mem.getProperty(Integer.toString(propID));
+			if (result != null) {
+				log.debug("property request (MEM,"+this.getConfigID()+") [ID:"+propID+"="+result+"]");
+				return result;
+			}
+		}
+		
+		// refresh
+		this.getPCEL(this.configID);
 		
 		switch (propID) {
 		
@@ -736,7 +771,7 @@ public class Config {
 		}
 		
 		if (action && READ_CONFIG)
-			log.debug("property request ("+local.getConfigID()+") [ID:"+propID+"="+result+"]");
+			log.debug("property request (DB,"+this.getConfigID()+") [ID:"+propID+"="+result+"]");
 		
 		log.debug("-> ... processing DONE!");
 		return result;
@@ -852,14 +887,16 @@ public class Config {
 		try {
 			this.local = home.create(configID);
 			loadConfiguration();
-			init();
+			initOLD();
+			initMEM();
 			oldLocal.setIsActive(Boolean.FALSE);
 			this.configID = configID;
 			result = true;
 		} catch (CreateException e) {
 			try {
 				this.local = home.findByPrimaryKey(configID);
-				init();
+				initOLD();
+				initMEM();
 				oldLocal.setIsActive(Boolean.FALSE);
 				this.local.setIsActive(Boolean.TRUE);
 				this.configID = configID;
