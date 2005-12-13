@@ -69,7 +69,7 @@
 <br>
 &nbsp;
 <br>
-An internal error has occured.
+An error has occured.
 <p>
 <bean:write name="errorPageForm" property="errorDescription"  filter="false"/>
 <br>

@@ -25,6 +25,11 @@ public class Municipality implements Serializable
   // The key for the name of this municipality.
   private String municipalityNameKey = "undefinedKey";
     
+  // Keys for the municipality.properties file properties:
+  public static final String MunicipalitySessionTimeoutForCitizen="municipality.SessionTimeoutInSecondsForCitizen";
+  public static final String MunicipalitySessionTimeoutForCivilServant="municipality.SessionTimeoutInSecondsForCivilServant";
+  
+  
   // serviceNames are written out on the client 
   private MunicipalityService[] services;
   
@@ -41,23 +46,26 @@ public class Municipality implements Serializable
   private String enumerationPropertiesString;
 
   
+  // municipalityURL is a property read from MunicipalityURLMapping.properties
+  private String municipalityURL; // empty String, if not defined
   
   
   public Municipality( final String _municipalityNameKey,
                        final NamedProperties _municipalityProperties,
                        final MunicipalityService[] _services,
                        final Properties _appletProperties,
-                       final String _enumerationPropertiesString )
+                       final String _enumerationPropertiesString,
+                       final String _municipalityURL )
   {
     this.municipalityNameKey = _municipalityNameKey;
     this.municipalityProperties = _municipalityProperties;
     this.services = _services;
     this.appletProperties = _appletProperties;
     this.enumerationPropertiesString = _enumerationPropertiesString;
+    this.municipalityURL = _municipalityURL; 
   } // constructor
 
-
-
+  
   
   public String getEnumerationProperties()
   {
@@ -83,6 +91,12 @@ public class Municipality implements Serializable
   }
 
   
+
+  public String getMunicipalityURL()
+  {
+    return this.municipalityURL; // empty String, if not set
+  }
+  
   
   
  /**
@@ -99,6 +113,20 @@ public class Municipality implements Serializable
     return municipalityName;  
   }
 
+  
+
+  
+ /**
+  *  Returns a property read from the municipality.properties file
+  *  with the specified property key.
+  *  The passed key should be one of the public static strings defined
+  *  in this class.
+  */ 
+  public String getMunicipalityPropertyValue( String key )
+  {
+    return this.municipalityProperties.getProperties().getProperty(key);
+  }
+  
   
   
   

@@ -74,7 +74,7 @@ public class AuthenticationForm extends ExtendedActionForm
    public String getMunicipalityURL()
    {
      StringBuffer municipalityURL = new StringBuffer();
-     municipalityURL.append("municipality.do?do=selectMunicipality");
+     municipalityURL.append("municipality.do?do=showIndex");
      municipalityURL.append("&municipalityNameKey=");
      municipalityURL.append(this.municipalityNameKey);
      municipalityURL.append("&language=");

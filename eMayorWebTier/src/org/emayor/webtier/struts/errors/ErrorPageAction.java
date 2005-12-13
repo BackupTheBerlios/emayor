@@ -47,12 +47,13 @@ public class ErrorPageAction extends Action
     //       It should never be called on a working system, maybe
     //       there are possibilities to force this, like system instabilities,
     //       one never knows... so:    
-    String errorDescription = "No information about the error available." + 
-                              "<BR>System administrators please check the webserver log files." +
-                              "<p>Specific description:<p>";
+    String errorDescription = "<p>Specific description:<p>";
     // add specific description if available:
     String specificDescription = request.getParameter("description");
-    if( specificDescription == null ) specificDescription = "No specific description available.";
+    if( specificDescription == null ) 
+    {
+      specificDescription = "No specific description available.";
+    }
     errorDescription = errorDescription + specificDescription;
         
     // Initialize the form:

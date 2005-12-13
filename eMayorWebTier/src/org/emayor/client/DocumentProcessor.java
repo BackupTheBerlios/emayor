@@ -19,7 +19,10 @@ import javax.swing.*;
 import org.emayor.client.parser.EMayorDocumentParser;
 import org.emayor.client.parser.XMLPath;
 import org.emayor.client.parser.xml.*;
-  
+ 
+import org.emayor.client.Utilities.BooleanString;
+
+
 
 public class DocumentProcessor
 {
@@ -432,7 +435,17 @@ public class DocumentProcessor
     System.out.println( "DocumentProcessor.setLocalSchemaLocation called with setLocal= " + setLocal );
     if( setLocal )
     {
-      String currentSchemaLocationPath = XMLPath.GetSchemaLocationPathForModel(this.modelNode);
+      String currentSchemaLocationPath = "";
+      BooleanString bs = XMLPath.GetSchemaLocationPathForModel(this.modelNode);
+      if( bs.getIsTrue() )
+      {
+        currentSchemaLocationPath = bs.getValue();
+      }
+      else
+      {
+        String errorDescription = bs.getValue();
+        this.mainApplet.getErrormanager().addErrorMessage( errorDescription, true );        
+      }
       // store this one for a later call with setLocal = false:
       this.originalSchemaLocationPath = currentSchemaLocationPath;
       // If no schema is specified, an empty string will be returned. 
@@ -469,7 +482,8 @@ public class DocumentProcessor
         System.out.println("*** ");
         System.out.println("*** CAUTION:");
         System.out.println("*** ");
-        System.out.println(" No uri found in original schema location attribute:");
+        String errorLine1 = "No uri found in original schema location attribute";
+        System.out.println(errorLine1);
         System.out.println( this.originalSchemaLocationPath );
         System.out.println("*** ");
         System.out.println("*** Using:");
@@ -481,13 +495,16 @@ public class DocumentProcessor
         System.out.println("*** ");
         System.out.println("*** ");
         System.out.println("*** ");
+        // also publish this error in the applet error display:
+        this.mainApplet.getErrormanager().addErrorMessage( errorLine1, true );
+        this.mainApplet.getErrormanager().addErrorMessage( this.originalSchemaLocationPath, false );
       }
       
-      // search "/xsd/ :
+      // search "/xsd/"  or "emayor/" and replace it by abolute local address:
       int xsdPosition = currentSchemaLocationPath.indexOf("/xsd/");
-      if( xsdPosition >= 0 )
+      if( xsdPosition >= 0 ) // first possibility found
       {
-        System.out.println("DXX ocumentProcessor.setLocalSchemaLocation: /xsd/ found.");
+        System.out.println("DocumentProcessor.setLocalSchemaLocation: /xsd/ found.");
         currentSchemaLocationPath = currentSchemaLocationPath.substring(xsdPosition);
         // and the local one (to be used for the applet's parser:
                 
@@ -504,12 +521,35 @@ public class DocumentProcessor
       }
       else
       {
-        System.out.println("*** ");
-        System.out.println("*** DocumentProcessor.setLocalSchemaLocation():");
-        System.out.println("*** Unable to do this.");
-        System.out.println("*** The raw schema location must contain the");
-        System.out.println("*** sequence /xsd/ or \\xsd\\ ");
-        System.out.println("*** ");
+        xsdPosition = currentSchemaLocationPath.indexOf("emayor/");
+        if( xsdPosition >= 0 ) // second possibility found
+        {
+          System.out.println("DocumentProcessor.setLocalSchemaLocation: emayor/ found.");
+          currentSchemaLocationPath = currentSchemaLocationPath.substring(xsdPosition);
+          // and the local one (to be used for the applet's parser:
+                    
+          String urlPart = "file:///" + this.javaHomeDirectory + "/eMayor/xsd/" + currentSchemaLocationPath;
+          urlPart = urlPart.replaceAll(" ", "%20"); // required parser workaround: replace spaces by %20
+          this.localSchemaLocationPath = uri + " " + urlPart; // uri + space + url
+          // Take out backslashes possibly present in the userHomeDirectory too:
+          this.localSchemaLocationPath = this.localSchemaLocationPath.replace('\\','/');
+                            
+          // and set this one to the xml tree:
+          XMLPath.SetSchemaLocationPathForModel(this.modelNode,this.localSchemaLocationPath);
+          System.out.println("DocumentProcessor.setLocalSchemaLocation: local schema location path set to: " +
+                              this.localSchemaLocationPath );
+        }
+        else
+        {
+          System.out.println("*** ");
+          System.out.println("*** DocumentProcessor.setLocalSchemaLocation():");
+          System.out.println("*** Unable to do this.");
+          String errorLine1 = "The schema location must contain the sequence /xsd/ or \\xsd\\ or emayor/ or emayor\\ .";
+          System.out.println("*** " + errorLine1);
+          System.out.println("*** ");
+          // also publish this error in the applet error display:
+          this.mainApplet.getErrormanager().addErrorMessage( "Invalid e-document:\n" + errorLine1, true );
+        }  
       }      
     }
     else

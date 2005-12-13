@@ -68,9 +68,10 @@ public class ServiceAction extends DispatchAction
                                        HttpServletRequest request,
                                        HttpServletResponse response )
   {
-    response.setHeader("Pragma", "No-cache");
-    response.setHeader("Cache-Control", "no-cache");
-    response.setDateHeader("Expires", 1);
+    response.setHeader("Cache-Control","no-cache"); //forces caches to obtain a new copy of the page from the origin server
+    response.setHeader("Cache-Control","no-store"); //directs caches not to store the page under any circumstance
+    response.setDateHeader("Expires", 0); //causes the proxy cache to see the page as "stale"
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 
     ServiceForm serviceForm = (ServiceForm)form;
  
@@ -123,7 +124,7 @@ public class ServiceAction extends DispatchAction
     // User login and authentication must already have been done here:
     // Just check, if this user has an ASID or not, and get it if there is no ASID.
     // This also set the user ROLE.    
-    String actionForwardName = "showMunicipalityList"; // case not authenticated yet
+    String actionForwardName = "showMunicipalityList"; // case not authenticated yet        
     if( this.getIsUserAuthenticated( request, request.getSession() ) )
     {
       if( serviceNameKey.equals(TextResourceKeys.BrowseAvailableDocumentsServiceKey) )
@@ -576,9 +577,10 @@ public class ServiceAction extends DispatchAction
                                      HttpServletRequest request,
                                      HttpServletResponse response )
   {
-    response.setHeader("Pragma", "No-cache");
-    response.setHeader("Cache-Control", "no-cache");
-    response.setDateHeader("Expires", 1);
+    response.setHeader("Cache-Control","no-cache"); //forces caches to obtain a new copy of the page from the origin server
+    response.setHeader("Cache-Control","no-store"); //directs caches not to store the page under any circumstance
+    response.setDateHeader("Expires", 0); //causes the proxy cache to see the page as "stale"
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 
     ServiceForm serviceForm = (ServiceForm)form;
     
@@ -743,9 +745,10 @@ public class ServiceAction extends DispatchAction
                                                HttpServletRequest request,
                                                HttpServletResponse response )
    {
-     response.setHeader("Pragma", "No-cache");
-     response.setHeader("Cache-Control", "no-cache");
-     response.setDateHeader("Expires", 1);
+    response.setHeader("Cache-Control","no-cache"); //forces caches to obtain a new copy of the page from the origin server
+    response.setHeader("Cache-Control","no-store"); //directs caches not to store the page under any circumstance
+    response.setDateHeader("Expires", 0); //causes the proxy cache to see the page as "stale"
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 
      ServiceForm serviceForm = (ServiceForm)form;
      
@@ -1073,9 +1076,6 @@ public class ServiceAction extends DispatchAction
         }
         boolean b = access.startAccessSession( asid, certificates );
         System.out.println("ServiceAction.doAuthenticateUser(): User authenticated: " + b);
-
-        System.out.println("Session: Set the max inactive interval to 900 seconds (15 min)");
-        session.setMaxInactiveInterval(900);
         
         // Set the ASID in the session object:
         session.setAttribute("ASID", asid);
@@ -1232,9 +1232,10 @@ public class ServiceAction extends DispatchAction
             HttpServletRequest request,
             HttpServletResponse response )
     {
-      response.setHeader("Pragma", "No-cache");
-      response.setHeader("Cache-Control", "no-cache");
-      response.setDateHeader("Expires", 1);
+      response.setHeader("Cache-Control","no-cache"); //forces caches to obtain a new copy of the page from the origin server
+      response.setHeader("Cache-Control","no-store"); //directs caches not to store the page under any circumstance
+      response.setDateHeader("Expires", 0); //causes the proxy cache to see the page as "stale"
+      response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 
       ServiceForm serviceForm = (ServiceForm)form;
       HttpSession session = request.getSession();
@@ -1259,85 +1260,7 @@ public class ServiceAction extends DispatchAction
     } // completeDocumentPostAction
 
     
-    
-    
-    /**
-     *  Logout the user (CS or CT).
-     * 
-     *  Execution method of this DispatchAction
-     *  Completes the processing of an e-document by the civil servant.
-     *  Called by an eMayorapplet. 
-     */    
-     public ActionForward logout( ActionMapping mapping,
-                                  ActionForm form,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response )
-     {     
-        response.setHeader("Pragma", "No-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", 1);
-
-        ServiceForm serviceForm = (ServiceForm)form;
-
-        System.out.println(" ");
-        System.out.println("--------------------------------ServiceAction.logout(). Passed parameter names:");
-
-        String actionForwardName = "showServiceError";
-        if( this.getIsUserAuthenticated( request, request.getSession() ) )
-        {
-            HttpSession session = request.getSession(false);
-            String asid = (String)session.getAttribute("ASID");
-            String ssid = (String)session.getAttribute("SSID");
-
-            System.out.println("LOGOUT: got ASID= " + asid);
-            try
-            {        
-              ServiceLocator serviceLocator = ServiceLocator.getInstance();
-              AccessManagerLocal access = serviceLocator.getAccessManager();
-              boolean sessionStopped = access.stopAccessSession(asid);
-              if( sessionStopped )
-              {
-                System.out.println("LOGOUT: Access session stopped successfully.");
-              }
-              else
-              {
-                System.out.println("*** LOGOUT: Access session could not be stopped...");
-              }
-              System.out.println("LOGOUT: Trying to remove access references...");
-              // Remove all access references:
-              access.remove();
-              System.out.println("LOGOUT: done...");
-            }
-            catch( Exception e )
-            {
-              System.out.println("*** LOGOUT: Failure:");
-              e.printStackTrace();
-            }
-            finally
-            {
-              // Invalidate the session in any case:
-              session.invalidate();
-              System.out.println("LOGOUT: The current session has ben invalidated.");                  
-            }
-            actionForwardName = "municipalityList";               
-        }
-        else
-        {
-            System.out.println("Logout: Session already had expired...");
-            // Invalidate the session in any case:
-            HttpSession session = request.getSession(false);
-            if( session != null )
-            {
-              session.invalidate();
-              System.out.println("LOGOUT: The current session has ben invalidated.");                          
-            }
-            actionForwardName = "municipalityList";    
-        }        
-        return mapping.findForward( actionForwardName );
-     } // logout    
-    
-
-     
+         
      
        
     /**
@@ -1354,9 +1277,10 @@ public class ServiceAction extends DispatchAction
                                                           HttpServletRequest request,
                                                           HttpServletResponse response )
      {
-        response.setHeader("Pragma", "No-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", 1);
+        response.setHeader("Cache-Control","no-cache"); //forces caches to obtain a new copy of the page from the origin server
+        response.setHeader("Cache-Control","no-store"); //directs caches not to store the page under any circumstance
+        response.setDateHeader("Expires", 0); //causes the proxy cache to see the page as "stale"
+        response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 
         ServiceForm serviceForm = (ServiceForm)form;
         HttpSession session = request.getSession();
@@ -1446,9 +1370,10 @@ public class ServiceAction extends DispatchAction
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response )
     {
-       response.setHeader("Pragma", "No-cache");
-       response.setHeader("Cache-Control", "no-cache");
-       response.setDateHeader("Expires", 1);
+        response.setHeader("Cache-Control","no-cache"); //forces caches to obtain a new copy of the page from the origin server
+        response.setHeader("Cache-Control","no-store"); //directs caches not to store the page under any circumstance
+        response.setDateHeader("Expires", 0); //causes the proxy cache to see the page as "stale"
+        response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 
        ServiceForm serviceForm = (ServiceForm)form;
        HttpSession session = request.getSession();

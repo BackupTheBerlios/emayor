@@ -8,7 +8,15 @@ import org.emayor.webtier.shared.*;
 
 public class LoginForm extends ExtendedActionForm 
 {
-  private String municipalityNameKey = "undefined_key";
+
+  // This is used by the LoginAction for detecting calls with invalid
+  // municipality name parameters. Null is not used here, because
+  // JSP's request the municipality key name too and would go byebye
+  // with a nullpointer exception that way.
+  public static final String MunicipalityNameIsUndefined="undefined";
+
+  
+  private String municipalityNameKey = null;
 
   
   public LoginForm()
@@ -55,7 +63,7 @@ public class LoginForm extends ExtendedActionForm
      if( name == null ) 
      {
        System.out.println("*** LoginForm.getNameOfMunicipality(): name of municipality is not defined.");
-       name = "undefined";
+       name = MunicipalityNameIsUndefined;
      }
      return name;
      

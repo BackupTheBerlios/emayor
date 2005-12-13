@@ -202,7 +202,26 @@ public class DataUtilities
   
   
 
-  
+ public void writeUTF8File( String documentFilePath,
+                            String document )
+ {
+    System.out.println("Write UTF-8 document to: " + documentFilePath );
+    try
+    {
+      File docFile = new File(documentFilePath);
+      FileOutputStream fOut = new FileOutputStream(docFile);
+      fOut.write( document.getBytes("UTF-8") );
+      fOut.close();
+      docFile = null;
+      System.out.println("document has been written successfully.");
+    }
+    catch( Exception e )
+    {
+      System.out.println("*** document couldn't be written. Exception:");
+      e.printStackTrace();
+    }
+ 
+ }
   
   
   private void test()

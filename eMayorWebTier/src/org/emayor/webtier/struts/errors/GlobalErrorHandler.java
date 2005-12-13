@@ -25,7 +25,7 @@ public class GlobalErrorHandler extends ExceptionHandler
     if( ex != null ) errorDescription = ex.getMessage(); // Now errorDescription can be null, so:
     if( errorDescription == null ) errorDescription = "Null exception";    
     // limit its size, because we add it to the http get parameter:
-    if( errorDescription.length() > 64 ) errorDescription = errorDescription.substring(0,63) + "...";
+    if( errorDescription.length() > 86 ) errorDescription = errorDescription.substring(0,83) + "...";
     // urlencode it:
     String parameter = "No information available.";
     try

@@ -131,7 +131,7 @@
 <emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ServiceAcknowledgementInformation2%>"/>
 
     <p>
-      <html:link action="service.do?do=logout" 
+      <html:link action="municipality.do?do=logout" 
                  paramName="serviceForm" 
                  paramProperty="municipalityNameKey" 
                  paramId="municipalityNameKey"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.Logout%>" /></html:link>

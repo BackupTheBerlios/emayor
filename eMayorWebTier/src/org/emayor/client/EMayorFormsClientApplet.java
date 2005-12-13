@@ -81,7 +81,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   
   // The error manager displays error messages and controls
   // the JTextArea for the error display at the bottom of the applet.
-  private ErrorManager errorManager = new ErrorManager();  
+  private ErrorManager errorManager;  
   
   
   
@@ -90,6 +90,10 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     // Add custom UI components :
     UIManager.put("TabbedPaneUI", "org.emayor.client.Utilities.gui.CustomMetalTabbedPaneUI" );
 
+    // Create the errormanager as soon as possible, so
+    // attempts to add error messages do work:
+    this.errorManager = new ErrorManager(this);
+    
     this.getContentPane().setLayout( new BorderLayout(2,2) );
     this.menuPanel = new JPanel( new FlowLayout(FlowLayout.LEFT,0,0) );
     this.attachTheMenuTo( this.menuPanel );
@@ -159,6 +163,13 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   } // Constructor
 
 
+  
+  
+  
+  public ErrorManager getErrormanager()
+  {
+    return this.errorManager;
+  }
   
   
   
@@ -524,7 +535,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
         System.out.println("*** ");
         System.out.println("*** Unable to get required files from the server.");
         System.out.println("*** ");
-        this.errorManager.addErrorMessage("Unable to get required files from the server.");
+        this.errorManager.addErrorMessage("Unable to get required files from the server.",false);
       }
     } // if
     else
@@ -816,7 +827,10 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
   } // checkRedirection_InThread
  
   
-  
+  public DocumentProcessor getDocumentProcessor()
+  {
+    return this.docProcessor;
+  }
   
 
  /**
@@ -873,7 +887,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
           // then add an info task to the EDT:
           if( languageProperties == null )
           {
-            errorManager.addErrorMessage("Multilingual support not possible: Property files could not be downloaded from the server.");         
+            errorManager.addErrorMessage("Multilingual support not possible: Property files could not be downloaded from the server.",false);         
           }          
           final String message = (languageProperties != null) ?
                                   languageProperties.getTextFromLanguageResource("Applet.ErrorDialogText"):
@@ -963,7 +977,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
       }
       catch( Exception ee )
       {
-        this.errorManager.addErrorMessage( "Unable to download " + pathName );
+        this.errorManager.addErrorMessage( "Unable to download " + pathName, false );
         ee.printStackTrace();
         System.err.println("*** Applet.loadImageIcon() connection is down for file request.");
       }  
@@ -1005,7 +1019,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
         } 
         catch (java.io.IOException ioe) 
         {
-          this.errorManager.addErrorMessage( "Couldn't read stream from file: " + pathName );
+          this.errorManager.addErrorMessage( "Couldn't read stream from file: " + pathName, false );
           return null;
         }
         if (count <= 0) 
@@ -1018,7 +1032,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
     else 
     {
       String errorMessage = "Couldn't find file: " + pathName;
-      this.errorManager.addErrorMessage( errorMessage );
+      this.errorManager.addErrorMessage( errorMessage, false );
       return null;
     }
   }

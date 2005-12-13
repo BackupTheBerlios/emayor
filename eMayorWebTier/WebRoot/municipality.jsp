@@ -147,7 +147,7 @@
     </logic:iterate>
 
     <p>
-      <html:link action="service.do?do=logout" 
+      <html:link action="municipality.do?do=logout" 
                  paramName="municipalityForm" 
                  paramProperty="nameKeyOfMunicipality" 
                  paramId="municipalityNameKey"><emayorbean:writeLanguage name="municipalityForm" resourceElementKey="<%=TextResourceKeys.Logout%>" /></html:link>

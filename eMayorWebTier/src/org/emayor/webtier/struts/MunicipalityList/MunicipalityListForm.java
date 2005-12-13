@@ -24,7 +24,11 @@ public class MunicipalityListForm extends ExtendedActionForm
 
   private Municipality[] municipalities;
   
+  private boolean useLocalLinks = false;
+  private String requestURL = null;
     
+  
+  
   public MunicipalityListForm()
   {
   	super(); // important
@@ -35,15 +39,25 @@ public class MunicipalityListForm extends ExtendedActionForm
   } // constructor
   
   
+
+  
+  
  /**
   *  Set the language from the passed languageParameterValue and store it in the session object
   *  or read it from the session object, if languageParameterValue is null.
   */
-  public void initialize( final HttpSession session, final String languageParameterValue )
+  public void initialize( final HttpSession session, 
+                          final String languageParameterValue,
+                          boolean _useLocalLinks,
+                          String _requestURL )
   {
   	super.initialize(session,languageParameterValue);
+    this.useLocalLinks = _useLocalLinks;
+    this.requestURL = _requestURL;
   } // initialize
 
+  
+  
   
   
   
@@ -66,7 +80,9 @@ public class MunicipalityListForm extends ExtendedActionForm
   	  parms[i] = new MunicipalityNameAndLanguageParameter(
                                  municipalityName,
                                  this.municipalities[i].getMunicipalityNameKey(),
-                                 super.getLanguage() );
+                                 super.getLanguage(),
+                                 this.useLocalLinks,
+                                 this.requestURL );
     }
   	return parms;
   }

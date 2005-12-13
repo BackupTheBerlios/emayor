@@ -89,13 +89,17 @@ public class XMLSignatureSubmitter implements ActionListener
    *  a user thread context. Outside the EDT.
    */ 
    private void performTaskInUserThread()
-   {
+   {   
      // Select the child of the model node, because the <model> tag
      // itself is not part of the e-document. So the first (and only)
      // childnode of the model node is the e-document, and this one
      // must exist in any case:
      if( this.modelNode.getNumberOfChildren() > 0 ) // actually it must be exactly 1
      {
+       System.out.println("-----------Replacing the local schema location with the original one--------");
+       // reinsert the original schema location to the e-document:
+       this.mainApplet.getDocumentProcessor().setLocalSchemaLocation(false);
+
        XML_Node modelContentNode = this.modelNode.getChildAt(0);
        XMLParser xmlParser = new XMLParser();
        StringBuffer xmlModelDocument = xmlParser.transformTreeToDocument( modelContentNode,true );       

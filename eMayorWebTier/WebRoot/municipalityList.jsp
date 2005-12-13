@@ -104,14 +104,9 @@
 <tr><td><emayorbean:writeLanguage name="municipalityListForm" resourceElementKey="<%=TextResourceKeys.AvailableMunicipalities%>"/>:
 	<logic:iterate name="municipalityListForm" property="linkParameters" id="municipalityParameter">
     <p>
-<%-- name as link: --%>
-<%-- Note: This link carries multiple parameters, which are
-                 contained in the serviceParameters Map attribute. --%>
-      <html:link action="login" 
-					     name="municipalityParameter" 
-					     property="parameterMap" >
-         <bean:write name="municipalityParameter" property="nameOfMunicipality" />
-      </html:link>
+      <a href="<bean:write name="municipalityParameter" property="absoluteURL" filter="false"/>">
+               <bean:write name="municipalityParameter" property="nameOfMunicipality" filter="false"/>
+      </a>
     </p>
     </logic:iterate>
 <p>&nbsp;<p><%-- Display the about text below that list: --%>

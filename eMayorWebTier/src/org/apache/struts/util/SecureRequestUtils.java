@@ -1,7 +1,7 @@
 /*
- * $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/emayor/Repository/eMayorWebTier/src/org/apache/struts/util/SecureRequestUtils.java,v 1.1 2005/11/16 10:51:50 emayor Exp $
- * $Revision: 1.1 $
- * $Date: 2005/11/16 10:51:50 $
+ * $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/emayor/Repository/eMayorWebTier/src/org/apache/struts/util/SecureRequestUtils.java,v 1.2 2005/12/13 06:57:47 emayor Exp $
+ * $Revision: 1.2 $
+ * $Date: 2005/12/13 06:57:47 $
  *
  * ====================================================================
  *
@@ -383,7 +383,17 @@ public class SecureRequestUtils {
     * false otherwise
     */
    public static void reclaimRequestAttributes(HttpServletRequest aRequest,
-                                               boolean doRemove) {
+                                               boolean doRemove) 
+   {
+   
+     if( aRequest.getSession(false) == null ) 
+     {
+       System.out.println("-|-|- reclaimRequestAttributes(): Struts bugfix processed: No new session generated. [jpl]");
+       // See: http://sourceforge.net/tracker/index.php?func=detail&aid=1173766&group_id=59967&atid=492653
+       return;
+     }
+   
+   
       Map map = (Map) aRequest.getSession().getAttribute(STOWED_REQUEST_ATTRIBS);
 
       if (map == null) {

@@ -8,6 +8,8 @@ package org.emayor.client.parser;
 import java.util.StringTokenizer;
 
 import org.emayor.client.parser.xml.*;
+import org.emayor.client.Utilities.BooleanString;
+
 
 public class XMLPath
 {
@@ -68,17 +70,23 @@ public class XMLPath
 
   
   
+
+  
   
   
  /**
   *  Called by the DocumentProcessor from the method setLocalSchemaLocation().
   *  The passed modelNode contains the e-document, where this method
   *  should extract the schema location value, which is the value of
-  *  the (anything:)schemaLocation attribute of the model's first child node. 
+  *  the (anything:)schemaLocation attribute of the model's first child node.
+  * 
+  *  if the returned BooleanString  has isTrue set, its value contains the
+  *  desired schemalocationpath, otherwise it contains an error message.
+  *  
   */ 
-  public static String GetSchemaLocationPathForModel( final XML_Node modelNode )
+  public static BooleanString GetSchemaLocationPathForModel( final XML_Node modelNode )
   {
-    String schemaLocationPath = "";
+    BooleanString schemaLocationPath = new BooleanString("",true);
     try
     {
       final XML_Node eDocumentNode = modelNode.getChildAt(0);
@@ -97,25 +105,28 @@ public class XMLPath
         }
         if( schemaLocationAttribute != null )
         {
-          schemaLocationPath = schemaLocationAttribute.getAttributeValue(); 
+          schemaLocationPath.setValue( schemaLocationAttribute.getAttributeValue() ); 
         }
         else
         {
-          System.out.println("*** GetSchemaLocationPathForModel(): No schemaLocation attribute found.");
+          schemaLocationPath.setIsTrue(false);
+          schemaLocationPath.setValue("*** GetSchemaLocationPathForModel(): No schemaLocation attribute found.");
         }    
       } // if
       else
       {
-        System.out.println("*** GetSchemaLocationPathForModel() failed: modelNode has no children.");
+        schemaLocationPath.setIsTrue(false);
+        schemaLocationPath.setValue("*** GetSchemaLocationPathForModel() failed: modelNode has no children.");
       }
     }
     catch( Exception eee )
     {
-      System.out.println(">*> GetSchemaLocationPathForModel(): No schemaLocation attribute found. (Exc)");
-      System.out.println(">*> This is ok, because schemas are optional.");
+      schemaLocationPath.setIsTrue(false);
+      schemaLocationPath.setValue(">*> GetSchemaLocationPathForModel(): No schemaLocation attribute found. (schemas are optional)");
     }
     return schemaLocationPath;
   }
+
 
   
   

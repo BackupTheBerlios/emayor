@@ -25,6 +25,13 @@ public class MunicipalityForm extends ExtendedActionForm
 
   private int numberOfFailedAuthenticationTries = 0;
   
+  // serverName and serverPortNumber are used to create
+  // the URL for the login page which is accessed when the user logs out
+  // for relogin
+  private String serverName = null;
+  private int serverPortNumber = 80;
+
+  
   
   public MunicipalityForm()
   {
@@ -44,12 +51,17 @@ public class MunicipalityForm extends ExtendedActionForm
   public void initializeAttibutes( final HttpSession session,
                                    final String languageParameterValue,
   		                           final String _municipalityNameKey,
-                                   final MunicipalityService[] _services )
+                                   final MunicipalityService[] _services,
+                                   final String _serverName,
+                                   final int _serverPortNumber )
   {
   	super.initialize(session,languageParameterValue); // language initialization
 
   	this.municipalityNameKey = _municipalityNameKey;
     this.services = _services;
+
+    this.serverName = _serverName;
+    this.serverPortNumber = _serverPortNumber;
     
   	Utilities.PrintLn(">>MunicipalityForm.initialize() starts. (Accessing SH Accessmanager)");
 	try 
@@ -86,7 +98,7 @@ public class MunicipalityForm extends ExtendedActionForm
 	{
       ex.printStackTrace();
 	}
-  	Utilities.PrintLn(">>MunicipalityListForm.initialize() has ended.");	
+  	Utilities.PrintLn(">>MunicipalityForm.initialize() has ended.");	
         
   } // initializeAttibutes
 
@@ -163,6 +175,33 @@ public class MunicipalityForm extends ExtendedActionForm
     String line2 = super.getTextFromResource( TextResourceKeys.NumberOfAuthenticationFailures );
     return line1 + "<br>" + line2 + ": " + String.valueOf(this.numberOfFailedAuthenticationTries);
   }
+  
+
+  
+  /** 
+   *  This is called by the relogin.jsp.
+   *  This method then should return the complete absolute URL
+   *  which takes the user to the login page.
+   * 
+   *  This URL has to use the (unsecure) HTTP protocol and
+   *  contain the muncipality and language parameters which
+   *  are set on this form. 
+   */
+   public String getLogoutURL()
+   {
+     StringBuffer loginURL = new StringBuffer();
+     
+     // create the relative URL, with additional parameter do=logout:
+     //loginURL.append( "login.do?do=logout&municipalityNameKey=" );
+     //loginURL.append( this.getMunicipalityNameKey() );
+     //loginURL.append( "&" );
+     //loginURL.append( this.getLanguage() );
+     
+     loginURL.append("logout.do");
+     
+     return loginURL.toString();
+   }
+  
   
   
   

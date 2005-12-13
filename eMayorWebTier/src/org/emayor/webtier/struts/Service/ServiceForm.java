@@ -40,6 +40,7 @@ public class ServiceForm extends ExtendedActionForm
   private String xmlDocument = null;
   
   
+  
   public ServiceForm()
   {
   	super(); // important
@@ -52,12 +53,11 @@ public class ServiceForm extends ExtendedActionForm
   public void initialize( final HttpSession session,
                           final String languageParameterValue,
   		                  final String _serviceIdentifier,
-						  final String _municipalityNameKey)
+						  final String _municipalityNameKey )
   {
   	super.initialize(session,languageParameterValue); // language initialization
     this.serviceIdentifier = _serviceIdentifier;
     this.municipalityNameKey = _municipalityNameKey;
-    
     System.out.println("ServiceForm initialized with serviceIdentifier = " + this.serviceIdentifier );
   }
 
@@ -363,9 +363,8 @@ public class ServiceForm extends ExtendedActionForm
      }
 
      
+         
      
-    
-    
     public String getHelpTopicKey()
     {
   	  return TextResourceKeys.HelpTopic_ServiceKey;

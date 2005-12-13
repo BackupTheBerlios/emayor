@@ -4,6 +4,8 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 
 
+<%@ taglib uri="/WEB-INF/sslext.tld" prefix="sslext"%>
+<sslext:pageScheme secure="false" />
 
 <%@ taglib uri="/WEB-INF/emayor-bean.tld" prefix="emayorbean" %>
 <%--  The class TextResourceKeys only holds [static] class attributes, no instance attributes.

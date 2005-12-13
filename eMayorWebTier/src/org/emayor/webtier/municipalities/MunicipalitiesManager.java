@@ -17,6 +17,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.Hashtable;
+
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -38,6 +40,10 @@ public class MunicipalitiesManager implements Serializable
   // Use UTF-8 for file read operations
   private static final Charset charset = Charset.forName("UTF-8");
 
+
+  // The url - municipality mapping defined in the file MunicipalityURLMapping.properties.
+  private Properties urlMapping = new Properties();
+  
   
  /**
   *  Private constructor.
@@ -63,6 +69,41 @@ public class MunicipalitiesManager implements Serializable
       File municipalitiesInformationDirectory = new File( municipalitiesInformationDirPath.toString() );
       if( municipalitiesInformationDirectory.exists() )
       {
+        // Read the url mapping file, if it exists:
+        String urlMappingFilePath = municipalitiesInformationDirPath.toString() + "MunicipalityURLMapping.properties";
+        System.out.println("MunicipalitiesManager: Loading " + urlMappingFilePath);        
+        File urlMappingFile = new File( urlMappingFilePath );
+        if( urlMappingFile.exists() )
+        {
+          try
+          {
+            String propertiesString = this.readUTF8TextFileAsString( urlMappingFile );     
+            ByteArrayInputStream bis = new ByteArrayInputStream( propertiesString.getBytes("UTF-8") );
+            this.urlMapping.clear();
+            this.urlMapping.load( bis );
+            System.out.println(">>MunicipalityURLMapping.properties has been loaded. Values are:");
+            Enumeration enumeration = this.urlMapping.keys();
+            while( enumeration.hasMoreElements() )
+            {
+              String urlMapKey = (String)enumeration.nextElement();
+              String urlMapValue = (String)this.urlMapping.get(urlMapKey);
+              System.out.println("Key: " + urlMapKey + "   Value: " + urlMapValue );
+            }
+            System.out.println(" ");
+          }
+          catch( Exception exex )
+          {
+            String message = "The MunicipalityURLMapping.properties file could not be loaded.";
+            String title = "The WebTier configuration is not complete";
+            this.errorFeedBack( message,title );
+            System.out.println( "***Error: " + message );
+          }
+        } // if
+        else
+        {
+            System.out.println("*** MunicipalitiesManager: MunicipalityURLMapping.properties file not found.");
+            System.out.println("*** Global links in municipalities index site will not work therefore.");
+        }
       	// This directory must contain subdirectories, which
       	// define the identification-name of a single municipality
       	// and contain all required multilingual information for that municipality.
@@ -121,7 +162,10 @@ public class MunicipalitiesManager implements Serializable
     // "Name." + the municipalityDirectory name.
     String municipalityDirectoryName = municipalityDirectory.getName();
   	String municipalityNameIdentifier = "Name." + municipalityDirectoryName.trim();
-  	System.out.println("Processing municipality in directory " + municipalityDirectoryName );
+  	System.out.println("Processing municipality in directory " + municipalityDirectoryName );    
+    // Set url from mapping if available:
+    String municipalityURL= this.urlMapping.getProperty(municipalityNameIdentifier,"");
+    System.out.println("Municipality URL= " + municipalityURL );
     File[] childrenFiles = municipalityDirectory.listFiles();
     // One of the children files must be a propterty file called municipality.properties.
     // It contains translations of the municipality name.
@@ -153,7 +197,8 @@ public class MunicipalitiesManager implements Serializable
               String enumerationPropertiesString = this.readEnumerationProperties( appletPropertiesDirectory );            
               // All needed stuff is present, so one can create the municipality instance:
               municipality = new Municipality( municipalityNameIdentifier,municipalityProperties,services,
-                                               appletProperties,enumerationPropertiesString );        
+                                               appletProperties,enumerationPropertiesString,
+                                               municipalityURL );        
             }
             else
             {
@@ -268,7 +313,6 @@ public class MunicipalitiesManager implements Serializable
     } // if
     return enumerationPropertiesString;
   } // readEnumerationProperties
-  
   
   
   
