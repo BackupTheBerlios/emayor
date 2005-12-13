@@ -9,33 +9,55 @@
 
 
   <View>  <!-- The view always has a BorderLayout -->
-      <JPanel LayoutClass="FlowLayout" 
-              LayoutParameter="FlowLayout.LEFT" 
+
+      <JPanel LayoutClass="BorderLayout" 
               AddParameter="BorderLayout.NORTH"
               Background="255,255,255"
               BorderType="EmptyBorder"
-              HorizontalBorderSize="0"
-              VerticalBorderSize="12">
-         <JLabel Background="255,255,255">$Title.NegativeMeldebescheinigung$</JLabel>
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
+        <JPanel LayoutClass="BorderLayout"
+                AddParameter="BorderLayout.CENTER"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="0"
+                VerticalBorderSize="0">        
+          <JPanel LayoutClass="BoxLayout"
+                  LayoutParameter="BoxLayout.Y_AXIS" 
+                  AddParameter="BorderLayout.CENTER"
+                  Background="255,255,255"
+                  BorderType="EmptyBorder"
+                  HorizontalBorderSize="0"
+                  VerticalBorderSize="0">                  
+             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="14" AlignmentX="0">Fachbereich Personal und Organisation    Der Oberbürgermeister</JLabel>         
+             <Box BoxType="createVerticalStrut" BoxSize="16"/>
+             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="18" AlignmentX="0">$Title.NegativeMeldebescheinigung$</JLabel>         
+             <Box BoxType="createVerticalStrut" BoxSize="10"/>
+          </JPanel>          
+        </JPanel>
+        <JPanel LayoutClass="BorderLayout"
+                AddParameter="BorderLayout.EAST"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="0"
+                VerticalBorderSize="0">        
+             <Image RelativeURL="/pictures/applet/aachen_logo.jpg" AddParameter="BorderLayout.EAST"></Image>        
+        </JPanel>
       </JPanel>
-      
 
+
+      
       <JPanel LayoutClass="BoxLayout" 
               LayoutParameter="BoxLayout.Y_AXIS" 
               AddParameter="BorderLayout.CENTER"
-              Background="255,255,255">
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="224,224,224"
-                AlignmentX="0">
-          <JLabel Background="255,255,255">$Form.Observations$</JLabel>
-          <JTextArea ModelPath="Model/NegativeMeldebescheinigungMeldung/ed:Bemerkungen"
-                     Rows="10" Columns="28" Editable="false"></JTextArea>
-        </JPanel>
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
 
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
           <JLabel Columns="18" Background="255,255,255">$Form.DateOfCreation$</JLabel>
@@ -43,32 +65,34 @@
                       Columns="18"></JLabel>
         </JPanel>
 
-
-
-<!-- some entries from the citizen: -->
-
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
-<!-- some entries from the civil servant: -->
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
-
-        <!-- Title Label: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="224,224,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Background="255,255,255">$Form.ConcernedPersonDetails$</JLabel>
+          <JLabel Columns="18" Background="255,255,255">$Form.Observations$</JLabel>
+          <JTextArea ModelPath="Model/NegativeMeldebescheinigungMeldung/ed:Bemerkungen"
+                     Rows="10" Columns="28" Editable="false"></JTextArea>
         </JPanel>
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+        <!-- Title Label: -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Background="255,255,255" FontStyle="Bold" FontSize="14">$Form.ConcernedPersonDetails$</JLabel>
+        </JPanel>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
           <JLabel Columns="18" Background="255,255,255">$Form.Forename$</JLabel>
           <JLabel ModelPath="Model/NegativeMeldebescheinigungMeldung/UrspruenglicheAnforderung/bus:ConcernedPersonDetails/edc:CitizenName/aapd:CitizenNameForename" 
                       Columns="18"></JLabel>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
           <JLabel Columns="18" Background="255,255,255">$Form.Surname$</JLabel>
@@ -77,7 +101,7 @@
         </JPanel>
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
           <JLabel Columns="18" Background="255,255,255">$Form.BirthDate$</JLabel>
@@ -91,7 +115,7 @@
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
-        <JPanel Background="224,224,224" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
+        <JPanel Background="255,222,182" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
           <JButton ActionClass="RedirectSubmitter">       $Form.Done$       </JButton>
           <JButton ActionClass="SaveModelToDiskSubmitter">       $Form.SaveToDisk$       </JButton>
           <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>

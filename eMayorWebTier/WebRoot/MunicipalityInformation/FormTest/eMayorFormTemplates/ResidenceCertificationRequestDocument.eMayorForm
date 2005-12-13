@@ -13,20 +13,20 @@
   
       <JPanel LayoutClass="BorderLayout" 
               AddParameter="BorderLayout.NORTH"
-              Background="242,236,224"
+              Background="255,255,255"
               BorderType="EmptyBorder"
               HorizontalBorderSize="16"
               VerticalBorderSize="16">
         <JPanel LayoutClass="BoxLayout"
                 LayoutParameter="BoxLayout.Y_AXIS" 
                 AddParameter="BorderLayout.CENTER"
-                Background="255,255,255"
+                Background="236,236,263"
                 BorderType="EmptyBorder"
                 HorizontalBorderSize="8"
                 VerticalBorderSize="8">
            <Image RelativeURL="/pictures/applet/epf_logo.jpg"></Image>
            <Box BoxType="createVerticalStrut" BoxSize="16"/>
-           <JLabel Background="242,236,224" FontStyle="Bold" FontSize="14">$Title.RequestLine$</JLabel>         
+           <JLabel Background="236,236,236" FontStyle="Bold" FontSize="14">$Title.RequestLine$</JLabel>         
            <Box BoxType="createVerticalStrut" BoxSize="10"/>
         </JPanel>
       </JPanel>
@@ -35,47 +35,43 @@
       <JPanel LayoutClass="BoxLayout" 
               LayoutParameter="BoxLayout.Y_AXIS" 
               AddParameter="BorderLayout.CENTER"
-              Background="242,236,224"
+              Background="255,255,255"
               BorderType="EmptyBorder"
               HorizontalBorderSize="16"
               VerticalBorderSize="16">
 
-        <Box BoxType="createVerticalStrut" BoxSize="10"/>
-
         <!-- subtitle: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Background="242,236,224" FontStyle="Bold" FontSize="14">$Form.ConcernedPersonDetails$</JLabel>
+          <JLabel Background="236,236,236" FontStyle="Bold" FontSize="14">$Form.ConcernedPersonDetails$</JLabel>
         </JPanel>
 
-        <Box BoxType="createVerticalStrut" BoxSize="10"/>
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.Forename$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.Forename$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameForename" 
                       Columns="18"></JTextField>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.Surname$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.Surname$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameSurname" 
                       Columns="18"></JTextField>
         </JPanel>
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.Sex$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.Sex$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenSex" 
-                      Columns="6"></JTextField>
+                      Columns="10"></JTextField>
         </JPanel>
 
 
         <!--  birthdate -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.BirthDate$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.BirthDate$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenBirthDetails/ed:DateOfBirth/aapd:BirthDate" 
                       Columns="18"></JTextField>
         </JPanel>
@@ -84,21 +80,21 @@
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.PreferredLanguages$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.PreferredLanguages$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:PreferredLanguages" 
-                      Columns="18"></JTextField>
+                      Columns="10"></JTextField>
         </JPanel>
 
 
         <!-- Contact Details: -->
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.EmailAddress$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.EmailAddress$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Email/aapd:EmailAddress" 
-                      Columns="18"></JTextField>
+                      Columns="26"></JTextField>
         </JPanel>
 
 
@@ -108,17 +104,17 @@
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.NotificationMedium$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.NotificationMedium$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/NotificationMedium" 
-                      Columns="18"></JTextField>
+                      Columns="10"></JTextField>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.RequestedDocumentFormat$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.RequestedDocumentFormat$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/RequestedDocumentFormat" 
-                      Columns="18"></JTextField>
+                      Columns="10"></JTextField>
         </JPanel>
 
 
@@ -127,21 +123,21 @@
 
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">LoginServer</JLabel>
+          <JLabel Columns="18" Background="236,236,236">LoginServer</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/LoginServer" 
                       Columns="18" Editable="false"></JTextField>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.ServingMunicipalityDetails$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.ServingMunicipalityDetails$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ServingMunicipalityDetails" 
                       Columns="18"></JTextField>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.ReceivingMunicipalityDetails$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.ReceivingMunicipalityDetails$</JLabel>
           <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ReceivingMunicipalityDetails" 
                       Columns="18"></JTextField>
         </JPanel>
@@ -153,20 +149,24 @@
 
         <JPanel LayoutClass="BoxLayout" 
                 LayoutParameter="BoxLayout.Y_AXIS" 
-                Background="255,255,255"
+                Background="255,222,182"
                 BorderType="EtchedBorder"
                 DisplayTarget="Screen">
 
-          <JPanel Background="255,255,255" AlignmentX="0">
+          <Box BoxType="createVerticalStrut" BoxSize="10"/>
+
+          <JPanel Background="255,222,182" AlignmentX="0">
             <JButton ActionClass="XMLSignatureSubmitter">       $Form.SignAndSubmit$       </JButton>
           </JPanel>
 
           <Box BoxType="createVerticalStrut" BoxSize="10"/>
 
-          <JPanel Background="255,255,255" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
+          <JPanel Background="255,222,182" AlignmentX="0">
             <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
             <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
           </JPanel>
+
+          <Box BoxType="createVerticalStrut" BoxSize="10"/>
           
         </JPanel>
 

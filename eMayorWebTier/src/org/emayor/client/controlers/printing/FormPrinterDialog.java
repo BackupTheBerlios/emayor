@@ -118,15 +118,30 @@ public class FormPrinterDialog extends JDialog
 
     GraphicsEnvironment localEnvirnonment = GraphicsEnvironment.getLocalGraphicsEnvironment();
     Rectangle usableRect = localEnvirnonment.getMaximumWindowBounds();        
+
+    /*
     int pHeight = (3*usableRect.height)/4;
     int pWidth  = pHeight;
     int hOffset = (usableRect.width-pWidth)/2;
     int vOffset = (usableRect.height-pHeight)/2;
+    */
     
+    // Size it so, that its width is the same as the applet's width:
+    int pWidth = this.parentApplet.getWidth();
+    int pHeight = (int)(((double)pWidth) * 1.4142d); // Din format
+    // cut the height, if its bigger than the screen height:
+    if( pHeight > (8*usableRect.height)/10 )
+    {
+       pHeight = (8*usableRect.height)/10;
+    }
+   
     // check sizes:
     if( pHeight > 1024 ) pHeight = 1024;
     if( pHeight >  800 ) pHeight =  800;
         
+    int hOffset = (usableRect.width-pWidth)/2;
+    int vOffset = (usableRect.height-pHeight)/2;
+
     this.setLocation(hOffset,vOffset);
     this.setSize(pWidth,pHeight);
         

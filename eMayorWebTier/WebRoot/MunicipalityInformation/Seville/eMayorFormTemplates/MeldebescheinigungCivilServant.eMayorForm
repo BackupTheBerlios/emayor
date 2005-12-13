@@ -33,7 +33,7 @@
                   VerticalBorderSize="0">                  
              <JLabel Background="255,255,255" FontStyle="Bold" FontSize="14" AlignmentX="0">Fachbereich Personal und Organisation    Der Oberbürgermeister</JLabel>         
              <Box BoxType="createVerticalStrut" BoxSize="16"/>
-             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="18" AlignmentX="0">$Title.Meldebescheinigung$$</JLabel>         
+             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="18" AlignmentX="0">$Title.Meldebescheinigung$</JLabel>         
              <Box BoxType="createVerticalStrut" BoxSize="16"/>
              <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="255,255,255"
                      BorderType="EmptyBorder"
@@ -245,7 +245,7 @@
 
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
-        <JPanel Background="255,255,255" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
+        <JPanel Background="255,222,182" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
           <JButton ActionClass="XMLSignatureSubmitter" SubmitterParameter="Accept">       $Form.Accept$       </JButton>
           <JButton ActionClass="XMLSignatureSubmitter" SubmitterParameter="Deny">       $Form.Deny$       </JButton>
           <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>

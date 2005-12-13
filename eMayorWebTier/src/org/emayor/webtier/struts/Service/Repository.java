@@ -201,7 +201,7 @@ public class Repository extends ActionForm
         while( i < this.documents.size() )
         {
           registeredDocTime = ((RepositoryDocument)this.documents.elementAt(i)).getUTFTimeOfRequest();
-          if( registeredDocTime > documentTime ) // take this slot
+          if( registeredDocTime < documentTime ) // take this slot
           {
             elementIndexForNewDocument = i;
             break;
