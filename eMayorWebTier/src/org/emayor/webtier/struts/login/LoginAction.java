@@ -14,7 +14,6 @@ import org.apache.struts.action.ActionMapping;
 
 import org.emayor.webtier.shared.ProjectFileVersionInformation;
 import org.emayor.webtier.shared.TextResourceKeys;
-import org.emayor.webtier.struts.Municipality.MunicipalityForm;
 
 import org.emayor.servicehandling.interfaces.AccessManagerLocal;
 import org.emayor.servicehandling.utclient.ServiceLocator;

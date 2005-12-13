@@ -100,7 +100,7 @@
     Index
 </html:link>&nbsp;</td>
 <%-- name of municipality as link: --%>
-<td>&nbsp;<html:link action="municipality.do?do=selectMunicipality" 
+<td>&nbsp;<html:link action="municipality.do?do=showIndex" 
                      paramName="serviceForm" 
                      paramProperty="municipalityNameKey" 
                      paramId="<%=TextResourceKeys.MunicipalityNameKeyTag%>">
@@ -136,7 +136,7 @@
                  paramProperty="municipalityNameKey" 
                  paramId="municipalityNameKey"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.Logout%>" /></html:link>
     </p>
-      <html:link action="municipality.do?do=selectMunicipality" 
+      <html:link action="municipality.do?do=showIndex" 
                  paramName="serviceForm" 
                  paramProperty="municipalityNameKey" 
                  paramId="municipalityNameKey"><bean:write name="serviceForm" property="nameOfMunicipality" /></html:link>

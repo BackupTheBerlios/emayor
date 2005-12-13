@@ -51,7 +51,7 @@
 <logic:notEqual name="municipalityForm" property="language"
              value="ger">
                   <td style="text-align: center;">&nbsp;
-                      <html:link action="municipality.do?language=ger&do=selectMunicipality" 
+                      <html:link action="municipality.do?language=ger&do=showIndex" 
                                  paramName="municipalityForm" 
                                  paramProperty="nameKeyOfMunicipality" 
                                  paramId="municipalityNameKey"><emayorbean:writeLanguage name="municipalityForm" resourceElementKey="<%=TextResourceKeys.ShortCutGerman%>" /></html:link>&nbsp;</td>
@@ -65,7 +65,7 @@
 <logic:notEqual name="municipalityForm" property="language"
              value="en">
                   <td style="text-align: center;">&nbsp;
-                      <html:link action="municipality.do?language=en&do=selectMunicipality" 
+                      <html:link action="municipality.do?language=en&do=showIndex" 
                                  paramName="municipalityForm" 
                                  paramProperty="nameKeyOfMunicipality" 
                                  paramId="municipalityNameKey"><emayorbean:writeLanguage name="municipalityForm" resourceElementKey="<%=TextResourceKeys.ShortCutEnglish%>" /></html:link>&nbsp;</td>
@@ -79,7 +79,7 @@
 <logic:notEqual name="municipalityForm" property="language"
              value="it">
                   <td style="text-align: center;">&nbsp;
-                      <html:link action="municipality.do?language=it&do=selectMunicipality" 
+                      <html:link action="municipality.do?language=it&do=showIndex" 
                                  paramName="municipalityForm" 
                                  paramProperty="nameKeyOfMunicipality" 
                                  paramId="municipalityNameKey"><emayorbean:writeLanguage name="municipalityForm" resourceElementKey="<%=TextResourceKeys.ShortCutItalian%>" /></html:link>&nbsp;</td>
@@ -93,7 +93,7 @@
 <logic:notEqual name="municipalityForm" property="language"
              value="sp">
                   <td style="text-align: center;">&nbsp;
-                      <html:link action="municipality.do?language=sp&do=selectMunicipality" 
+                      <html:link action="municipality.do?language=sp&do=showIndex" 
                                  paramName="municipalityForm" 
                                  paramProperty="nameKeyOfMunicipality" 
                                  paramId="municipalityNameKey"><emayorbean:writeLanguage name="municipalityForm" resourceElementKey="<%=TextResourceKeys.ShortCutSpanish%>" /></html:link>&nbsp;</td>

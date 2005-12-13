@@ -100,7 +100,7 @@
     Index
 </html:link>&nbsp;</td>
 <%-- name of municipality as link: --%>
-<td>&nbsp;<html:link action="municipality.do?do=selectMunicipality" 
+<td>&nbsp;<html:link action="municipality.do?do=showIndex" 
                      paramName="serviceForm" 
                      paramProperty="municipalityNameKey" 
                      paramId="<%=TextResourceKeys.MunicipalityNameKeyTag%>">
@@ -133,7 +133,7 @@
         ALT="This applet shows the eMayor readonly forms">
   <param name="eMayorFormName" value="/eMayor/service.do?do=getEMayorForm"/>
   <param name="postURL" value="/eMayor/service.do?do=processDocumentViewedByCitizen"/>
-  <param name="redirectionAddressAfterPost" value="/eMayor/municipality.do?do=selectMunicipality"/>
+  <param name="redirectionAddressAfterPost" value="/eMayor/municipality.do?do=showIndex"/>
   <param name="appletPropertiesURL" value="service.do?do=getAppletProperties"/>
   <param name="enumerationPropertiesURL" value="service.do?do=getEnumerationProperties"/>
   <param name="Language" value="<bean:write name="serviceForm" property="language" />" />

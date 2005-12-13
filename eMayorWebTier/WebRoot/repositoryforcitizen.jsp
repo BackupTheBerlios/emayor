@@ -100,7 +100,7 @@
     Index
 </html:link>&nbsp;</td>
 <%-- name of municipality as link: --%>
-<td>&nbsp;<html:link action="municipality.do?do=selectMunicipality" 
+<td>&nbsp;<html:link action="municipality.do?do=showIndex" 
                    paramName="serviceForm" 
                    paramProperty="municipalityNameKey" 
                    paramId="<%=TextResourceKeys.MunicipalityNameKeyTag%>">
