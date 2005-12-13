@@ -67,7 +67,7 @@ public class VerifySignature {
       if (sUserProfile!=null) {
 	      try {
 	      	myUserProfile=new C_UserProfile(sUserProfile);
-	      	bCheckUserProfile = true;
+	      	if ((myUserProfile.getUserRole())!="Server") bCheckUserProfile = true;
 	      } catch (Exception e) {
 	      	log.error("PE::VerifySignature:: Error createing user profile: " + e.toString());
 	      	
