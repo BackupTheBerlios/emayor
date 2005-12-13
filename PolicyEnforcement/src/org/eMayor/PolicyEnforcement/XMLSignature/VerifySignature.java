@@ -67,7 +67,19 @@ public class VerifySignature {
       if (sUserProfile!=null) {
 	      try {
 	      	myUserProfile=new C_UserProfile(sUserProfile);
-	      	if ((myUserProfile.getUserRole())!="Server") bCheckUserProfile = true;
+	      	String sUserRole = myUserProfile.getUserRole();
+	      	if (log.isDebugEnabled()) 
+	       		log.debug("PE::VerifySignature:: User Profile Role is " + sUserRole);
+	      	if (!(sUserRole.equalsIgnoreCase("Server")))
+	      		{
+	      		if (log.isDebugEnabled()) 
+		       		log.debug("PE::VerifySignature:: Activate UserProfile check ...");
+	      			bCheckUserProfile = true;
+	      		}
+	      	else {
+	      		if (log.isDebugEnabled()) 
+		       		log.debug("PE::VerifySignature:: UserProfile check deactivated");
+	      	}
 	      } catch (Exception e) {
 	      	log.error("PE::VerifySignature:: Error createing user profile: " + e.toString());
 	      	
@@ -174,7 +186,7 @@ public class VerifySignature {
 	            	boolean SigResult = signature.checkSignatureValue(cert);
 	            	if (log.isDebugEnabled()) log.debug("PE::VerifySignature::Result for Signature Nr."+(i+1)+" is: " +(SigResult ? "valid (good)"
                             : "invalid !!!!! (bad)"));
-	            	if (bCheckUserProfile&&SigResult && (i==(Nodes-1))) {
+	            	if ((bCheckUserProfile) && (SigResult) && (i==(Nodes-1))) {
 	            		if (log.isDebugEnabled()) log.debug("PE: VerifySignature::Valid Signature, validate the Signer begin...");
 	            		
 	            		X509Certificate certProf = (myUserProfile.getX509_CertChain())[0];
