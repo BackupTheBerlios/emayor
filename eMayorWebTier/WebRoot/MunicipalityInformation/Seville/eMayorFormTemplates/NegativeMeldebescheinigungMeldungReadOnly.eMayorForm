@@ -29,7 +29,7 @@
                   BorderType="EmptyBorder"
                   HorizontalBorderSize="0"
                   VerticalBorderSize="0">                  
-             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="14" AlignmentX="0">Fachbereich Personal und Organisation    Der Oberbürgermeister</JLabel>         
+             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="14" AlignmentX="0">Einwohnermeldeabteilung      Der Oberbürgermeister</JLabel>         
              <Box BoxType="createVerticalStrut" BoxSize="16"/>
              <JLabel Background="255,255,255" FontStyle="Bold" FontSize="18" AlignmentX="0">$Title.NegativeMeldebescheinigung$</JLabel>         
              <Box BoxType="createVerticalStrut" BoxSize="10"/>
