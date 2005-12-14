@@ -1080,6 +1080,40 @@ System.out.println("caught ex: "+ex.toString());
                 </assign>
                </sequence>
               </scope>
+              <scope name="getCSApproval">
+               <variables>
+                <variable name="getApprovalIn" messageType="nsxml4:CivilServantInteraction_v10RequestMessage"/>
+                <variable name="getApprovalOut" messageType="nsxml4:CivilServantInteraction_v10ResponseMessage"/>
+               </variables>
+               <sequence name="Sequence_40">
+                <assign name="prepareInput">
+                 <copy>
+                  <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request"/>
+                  <to variable="getApprovalIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request"/>
+                 </copy>
+                 <copy>
+                  <from variable="CV_NEGATIVE_DOCUMENT"/>
+                  <to variable="getApprovalIn" part="docType" query="/nsxml4:DocumentType"/>
+                 </copy>
+                 <copy>
+                  <from variable="requesterUID"/>
+                  <to variable="getApprovalIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField4"/>
+                 </copy>
+                 <copy>
+                  <from expression="'open'"/>
+                  <to variable="getApprovalIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:status"/>
+                 </copy>
+                </assign>
+                <invoke name="getApproval" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10" operation="initiate" inputVariable="getApprovalIn"/>
+                <receive name="Receive_2" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10Callback" operation="onResult" variable="getApprovalOut" createInstance="no"/>
+                <assign name="prepareOutput">
+                 <copy>
+                  <from variable="getApprovalOut" part="payload" query="/nsxml4:CivilServantInteraction_v10Response/nsxml0:reqestDocument"/>
+                  <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
+                 </copy>
+                </assign>
+               </sequence>
+              </scope>
              </sequence>
             </case>
             <otherwise>
