@@ -148,8 +148,7 @@ public class BPELPolicyEnforcerEJB implements SessionBean, IBPELPolicyEnforcer {
 			throw new BPELPolicyEnforcerException(pex.toString());
 		}
 		log.debug("-> ... processing DONE!");
-		//return ret;
-		return true;
+		return ret;
 	}
 
 	
