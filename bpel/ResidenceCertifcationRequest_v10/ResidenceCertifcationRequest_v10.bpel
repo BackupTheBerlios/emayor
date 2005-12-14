@@ -200,7 +200,52 @@ System.out.println("caught ex: "+ex.toString());
     </sequence>
    </case>
    <otherwise>
-    <empty name="DoNothing_DataForwarded"/>
+    <sequence name="Sequence_38">
+     <scope name="checkSignature">
+      <variables>
+       <variable name="verifySignature_In" messageType="tns:SignedDocumentRequest"/>
+       <variable name="verifySignature_Out" messageType="tns:DecisionResponse"/>
+      </variables>
+      <sequence name="Sequence_39">
+       <assign name="prepareInput">
+        <copy>
+         <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
+         <to variable="verifySignature_In" part="signedXmlDocument" query="/tns:SignedXMLDocument/tns:xmlDocument"/>
+        </copy>
+        <copy>
+         <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:uid"/>
+         <to variable="verifySignature_In" part="signedXmlDocument" query="/tns:SignedXMLDocument/tns:userId"/>
+        </copy>
+        <copy>
+         <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:ssid"/>
+         <to variable="verifySignature_In" part="signedXmlDocument" query="/tns:SignedXMLDocument/tns:ssid"/>
+        </copy>
+       </assign>
+       <invoke name="verifySignature" partnerLink="policyenforcerPL" portType="tns:PolicyEnforcer_v10" operation="VerifyXMLSignature" inputVariable="verifySignature_In" outputVariable="verifySignature_Out"/>
+       <switch name="Switch_16">
+        <case condition="bpws:getVariableData('verifySignature_Out','decision','/tns:Decision')">
+         <bpelx:annotation>
+          <bpelx:pattern>signature ok
+          </bpelx:pattern>
+         </bpelx:annotation>
+         <empty name="SignatureOk"/>
+        </case>
+        <otherwise>
+         <assign name="setNegativeDocument">
+          <copy>
+           <from expression="'50021'"/>
+           <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:extraField1"/>
+          </copy>
+          <copy>
+           <from variable="CV_NEGATIVE_DOCUMENT"/>
+           <to variable="g_currentDocumentType"/>
+          </copy>
+         </assign>
+        </otherwise>
+       </switch>
+      </sequence>
+     </scope>
+    </sequence>
    </otherwise>
   </switch>
   <scope name="prepareEnvironment">
@@ -554,6 +599,10 @@ System.out.println("caught ex: "+ex.toString());
              <from expression="'closed'"/>
              <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:status"/>
             </copy>
+            <copy>
+             <from expression="'YES'"/>
+             <to variable="negativeDocumentAvailable"/>
+            </copy>
            </assign>
            <scope name="translateNegativeAnswerToELF">
             <variables>
@@ -764,7 +813,7 @@ System.out.println("caught ex: "+ex.toString());
      </otherwise>
     </switch>
     <switch name="checkForNegativeDocument">
-     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') and bpws:getVariableData('g_remoteServingPassed') = 'NO'">
+     <case condition="bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT')">
       <bpelx:annotation>
        <bpelx:pattern>negative document available and not filled in yet
        </bpelx:pattern>
