@@ -466,12 +466,20 @@ public class DocumentProcessor
       // continue with the string:      
       currentSchemaLocationPath = currentSchemaLocationPathBuffer.toString();
             
-      // get the URI, if available:
-      int firstSpaceLocation = currentSchemaLocationPath.indexOf(" ");
-      String uri = "";
-      if( firstSpaceLocation > 0 )
+      // Get the URI, if available: Delimiter is a white space:
+      int firstWhiteSpaceLocation = -1;
+      for(int i=0; i <  currentSchemaLocationPath.length(); i++ )
       {
-        uri = currentSchemaLocationPath.substring(0,firstSpaceLocation);
+        if( Character.isWhitespace(currentSchemaLocationPath.charAt(i)) )
+        {
+          firstWhiteSpaceLocation = i;
+          break;
+        }
+      }      
+      String uri = "";
+      if( firstWhiteSpaceLocation > 0 )
+      {
+        uri = currentSchemaLocationPath.substring(0,firstWhiteSpaceLocation);
         System.out.println("DocumentProcessor: Using URI: " + uri );
       }
       else
@@ -560,6 +568,7 @@ public class DocumentProcessor
       System.out.println("-> setting the originalSchemaLocationPath again.");
       XMLPath.SetSchemaLocationPathForModel(this.modelNode,this.originalSchemaLocationPath );    
     }
+    
    } // setLocalSchemaLocation
 
    
