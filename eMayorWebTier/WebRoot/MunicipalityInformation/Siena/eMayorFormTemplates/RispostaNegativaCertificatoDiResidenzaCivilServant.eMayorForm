@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <eMayorForm1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/eMayorFormsSchema.xsd eMayorFormsSchema.xsd "> 
   <Model>
-              <!-- The RispostaNegativaCertificatoDiResidenza xml document is filled in here by the webtier logic -->
+              <!-- CivilServant The RispostaNegativaCertificatoDiResidenza xml document is filled in here by the webtier logic -->
   </Model>
 
 
@@ -9,38 +9,63 @@
 
 
   <View>  <!-- The view always has a BorderLayout -->
-      <JPanel LayoutClass="FlowLayout" 
-              LayoutParameter="FlowLayout.LEFT" 
+      <JPanel LayoutClass="BorderLayout" 
               AddParameter="BorderLayout.NORTH"
               Background="255,255,255"
               BorderType="EmptyBorder"
-              HorizontalBorderSize="0"
-              VerticalBorderSize="12">
-         <JLabel Background="242,236,224">$Title.NegativeResponseResidenceCertificationDocument$</JLabel>
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
+        <JPanel LayoutClass="BorderLayout"
+                AddParameter="BorderLayout.CENTER"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="0"
+                VerticalBorderSize="0">        
+          <JPanel LayoutClass="BoxLayout"
+                  LayoutParameter="BoxLayout.Y_AXIS" 
+                  AddParameter="BorderLayout.CENTER"
+                  Background="255,255,255"
+                  BorderType="EmptyBorder"
+                  HorizontalBorderSize="0"
+                  VerticalBorderSize="0">                  
+             <Box BoxType="createVerticalStrut" BoxSize="20"/>
+             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="18" AlignmentX="0">$Title.NegativeResponseResidenceCertificationDocument$</JLabel>         
+             <Box BoxType="createVerticalStrut" BoxSize="10"/>
+          </JPanel>          
+        </JPanel>
+        <JPanel LayoutClass="BorderLayout"
+                AddParameter="BorderLayout.EAST"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="0"
+                VerticalBorderSize="0">        
+             <Image RelativeURL="/pictures/applet/siena_logo.gif" AddParameter="BorderLayout.EAST"></Image>        
+        </JPanel>
       </JPanel>
       
 
       <JPanel LayoutClass="BoxLayout" 
               LayoutParameter="BoxLayout.Y_AXIS" 
               AddParameter="BorderLayout.CENTER"
-              Background="242,236,224">
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
 
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
-                AlignmentX="0">
-          <JLabel Background="242,236,224">$Form.Observations$</JLabel>
-          <JTextArea ModelPath="Model/RispostaNegativaCertificatoDiResidenza/ed:Osservazioni"
-                     Rows="10" Columns="28"></JTextArea>
-        </JPanel>
-
-
-
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.DateOfCreation$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.DateOfCreation$</JLabel>
           <JTextField ModelPath="Model/RispostaNegativaCertificatoDiResidenza/RiferimentoOrario" 
                       Columns="18" Editable="false"></JTextField>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.Observations$</JLabel>
+          <JTextArea ModelPath="Model/RispostaNegativaCertificatoDiResidenza/ed:Osservazioni"
+                     Rows="10" Columns="28"></JTextArea>
         </JPanel>
 
 
@@ -51,29 +76,29 @@
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
         <!-- Title Label: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Background="242,236,224">$Form.ConcernedPersonDetails$</JLabel>
+          <JLabel FontStyle="Bold" FontSize="14" Background="236,236,236">$Form.ConcernedPersonDetails$</JLabel>
         </JPanel>
 
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.Forename$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.Forename$</JLabel>
           <JLabel ModelPath="Model/RispostaNegativaCertificatoDiResidenza/RichiestaOriginaria/bus:ConcernedPersonDetails/edc:CitizenName/aapd:CitizenNameForename" 
                       Columns="18"></JLabel>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.Surname$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.Surname$</JLabel>
           <JLabel ModelPath="Model/RispostaNegativaCertificatoDiResidenza/RichiestaOriginaria/bus:ConcernedPersonDetails/edc:CitizenName/aapd:CitizenNameSurname" 
                       Columns="18"></JLabel>
         </JPanel>
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
                 AlignmentX="0">
-          <JLabel Columns="18" Background="242,236,224">$Form.BirthDate$</JLabel>
+          <JLabel Columns="18" Background="236,236,236">$Form.BirthDate$</JLabel>
           <JLabel ModelPath="Model/RispostaNegativaCertificatoDiResidenza/RichiestaOriginaria/bus:ConcernedPersonDetails/edc:CitizenBirthDetails/edc:DateOfBirth/aapd:BirthDate" 
                       Columns="18"></JLabel>
         </JPanel>
@@ -82,7 +107,7 @@
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
 
-        <JPanel Background="255,255,255" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
+        <JPanel Background="255,222,182" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
           <JButton ActionClass="XMLSignatureSubmitter" SubmitterParameter="Accept">       $Form.Accept$       </JButton>
           <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
           <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>

@@ -98,27 +98,32 @@ public class FormTestForm extends ExtendedActionForm
          // names using the method Utilities.MakeNameValidForFileSystem(),
          // so apply this method to eDocumentName before comparing:
          String eDocumentNameInFileSystem = Utilities.MakeNameValidForFileSystem(eDocumentName);         
-         if( templateName.startsWith(eDocumentNameInFileSystem) )
+          
+         String nameForRole1 = eDocumentNameInFileSystem;
+         String nameForRole2 = eDocumentNameInFileSystem + "CivilServant";
+         String nameForRole3 = eDocumentNameInFileSystem + "ReadOnly";
+ 
+         if( templateName.equals(nameForRole1) )
          {
-            // It is a eMayorForms template associated to one of the 3 roles:
-            // either ReadOnly (Role 3) or CivilServant (Role 2) or
-            // without suffix, its a request document (Role 1)
-            //
-            if( templateName.endsWith("ReadOnly") ) // Role 3
-            {
-              readOnlyTemplateName = templateName;
-            }
-            else
-            if( templateName.endsWith("CivilServant") ) // Role 2
-            {
-              civilServantTemplateName = templateName;
-            }
-            else // Role 1
-            {
-              citizenTemplateName = templateName;
-            }          
-         }
-       }
+           citizenTemplateName = templateName;
+         } else
+         if( templateName.equals(nameForRole2) )
+         {
+           civilServantTemplateName = templateName;
+         } else
+         if( templateName.equals(nameForRole3) )
+         {
+           readOnlyTemplateName = templateName;
+         }         
+       } // while
+
+       /* Debug test output to see the mapping:
+       System.out.println("*********************** citizenTemplateName=" + citizenTemplateName );
+       System.out.println("*********************** civilServantTemplateName=" + civilServantTemplateName );
+       System.out.println("*********************** readOnlyTemplateName=" + readOnlyTemplateName );
+       System.out.println(" ");
+       */
+       
        EDocumentParameters parms = new EDocumentParameters( eDocFileName,
                                                             eDocumentName,
                                                             citizenTemplateName,

@@ -70,19 +70,13 @@
         </JPanel>
 
 
-<!-- some entries from the citizen: -->
-
         <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
-<!-- some entries from the civil servant: -->
-
-
-        <Box BoxType="createVerticalStrut" BoxSize="20"/>
 
         <!-- Title Label: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Background="236,236,236">$Form.ConcernedPersonDetails$</JLabel>
+          <JLabel FontStyle="Bold" FontSize="14" Background="236,236,236">$Form.ConcernedPersonDetails$</JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"

@@ -2,7 +2,15 @@
 <!--  äöü  -->
 <RispostaNegativaCertificatoDiResidenza xmlns="http://www.emayor.org/BusinessDocumentI.xsd" xmlns:bus="http://www.emayor.org/BusinessDocument.xsd" xmlns:edc="http://www.emayor.org/e-Document.xsd" xmlns:ed="http://www.emayor.org/e-DocumentI.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/BusinessDocumentI.xsd
 D:\Work\package\xsd\emayor\BusinessDocument-v0.2i.xsd">
-	<ed:Osservazioni>String</ed:Osservazioni>
+	<ed:Osservazioni>Il guaio è che non si può restare
+lungamente così,
+non c’è di controllare la micrometamorfosi
+nessuna pratica, nessuna competenza.
+Solo il disagio
+di sentirsi passare sulle vertebre
+un solletico di piuma
+un fruscio d’attimi.
+</ed:Osservazioni>
 	<RiferimentoOrario>2001-12-17T09:30:47.0Z</RiferimentoOrario>
 	<ds:Signature>
 		<ds:SignedInfo>
@@ -31,15 +39,15 @@ D:\Work\package\xsd\emayor\BusinessDocument-v0.2i.xsd">
 		<bus:RequesterDetails>
 			<edc:CitizenName>
 				<aapd:CitizenNameTitle>String</aapd:CitizenNameTitle>
-				<aapd:CitizenNameForename>String</aapd:CitizenNameForename>
-				<aapd:CitizenNameSurname>String</aapd:CitizenNameSurname>
+				<aapd:CitizenNameForename>Vittorio</aapd:CitizenNameForename>
+				<aapd:CitizenNameSurname>Tamò</aapd:CitizenNameSurname>
 				<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
 				<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
 			</edc:CitizenName>
 			<edc:PreferredLanguages>en</edc:PreferredLanguages>
 			<edc:ContactDetails>
 				<aapd:Email>
-					<aapd:EmailAddress>A</aapd:EmailAddress>
+					<aapd:EmailAddress>tomba@italia.org</aapd:EmailAddress>
 				</aapd:Email>
 				<aapd:Telephone>
 					<aapd:TelNationalNumber>0</aapd:TelNationalNumber>
@@ -71,8 +79,8 @@ D:\Work\package\xsd\emayor\BusinessDocument-v0.2i.xsd">
 		<bus:ConcernedPersonDetails>
 			<edc:CitizenName>
 				<aapd:CitizenNameTitle>String</aapd:CitizenNameTitle>
-				<aapd:CitizenNameForename>String</aapd:CitizenNameForename>
-				<aapd:CitizenNameSurname>String</aapd:CitizenNameSurname>
+				<aapd:CitizenNameForename>Vittorio</aapd:CitizenNameForename>
+				<aapd:CitizenNameSurname>Tamò</aapd:CitizenNameSurname>
 				<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
 				<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
 			</edc:CitizenName>

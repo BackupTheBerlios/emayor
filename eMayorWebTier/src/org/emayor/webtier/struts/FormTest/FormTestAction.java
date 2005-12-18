@@ -396,6 +396,17 @@ public class FormTestAction extends DispatchAction
         System.out.println(" FormTestAction: processPostedDocument() called.");
         System.out.println(" Returning acknowledgment message.");
         System.out.println(" ");
+        Enumeration namesEnumeration = request.getParameterNames();
+        int count = 0;
+        String languageParameterValue = null;
+        while( namesEnumeration.hasMoreElements() )
+        {
+          String parameterName = namesEnumeration.nextElement().toString();
+          String parameterValue = request.getParameter(parameterName);
+          System.out.println("> name= $" + parameterName + "$  value= $" + parameterValue + "$" );
+          count++;  
+        }
+        System.out.println(">" + count + " parameters.");
       
         return mapping.findForward("testpostAcknowledgement");      
       }    

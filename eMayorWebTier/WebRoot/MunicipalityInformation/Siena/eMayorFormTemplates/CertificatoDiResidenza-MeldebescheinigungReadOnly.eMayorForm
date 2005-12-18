@@ -61,18 +61,10 @@
               VerticalBorderSize="16">
 
 
-       <!-- Title Label: -->
-        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
-                AlignmentX="0">
-          <JLabel Background="236,236,236">$Form.ServingMunicipalityDetails$</JLabel>
-          <JTextField ModelPath="Model/CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:ComuneDiEmissione"
-                      Columns="18" Editable="false"></JTextField>
-        </JPanel>
-
         <!-- Title Label: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Background="236,236,236">$Form.Requester$</JLabel>
+          <JLabel FontStyle="Bold" FontSize="14" Background="236,236,236">$Form.Requester$</JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
@@ -93,7 +85,7 @@
                 AlignmentX="0">
           <JLabel Columns="18" Background="236,236,236">$Form.Sex$</JLabel>
           <JTextField ModelPath="Model/CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:SessoCittadino" 
-                      Columns="6" Editable="false"></JTextField>
+                      Columns="8" Editable="false"></JTextField>
         </JPanel>
 
 <!-- END   Entries for the citizen's name -->
@@ -104,7 +96,7 @@
                 AlignmentX="0">
           <JLabel Columns="18" Background="236,236,236">$Form.PreferredLanguages$</JLabel>
           <JTextField ModelPath="Model/CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:IntestatariCertificati/edi:DettagliCittadino/edi:LinguePreferite" 
-                      Columns="18" Editable="false"></JTextField>
+                      Columns="8" Editable="false"></JTextField>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"

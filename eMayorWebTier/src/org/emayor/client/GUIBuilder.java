@@ -572,6 +572,7 @@ public class GUIBuilder
     String value = jLabelNode.getTagValue();
     int columns = this.getIntegerFromParameter(columnsParameter);    
     String modelPath = jLabelNode.getAttributeValueForName(Attribute_ModelPath);
+    boolean isDateType = false;
     if( modelPath != null )
     {
       // The value is connected with a model xml value, get it:
@@ -587,34 +588,55 @@ public class GUIBuilder
         System.out.println("*** buildJLabellUI: a JLabel model reference points to a not existing address. ");
         System.out.println("*** buildJLabellUI: The reference is: " + modelPath );      
       }
-    
-    }
-    // Create it:
-    JLabel jLabel = new JLabel("");    
-    this.setGraphicalAttributes( jLabel,backgroundParameter,
-    		                     borderTypeParameter,
-    		                     horizontalBorderSizeParameter,verticalBorderSizeParameter );
-    this.setFontAttributesFor(jLabel,fontStyleParameter,fontSizeParameter,fontNameParameter);
-    if( value != null ) jLabel.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
-    if( columns > 0 )
-    {      
-      //System.out.println("buildJLabellUI: Add jLabel with number of columns set to " + columns );
-      int fontSize = jLabel.getFont().getSize();      
-      int labelWidth = fontSize*columns;
-      int labelHeight = (6*fontSize)/4;
-      // Security check: If the initial text length is greater than columns, we must
-      // adjust the columns so that in any case, the complete text is shown - skipping
-      // text is not allowed:
-      int minimumWidth = this.calculateStringWidth( jLabel.getText(),jLabel.getFont() );
-      if( labelWidth < minimumWidth ) 
+      // Check for simple type association of this node:
+      // 1. Check for DateType:
+      if( modelPath != null )
       {
-        labelWidth = minimumWidth;
-      }
-      jLabel.setPreferredSize( new Dimension(labelWidth,labelHeight) );
-    } // if columns    
-    // Add it:
-    this.addComponent( parentPanel,jLabel,addParameter,alignmentX_Parameter,alignmentY_Parameter);
-    //System.out.println("Added JLabel");
+        String simpleType = this.getSimpleTypeForPath(modelPath);
+        if( simpleType != null )
+        {
+          isDateType = ( simpleType.equals("DateType") );
+        }
+      }    
+    }
+
+    
+    if( isDateType ) // Use the custom DateType UI object
+    {
+      System.out.println("buildJLabellUI: Creating custom date-Type String representation");    
+      // No enumeration constraints -> use a simple JTextField:
+      // Labels always are treated like JTextFields in printing mode, so set the last boolean parameter.
+      this.buildDateTypeInputUI(parentPanel,jLabelNode,true);          
+    }
+    else // else the standard case: make an JLabel representation
+    {    
+      // Create it:
+      JLabel jLabel = new JLabel("");    
+      this.setGraphicalAttributes( jLabel,backgroundParameter,
+                                   borderTypeParameter,
+                                   horizontalBorderSizeParameter,verticalBorderSizeParameter );
+      this.setFontAttributesFor(jLabel,fontStyleParameter,fontSizeParameter,fontNameParameter);
+      if( value != null ) jLabel.setText( DataUtilities.TranslateUnicodeShortcutsInLine(value) );
+      if( columns > 0 )
+      {      
+        //System.out.println("buildJLabellUI: Add jLabel with number of columns set to " + columns );
+        int fontSize = jLabel.getFont().getSize();      
+        int labelWidth = fontSize*columns;
+        int labelHeight = (6*fontSize)/4;
+        // Security check: If the initial text length is greater than columns, we must
+        // adjust the columns so that in any case, the complete text is shown - skipping
+        // text is not allowed:
+        int minimumWidth = this.calculateStringWidth( jLabel.getText(),jLabel.getFont() );
+        if( labelWidth < minimumWidth ) 
+        {
+          labelWidth = minimumWidth;
+        }
+        jLabel.setPreferredSize( new Dimension(labelWidth,labelHeight) );
+      } // if columns    
+      // Add it:
+      this.addComponent( parentPanel,jLabel,addParameter,alignmentX_Parameter,alignmentY_Parameter);
+      //System.out.println("Added JLabel");
+    } // else
   } // buildJLabellUI
 
   
@@ -665,8 +687,7 @@ public class GUIBuilder
         //boolean enumFound = ( enumerationMapValue != null );
         //System.out.println("buildTextInputUI enumerationmapvalue for " + firstPath + "  found=  " +
         //                    enumFound );
-      }
-      
+      }      
       // Check for simple type association of this node:
       // 1. Check for DateType:
       if( firstPath != null )
@@ -676,29 +697,27 @@ public class GUIBuilder
         {
           isDateType = ( simpleType.equals("DateType") );
         }
-      }
-      
+      }      
     } // if nodelPaths are defined
-
        
     // Now decide on the UI representation:
-    // drop down values: only make sense, if it's not readonly:
+    // Drop down values: Only make sense, if it's not readonly:
     if( ( enumerationMapValue != null ) && (isEditable) )  // enumeration present: add drop down list
     {
-      System.out.println("buildTextInputUI: making JComboBox");      
+      System.out.println("buildTextInputUI: Creating JComboBox representation.");      
       // We have an editable entry with enumeration constraints, 
       // so use a JComboBox instead of a simple textfield:
       this.buildEditableJComboBoxUI( parentPanel,textInputNode,enumerationMapValue,produceVersionForPrinting );          
     }
     else if( isDateType ) // ok for editable and readonly
     {
-      System.out.println("buildTextInputUI: making date-Type JTextFields");    
+      System.out.println("buildTextInputUI: Creating custom date-Type JTextField representation");    
       // No enumeration constraints -> use a simple JTextField:
       this.buildDateTypeInputUI(parentPanel,textInputNode,produceVersionForPrinting);          
     }
     else // else the standard case: make an editable JTextField
     {
-      System.out.println("buildTextInputUI: making editable JTextField");    
+      System.out.println("buildTextInputUI: Creating default editable JTextField");    
       // No enumeration constraints -> use a simple JTextField:
       this.buildJTextFieldUI(parentPanel,textInputNode,produceVersionForPrinting);    
     }

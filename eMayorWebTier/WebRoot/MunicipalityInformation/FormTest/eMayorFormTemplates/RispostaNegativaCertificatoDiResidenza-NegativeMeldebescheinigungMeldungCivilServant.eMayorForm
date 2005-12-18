@@ -80,7 +80,7 @@
         <!-- Title Label: -->
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
                 AlignmentX="0">
-          <JLabel Background="242,236,224">$Form.ConcernedPersonDetails$</JLabel>
+          <JLabel FontStyle="Bold" FontSize="14" Background="242,236,224">$Form.ConcernedPersonDetails$</JLabel>
         </JPanel>
 
         <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
