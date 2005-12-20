@@ -15,40 +15,12 @@
          <nodeClass>oracle.tip.tools.ide.pm.wizard.BPELXMLNode</nodeClass>
       </Item>
       <Item class="oracle.ide.model.Reference">
-         <URL path="src/org/emayor/bpel/DecisionMaker.java"/>
-         <nodeClass>oracle.jdeveloper.model.JavaSourceNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="xsd/eMayorServiceRequest.xsd"/>
-         <nodeClass>oracle.jdevimpl.xml.schema.XmlSchemaNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="src/org/emayor/bpel/NegativeMeldebescheinigungMeldung.xml"/>
-         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
          <URL path="NegativeResponse_v10.bpel"/>
          <nodeClass>oracle.tip.tools.ide.pm.PMNode</nodeClass>
       </Item>
       <Item class="oracle.ide.model.Reference">
          <URL path="NegativeResponse_v10.wsdl"/>
          <nodeClass>oracle.tip.tools.ide.common.utils.BPELWSDLNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="src/org/emayor/bpel/NegativeResponseResidenceCertificationRequest.xml"/>
-         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="src/org/emayor/bpel/RespuestaNegativaCertificadoInscripcionPadronal.xml"/>
-         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="src/org/emayor/bpel/RispostaNegativaCertificatoDiResidenza.xml"/>
-         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="src/org/emayor/bpel/RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung.xml"/>
-         <nodeClass>oracle.bali.xml.addin.XMLSourceNode</nodeClass>
       </Item>
    </listOfChildren>
    <ownerMap/>
@@ -85,16 +57,6 @@
                <projectBuildfile/>
                <rebuildTarget/>
                <showOutput>true</showOutput>
-            </Value>
-         </Item>
-         <Item>
-            <Key>oracle.jdeveloper.offlinedb.OfflineDBProjectSettings</Key>
-            <Value class="oracle.jdeveloper.offlinedb.OfflineDBProjectSettings">
-               <databasePath>
-                  <entries>
-                     <Item path="database/"/>
-                  </entries>
-               </databasePath>
             </Value>
          </Item>
          <Item>
@@ -331,10 +293,10 @@
          <Key>technologyScope</Key>
          <Value class="oracle.ide.model.TechnologyScope">
             <technologyKeys>
-               <Item>XML</Item>
-               <Item>Java</Item>
                <Item>Integration</Item>
+               <Item>Java</Item>
                <Item>WebServices</Item>
+               <Item>XML</Item>
             </technologyKeys>
          </Value>
       </Item>
