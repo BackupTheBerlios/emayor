@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="dist" exploded="false" name="TestLegacy.jar" used="true">
+<folder excludes="" includes="**/*.class" location="classes" name="classes" prefix="" project="" projectLocation="classes" used="true"/>
+<folder excludes="" includes="**/*.xml" location="xml" name="xml" prefix="xml" project="" projectLocation="xml" used="true"/>
+</archive>
+<archive destination="dist" exploded="false" name="TestLegacyClient.jar" used="true">
+<folder excludes="" includes="org/eMayor/legacy/test/LegacyServer_S*.class" location="classes" name="classes" prefix="" project="" projectLocation="classes" used="true"/>
+</archive>
+</configurations>

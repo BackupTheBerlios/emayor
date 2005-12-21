@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004,N1001F"/>
+<target name="N10004" description="TestLegacy.jar">
+<mkdir dir="dist"/>
+<jar destfile="dist/TestLegacy.jar">
+<zipfileset dir="classes" includes="**/*.class"/>
+<zipfileset dir="xml" prefix="xml" includes="**/*.xml"/>
+</jar>
+</target>
+<target name="N1001F" description="TestLegacyClient.jar">
+<mkdir dir="dist"/>
+<jar destfile="dist/TestLegacyClient.jar">
+<zipfileset dir="classes" includes="org/eMayor/legacy/test/LegacyServer_S*.class"/>
+</jar>
+</target>
+</project>

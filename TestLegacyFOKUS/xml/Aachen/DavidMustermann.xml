@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Meldebescheinigung xmlns="http://www.emayor.org/BusinessDocumentG.xsd" xmlns:ed="http://www.emayor.org/e-DocumentG.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/BusinessDocumentG.xsd E:\working\eMayor\dev\ServiceHandling\xml\2005-07-25\xsd\emayor\BusinessDocument-v0.2g.xsd">
+	<ed:DokumentId>001</ed:DokumentId>
+	<AusstellendeGemeinde>Aachen</AusstellendeGemeinde>
+	<BescheinigteBeteiligten>
+		<ed:EinwohnerAngaben>
+			<ed:EinwohnerName>
+				<aapd:CitizenNameTitle>Herr</aapd:CitizenNameTitle>
+				<aapd:CitizenNameForename>David</aapd:CitizenNameForename>
+				<aapd:CitizenNameSurname>Mustermann</aapd:CitizenNameSurname>
+				<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
+				<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
+			</ed:EinwohnerName>
+			<ed:BevorzugteSprachen>en</ed:BevorzugteSprachen>
+			<ed:KontaktDetails>
+				<aapd:Email>
+					<aapd:EmailAddress>mustermann@web.de</aapd:EmailAddress>
+				</aapd:Email>
+				<aapd:Telephone>
+					<aapd:TelNationalNumber>6785000</aapd:TelNationalNumber>
+					<aapd:TelExtensionNumber>210</aapd:TelExtensionNumber>
+					<aapd:TelCountryCode>30</aapd:TelCountryCode>
+				</aapd:Telephone>
+				<aapd:Fax>
+					<aapd:FaxNationalNumber>6785008</aapd:FaxNationalNumber>
+					<aapd:FaxExtensionNumber>210</aapd:FaxExtensionNumber>
+					<aapd:FaxCountryCode>30</aapd:FaxCountryCode>
+				</aapd:Fax>
+			</ed:KontaktDetails>
+			<ed:EinwohnerGeschlecht>Männlich</ed:EinwohnerGeschlecht>
+			<ed:EinwohnerZivilstand>Ledig</ed:EinwohnerZivilstand>
+			<ed:EinwohnerGeburtsdaten>
+				<ed:Geburtsdatum>
+					<aapd:BirthDate>1976-07-26</aapd:BirthDate>
+					<aapd:VerifiedBy>not verified</aapd:VerifiedBy>
+				</ed:Geburtsdatum>
+				<cbc:CityName>Athens</cbc:CityName>
+				<ed:GeburtsurkundeNummer>String</ed:GeburtsurkundeNummer>
+			</ed:EinwohnerGeburtsdaten>
+			<ed:Nationalität>Greek</ed:Nationalität>
+			<ed:Identifizierungsdaten>
+				<ed:PersonalausweisNummer>AAAAAAAAAA</ed:PersonalausweisNummer>
+				<ed:ReisepassNummer>000000000</ed:ReisepassNummer>
+			</ed:Identifizierungsdaten>
+		</ed:EinwohnerAngaben>
+	</BescheinigteBeteiligten>
+	<ed:AusgestelltAm>2005-03-30T17:00:00Z</ed:AusgestelltAm>
+	<ed:Bemerkungen>String</ed:Bemerkungen>
+	<ed:Gültigkeitszeitraum>String</ed:Gültigkeitszeitraum>
+	<ds:Signature>
+		<ds:SignedInfo>
+			<ds:CanonicalizationMethod Algorithm="http://www.altova.com"/>
+			<ds:SignatureMethod Algorithm="http://www.altova.com">
+				<ds:HMACOutputLength>0</ds:HMACOutputLength>
+			</ds:SignatureMethod>
+			<ds:Reference>
+				<ds:Transforms>
+					<ds:Transform Algorithm="http://www.altova.com"/>
+				</ds:Transforms>
+				<ds:DigestMethod Algorithm="http://www.altova.com"/>
+				<ds:DigestValue>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ds:DigestValue>
+			</ds:Reference>
+		</ds:SignedInfo>
+		<ds:SignatureValue>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ds:SignatureValue>
+		<ds:KeyInfo>
+			<ds:KeyName>String</ds:KeyName>
+		</ds:KeyInfo>
+		<ds:Object/>
+	</ds:Signature>
+	<Adresse>
+		<ed:Postfach>-</ed:Postfach>
+		<ed:Etage>1</ed:Etage>
+		<ed:Raum>-</ed:Raum>
+		<ed:Straße>Bahnhofstrasse</ed:Straße>
+		<ed:StraßennameZusatz></ed:StraßennameZusatz>
+		<ed:GebäudeName>-</ed:GebäudeName>
+		<ed:GebäudeNummer>12</ed:GebäudeNummer>
+		<ed:Abteilung>-</ed:Abteilung>
+		<ed:Stadt>Berlin</ed:Stadt>
+		<ed:Postbezirk>10457</ed:Postbezirk>
+		<ed:Kreis>Friedrichshain</ed:Kreis>
+		<ed:Land>
+			<cac:IdentificationCode>GER</cac:IdentificationCode>
+			<cbc:Name>Germany</cbc:Name>
+		</ed:Land>
+		<ed:Nukleus>-</ed:Nukleus>
+		<ed:StraßeQualifizierer>-</ed:StraßeQualifizierer>
+		<ed:Sektion>-</ed:Sektion>
+	</Adresse>
+</Meldebescheinigung>
