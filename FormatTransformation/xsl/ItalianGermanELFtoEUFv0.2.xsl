@@ -2,6 +2,10 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:cd="http://www.emayor.org/BusinessDocument.xsd" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"  xmlns:cdi="http://www.emayor.org/BusinessDocumentI.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:edi="http://www.emayor.org/e-DocumentI.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
  <xsl:output method="xml" indent="yes"/>
   
+<xsl:template match="/">
+	<xsl:apply-templates select="//cdi:CertificatoDiResidenza"/>
+</xsl:template>
+
 <xsl:template mode="copy-no-ns" match="*">
   <xsl:element name="{name(.)}" namespace="{namespace-uri(.)}">
     <xsl:copy-of select="@*"/>
@@ -10,13 +14,15 @@
 </xsl:template>
 
 <xsl:template match="cdi:CertificatoDiResidenza">
-	<cd:ResidenceCertificationDocument xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd ../xsd/emayor/BusinessDocument-v0.2.xsd">
+	<cd:ResidenceCertificationDocument xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd ../emayor/BusinessDocument-v0.3.xsd">
 		<xsl:apply-templates select="edi:IdDocumento"/>
 		<xsl:apply-templates select="cdi:ComuneDiEmissione"/>
 		<xsl:apply-templates select="cdi:IntestatariCertificati"/>
 		<xsl:apply-templates select="edi:DataEmissione"/>
 		<xsl:apply-templates select="edi:Osservazioni"/>
 		<xsl:apply-templates select="edi:Termini"/>
+		<xsl:apply-templates select="cdi:Timestamp"/>
+		<xsl:apply-templates select="cdi:TimbroDiAccettazione"/>		
 		<xsl:apply-templates select="cdi:Indirizzo"/>
 	</cd:ResidenceCertificationDocument>
 </xsl:template>
@@ -165,6 +171,18 @@
 	</ed:Terms>
 </xsl:template>
 
+<xsl:template match="cdi:Timestamp">
+	<cd:Timestamp>
+		<xsl:apply-templates/>
+	</cd:Timestamp>
+</xsl:template>
+
+<xsl:template match="cdi:TimbroDiAccettazione">
+	<cd:AcknowledgementStamp>
+		<xsl:apply-templates/>
+	</cd:AcknowledgementStamp>
+</xsl:template>
+
 <xsl:template match="cdi:Indirizzo">
 	<cd:Address>
 		<xsl:apply-templates select="edi:CasellaPostale"/>
@@ -276,9 +294,4 @@
 		<xsl:apply-templates/>
 	</ed:Section>
 </xsl:template>
-
-<xsl:template match="/">
-	<xsl:apply-templates select="//cdi:CertificatoDiResidenza"/>
-</xsl:template>
-
 </xsl:stylesheet>

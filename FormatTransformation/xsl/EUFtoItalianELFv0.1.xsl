@@ -14,14 +14,15 @@
 </xsl:template>
 
 <xsl:template match="cd:ResidenceCertificationDocument" mode="italian">
-	<cdi:CertificatoDiResidenza xsi:schemaLocation="http://www.emayor.org/BusinessDocumentI.xsd
-	../xsd/eMayor/BusinessDocument-v0.2i.xsd">
+	<cdi:CertificatoDiResidenza xsi:schemaLocation="http://www.emayor.org/BusinessDocumentI.xsd	../emayor/BusinessDocument-v0.2i.xsd">
 		<xsl:apply-templates select="ed:DocumentId" mode="italian"/>
 		<xsl:apply-templates select="cd:IssuingMunicipality" mode="italian"/>
 		<xsl:apply-templates select="cd:CertifiedConcernedPersons" mode="italian"/>
 		<xsl:apply-templates select="ed:IssuanceDate" mode="italian"/>
 		<xsl:apply-templates select="ed:Observations" mode="italian"/>
 		<xsl:apply-templates select="ed:Terms" mode="italian"/>
+		<xsl:apply-templates select="cd:Timestamp" mode="italian"/>
+		<xsl:apply-templates select="cd:AcknowledgementStamp" mode="italian"/>
 		<xsl:apply-templates select="cd:Address" mode="italian"/>
 	</cdi:CertificatoDiResidenza>
 </xsl:template>
@@ -286,6 +287,18 @@
 	<edi:Termini>
 		<xsl:apply-templates mode="italian"/>
 	</edi:Termini>
+</xsl:template>
+
+<xsl:template match="cd:Timestamp" mode="italian">
+	<cdi:Timestamp>
+		<xsl:apply-templates mode="italian"/>
+	</cdi:Timestamp>
+</xsl:template>
+
+<xsl:template match="cd:AcknowledgementStamp" mode="italian">
+	<cdi:TimbroDiAccettazione>
+		<xsl:apply-templates mode="italian"/>
+	</cdi:TimbroDiAccettazione>
 </xsl:template>
 
 <xsl:template match="cd:Address" mode="italian">

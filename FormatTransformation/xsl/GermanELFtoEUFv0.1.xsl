@@ -10,13 +10,15 @@
 </xsl:template>
 
 <xsl:template match="cdi:Meldebescheinigung">
-	<cd:ResidenceCertificationDocument xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd ../xsd/emayor/BusinessDocument-v0.2.xsd">
+	<cd:ResidenceCertificationDocument xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd ../emayor/BusinessDocument-v0.3.xsd">
 		<xsl:apply-templates select="edi:DokumentId"/>
 		<xsl:apply-templates select="cdi:AusstellendeGemeinde"/>
 		<xsl:apply-templates select="cdi:BescheinigteBeteiligten"/>
 		<xsl:apply-templates select="edi:AusgestelltAm"/>
 		<xsl:apply-templates select="edi:Bemerkungen"/>
 		<xsl:apply-templates select="edi:Gültigkeitszeitraum"/>
+		<xsl:apply-templates select="cdi:Timestamp"/>
+		<xsl:apply-templates select="cdi:Bestätigungsstempel"/>		
 		<xsl:apply-templates select="cdi:Adresse"/>
 	</cd:ResidenceCertificationDocument>
 </xsl:template>
@@ -163,6 +165,18 @@
 	<ed:Terms>
 		<xsl:apply-templates/>
 	</ed:Terms>
+</xsl:template>
+
+<xsl:template match="cdi:Timestamp">
+	<cd:Timestamp>
+		<xsl:apply-templates/>
+	</cd:Timestamp>
+</xsl:template>
+
+<xsl:template match="cdi:Bestätigungsstempel">
+	<cd:AcknowledgementStamp>
+		<xsl:apply-templates/>
+	</cd:AcknowledgementStamp>
 </xsl:template>
 
 <xsl:template match="cdi:Adresse">

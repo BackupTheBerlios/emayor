@@ -14,13 +14,15 @@
 </xsl:template>
 
 <xsl:template match="cd:ResidenceCertificationDocument" mode="german">
-	<cdg:Meldebescheinigung xsi:schemaLocation="http://www.emayor.org/BusinessDocumentG.xsd ../xsd/emayor/BusinessDocument-v0.2g.xsd">
+	<cdg:Meldebescheinigung xsi:schemaLocation="http://www.emayor.org/BusinessDocumentG.xsd ../emayor/BusinessDocument-v0.2g.xsd">
 		<xsl:apply-templates select="ed:DocumentId" mode="german"/>
 		<xsl:apply-templates select="cd:IssuingMunicipality" mode="german"/>
 		<xsl:apply-templates select="cd:CertifiedConcernedPersons" mode="german"/>
 		<xsl:apply-templates select="ed:IssuanceDate" mode="german"/>
 		<xsl:apply-templates select="ed:Observations" mode="german"/>
 		<xsl:apply-templates select="ed:Terms" mode="german"/>
+		<xsl:apply-templates select="cd:Timestamp" mode="german"/>
+		<xsl:apply-templates select="cd:AcknowledgementStamp" mode="german"/>		
 		<xsl:apply-templates select="cd:Address" mode="german"/>
 	</cdg:Meldebescheinigung>
 </xsl:template>
@@ -167,6 +169,18 @@
 	<edg:Gültigkeitszeitraum>
 		<xsl:apply-templates mode="german"/>
 	</edg:Gültigkeitszeitraum>
+</xsl:template>
+
+<xsl:template match="cd:Timestamp" mode="german">
+	<cdg:Timestamp>
+		<xsl:apply-templates mode="german"/>
+	</cdg:Timestamp>
+</xsl:template>
+
+<xsl:template match="cd:AcknowledgementStamp" mode="german">
+	<cdg:Bestätigungsstempel>
+		<xsl:apply-templates mode="german"/>
+	</cdg:Bestätigungsstempel>
 </xsl:template>
 
 <xsl:template match="cd:Address" mode="german">

@@ -10,13 +10,15 @@
 </xsl:template>
 
 <xsl:template match="cdi:CertificatoDiResidenza">
-	<cd:ResidenceCertificationDocument xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd ../xsd/emayor/BusinessDocument-v0.2.xsd">
+	<cd:ResidenceCertificationDocument xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd ../emayor/BusinessDocument-v0.3.xsd">
 		<xsl:apply-templates select="edi:IdDocumento"/>
 		<xsl:apply-templates select="cdi:ComuneDiEmissione"/>
 		<xsl:apply-templates select="cdi:IntestatariCertificati"/>
 		<xsl:apply-templates select="edi:DataEmissione"/>
 		<xsl:apply-templates select="edi:Osservazioni"/>
 		<xsl:apply-templates select="edi:Termini"/>
+		<xsl:apply-templates select="cdi:Timestamp"/>
+		<xsl:apply-templates select="cdi:TimbroDiAccettazione"/>		
 		<xsl:apply-templates select="cdi:Indirizzo"/>
 	</cd:ResidenceCertificationDocument>
 </xsl:template>
@@ -163,6 +165,18 @@
 	<ed:Terms>
 		<xsl:apply-templates/>
 	</ed:Terms>
+</xsl:template>
+
+<xsl:template match="cdi:Timestamp">
+	<cd:Timestamp>
+		<xsl:apply-templates/>
+	</cd:Timestamp>
+</xsl:template>
+
+<xsl:template match="cdi:TimbroDiAccettazione">
+	<cd:AcknowledgementStamp>
+		<xsl:apply-templates/>
+	</cd:AcknowledgementStamp>
 </xsl:template>
 
 <xsl:template match="cdi:Indirizzo">

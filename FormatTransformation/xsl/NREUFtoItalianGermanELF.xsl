@@ -10,9 +10,15 @@ http://www.altova.com/mapforce
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:n18="http://www.emayor.org/BusinessDocument.xsd" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:n19="http://www.govtalk.gov.uk/core" xmlns:aapd2="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:n22="http://www.govtalk.gov.uk/people/PersonDescriptives" xmlns:ds2="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:n32="urn:oasis:names:specification:ubl:schema:xsd:AllowanceChargeReasonCode-1.0" xmlns:n42="urn:oasis:names:specification:ubl:schema:xsd:ChannelCode-1.0" xmlns:n52="urn:oasis:names:specification:ubl:schema:xsd:ChipCode-1.0" xmlns:cac2="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc2="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:n62="urn:oasis:names:specification:ubl:schema:xsd:CoreComponentTypes-1.0" xmlns:n72="urn:oasis:names:specification:ubl:schema:xsd:CountryIdentificationCode-1.0" xmlns:n82="urn:oasis:names:specification:ubl:schema:xsd:CurrencyCode-1.0" xmlns:n92="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0" xmlns:n102="urn:oasis:names:specification:ubl:schema:xsd:LatitudeDirectionCode-1.0" xmlns:n112="urn:oasis:names:specification:ubl:schema:xsd:LineStatusCode-1.0" xmlns:n122="urn:oasis:names:specification:ubl:schema:xsd:LongitudeDirectionCode-1.0" xmlns:n132="urn:oasis:names:specification:ubl:schema:xsd:OperatorCode-1.0" xmlns:n142="urn:oasis:names:specification:ubl:schema:xsd:PaymentMeansCode-1.0" xmlns:n152="urn:oasis:names:specification:ubl:schema:xsd:SpecializedDatatypes-1.0" xmlns:n162="urn:oasis:names:specification:ubl:schema:xsd:SubstitutionStatusCode-1.0" xmlns:n172="urn:oasis:names:specification:ubl:schema:xsd:UnspecializedDatatypes-1.0" xmlns:bus="http://www.emayor.org/BusinessDocument.xsd" xmlns="http://www.emayor.org/BusinessDocumentBi.xsd" xmlns:cdg="http://www.emayor.org/BusinessDocumentG.xsd" xmlns:cdi="http://www.emayor.org/BusinessDocumentI.xsd" xmlns:edc="http://www.emayor.org/e-Document.xsd" xmlns:edg="http://www.emayor.org/e-DocumentG.xsd" xmlns:edi="http://www.emayor.org/e-DocumentI.xsd" xmlns:n1="http://www.govtalk.gov.uk/core" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:n2="http://www.govtalk.gov.uk/people/PersonDescriptives" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:n3="urn:oasis:names:specification:ubl:schema:xsd:AllowanceChargeReasonCode-1.0" xmlns:n4="urn:oasis:names:specification:ubl:schema:xsd:ChannelCode-1.0" xmlns:n5="urn:oasis:names:specification:ubl:schema:xsd:ChipCode-1.0" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:n6="urn:oasis:names:specification:ubl:schema:xsd:CoreComponentTypes-1.0" xmlns:n7="urn:oasis:names:specification:ubl:schema:xsd:CountryIdentificationCode-1.0" xmlns:n8="urn:oasis:names:specification:ubl:schema:xsd:CurrencyCode-1.0" xmlns:n9="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0" xmlns:n10="urn:oasis:names:specification:ubl:schema:xsd:LatitudeDirectionCode-1.0" xmlns:n11="urn:oasis:names:specification:ubl:schema:xsd:LineStatusCode-1.0" xmlns:n12="urn:oasis:names:specification:ubl:schema:xsd:LongitudeDirectionCode-1.0" xmlns:n13="urn:oasis:names:specification:ubl:schema:xsd:OperatorCode-1.0" xmlns:n14="urn:oasis:names:specification:ubl:schema:xsd:PaymentMeansCode-1.0" xmlns:n15="urn:oasis:names:specification:ubl:schema:xsd:SpecializedDatatypes-1.0" xmlns:n16="urn:oasis:names:specification:ubl:schema:xsd:SubstitutionStatusCode-1.0" xmlns:n17="urn:oasis:names:specification:ubl:schema:xsd:UnspecializedDatatypes-1.0" exclude-result-prefixes="xs n18 ed aapd2 ds2 cac2 cbc2 n19 n22 n32 n42 n52 n62 n72 n82 n92 n102 n112 n122 n132 n142 n152 n162 n172">
 	<xsl:output method="xml" encoding="UTF-8"/>
+	<xsl:template mode="copy-no-ns" match="*">
+  <xsl:element name="{name(.)}" namespace="{namespace-uri(.)}">
+    <xsl:copy-of select="@*"/>
+    <xsl:apply-templates mode="copy-no-ns"/>
+  </xsl:element>
+</xsl:template>
 	<xsl:template match="/n18:NegativeResponseResidenceCertificationDocument">
 		<RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung>
-			<xsl:attribute name="xsi:schemaLocation">http://www.emayor.org/BusinessDocumentBi.xsd D:/Work/package/emayor/BusinessDocument-v0.1bi.xsd</xsl:attribute>
+			<xsl:attribute name="xsi:schemaLocation">http://www.emayor.org/BusinessDocumentBi.xsd ../emayor/BusinessDocument-v0.1bi.xsd</xsl:attribute>
 			<cdi:RispostaNegativaCertificatoDiResidenza>
 				<xsl:for-each select="ed:Observations">
 					<edi:Osservazioni>
@@ -731,61 +737,7 @@ http://www.altova.com/mapforce
 								</xsl:for-each>
 							</bus:RequesterAddress>
 						</xsl:for-each>
-						<xsl:for-each select="ds2:Signature">
-							<ds:Signature>
-								<xsl:for-each select="@Id">
-									<xsl:attribute name="Id">
-										<xsl:value-of select="."/>
-									</xsl:attribute>
-								</xsl:for-each>
-								<xsl:for-each select="ds2:SignedInfo">
-									<ds:SignedInfo>
-										<xsl:for-each select="@Id">
-											<xsl:attribute name="Id">
-												<xsl:value-of select="."/>
-											</xsl:attribute>
-										</xsl:for-each>
-										<xsl:for-each select="ds2:Reference">
-											<ds:Reference>
-												<xsl:for-each select="@Id">
-													<xsl:attribute name="Id">
-														<xsl:value-of select="."/>
-													</xsl:attribute>
-												</xsl:for-each>
-												<xsl:for-each select="@URI">
-													<xsl:attribute name="URI">
-														<xsl:value-of select="."/>
-													</xsl:attribute>
-												</xsl:for-each>
-												<xsl:for-each select="@Type">
-													<xsl:attribute name="Type">
-														<xsl:value-of select="."/>
-													</xsl:attribute>
-												</xsl:for-each>
-												<xsl:for-each select="ds2:Transforms">
-													<ds:Transforms/>
-												</xsl:for-each>
-												<xsl:for-each select="ds2:DigestValue">
-													<ds:DigestValue>
-														<xsl:value-of select="."/>
-													</ds:DigestValue>
-												</xsl:for-each>
-											</ds:Reference>
-										</xsl:for-each>
-									</ds:SignedInfo>
-								</xsl:for-each>
-								<xsl:for-each select="ds2:SignatureValue">
-									<ds:SignatureValue>
-										<xsl:for-each select="@Id">
-											<xsl:attribute name="Id">
-												<xsl:value-of select="."/>
-											</xsl:attribute>
-										</xsl:for-each>
-										<xsl:value-of select="."/>
-									</ds:SignatureValue>
-								</xsl:for-each>
-							</ds:Signature>
-						</xsl:for-each>
+					    <xsl:apply-templates mode="copy-no-ns" select="ds:Signature"/>
 					</cdi:RichiestaOriginaria>
 				</xsl:for-each>
 			</cdi:RispostaNegativaCertificatoDiResidenza>
@@ -1507,61 +1459,7 @@ http://www.altova.com/mapforce
 								</xsl:for-each>
 							</bus:RequesterAddress>
 						</xsl:for-each>
-						<xsl:for-each select="ds2:Signature">
-							<ds:Signature>
-								<xsl:for-each select="@Id">
-									<xsl:attribute name="Id">
-										<xsl:value-of select="."/>
-									</xsl:attribute>
-								</xsl:for-each>
-								<xsl:for-each select="ds2:SignedInfo">
-									<ds:SignedInfo>
-										<xsl:for-each select="@Id">
-											<xsl:attribute name="Id">
-												<xsl:value-of select="."/>
-											</xsl:attribute>
-										</xsl:for-each>
-										<xsl:for-each select="ds2:Reference">
-											<ds:Reference>
-												<xsl:for-each select="@Id">
-													<xsl:attribute name="Id">
-														<xsl:value-of select="."/>
-													</xsl:attribute>
-												</xsl:for-each>
-												<xsl:for-each select="@URI">
-													<xsl:attribute name="URI">
-														<xsl:value-of select="."/>
-													</xsl:attribute>
-												</xsl:for-each>
-												<xsl:for-each select="@Type">
-													<xsl:attribute name="Type">
-														<xsl:value-of select="."/>
-													</xsl:attribute>
-												</xsl:for-each>
-												<xsl:for-each select="ds2:Transforms">
-													<ds:Transforms/>
-												</xsl:for-each>
-												<xsl:for-each select="ds2:DigestValue">
-													<ds:DigestValue>
-														<xsl:value-of select="."/>
-													</ds:DigestValue>
-												</xsl:for-each>
-											</ds:Reference>
-										</xsl:for-each>
-									</ds:SignedInfo>
-								</xsl:for-each>
-								<xsl:for-each select="ds2:SignatureValue">
-									<ds:SignatureValue>
-										<xsl:for-each select="@Id">
-											<xsl:attribute name="Id">
-												<xsl:value-of select="."/>
-											</xsl:attribute>
-										</xsl:for-each>
-										<xsl:value-of select="."/>
-									</ds:SignatureValue>
-								</xsl:for-each>
-							</ds:Signature>
-						</xsl:for-each>
+						<xsl:apply-templates mode="copy-no-ns" select="ds:Signature"/>
 					</cdg:UrspruenglicheAnforderung>
 				</xsl:for-each>
 			</cdg:NegativeMeldebescheinigungMeldung>

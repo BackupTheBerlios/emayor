@@ -1,5 +1,7 @@
 <?xml version="1.0"?> 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:cd="http://www.emayor.org/BusinessDocument.xsd" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"  xmlns:cdg="http://www.emayor.org/BusinessDocumentG.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:edg="http://www.emayor.org/e-DocumentG.xsd"   xmlns:cdi="http://www.emayor.org/BusinessDocumentI.xsd" xmlns:edi="http://www.emayor.org/e-DocumentI.xsd" xmlns:cdbi="http://www.emayor.org/BusinessDocumentBi.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cd="http://www.emayor.org/BusinessDocument.xsd" xmlns:cdbi="http://www.emayor.org/BusinessDocumentBi.xsd" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"  xmlns:cdg="http://www.emayor.org/BusinessDocumentG.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:edg="http://www.emayor.org/e-DocumentG.xsd" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cdi="http://www.emayor.org/BusinessDocumentI.xsd" xmlns:edi="http://www.emayor.org/e-DocumentI.xsd">
+
+ <xsl:output method="xml" indent="yes"/>
 
 <xsl:template mode="copy-no-ns" match="*">
   <xsl:element name="{name(.)}" namespace="{namespace-uri(.)}">
@@ -9,18 +11,22 @@
 </xsl:template>
 
 <xsl:template match="/">
-	<xsl:apply-templates select="cd:ResidenceCertificationDocument" mode="italian"/>
+	<cdbi:CertificatoDiResidenza-Meldebescheinigung xsi:schemaLocation="http://www.emayor.org/BusinessDocumentBi.xsd ../emayor/BusinessDocument-v0.1bi.xsd">
+			<xsl:apply-templates mode="italian" select="cd:ResidenceCertificationDocument"/>
+			<xsl:apply-templates mode="german" select="cd:ResidenceCertificationDocument"/>
+	</cdbi:CertificatoDiResidenza-Meldebescheinigung>
 </xsl:template>
 
 <xsl:template match="cd:ResidenceCertificationDocument" mode="italian">
-	<cdi:CertificatoDiResidenza xsi:schemaLocation="http://www.emayor.org/BusinessDocumentI.xsd
-	../xsd/eMayor/BusinessDocument-v0.2i.xsd">
+	<cdi:CertificatoDiResidenza xsi:schemaLocation="http://www.emayor.org/BusinessDocumentI.xsd ../emayor/BusinessDocument-v0.2i.xsd">
 		<xsl:apply-templates select="ed:DocumentId" mode="italian"/>
 		<xsl:apply-templates select="cd:IssuingMunicipality" mode="italian"/>
 		<xsl:apply-templates select="cd:CertifiedConcernedPersons" mode="italian"/>
 		<xsl:apply-templates select="ed:IssuanceDate" mode="italian"/>
 		<xsl:apply-templates select="ed:Observations" mode="italian"/>
 		<xsl:apply-templates select="ed:Terms" mode="italian"/>
+		<xsl:apply-templates select="cd:Timestamp" mode="italian"/>
+		<xsl:apply-templates select="cd:AcknowledgementStamp" mode="italian"/>
 		<xsl:apply-templates select="cd:Address" mode="italian"/>
 	</cdi:CertificatoDiResidenza>
 </xsl:template>
@@ -287,6 +293,18 @@
 	</edi:Termini>
 </xsl:template>
 
+<xsl:template match="cd:Timestamp" mode="italian">
+	<cdi:Timestamp>
+		<xsl:apply-templates mode="italian"/>
+	</cdi:Timestamp>
+</xsl:template>
+
+<xsl:template match="cd:AcknowledgementStamp" mode="italian">
+	<cdi:TimbroDiAccettazione>
+		<xsl:apply-templates mode="italian"/>
+	</cdi:TimbroDiAccettazione>
+</xsl:template>
+
 <xsl:template match="cd:Address" mode="italian">
 	<cdi:Indirizzo>
 		<xsl:apply-templates select="cbc:Postbox" mode="italian"/>
@@ -420,19 +438,16 @@
 	</edi:Sezione>
 </xsl:template>
 
-
-<xsl:template match="/">
-	<xsl:apply-templates select="cd:ResidenceCertificationDocument" mode="german"/>
-</xsl:template>
-
 <xsl:template match="cd:ResidenceCertificationDocument" mode="german">
-	<cdg:Meldebescheinigung xsi:schemaLocation="http://www.emayor.org/BusinessDocumentG.xsd ../xsd/emayor/BusinessDocument-v0.2g.xsd">
+	<cdg:Meldebescheinigung xsi:schemaLocation="http://www.emayor.org/BusinessDocumentG.xsd ../emayor/BusinessDocument-v0.2g.xsd">
 		<xsl:apply-templates select="ed:DocumentId" mode="german"/>
 		<xsl:apply-templates select="cd:IssuingMunicipality" mode="german"/>
 		<xsl:apply-templates select="cd:CertifiedConcernedPersons" mode="german"/>
 		<xsl:apply-templates select="ed:IssuanceDate" mode="german"/>
 		<xsl:apply-templates select="ed:Observations" mode="german"/>
 		<xsl:apply-templates select="ed:Terms" mode="german"/>
+		<xsl:apply-templates select="cd:Timestamp" mode="german"/>
+		<xsl:apply-templates select="cd:AcknowledgementStamp" mode="german"/>		
 		<xsl:apply-templates select="cd:Address" mode="german"/>
 	</cdg:Meldebescheinigung>
 </xsl:template>
@@ -581,6 +596,18 @@
 	</edg:Gültigkeitszeitraum>
 </xsl:template>
 
+<xsl:template match="cd:Timestamp" mode="german">
+	<cdg:Timestamp>
+		<xsl:apply-templates mode="german"/>
+	</cdg:Timestamp>
+</xsl:template>
+
+<xsl:template match="cd:AcknowledgementStamp" mode="german">
+	<cdg:Bestätigungsstempel>
+		<xsl:apply-templates mode="german"/>
+	</cdg:Bestätigungsstempel>
+</xsl:template>
+
 <xsl:template match="cd:Address" mode="german">
 	<cdg:Adresse>
 		<xsl:apply-templates select="cbc:Postbox" mode="german"/>
@@ -691,16 +718,4 @@
 		<xsl:apply-templates mode="german"/>
 	</edg:Sektion>
 </xsl:template>
-
-
- <xsl:output method="xml" indent="yes"/>
- 
-<xsl:template match="/">
-	<cdbi:CertificatoDiResidenza-Meldebescheinigung xsi:schemaLocation="http://www.emayor.org/BusinessDocumentBi.xsd
-	../xsd/eMayor/BusinessDocument-v0.1bi.xsd">
-			<xsl:apply-templates mode="italian" select="cd:ResidenceCertificationDocument"/>
-			<xsl:apply-templates mode="german" select="cd:ResidenceCertificationDocument"/>
-	</cdbi:CertificatoDiResidenza-Meldebescheinigung>
-</xsl:template>
-
 </xsl:stylesheet>
