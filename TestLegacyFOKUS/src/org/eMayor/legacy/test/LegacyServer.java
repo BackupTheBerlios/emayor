@@ -74,7 +74,7 @@ public class LegacyServer extends UnicastRemoteObject implements M2Einterface {
             if (log.isDebugEnabled())
                 log.debug("got from request document - municipality: " + municipality + ", name: "+forename+" "+surname);
             if (municipality != null && forename != null && surname != null) {
-            	ret = this.readDocument("/xml/"+municipality+"/"+forename+surname+".xml");
+            	ret = this.readDocument("/xml/"+municipality+"/"+(forename+surname).replaceAll(" ","")+".xml");
             	if (ret != null) {
             		if (log.isDebugEnabled()) log.debug("got *POSITIVE* result!");
             	} else {
