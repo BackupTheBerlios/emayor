@@ -83,6 +83,7 @@ public class LegacyServer extends UnicastRemoteObject implements M2Einterface {
             }
             if (ret == null) {
             	ret = this.readDocument("/xml/"+municipality+"/NegativeDocument.xml");
+            	ret = editNegativeDocument(request,ret,municipality);
             	if (log.isDebugEnabled()) log.debug("got *NEGATIVE* result!");
             }
             if (ret == null) ret = "";
@@ -95,6 +96,111 @@ public class LegacyServer extends UnicastRemoteObject implements M2Einterface {
         return ret;
     }
 
+    public String editNegativeDocument(String request, String document, String localName) 
+    {
+      
+      String result = null;
+        		
+      String previous1 = null;
+      String previous2 = null;
+      
+      if (localName.equals("Aachen")) 
+      {
+        previous1 = "UrspruenglicheAnforderung";
+      } 
+        else if (localName.equals("Seville")) 
+      {
+        previous1 = "SolicitudOriginal";
+      } 
+        else if (localName.equals("Siena")) 
+      {
+        previous1 = "RichiestaOriginaria";
+      } 
+      else if (localName.equals("Bolzano-Bozen")) 
+      {
+        previous1 = "RichiestaOriginaria";
+        previous2 = "UrspruenglicheAnforderung";
+      } 
+        else 
+      {
+        previous1 = "OriginalRequest";
+      }
+      
+      int beg, end;
+      
+      if (previous1 != null) {
+      
+      
+        beg = request.indexOf("<ResidenceCertificationRequestDocument");
+        beg = request.indexOf(">",beg)+1;
+        end = request.lastIndexOf("</");
+        request = request.substring(beg,end);
+        System.out.println("Original request without root: "+request);
+        
+        while (request.indexOf("<ds:Signature>") > 0 || request.indexOf("<ds:Signature ") > 0) {
+          beg = request.indexOf("<ds:Signature>");
+          if (beg < 0) 
+          {
+            beg = request.indexOf("<ds:Signature ");
+          }
+          end = request.indexOf("</ds:Signature>",beg)+15;
+          //System.out.println("Original request without signature (0,"+beg+") part 1: "+xmlDocument.substring(0,beg));
+          //System.out.println("Original request without signature ("+beg+","+end+") part 2: "+xmlDocument.substring(beg,end));
+          //System.out.println("Original request without signature ("+end+","+xmlDocument.length()+") part 3: "+xmlDocument.substring(end,xmlDocument.length()));
+          request = request.substring(0,beg) + request.substring(end,request.length());
+          //System.out.println("Original request without signature: "+xmlDocument);
+        }
+        
+        beg = request.indexOf("<");
+        end = request.length();
+      
+        while (beg <= end && beg != -1) {
+          if (request.substring(beg,end).charAt(1) != '/' &&
+              request.substring(beg,end).charAt(3) != ':' &&
+              request.substring(beg,end).charAt(4) != ':' &&
+              request.substring(beg,end).charAt(5) != ':') 
+              {
+                request = request.substring(0,beg) + "<bus:" + request.substring(beg+1,request.length());
+              } else
+          if (request.substring(beg,end).charAt(1) == '/' &&
+              request.substring(beg,end).charAt(4) != ':' &&
+              request.substring(beg,end).charAt(5) != ':' &&
+              request.substring(beg,end).charAt(6) != ':') 
+              {
+                request = request.substring(0,beg) + "</bus:" + request.substring(beg+2,request.length());
+              }
+          beg = request.indexOf("<",beg+1);
+          end = request.length();
+        }
+        request = request.replaceAll("ed:","edc:");
+       
+        beg = document.indexOf(previous1+">")+previous1.length()+1;
+        end = document.indexOf(previous1,beg);
+      
+        String endTag = document.substring(beg,end);
+        
+        end -= endTag.length() - endTag.lastIndexOf("</");
+      
+        result = document.substring(0,beg) + request + document.substring(end,document.length());
+        System.out.println("Resulting document is: "+result);
+      }
+      
+      if (previous2 != null) 
+      {
+        beg = result.indexOf(previous2+">")+previous2.length()+1;
+        end = result.indexOf(previous2,beg);
+        String endTag = result.substring(beg,end);
+        end -= endTag.length() - endTag.lastIndexOf("</");
+      
+        result = result.substring(0,beg) + request + result.substring(end,result.length());  
+      }
+      
+      
+      return result;
+      
+    }
+
+    
     private final String readDocument(String doc) {
         String ret = null;
         if (log.isDebugEnabled())
