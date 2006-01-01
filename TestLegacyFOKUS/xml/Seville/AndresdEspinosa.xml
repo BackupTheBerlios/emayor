@@ -44,7 +44,7 @@
 			</eds:DatosIdentificativos>
 		</eds:DatosCiudadano>
 	</cds:PersonasInscritasCertificado>
-	<eds:FechaExpedicion>1967-08-13</eds:FechaExpedicion>
+	<eds:FechaExpedicion>2005-03-30T17:00:00Z</eds:FechaExpedicion>
 	<eds:Observaciones>NA</eds:Observaciones>
 	<eds:Condiciones>NA</eds:Condiciones>
 	<cds:Direccion>
