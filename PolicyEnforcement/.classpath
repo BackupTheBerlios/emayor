@@ -10,5 +10,6 @@
 	<classpathentry kind="src" path="/CertificateValidator"/>
 	<classpathentry sourcepath="C:/xml-security-1_2_1/src" kind="lib" path="lib/xmlsec-1.2.1.jar"/>
 	<classpathentry kind="lib" path="/PKCS12 to JKS/lib/bcprov-jdk14-129.jar"/>
+	<classpathentry kind="lib" path="/eMayorWebTier/WebRoot/WEB-INF/lib/iaikPkcs11Provider.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

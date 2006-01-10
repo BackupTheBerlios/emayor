@@ -8,9 +8,16 @@ package org.eMayor.PolicyEnforcement.XMLSignature;
 
 
 
+import iaik.pkcs.pkcs11.provider.IAIKPkcs11;
+
+import java.io.InputStream;
 import java.io.StringReader;
+import java.security.Provider;
 import java.security.PublicKey;
+import java.security.Security;
 import java.security.cert.X509Certificate;
+import java.util.Properties;
+
 import org.apache.xml.security.keys.KeyInfo;
 import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.utils.Constants;
@@ -37,7 +44,7 @@ public class SignerInfo {
     private String[] asSignerRoule = null;
     private String[] asCN = null;
     private boolean[] abValidationResult = null; 
-	
+    private IAIKPkcs11 iaikPkcs11Provider_= null;
     
     
     public SignerInfo (String XMLSignedDocument) throws java.lang.Exception{
@@ -248,5 +255,50 @@ public class SignerInfo {
  	{
  		throw new Exception("PE::SignerInfo::getSignatureStatus::Error::Invalid Signature Number");
  	}
+ }
+ public void initCryptoProviders()
+ {
+   System.out.println("initializing: initCryptoProviders()");
+   try 
+   {
+     if ((iaikPkcs11Provider_ = IAIKPkcs11.getProviderInstance(1)) == null) 
+     {
+       Properties pkcs11ProviderConfig = new Properties();
+       // Changed J.Plaz: added the /default folder in the resource address below
+       //InputStream configStream = this.getClass().getClassLoader().getResourceAsStream("iaik/pkcs/pkcs11/provider/default/IAIKPkcs11.properties");
+       InputStream configStream = this.getClass().getClassLoader().getResourceAsStream("org/emayor/client/controlers/xmlsigner/IAIKPkcs11.properties");
+       pkcs11ProviderConfig.load(configStream);
+       iaikPkcs11Provider_ = new IAIKPkcs11(pkcs11ProviderConfig);
+     }
+     if (Security.getProvider(iaikPkcs11Provider_.getName()) == null) 
+     {
+       Security.addProvider(iaikPkcs11Provider_);
+     }
+   } 
+   catch (Throwable ex) 
+   {
+     ex.printStackTrace();
+   }
+   System.err.flush();
+  
+   System.out.println("Registered providers are:");
+   Provider[] providers = Security.getProviders();
+   for (int i = 0; i < providers.length; i++) 
+   {
+     System.out.println("at position " + i + ": " + providers[i]);
+   }  
+   System.out.println("...finished initializing");
+   System.out.flush();
+ }
+ 
+ public void unloadCryptoProviders()
+ {
+    System.out.print("preparing for unloading...");
+     try {
+       Security.removeProvider(iaikPkcs11Provider_.getName());
+     } catch (Throwable ex) {
+       ex.printStackTrace();
+     }
+     
  }
 }
