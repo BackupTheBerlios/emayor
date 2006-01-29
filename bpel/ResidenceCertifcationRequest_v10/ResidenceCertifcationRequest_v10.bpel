@@ -782,12 +782,7 @@ System.out.println("caught ex: "+ex.toString());
               </case>
               <otherwise>
                <sequence name="Sequence_21">
-                <assign name="accepted">
-                 <copy>
-                  <from variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
-                  <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:extraField2"/>
-                 </copy>
-                </assign>
+                <empty name="Empty_2"/>
                </sequence>
               </otherwise>
              </switch>
@@ -891,6 +886,23 @@ System.out.println("caught ex: "+ex.toString());
            <to variable="CVSignNegativeIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField4"/>
           </copy>
          </assign>
+         <switch name="Switch_18">
+          <case condition="bpws:getVariableData('g_remoteServingPassed') != 'YES'">
+           <bpelx:annotation>
+            <bpelx:pattern>no remote serving done
+            </bpelx:pattern>
+           </bpelx:annotation>
+           <assign name="setField2ToNull">
+            <copy>
+             <from expression="'&lt;empty/&gt;'"/>
+             <to variable="CVSignNegativeIn" part="payload" query="/nsxml4:CivilServantInteraction_v10Request/nsxml0:extraField2"/>
+            </copy>
+           </assign>
+          </case>
+          <otherwise>
+           <empty name="doNothing"/>
+          </otherwise>
+         </switch>
          <invoke name="Invoke_1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10" operation="initiate" inputVariable="CVSignNegativeIn"/>
          <receive name="Receive_1" partnerLink="civilServantPL" portType="nsxml4:CivilServantInteraction_v10Callback" operation="onResult" variable="CVSignNegativeOut" createInstance="no"/>
          <assign name="prepareOutput">
@@ -1376,6 +1388,23 @@ System.out.println("---6---");
           </assign>
          </otherwise>
         </switch>
+        <switch name="Switch_17">
+         <case condition="bpws:getVariableData('g_remoteServingPassed') != 'YES'">
+          <bpelx:annotation>
+           <bpelx:pattern>remote serving done
+           </bpelx:pattern>
+          </bpelx:annotation>
+          <assign name="SetField2ToNull_BecauseNoRemoteServing">
+           <copy>
+            <from expression="'&lt;empty/&gt;'"/>
+            <to variable="userInteractionIn" part="payload" query="/nsxml7:UserInteraction_v10Request/nsxml0:extraField2"/>
+           </copy>
+          </assign>
+         </case>
+         <otherwise>
+          <empty name="RemoteServingDone_DoNothing"/>
+         </otherwise>
+        </switch>
         <invoke name="invoke-3" partnerLink="userInteractionPL" portType="nsxml7:UserInteraction_v10" operation="initiate" inputVariable="userInteractionIn"/>
         <receive createInstance="no" name="receive-2" partnerLink="userInteractionPL" portType="nsxml7:UserInteraction_v10Callback" operation="onResult" variable="userInteractionOut"/>
         <assign name="prepareOutput">
@@ -1459,6 +1488,10 @@ System.out.println("---6---");
              <copy>
               <from variable="forwardIn" part="payload" query="/nsxml11:ForwardResponse_v10Request/nsxml0:reqestDocument"/>
               <to variable="responseNegativeTranslationIn" part="payload" query="/ns7:FormatTransformation_v10Request/ns8:documentToTransform"/>
+             </copy>
+             <copy>
+              <from variable="forwardIn" part="payload" query="/nsxml11:ForwardResponse_v10Request/nsxml0:reqestDocument"/>
+              <to variable="forwardIn" part="payload" query="/nsxml11:ForwardResponse_v10Request/nsxml0:extraField2"/>
              </copy>
             </assign>
             <invoke name="Invoke_5" partnerLink="translationPL" portType="ns7:FormatTransformation_v10" operation="process" inputVariable="responseNegativeTranslationIn" outputVariable="responseNegativeTranslationOut"/>
