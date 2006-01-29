@@ -1085,10 +1085,6 @@ System.out.println("caught ex: "+ex.toString());
                   <from variable="translateNegativeResultOut" part="payload" query="/ns7:FormatTransformation_v10Response/ns8:transformedDocument"/>
                   <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:reqestDocument"/>
                  </copy>
-                 <copy>
-                  <from variable="translateNegativeResultOut" part="payload" query="/ns7:FormatTransformation_v10Response/ns8:transformedDocument"/>
-                  <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:extraField2"/>
-                 </copy>
                 </assign>
                </sequence>
               </scope>

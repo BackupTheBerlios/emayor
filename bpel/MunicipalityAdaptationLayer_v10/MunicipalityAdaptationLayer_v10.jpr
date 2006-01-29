@@ -15,18 +15,6 @@
          <nodeClass>oracle.tip.tools.ide.pm.wizard.BPELXMLNode</nodeClass>
       </Item>
       <Item class="oracle.ide.model.Reference">
-         <URL path="build.xml"/>
-         <nodeClass>oracle.jdeveloper.compiler.ant.AntNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="M2EService.wsdl"/>
-         <nodeClass>oracle.jdevimpl.webservices.ide.WSDLArtifactNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
-         <URL path="M2EServiceDesign.wsdl"/>
-         <nodeClass>oracle.jdevimpl.webservices.ide.WSDLArtifactNode</nodeClass>
-      </Item>
-      <Item class="oracle.ide.model.Reference">
          <URL path="MunicipalityAdaptationLayer_v10.bpel"/>
          <nodeClass>oracle.tip.tools.ide.pm.PMNode</nodeClass>
       </Item>
@@ -315,10 +303,10 @@
          <Key>technologyScope</Key>
          <Value class="oracle.ide.model.TechnologyScope">
             <technologyKeys>
-               <Item>Integration</Item>
                <Item>WebServices</Item>
-               <Item>XML</Item>
                <Item>Java</Item>
+               <Item>Integration</Item>
+               <Item>XML</Item>
             </technologyKeys>
          </Value>
       </Item>

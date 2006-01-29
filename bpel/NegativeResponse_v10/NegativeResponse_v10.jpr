@@ -60,6 +60,16 @@
             </Value>
          </Item>
          <Item>
+            <Key>oracle.jdeveloper.offlinedb.OfflineDBProjectSettings</Key>
+            <Value class="oracle.jdeveloper.offlinedb.OfflineDBProjectSettings">
+               <databasePath>
+                  <entries>
+                     <Item path="database/"/>
+                  </entries>
+               </databasePath>
+            </Value>
+         </Item>
+         <Item>
             <Key>ProcessName</Key>
             <Value>NegativeResponse_v10</Value>
          </Item>
@@ -293,9 +303,9 @@
          <Key>technologyScope</Key>
          <Value class="oracle.ide.model.TechnologyScope">
             <technologyKeys>
-               <Item>Integration</Item>
-               <Item>Java</Item>
                <Item>WebServices</Item>
+               <Item>Java</Item>
+               <Item>Integration</Item>
                <Item>XML</Item>
             </technologyKeys>
          </Value>
