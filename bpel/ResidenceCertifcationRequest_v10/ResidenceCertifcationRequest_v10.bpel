@@ -351,6 +351,23 @@ System.out.println("caught ex: "+ex.toString());
    </variables>
    <sequence>
     <switch name="getCivilServantApproval">
+     <case condition="bpws:getVariableData('localMunicipality') != bpws:getVariableData('servingMunicipality') and bpws:getVariableData('localMunicipality') != bpws:getVariableData('receivingMunicipality')">
+      <bpelx:annotation>
+       <bpelx:pattern>all three municipalities are different
+
+       </bpelx:pattern>
+      </bpelx:annotation>
+      <assign name="setErrorCode">
+       <copy>
+        <from variable="CV_NEGATIVE_DOCUMENT"/>
+        <to variable="g_currentDocumentType"/>
+       </copy>
+       <copy>
+        <from expression="'50024'"/>
+        <to variable="requestData" part="payload" query="/tns:ResidenceCertifcationRequest_v10Request/nsxml0:extraField1"/>
+       </copy>
+      </assign>
+     </case>
      <case condition="(bpws:getVariableData('localMunicipality') != bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('wasForwarded') != 'NO') or bpws:getVariableData('g_currentDocumentType') = bpws:getVariableData('CV_NEGATIVE_DOCUMENT') or (bpws:getVariableData('localMunicipality') = bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant') or (bpws:getVariableData('localMunicipality') != bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') = bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant') or (bpws:getVariableData('localMunicipality') = bpws:getVariableData('servingMunicipality')  and bpws:getVariableData('localMunicipality') != bpws:getVariableData('receivingMunicipality') and bpws:getVariableData('RequesterRole') = 'Civil Servant' and bpws:getVariableData('wasForwarded') = 'NO')">
       <bpelx:annotation>
        <bpelx:pattern>only translation from remote or negative result or citizen is delegate
