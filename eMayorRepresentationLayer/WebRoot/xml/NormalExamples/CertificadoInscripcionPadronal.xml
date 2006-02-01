@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cds:CertificadoInscripcionPadronal xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:cd="http://www.emayor.org/BusinessDocument.xsd" xmlns:cds="http://www.emayor.org/BusinessDocumentS.xsd" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:eds="http://www.emayor.org/e-DocumentS.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/BusinessDocumentS.xsd  ../xsd/emayor/BusinessDocument-v0.2s.xsd">
+	<eds:IdDocumento>001</eds:IdDocumento>
+	<cds:AyuntamientoEmisor>Ayuntamiento de Sevilla</cds:AyuntamientoEmisor>
+	<cds:PersonasInscritasCertificado>
+		<eds:DatosCiudadano>
+			<eds:NombreCompletoCiudadano>
+				<aapd:CitizenNameTitle>Mr.</aapd:CitizenNameTitle>
+				<aapd:CitizenNameForename>Alexandros</aapd:CitizenNameForename>
+				<aapd:CitizenNameSurname>Kaliontzoglou</aapd:CitizenNameSurname>
+				<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
+				<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
+			</eds:NombreCompletoCiudadano>
+			<eds:IdiomasPreferidos>en</eds:IdiomasPreferidos>
+			<eds:DatosContacto>
+				<aapd:Email>
+					<aapd:EmailAddress>alexandros.kaliontzoglou@expertnet.net.gr</aapd:EmailAddress>
+				</aapd:Email>
+				<aapd:Telephone>
+					<aapd:TelNationalNumber>6785000</aapd:TelNationalNumber>
+					<aapd:TelExtensionNumber>210</aapd:TelExtensionNumber>
+					<aapd:TelCountryCode>30</aapd:TelCountryCode>
+				</aapd:Telephone>
+				<aapd:Fax>
+					<aapd:FaxNationalNumber>6785008</aapd:FaxNationalNumber>
+					<aapd:FaxExtensionNumber>210</aapd:FaxExtensionNumber>
+					<aapd:FaxCountryCode>30</aapd:FaxCountryCode>
+				</aapd:Fax>
+			</eds:DatosContacto>
+			<eds:SexoCiudadano>Hombre</eds:SexoCiudadano>
+			<eds:EstadoCivilCiudadano>Soltero/a</eds:EstadoCivilCiudadano>
+			<eds:DatosNacimientoCiudadano>
+				<eds:FechaNacimiento>
+					<aapd:BirthDate>1976-07-26</aapd:BirthDate>
+					<aapd:VerifiedBy>not verified</aapd:VerifiedBy>
+				</eds:FechaNacimiento>
+				<cbc:CityName>Athens</cbc:CityName>
+				<eds:NumeroCertificadoNacimiento>String</eds:NumeroCertificadoNacimiento>
+			</eds:DatosNacimientoCiudadano>
+			<eds:Nacionalidad>String</eds:Nacionalidad>
+			<eds:DatosIdentificativos>
+				<eds:DocumentoIdentidad>AAAAAAAAAA</eds:DocumentoIdentidad>
+				<eds:NumeroPasaporte>000000000</eds:NumeroPasaporte>
+			</eds:DatosIdentificativos>
+		</eds:DatosCiudadano>
+	</cds:PersonasInscritasCertificado>
+	<eds:FechaExpedicion>1967-08-13</eds:FechaExpedicion>
+	<eds:Observaciones>String</eds:Observaciones>
+	<eds:Condiciones>String</eds:Condiciones>
+	<cds:Direccion>
+		<eds:Buzon>-</eds:Buzon>
+		<eds:Piso>1</eds:Piso>
+		<eds:Puerta>-</eds:Puerta>
+		<eds:NombreVia>Achilleos</eds:NombreVia>
+		<eds:NombreViaAdicional>Kifissias</eds:NombreViaAdicional>
+		<eds:NombreEdificio>-</eds:NombreEdificio>
+		<eds:NumeroEdificio>1</eds:NumeroEdificio>
+		<eds:Departamento>-</eds:Departamento>
+		<eds:NombreCiudad>Athens</eds:NombreCiudad>
+		<eds:CodigoPostal>15231</eds:CodigoPostal>
+		<eds:Distrito>Halandri</eds:Distrito>
+		<eds:Pais>
+			<cac:IdentificationCode languageID="en" codeListURI="http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1-semic.txt" codeListID="ISO3166-1" codeListVersionID="0.3" codeListSchemeURI="urn:oasis:names:specification:ubl:schema:xsd:CountryIdentificationCode-1.0" codeListAgencyName="United Nations Economic Commission for Europe" codeListName="Country" codeListAgencyID="6">GR</cac:IdentificationCode>
+			<cbc:Name>Greece</cbc:Name>
+		</eds:Pais>
+		<eds:Nucleo>-</eds:Nucleo>
+		<eds:TipoVia>-</eds:TipoVia>
+		<eds:Seccion>-</eds:Seccion>
+		<eds:HojaInscripcion>-</eds:HojaInscripcion>
+	</cds:Direccion>
+</cds:CertificadoInscripcionPadronal>

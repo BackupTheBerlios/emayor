@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SampleDocument3 xmlns="http://www.joerg.org/SampleDocument.xsd"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.joerg.org/SampleDocument.xsd ../xsd/emayor/SampleDocument3.xsd">
+<Name>Joerg</Name>
+<BirthDay>2005/09/12</BirthDay>
+<Comments>Hello</Comments>
+</SampleDocument3>

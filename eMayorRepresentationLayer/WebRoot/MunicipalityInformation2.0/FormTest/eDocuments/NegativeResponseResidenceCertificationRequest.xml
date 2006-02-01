@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NegativeResponseResidenceCertificationDocument xmlns="http://www.emayor.org/BusinessDocument.xsd" xmlns:ed="http://www.emayor.org/e-Document.xsd" xmlns:aapd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-1.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/BusinessDocument.xsd
+D:\Work\package\xsd\emayor\BusinessDocument-v0.3.xsd">
+<!--  äöü  -->
+	<ed:Observations>String</ed:Observations>
+	<TimeReference>2001-12-17T09:30:47.0Z</TimeReference>
+	<ds:Signature>
+		<ds:SignedInfo>
+			<ds:CanonicalizationMethod Algorithm="http://www.altova.com"/>
+			<ds:SignatureMethod Algorithm="http://www.altova.com">
+				<ds:HMACOutputLength>0</ds:HMACOutputLength>
+			</ds:SignatureMethod>
+			<ds:Reference>
+				<ds:Transforms>
+					<ds:Transform Algorithm="http://www.altova.com"/>
+				</ds:Transforms>
+				<ds:DigestMethod Algorithm="http://www.altova.com"/>
+				<ds:DigestValue>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ds:DigestValue>
+			</ds:Reference>
+		</ds:SignedInfo>
+		<ds:SignatureValue>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ds:SignatureValue>
+		<ds:KeyInfo>
+			<ds:KeyName>String</ds:KeyName>
+		</ds:KeyInfo>
+		<ds:Object/>
+	</ds:Signature>
+	<Timestamp>String</Timestamp>
+	<OriginalRequest>
+		<LoginServer>String</LoginServer>
+		<TransactionId>String</TransactionId>
+		<RequesterDetails>
+			<ed:CitizenName>
+				<aapd:CitizenNameTitle>String</aapd:CitizenNameTitle>
+				<aapd:CitizenNameForename>String</aapd:CitizenNameForename>
+				<aapd:CitizenNameSurname>String</aapd:CitizenNameSurname>
+				<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
+				<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
+			</ed:CitizenName>
+			<ed:PreferredLanguages>en</ed:PreferredLanguages>
+			<ed:ContactDetails>
+				<aapd:Email>
+					<aapd:EmailAddress>A</aapd:EmailAddress>
+				</aapd:Email>
+				<aapd:Telephone>
+					<aapd:TelNationalNumber>0</aapd:TelNationalNumber>
+					<aapd:TelExtensionNumber>0</aapd:TelExtensionNumber>
+					<aapd:TelCountryCode>0</aapd:TelCountryCode>
+				</aapd:Telephone>
+				<aapd:Fax>
+					<aapd:FaxNationalNumber>0</aapd:FaxNationalNumber>
+					<aapd:FaxExtensionNumber>0</aapd:FaxExtensionNumber>
+					<aapd:FaxCountryCode>0</aapd:FaxCountryCode>
+				</aapd:Fax>
+			</ed:ContactDetails>
+			<ed:CitizenSex>Male</ed:CitizenSex>
+			<ed:CitizenMaritalStatus>Single</ed:CitizenMaritalStatus>
+			<ed:CitizenBirthDetails>
+				<ed:DateOfBirth>
+					<aapd:BirthDate>1967-08-13</aapd:BirthDate>
+					<aapd:VerifiedBy>not verified</aapd:VerifiedBy>
+				</ed:DateOfBirth>
+				<cbc:CityName>String</cbc:CityName>
+				<ed:BirthActNumber>String</ed:BirthActNumber>
+			</ed:CitizenBirthDetails>
+			<ed:Nationality>String</ed:Nationality>
+			<ed:IdentificationDetails>
+				<ed:IDCardNumber>AAAAAAAAAA</ed:IDCardNumber>
+				<ed:PassportNumber>000000000</ed:PassportNumber>
+			</ed:IdentificationDetails>
+		</RequesterDetails>
+		<ConcernedPersonDetails>
+			<ed:CitizenName>
+				<aapd:CitizenNameTitle>String</aapd:CitizenNameTitle>
+				<aapd:CitizenNameForename>String</aapd:CitizenNameForename>
+				<aapd:CitizenNameSurname>String</aapd:CitizenNameSurname>
+				<aapd:CitizenNameSuffix>String</aapd:CitizenNameSuffix>
+				<aapd:CitizenNameRequestedName>String</aapd:CitizenNameRequestedName>
+			</ed:CitizenName>
+			<ed:PreferredLanguages>en</ed:PreferredLanguages>
+			<ed:ContactDetails>
+				<aapd:Email>
+					<aapd:EmailAddress>A</aapd:EmailAddress>
+				</aapd:Email>
+				<aapd:Telephone>
+					<aapd:TelNationalNumber>0</aapd:TelNationalNumber>
+					<aapd:TelExtensionNumber>0</aapd:TelExtensionNumber>
+					<aapd:TelCountryCode>0</aapd:TelCountryCode>
+				</aapd:Telephone>
+				<aapd:Fax>
+					<aapd:FaxNationalNumber>0</aapd:FaxNationalNumber>
+					<aapd:FaxExtensionNumber>0</aapd:FaxExtensionNumber>
+					<aapd:FaxCountryCode>0</aapd:FaxCountryCode>
+				</aapd:Fax>
+			</ed:ContactDetails>
+			<ed:CitizenSex>Male</ed:CitizenSex>
+			<ed:CitizenMaritalStatus>Single</ed:CitizenMaritalStatus>
+			<ed:CitizenBirthDetails>
+				<ed:DateOfBirth>
+					<aapd:BirthDate>1967-08-13</aapd:BirthDate>
+					<aapd:VerifiedBy>not verified</aapd:VerifiedBy>
+				</ed:DateOfBirth>
+				<cbc:CityName>String</cbc:CityName>
+				<ed:BirthActNumber>String</ed:BirthActNumber>
+			</ed:CitizenBirthDetails>
+			<ed:Nationality>String</ed:Nationality>
+			<ed:IdentificationDetails>
+				<ed:IDCardNumber>AAAAAAAAAA</ed:IDCardNumber>
+				<ed:PassportNumber>000000000</ed:PassportNumber>
+			</ed:IdentificationDetails>
+		</ConcernedPersonDetails>
+		<RequestDate>1967-08-13</RequestDate>
+		<ed:Observations>String</ed:Observations>
+		<NotificationMedium>Email</NotificationMedium>
+		<ds:Signature>
+			<ds:SignedInfo>
+				<ds:CanonicalizationMethod Algorithm="http://www.altova.com"/>
+				<ds:SignatureMethod Algorithm="http://www.altova.com">
+					<ds:HMACOutputLength>0</ds:HMACOutputLength>
+				</ds:SignatureMethod>
+				<ds:Reference>
+					<ds:Transforms>
+						<ds:Transform Algorithm="http://www.altova.com"/>
+					</ds:Transforms>
+					<ds:DigestMethod Algorithm="http://www.altova.com"/>
+					<ds:DigestValue>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ds:DigestValue>
+				</ds:Reference>
+			</ds:SignedInfo>
+			<ds:SignatureValue>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ds:SignatureValue>
+			<ds:KeyInfo>
+				<ds:KeyName>String</ds:KeyName>
+			</ds:KeyInfo>
+			<ds:Object/>
+		</ds:Signature>
+		<ServingMunicipalityDetails>String</ServingMunicipalityDetails>
+		<ReceivingMunicipalityDetails>String</ReceivingMunicipalityDetails>
+		<RequestedDocumentFormat>Digital</RequestedDocumentFormat>
+		<RequesterAddress>
+			<cbc:Postbox>String</cbc:Postbox>
+			<cbc:Floor>String</cbc:Floor>
+			<cbc:Room>String</cbc:Room>
+			<cbc:StreetName>String</cbc:StreetName>
+			<cbc:AdditionalStreetName>String</cbc:AdditionalStreetName>
+			<cbc:BuildingName>String</cbc:BuildingName>
+			<cbc:BuildingNumber>String</cbc:BuildingNumber>
+			<cbc:Department>String</cbc:Department>
+			<cbc:CityName>String</cbc:CityName>
+			<cbc:PostalZone>String</cbc:PostalZone>
+			<cbc:District>String</cbc:District>
+			<cac:Country>
+				<cac:IdentificationCode>AD</cac:IdentificationCode>
+				<cbc:Name>String</cbc:Name>
+			</cac:Country>
+			<ed:Nucleus>String</ed:Nucleus>
+			<ed:StreetQualifier>String</ed:StreetQualifier>
+			<ed:Section>String</ed:Section>
+			<ed:RegistrationSheet>String</ed:RegistrationSheet>
+		</RequesterAddress>
+	</OriginalRequest>
+<ds:Signature>
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:Reference URI="">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+<ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"></ds:Transform>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>F1Yj8j91Slb+IKf6qYXWNeZo4Hc=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+zS2nqvdm3HJ/yY2PyE2lHmDuNSu9o2Z01Gu4ZRSqKocUyWjmqNKsD8OKIP6ZqDytXKychSmzTVb/
+jQMt9yiE1J6JWvFlF3Ms1mUCaDDNNIOCkgaKJzZyU2RfgMR1wkMlJrV/US99Ju6PD+SW8bQ3F72j
+r7XSYbnflly9FWo4Gt8=
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIECjCCAvKgAwIBAgIBBjANBgkqhkiG9w0BAQUFADCBkDEbMBkGA1UEAxMSZU1heW9yIFVvU2ll
+Z2VuIENBMQswCQYDVQQGEwJERTEMMAoGA1UECBMDTlJXMQ8wDQYDVQQHEwZTaWVnZW4xGDAWBgNV
+BAoTD2VNYXlvciBVb1NpZWdlbjErMCkGCSqGSIb3DQEJARYcc2VyZ2l1LnRjYWNpdWNAdW5pLXNp
+ZWdlbi5kZTAeFw0wNTAzMTAxMzI1MjNaFw0wNjAzMTAxMzI1MjNaMIGBMQswCQYDVQQGEwJERTEP
+MA0GA1UECBMGQmVybGluMQ4wDAYDVQQKEwVGT0tVUzEOMAwGA1UECxMFRk9LVVMxFjAUBgNVBAMT
+DVRvbWFzeiBLdXNiZXIxKTAnBgkqhkiG9w0BCQEWGmt1c2JlckBmb2t1cy5mcmF1bmhvZmVyLmRl
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDocZVaAmKjvCEmcFSsDLWA6YgpIhRo+AY8yW76
+x5baPYtnKwQJHhcciRp6+SvHvhzF1dGyZJ8+UG+6PSQAOg6YlOMnAiEoa3zuemfTFB+sqgv3v5p5
+6sDcVhH628RWhPqBqUopikr5WYXm6UD0KsgUx0jAIkML72AJYZsks5O04wIDAQABo4H/MIH8MAkG
+A1UdEwQCMAAwHQYDVR0OBBYEFJ64E6pWgTkBO4+PR3BsLkJfPfyMMIG9BgNVHSMEgbUwgbKAFGwA
+NjDsHUCa9HpVVd7qNGVpLHbToYGWpIGTMIGQMRswGQYDVQQDExJlTWF5b3IgVW9TaWVnZW4gQ0Ex
+CzAJBgNVBAYTAkRFMQwwCgYDVQQIEwNOUlcxDzANBgNVBAcTBlNpZWdlbjEYMBYGA1UEChMPZU1h
+eW9yIFVvU2llZ2VuMSswKQYJKoZIhvcNAQkBFhxzZXJnaXUudGNhY2l1Y0B1bmktc2llZ2VuLmRl
+ggEAMBAGAyoDBAQJEwdDaXRpemVuMA0GCSqGSIb3DQEBBQUAA4IBAQAYjRSdsh2myJosT8GYwU5B
+uREEFHwBa/p8Mcv052R0x7lOL69zAVnbEveZ5/kBOwv/z3Z5B9CjH1v9NAtYyWKGui7xsu0QcQzb
+EtyZ7BmoU5tDoL8F4SrCyXPQs8FQlOkKRvOpUNXwol3k5rOjO8M4sg6tzyOvV86ir6D35ec3msOI
+nJq4ABfZRyKAJS6u00RUWDGRQcogL1x6BYLIcsGhFDX774lP1d3FBfmoR+Gnt/dAO1LbKWsKL5ej
+BDJO79YYt3HRWdhOhqvTkyC1Mm8BYC+Mvf9CZDKJQH1Z6y6jM29w/CdtrDOftJxOcVHLGcO22pcE
+MToY1mpuvgPdCcpQ
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+6HGVWgJio7whJnBUrAy1gOmIKSIUaPgGPMlu+seW2j2LZysECR4XHIkaevkrx74cxdXRsmSfPlBv
+uj0kADoOmJTjJwIhKGt87npn0xQfrKoL97+aeerA3FYR+tvEVoT6galKKYpK+VmF5ulA9CrIFMdI
+wCJDC+9gCWGbJLOTtOM=
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+</ds:Signature></NegativeResponseResidenceCertificationDocument>

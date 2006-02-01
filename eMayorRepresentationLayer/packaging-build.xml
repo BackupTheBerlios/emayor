@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" 
+        depends="N10004,N20001,N31001,N31002,N31003,N10015,N20002,N10026,N10041,N10042"/>
+
+<target name="N10004" description="SoftwareCheckApplet_Unsigned.jar">
+<mkdir dir="WebRoot"/>
+<jar destfile="WebRoot/SoftwareCheckApplet_Unsigned.jar">
+<zipfileset dir="bin/org/emayor/RepresentationLayer/ClientTier/SoftwareCheck"
+prefix="org/emayor/RepresentationLayer/ClientTier/SoftwareCheck"/>
+</jar>
+</target>
+
+
+<target name="N20001" description="SoftwareCheckApplet Signing">
+<signjar jar="WebRoot/SoftwareCheckApplet_Unsigned.jar"
+         signedjar="WebRoot/SoftwareCheckApplet.jar"
+         keystore="WebRoot/Signing/eMayorKeyStore"
+         alias="jarsigner"
+         storepass="123456"
+         keypass="123456"/>
+</target>
+
+
+
+<target name="N31001" description="LogoutApplet_Unsigned.jar">
+<mkdir dir="WebRoot"/>
+<jar destfile="WebRoot/LogoutApplet_Unsigned.jar">
+<zipfileset dir="bin/org/emayor/RepresentationLayer/ClientTier/Logout"
+prefix="org/emayor/RepresentationLayer/ClientTier/Logout"/>
+</jar>
+</target>
+
+<target name="N31002" description="LogoutApplet Signing">
+<signjar jar="WebRoot/LogoutApplet_Unsigned.jar"
+         signedjar="WebRoot/LogoutApplet.jar"
+         keystore="WebRoot/Signing/eMayorKeyStore"
+         alias="jarsigner"
+         storepass="123456"
+         keypass="123456"/>
+</target>
+
+
+
+
+<target name="N31003" description="ProcessStepApplet.jar">
+<mkdir dir="WebRoot"/>
+<jar destfile="WebRoot/ProcessStepApplet.jar">
+<zipfileset dir="bin/org/emayor/RepresentationLayer/ClientTier/ProcessStep"
+prefix="org/emayor/RepresentationLayer/ClientTier/ProcessStep"/>
+</jar>
+</target>
+
+
+
+
+
+<target name="N10015" description="eMayorApplet_Unsigned.jar">
+<mkdir dir="WebRoot"/>
+<jar destfile="WebRoot/eMayorApplet_Unsigned.jar">
+<zipfileset dir="bin" excludes="**/apache/**, **/eMayorWebTier/**, **/Shared/**,
+**/Controlers/**, **/Logic/**, **/Utilities/**, **/SoftwareCheck/**"/>
+</jar>
+</target>
+
+
+<target name="N20002" description="eMayorApplet Signing">
+<signjar jar="WebRoot/eMayorApplet_Unsigned.jar"
+         signedjar="WebRoot/eMayorApplet.jar"
+         keystore="WebRoot/Signing/eMayorKeyStore"
+         alias="jarsigner"
+         storepass="123456"
+         keypass="123456"/>
+</target>
+
+
+<target name="N10026" description="eMayorGUI.jar">
+<mkdir dir="WebRoot"/>
+<jar destfile="WebRoot/ClientInstallationFiles/java.home/lib/ext/eMayorGUI.jar">
+<zipfileset dir="bin" excludes="**/apache/commons/**, **/apache/struts/**,
+**/eMayorWebTier/**, **/SoftwareCheck/**"/>
+<zipfileset dir="WebRoot/ClientFiles"/>
+</jar>
+</target>
+
+<target name="N10041" description="ClientInstallationFiles.zip">
+<jar destfile="WebRoot/ClientInstallationFiles.zip">
+<zipfileset dir="WebRoot/ClientInstallationFiles"/>
+</jar>
+</target>
+
+<target name="N10042" description="eMayorRepresentationLayer.war">
+<jar destfile="eMayorRepresentationLayer.war">
+<zipfileset dir="WebRoot/WEB-INF" prefix="WEB-INF"/>
+<zipfileset dir="WebRoot" excludes="**/WEB-INF/**, **/ClientInstallationFiles/**, 
+**/original.pic/**, **/Signing/**, **/xml/**"/>
+<zipfileset dir="bin" excludes="**/ClientTier/**"/>
+</jar>
+</target>
+
+
+</project>

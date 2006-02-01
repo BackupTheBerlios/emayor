@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<eMayorForm1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/eMayorFormsSchema.xsd eMayorFormsSchema.xsd "> 
+  <Model>
+              <!-- The taskRequest is filled in here by the webtier logic -->
+  </Model>
+
+
+  <!-- xml Swing combined view-controler descriptions follow here   äöü -->
+
+
+  <View>  <!-- The view always has a BorderLayout -->
+      <JPanel LayoutClass="FlowLayout" 
+              LayoutParameter="FlowLayout.LEFT" 
+              AddParameter="BorderLayout.NORTH"
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="0"
+              VerticalBorderSize="12">
+         <JLabel Background="242,236,224">Task request information</JLabel>
+      </JPanel>
+      
+
+      <JPanel LayoutClass="BoxLayout" 
+              LayoutParameter="BoxLayout.Y_AXIS" 
+              AddParameter="BorderLayout.CENTER"
+              Background="242,236,224">
+
+
+<!-- RequesterDetails -->
+<!-- START   Entries for the citizen's name -->
+
+        <!-- Title Label: -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                AlignmentX="0">
+          <JLabel Background="242,236,224">Residence Certification Request</JLabel>
+        </JPanel>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="242,236,224">doc0</JLabel>
+          <JTextField ModelPath="Model/taskRequest/doc0" 
+                      Columns="18"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="242,236,224">doc1</JLabel>
+          <JTextField ModelPath="Model/taskRequest/doc1" 
+                      Columns="18"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="242,236,224">doc2</JLabel>
+          <JTextField ModelPath="Model/taskRequest/doc2" 
+                      Columns="18"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="242,236,224">doc3</JLabel>
+          <JTextField ModelPath="Model/taskRequest/doc3" 
+                      Columns="18"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="242,236,224"
+                BorderType="EmptyBorder" HorizontalBorderSize="0" VerticalBorderSize="0"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="242,236,224">doc4</JLabel>
+          <JTextField ModelPath="Model/taskRequest/doc4" 
+                      Columns="18"></JTextField>
+        </JPanel>
+
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+        <JPanel Background="255,255,255" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
+          <JButton ActionClass="XMLSignatureSubmitter" SubmitterParameter="Accept">       $Form.Accept$       </JButton>
+          <JButton ActionClass="XMLSignatureSubmitter" SubmitterParameter="Deny">       $Form.Deny$       </JButton>
+          <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
+          <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+      </JPanel>
+
+  </View>
+</eMayorForm1>
+
+

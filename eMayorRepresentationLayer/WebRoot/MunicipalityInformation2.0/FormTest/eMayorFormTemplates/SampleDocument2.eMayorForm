@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eMayorForm1> 
+  <Model>
+     <!-- The associated e-document  SampleDocument1 is filled in here by the server logic,
+           before it is sent to the client -->
+  </Model>
+  <View>  <!-- The view always has a BorderLayout -->
+
+   <JPanel LayoutClass="BoxLayout" 
+           LayoutParameter="BoxLayout.Y_AXIS" 
+           AddParameter="BorderLayout.CENTER"
+           Background="255,255,255"
+           BorderType="EmptyBorder"
+           HorizontalBorderSize="16"
+           VerticalBorderSize="16">
+
+     <JPanel LayoutClass="BoxLayout" 
+             LayoutParameter="BoxLayout.Y_AXIS" 
+             AddParameter="BorderLayout.CENTER">
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT"  AlignmentX="0">
+          <JLabel Columns="10">Enter your name</JLabel>
+          <JTextField Columns="18" ModelPath="Model/SampleDocument2/Name"></JTextField>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT"  AlignmentX="0">
+          <JLabel Columns="10">Enter your birthday</JLabel>
+          <JTextField Columns="18" ModelPath="Model/SampleDocument2/BirthDay"></JTextField>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT"  AlignmentX="0">
+          <JLabel Columns="10">Comments</JLabel>
+          <JTextArea Columns="18" Rows="3" ModelPath="Model/SampleDocument2/Comments"></JTextArea>
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="40"/>
+
+        <JPanel Background="255,222,182" AlignmentX="0" BorderType="EtchedBorder" DisplayTarget="Screen">
+           <JButton ActionClass="XMLSignatureSubmitter">Submit</JButton>
+        </JPanel>
+
+      </JPanel>
+    </JPanel>
+
+  </View>
+</eMayorForm1>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="WebRoot" exploded="false" name="eMayorApplet.jar" used="true">
+<folder excludes="**/apache/**, **/WebTier/**, **/Shared/**, **/Controlers/**, **/Logic/**, **/Utilities/**, **/SoftwareCheck/**" includes="" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+</archive>
+<archive destination="WebRoot" exploded="false" name="SoftwareCheckApplet.jar" used="true">
+<folder excludes="" includes="" location="bin/org/emayor/RepresentationLayer/ClientTier/SoftwareCheck" name="SoftwareCheck" prefix="org/emayor/RepresentationLayer/ClientTier/SoftwareCheck" project="" projectLocation="bin/org/emayor/RepresentationLayer/ClientTier/SoftwareCheck" used="true"/>
+</archive>
+<archive destination="WebRoot" exploded="false" name="eMayorGUI.jar" used="true">
+<folder excludes="**/apache/commons/**, **/apache/struts/**, **/WebTier/**, **/SoftwareCheck/**" includes="" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+<folder excludes="" includes="" location="WebRoot/ClientFiles" name="ClientFiles" prefix="" project="" projectLocation="WebRoot/ClientFiles" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="eMayorRepresentationLayer.war" used="true">
+<folder excludes="" includes="" location="WebRoot/WEB-INF" name="WEB-INF" prefix="WEB-INF" project="" projectLocation="WebRoot/WEB-INF" used="true"/>
+<folder excludes="**/WEB-INF/**, **/ClientInstaller/**, **/original.pic/**" includes="" location="WebRoot" name="WebRoot" prefix="" project="" projectLocation="WebRoot" used="true"/>
+<folder excludes="**/ClientTier/**" includes="" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+</archive>
+</configurations>

@@ -1,0 +1,3 @@
+Error: Error for node with path: Model/cdbi:CertificatoDiResidenza-Meldebescheinigung/cdi:CertificatoDiResidenza/cdi:ComuneDiEmissione
+This node couldn't be found by XMLPath.GetNode()
+Please correct the associated eMayorForm template.

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<eMayorForm1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.emayor.org/eMayorFormsSchema.xsd eMayorFormsSchema.xsd "> 
+  <Model>
+              <!-- The ResidenceCertificationRequestDocument is filled in here by the webtier logic -->
+  </Model>
+
+
+  <!-- xml Swing combined view-controler descriptions follow here   äöü -->
+
+
+  <View>  <!-- The view always has a BorderLayout -->
+  
+      <JPanel LayoutClass="BorderLayout" 
+              AddParameter="BorderLayout.NORTH"
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
+        <JPanel LayoutClass="BorderLayout"
+                AddParameter="BorderLayout.CENTER"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="0"
+                VerticalBorderSize="0">        
+          <JPanel LayoutClass="BoxLayout"
+                  LayoutParameter="BoxLayout.Y_AXIS" 
+                  AddParameter="BorderLayout.CENTER"
+                  Background="255,255,255"
+                  BorderType="EmptyBorder"
+                  HorizontalBorderSize="0"
+                  VerticalBorderSize="0">                  
+             <Box BoxType="createVerticalStrut" BoxSize="16"/>
+             <JLabel Background="255,255,255" FontStyle="Bold" FontSize="18" AlignmentX="0">$Title.ResidenceCertificationDocumentRequest$</JLabel>         
+             <Box BoxType="createVerticalStrut" BoxSize="16"/>
+             <JLabel Background="236,236,236" FontStyle="Bold" FontSize="14">$Title.RequestLine$</JLabel>         
+          </JPanel>          
+        </JPanel>
+        <JPanel LayoutClass="BorderLayout"
+                AddParameter="BorderLayout.EAST"
+                Background="255,255,255"
+                BorderType="EmptyBorder"
+                HorizontalBorderSize="0"
+                VerticalBorderSize="0">        
+             <Image RelativeURL="/pictures/applet/emayorform_logo.jpg" AddParameter="BorderLayout.EAST"></Image>        
+        </JPanel>
+      </JPanel>
+
+      <JPanel LayoutClass="BoxLayout" 
+              LayoutParameter="BoxLayout.Y_AXIS" 
+              AddParameter="BorderLayout.CENTER"
+              Background="255,255,255"
+              BorderType="EmptyBorder"
+              HorizontalBorderSize="16"
+              VerticalBorderSize="16">
+
+        <!-- subtitle: -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Background="236,236,236" FontStyle="Bold" FontSize="14">$Form.ConcernedPersonDetails$</JLabel>
+        </JPanel>
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.Forename$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameForename" 
+                      Columns="18"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.Surname$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenName/aapd:CitizenNameSurname" 
+                      Columns="18"></JTextField>
+        </JPanel>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.Sex$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenSex" 
+                      Columns="10"></JTextField>
+        </JPanel>
+
+
+        <!--  birthdate -->
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.BirthDate$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:CitizenBirthDetails/ed:DateOfBirth/aapd:BirthDate" 
+                      Columns="18"></JTextField>
+        </JPanel>
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.PreferredLanguages$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:PreferredLanguages" 
+                      Columns="10"></JTextField>
+        </JPanel>
+
+
+        <!-- Contact Details: -->
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.EmailAddress$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ConcernedPersonDetails/ed:ContactDetails/aapd:Email/aapd:EmailAddress" 
+                      Columns="26"></JTextField>
+        </JPanel>
+
+
+        <!-- end of ConcernedPersonDetails -->
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.NotificationMedium$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/NotificationMedium" 
+                      Columns="10"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.RequestedDocumentFormat$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/RequestedDocumentFormat" 
+                      Columns="10"></JTextField>
+        </JPanel>
+
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">LoginServer</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/LoginServer" 
+                      Columns="17" Editable="false"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.ServingMunicipalityDetails$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ServingMunicipalityDetails" 
+                      Columns="18"></JTextField>
+        </JPanel>
+        <JPanel LayoutClass="FlowLayout" LayoutParameter="FlowLayout.LEFT" Background="236,236,236"
+                AlignmentX="0">
+          <JLabel Columns="18" Background="236,236,236">$Form.ReceivingMunicipalityDetails$</JLabel>
+          <JTextField ModelPath="Model/ResidenceCertificationRequestDocument/ReceivingMunicipalityDetails" 
+                      Columns="18"></JTextField>
+        </JPanel>
+
+
+
+        <Box BoxType="createVerticalStrut" BoxSize="20"/>
+
+
+        <JPanel LayoutClass="BoxLayout" 
+                LayoutParameter="BoxLayout.Y_AXIS" 
+                Background="255,222,182"
+                BorderType="EtchedBorder"
+                DisplayTarget="Screen">
+
+          <Box BoxType="createVerticalStrut" BoxSize="6"/>
+
+          <JPanel Background="255,222,182" AlignmentX="0">
+            <JButton ActionClass="XMLSignatureSubmitter">       $Form.SignAndSubmit$       </JButton>
+          </JPanel>
+
+          <Box BoxType="createVerticalStrut" BoxSize="6"/>
+
+          <JPanel Background="255,222,182" AlignmentX="0">
+            <JButton ActionClass="PrintFormToPrinterSubmitter">  $Form.PrintForm$  </JButton>
+            <JButton ActionClass="PrintDocumentToPrinterSubmitter">  $Form.PrintDocument$  </JButton>
+          </JPanel>
+
+          <Box BoxType="createVerticalStrut" BoxSize="6"/>
+          
+        </JPanel>
+
+        <Box BoxType="createVerticalStrut" BoxSize="6"/>
+
+      </JPanel>
+
+  </View>
+</eMayorForm1>
+
+
