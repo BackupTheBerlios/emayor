@@ -16,6 +16,7 @@ import org.apache.axis.client.Call;
 import org.apache.log4j.Logger;
 import org.emayor.servicehandling.config.Config;
 import org.emayor.servicehandling.config.ConfigException;
+import org.emayor.servicehandling.kernel.IeMayorService;
 import org.emayor.servicehandling.kernel.bpel.service.eMayorServiceRequest;
 import org.emayor.servicehandling.utils.ServiceLocator;
 import org.emayor.servicehandling.utils.ServiceLocatorException;
@@ -86,15 +87,36 @@ public class eMayorServiceInvoker {
 			eMayorServiceRequest request = new eMayorServiceRequest();
 			request.setServiceId(serviceId);
 			request.setForwarded(forward);
+			String doc1 = "<empty/>";
+			String doc2 = "<empty/>";
+			String doc3 = "<empty/>";
+			String doc4 = "<empty/>";
+			if (forward.equals(IeMayorService.FORWARD_YES)) {
+				String[] allDocuments = reqDigSig.split("__EMAYORSPLIT__");
+				//reset
+				if (allDocuments.length >= 1 && allDocuments[0] != null) {
+					reqDigSig = allDocuments[0];
+					doc1 = allDocuments[0];
+				}
+				if (allDocuments.length >= 2 && allDocuments[1] != null) {
+					doc2 = allDocuments[1];	
+				}
+				if (allDocuments.length >= 3 && allDocuments[2] != null) {
+					doc3 = allDocuments[2];	
+				}
+				if (allDocuments.length >= 4 && allDocuments[3] != null) {
+					doc4 = allDocuments[3];	
+				}
+			}
 			request.setReqDocDigSig(reqDigSig);
+			request.setExtraField1(doc1);
+			request.setExtraField2(doc2);
+			request.setExtraField3(doc3);
+			request.setExtraField4(doc4);
 			request.setReqestDocument(req);
 			request.setSsid(ssid);
 			request.setUid(uid);
 			request.setStatus(status);
-			request.setExtraField1("<empty/>");
-			request.setExtraField2("<empty/>");
-			request.setExtraField3("<empty/>");
-			request.setExtraField4("<empty/>");
 			input.setEMayorServiceRequest(request);
 			processRequest.setInput(input);
 			Call call = (Call) service.createCall(PORT_NAME, OPERATION_NAME);

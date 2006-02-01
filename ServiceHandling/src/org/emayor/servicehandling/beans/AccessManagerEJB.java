@@ -340,9 +340,13 @@ public class AccessManagerEJB implements SessionBean, IAccess {
 					.getAccessSession(accessSessionId);
 			if (log.isDebugEnabled())
 				log.debug("got access session with id: " + as.getSessionId());
+			String[] allDocuments = message.getDocuments().getItem();
+			String allAsString = new String();
+			for (int i=1;i<allDocuments.length;i++) {
+				allAsString += allDocuments[i]+"__EMAYORSPLIT__";
+			}
 			ret = as.startServiceSession(serviceId, true, message
-					.getDocuments().getItem(0), message.getDocuments().getItem(
-					1));
+					.getDocuments().getItem(0), allAsString);
 			if (log.isDebugEnabled())
 				log.debug("started service ssid = " + ret);
 		} catch (KernelException ex) {

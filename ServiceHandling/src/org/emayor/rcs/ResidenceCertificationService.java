@@ -12,7 +12,10 @@ import org.emayor.servicehandling.kernel.eMayorServiceException;
  * @author tku
  */
 public class ResidenceCertificationService extends AbstracteMayorService {
-	private static Logger log = Logger
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger log = Logger
 			.getLogger(ResidenceCertificationService.class);
 
 	public static final String DEF_XML_FILE = "SampleResidenceCertificationRequestDocument.xml";
@@ -25,15 +28,22 @@ public class ResidenceCertificationService extends AbstracteMayorService {
 	 */
 	public void startService(String uid, String ssid)
 			throws eMayorServiceException {
-		log.debug("-> start processing ...");
+		if (log.isDebugEnabled()) {
+			log.debug("-> start processing ..."); //$NON-NLS-1$
+		}
 		this.startIt(IeMayorService.FORWARD_NO, uid, ssid, this
 				.getXMLDocumentFromResource(DEF_XML_FILE), "<empty/>");
-		log.debug("-> ... processing DONE!");
+		if (log.isDebugEnabled()) {
+			log.debug("-> end processing ..."); //$NON-NLS-1$
+		}
 	}
 
 	public void startService(String uid, String ssid, String requestDocument)
 			throws eMayorServiceException {
-		log.debug("-> start processing ...");
+		if (log.isDebugEnabled()) {
+			log
+					.debug("-> start processing ..."); //$NON-NLS-1$
+		}
 		throw new eMayorServiceException("NOT SUPPORTED BY THIS SERVICE");
 	}
 
