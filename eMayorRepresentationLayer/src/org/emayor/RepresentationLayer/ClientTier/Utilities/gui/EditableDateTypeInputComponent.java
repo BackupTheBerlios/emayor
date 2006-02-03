@@ -112,7 +112,9 @@ public class EditableDateTypeInputComponent extends JPanel
 
       this.add( Box.createHorizontalStrut(fontSize) );
       
-      this.calendarButton = new JSenseButton("Calendar",true);
+      // Read language specific text for the button:
+      String calendarButtonText = this.languageProperties.getTextFromLanguageResource("Calendar.Name");    
+      this.calendarButton = new JSenseButton(calendarButtonText,true);
       Border ob = BorderFactory.createEtchedBorder();        
       Border ib = BorderFactory.createEmptyBorder(gap,gap,gap,gap);
       this.calendarButton.setBorder( BorderFactory.createCompoundBorder(ob,ib) );

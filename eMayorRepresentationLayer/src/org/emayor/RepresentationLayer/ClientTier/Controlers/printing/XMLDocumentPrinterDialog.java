@@ -107,7 +107,7 @@ public class XMLDocumentPrinterDialog extends JDialog
     JPanel wrapPanel = new JPanel( new BorderLayout(0,0) );
     wrapPanel.add( mainPanel, BorderLayout.CENTER  );
     wrapPanel.add( southPanel, BorderLayout.SOUTH );    
-    this.getContentPane().add( wrapPanel, BorderLayout.NORTH  );
+    this.getContentPane().add( wrapPanel, BorderLayout.CENTER  );
 
     GraphicsEnvironment localEnvirnonment = GraphicsEnvironment.getLocalGraphicsEnvironment();
     Rectangle usableRect = localEnvirnonment.getMaximumWindowBounds();        
@@ -119,10 +119,17 @@ public class XMLDocumentPrinterDialog extends JDialog
     // check sizes:
     if( pHeight > 1024 ) pHeight = 1024;
     if( pHeight >  800 ) pHeight =  800;
-        
+      
+    // don't let the scrollpane get too big for the screen:
+    int sw = pWidth- 2*fontSize;
+    int sh = pHeight- 4*fontSize;
+    this.documentScrollPane.setPreferredSize( new Dimension(sw,sh) );
+    
     this.setLocation(hOffset,vOffset);
     this.setSize(pWidth,pHeight);
         
+    this.pack();
+    
   } // constructor
 
 

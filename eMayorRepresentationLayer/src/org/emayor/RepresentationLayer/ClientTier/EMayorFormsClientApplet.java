@@ -36,7 +36,7 @@ public class EMayorFormsClientApplet extends JApplet implements ResourceLoader
 {
 
   // The version of the applet:
-  private final static String AppletVersion= "2.0";
+  private final static String AppletVersion= "2.01";
 
 
   // The eMayorForms xml document, which is loaded from the
