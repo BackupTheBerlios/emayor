@@ -1,0 +1,3862 @@
+Index: .packaging
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/.packaging,v
+retrieving revision 1.3
+diff -u -r1.3 .packaging
+--- .packaging	4 Dec 2005 09:29:08 -0000	1.3
++++ .packaging	19 Feb 2006 03:56:33 -0000
+@@ -2,7 +2,7 @@
+ <configurations>
+ <archive destination="WebRoot" exploded="false" name="eMayorApplet.jar" used="true">
+ <folder excludes="" includes="" location="bin/org/emayor/client" name="client" prefix="" project="" projectLocation="bin/org/emayor/client" used="true"/>
+-<folder excludes="**/**.html" includes="" location="bin/org/apache/xml" name="xml" prefix="org.apache.xml" project="" projectLocation="bin/org/apache/xml" used="true"/>
++<folder excludes="**/**.html" includes="" location="bin/org/apache/xml" name="xml" prefix="org.apache.xml" project="" projectLocation="bin/org/apache/xml" used="false"/>
+ </archive>
+ <archive destination="" exploded="false" name="eMayorWebTier.war" used="true">
+ <folder excludes="" includes="" location="WebRoot/WEB-INF" name="WEB-INF" prefix="WEB-INF" project="" projectLocation="WebRoot/WEB-INF" used="true"/>
+Index: eMayorWebTier.war
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/eMayorWebTier.war,v
+retrieving revision 1.21
+diff -u -r1.21 eMayorWebTier.war
+Binary files /tmp/cvsynXNEK and eMayorWebTier.war differ
+Index: packaging-build.xml
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/packaging-build.xml,v
+retrieving revision 1.3
+diff -u -r1.3 packaging-build.xml
+--- packaging-build.xml	4 Dec 2005 09:29:08 -0000	1.3
++++ packaging-build.xml	19 Feb 2006 03:56:55 -0000
+@@ -5,7 +5,6 @@
+ <mkdir dir="WebRoot"/>
+ <jar destfile="WebRoot/eMayorApplet.jar">
+ <zipfileset dir="bin/org/emayor/client"/>
+-<zipfileset dir="bin/org/apache/xml" prefix="org.apache.xml" excludes="**/**.html"/>
+ </jar>
+ </target>
+ <target name="N1001F" description="eMayorWebTier.war">
+Index: WebRoot/eMayorApplet.jar
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/eMayorApplet.jar,v
+retrieving revision 1.21
+diff -u -r1.21 eMayorApplet.jar
+Binary files /tmp/cvsm4sOzd and eMayorApplet.jar differ
+Index: WebRoot/repositoryforcitizen.jsp
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/repositoryforcitizen.jsp,v
+retrieving revision 1.3
+diff -u -r1.3 repositoryforcitizen.jsp
+--- WebRoot/repositoryforcitizen.jsp	13 Dec 2005 09:25:11 -0000	1.3
++++ WebRoot/repositoryforcitizen.jsp	19 Feb 2006 03:56:56 -0000
+@@ -139,18 +139,22 @@
+     </td>
+     <td style="text-align: left;">
+       <html:form action="service.do?do=showDocument">
+-         <span style="font-weight: bold;"><bean:write name="repositorydocument" property="documentTitle" /></span>&nbsp;
++         <span style="font-weight: bold;"><logic:equal name="repositorydocument" property="isOriginalAvailable" value="YES"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryTranslatedDocumentText%>"/> </logic:equal><bean:write name="repositorydocument" property="documentTitle" /></span>&nbsp;
+          <br>
+          <bean:write name="repositorydocument" property="documentStatus" />&nbsp;
+          <br>
+-         <bean:write name="repositorydocument" property="documentRemarks" />&nbsp;
+-         <br>
++        <%-- <bean:write name="repositorydocument" property="documentRemarks" />&nbsp;
++         <br> --%>
+          <html:hidden name="serviceForm" property="municipalityNameKey" />
+          <html:hidden name="serviceForm" property="serviceNameKey" />
+          <html:hidden name="repositorydocument" property="documentTitle" />
+          <html:hidden name="repositorydocument" property="documentIndex" />
+          <html:hidden name="serviceForm" property="language" />
++		 <html:hidden property="dispatch" value="NO" />	
+          <html:submit><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryDownload%>"/></html:submit>  
++		 <logic:equal name="repositorydocument" property="isOriginalAvailable" value="YES"> 
++   		 <html:submit onclick="this.form.dispatch.value='YES'"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryShowButtonText%>"/></html:submit>	
++		 </logic:equal>
+       </html:form>
+     </td>
+     <td style="text-align: left;">
+Index: WebRoot/repositoryforcivilservant.jsp
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/repositoryforcivilservant.jsp,v
+retrieving revision 1.3
+diff -u -r1.3 repositoryforcivilservant.jsp
+--- WebRoot/repositoryforcivilservant.jsp	13 Dec 2005 09:25:11 -0000	1.3
++++ WebRoot/repositoryforcivilservant.jsp	19 Feb 2006 03:56:56 -0000
+@@ -139,19 +139,24 @@
+     </td>
+     <td style="text-align: left;">
+       <html:form action="service.do?do=showDocument">
+-         <span style="font-weight: bold;"><bean:write name="repositorydocument" property="documentTitle" /></span>&nbsp;
++         <span style="font-weight: bold;"><logic:equal name="repositorydocument" property="isOriginalAvailable" value="YES"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryTranslatedDocumentText%>"/> </logic:equal><bean:write name="repositorydocument" property="documentTitle" /></span>&nbsp;
+          <br>
+          <bean:write name="repositorydocument" property="documentStatus" />&nbsp;
+          <br>
+          <bean:write name="repositorydocument" property="documentRemarks" />&nbsp;
+          <br>
+-         <html:hidden name="serviceForm" property="municipalityNameKey" />
++		 <html:hidden name="serviceForm" property="municipalityNameKey" />
+          <html:hidden name="serviceForm" property="serviceNameKey" />
+          <html:hidden name="repositorydocument" property="documentTitle" />
+          <html:hidden name="repositorydocument" property="documentIndex" />
+          <html:hidden name="serviceForm" property="language" />
+-         <html:submit><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryProcessButtonText%>"/></html:submit>  
+-      </html:form>
++		 <html:hidden property="dispatch" value="NO" />	
++         <html:submit><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryProcessButtonText%>"/></html:submit>
++  		 <logic:equal name="repositorydocument" property="isOriginalAvailable" value="YES"> 
++   		 <html:submit onclick="this.form.dispatch.value='YES'"><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.RepositoryShowButtonText%>"/></html:submit>	
++		 </logic:equal>
++	   </html:form>
++
+     </td>
+     <td style="text-align: left;">
+          <bean:write name="repositorydocument" property="dateOfRequest" />&nbsp;
+Index: WebRoot/showDocumentForCitizen.jsp
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/showDocumentForCitizen.jsp,v
+retrieving revision 1.6
+diff -u -r1.6 showDocumentForCitizen.jsp
+--- WebRoot/showDocumentForCitizen.jsp	13 Dec 2005 09:25:11 -0000	1.6
++++ WebRoot/showDocumentForCitizen.jsp	19 Feb 2006 03:56:56 -0000
+@@ -48,9 +48,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="ger">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=ger&do=executeService" 
++                      <sslext:link action="service.do?language=ger&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutGerman%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutGerman%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ 
+ <logic:equal name="serviceForm" property="language" value="en">
+@@ -59,9 +59,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="en">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=en&do=executeService" 
++                      <sslext:link action="service.do?language=en&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutEnglish%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutEnglish%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ 
+ <logic:equal name="serviceForm" property="language" value="it">
+@@ -70,9 +70,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="it">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=it&do=executeService" 
++                      <sslext:link action="service.do?language=it&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutItalian%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutItalian%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ 
+ <logic:equal name="serviceForm" property="language" value="sp">
+@@ -81,9 +81,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="sp">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=sp&do=executeService" 
++                      <sslext:link action="service.do?language=sp&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutSpanish%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutSpanish%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ </tr>
+ <%--  ..................... JSP LOGIC END .....................  --%>	
+Index: WebRoot/showDocumentForCivilServant.jsp
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/showDocumentForCivilServant.jsp,v
+retrieving revision 1.6
+diff -u -r1.6 showDocumentForCivilServant.jsp
+--- WebRoot/showDocumentForCivilServant.jsp	13 Dec 2005 09:25:11 -0000	1.6
++++ WebRoot/showDocumentForCivilServant.jsp	19 Feb 2006 03:56:56 -0000
+@@ -47,9 +47,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="ger">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=ger&do=executeService" 
++                      <sslext:link action="service.do?language=ger&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutGerman%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutGerman%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ 
+ <logic:equal name="serviceForm" property="language" value="en">
+@@ -58,9 +58,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="en">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=en&do=executeService" 
++                      <sslext:link action="service.do?language=en&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutEnglish%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutEnglish%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ 
+ <logic:equal name="serviceForm" property="language" value="it">
+@@ -69,9 +69,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="it">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=it&do=executeService" 
++                      <sslext:link action="service.do?language=it&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutItalian%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutItalian%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ 
+ <logic:equal name="serviceForm" property="language" value="sp">
+@@ -80,9 +80,9 @@
+ </logic:equal>
+ <logic:notEqual name="serviceForm" property="language" value="sp">
+                   <td style="text-align: center;">&nbsp;
+-                      <sslext:link action="showdocument.do?language=sp&do=executeService" 
++                      <sslext:link action="service.do?language=sp&do=showDocument" 
+ 					               name="serviceForm" 
+-					               property="serviceParametersWithoutLanguage" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutSpanish%>"/></sslext:link>&nbsp;</td>
++					               property="serviceParametersShow" ><emayorbean:writeLanguage name="serviceForm" resourceElementKey="<%=TextResourceKeys.ShortCutSpanish%>"/></sslext:link>&nbsp;</td>
+ </logic:notEqual>
+ </tr>
+ <%--  ..................... JSP LOGIC END .....................  --%>	
+Index: WebRoot/MunicipalityInformation/en.properties
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/MunicipalityInformation/en.properties,v
+retrieving revision 1.6
+diff -u -r1.6 en.properties
+--- WebRoot/MunicipalityInformation/en.properties	30 Nov 2005 10:15:13 -0000	1.6
++++ WebRoot/MunicipalityInformation/en.properties	19 Feb 2006 03:56:56 -0000
+@@ -64,7 +64,8 @@
+ Repository.AvailableUntil=Available until
+ Repository.Download=Download
+ Repository.ProcessButtonText=Process
+-
++Repository.ShowButtonText=Show Original
++Repository.RepositoryTranslatedDocumentText=Translated
+ 
+ Repository.ResidenceCertificate=Residence certificate
+ Repository.NegativeResidenceCertificate=Negative Result for Residence certificate
+Index: WebRoot/MunicipalityInformation/ger.properties
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/MunicipalityInformation/ger.properties,v
+retrieving revision 1.6
+diff -u -r1.6 ger.properties
+--- WebRoot/MunicipalityInformation/ger.properties	13 Dec 2005 06:52:21 -0000	1.6
++++ WebRoot/MunicipalityInformation/ger.properties	19 Feb 2006 03:56:56 -0000
+@@ -63,7 +63,8 @@
+ Repository.AvailableUntil=Verf&uuml;gbar bis
+ Repository.Download=Herunterladen
+ Repository.ProcessButtonText=Bearbeiten
+-
++Repository.ShowButtonText=Original Ansehen
++Repository.RepositoryTranslatedDocumentText=&Uuml;bersetzte
+ 
+ Repository.ResidenceCertificate=Wohnsitzbescheinigung
+ Repository.NegativeResidenceCertificate=Negativer Bescheid f&uuml;r eine Wohnsitzbescheinigung
+Index: WebRoot/MunicipalityInformation/it.properties
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/MunicipalityInformation/it.properties,v
+retrieving revision 1.6
+diff -u -r1.6 it.properties
+--- WebRoot/MunicipalityInformation/it.properties	5 Dec 2005 15:57:24 -0000	1.6
++++ WebRoot/MunicipalityInformation/it.properties	19 Feb 2006 03:56:56 -0000
+@@ -65,6 +65,8 @@
+ Repository.AvailableUntil=Disponibilit&agrave;
+ Repository.Download=Scarica
+ Repository.ProcessButtonText=Elabora
++Repository.ShowButtonText=Mostra Originale
++Repository.RepositoryTranslatedDocumentText=Traduzione
+ 
+ 
+ Repository.ResidenceCertificate=Certificato di Residenza
+Index: WebRoot/MunicipalityInformation/sp.properties
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/MunicipalityInformation/sp.properties,v
+retrieving revision 1.6
+diff -u -r1.6 sp.properties
+--- WebRoot/MunicipalityInformation/sp.properties	30 Nov 2005 10:15:13 -0000	1.6
++++ WebRoot/MunicipalityInformation/sp.properties	19 Feb 2006 03:56:56 -0000
+@@ -66,6 +66,8 @@
+ Repository.AvailableUntil=Disponibilidad
+ Repository.Download=Descarga
+ Repository.ProcessButtonText=Procesar
++Repository.ShowButtonText=Mostra el Original
++Repository.RepositoryTranslatedDocumentText=Traducción del
+ 
+ 
+ Repository.ResidenceCertificate=Certificado de empadronamiento
+Index: WebRoot/WEB-INF/struts-config-modulefoo.xml
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/WEB-INF/struts-config-modulefoo.xml,v
+retrieving revision 1.1
+diff -u -r1.1 struts-config-modulefoo.xml
+--- WebRoot/WEB-INF/struts-config-modulefoo.xml	16 Nov 2005 10:56:05 -0000	1.1
++++ WebRoot/WEB-INF/struts-config-modulefoo.xml	19 Feb 2006 03:56:57 -0000
+@@ -92,8 +92,8 @@
+       parameter="org.apache.struts.webapp.example.ApplicationResources"/> -->
+ 
+   <plug-in className="org.apache.struts.action.SecurePlugIn">
+-    <set-property property="httpPort" value="8080"/>
+-    <set-property property="httpsPort" value="8443"/>  	
++    <set-property property="httpPort" value="80"/>
++    <set-property property="httpsPort" value="443"/>  	
+     <set-property property="enable" value="true"/>  	
+     <set-property property="addSession" value="true"/>  	
+   </plug-in>
+Index: WebRoot/WEB-INF/struts-config.xml
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/WebRoot/WEB-INF/struts-config.xml,v
+retrieving revision 1.4
+diff -u -r1.4 struts-config.xml
+--- WebRoot/WEB-INF/struts-config.xml	13 Dec 2005 06:52:33 -0000	1.4
++++ WebRoot/WEB-INF/struts-config.xml	19 Feb 2006 03:56:57 -0000
+@@ -65,8 +65,8 @@
+    
+ 
+   <plug-in className="org.apache.struts.action.SecurePlugIn">
+-    <set-property property="httpPort" value="8080" />
+-    <set-property property="httpsPort" value="8443" />  	
++    <set-property property="httpPort" value="80" />
++    <set-property property="httpsPort" value="443" />  	
+     <set-property property="enable" value="true" />  	
+     <set-property property="addSession" value="true" />  	
+   </plug-in>
+Index: src/org/emayor/client/DocumentProcessor.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/DocumentProcessor.java,v
+retrieving revision 1.6
+diff -u -r1.6 DocumentProcessor.java
+--- src/org/emayor/client/DocumentProcessor.java	14 Dec 2005 04:00:13 -0000	1.6
++++ src/org/emayor/client/DocumentProcessor.java	19 Feb 2006 03:56:58 -0000
+@@ -16,6 +16,7 @@
+ import java.awt.*;
+ import javax.swing.*;
+ 
++import org.emayor.client.controlers.xmlsigner.SignerInfo;
+ import org.emayor.client.parser.EMayorDocumentParser;
+ import org.emayor.client.parser.XMLPath;
+ import org.emayor.client.parser.xml.*;
+@@ -29,12 +30,17 @@
+ 
+   private JPanel formsInteractionPanel;     // holds the user interaction
+   private JTextArea formsModelTextArea;     // xml forms model
++  private JTextArea formsSignerInfoTextArea;     // Signer Info panel
+ 
+   private EMayorDocumentParser eMayorDocumentParser = null;
+ 
+   private XML_Node modelNode = null;
++ 
+   private XML_Node viewNode = null;
+-
++  
++  private SignerInfo mySignerInfo = null;
++  private String mySignerInfoException ="";
++  private String OriginalDocument = null;
+   private EMayorFormsClientApplet mainApplet;
+ 
+   private LanguageProperties languageProperties;
+@@ -79,6 +85,7 @@
+   
+   public DocumentProcessor( final JPanel _formsInteractionPanel,
+                             final JTextArea _formsModelTextArea,
++                            final JTextArea _formsSignerInfoTextArea,
+ 							final LanguageProperties _languageProperties,
+                             final EnumerationProperties _enumerationProperties,
+                             final String _language,
+@@ -87,13 +94,14 @@
+   {
+     this.formsInteractionPanel = _formsInteractionPanel;
+     this.formsModelTextArea = _formsModelTextArea;
++    this.formsSignerInfoTextArea = _formsSignerInfoTextArea;
+     this.languageProperties = _languageProperties;
+     this.enumerationProperties = _enumerationProperties;
+     this.language = _language;
+     this.mainApplet = _mainApplet;
+     this.produceVersionForPrinting = _produceVersionForPrinting;
+     this.eMayorDocumentParser = new EMayorDocumentParser(_languageProperties);
+-    System.out.println("DocumentProcessor: java home is: " + this.javaHomeDirectory );
++    //System.out.println("DocumentProcessor: java home is: " + this.javaHomeDirectory );
+   } // Constructor
+ 
+ 
+@@ -103,20 +111,38 @@
+   {
+     String doc = raw_eMayorFormsDocument.toString();
+   	
+-    System.out.println("DocumentProcessor.processDocument() starts.");
++    //System.out.println("DocumentProcessor.processDocument() starts.");
+     // Debug file write:
+     // DataUtilities.DebugFileWriteTo(doc,"applet_DocumentProcessor_Constructor.xml");
+         
+     // Get the Model and the View xml subtrees from this document:
+     XML_Node[] nodes = this.eMayorDocumentParser.translate_eMayorFormsDocument( new StringBuffer(doc) );
++    
++    
+     this.modelNode = nodes[0]; // contains the xml model
++    
++    
+     this.viewNode  = nodes[1]; // contains the xml view, with controler directives
+-                              
++    
++    
++    
+     // Remove existing signatures not made by eMayor (develop test signatures):
+     // The signature is calculated and inserted when the e-document
+     // is submitted to the webtier.
+     this.removeExistingForeignSignaturesIn(this.modelNode);
+-
++    
++    //Added by STC
++    // Create the SignerInfo Object
++    OriginalDocument = this.get_EMayorFormModelAsString();
++    try {
++    	this.mySignerInfo = new SignerInfo(OriginalDocument);
++    } catch (Exception e) {
++    	this.mySignerInfoException = "Error" + e.toString();
++    }
++    
++    //End STC
++    
++    
+     // and set the local schema location path for the client environment,
+     // so the validating parser finds the schema files stored in the
+     // local filesystem in the used JRE java.home directory.
+@@ -135,7 +161,7 @@
+         formsInteractionPanel.updateUI();
+       }
+     });
+-    System.out.println("DocumentProcessor.processDocument() has ended.");
++    //System.out.println("DocumentProcessor.processDocument() has ended.");
+   } // processDocument
+ 
+ 
+@@ -145,13 +171,46 @@
+   public void updateTheModelTabContent()
+   {
+     final StringBuffer reverse_Model_Document = this.eMayorDocumentParser.translateXMLTree( modelNode,false );
++   // this.setLocalSchemaLocation(false);
++   // final String OriginalDocument = this.get_EMayorFormModelAsString();
++   // this.setLocalSchemaLocation(true);
+     EventQueue.invokeLater( new Runnable()
+     {
+       public void run()
+       {   
+         formsModelTextArea.setText(""); // clear
+-        formsModelTextArea.append( "\nReversed generated model document:\n\n" );
+-        formsModelTextArea.append( reverse_Model_Document.toString() + "\n\n" );
++       // formsModelTextArea.append( "\nReversed generated model document:\n\n" );
++       // formsModelTextArea.append( reverse_Model_Document.toString() + "\n\n" );
++        formsModelTextArea.append(mySignerInfo.getFormatedDocument()); 
++        // Add the stuff for the SignerInfo
++        formsSignerInfoTextArea.setText("Document Signatures Information:");
++        formsSignerInfoTextArea.append("\n"+mySignerInfoException);
++        
++        try {
++        //	SignerInfo mySignerInfo = new SignerInfo(OriginalDocument);
++        	formsSignerInfoTextArea.append("\n@@@@@@@@@@    Document Validation Result is " + ( mySignerInfo.getValidationResult()? "valid (good)"
++                    : "invalid !!!!! (bad)") + "    @@@@@@@@@@" );
++        	formsSignerInfoTextArea.append("\n=======================================================================");
++        	int NrSignatures = mySignerInfo.getSignaturesNumber();
++        	formsSignerInfoTextArea.append("\n++++++++++    Document has " + NrSignatures +" Signatures" + "    ++++++++++");
++        	
++        	if (NrSignatures>0)
++        		for (int i=1;i<NrSignatures+1;i++) {
++        			formsSignerInfoTextArea.append("\n\n##########     Signature Number " + i + " Information:"+"    ##########");
++        			formsSignerInfoTextArea.append("\n	Validation Status is  " + (mySignerInfo.getSignatureStatus(i)? "valid (good)"
++                            : "invalid !!!!! (bad)"));
++        			formsSignerInfoTextArea.append("\n	Signer Name           : " + mySignerInfo.getCommonName(i));
++        			formsSignerInfoTextArea.append("\n	Signer eMayor Role is : " + mySignerInfo.getSignerRole(i));
++        		}
++        	
++        	
++        } 
++        catch (Exception e) {
++        	formsSignerInfoTextArea.append("\n Error:: \n" + e.toString());
++        }
++        
++                
++        
+       }
+     });      
+   } // updateTheModel
+@@ -202,7 +261,7 @@
+     //    changed entries, until the form is saved with the new structure.
+     //    So: No format problems disk files <-> e-documents.
+  
+-    System.out.println("DocumentProcessor.setEMayorFormModelContentFrom()");
++    //System.out.println("DocumentProcessor.setEMayorFormModelContentFrom()");
+     /*
+     System.out.println("");
+     System.out.println("got the following input string model: ");
+@@ -222,8 +281,8 @@
+       String inputModelDocumentName = inputModelNode.getChildAt(0).getTagName();
+       String currentModelDocumentName = this.modelNode.getChildAt(0).getTagName();
+       
+-      System.out.println("inputModelDocumentName is " + inputModelDocumentName );
+-      System.out.println("currentModelDocumentName is " + currentModelDocumentName );
++      //System.out.println("inputModelDocumentName is " + inputModelDocumentName );
++      //System.out.println("currentModelDocumentName is " + currentModelDocumentName );
+  
+       if( inputModelDocumentName.equals(currentModelDocumentName) )
+       {
+@@ -345,12 +404,12 @@
+               if( (method != null) && (method.startsWith("http://www.w3.org/" )) )
+               {
+                 signatureIsForeign = false; // its from us, don't remove that
+-                System.out.println(" ");
+-                System.out.println("DocumentProcessor: signature method tag value: " + method);
+-                System.out.println("DocumentProcessor: Found an initially present signature in the e-document.");
+-                System.out.println("DocumentProcessor: However, this one was made by the eMayor clienttier,");
+-                System.out.println("DocumentProcessor: and therefore will NOT be removed.");
+-                System.out.println(" ");
++                //System.out.println(" ");
++                //System.out.println("DocumentProcessor: signature method tag value: " + method);
++                //System.out.println("DocumentProcessor: Found an initially present signature in the e-document.");
++                //System.out.println("DocumentProcessor: However, this one was made by the eMayor clienttier,");
++                //System.out.println("DocumentProcessor: and therefore will NOT be removed.");
++                //System.out.println(" ");
+               }
+               else
+               {
+@@ -361,14 +420,14 @@
+             }
+             else
+             {
+-              System.out.println(">> Signature has no method node -> It will be removed.");          
++              //System.out.println(">> Signature has no method node -> It will be removed.");          
+             }
+             if( signatureIsForeign )
+             {
+               eDocumentNode.removeChildNodeAt(i);
+               numberOfChildren--;
+-              System.out.println("DocumentProcessor: Found and removed an initially present foreign signature in the e-document.");
+-              System.out.println(" ");
++              //System.out.println("DocumentProcessor: Found and removed an initially present foreign signature in the e-document.");
++              //System.out.println(" ");
+             }
+             else
+             {
+@@ -383,7 +442,7 @@
+       }
+       catch( Exception e )
+       {
+-        System.out.println("*** DocumentProcessor: Unable to check and remove existing signatures.");
++        //System.out.println("*** DocumentProcessor: Unable to check and remove existing signatures.");
+         e.printStackTrace();
+       }      
+       // recur:
+@@ -432,7 +491,7 @@
+    */ 
+    public void setLocalSchemaLocation( final boolean setLocal )
+    {
+-    System.out.println( "DocumentProcessor.setLocalSchemaLocation called with setLocal= " + setLocal );
++    //System.out.println( "DocumentProcessor.setLocalSchemaLocation called with setLocal= " + setLocal );
+     if( setLocal )
+     {
+       String currentSchemaLocationPath = "";
+@@ -450,7 +509,7 @@
+       this.originalSchemaLocationPath = currentSchemaLocationPath;
+       // If no schema is specified, an empty string will be returned. 
+       // This is allowed, because schemas are optional.
+-      System.out.println("raw SchemaLocationPath= " + currentSchemaLocationPath );
++      //System.out.println("raw SchemaLocationPath= " + currentSchemaLocationPath );
+       // replace backslashes by slashes:
+       currentSchemaLocationPath = currentSchemaLocationPath.replace('\\','/');
+       // and important: replace any white spaces by real ' ' spaces:
+@@ -480,21 +539,21 @@
+       if( firstWhiteSpaceLocation > 0 )
+       {
+         uri = currentSchemaLocationPath.substring(0,firstWhiteSpaceLocation);
+-        System.out.println("DocumentProcessor: Using URI: " + uri );
++        //System.out.println("DocumentProcessor: Using URI: " + uri );
+       }
+       else
+       {
+         uri = "http://www.emayor.org/BusinessDocument.xsd";
+-        System.out.println("*** ");
+-        System.out.println("*** ");
+-        System.out.println("*** ");
+-        System.out.println("*** CAUTION:");
+-        System.out.println("*** ");
++        //System.out.println("*** ");
++        //System.out.println("*** ");
++        //System.out.println("*** ");
++        //System.out.println("*** CAUTION:");
++        //System.out.println("*** ");
+         String errorLine1 = "No uri found in original schema location attribute";
+-        System.out.println(errorLine1);
+-        System.out.println( this.originalSchemaLocationPath );
+-        System.out.println("*** ");
+-        System.out.println("*** Using:");
++        //System.out.println(errorLine1);
++        //System.out.println( this.originalSchemaLocationPath );
++        //System.out.println("*** ");
++        /*System.out.println("*** Using:");
+         System.out.println("*** http://www.emayor.org/BusinessDocument.xsd");
+         System.out.println("*** ");
+         System.out.println("*** The e-document might have a wrong schemalocation");
+@@ -502,7 +561,7 @@
+         System.out.println("*** uri and schemalocation url path");
+         System.out.println("*** ");
+         System.out.println("*** ");
+-        System.out.println("*** ");
++        System.out.println("*** "); */
+         // also publish this error in the applet error display:
+         this.mainApplet.getErrormanager().addErrorMessage( errorLine1, true );
+         this.mainApplet.getErrormanager().addErrorMessage( this.originalSchemaLocationPath, false );
+@@ -512,7 +571,7 @@
+       int xsdPosition = currentSchemaLocationPath.indexOf("/xsd/");
+       if( xsdPosition >= 0 ) // first possibility found
+       {
+-        System.out.println("DocumentProcessor.setLocalSchemaLocation: /xsd/ found.");
++        //System.out.println("DocumentProcessor.setLocalSchemaLocation: /xsd/ found.");
+         currentSchemaLocationPath = currentSchemaLocationPath.substring(xsdPosition);
+         // and the local one (to be used for the applet's parser:
+                 
+@@ -524,15 +583,15 @@
+                         
+         // and set this one to the xml tree:
+         XMLPath.SetSchemaLocationPathForModel(this.modelNode,this.localSchemaLocationPath);
+-        System.out.println("DocumentProcessor.setLocalSchemaLocation: local schema location path set to: " +
+-                            this.localSchemaLocationPath );
++        //System.out.println("DocumentProcessor.setLocalSchemaLocation: local schema location path set to: " +
++        //                    this.localSchemaLocationPath );
+       }
+       else
+       {
+         xsdPosition = currentSchemaLocationPath.indexOf("emayor/");
+         if( xsdPosition >= 0 ) // second possibility found
+         {
+-          System.out.println("DocumentProcessor.setLocalSchemaLocation: emayor/ found.");
++          //System.out.println("DocumentProcessor.setLocalSchemaLocation: emayor/ found.");
+           currentSchemaLocationPath = currentSchemaLocationPath.substring(xsdPosition);
+           // and the local one (to be used for the applet's parser:
+                     
+@@ -544,17 +603,17 @@
+                             
+           // and set this one to the xml tree:
+           XMLPath.SetSchemaLocationPathForModel(this.modelNode,this.localSchemaLocationPath);
+-          System.out.println("DocumentProcessor.setLocalSchemaLocation: local schema location path set to: " +
+-                              this.localSchemaLocationPath );
++          //System.out.println("DocumentProcessor.setLocalSchemaLocation: local schema location path set to: " +
++          //                    this.localSchemaLocationPath );
+         }
+         else
+         {
+-          System.out.println("*** ");
+-          System.out.println("*** DocumentProcessor.setLocalSchemaLocation():");
+-          System.out.println("*** Unable to do this.");
++          //System.out.println("*** ");
++          //System.out.println("*** DocumentProcessor.setLocalSchemaLocation():");
++          //System.out.println("*** Unable to do this.");
+           String errorLine1 = "The schema location must contain the sequence /xsd/ or \\xsd\\ or emayor/ or emayor\\ .";
+-          System.out.println("*** " + errorLine1);
+-          System.out.println("*** ");
++          //System.out.println("*** " + errorLine1);
++          //System.out.println("*** ");
+           // also publish this error in the applet error display:
+           this.mainApplet.getErrormanager().addErrorMessage( "Invalid e-document:\n" + errorLine1, true );
+         }  
+@@ -562,10 +621,10 @@
+     }
+     else
+     {
+-      System.out.println( "DocumentProcessor.setLocalSchemaLocation called with setLocal= " + setLocal );
+-      System.out.println("localSchemaLocationPath= " + this.localSchemaLocationPath );
+-      System.out.println("originalSchemaLocationPath= " + this.originalSchemaLocationPath );
+-      System.out.println("-> setting the originalSchemaLocationPath again.");
++      //System.out.println( "DocumentProcessor.setLocalSchemaLocation called with setLocal= " + setLocal );
++      //System.out.println("localSchemaLocationPath= " + this.localSchemaLocationPath );
++      //System.out.println("originalSchemaLocationPath= " + this.originalSchemaLocationPath );
++      //System.out.println("-> setting the originalSchemaLocationPath again.");
+       XMLPath.SetSchemaLocationPathForModel(this.modelNode,this.originalSchemaLocationPath );    
+     }
+     
+@@ -680,7 +739,9 @@
+     return buffer.toString();
+   }
+    
+-
++public String getFormatedDocument() {
++	return this.OriginalDocument;
++}
+ 
+ } // eMayorFormsProcessor
+                 
+Index: src/org/emayor/client/EMayorFormsClientApplet.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/EMayorFormsClientApplet.java,v
+retrieving revision 1.7
+diff -u -r1.7 EMayorFormsClientApplet.java
+--- src/org/emayor/client/EMayorFormsClientApplet.java	13 Dec 2005 06:58:43 -0000	1.7
++++ src/org/emayor/client/EMayorFormsClientApplet.java	19 Feb 2006 03:56:58 -0000
+@@ -14,11 +14,7 @@
+ import java.awt.*;
+ import java.awt.event.*;
+ 
+-import javax.print.attribute.HashPrintRequestAttributeSet;
+-import javax.print.attribute.PrintRequestAttributeSet;
+-import javax.print.attribute.standard.Copies;
+-import javax.print.attribute.standard.JobName;
+-import javax.print.attribute.standard.OrientationRequested;
++
+ import javax.swing.*;
+ 
+ import javax.swing.event.ChangeEvent;
+@@ -51,6 +47,11 @@
+ 
+   private JTextArea formsModelTextArea;
+  
++  // Added by STC
++  private JPanel formsSignerInfoPanel;
++
++  private JTextArea formsSignerInfoTextArea;
++  // end STC
+   private boolean hasStarted = false;
+   private boolean hasError = false;
+   
+@@ -95,16 +96,28 @@
+     this.errorManager = new ErrorManager(this);
+     
+     this.getContentPane().setLayout( new BorderLayout(2,2) );
+-    this.menuPanel = new JPanel( new FlowLayout(FlowLayout.LEFT,0,0) );
+-    this.attachTheMenuTo( this.menuPanel );
+-    this.getContentPane().add( menuPanel, BorderLayout.NORTH );
++  //  this.menuPanel = new JPanel( new FlowLayout(FlowLayout.LEFT,0,0) );
++//    this.attachTheMenuTo( this.menuPanel );
++ //   this.getContentPane().add( menuPanel, BorderLayout.NORTH );
+ 
+     this.formsInteractionPanel = new PrintableJPanel( new BorderLayout(0,0) );
+     
+     this.formsModelPanel = new JPanel( new BorderLayout(2,2) );
+     this.formsModelTextArea = new JTextArea();
+     this.formsModelTextArea.setEditable(false);
++    this.formsModelTextArea.setLineWrap(true);
+     this.formsModelPanel.add( this.formsModelTextArea, BorderLayout.CENTER );
++    
++    // Added by STC
++    this.formsSignerInfoPanel = new JPanel( new BorderLayout(2,2) );
++    this.formsSignerInfoTextArea = new JTextArea();
++    this.formsSignerInfoTextArea.setEditable(false);
++    this.formsSignerInfoPanel.add( this.formsSignerInfoTextArea, BorderLayout.CENTER );
++    
++    // End STC
++    
++    
++    
+     // add a print button and print functionality to the formsModelPanel:
+     // The text of the button cannot be set here already, this is done in the init() method,
+     // after the languageProperties are available.
+@@ -138,8 +151,12 @@
+     //       in the init method when the languageProperties object has been created.
+     
+     tabPane.addTab("Interaction", interactionScrollPane);
+-    tabPane.addTab("Model Data",new JScrollPane( this.formsModelPanel ) );
++    tabPane.addTab("XML Document",new JScrollPane( this.formsModelPanel ) );
+ 
++    // Added by STC
++    tabPane.addTab("SignerInfo",new JScrollPane( this.formsSignerInfoPanel) );
++    // End STC
++    
+     tabPane.addChangeListener( new ChangeListener()
+     {
+       public void stateChanged( ChangeEvent e )
+@@ -176,7 +193,7 @@
+   
+   private void attachTheMenuTo( final JPanel basePanel )
+   {
+-    JMenuItem item; // temporary worker attribute used below
++  /*  JMenuItem item; // temporary worker attribute used below
+     String menuIconName;
+ 
+     // Note: The language specific text for the menu and its items
+@@ -184,29 +201,34 @@
+     //        becomes available.
+     
+     // Create the filemenu :
++     
++     
+     this.fileMenu = new JSenseMenu( " File " ,this );
+-    fileMenu.setMnemonic('s');
++    
++    //fileMenu.setMnemonic('s');
+     // and add actions:
++    
+     this.saveFormMenuItem = new JMenuItem( " Save form on your PC " );
++    
+     item = fileMenu.add( this.saveFormMenuItem );
+-    item.setIcon( this.loadImageIcon("/pictures/applet/save.gif") );
+-    item.addActionListener(new java.awt.event.ActionListener()
++    //item.setIcon( this.loadImageIcon("/pictures/applet/save.gif") );
++    /*item.addActionListener(new java.awt.event.ActionListener()
+      {
+         public void actionPerformed( ActionEvent e )
+         {
+           save_EMayorForm_XML_Model_ToDisk();
+         }
+-     });
++     }); 
+     this.loadFormMenuItem = new JMenuItem( " Load form from your PC " );
+     item = fileMenu.add( this.loadFormMenuItem );
+-    item.setIcon( this.loadImageIcon("/pictures/applet/load.gif") );
++    //item.setIcon( this.loadImageIcon("/pictures/applet/load.gif") );
+     item.addActionListener(new java.awt.event.ActionListener()
+      {
+         public void actionPerformed( ActionEvent e )
+         {
+           loadEMayorFormFromDisk();
+         }
+-     });
++     }); 
+ 
+     // Create the menuBar :
+     JMenuBar menuBar = new JMenuBar();
+@@ -222,8 +244,8 @@
+ 
+     // add the menues to the menuBar :
+     menuBar.add( fileMenu        );
+-    
+-    basePanel.add( menuBar);
++    */
++    //basePanel.add( menuBar); 
+   } // createTheMenu
+ 
+ 
+@@ -264,6 +286,7 @@
+        DocumentProcessor printableDocProcessor = 
+                            new DocumentProcessor( formsPanelForPrinting,
+                                                   this.formsModelTextArea,
++                                                  this.formsSignerInfoTextArea,
+                                                   this.languageProperties,
+                                                   this.enumerationProperties,
+                                                   this.language,
+@@ -300,7 +323,7 @@
+   public void save_EMayorForm_XML_Model_ToDisk()
+   {
+     SandboxCompliantDiskManger m = new SandboxCompliantDiskManger(this);
+-    String eMayorFormModelAsString = this.docProcessor.get_EMayorFormModelAsString();
++    String eMayorFormModelAsString = this.docProcessor.getFormatedDocument();
+     
+     //System.out.println(" ");
+     //System.out.println("Saving the following model as string:");
+@@ -313,8 +336,8 @@
+     }
+     catch( Exception ex )
+     {
+-      System.out.println("*** save_EMayorForm_XML_Model_ToDisk: Unable to load from disk: ");
+-      System.out.println("exception message= " + ex.getMessage() );
++      //System.out.println("*** save_EMayorForm_XML_Model_ToDisk: Unable to load from disk: ");
++      //System.out.println("exception message= " + ex.getMessage() );
+       this.showInstallationPolicyError();
+     }
+     catch( Error err )
+@@ -333,7 +356,7 @@
+    *  without having to request applet security permisions for the filesystem.
+    *  It is controled by JNLP and the JRE and runs inside the default sandbox.
+    */ 
+-  private void loadEMayorFormFromDisk()
++ /* private void loadEMayorFormFromDisk()
+   {
+     String eMayorFormModelAsString = null;
+     try
+@@ -369,7 +392,7 @@
+   }
+ 
+ 
+-
++*/
+   
+   
+   
+@@ -393,12 +416,12 @@
+   */
+   public void init()
+   {
+-    System.out.println("eMayorFormsClientApplet.init() starts.");
++    //System.out.println("eMayorFormsClientApplet.init() starts.");
+     // Display the load screen.
+     // See http://java.sun.com/docs/books/tutorial/uiswing/components/applet.html
+     // One must change to the event dispatch thread and wait for termination too.
+     // Note that the browsers call this method in a their system thread context.
+-    try
++  /*  try
+     {
+       EventQueue.invokeAndWait( new Runnable()
+       {
+@@ -411,7 +434,7 @@
+     catch( Exception e )
+     {
+       System.err.println("*** init(): Couldn't display the load screen.");
+-    }
++    } */
+     // Get the name of the eMayorForm xml document to be downloaded
+     // from the server:
+     String eMayorFormName = getParameter("eMayorFormName");
+@@ -425,11 +448,11 @@
+       this.appletPropertiesURL = getParameter("appletPropertiesURL");
+       if( this.appletPropertiesURL != null )
+       {
+-        System.out.println("Got the following appletPropertiesURL: " + this.appletPropertiesURL );
++        //System.out.println("Got the following appletPropertiesURL: " + this.appletPropertiesURL );
+       }
+       else
+       {
+-        System.out.println("No appletPropertiesURL. Set default.");
++        //System.out.println("No appletPropertiesURL. Set default.");
+         this.appletPropertiesURL = "service.do?do=getAppletProperties"; //default
+       }
+ 
+@@ -437,14 +460,14 @@
+       this.enumerationPropertiesURL = getParameter("enumerationPropertiesURL");
+       if( this.enumerationPropertiesURL != null )
+       {
+-        System.out.println("Got the following enumerationPropertiesURL: " + this.enumerationPropertiesURL);
++        //System.out.println("Got the following enumerationPropertiesURL: " + this.enumerationPropertiesURL);
+       }
+       else
+       {
+-        System.out.println("No enumerationPropertiesURL. Set default.");
++        //System.out.println("No enumerationPropertiesURL. Set default.");
+         this.enumerationPropertiesURL = "service.do?do=getEnumerationProperties"; //default
+       }
+-      System.out.println( "Init(): Language is: " + language );
++      //System.out.println( "Init(): Language is: " + language );
+ 
+       // Following specification:
+       // If a Language parameter is specified, try to download
+@@ -465,29 +488,29 @@
+           String modelTitle = this.languageProperties.getTextFromLanguageResource("Message.ElectronicDocument");
+           this.tabPane.setTitleAt(1,modelTitle);
+           // The texts for the menu and its items:          
+-          String fileMenuName = this.languageProperties.getTextFromLanguageResource("FileMenu.Name");
+-          this.fileMenu.setText("  " + fileMenuName + "  ");
+-          String saveFormToDisk = this.languageProperties.getTextFromLanguageResource("FileMenu.SaveFormToDisk");
+-          this.saveFormMenuItem.setText("  " + saveFormToDisk + "  ");
+-          String loadFormFromDisk = this.languageProperties.getTextFromLanguageResource("FileMenu.LoadFormFromDisk");
+-          this.loadFormMenuItem.setText("  " + loadFormFromDisk + "  ");         
++         // String fileMenuName = this.languageProperties.getTextFromLanguageResource("FileMenu.Name");
++         // this.fileMenu.setText("  " + fileMenuName + "  ");
++         // String saveFormToDisk = this.languageProperties.getTextFromLanguageResource("FileMenu.SaveFormToDisk");
++         // this.saveFormMenuItem.setText("  " + saveFormToDisk + "  ");
++         // String loadFormFromDisk = this.languageProperties.getTextFromLanguageResource("FileMenu.LoadFormFromDisk");
++         // this.loadFormMenuItem.setText("  " + loadFormFromDisk + "  ");         
+ 		}
+       	catch( Exception e2 )
+ 		{
+-          System.out.println("Unable to update some applet UI texts.");
++          //System.out.println("Unable to update some applet UI texts.");
+ 		}
+       	
+       	// Also the post URL is optional.
+       	// For readonly documents, a button is optional at all.
+         this.postURL = getParameter("postURL");
+-      	System.out.println("Got the following postURL: " + this.postURL );
++      	//System.out.println("Got the following postURL: " + this.postURL );
+       	if( (postURL == null) || (postURL.length() == 0) )
+       	{
+-      	  System.out.println("postURL: Not passed as parameter.");
++      	  //System.out.println("postURL: Not passed as parameter.");
+       	}
+         else
+         {
+-       	  System.out.println("postURL: " + postURL + " was passed as parameter.");
++       	  //System.out.println("postURL: " + postURL + " was passed as parameter.");
+         }
+       	// The redirectionAddressAfterPost tag is optional. If present,
+       	// the applet will tell the browser to redirect to this address
+@@ -495,15 +518,15 @@
+       	this.redirectionAddressAfterPost = getParameter("redirectionAddressAfterPost");
+       	if( this.redirectionAddressAfterPost != null )
+       	{
+-          System.out.println("Got the following redirectionAddressAfterPost: " + this.redirectionAddressAfterPost);
++          //System.out.println("Got the following redirectionAddressAfterPost: " + this.redirectionAddressAfterPost);
+       	}
+       	else
+       	{
+-          System.out.println("No redirectionAddressAfterPost.");
++          //System.out.println("No redirectionAddressAfterPost.");
+         }
+   
+         // and download the eMayorForm xml document:
+-        System.out.println("downloading eMayorforms UTF-8 inputfile " + eMayorFormName );
++        //System.out.println("downloading eMayorforms UTF-8 inputfile " + eMayorFormName );
+         this.eMayorFormDocument = this.download_UTF_8_Document(eMayorFormName);
+                
+         // Debug file write:
+@@ -567,11 +590,12 @@
+   */
+   private void displayLoadScreen()
+   {                                                           
+-    System.out.println("showLoadScreen() called.");
++ /*   //System.out.println("showLoadScreen() called.");
+     this.formsInteractionPanel.removeAll();
+     this.formsInteractionPanel.setLayout( new FlowLayout() );
+     this.formsInteractionPanel.setBackground( new Color(180,255,180) );
+     this.formsInteractionPanel.add( new JLabel("loading...") );
++  */
+   } // showLoadScreen
+ 
+ 
+@@ -580,7 +604,7 @@
+   */                      
+   private void displayErrorScreen( final String errorMessage )                      
+   {                                                           
+-    System.out.println("displayErrorScreen() called.");                              
++    //System.out.println("displayErrorScreen() called.");                              
+     Dimension pDim = this.formsInteractionPanel.getSize();
+     this.formsInteractionPanel.removeAll();
+     this.formsInteractionPanel.setSize( pDim.width, pDim.height );
+@@ -606,7 +630,7 @@
+   */
+   private StringBuffer download_UTF_8_Document( final String documentName ) throws Exception
+   {
+-    System.out.println("downloadDocument() documentName= " + documentName );
++    //System.out.println("downloadDocument() documentName= " + documentName );
+     URL documentURL = new URL( super.getDocumentBase() ,documentName );
+     InputStream documentInputStream = documentURL.openStream();
+     ByteArrayOutputStream buffer = DataUtilities.ReadByteFileFromInputStream(documentInputStream);
+@@ -656,23 +680,23 @@
+     try
+     {
+        // Establish a connection to the server:
+-       System.out.println("postDocument(): using basis URL: " + super.getDocumentBase().toExternalForm() );
+-       System.out.println("postDocument(): postURL " + this.postURL );
++       //System.out.println("postDocument(): using basis URL: " + super.getDocumentBase().toExternalForm() );
++       //System.out.println("postDocument(): postURL " + this.postURL );
+        URL url = new URL( super.getDocumentBase(), this.postURL );
+ 
+        //System.out.println("postDocument() using basis URL: " + super.getCodeBase().toExternalForm() );
+        //URL url = new URL("http", super.getCodeBase( ).getHost(), "/eMayorRequestForm.xml");
+ 
+        URLConnection con = url.openConnection();
+-       System.out.println("postDocument(): Received a URLConnection subclass of type " +
+-       		              con.getClass().getName() );
++      // System.out.println("postDocument(): Received a URLConnection subclass of type " +
++       //		              con.getClass().getName() );
+        con.setDoInput(true);
+        con.setDoOutput(true);
+        con.setUseCaches(false);
+        
+        con.setRequestProperty("CONTENT_LENGTH", "" + document.length() ); // actually not checked
+-       System.out.println("postDocument(): Set content-length to: " + document.length() );
+-       System.out.println("postDocument(): Getting an output stream...");
++       //System.out.println("postDocument(): Set content-length to: " + document.length() );
++       //System.out.println("postDocument(): Getting an output stream...");
+        
+        OutputStream os = con.getOutputStream();
+        OutputStreamWriter osw = new OutputStreamWriter(os);
+@@ -688,8 +712,8 @@
+        osw.flush();
+        osw.close();
+        
+-       System.out.println("postDocument(): Output stream flushed.");       
+-       System.out.println("postDocument(): Getting an input stream...");
++       //System.out.println("postDocument(): Output stream flushed.");       
++       //System.out.println("postDocument(): Getting an input stream...");
+        
+        InputStream is = con.getInputStream();
+        // any response ?
+@@ -700,7 +724,7 @@
+        while( (line = br.readLine()) != null )
+        {
+        	 htmlReply.append(line);
+-         System.out.println("postDocument() response: " + line);
++         //System.out.println("postDocument() response: " + line);
+        } // while
+        
+        if( htmlReply.length() > 0 ) // all is ok
+@@ -726,7 +750,7 @@
+       System.out.println("*** postDocument(): Exception catched:");
+       e.printStackTrace();
+     }
+-    System.out.println("postDocument() has ended.");
++    //System.out.println("postDocument() has ended.");
+     return success;
+   } // postDocument
+ 
+@@ -739,7 +763,7 @@
+   */ 
+   private void showHTML( final String htmlString )
+   {
+-    System.out.println("showHTML() called.");
++    //System.out.println("showHTML() called.");
+     EventQueue.invokeLater( new Runnable()
+     {
+       public void run()
+@@ -783,7 +807,7 @@
+   */
+   public void gotoRedirectionPage()
+   {
+-  	System.out.println("Starting redirector thread now. (Will wait 0.1 seconds)");
++  	//System.out.println("Starting redirector thread now. (Will wait 0.1 seconds)");
+   	// Delay this for giving Swing some display task time:
+   	Thread redirector = new Thread()
+ 	{
+@@ -811,7 +835,7 @@
+   */ 
+   private void gotoRedirectionPage_InUserThread()
+   {
+-  	System.out.println("Redirecting the browser to: " + this.redirectionAddressAfterPost );
++  	//System.out.println("Redirecting the browser to: " + this.redirectionAddressAfterPost );
+   	try
+ 	{
+       URL redirectionURL = new URL( super.getDocumentBase(), this.redirectionAddressAfterPost );
+@@ -838,7 +862,7 @@
+   */
+   public void start()
+   {
+-    System.out.println("start() called.");
++    //System.out.println("start() called.");
+     if( ( !this.hasStarted ) && // only once
+         ( !this.hasError   )  ) // if no error screen is active already
+     {
+@@ -848,6 +872,7 @@
+         // process it and display the result in the context pane:
+         this.docProcessor = new DocumentProcessor( this.formsInteractionPanel,
+                                                    this.formsModelTextArea,
++                                                   this.formsSignerInfoTextArea,
+                                                    this.languageProperties,
+                                                    this.enumerationProperties,
+                                                    this.language,
+@@ -918,7 +943,7 @@
+   */
+   public void stop() 
+   {
+-    System.out.println("stop() called.");
++    //System.out.println("stop() called.");
+   } // stop
+ 
+ 
+@@ -929,7 +954,7 @@
+   */
+   public void destroy() 
+   {
+-    System.out.println("destroy() called.");
++    //System.out.println("destroy() called.");
+     if( this.docProcessor != null )
+     {
+       this.docProcessor.stop();
+@@ -953,25 +978,25 @@
+   */
+   public ImageIcon loadImageIcon( String pathName )
+   {  
+-    System.out.println("loadImageIcon() called for pathname= " + pathName );
++    //System.out.println("loadImageIcon() called for pathname= " + pathName );
+     ImageIcon icon = null;
+       try // in each case INTERCEPT nullpointer exceptions - just return null
+       {
+          URL url = this.getClass().getResource(pathName);
+          if( url != null )
+          {
+-            System.out.println("URL= " + url.toString());
++            //System.out.println("URL= " + url.toString());
+             icon = new ImageIcon( Toolkit.getDefaultToolkit().getImage(url) );
+          }
+-         System.out.println("icon 1 =" + icon );
++         //System.out.println("icon 1 =" + icon );
+          if( icon == null ) // next attempt
+          {
+             icon = this.loadImageFromHost(pathName);
+-            System.out.println("icon 2 =" + icon );
++            //System.out.println("icon 2 =" + icon );
+             if( icon == null ) // last attempt
+             {
+               icon = new ImageIcon(pathName);
+-              System.out.println("icon 3 =" + icon );
++              //System.out.println("icon 3 =" + icon );
+             }
+          }
+       }
+@@ -997,11 +1022,11 @@
+     BufferedInputStream imageStream = null;
+     try
+     {
+-        System.out.println("loadImageFromHost name= " + pathName + " ....." );
++        //System.out.println("loadImageFromHost name= " + pathName + " ....." );
+         URL imageURL = new URL( super.getDocumentBase() ,pathName );
+         InputStream rawInputStream = imageURL.openStream();
+         imageStream = new BufferedInputStream( rawInputStream );
+-        System.out.println("completed." );
++        //System.out.println("completed." );
+     }
+     catch( Exception ee )
+     {
+Index: src/org/emayor/client/EnumerationProperties.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/EnumerationProperties.java,v
+retrieving revision 1.1
+diff -u -r1.1 EnumerationProperties.java
+--- src/org/emayor/client/EnumerationProperties.java	20 Nov 2005 14:24:36 -0000	1.1
++++ src/org/emayor/client/EnumerationProperties.java	19 Feb 2006 03:56:58 -0000
+@@ -62,7 +62,7 @@
+     catch( Exception e )
+ 	{
+       // Nevermind .. it's optional.
+-	  System.out.println("*** EnumerationProperties: The optional enumeration property file could not be downloaded.");
++	  //System.out.println("*** EnumerationProperties: The optional enumeration property file could not be downloaded.");
+ 	} 
+   } // Constructor
+ 
+@@ -90,7 +90,7 @@
+     // the correct property file:
+     URL documentURL = new URL( documentBase ,callParameter );
+     
+-    System.out.println("Calling documentURL: " + documentURL.toExternalForm() );
++    //System.out.println("Calling documentURL: " + documentURL.toExternalForm() );
+     
+     InputStream documentInputStream = documentURL.openStream();    
+     this.properties.load(documentInputStream);
+@@ -100,7 +100,7 @@
+     // this.properties.list( System.out );
+     
+     translateUnicodeShortcutsIn(this.properties);
+-    System.out.println(">>Download has been successful. Enumeration properties are set.");
++    //System.out.println(">>Download has been successful. Enumeration properties are set.");
+   } // readLanguagePropertiesFromHost
+   
+   
+@@ -233,7 +233,7 @@
+           StringTokenizer tok2 = new StringTokenizer(value,",");
+           int numberOfEntries = tok2.countTokens(); // call this only once (bug)
+           
+-          System.out.println("EnumerationProperties: creating array with size " + numberOfEntries);
++          //System.out.println("EnumerationProperties: creating array with size " + numberOfEntries);
+           
+           translatedEnumerationValues = new String[numberOfEntries];
+           for( int i=0; i < numberOfEntries; i++ )
+Index: src/org/emayor/client/GUIBuilder.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/GUIBuilder.java,v
+retrieving revision 1.12
+diff -u -r1.12 GUIBuilder.java
+--- src/org/emayor/client/GUIBuilder.java	5 Dec 2005 16:19:11 -0000	1.12
++++ src/org/emayor/client/GUIBuilder.java	19 Feb 2006 03:56:59 -0000
+@@ -91,7 +91,7 @@
+     this.language = _language;
+     this.eMayorDocumentParser = _eMayorDocumentParser;
+     
+-    System.out.println("GUIBuilder.constructor: Set tooltips to react immediately.");
++    //System.out.println("GUIBuilder.constructor: Set tooltips to react immediately.");
+     ToolTipManager toolTipManager = ToolTipManager.sharedInstance();
+     toolTipManager.setInitialDelay(99);
+     toolTipManager.setDismissDelay(30000);
+@@ -185,13 +185,13 @@
+     {
+       String tableContent = this.simpleTypesTable.toString();
+       tableContent = tableContent.replaceAll(", ",",\n");
+-      System.out.println(">>");
++      /*System.out.println(">>");
+       System.out.println(">> SimpleTypesTable content:");
+       System.out.println(">>");
+       System.out.println(tableContent);
+       System.out.println(">>");
+       System.out.println(">>");
+-      System.out.println(">>");
++      System.out.println(">>");*/
+     }
+     // build the UI - the method uses recursion:
+     this.buildUI( viewPanel, this.viewNode, produceVersionForPrinting );
+@@ -272,9 +272,9 @@
+       }
+       else
+       {
+-      	System.out.println("***");
++      	/*System.out.println("***");
+         System.out.println("*** buildUI(): Unsupported tagname: " + childNode.getTagName() );
+-      	System.out.println("***");
++      	System.out.println("***");*/
+       }
+     }
+   } // buildUI
+@@ -313,8 +313,8 @@
+     }
+     else
+     {
+-      System.out.println("*** GUIBuilder.buildImageUI(): Unable to process Image element,");
+-      System.out.println("*** because the required RelativeURL parameter is missing.");
++      //System.out.println("*** GUIBuilder.buildImageUI(): Unable to process Image element,");
++      //System.out.println("*** because the required RelativeURL parameter is missing.");
+     }
+   } // buildImageUI
+   
+@@ -407,13 +407,13 @@
+         }
+         else
+         {
+-          System.out.println("buildJButtonUI: Not supported action class: " + actionClass );
++          //System.out.println("buildJButtonUI: Not supported action class: " + actionClass );
+         }
+     }
+     else
+     {
+       // Without an action, this button won't do anything:
+-      System.out.println("buildJButtonUI: Caution: JButton without action added.");
++      //System.out.println("buildJButtonUI: Caution: JButton without action added.");
+     }
+     // Add it:
+     this.addComponent(parentPanel,jButton,addParameter,
+@@ -484,11 +484,11 @@
+     }
+     catch( Exception ee )
+     {
+-       System.out.println( "*** GuiBuilder Exception: Icon not found for path= " + iconPath );
++       //System.out.println( "*** GuiBuilder Exception: Icon not found for path= " + iconPath );
+     }
+     catch( Error err )
+     {
+-       System.out.println( "*** GuiBuilder Error: Icon not found for path= " + iconPath );
++       //System.out.println( "*** GuiBuilder Error: Icon not found for path= " + iconPath );
+     }
+     return icon;
+   }
+@@ -506,9 +506,9 @@
+     
+     if( boxType == null ) // invalid box ui directive
+     {
+-        System.out.println("*** ");
+-        System.out.println("*** Invalid Box UI directive: boxType is not specified.");
+-        System.out.println("*** ");
++        //System.out.println("*** ");
++//        System.out.println("*** Invalid Box UI directive: boxType is not specified.");
++ //       System.out.println("*** ");
+     } // if
+     
+     int size = -1;
+@@ -543,7 +543,7 @@
+     }                                               
+     else
+     {
+-      System.out.println("buildBoxUI: Unable to add Box with type " + boxType);
++      //System.out.println("buildBoxUI: Unable to add Box with type " + boxType);
+     }
+   }
+ 
+@@ -584,8 +584,8 @@
+       else
+       {
+         value = "[undefined]";
+-        System.out.println("*** buildJLabellUI: a JLabel model reference points to a not existing address. ");
+-        System.out.println("*** buildJLabellUI: The reference is: " + modelPath );      
++        //System.out.println("*** buildJLabellUI: a JLabel model reference points to a not existing address. ");
++        //System.out.println("*** buildJLabellUI: The reference is: " + modelPath );      
+       }
+     
+     }
+@@ -635,7 +635,7 @@
+                                  final boolean produceVersionForPrinting) throws Exception
+   {
+     
+-    System.out.println("buildTextInputUI called.");
++    //System.out.println("buildTextInputUI called.");
+     
+     String isEditable_Parameter = textInputNode.getAttributeValueForName(Attribute_IsEditable);
+     boolean isEditable = true;
+@@ -646,7 +646,7 @@
+ 
+     if( produceVersionForPrinting ) isEditable = false; // always make objects readonly for print view
+ 
+-    System.out.println("buildTextInputUI: isEditable= " + isEditable );
++    //System.out.println("buildTextInputUI: isEditable= " + isEditable );
+     
+     // Check for enumeration maps:
+     SchemaEnumerationMapValue enumerationMapValue = null;
+@@ -685,20 +685,20 @@
+     // drop down values: only make sense, if it's not readonly:
+     if( ( enumerationMapValue != null ) && (isEditable) )  // enumeration present: add drop down list
+     {
+-      System.out.println("buildTextInputUI: making JComboBox");      
++      //System.out.println("buildTextInputUI: making JComboBox");      
+       // We have an editable entry with enumeration constraints, 
+       // so use a JComboBox instead of a simple textfield:
+       this.buildEditableJComboBoxUI( parentPanel,textInputNode,enumerationMapValue,produceVersionForPrinting );          
+     }
+     else if( isDateType ) // ok for editable and readonly
+     {
+-      System.out.println("buildTextInputUI: making date-Type JTextFields");    
++      //System.out.println("buildTextInputUI: making date-Type JTextFields");    
+       // No enumeration constraints -> use a simple JTextField:
+       this.buildDateTypeInputUI(parentPanel,textInputNode,produceVersionForPrinting);          
+     }
+     else // else the standard case: make an editable JTextField
+     {
+-      System.out.println("buildTextInputUI: making editable JTextField");    
++      //System.out.println("buildTextInputUI: making editable JTextField");    
+       // No enumeration constraints -> use a simple JTextField:
+       this.buildJTextFieldUI(parentPanel,textInputNode,produceVersionForPrinting);    
+     }
+@@ -725,8 +725,8 @@
+       stringWidth = glyphVectorBounds.width;
+     }
+     
+-    System.out.println("calculateStringWidth() for text= " + text +
+-                       "  (with given font) returns " + stringWidth );
++    //System.out.println("calculateStringWidth() for text= " + text +
++      //                 "  (with given font) returns " + stringWidth );
+     
+     return stringWidth;
+   }
+@@ -745,11 +745,11 @@
+     }
+     else
+     {
+-      System.out.println(">> getSimpleTypeForNode(): simpleTypesTable is null.");    
++      //System.out.println(">> getSimpleTypeForNode(): simpleTypesTable is null.");    
+     }
+-    System.out.println(">> getSimpleTypeForNode() for documentPath= " + 
+-            path +
+-            " returns " + simpleType );    
++//    System.out.println(">> getSimpleTypeForNode() for documentPath= " + 
++ //           path +
++  //          " returns " + simpleType );    
+     return simpleType;
+   }
+ 
+@@ -814,21 +814,21 @@
+           System.out.println("GUIBuilder: Optional getTranslatedEnumerationValuesFor() cancelled.");
+           eee.printStackTrace();
+         }
+-        System.out.println("GUIBuilder: XX translated values for enumeration");
++        //System.out.println("GUIBuilder: XX translated values for enumeration");
+         for( int i=0; i < enumerationValues.length; i++ )
+         {
+-          System.out.println("source enumeration> " + enumerationValues[i]);
++          //System.out.println("source enumeration> " + enumerationValues[i]);
+         }
+         for( int i=0; i < translatedEnumerationValues.length; i++ )
+         {
+-          System.out.println("translated enumeration> " + translatedEnumerationValues[i]);
++          //System.out.println("translated enumeration> " + translatedEnumerationValues[i]);
+         }
+         
+         final boolean transformationIsDefined = ( enumerationValues.length == translatedEnumerationValues.length );
+         // Create it, use the translated enumeration values, if defined:
+         String[] dropDownValues = (transformationIsDefined) ? translatedEnumerationValues : enumerationValues;
+ 
+-        System.out.println("GUIBuilder: translationIsDefined= " + transformationIsDefined);
++        //System.out.println("GUIBuilder: translationIsDefined= " + transformationIsDefined);
+         
+         final JComboBox jComboBox = new JComboBox(dropDownValues);
+         jComboBox.setEditable(true); // always - only this makes sense
+@@ -851,7 +851,7 @@
+         }
+         comboboxEditor.setText( selectedInitialValue );
+         
+-        System.out.println("combobox initial value = $" + selectedInitialValue + "$" );
++        //System.out.println("combobox initial value = $" + selectedInitialValue + "$" );
+         
+         if( columns > 0 ) 
+         {
+@@ -878,8 +878,8 @@
+                  XML_Node modelFieldNode = XMLPath.GetNode(modelPaths[i],modelNode);
+                  String newText = (String)comboboxEditor.getText();
+ 
+-                 System.out.println("combobox new value = $" + newText + "$" );
+-
++                 //System.out.println("combobox new value = $" + newText + "$" );
++                   //
+                  // backtransform if mapping is defined:
+                  if( transformationIsDefined )
+                  {
+@@ -942,7 +942,7 @@
+       {
+         String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
+                      " is not valid. Such an element does not exist in the xml model node.";
+-        System.out.println(msg);
++        //System.out.println(msg);
+         value = "Invalid reference.";
+         JTextField jTextField = new JTextField(value);
+         jTextField.setBackground( new Color(255,100,100) );
+@@ -955,7 +955,7 @@
+     else
+     {
+       // Should never happen - this method must not be called, when no modelpath is set.
+-      System.out.println("*** JComboBox Fatal Error: modelpaths must be set for comboboxes.");    
++      //System.out.println("*** JComboBox Fatal Error: modelpaths must be set for comboboxes.");    
+     }
+     //System.out.println("Added JComboBox");
+   } // buildJComboBoxUI 
+@@ -1039,9 +1039,9 @@
+       }
+       else
+       {
+-      	String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
+-		             " is not valid. Such an element does not exist in the xml model node.";
+-		System.out.println(msg);
++      	//String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
++	//	             " is not valid. Such an element does not exist in the xml model node.";
++		//System.out.println(msg);
+       	value = "Invalid reference.";
+       	jTextField.setBackground( new Color(255,100,100) );
+       }       
+@@ -1188,9 +1188,9 @@
+       }
+       else
+       {
+-        String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
+-               " is not valid. Such an element does not exist in the xml model node.";
+-        System.out.println(msg);
++        //String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
++         //      " is not valid. Such an element does not exist in the xml model node.";
++//        System.out.println(msg);
+         value = "Invalid reference.";
+         dateTypeInputComponent.setBackground( new Color(255,100,100) );
+       }       
+@@ -1245,8 +1245,8 @@
+       else
+       {
+         value = "[undefined]";
+-        System.out.println("*** buildJLabellUI: a JLabel model reference points to a not existing address. ");
+-        System.out.println("*** buildJLabellUI: The reference is: " + modelPath );      
++//        System.out.println("*** buildJLabellUI: a JLabel model reference points to a not existing address. ");
++ //       System.out.println("*** buildJLabellUI: The reference is: " + modelPath );      
+       }
+     
+     }
+@@ -1344,13 +1344,14 @@
+         };
+         jTextArea.getDocument().addDocumentListener( docListener );
+         // pass required information to the schema validator:
+-        this.schemaValidator.addEntry( jTextArea,schemaValidationInfoLabel,modelValueNode );         
++        this.schemaValidator.addEntry( jTextArea,schemaValidationInfoLabel,modelValueNode );
++        jTextArea.setLineWrap(true);
+       }
+       else
+       {
+-        String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
+-                     " is not valid. Such an element does not exist in the xml model node.";
+-        System.out.println(msg);
++        //String msg = "*** The [first] reference given by modelPath= " + modelPaths[0] +
++//                     " is not valid. Such an element does not exist in the xml model node.";
++  //      System.out.println(msg);
+         value = "Invalid reference.";
+         jTextArea.setBackground( new Color(255,100,100) );
+       }       
+@@ -1424,7 +1425,7 @@
+     // Add it:
+     if( (useScrollPane != null) && (useScrollPane.equals("true")) )
+     {
+-      System.out.println("JPanel shall lie inside a scrollpane.");	
++      //System.out.println("JPanel shall lie inside a scrollpane.");	
+       this.addComponent( parentPanel,new JScrollPane(jPanel),addParameter,
+       		             alignmentX_Parameter,alignmentY_Parameter );
+     }
+@@ -1482,9 +1483,9 @@
+         }
+         else
+         {
+-          System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontStyle parameter: " + fontStyleParameter);
+-          System.out.println("*** This parameter has been skipped.");        
+-          System.out.println("*** Valid values are: Normal,Bold,Italic and BoldItalic");        
++          //System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontStyle parameter: " + fontStyleParameter);
++//          System.out.println("*** This parameter has been skipped.");        
++//          System.out.println("*** Valid values are: Normal,Bold,Italic and BoldItalic");        
+         }
+       }
+       if( fontSizeParameter != null )
+@@ -1495,8 +1496,8 @@
+         }
+         catch( Exception ee )
+         {
+-          System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontSize parameter: " + fontSizeParameter);
+-          System.out.println("*** This parameter has been skipped.");
++          //System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontSize parameter: " + fontSizeParameter);
++          //System.out.println("*** This parameter has been skipped.");
+         }      
+       }
+       if( fontNameParameter != null )
+@@ -1511,9 +1512,10 @@
+         }
+         else
+         {
+-          System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontName parameter: " + fontNameParameter);
++          /*System.out.println("*** GUIBuilder.setFontAttributesFor(): Invalid FontName parameter: " + fontNameParameter);
+           System.out.println("*** This parameter has been skipped.");
+           System.out.println("***  Valid values are: Dialog,DialogInput,Monospaced,Serif and SansSerif");
++*/
+         }
+       }      
+       // Set this font:
+@@ -1640,9 +1642,9 @@
+         }
+         else
+         {
+-          System.out.println("***");	
+-          System.out.println("*** addComponent: constraint "+ addParameter +" not supported");
+-          System.out.println("***");	
++          //System.out.println("***");	
++//          System.out.println("*** addComponent: constraint "+ addParameter +" not supported");
++  //        System.out.println("***");	
+           parentComponent.add( childComponent );
+         }
+       } // else
+@@ -1686,7 +1688,7 @@
+           }
+           else
+           {
+-            System.out.println("Unsupported FlowLayout parameter: " + layoutParameter );
++            //System.out.println("Unsupported FlowLayout parameter: " + layoutParameter );
+             panel.setLayout( new FlowLayout() );
+           }
+         }
+@@ -1745,12 +1747,12 @@
+ 		}
+       	catch( Exception e )
+ 		{
+-          System.out.println("*** GUIBuilder[1]: Invalid comma separated rgb data for background detected.");
++          //System.out.println("*** GUIBuilder[1]: Invalid comma separated rgb data for background detected.");
+ 		}
+       } else
+       {
+-      	System.out.println("*** GUIBuilder[2]: Invalid comma separated rgb data for background detected:" +
+-      			           numTokens + " number of tokens.");
++      	//System.out.println("*** GUIBuilder[2]: Invalid comma separated rgb data for background detected:" +
++      	//		           numTokens + " number of tokens.");
+       }
+   	  
+   	} // else this parameter has not been set
+@@ -1775,7 +1777,7 @@
+ 		  }
+       	  catch( Exception e)
+ 		  {
+-      	  	System.out.println("*** setGraphicalAttributes: Invalid border size parameters.");
++      	  	//System.out.println("*** setGraphicalAttributes: Invalid border size parameters.");
+ 		  }
+       	}
+         component.setBorder( BorderFactory.createEmptyBorder(vsize,hsize,vsize,hsize) );	
+@@ -1792,7 +1794,7 @@
+       }
+       else
+       {
+-      	System.out.println("*** setGraphicalAttributes: Unknown border type: " + borderTypeParameter );
++      	//System.out.println("*** setGraphicalAttributes: Unknown border type: " + borderTypeParameter );
+       }
+   	}
+   } // setGraphicalAttributes
+Index: src/org/emayor/client/LanguageProperties.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/LanguageProperties.java,v
+retrieving revision 1.2
+diff -u -r1.2 LanguageProperties.java
+--- src/org/emayor/client/LanguageProperties.java	20 Nov 2005 14:24:36 -0000	1.2
++++ src/org/emayor/client/LanguageProperties.java	19 Feb 2006 03:56:59 -0000
+@@ -52,7 +52,7 @@
+                              final URL documentBase,
+                              final String callParameter )
+   { 
+-    System.out.println("LanguageProperties: downloading language property file...");
++    //System.out.println("LanguageProperties: downloading language property file...");
+   	// Read and set the member properties attribute:
+     try
+ 	{
+@@ -62,9 +62,9 @@
+ 	{
+       // Nevermind .. although this will force the engine to just output the
+       // keys instead of their values.
+-	  System.out.println("*** LanguageProperties: No property file has been found at all.");
+-	  System.out.println("*** LanguageProperties: You just will see the text keys in place of their values therefore.");
+-	  System.out.println("*** LanguageProperties: At least the default properties eMayorForms.properties file IS REQUIRED.");
++	  //System.out.println("*** LanguageProperties: No property file has been found at all.");
++	  //System.out.println("*** LanguageProperties: You just will see the text keys in place of their values therefore.");
++	  //System.out.println("*** LanguageProperties: At least the default properties eMayorForms.properties file IS REQUIRED.");
+ 	}
+   
+   } // Constructor
+@@ -93,7 +93,7 @@
+     // the correct property file:
+     URL documentURL = new URL( documentBase ,callParameter );
+     
+-    System.out.println("Calling documentURL: " + documentURL.toExternalForm() );
++    //System.out.println("Calling documentURL: " + documentURL.toExternalForm() );
+     
+     InputStream documentInputStream = documentURL.openStream();    
+     this.properties.load(documentInputStream);
+@@ -103,7 +103,7 @@
+     // this.properties.list( System.out );
+     
+     translateUnicodeShortcutsIn(this.properties);
+-    System.out.println(">>Download has been successful. Language properties are set.");
++    //System.out.println(">>Download has been successful. Language properties are set.");
+   } // readLanguagePropertiesFromHost
+   
+   
+Index: src/org/emayor/client/SandboxCompliantDiskManger.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/SandboxCompliantDiskManger.java,v
+retrieving revision 1.1
+diff -u -r1.1 SandboxCompliantDiskManger.java
+--- src/org/emayor/client/SandboxCompliantDiskManger.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/SandboxCompliantDiskManger.java	19 Feb 2006 03:56:59 -0000
+@@ -52,13 +52,13 @@
+                             "ServiceRequest.eMayorForm" );
+       if( fileContents != null )
+       {
+-        System.out.println("file was saved to: " + fileContents.getName() );
+-        System.out.println("saved data was:");
+-        System.out.println(stringData);
++        //System.out.println("file was saved to: " + fileContents.getName() );
++        //System.out.println("saved data was:");
++        //System.out.println(stringData);
+       }
+       else
+       {
+-        System.out.println("file was NOT saved.");   
++        //System.out.println("file was NOT saved.");   
+       }
+     } 
+     catch( Exception e ) 
+@@ -93,12 +93,12 @@
+          }
+         bufIn.close();
+         result = byteArrayBuffer.toString("UTF-8");
+-        System.out.println("file has been read. returning:");
+-        System.out.println(result);
++        //System.out.println("file has been read. returning:");
++        //System.out.println(result);
+       }
+       else
+       {
+-        System.out.println("file has NOT been read.");
++        //System.out.println("file has NOT been read.");
+      }
+     } 
+     catch( Exception e ) 
+Index: src/org/emayor/client/Utilities/DataUtilities.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/Utilities/DataUtilities.java,v
+retrieving revision 1.3
+diff -u -r1.3 DataUtilities.java
+--- src/org/emayor/client/Utilities/DataUtilities.java	13 Dec 2005 06:58:43 -0000	1.3
++++ src/org/emayor/client/Utilities/DataUtilities.java	19 Feb 2006 03:56:59 -0000
+@@ -168,7 +168,7 @@
+                                        final String fileName )
+   {
+     String documentFilePath = System.getProperty("user.home") + "/" + fileName;
+-    System.out.println("Write document: " + documentFilePath );
++    //System.out.println("Write document: " + documentFilePath );
+     try
+     {
+       File docFile = new File(documentFilePath);
+@@ -176,26 +176,26 @@
+       fOut.write( document.getBytes("UTF-8") );
+       fOut.close();
+       docFile = null;
+-      System.out.println("document has been written successfully.");
++      //System.out.println("document has been written successfully.");
+     }
+     catch( Exception e )
+     {
+-      System.out.println("*** document couldn't be written. Exception:");
++      //System.out.println("*** document couldn't be written. Exception:");
+       e.printStackTrace();
+     }
+     
+     try
+     {
+       byte[] md5 = DataUtilities.GetMessageDigestForFile(documentFilePath);
+-      System.out.println("MD5 hash for file is: ");
++      //System.out.println("MD5 hash for file is: ");
+       for( int i=0; i < md5.length; i++ )
+       {
+-        System.out.print( md5[i] );
++        //System.out.print( md5[i] );
+       }
+     }
+     catch( Exception e )
+     {
+-      System.out.println("*** Unable to write md5 hash for the cod file.");
++      //System.out.println("*** Unable to write md5 hash for the cod file.");
+       e.printStackTrace();
+     }     
+   }
+@@ -205,7 +205,7 @@
+  public void writeUTF8File( String documentFilePath,
+                             String document )
+  {
+-    System.out.println("Write UTF-8 document to: " + documentFilePath );
++    //System.out.println("Write UTF-8 document to: " + documentFilePath );
+     try
+     {
+       File docFile = new File(documentFilePath);
+@@ -213,7 +213,7 @@
+       fOut.write( document.getBytes("UTF-8") );
+       fOut.close();
+       docFile = null;
+-      System.out.println("document has been written successfully.");
++      //System.out.println("document has been written successfully.");
+     }
+     catch( Exception e )
+     {
+Index: src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMap.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMap.java,v
+retrieving revision 1.1
+diff -u -r1.1 SchemaEnumerationMap.java
+--- src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMap.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMap.java	19 Feb 2006 03:56:59 -0000
+@@ -35,11 +35,11 @@
+ 
+   public void printMap()
+   {           
+-    System.out.println(" ");
++    /*System.out.println(" ");
+     System.out.println(" ");
+     System.out.println("Content of the SchemaEnumerationMap:");
+     System.out.println(" ");
+-
++      */
+     Enumeration keys = map.keys();
+     while( keys.hasMoreElements() )
+     {
+@@ -47,12 +47,12 @@
+        SchemaEnumerationMapValue value = (SchemaEnumerationMapValue)this.map.get(key);
+        int numberOfValues = value.getEnumerationValues().length;
+        String[] enumerationValues = value.getEnumerationValues();
+-       System.out.println("Key= " + key + " has " + numberOfValues + " values: ");
++       /*System.out.println("Key= " + key + " has " + numberOfValues + " values: ");
+        for( int i=0; i < numberOfValues; i++ )
+        {
+          System.out.println( "     " + enumerationValues[i]);
+        }
+-       System.out.println(" ");                 
++       System.out.println(" ");                 */
+     }
+   }
+   
+Index: src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMapCreator.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMapCreator.java,v
+retrieving revision 1.2
+diff -u -r1.2 SchemaEnumerationMapCreator.java
+--- src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMapCreator.java	30 Nov 2005 10:13:36 -0000	1.2
++++ src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationMapCreator.java	19 Feb 2006 03:56:59 -0000
+@@ -71,7 +71,7 @@
+   public SchemaEnumerationMap createSchemaEnumerationMap( final XML_Node modelNode,
+                                                           final EMayorDocumentParser eMayorDocumentParser )
+   {
+-    System.out.println("SchemaEnumerationMapCreator.createSchemaEnumerationMap() starts.");
++    //System.out.println("SchemaEnumerationMapCreator.createSchemaEnumerationMap() starts.");
+     
+     this.simpleTypeTable.clear();
+     
+@@ -79,7 +79,7 @@
+     // from this method:
+     SchemaEnumerationMap schemaEnumerationMap = new SchemaEnumerationMap();
+    
+-    System.out.println("SchemaEnumerationMapCreator.createSchemaEnumerationMap() starts.");
++    //System.out.println("SchemaEnumerationMapCreator.createSchemaEnumerationMap() starts.");
+     // Get the model as string document [Note that this method is synchronized - no probs with EDT]
+     XML_Node eDocumentNode = modelNode.getChildAt(0);
+     final StringBuffer eDocument = eMayorDocumentParser.translateXMLTree( eDocumentNode,true );
+@@ -147,7 +147,7 @@
+       System.out.println(" ");     
+     }
+    
+-    System.out.println("SchemaEnumerationMapCreator.createSchemaEnumerationMap() ends.");
++    //System.out.println("SchemaEnumerationMapCreator.createSchemaEnumerationMap() ends.");
+         
+     return schemaEnumerationMap;
+   } // createSchemaEnumerationMap
+Index: src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationOutputHandler.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationOutputHandler.java,v
+retrieving revision 1.2
+diff -u -r1.2 SchemaEnumerationOutputHandler.java
+--- src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationOutputHandler.java	30 Nov 2005 10:13:36 -0000	1.2
++++ src/org/emayor/client/Utilities/SchemaEnumeration/SchemaEnumerationOutputHandler.java	19 Feb 2006 03:56:59 -0000
+@@ -66,9 +66,9 @@
+     // Save this to resolve relative URIs or to give diagnostics.
+     try 
+     {
+-      System.out.print("LOCATOR");
++      /*System.out.print("LOCATOR");
+       System.out.print("\n SYS ID: " + l.getSystemId());
+-      System.out.flush();
++      System.out.flush();*/
+     } 
+     catch( Exception e ) 
+     {
+@@ -169,12 +169,13 @@
+     }
+     else
+     {   
+-      System.out.println("***");
++      /*System.out.println("***");
+       System.out.println("***  SchemaEnumerationOutputHandler: xPathTracker error:");
+       System.out.println("***  The validated xml content has syntactical errors.");
+       System.out.println("***  Validation fails therefore.");
+       System.out.println("***  Referencing following entries is not possible.");
+       System.out.println("***  [startElement]");
++*/
+     }  
+   } // startElement
+                       
+@@ -191,7 +192,7 @@
+     if( schemaElement != null )
+     {
+       startNewLine();
+-      System.out.print("[Enumerations: ");
++      //System.out.print("[Enumerations: ");
+       XSTypeDefinition typedef = schemaElement.getTypeDefinition();
+       if( typedef != null )
+       {
+@@ -200,7 +201,7 @@
+           this.processPSVIFacets( (XSSimpleTypeDefinition)typedef );
+         }
+       }
+-      System.out.println(" ]");
++      //System.out.println(" ]");
+     }
+   }
+ 
+@@ -287,20 +288,20 @@
+      if( schemaElement != null )
+      {
+        startNewLine();
+-       System.out.print("[Simple type: ");
++       //System.out.print("[Simple type: ");
+        XSTypeDefinition typedef = schemaElement.getTypeDefinition();
+        if( typedef != null )
+        {
+          if (typedef.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE) 
+          {
+-            System.out.print( typedef.getName() );
++         //   System.out.print( typedef.getName() );
+             
+             String currentXPath = this.getCurrentXPathTrackerContentForModel();
+             this.schemaEnumerationMapCreator.addSimpleTypeEntry( currentXPath,
+                                                                  typedef.getName() );
+          }
+        }
+-       System.out.println(" ]");
++//       System.out.println(" ]");
+      }
+    }
+    
+@@ -329,12 +330,12 @@
+     }
+     else
+     {   
+-      System.out.println("***");
++     /* System.out.println("***");
+       System.out.println("***  SchemaEnumerationOutputHandler: xPathTracker error:");
+       System.out.println("***  The validated xml content has syntactical errors.");
+       System.out.println("***  Validation fails therefore.");
+       System.out.println("***  Referencing following entries is not possible.");
+-      System.out.println("***");
++      System.out.println("***");*/
+     }
+     indentLevel--;
+   }
+@@ -443,12 +444,12 @@
+     /* this is debug action */
+     try
+     {
+-      System.out.print(" name=");
++      /*System.out.print(" name=");
+       System.out.print(name);
+       System.out.print(" value="); 
+       System.out.print(value);
+       System.out.print(" ");
+-      System.out.flush();
++      System.out.flush();*/
+     }
+     catch( Exception e )
+     {
+@@ -468,8 +469,8 @@
+     /* this is debug action */
+     try
+     {
+-      System.out.print(s);
+-      System.out.flush();
++      //System.out.print(s);
++      //System.out.flush();
+     }
+     catch( Exception e )
+     {
+@@ -487,9 +488,10 @@
+     /* this is debug action */
+     try
+     {
+-      String lineEnd = System.getProperty("line.separator");
++      /*String lineEnd = System.getProperty("line.separator");
+       System.out.print(lineEnd);
+       for( int i = 0; i < indentLevel; i++ ) System.out.print(indentString);
++*/
+     }
+     catch( Exception e )
+     {
+@@ -604,9 +606,9 @@
+     */
+    public void notationDecl( String name, String publicId, String systemId) throws SAXException
+    {
+-      System.out.println("[NotationDeclaration: name= " + name +
+-                         "   publicId= " + publicId +
+-                         "   sytemId= " + systemId + " ]");
++      //System.out.println("[NotationDeclaration: name= " + name +
++        //                 "   publicId= " + publicId +
++          //               "   sytemId= " + systemId + " ]");
+    }
+   
+   
+@@ -627,7 +629,7 @@
+     */
+    public void skippedEntity (String name) throws SAXException
+    {
+-    System.out.println("[ skippedEntity: name= " + name + "  ]");
++    //System.out.println("[ skippedEntity: name= " + name + "  ]");
+    }
+   
+    
+@@ -650,10 +652,10 @@
+    public void unparsedEntityDecl (String name, String publicId,
+     String systemId, String notationName) throws SAXException
+    {
+-    System.out.println("[ unparsedEntityDecl: name= " + name + 
+-                       "  publicId= " + publicId +
+-                       "  systemId= " + systemId +
+-                       "  notationName= " + notationName + "  ]");
++    //System.out.println("[ unparsedEntityDecl: name= " + name + 
++      //                 "  publicId= " + publicId +
++        //               "  systemId= " + systemId +
++          //             "  notationName= " + notationName + "  ]");
+    }
+   
+     
+Index: src/org/emayor/client/Utilities/gui/EditableDateTypeInputComponent.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/Utilities/gui/EditableDateTypeInputComponent.java,v
+retrieving revision 1.1
+diff -u -r1.1 EditableDateTypeInputComponent.java
+--- src/org/emayor/client/Utilities/gui/EditableDateTypeInputComponent.java	30 Nov 2005 10:13:36 -0000	1.1
++++ src/org/emayor/client/Utilities/gui/EditableDateTypeInputComponent.java	19 Feb 2006 03:56:59 -0000
+@@ -115,13 +115,13 @@
+       catch( Exception eee )
+       {
+         // Structure is not correct -> put all in the first field:
+-        System.out.println("***");
++        /*System.out.println("***");
+         System.out.println("*** EditableDateTypeInputcomponent:");
+         System.out.println("***");
+         System.out.println("*** Invalid initial date value:");
+         System.out.println("*** date= " + newText);
+         System.out.println("*** hs not the form YYYY-MM-DD");
+-        System.out.println("***");
++        System.out.println("***");*/
+         this.day.setText( newText );
+       }
+     }
+Index: src/org/emayor/client/Utilities/gui/JHTMLEditorPane.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/Utilities/gui/JHTMLEditorPane.java,v
+retrieving revision 1.1
+diff -u -r1.1 JHTMLEditorPane.java
+--- src/org/emayor/client/Utilities/gui/JHTMLEditorPane.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/Utilities/gui/JHTMLEditorPane.java	19 Feb 2006 03:56:59 -0000
+@@ -122,14 +122,14 @@
+  	       }
+          catch (BadLocationException ble)
+           {
+-           System.out.println("scrollToReference: BadLocationException catched.");
++           //System.out.println("scrollToReference: BadLocationException catched.");
+            getToolkit().beep();
+ 		       }
+ 		     } // if
+ 	     } // for
+ 	   } else
+     {
+-      System.out.println("scrollToReference error : doc wasnt html");
++      //System.out.println("scrollToReference error : doc wasnt html");
+     }
+   } // scrollToReference
+ 
+@@ -208,7 +208,7 @@
+ 
+                thisEditorPane.setPage(pageAddress);
+                scrollRectToVisible(new Rectangle(1,1));
+-               System.out.println("Hyperlink Listener: Set page to: " + pageAddress );
++               //System.out.println("Hyperlink Listener: Set page to: " + pageAddress );
+              }
+           }
+          catch( Throwable t )
+Index: src/org/emayor/client/Utilities/gui/ReadonlyDateTypeComponent.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/Utilities/gui/ReadonlyDateTypeComponent.java,v
+retrieving revision 1.1
+diff -u -r1.1 ReadonlyDateTypeComponent.java
+--- src/org/emayor/client/Utilities/gui/ReadonlyDateTypeComponent.java	30 Nov 2005 10:13:36 -0000	1.1
++++ src/org/emayor/client/Utilities/gui/ReadonlyDateTypeComponent.java	19 Feb 2006 03:56:59 -0000
+@@ -63,13 +63,13 @@
+     catch( Exception eee )
+     {
+       // Structure is not correct -> put all in the first field:
+-      System.out.println("***");
++      /*System.out.println("***");
+       System.out.println("*** EditableDateTypeInputcomponent:");
+       System.out.println("***");
+       System.out.println("*** Invalid initial date value:");
+       System.out.println("*** date= " + newText);
+       System.out.println("*** has not the form YYYY-MM-DD");
+-      System.out.println("***");
++      System.out.println("***");*/
+       super.setText( newText );
+     }
+   } // setText
+Index: src/org/emayor/client/controlers/SchemaValidator.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/SchemaValidator.java,v
+retrieving revision 1.3
+diff -u -r1.3 SchemaValidator.java
+--- src/org/emayor/client/controlers/SchemaValidator.java	30 Nov 2005 10:13:36 -0000	1.3
++++ src/org/emayor/client/controlers/SchemaValidator.java	19 Feb 2006 03:56:59 -0000
+@@ -71,7 +71,7 @@
+   
+   public void run()
+   {
+-    System.out.println("SchemaValidator: Thread has started.");        
++    //System.out.println("SchemaValidator: Thread has started.");        
+     while( !this.doTerminate )
+     {
+       try
+@@ -91,14 +91,14 @@
+       }
+       catch( Exception ex )
+       {
+-        System.out.println("SchemaValidator: Catched exception: " + ex.getMessage() );
++        //System.out.println("SchemaValidator: Catched exception: " + ex.getMessage() );
+       }
+       catch( Error er )
+       {
+         System.out.println("SchemaValidator: Catched error: " + er.getMessage() );
+       }   
+     } // while loop
+-    System.out.println("SchemaValidator: Thread has ended.");
++    //System.out.println("SchemaValidator: Thread has ended.");
+   } // run
+  
+   
+@@ -134,7 +134,7 @@
+   */
+   private void doValidate()
+   {
+-    System.out.println("SchemaValidator.doValidate() starts.");
++    //System.out.println("SchemaValidator.doValidate() starts.");
+     // Get the model as string document [Note that this method is synchronized - no probs with EDT]
+     XML_Node eDocumentNode = this.modelNode.getChildAt(0);
+     final StringBuffer eDocument = this.eMayorDocumentParser.translateXMLTree( eDocumentNode,true );
+@@ -193,7 +193,7 @@
+       System.out.println(" ");     
+     }
+    
+-    System.out.println("SchemaValidator.doValidate() ends.");
++    //System.out.println("SchemaValidator.doValidate() ends.");
+   } // doValidate
+   
+ 
+Index: src/org/emayor/client/controlers/XMLSignatureSubmitter.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/XMLSignatureSubmitter.java,v
+retrieving revision 1.2
+diff -u -r1.2 XMLSignatureSubmitter.java
+--- src/org/emayor/client/controlers/XMLSignatureSubmitter.java	13 Dec 2005 06:58:43 -0000	1.2
++++ src/org/emayor/client/controlers/XMLSignatureSubmitter.java	19 Feb 2006 03:56:59 -0000
+@@ -96,7 +96,7 @@
+      // must exist in any case:
+      if( this.modelNode.getNumberOfChildren() > 0 ) // actually it must be exactly 1
+      {
+-       System.out.println("-----------Replacing the local schema location with the original one--------");
++       //System.out.println("-----------Replacing the local schema location with the original one--------");
+        // reinsert the original schema location to the e-document:
+        this.mainApplet.getDocumentProcessor().setLocalSchemaLocation(false);
+ 
+@@ -122,7 +122,7 @@
+    
+    private void signAndSubmit( final String eDocument )
+    {   
+-     System.out.println("XMLSignatureSubmitter.signAndSubmit() starts...");
++     //System.out.println("XMLSignatureSubmitter.signAndSubmit() starts...");
+      
+      // Debug file write:
+      // DataUtilities.DebugFileWriteTo(eDocument,"applet_document_before_signing.xml");
+@@ -158,9 +158,9 @@
+ 	 }
+      catch( SignerException se )
+ 	 {
+- 	    final String message = "Problem with the xml signer: " + se.getMessage() +
+-                               "\nDo you want to send it without signature ?";
+-  	    System.out.println("*** " + message);
++ 	   final String message = "Problem with the xml signer: " + se.getMessage() +
++                        "\nDo you want to send it without signature ?";
++  	    //System.out.println("*** " + message);
+      	se.printStackTrace();
+       	EventQueue.invokeLater( new Runnable()
+       	{
+@@ -180,8 +180,8 @@
+      	// Security priviledge violation - the applet has not the required rights
+      	// Should never occure, except in development
+  	    final String message = "The applet has not the required rights for connecting with a smartcard reader." +
+-                               "\nDo you want to send it without signature ?";;
+-  	    System.out.println("*** " + message);
++                         "\nDo you want to send it without signature ?";;
++//  	    System.out.println("*** " + message);
+      	aex.printStackTrace();
+       	EventQueue.invokeLater( new Runnable()
+       	{
+@@ -199,12 +199,12 @@
+      catch( java.lang.UnsatisfiedLinkError linkErr )
+ 	 {
+         // no pkcs11wrapper in java.library.path - cardreader software not installed.
+- 	    final String message = "The applet could not connect to a smartcard reader software."+ 
++ 	   final String message = "The applet could not connect to a smartcard reader software."+ 
+                                "\nPlease install the smart card reader first." + 
+                                "\nThis is required for posting data to the server." +
+                                "\n(pkcs11wrapper.dll not found)" +
+                                "\nDo you want to send it without signature ?";;
+-  	    System.out.println("*** " + message);
++  	    //System.out.println("*** " + message);
+   	  linkErr.printStackTrace();
+       	EventQueue.invokeLater( new Runnable()
+       	{
+@@ -223,7 +223,7 @@
+      {
+      	// shouldn't occure
+ 	    final String message = "An exception has occured. The data coudln't be sent to the server.";
+-  	    System.out.println("*** " + message);
++//  	    System.out.println("*** " + message);
+      	ex.printStackTrace();
+       	EventQueue.invokeLater( new Runnable()
+      	{
+@@ -237,7 +237,7 @@
+      {
+      	// shouldn't occure
+  	    final String message = "An error has occured. The data coudln't be sent to the server.";
+-        System.out.println("*** " + message);
++  //      System.out.println("*** " + message);
+      	err.printStackTrace();
+      	EventQueue.invokeLater( new Runnable()
+      	{
+Index: src/org/emayor/client/controlers/printing/Print2DGraphicsDocument.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/printing/Print2DGraphicsDocument.java,v
+retrieving revision 1.1
+diff -u -r1.1 Print2DGraphicsDocument.java
+--- src/org/emayor/client/controlers/printing/Print2DGraphicsDocument.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/controlers/printing/Print2DGraphicsDocument.java	19 Feb 2006 03:56:59 -0000
+@@ -63,7 +63,7 @@
+     if( EventQueue.isDispatchThread() )
+      {
+        String msg = "Print2DGraphicsDoc.printTheDocument: Develop error: Must be called in a user thread. Returning...";
+-       System.out.println(msg);
++       //System.out.println(msg);
+        JOptionPane.showMessageDialog(this.parentDialog,msg);
+      }
+ 
+@@ -99,7 +99,7 @@
+            });
+           try{ Thread.sleep(88); } catch( Exception e ){}
+ 
+-          System.out.println("The currently selected printer is: " + selectedService.getName());
++          //System.out.println("The currently selected printer is: " + selectedService.getName());
+           // Create a print job for the chosen service:
+           DocPrintJob docPrintJob = selectedService.createPrintJob();
+           docPrintJob.addPrintJobListener( this );       
+@@ -120,7 +120,7 @@
+           catch( PrintException printException )
+            {
+              String msg = "Print error. Returning...";
+-             System.out.println(msg);
++             //System.out.println(msg);
+              JOptionPane.showMessageDialog(this.parentDialog,msg);
+              printException.printStackTrace();
+            }
+@@ -167,7 +167,7 @@
+            ( eventReason != PrintJobEvent.NO_MORE_EVENTS          )    )
+         {
+           String msg = "PrinterJob sends event with reason: " + reasonString;
+-          System.out.println(msg);
++          //System.out.println(msg);
+           JOptionPane.showMessageDialog(this.parentDialog,msg);
+         }
+        canTerminate = ( eventReason == PrintJobEvent.NO_MORE_EVENTS );
+Index: src/org/emayor/client/controlers/printing/Print2DGraphicsPanel.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/printing/Print2DGraphicsPanel.java,v
+retrieving revision 1.1
+diff -u -r1.1 Print2DGraphicsPanel.java
+--- src/org/emayor/client/controlers/printing/Print2DGraphicsPanel.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/controlers/printing/Print2DGraphicsPanel.java	19 Feb 2006 03:56:59 -0000
+@@ -63,7 +63,7 @@
+     if( EventQueue.isDispatchThread() )
+      {
+        String msg = "Print2DGraphicsDoc.printTheDocument: Develop error: Must be called in a user thread. Returning...";
+-       System.out.println(msg);
++       //System.out.println(msg);
+        JOptionPane.showMessageDialog(this.parentFrame,msg);
+      }
+ 
+@@ -85,7 +85,7 @@
+                                                              attributes );
+        if( selectedService != null )
+         {
+-          System.out.println("The currently selected printer is: " + selectedService.getName());
++          //System.out.println("The currently selected printer is: " + selectedService.getName());
+           // Create a print job for the chosen service:
+           DocPrintJob docPrintJob = selectedService.createPrintJob();
+           docPrintJob.addPrintJobListener( this );       
+@@ -106,7 +106,7 @@
+           catch( PrintException printException )
+            {
+              String msg = "Print error. Returning...";
+-             System.out.println(msg);
++             //System.out.println(msg);
+              JOptionPane.showMessageDialog(this.parentFrame,msg);
+              printException.printStackTrace();
+            }
+@@ -151,7 +151,7 @@
+            ( eventReason != PrintJobEvent.NO_MORE_EVENTS          )    )
+         {
+           String msg = "PrinterJob sends event with reason: " + reasonString;
+-          System.out.println(msg);
++          //System.out.println(msg);
+           JOptionPane.showMessageDialog(this.parentFrame,msg);
+         }
+        canTerminate = ( eventReason == PrintJobEvent.NO_MORE_EVENTS );
+Index: src/org/emayor/client/controlers/printing/PrintableJPanel.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/printing/PrintableJPanel.java,v
+retrieving revision 1.1
+diff -u -r1.1 PrintableJPanel.java
+--- src/org/emayor/client/controlers/printing/PrintableJPanel.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/controlers/printing/PrintableJPanel.java	19 Feb 2006 03:56:59 -0000
+@@ -49,7 +49,7 @@
+         {
+           g2d.scale(minScale,minScale);
+         }    
+-        System.out.println("ScaleFactor= " + minScale + " (only scaled, when < 1)");
++        //System.out.println("ScaleFactor= " + minScale + " (only scaled, when < 1)");
+         this.disableDoubleBuffering(this);
+         this.paint(g2d);
+         this.enableDoubleBuffering(this);
+Index: src/org/emayor/client/controlers/printing/XMLDocumentPrinterDialog.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/printing/XMLDocumentPrinterDialog.java,v
+retrieving revision 1.2
+diff -u -r1.2 XMLDocumentPrinterDialog.java
+--- src/org/emayor/client/controlers/printing/XMLDocumentPrinterDialog.java	6 Dec 2005 06:31:22 -0000	1.2
++++ src/org/emayor/client/controlers/printing/XMLDocumentPrinterDialog.java	19 Feb 2006 03:56:59 -0000
+@@ -45,6 +45,7 @@
+ 
+   
+   private JScrollPane documentScrollPane;
++  private JScrollPane documentScrollPane1;
+   private PrintableTextArea documentTextArea;
+   private JSenseButton printButton;
+   
+@@ -69,6 +70,8 @@
+     JPanel mainPanel = new JPanel( new BorderLayout(fontSize/2,fontSize/2) );
+     mainPanel.setBorder( BorderFactory.createEmptyBorder(fontSize/2,fontSize/2,fontSize/2,fontSize/2) );
+     
++   
++    
+     // Create a readonly editorpane and put it inside a scrollpane:
+     int numberOfColumns = 80; // 80 columns max per line
+     this.documentTextArea = 
+@@ -79,6 +82,7 @@
+     this.documentTextArea.setEditable(false);    
+     this.documentScrollPane = new JScrollPane(this.documentTextArea);
+     // add it:
++    
+     mainPanel.add( this.documentScrollPane, BorderLayout.CENTER );
+ 
+     // The buttons:
+@@ -119,11 +123,16 @@
+     // Use a wrap panel on the north, so that content
+     // is not stretched over the whole frame, is its
+     // smaller than the frame:
+-    JPanel wrapPanel = new JPanel( new BorderLayout(0,0) );
++    /*JPanel wrapPanel = new JPanel( new BorderLayout(0,0) );
+     wrapPanel.add( mainPanel, BorderLayout.CENTER  );
+     wrapPanel.add( southPanel, BorderLayout.SOUTH );    
+     this.getContentPane().add( wrapPanel, BorderLayout.NORTH  );
+-
++    */
++     
++    // Added by STC
++    this.getContentPane().add( mainPanel, BorderLayout.CENTER  );
++    this.getContentPane().add( southPanel, BorderLayout.SOUTH );   
++    
+     GraphicsEnvironment localEnvirnonment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+     Rectangle usableRect = localEnvirnonment.getMaximumWindowBounds();        
+     int pHeight = (3*usableRect.height)/4;
+@@ -137,6 +146,7 @@
+         
+     this.setLocation(hOffset,vOffset);
+     this.setSize(pWidth,pHeight);
++    
+         
+   } // constructor
+ 
+Index: src/org/emayor/client/controlers/xmlsigner/PKCS11Signer.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/xmlsigner/PKCS11Signer.java,v
+retrieving revision 1.1
+diff -u -r1.1 PKCS11Signer.java
+--- src/org/emayor/client/controlers/xmlsigner/PKCS11Signer.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/controlers/xmlsigner/PKCS11Signer.java	19 Feb 2006 03:56:59 -0000
+@@ -84,11 +84,11 @@
+ 	                // Found a signing key, we're ready!
+ 	                p11PrivateSigningKey = (RSAPrivateKey) foundObjects[0];
+ 	                
+-	                System.out.println("Found a suitable signing key on the token with the following label: ");
++	                //System.out.println("Found a suitable signing key on the token with the following label: ");
+ 	                
+ 	                TokenInfo tokenInfo = p11Token.getTokenInfo();
+ 	                
+-	                System.out.println("\"" + tokenInfo.getLabel() + "\"");
++	                //System.out.println("\"" + tokenInfo.getLabel() + "\"");
+ 	                
+ 	                return;
+ 	            }
+@@ -191,11 +191,11 @@
+ 	                // Found a signing key, we're ready!
+ 	                p11PrivateSigningKey = (RSAPrivateKey) foundObjects[0];
+ 	                
+-	                System.out.println("Found a specific signing key based on the search criteria on the token with the following label:");
++	                //System.out.println("Found a specific signing key based on the search criteria on the token with the following label:");
+ 	                
+ 	                TokenInfo tokenInfo = p11Token.getTokenInfo();
+ 	                
+-	                System.out.println("\"" + tokenInfo.getLabel() + "\"");
++	                //System.out.println("\"" + tokenInfo.getLabel() + "\"");
+ 	                
+ 	                // Store the signing certificate
+ 	                signingCertificate = 
+Index: src/org/emayor/client/controlers/xmlsigner/XMLSigner.java
+===================================================================
+RCS file: src/org/emayor/client/controlers/xmlsigner/XMLSigner.java
+diff -N src/org/emayor/client/controlers/xmlsigner/XMLSigner.java
+--- src/org/emayor/client/controlers/xmlsigner/XMLSigner.java	16 Nov 2005 10:51:00 -0000	1.1
++++ /dev/null	1 Jan 1970 00:00:00 -0000
+@@ -1,488 +0,0 @@
+-//==============================================================================
+-// Copyright (C) 2005 Advanced Encryption Technology Europe B.V.
+-// Copyright (C) 2005 eMayor Consortium (http://www.emayor.org)
+-// All rights are reserved. Reproduction in whole or in part is prohibited
+-// without the written consent of the copyright owner.
+-//
+-// Package: org.emayor.xmlsigner
+-// Class:   XMLSigner
+-// Version: $Id: XMLSigner.java,v 1.1 2005/11/16 10:51:00 emayor Exp $
+-// Product: Java XML signing applet
+-//
+-// Description:
+-//		Main applet class for the XML signing applet
+-//==============================================================================
+-
+-package org.emayor.client.controlers.xmlsigner;
+-
+-import iaik.pkcs.pkcs11.provider.IAIKPkcs11;
+-
+-import java.applet.*;
+-import java.awt.*;
+-import java.awt.event.*;
+-import java.io.ByteArrayInputStream;
+-import java.io.ByteArrayOutputStream;
+-import java.io.InputStream;
+-import java.security.Key;
+-import java.security.KeyStore;
+-import java.security.PrivateKey;
+-import java.security.Provider;
+-import java.security.Security;
+-import java.security.cert.Certificate;
+-import java.security.cert.X509Certificate;
+-import java.util.*;
+-
+-import org.apache.xml.security.algorithms.JCEMapper;
+-import org.apache.xml.security.signature.XMLSignature;
+-import org.apache.xml.security.transforms.Transforms;
+-import org.apache.xml.security.utils.Constants;
+-import org.apache.xml.security.utils.XMLUtils;
+-import org.w3c.dom.Element;
+-
+-
+-
+-public class XMLSigner extends Applet implements ActionListener
+-{
+-    //==========================================================================
+-    // Member variables
+-    //==========================================================================
+-    
+-    private TextArea			theDocument			= null;
+-    
+-    private Button				signButton			= null;
+-    
+-    private FormReader			inputFormReader		= null;
+-    
+-    private FormWriter			outputFormWriter	= null;
+-    
+-    private Signer				signer				= null;
+-    
+-    private byte[]				certIssuer			= null;
+-    
+-    private boolean				submitAfterSign		= false;
+-    
+-    
+-       
+-    /**
+-     * The PKCS#11 JCE provider.
+-     */
+-    private IAIKPkcs11 			iaikPkcs11Provider_	= null;
+-
+-	private PrivateKey 			signatureKey_		= null;
+-	private X509Certificate 	signerCertificate	= null;
+-
+-    //==========================================================================
+-    // Methods
+-    //==========================================================================
+-    
+-    public void initCryptoProviders()
+-    {
+-    	System.out.println("initializing: initCryptoProviders()");
+-    	try {
+-      		if ((iaikPkcs11Provider_ = IAIKPkcs11.getProviderInstance(1)) == null) {
+-    	  		Properties pkcs11ProviderConfig = new Properties();
+-        		InputStream configStream = 
+-        			getClass().getClassLoader().getResourceAsStream("iaik/pkcs/pkcs11/provider/IAIKPkcs11.properties");
+-        		pkcs11ProviderConfig.load(configStream);
+-        		iaikPkcs11Provider_ = new IAIKPkcs11(pkcs11ProviderConfig);
+-      		}
+-      		if (Security.getProvider(iaikPkcs11Provider_.getName()) == null) {
+-    	  		Security.addProvider(iaikPkcs11Provider_);
+-      		}
+-    	} catch (Throwable ex) {
+-    		ex.printStackTrace();
+-    	}
+-    	System.err.flush();
+-    
+-    	System.out.println("Registered providers are:");
+-    	Provider[] providers = Security.getProviders();
+-    	for (int i = 0; i < providers.length; i++) {
+-    		System.out.println("at position " + i + ": " + providers[i]);
+-    	}
+-    
+-    	System.out.println("...finished initializing");
+-    	System.out.flush();
+-	}
+-
+-    //==========================================================================
+-    // Called when initialising the applet
+-    //==========================================================================
+-    
+-    
+-    public void init()
+-    {
+-        // Retrieve the text field size from the applet 
+-        // parameters
+-        int textRows = 10;
+-        int textColumns = 80;
+-        
+-        String rows = getParameter("rows");
+-        String cols = getParameter("cols");
+-        
+-        if (rows != null)
+-        {
+-            textRows = Integer.valueOf(rows).intValue();
+-        }
+-        if (cols != null)
+-        {
+-            textColumns = Integer.valueOf(cols).intValue();
+-        }
+-        
+-        // Instantiate the member components
+-        theDocument = new TextArea(textRows, textColumns);
+-        theDocument.setEditable(false);
+-        
+-        signButton = new Button("Sign");
+-        
+-        signButton.setEnabled(true);
+-        
+-        // Register events
+-        signButton.addActionListener(this);
+-        
+-        // Lay-out
+-        GridBagLayout gblApplet = new GridBagLayout();
+-        
+-        GridBagConstraints gbcApplet = new GridBagConstraints();
+-        gbcApplet.insets = new Insets(5, 5, 5, 5);
+-        gbcApplet.gridx = 0;
+-        gbcApplet.gridy = 0;
+-        gbcApplet.gridheight = 2;
+-        gbcApplet.gridwidth = 2;
+-        gblApplet.addLayoutComponent(theDocument, gbcApplet);
+-        
+-        gbcApplet.gridheight = 1;
+-        gbcApplet.gridwidth = 1;
+-        gbcApplet.gridx = 1;
+-        gbcApplet.gridy = 2;
+-        gbcApplet.anchor = GridBagConstraints.EAST;
+-        gblApplet.addLayoutComponent(signButton, gbcApplet);
+-        
+-        this.setLayout(gblApplet);
+-        
+-        this.add(theDocument);
+-        this.add(signButton);
+-        
+-        this.validate();
+-        
+-        // Read the data from the input form
+-        String inputFormName = getParameter("inForm");
+-        String inputFormField = getParameter("inField");
+-        
+-        if ((inputFormName == null) || (inputFormField == null))
+-        {
+-            throw new RuntimeException
+-            (
+-                "Invalid applet parameters - inForm and " +
+-                "inField are mandatory parameters"
+-            );
+-        }
+-        
+-        inputFormReader = new FormReader(
+-            this, inputFormName, inputFormField);
+-        
+-        theDocument.append(inputFormReader.toString());
+-//      Caution: The above call depends from the Default Platform Character Encoding
+-        
+-        // Retrieve the other applet parameters
+-        String issuerBase64 = getParameter("issuer");
+-        
+-        if ((issuerBase64 != null) && (issuerBase64.length() != 0))
+-        {
+-            try
+-            {
+-                Base64EncodedData issuerData = new Base64EncodedData(issuerBase64);
+-                
+-                certIssuer = issuerData.getData();
+-            }
+-            catch (RuntimeException re)
+-            {
+-            }
+-        }
+-        
+-        // Open the output form
+-        String outputFormName = getParameter("outForm");
+-        String outputFormField = getParameter("outField");
+-        
+-        if ((outputFormName == null) || (outputFormField == null))
+-        {
+-            throw new RuntimeException
+-            (
+-                "Invalid applet parameters - outForm and " +
+-                "outField are mandatory parameters"
+-            );
+-        }
+-        
+-        outputFormWriter = new FormWriter(
+-            this, outputFormName, outputFormField);
+-        initCryptoProviders();
+-        org.apache.xml.security.Init.init();
+-    }
+-    
+-    //==========================================================================
+-    // Called when starting the applet
+-    //==========================================================================
+-    
+-    public void start()
+-    {
+-    }
+-    
+-    //==========================================================================
+-    // Called when stopping the applet
+-    //==========================================================================
+-    
+-    public void stop()
+-    {
+-    }
+-    
+-    //==========================================================================
+-    // Called when destroying the applet
+-    //==========================================================================
+-    
+-    public void destroy()
+-    {
+-      System.out.print("preparing for unloading...");
+-      try 
+-      {
+-        Security.removeProvider(iaikPkcs11Provider_.getName());
+-      } catch (Throwable ex) 
+-      {
+-        ex.printStackTrace();
+-      }
+-      
+-            /*---------
+-    	    System.out.println("registered providers:");
+-    	    Provider[] providers = Security.getProviders();
+-    	    for (int i = 0; i < providers.length; i++) {
+-    	      System.out.println("at position " + i + ": " + providers[i]);
+-    	    }    	    
+-    	    System.out.println("finished");
+-    	    System.out.flush();
+-            -------- */        
+-    }
+-    
+-    //==========================================================================
+-    // Called when an action occurs
+-    //==========================================================================
+-    
+-    public void actionPerformed(ActionEvent e)
+-    {
+-        if (e.getSource() == signButton)
+-        {
+-            signTheDocument();
+-        }
+-    }
+-
+-
+-    public void getSignatureKeyPair() throws SignerException
+-    {
+-    	// with this call we just get an uninitialized PKCS#11 key store, it is not bound to a
+-    	// specific IAIKPkcs11 provider instance after this call, even if you specify the provider
+-    	// at this call. this is a limitation of SUN's KeyStore concept. the KeyStoreSPI object
+-    	// has no chance to get its own provider instance.
+-    	try
+-    	{
+-    		KeyStore  tokenKeyStore = KeyStore.getInstance("PKCS11KeyStore", iaikPkcs11Provider_.getName());
+-    		tokenKeyStore.load(null, null); // this call binds the keystore to the first instance of the IAIKPkcs11 provider
+-    		// if you want ot bind it to a different instance, you have to provide the provider name as stream
+-    		// see the other RSASigningDemo classes for examples
+-
+-    		// we simply take the first keystore, if there are serveral
+-    		Enumeration aliases = tokenKeyStore.aliases();
+-
+-    		// and we take the first signature (private) key for simplicity
+-    		while (aliases.hasMoreElements()) {
+-    			String keyAlias = aliases.nextElement().toString();
+-//     Caution: The above call depends from the Default Platform Character Encoding
+-    
+-    			Key key = tokenKeyStore.getKey(keyAlias, null);
+-    			if (key instanceof PrivateKey) {
+-    				Certificate[] certificateChain = tokenKeyStore.getCertificateChain(keyAlias);
+-    				signerCertificate = (X509Certificate) certificateChain[0];
+-    				boolean[] keyUsage = signerCertificate.getKeyUsage();
+-    				if ((keyUsage == null) || keyUsage[0] || keyUsage[1]) { // check for digital signature or non-repudiation, but also accept if none set
+-    					System.out.println("##########");
+-    					System.out.println("The signature key is: " + key );
+-    					System.out.println("##########");
+-    					// get the corresponding certificate for this signature key
+-    					System.out.println("##########");
+-    					System.out.println("The signer certificate is:");
+-    					System.out.println(signerCertificate.toString());
+-//     Caution: The above call depends from the Default Platform Character Encoding
+-    
+-    					System.out.println("##########");
+-    					signatureKey_ = (PrivateKey) key;
+-    					break;
+-    				}
+-    			}
+-    		}
+-    	}
+-    	catch (Exception np)
+-    	{
+-    		throw new SignerException(np.getMessage());
+-    	}
+-    	
+-    	if (signatureKey_ == null) {
+-            throw new SignerException
+-            (
+-            		"Found no signature key. Ensure that a valid card is inserted."
+-            );
+-    	}	
+-}
+-        
+- 
+-    //==========================================================================
+-    // Sign the document
+-    //==========================================================================
+-    
+-    private void signTheDocument()
+-    {
+-        try
+-        {
+-            // Ask the user if he really wants to sign the data
+-            if (!EMayorDocFunctions.showConfirmationDialog(this))
+-            {
+-                return;
+-            }
+-            
+-            try
+-            {
+-               	getSignatureKeyPair();
+-            }
+-            catch (SignerException se)
+-            {
+-                se.printStackTrace();
+-                
+-                EMayorDocFunctions.showNoCertificateFoundDialog(this);   
+-                return;
+-            }
+-            
+-            
+-            // Make sure that we use the correct JCE Provider
+-            JCEMapper.setProviderId(iaikPkcs11Provider_.getName()); 
+-
+-            PrivateKey privateKey = signatureKey_;
+-            
+-            javax.xml.parsers.DocumentBuilderFactory dbf =
+-               javax.xml.parsers.DocumentBuilderFactory.newInstance();
+-
+-            //XML Signature needs to be namespace aware
+-            dbf.setNamespaceAware(true);
+-
+-            javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
+-           
+-            System.out.println("################## Is name space aware=" +db.isNamespaceAware());
+-            ByteArrayInputStream inF = new java.io.ByteArrayInputStream(theDocument.getText().getBytes("UTF-8"));
+-            org.w3c.dom.Document doc = db.parse(inF);
+-            
+-            Element root = doc.getDocumentElement();
+-            dbf.setNamespaceAware(true);
+-
+-            //            String BaseURI = inF.toURL().toString("UTF-8");
+-            
+-            //Create an XML Signature object from the document, BaseURI and
+-            //signature algorithm (in this case DSA)
+-            XMLSignature sig = new XMLSignature(doc, null,
+-                                                XMLSignature.ALGO_ID_SIGNATURE_RSA);
+-
+-           
+-            //Append the signature element to the root element before signing because
+-            //this is going to be an enveloped signature.
+-            //This means the signature is going to be enveloped by the document.
+-            //Two other possible forms are enveloping where the document is inside the
+-            //signature and detached where they are seperate.
+-            //Note that they can be mixed in 1 signature with seperate references as
+-            //shown below.
+-            root.appendChild(sig.getElement());
+-           // doc.appendChild(doc.createComment(" Comment after "));
+-       
+-
+-            {
+-               //create the transforms object for the Document/Reference
+-               Transforms transforms = new Transforms(doc);
+-
+-               //First we have to strip away the signature element (it's not part of the
+-               //signature calculations). The enveloped transform can be used for this.
+-               transforms.addTransform(Transforms.TRANSFORM_ENVELOPED_SIGNATURE);
+-               //Part of the signature element needs to be canonicalized. It is a kind
+-               //of normalizing algorithm for XML. For more information please take a
+-               //look at the W3C XML Digital Signature webpage.
+-               transforms.addTransform(Transforms.TRANSFORM_C14N_WITH_COMMENTS);
+-               //Add the above Document/Reference
+-               sig.addDocument("", transforms, Constants.ALGO_ID_DIGEST_SHA1);
+-            }
+-
+-           
+-
+-            {
+-               //Add in the KeyInfo for the certificate that we used the private key of
+-      /*
+-          	  X509Certificate cert =
+-                  (X509Certificate) ks.getCertificate(certificateAlias);
+-      */
+-          	 X509Certificate cert = signerCertificate;
+-               sig.addKeyInfo(cert);
+-               sig.addKeyInfo(cert.getPublicKey());
+-               System.out.println("Start signing");
+-               sig.sign(privateKey);
+-               System.out.println("Finished signing");
+-            }
+-
+-            ByteArrayOutputStream f = new java.io.ByteArrayOutputStream();
+-
+-            XMLUtils.outputDOMc14nWithComments(doc, f);
+-             
+-            // Transfer it to the output form field
+-            outputFormWriter.append(f.toString("UTF-8"));
+-            
+-            // Call submit, if necessary
+-            if (submitAfterSign)
+-            {
+-                outputFormWriter.submit();
+-            }
+-        }
+-        catch (Exception e)
+-        {
+-            e.printStackTrace();
+-            
+-            EMayorDocFunctions.showUnrecoverableError(this);
+-        }
+-        finally
+-        {
+-            // Destruct the signer
+-            signer = null;
+-            
+-            System.gc();
+-        }
+-    }
+-    
+-    public String hexToString(byte[] buf)
+-	{
+-		String rv = "";
+-		
+-		if (buf == null)
+-		{
+-			return rv;
+-		}
+-		
+-		for (int i = 0; i < buf.length; i++)
+-		{
+-			int val = buf[i];
+-			
+-			if (val < 0)
+-			{
+-				 val += 256;
+-			}
+-			
+-			if (val < 0x10)
+-			{
+-				rv += "0" + Integer.toString(val, 16);
+-			}
+-			else
+-			{
+-				rv += Integer.toString(val, 16);
+-			}
+-		}
+-		
+-		return rv;
+-	}
+-}
+Index: src/org/emayor/client/controlers/xmlsigner/XMLSigner_eMayorVersion.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/controlers/xmlsigner/XMLSigner_eMayorVersion.java,v
+retrieving revision 1.1
+diff -u -r1.1 XMLSigner_eMayorVersion.java
+--- src/org/emayor/client/controlers/xmlsigner/XMLSigner_eMayorVersion.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/controlers/xmlsigner/XMLSigner_eMayorVersion.java	19 Feb 2006 03:56:59 -0000
+@@ -98,8 +98,8 @@
+   {
+     String signedXMLDocument = null; // the return value
+     
+-    System.out.println("=============signtheDocument==========");
+-	System.out.println(xmlDocument);
++    //System.out.println("=============signtheDocument==========");
++//	System.out.println(xmlDocument);
+ 
+     boolean doContinue = this.getSignatureKeyPair(); // Signer exceptions are handled by the caller
+     if( doContinue )
+@@ -117,7 +117,7 @@
+ 
+         javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
+        
+-        System.out.println("################## Is name space aware=" +db.isNamespaceAware());
++        //System.out.println("################## Is name space aware=" +db.isNamespaceAware());
+         StringReader myStrReader = new StringReader(xmlDocument);		
+ 		InputSource myInputSource = new InputSource(myStrReader);
+   		
+@@ -171,9 +171,9 @@
+        X509Certificate cert = signerCertificate;
+            sig.addKeyInfo(cert);
+            sig.addKeyInfo(cert.getPublicKey());
+-           System.out.println("Start signing");
++           //System.out.println("Start signing");
+            sig.sign(privateKey);
+-           System.out.println("Finished signing");
++           //System.out.println("Finished signing");
+         }
+ 
+        // ByteArrayOutputStream f = new java.io.ByteArrayOutputStream();
+@@ -192,8 +192,8 @@
+ 		myTransformer.transform(mySource, myResult);
+ 		signedXMLDocument = mySW.toString();
+ 		
+-		System.out.println("===========Signed Document==========");
+-		System.out.println(signedXMLDocument);
++		//System.out.println("===========Signed Document==========");
++		//System.out.println(signedXMLDocument);
+         
+       }
+       catch (Exception e)
+@@ -267,14 +267,14 @@
+         }
+       }      
+       
+-      System.out.println("-------------  ");
+-      System.out.println("-------------  Number of aliases= " + keyAliasWithPrivateKeyVector.size() );
++      //System.out.println("-------------  ");
++      //System.out.println("-------------  Number of aliases= " + keyAliasWithPrivateKeyVector.size() );
+       for( int i=0; i < keyAliasWithPrivateKeyVector.size(); i++ )
+       {
+         String keyAlias = (String)keyAliasWithPrivateKeyVector.elementAt(i);
+-        System.out.println("---alias= " + keyAlias);
++        //System.out.println("---alias= " + keyAlias);
+       }
+-      System.out.println("-------------  ");
++      //System.out.println("-------------  ");
+       
+       
+       int indexOfAlias = 0;
+@@ -324,7 +324,7 @@
+         {
+           // nevermind       
+         }
+-        System.out.println("XMLSigner_eMayorVersion: selectionDialog has been closed.");
++        //System.out.println("XMLSigner_eMayorVersion: selectionDialog has been closed.");
+         if( selectionDialog.getWasOkButtonPressed() )
+         {
+           indexOfAlias = selectionDialog.getSelectedIndex();
+@@ -346,22 +346,22 @@
+           Certificate[] certificateChain = tokenKeyStore.getCertificateChain(keyAlias);
+           signerCertificate = (X509Certificate) certificateChain[0];
+           
+-          System.out.println("-- Number of certificates= " + certificateChain.length );
++          //System.out.println("-- Number of certificates= " + certificateChain.length );
+           
+           
+           boolean[] keyUsage = signerCertificate.getKeyUsage();
+           if ((keyUsage == null) || keyUsage[0] || keyUsage[1]) 
+           { // check for digital signature or non-repudiation, but also accept if none set
+-            System.out.println("##########");
+-            System.out.println("The signature key is: " + key );
+-            System.out.println("##########");
++            //System.out.println("##########");
++            //System.out.println("The signature key is: " + key );
++            //System.out.println("##########");
+             // get the corresponding certificate for this signature key
+-            System.out.println("##########");
+-            System.out.println("The signer certificate is:");
+-            System.out.println(signerCertificate.toString());
++            //System.out.println("##########");
++            //System.out.println("The signer certificate is:");
++            //System.out.println(signerCertificate.toString());
+ //          Caution: The above call depends from the Default Platform Character Encoding
+             
+-            System.out.println("##########");
++            //System.out.println("##########");
+             signatureKey_ = (PrivateKey) key;
+           }
+         }            
+@@ -392,7 +392,7 @@
+   
+   public void initCryptoProviders()
+   {
+-    System.out.println("initializing: initCryptoProviders()");
++    //System.out.println("initializing: initCryptoProviders()");
+     try 
+     {
+       if ((iaikPkcs11Provider_ = IAIKPkcs11.getProviderInstance(1)) == null) 
+@@ -415,14 +415,14 @@
+     }
+     System.err.flush();
+    
+-    System.out.println("Registered providers are:");
++    /*System.out.println("Registered providers are:");
+     Provider[] providers = Security.getProviders();
+     for (int i = 0; i < providers.length; i++) 
+     {
+       System.out.println("at position " + i + ": " + providers[i]);
+     }  
+     System.out.println("...finished initializing");
+-    System.out.flush();
++    System.out.flush();*/
+   }
+   
+ 
+@@ -432,7 +432,7 @@
+   
+   public void unloadCryptoProviders()
+   {
+-     System.out.print("preparing for unloading...");
++     //System.out.print("preparing for unloading...");
+       try {
+         Security.removeProvider(iaikPkcs11Provider_.getName());
+       } catch (Throwable ex) {
+Index: src/org/emayor/client/parser/EMayorDocumentParser.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/parser/EMayorDocumentParser.java,v
+retrieving revision 1.1
+diff -u -r1.1 EMayorDocumentParser.java
+--- src/org/emayor/client/parser/EMayorDocumentParser.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/parser/EMayorDocumentParser.java	19 Feb 2006 03:56:59 -0000
+@@ -111,7 +111,7 @@
+       String value = basisNode.getTagValue().trim();
+   		if( value.length() > 0 )
+   		{
+-          System.out.print("Language property replacer: Key value: " + value );
++          //System.out.print("Language property replacer: Key value: " + value );
+           int startIndex = value.indexOf('$');
+           if( startIndex>= 0)
+           {
+@@ -125,11 +125,11 @@
+           	  {
+           	  	// replace the key by its value:
+           	    basisNode.setTagValue( resourceText );
+-                System.out.print(" has been replaced by: " + resourceText );
++                //System.out.print(" has been replaced by: " + resourceText );
+           	  }
+           	}
+           }
+-          System.out.println(" ");
++          //System.out.println(" ");
+   		}
+   	}
+   	// recur:
+Index: src/org/emayor/client/parser/XMLParser.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/parser/XMLParser.java,v
+retrieving revision 1.1
+diff -u -r1.1 XMLParser.java
+--- src/org/emayor/client/parser/XMLParser.java	16 Nov 2005 10:51:00 -0000	1.1
++++ src/org/emayor/client/parser/XMLParser.java	19 Feb 2006 03:56:59 -0000
+@@ -114,9 +114,9 @@
+               }
+               else
+               {
+-                System.out.println("*** Unmatched tags:");
+-                System.out.println("*** Current tag is " + currentNode.getTagName() );
+-                System.out.println("*** Close tag is: "  + closeTagName );
++                //System.out.println("*** Unmatched tags:");
++                //System.out.println("*** Current tag is " + currentNode.getTagName() );
++                //System.out.println("*** Close tag is: "  + closeTagName );
+                 String errorMessage = "XMLParser: The Tag: " + 
+                                       currentNode.getTagName() + 
+                                       " has not been closed. Instead the tag: " +
+@@ -385,11 +385,11 @@
+   */
+   public static void main( String[] arguments )
+   {
+-    System.out.println("------- XML Parser Test ");
++    //System.out.println("------- XML Parser Test ");
+     String filePath = System.getProperty("user.home") +
+                       System.getProperty("file.separator") +
+                       "test_edocument.xml";  
+-    System.out.println("File: " + filePath );
++    //System.out.println("File: " + filePath );
+     File file = new File(filePath);
+     try
+     {
+@@ -399,12 +399,12 @@
+       String eDocumentString = new String(eDocumentBytes,"UTF-8");
+       StringBuffer eDocument = new StringBuffer( eDocumentString );
+       
+-      System.out.println("------- source document: ----------- ");
+-      System.out.println(eDocument);
+-      System.out.println(" ");
+-      System.out.println(" ");
+-      System.out.println(" ");
+-      System.out.println(" ");
++      //System.out.println("------- source document: ----------- ");
++      //System.out.println(eDocument);
++      //System.out.println(" ");
++      //System.out.println(" ");
++      //System.out.println(" ");
++      //System.out.println(" ");
+       
+       XMLParser parser = new XMLParser();
+       XML_Node rootNode = parser.transformDocumentToTree( eDocument );
+@@ -417,18 +417,18 @@
+       
+       if( chk1.equals(chk2) )
+       {
+-        System.out.println("------- forward-backward transformed document: ----------- ");
+-        System.out.println(backTransformed_eDocument);
+-        System.out.println(" ");
++        //System.out.println("------- forward-backward transformed document: ----------- ");
++        //System.out.println(backTransformed_eDocument);
++        //System.out.println(" ");
+       }
+       else
+       {
+         int len1 = eDocument.length();
+         int len2 = backTransformed_eDocument.length();
+-        System.out.println("******** Checksum mismatch *************");
+-        System.out.println("len1 = " + len1 );
+-        System.out.println("len2 = " + len2 );
+-        System.out.println(" ");
++        //System.out.println("******** Checksum mismatch *************");
++        //System.out.println("len1 = " + len1 );
++        //System.out.println("len2 = " + len2 );
++        //System.out.println(" ");
+         int mismatchIndex = 0;
+         int checkLen = len1 ; if( len2 < checkLen ) checkLen = len2;
+         StringBuffer correctBackTransformedPart = new StringBuffer();
+@@ -444,11 +444,11 @@
+             break;
+           }
+         }      
+-        System.out.println("------- correct part of forward-backward transformed document: ----------- ");
+-        System.out.println(correctBackTransformedPart);
+-        System.out.println("mismatch is above, at index= " + mismatchIndex);
++        //System.out.println("------- correct part of forward-backward transformed document: ----------- ");
++        //System.out.println(correctBackTransformedPart);
++        //System.out.println("mismatch is above, at index= " + mismatchIndex);
+       }      
+-      System.out.println(" ");
++      /*System.out.println(" ");
+       System.out.println(" ");
+       System.out.println(" ");
+       System.out.println("Checksum comparison of the two documents:");
+@@ -456,7 +456,7 @@
+       System.out.println("MD5 checksum1= " + chk1);
+       System.out.println("MD5 checksum2= " + chk2);
+       System.out.println(" ");
+-      System.out.println(" ");
++      System.out.println(" "); */
+     }
+     catch( Exception e )
+     {
+Index: src/org/emayor/client/parser/XMLPath.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/parser/XMLPath.java,v
+retrieving revision 1.3
+diff -u -r1.3 XMLPath.java
+--- src/org/emayor/client/parser/XMLPath.java	13 Dec 2005 06:58:43 -0000	1.3
++++ src/org/emayor/client/parser/XMLPath.java	19 Feb 2006 03:56:59 -0000
+@@ -134,7 +134,7 @@
+   public static void SetSchemaLocationPathForModel( final XML_Node modelNode,
+                                                     final String schemaLocationPath )
+   {
+-    System.out.println("SetSchemaLocationPathForModel() to: " + schemaLocationPath );
++    //System.out.println("SetSchemaLocationPathForModel() to: " + schemaLocationPath );
+     try
+     {
+       final XML_Node eDocumentNode = modelNode.getChildAt(0);
+@@ -156,25 +156,25 @@
+         }
+         if( !valueHasBeenSet )
+         {
+-            System.out.println("*** SetSchemaLocationPathForModel(): No schemaLocation attribute found.");
+-            System.out.println("*** The value couldn't be set therefore.");
++            //System.out.println("*** SetSchemaLocationPathForModel(): No schemaLocation attribute found.");
++            //System.out.println("*** The value couldn't be set therefore.");
+         }    
+       } // if
+       else
+       {
+-        System.out.println("*** SetSchemaLocationPathForModel() failed: modelNode has no children.");
++        //System.out.println("*** SetSchemaLocationPathForModel() failed: modelNode has no children.");
+       }
+     }
+     catch( Exception eee )
+     {
+-      System.out.println(">*> SetSchemaLocationPathForModel(): No schemaLocation attribute found. (Exc)");
++      //System.out.println(">*> SetSchemaLocationPathForModel(): No schemaLocation attribute found. (Exc)");
+     }
+   } // SetSchemaLocationPathForModel
+ 
+ 
+   public static void PrintError(String msg1, String msg2)
+   {
+-    System.out.println("*** ");
++    /*System.out.println("*** ");
+     System.out.println("*** ");
+     System.out.println("*** ");
+     System.out.println("*** ");
+@@ -185,7 +185,7 @@
+     System.out.println("*** ");
+     System.out.println("*** ");
+     System.out.println("*** ");
+-    System.out.println("*** ");
++    System.out.println("*** ");*/
+   }
+ 
+   
+Index: src/org/emayor/client/parser/xml/XML_Node.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/client/parser/xml/XML_Node.java,v
+retrieving revision 1.3
+diff -u -r1.3 XML_Node.java
+--- src/org/emayor/client/parser/xml/XML_Node.java	1 Dec 2005 11:16:38 -0000	1.3
++++ src/org/emayor/client/parser/xml/XML_Node.java	19 Feb 2006 03:56:59 -0000
+@@ -247,9 +247,9 @@
+     }
+     else
+     {
+-      System.out.println("*** XML_Node: Cannot remove node at index " + index +
+-                         " because only " + this.children.size() +
+-                         " nodes are present.");    
++      //System.out.println("*** XML_Node: Cannot remove node at index " + index +
++        //                 " because only " + this.children.size() +
++          //               " nodes are present.");    
+     }
+   } // removeChildNodeAt
+   
+Index: src/org/emayor/webtier/shared/TextResourceKeys.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/webtier/shared/TextResourceKeys.java,v
+retrieving revision 1.3
+diff -u -r1.3 TextResourceKeys.java
+--- src/org/emayor/webtier/shared/TextResourceKeys.java	30 Nov 2005 10:13:36 -0000	1.3
++++ src/org/emayor/webtier/shared/TextResourceKeys.java	19 Feb 2006 03:56:59 -0000
+@@ -73,8 +73,9 @@
+  public static final String RepositoryAvailableUntil = "Repository.AvailableUntil";
+  public static final String RepositoryDownload       = "Repository.Download";
+  
+- public static final String RepositoryProcessButtonText = "Repository.ProcessButtonText"; 
+- 
++ public static final String RepositoryProcessButtonText = "Repository.ProcessButtonText";
++ public static final String RepositoryShowButtonText = "Repository.ShowButtonText";
++ public static final String RepositoryTranslatedDocumentText = "Repository.RepositoryTranslatedDocumentText";
+  
+  public static final String ResidenceCertificate = "Repository.ResidenceCertificate";
+  public static final String ServiceFamilyStatusCertificate = "Repository.ServiceFamilyStatusCertificate";
+Index: src/org/emayor/webtier/struts/Service/Repository.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/webtier/struts/Service/Repository.java,v
+retrieving revision 1.6
+diff -u -r1.6 Repository.java
+--- src/org/emayor/webtier/struts/Service/Repository.java	13 Dec 2005 14:03:45 -0000	1.6
++++ src/org/emayor/webtier/struts/Service/Repository.java	19 Feb 2006 03:56:59 -0000
+@@ -144,7 +144,8 @@
+     {
+       status  = serviceForm.getTextFromResource(TextResourceKeys.Status_ProblemsHaveArised);
+       remarks = serviceForm.getTextFromResource(TextResourceKeys.Status_RemarksAboutEmailInfo);
+-    }
++    } else return;
++    
+ 
+     // Insert the requester name at the beginning of the remarks:
+     String requesterName = task.getRequester();
+@@ -161,6 +162,11 @@
+ 
+     String xmlDocument = task.getXMLDocument();
+     String documentResponse = task.getDocumentResponse();
++    String OriginalXML = task.getDocumentResponseDigSig();
++    String isOriginalAvailable = "NO";
++    if (!OriginalXML.equalsIgnoreCase("<empty/>")) {
++    	isOriginalAvailable = "YES";;
++    }
+      
+     String municipalityNameKey = serviceForm.getMunicipalityNameKey();
+     String language = serviceForm.getLanguage();
+@@ -173,8 +179,11 @@
+                                                      startTime,endTime,
+                                                      xmlDocument,
+                                                      documentResponse,
++													 OriginalXML,
+ 													 documentIndex,
+-                                                     task );
++                                                     task,
++													 isOriginalAvailable
++													 );
+     // sort them after time:
+     this.addDocumentSortedByTime( doc );    
+     // after having changed the order, we must update the indices again:
+Index: src/org/emayor/webtier/struts/Service/RepositoryDocument.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/webtier/struts/Service/RepositoryDocument.java,v
+retrieving revision 1.6
+diff -u -r1.6 RepositoryDocument.java
+--- src/org/emayor/webtier/struts/Service/RepositoryDocument.java	1 Dec 2005 11:16:38 -0000	1.6
++++ src/org/emayor/webtier/struts/Service/RepositoryDocument.java	19 Feb 2006 03:56:59 -0000
+@@ -34,7 +34,8 @@
+    
+   private String xmlDocument = null;
+   private String documentResponse = null;
+-  
++  private String OriginalXML = null;
++  private String isOriginalAvailable=null;
+   // The associated kernel task object:
+   private Task task = null;
+   
+@@ -49,8 +50,10 @@
+                              final Calendar _endTime,
+                              final String _xmlDocument,
+                              final String _documentResponse,
++                             final String _OriginalXML,
+                              final int _documentIndex,
+-                             final Task _task )
++                             final Task _task,
++							 final String _isOriginalAvailable)
+   {    
+     this.municipalityNameKey = _municipalityNameKey;
+     this.language = _language;
+@@ -63,8 +66,10 @@
+     this.endTime     = _endTime;
+     this.xmlDocument = _xmlDocument;
+     this.documentResponse = _documentResponse;
++    this.OriginalXML = _OriginalXML;
+     this.documentIndex = _documentIndex;
+     this.task = _task;
++    this.isOriginalAvailable = _isOriginalAvailable;
+   } // constructor
+   
+ 
+@@ -169,6 +174,15 @@
+   public String getXmlDocument()
+   {
+     return this.xmlDocument;
++  }
++  
++  public String getOriginalXML()
++  {
++    return this.OriginalXML;
++  }
++  public String getisOriginalAvailable()
++  {
++    return this.isOriginalAvailable;
+   }
+   
+   
+Index: src/org/emayor/webtier/struts/Service/ServiceAction.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/webtier/struts/Service/ServiceAction.java,v
+retrieving revision 1.5
+diff -u -r1.5 ServiceAction.java
+--- src/org/emayor/webtier/struts/Service/ServiceAction.java	13 Dec 2005 06:58:43 -0000	1.5
++++ src/org/emayor/webtier/struts/Service/ServiceAction.java	19 Feb 2006 03:57:00 -0000
+@@ -588,7 +588,7 @@
+     System.out.println("-----------------------------ServiceAction.showDocument(). Passed parameter names:");
+     Enumeration namesEnumeration = request.getParameterNames();
+     int count = 0;
+-    String languageParameterValue = null;
++    String languageParameterValue = "en";
+     while( namesEnumeration.hasMoreElements() )
+     {
+       String parameterName = namesEnumeration.nextElement().toString();
+@@ -602,6 +602,9 @@
+     }
+     System.out.println(">" + count + " parameters.");
+     
++
++    
++    
+     String actionForwardName = "showServiceError";
+     if( this.getIsUserAuthenticated( request, request.getSession() ) )
+     {
+@@ -609,12 +612,16 @@
+         String serviceNameKey = request.getParameter(TextResourceKeys.ServiceNameKeyTag);
+         
+         System.out.println("ServiceAction serviceNameKey is: " + serviceNameKey );
+-               
++        
++
++        
+         // Get the requested nameOfMunicipality from the request:
+         String municipalityNameKey = request.getParameter(TextResourceKeys.MunicipalityNameKeyTag);
+         
+         System.out.println("ServiceAction municipalityNameKey is: " + municipalityNameKey );
+         
++      
++        
+         // Get the associated municipality object:
+         Municipality municipality = MunicipalitiesManager.GetInstance().getMunicipalityByKey(municipalityNameKey);
+         // and the associated service object:
+@@ -623,6 +630,7 @@
+         // and the index of the selected document, which the user wants to see now:
+         String documentIndexString = request.getParameter(TextResourceKeys.DocumentIndexKeyTag); 
+         
++        serviceForm.setdocumentIndex(documentIndexString);
+         System.out.println("ServiceAction selected index is: " + documentIndexString );
+ 
+         // Switch dependent of the user role:
+@@ -638,10 +646,20 @@
+           Task task = document.getTask();
+           ServiceTaskInformation serviceTaskInformation = new ServiceTaskInformation( task );
+           serviceForm.setServiceTaskInformation( serviceTaskInformation );
++          
++          
+           String xmlDocument = document.getXmlDocument();
++          
++          String MySuperParam = request.getParameter("dispatch");
++          
++         /*-- if (MySuperParam!=null) {
++          	if (MySuperParam.equalsIgnoreCase("YES")) {
++          		xmlDocument = document.getOriginalXML();
++          	}
++          }
+           // Set it in the serviceForm too:
+           serviceForm.setXMLDocument( xmlDocument );
+-                
++             --*/   
+           // Debug file write:
+           // Utilities.DebugFileWriteTo(xmlDocument,"webtier_got_from_ServiceHandling.xml");
+           
+@@ -668,7 +686,19 @@
+             {
+               nameSuffix = "ReadOnly"; // Take the readonly (ePF) eMayorForms template
+             }
++          } 
++          
++          if (MySuperParam!=null) {
++          	if (MySuperParam.equalsIgnoreCase("YES")) {
++          		xmlDocument = document.getOriginalXML();
++          		nameSuffix = "ReadOnly";
++          	}
+           }
++          // Set it in the serviceForm too:
++          
++          
++          
++          serviceForm.setXMLDocument( xmlDocument );
+           System.out.println(">+> Selected emayorForms role for:");
+           System.out.println(">+> user role= " + role );
+           System.out.println(">+> SH task status= " + task.getStatus() );
+Index: src/org/emayor/webtier/struts/Service/ServiceForm.java
+===================================================================
+RCS file: /usr/local/cvsroot/eMayorWebTier/src/org/emayor/webtier/struts/Service/ServiceForm.java,v
+retrieving revision 1.5
+diff -u -r1.5 ServiceForm.java
+--- src/org/emayor/webtier/struts/Service/ServiceForm.java	13 Dec 2005 06:58:43 -0000	1.5
++++ src/org/emayor/webtier/struts/Service/ServiceForm.java	19 Feb 2006 03:57:00 -0000
+@@ -24,6 +24,8 @@
+ {
+   private String serviceIdentifier = "undefined";
+   private String municipalityNameKey = "undefined";
++  
++  private String documentIndex ="0";
+ 
+   
+   private Repository repository = null;
+@@ -247,10 +249,24 @@
+ 	HashMap serviceParameters = new HashMap();
+ 	serviceParameters.put( TextResourceKeys.ServiceNameKeyTag,this.serviceIdentifier);
+ 	serviceParameters.put( TextResourceKeys.MunicipalityNameKeyTag,this.municipalityNameKey);
++	
++	System.out.println("############################# STC getServiceParametersWithoutLanguage#############");
+ 	return serviceParameters;
+   }
+   
+-  
++  public HashMap getServiceParametersShow()
++  {
++  	
++  	System.out.println("############################# !!!! getServiceParametersWithoutLanguageShow #############");
++  	HashMap serviceParameters1 = this.getServiceParametersWithoutLanguage();
++  	  	serviceParameters1.put( (new String("documentIndex")),this.documentIndex);
++  	System.out.println("############################# STC added documentIndex#############");
++  	return serviceParameters1;
++  }
++  public void setdocumentIndex(String _documentIndex)
++  {
++  	this.documentIndex = _documentIndex;
++  }
+ 
+   public String getTaskInformation()
+   {
+Index: src/org/emayor/client/controlers/xmlsigner/SignerInfo.java
+===================================================================
+RCS file: src/org/emayor/client/controlers/xmlsigner/SignerInfo.java
+diff -N src/org/emayor/client/controlers/xmlsigner/SignerInfo.java
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/org/emayor/client/controlers/xmlsigner/SignerInfo.java	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,320 @@
++
++package org.emayor.client.controlers.xmlsigner;
++
++
++
++
++
++import iaik.pkcs.pkcs11.provider.IAIKPkcs11;
++
++import java.io.InputStream;
++import java.io.StringReader;
++import java.security.Provider;
++import java.security.PublicKey;
++import java.security.Security;
++import java.security.cert.X509Certificate;
++import java.util.Properties;
++
++import org.apache.xml.security.keys.KeyInfo;
++import org.apache.xml.security.signature.XMLSignature;
++import org.apache.xml.security.utils.Constants;
++import org.apache.xml.security.utils.XMLUtils;
++import org.apache.xml.serialize.OutputFormat;
++import org.apache.xml.serialize.XMLSerializer;
++import org.apache.xpath.XPathAPI;
++import org.w3c.dom.Element;
++import org.w3c.dom.Node;
++import org.w3c.dom.NodeList;
++import org.xml.sax.InputSource;
++
++
++
++/**
++ *
++ *
++ *
++ *
++ * @author $Author: emayor $
++ *
++ */
++public class SignerInfo {
++    private boolean bValidationResult=true;
++    private int iSignaturesNumber=0;
++    private String[] asSignerRoule = null;
++    private String[] asCN = null;
++    private boolean[] abValidationResult = null; 
++	private String FormatedDocument="";
++    private IAIKPkcs11 iaikPkcs11Provider_= null;
++    
++    public SignerInfo (String XMLSignedDocument) throws java.lang.Exception{
++		 org.apache.xml.security.Init.init();
++		 this.initCryptoProviders();
++		 
++// parse the input document
++		//System.out.println("PE::SignerInfo:: Startig process ...");
++		if (XMLSignedDocument==null) throw new java.lang.Exception("PE::SignerInfo:: Ivalid Input Document");	
++// Create Dom Factory
++		javax.xml.parsers.DocumentBuilderFactory dbf =
++		javax.xml.parsers.DocumentBuilderFactory.newInstance();
++        dbf.setNamespaceAware(true);
++        
++        
++        try {
++          	
++          		javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
++          		db.setErrorHandler(new org.apache.xml.security.utils.IgnoreAllErrorHandler());
++          		StringReader myStrReader = new StringReader(XMLSignedDocument);
++        		InputSource myInputSource = new InputSource(myStrReader);
++          		org.w3c.dom.Document doc = db.parse(myInputSource);
++         		//System.out.println("PE::SignerInfo:: Document parsed .. looking for ds:Signature elements ..");
++        
++        // Created the formated document
++          		java.io.StringWriter sw = new java.io.StringWriter();
++          		OutputFormat format = new OutputFormat(doc);
++          		format.setIndenting(true);
++          		format.setIndent(3);
++          		format.setLineSeparator("\r\n");
++          		format.setEncoding("UTF-8");
++          		XMLSerializer serializer = new XMLSerializer(sw, format);
++          		serializer.serialize(doc);
++          		this.FormatedDocument = sw.toString();
++          		
++          		
++ // Get Number of Signatures
++         		Element nscontext = XMLUtils.createDSctx(doc, "ds",
++                Constants.SignatureSpecNS);
++         		NodeList myNodeList = XPathAPI.selectNodeList(doc, "//ds:Signature", nscontext);
++         		int Nodes = myNodeList.getLength();
++         		//System.out.println("PE::SignerInfo:: Found " + Nodes + " Signatures");
++         		iSignaturesNumber = Nodes;
++         		   		
++         		
++         		if (Nodes>0) {
++ // Create arrays
++         			asSignerRoule = new String[Nodes];
++         			asCN = new String[Nodes];
++         			abValidationResult = new boolean[Nodes];
++         			
++ // Validate each Signature
++         			
++         			for (int i=0;i<Nodes;i++) {
++             			
++             			
++ // Remove not needed Signatures
++             			
++             			org.w3c.dom.Document docTemp = (org.w3c.dom.Document)doc.cloneNode(true);
++             			
++             			if (Nodes>1){
++        	     			for (int j=Nodes-1; j>=(i+1); j--) {
++        	     				//System.out.println("PE::SignerInfo:: Removing" + (j+1) + "Signature");
++        	     				NodeList TempNodeList= docTemp.getElementsByTagName("ds:Signature");
++        	     				//System.out.println("PE::SignerInfo:: Got the SignatureNodeList with " +TempNodeList.getLength()+" Items" );
++        	             		
++        	     				Node TempNode = TempNodeList.item(j);
++        	     				//System.out.println("PE::SignerInfo:: Got the SignatureNode " +(j+1));
++        	     				if (TempNode==null) System.out.println("PE::VerifySignature:: the SignatureNode " +(j+1)+" is null error");
++        	             		Node MyTempRoot = TempNode.getParentNode();
++        	             		//System.out.println("PE::SignerInfo:: Got the SignatureNode Root ");
++        	     				if (TempNode==null) System.out.println("PE::VerifySignature:: the SignatureNode Root is null: error!!!!");
++        	             		
++        	             		MyTempRoot.removeChild(TempNode);
++        	             		//System.out.println("PE::SignerInfo:: Removed the SignatureNode " +(j+1));
++        	             		
++        	     			}
++             			}
++                 		
++                 		Element nscontextTemp = XMLUtils.createDSctx(docTemp, "ds",
++                                Constants.SignatureSpecNS);
++                 		NodeList myNodeListTemp = XPathAPI.selectNodeList(docTemp,
++                 				"//ds:Signature", nscontextTemp);
++                 		Element sigElement = (Element)myNodeListTemp.item(i);
++                   		//System.out.println("PE::SignerInfo:: Get Signature number " + (i+1));
++        	        
++        	         XMLSignature signature = new XMLSignature(sigElement,
++        	         		"");
++        	         
++        	        
++        	         KeyInfo ki = signature.getKeyInfo();
++        	
++        	         if (ki != null) {
++        	            if (ki.containsX509Data()) {
++        	            	//System.out.println("PE::SignerInfo::Could find a X509Data element in the KeyInfo");
++        	            }
++        	
++        	            X509Certificate cert = signature.getKeyInfo().getX509Certificate();
++        	
++        	            if (cert != null) {
++        	            	//System.out.println("PE::SignerInfo::Try to verify the signature using the X509 Certificate" );
++        	            	
++ 	// Get The Siger Role
++        	            	
++        	            	String SignerRole = this.getSignerRole(cert);
++        	            	asSignerRoule[i] = SignerRole;
++        	            	String SignerCN = cert.getSubjectDN().getName();
++        	            	asCN[i] = SignerCN; 
++        	               
++        	            	boolean SigResult = signature.checkSignatureValue(cert);
++        	            	//System.out.println("PE::SignerInfo::Result for Signature Nr."+(i+1)+" is: " +(SigResult ? "valid (good)"
++                                 //   : "invalid !!!!! (bad)"));
++        	            	
++        	            	
++        	            	bValidationResult = bValidationResult && SigResult;
++        	            	abValidationResult[i] = SigResult;
++        	            	
++        	            } else {
++        	            	//System.out.println("PE::SignerInfo::Did not find a Certificate, try to get the key info...");
++        	            	
++        	            	
++        	            	
++        	               PublicKey pk = signature.getKeyInfo().getPublicKey();
++        	              
++        	               
++        	               if (pk != null) {
++        	               	//System.out.println("PE::SignerInfo::Try to verify the signature using the public key: "
++        	                  //   + pk);
++       	              
++       // Init the arrays
++        	            	String SignerRole = "N/A";
++        	            	asSignerRoule[i] = SignerRole;
++        	            	String SignerCN = "N/A";
++        	            	asCN[i] = SignerCN;  
++        	               	boolean ResultSignVer = signature.checkSignatureValue(pk);
++        	               	/*System.out.println("PE::SignerInfo::The XML signature is "
++        	                                     + (ResultSignVer
++        	                                        ? "valid (good)"
++        	                                        : "invalid !!!!! (bad)"));*/
++        	               	bValidationResult = bValidationResult && ResultSignVer;
++        	               	abValidationResult[i] = ResultSignVer;
++        	               } else {
++        	               		throw new Exception("PE::SignerInfo::Error::Did not find a public key, so I can't check the signature");
++        	               }
++        	            }
++        	         } else {
++        	         	throw new Exception("PE::SignerInfo::Error::Did not find a KeyInfo");
++        	         	
++        	         }         			
++         			
++         			
++        			
++         			}
++         		}
++         		this.unloadCryptoProviders();
++         } catch (Exception ex) {
++	    	throw new Exception("PE::SignerInfo:: Exception \n" + ex.toString());
++	    }
++		//System.out.println("PE::SignerInfo:: ... End process");
++	}
++	
++    
++ private String getSignerRole(X509Certificate myCert) {
++ 	
++ // This function reads the eMayor X509 Extension
++ 	
++ 	String result = "Guest";
++ 	
++ // If no extension found, "Guest" is returned	
++ try {
++ 	
++ 
++ 	byte[] b = myCert.getExtensionValue("1.2.3.4");
++	if (b != null && b.length > 4) {
++		if (b[2] == 19) {
++			String myRole = (new String(b)).toString();
++			result = myRole.substring(4);
++		}
++	}
++ } catch (Exception e) {
++ 	//System.out.println("PE::SignerInfo:: Unable to parce the eMayor extension:: " + e.toString());
++ }
++ 	return result;
++ }
++    
++// Public Functions for Joerg 
++ public boolean getValidationResult() {
++ 	// Returns the Document Validation Result (All signatures)
++ 	return bValidationResult;
++ }
++ 
++ public String getFormatedDocument() {
++ 	return this.FormatedDocument;
++ }
++ public int getSignaturesNumber() {
++ 	// Returns the number of Signatures in the document
++ 	return iSignaturesNumber;
++ }
++ 
++ public String getCommonName(int iSigNr) throws Exception{
++ 	if ((iSigNr>0) && (iSigNr<= iSignaturesNumber)) {
++ 		return this.asCN[iSigNr-1];
++ 	}
++ 	else 
++ 	{
++ 		throw new Exception("PE::SignerInfo::getCommonName::Error::Invalid Signature Number");
++ 	}
++ }
++ 
++ public String getSignerRole(int iSigNr) throws Exception{
++ 	if ((iSigNr>0) && (iSigNr<= iSignaturesNumber)) {
++ 		return this.asSignerRoule[iSigNr-1];
++ 	}
++ 	else 
++ 	{
++ 		throw new Exception("PE::SignerInfo::getSignerRole::Error::Invalid Signature Number");
++ 	}
++ }
++ 
++ public boolean getSignatureStatus(int iSigNr) throws Exception{
++ 	if ((iSigNr>0) && (iSigNr<= iSignaturesNumber)) {
++ 		return this.abValidationResult[iSigNr-1];
++ 	}
++ 	else 
++ 	{
++ 		throw new Exception("PE::SignerInfo::getSignatureStatus::Error::Invalid Signature Number");
++ 	}
++ }
++ public void initCryptoProviders()
++ {
++   //System.out.println("initializing: initCryptoProviders()");
++   try 
++   {
++     if ((iaikPkcs11Provider_ = IAIKPkcs11.getProviderInstance(1)) == null) 
++     {
++       Properties pkcs11ProviderConfig = new Properties();
++       // Changed J.Plaz: added the /default folder in the resource address below
++       //InputStream configStream = this.getClass().getClassLoader().getResourceAsStream("iaik/pkcs/pkcs11/provider/default/IAIKPkcs11.properties");
++       InputStream configStream = this.getClass().getClassLoader().getResourceAsStream("org/emayor/client/controlers/xmlsigner/IAIKPkcs11.properties");
++       pkcs11ProviderConfig.load(configStream);
++       iaikPkcs11Provider_ = new IAIKPkcs11(pkcs11ProviderConfig);
++     }
++     if (Security.getProvider(iaikPkcs11Provider_.getName()) == null) 
++     {
++       Security.addProvider(iaikPkcs11Provider_);
++     }
++   } 
++   catch (Throwable ex) 
++   {
++     ex.printStackTrace();
++   }
++   System.err.flush();
++  
++   //System.out.println("Registered providers are:");
++  // Provider[] providers = Security.getProviders();
++   //for (int i = 0; i < providers.length; i++) 
++   {
++     //System.out.println("at position " + i + ": " + providers[i]);
++   }  
++//   System.out.println("...finished initializing");
++  // System.out.flush();
++ }
++ 
++ public void unloadCryptoProviders()
++ {
++    //System.out.print("preparing for unloading...");
++     try {
++       Security.removeProvider(iaikPkcs11Provider_.getName());
++     } catch (Throwable ex) {
++       ex.printStackTrace();
++     }
++     
++ }
++}

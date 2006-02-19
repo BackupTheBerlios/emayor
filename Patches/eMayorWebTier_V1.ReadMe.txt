@@ -1,0 +1,59 @@
+##################################
+Patch name: eMayorWebTier_V1.1
+Project Name: eMayorWebTier
+Required Version: 1.0
+Version after Patch: 1.1
+Release Date: 20.02.2006
+Released by: UoSiegen
+##################################
+
+>>>>>>>> Added Features <<<<<<<<<<
+
+F1 Cross-border Support: The original Document can be viewed: 
+	In case a document is received in a cross-border scenario, the
+	List Available Document will display two buttons: "Process" and "Show Original"
+	The name of the document will start with "Translated "
+
+F2 In the Citizen Menu the submitter is not displayed as it is always the same
+
+F3 A SignerInfo Tab is added to the applet, which displays the signature information
+    from the XML document
+
+F4 The menu Items Save and Load eMayor Forms is removed as it confuses the users
+    
+    
+>>>>>>>>> Corrected Bugs <<<<<<<<<<<<<<
+
+B1 Print Preview windows has missed the "Print" and "Cancel" buttons due to an overlap 
+	of the text panel
+
+B2 Save Document saves a document containing an invalid signature due to the changed schema
+	locations. An instance of the original document is now saved
+
+B3 Changing the GUI language in a document show mode redirected the browser to the index page
+
+B4 When a request is initiated and not submitted it reappears in the List of Available 
+	documents. Opening the request for a further processing throws error in the GUI. 
+	A temporary solution filters out the not submitted request documents.
+
+B5 Document View Tab displays the XML document in an inconvenient form:
+	The document is now displayed formatted and indented.
+	
+B6 Text Boxes length are automatically increased to the longest line in the document that resulted 
+	in an overlap of the box and the was cut by the View Panel. Scrolling was not convenient.
+	All the Text boxes now wrap the content to the visible borders.
+	
+B7 Applet size was reduced to 50% by unlinking the unused packages
+
+
+
+>>>>>>>>>>> Open Bugs (detected during the Final Review) <<<<<<<<<
+
+B8 Changing the GUI Language when an Original Document from a cross-border scenario is displayed 
+	loads the translated document instead of the original one.
+B9 Applet initialization and performance speed is not acceptable or a message notifying the use about 
+	the process has to be displayed.
+
+B10 Validation of input is not always working and not on all fields
+
+B11 Validation must not be performed on read only documents and fields
