@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004,N10039"/>
+<target name="N10004" description="XincoWrapperEJB.jar">
+<jar destfile="XincoWrapperEJB.jar">
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="ejb-jar.xml"/>
+</zipfileset>
+<zipfileset dir="src/META-INF" prefix="META-INF">
+<include name="jboss.xml"/>
+</zipfileset>
+<zipfileset dir="bin" includes="**/*.class"/>
+<zipfileset dir="../Xinco/src/WEB-INF/classes"/>
+<zipfileset dir="lib" prefix="META-INF/lib"/>
+</jar>
+</target>
+<target name="N10039" description="XincoWrapperEJB-client.jar">
+<jar destfile="XincoWrapperEJB-client.jar">
+<zipfileset dir="bin" includes="de/fraunhofer/dms/xinco/wrapper/XincoWrapper.class,de/fraunhofer/dms/xinco/wrapper/XincoWrapperHome.class"/>
+</jar>
+</target>
+</project>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_xdoclet_generation_" name="XDoclet Generator">
+<property file="xdoclet-build.properties"/>
+<property name="eclipse.home" value="C:/work/eclipse_jdk1.5"/>
+<property name="xdoclet.basedir" value="${eclipse.home}/plugins/org.jboss.ide.eclipse.xdoclet.core_1.5.0"/>
+<property name="jboss.net.version" value="4.0"/>
+<path id="project.classpath"><pathelement location="bin"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/ejb-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/jacc-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/jca-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/jms-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/jsp-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/jta-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/servlet-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.j2ee.core_1.5.0/lib/j2ee-1.4/sql-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/wsi-1.0/jaxr-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/wsi-1.0/jaxrpc-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/wsi-1.0/saaj-api.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/wsi-1.0/xml-api.jar"/>
+<pathelement location="../Xinco/src/WEB-INF/classes"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/axis-1.2/axis.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/axis-1.2/commons-discovery.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/axis-1.2/commons-logging.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/axis-1.2/log4j-1.2.8.jar"/>
+<pathelement location="${eclipse.home}/plugins/org.jboss.ide.eclipse.jdt.ws.core_1.5.0/lib/axis-1.2/wsdl4j.jar"/>
+<pathelement location="../Xinco/src/WEB-INF/lib/lucene-1.4-final.jar"/>
+<pathelement location="../Xinco/src/WEB-INF/lib/lucene-demos-1.4-final.jar"/>
+<pathelement location="../Xinco/src/WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
+<pathelement location="../Xinco/src/WEB-INF/lib/tm-extractors-0.4.jar"/>
+<pathelement location="../Xinco/src/WEB-INF/lib/PDFBox-0.6.7a.jar"/>
+</path>
+<path id="xdoclet.classpath">
+<path refid="project.classpath"/>
+<fileset dir="${xdoclet.basedir}">
+<include name="*.jar"/>
+<exclude name="xdoclet-module-jboss-net-*.jar"/>
+</fileset>
+<fileset dir="${xdoclet.basedir}">
+<include name="xdoclet-module-jboss-net-${jboss.net.version}*.jar"/>
+</fileset>
+</path>
+<target name="_xdoclet_generation_" depends="N10004"/>
+<target name="N10004" description="Standart">
+<taskdef classpathref="xdoclet.classpath" classname="xdoclet.modules.ejb.EjbDocletTask" name="ejbdoclet"/><ejbdoclet ejbSpec="2.0"  excludedTags="@version,@author,@todo"  destDir="src"  verbose="true"  addedTags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}" >
+
+
+
+
+
+
+
+
+
+
+<fileset dir="src"  includes="**/*.java" >
+
+
+
+</fileset>
+
+<remoteinterface>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</remoteinterface>
+<localinterface>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</localinterface>
+<homeinterface>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</homeinterface>
+<localhomeinterface>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</localhomeinterface>
+
+
+
+
+
+
+
+
+<deploymentdescriptor validateXML="true"  destDir="src/META-INF" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</deploymentdescriptor>
+<jboss Version="3.0"  destDir="src/META-INF" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</jboss>
+
+
+
+</ejbdoclet></target>
+</project>

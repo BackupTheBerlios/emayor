@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="" exploded="false" name="XincoWrapperEJB.jar" used="true">
+<folder excludes="" includes="**/*.class" location="bin" name="bin" prefix="" project="" projectLocation="/bin" used="true"/>
+<file location="src/META-INF/ejb-jar.xml" name="ejb-jar.xml" prefix="META-INF" project="" projectLocation="/src/META-INF/ejb-jar.xml" used="true"/>
+<file location="src/META-INF/jboss.xml" name="jboss.xml" prefix="META-INF" project="" projectLocation="/src/META-INF/jboss.xml" used="true"/>
+<folder excludes="" includes="" location="../Xinco/src/WEB-INF/classes" name="classes" prefix="" project="Xinco" projectLocation="src/WEB-INF/classes" used="true"/>
+<folder excludes="" includes="" location="lib" name="lib" prefix="META-INF/lib" project="" projectLocation="lib" used="true"/>
+</archive>
+<archive destination="" exploded="false" name="XincoWrapperEJB-client.jar" used="true">
+<folder excludes="" includes="de/fraunhofer/dms/xinco/wrapper/XincoWrapper.class,de/fraunhofer/dms/xinco/wrapper/XincoWrapperHome.class" location="bin" name="bin" prefix="" project="" projectLocation="bin" used="true"/>
+</archive>
+</configurations>

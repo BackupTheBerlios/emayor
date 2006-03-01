@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="uri:de.fraunhofer.dms.xinco.wrapper" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="uri:de.fraunhofer.dms.xinco.wrapper" xmlns:intf="uri:de.fraunhofer.dms.xinco.wrapper" xmlns:tns2="http://core.xinco.bluecubs.com" xmlns:tns3="http://add.xinco.bluecubs.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://core.xinco.bluecubs.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <!--import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://add.xinco.bluecubs.com"/-->
+   <element name="in46" type="xsd:string"/>
+   <element name="in47" type="xsd:string"/>
+   <element name="in48">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:byte"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="in49">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uploadFileReturn" type="xsd:boolean"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="uploadFileRequest">
+
+      <wsdl:part element="impl:in46" name="in0"/>
+
+      <wsdl:part element="impl:in47" name="in1"/>
+
+      <wsdl:part element="impl:in48" name="in2"/>
+
+      <wsdl:part element="impl:in49" name="in3"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uploadFileResponse">
+
+      <wsdl:part element="impl:uploadFileReturn" name="uploadFileReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="XincoWrapper">
+
+      <wsdl:operation name="uploadFile" parameterOrder="in0 in1 in2 in3">
+
+         <wsdl:input message="impl:uploadFileRequest" name="uploadFileRequest"/>
+
+         <wsdl:output message="impl:uploadFileResponse" name="uploadFileResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="XincoWrapperEJBBinding" type="impl:XincoWrapper">
+   
+   <ejb:binding/>
+
+      		<format:typeMapping encoding="Java" style="Java">
+			<format:typeMap typeName="xsd:string" formatType="java.lang.String"/>
+		</format:typeMapping>
+		<operation name="uploadFile">
+			<ejb:operation 
+				methodName="uploadFile" 
+				parameterOrder="in0 in1 in2 in3" 
+				interface="remote"
+				returnPart="uploadFileReturn/>
+			<input name="uploadFileRequest"/>
+			<output name="uploadFileResponse"/>
+		</operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="XincoWrapperService">
+
+      <wsdl:port binding="impl:XincoWrapperEJBBinding" name="XincoWrapper">
+
+         <ejb:address className="de.fraunhofer.dms.xinco.wrapper.XincoWrapperHome" jndiName="XincoWrapper" initialContextFactory="org.jnp.interfaces.NamingContextFactory" jndiProviderURL="localhost:1099"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+   
+   	<plnk:partnerLinkType name="XincoWrapperService">
+		<plnk:role name="XincoWrapperProvider">
+			<plnk:portType name="impl:XincoWrapper"/>
+		</plnk:role>
+	</plnk:partnerLinkType> 
+
+</wsdl:definitions>

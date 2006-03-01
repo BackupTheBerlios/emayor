@@ -1,0 +1,1261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="uri:de.fraunhofer.dms.xinco.wrapper" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="uri:de.fraunhofer.dms.xinco.wrapper" xmlns:intf="uri:de.fraunhofer.dms.xinco.wrapper" xmlns:tns2="http://core.xinco.bluecubs.com" xmlns:tns3="http://add.xinco.bluecubs.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://core.xinco.bluecubs.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://add.xinco.bluecubs.com"/>
+   <complexType name="XincoVersion">
+    <sequence>
+     <element name="version_high" type="xsd:int"/>
+     <element name="version_low" type="xsd:int"/>
+     <element name="version_mid" type="xsd:int"/>
+     <element name="version_postfix" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreUser">
+    <sequence>
+     <element name="email" type="xsd:string"/>
+     <element name="xinco_core_groups" type="apachesoap:Vector"/>
+     <element name="firstname" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="name" type="xsd:string"/>
+     <element name="status_number" type="xsd:int"/>
+     <element name="username" type="xsd:string"/>
+     <element name="userpassword" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreLanguage">
+    <sequence>
+     <element name="designation" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="sign" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreNode">
+    <sequence>
+     <element name="designation" type="xsd:string"/>
+     <element name="xinco_core_acl" type="apachesoap:Vector"/>
+     <element name="xinco_core_data" type="apachesoap:Vector"/>
+     <element name="xinco_core_language" type="tns2:XincoCoreLanguage"/>
+     <element name="xinco_core_node_id" type="xsd:int"/>
+     <element name="xinco_core_nodes" type="apachesoap:Vector"/>
+     <element name="id" type="xsd:int"/>
+     <element name="status_number" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreDataType">
+    <sequence>
+     <element name="designation" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="description" type="xsd:string"/>
+     <element name="xinco_core_data_type_attributes" type="apachesoap:Vector"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreData">
+    <sequence>
+     <element name="designation" type="xsd:string"/>
+     <element name="xinco_core_acl" type="apachesoap:Vector"/>
+     <element name="xinco_core_data_type" type="tns2:XincoCoreDataType"/>
+     <element name="xinco_core_language" type="tns2:XincoCoreLanguage"/>
+     <element name="xinco_core_node_id" type="xsd:int"/>
+     <element name="id" type="xsd:int"/>
+     <element name="status_number" type="xsd:int"/>
+     <element name="xinco_add_attributes" type="apachesoap:Vector"/>
+     <element name="xinco_core_logs" type="apachesoap:Vector"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreACE">
+    <sequence>
+     <element name="admin_permission" type="xsd:boolean"/>
+     <element name="execute_permission" type="xsd:boolean"/>
+     <element name="xinco_core_data_id" type="xsd:int"/>
+     <element name="xinco_core_group_id" type="xsd:int"/>
+     <element name="xinco_core_node_id" type="xsd:int"/>
+     <element name="xinco_core_user_id" type="xsd:int"/>
+     <element name="id" type="xsd:int"/>
+     <element name="read_permission" type="xsd:boolean"/>
+     <element name="write_permission" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreLog">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="op_code" type="xsd:int"/>
+     <element name="op_datetime" type="xsd:dateTime"/>
+     <element name="op_description" type="xsd:string"/>
+     <element name="version" type="tns2:XincoVersion"/>
+     <element name="xinco_core_data_id" type="xsd:int"/>
+     <element name="xinco_core_user_id" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreGroup">
+    <sequence>
+     <element name="designation" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="status_number" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="XincoCoreDataTypeAttribute">
+    <sequence>
+     <element name="designation" type="xsd:string"/>
+     <element name="attribute_id" type="xsd:int"/>
+     <element name="data_type" type="xsd:string"/>
+     <element name="size" type="xsd:int"/>
+     <element name="xinco_core_data_type_id" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="uri:de.fraunhofer.dms.xinco.wrapper" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://core.xinco.bluecubs.com"/>
+   <import namespace="http://add.xinco.bluecubs.com"/>
+   <element name="getXincoServerVersionReturn" type="tns2:XincoVersion"/>
+   <element name="in0" type="xsd:string"/>
+   <element name="in1" type="xsd:string"/>
+   <element name="getCurrentXincoCoreUserReturn" type="tns2:XincoCoreUser"/>
+   <element name="in2" type="tns2:XincoCoreUser"/>
+   <element name="getAllXincoCoreGroupsReturn" type="apachesoap:Vector"/>
+   <element name="in3" type="tns2:XincoCoreUser"/>
+   <element name="getAllXincoCoreLanguagesReturn" type="apachesoap:Vector"/>
+   <element name="in4" type="tns2:XincoCoreUser"/>
+   <element name="getAllXincoCoreDataTypesReturn" type="apachesoap:Vector"/>
+   <element name="in5" type="tns2:XincoCoreNode"/>
+   <element name="in6" type="tns2:XincoCoreUser"/>
+   <element name="getXincoCoreNodeReturn" type="tns2:XincoCoreNode"/>
+   <element name="in7" type="tns2:XincoCoreData"/>
+   <element name="in8" type="tns2:XincoCoreUser"/>
+   <element name="getXincoCoreDataReturn" type="tns2:XincoCoreData"/>
+   <element name="in9" type="tns2:XincoCoreData"/>
+   <element name="in10" type="tns2:XincoCoreUser"/>
+   <element name="doXincoCoreDataCheckoutReturn" type="tns2:XincoCoreData"/>
+   <element name="in11" type="tns2:XincoCoreData"/>
+   <element name="in12" type="tns2:XincoCoreUser"/>
+   <element name="undoXincoCoreDataCheckoutReturn" type="tns2:XincoCoreData"/>
+   <element name="in13" type="tns2:XincoCoreData"/>
+   <element name="in14" type="tns2:XincoCoreUser"/>
+   <element name="doXincoCoreDataCheckinReturn" type="tns2:XincoCoreData"/>
+   <element name="in15" type="tns2:XincoCoreData"/>
+   <element name="in16" type="tns2:XincoCoreUser"/>
+   <element name="downloadXincoCoreDataReturn">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:byte"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="in17" type="tns2:XincoCoreData"/>
+   <element name="in18">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:byte"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="in19" type="tns2:XincoCoreUser"/>
+   <element name="uploadXincoCoreDataReturn" type="xsd:int"/>
+   <element name="in20" type="xsd:string"/>
+   <element name="in21" type="tns2:XincoCoreLanguage"/>
+   <element name="in22" type="tns2:XincoCoreUser"/>
+   <element name="findXincoCoreNodesReturn" type="apachesoap:Vector"/>
+   <element name="in23" type="xsd:string"/>
+   <element name="in24" type="tns2:XincoCoreLanguage"/>
+   <element name="in25" type="tns2:XincoCoreUser"/>
+   <element name="findXincoCoreDataReturn" type="apachesoap:Vector"/>
+   <element name="in26" type="tns2:XincoCoreNode"/>
+   <element name="in27" type="tns2:XincoCoreUser"/>
+   <element name="setXincoCoreNodeReturn" type="tns2:XincoCoreNode"/>
+   <element name="in28" type="tns2:XincoCoreData"/>
+   <element name="in29" type="tns2:XincoCoreUser"/>
+   <element name="setXincoCoreDataReturn" type="tns2:XincoCoreData"/>
+   <element name="in30" type="tns2:XincoCoreACE"/>
+   <element name="in31" type="tns2:XincoCoreUser"/>
+   <element name="setXincoCoreACEReturn" type="tns2:XincoCoreACE"/>
+   <element name="in32" type="tns2:XincoCoreACE"/>
+   <element name="in33" type="tns2:XincoCoreUser"/>
+   <element name="removeXincoCoreACEReturn" type="xsd:boolean"/>
+   <element name="in34" type="tns2:XincoCoreLog"/>
+   <element name="in35" type="tns2:XincoCoreUser"/>
+   <element name="setXincoCoreLogReturn" type="tns2:XincoCoreLog"/>
+   <element name="in36" type="tns2:XincoCoreUser"/>
+   <element name="in37" type="tns2:XincoCoreUser"/>
+   <element name="setXincoCoreUserReturn" type="tns2:XincoCoreUser"/>
+   <element name="in38" type="tns2:XincoCoreGroup"/>
+   <element name="in39" type="tns2:XincoCoreUser"/>
+   <element name="setXincoCoreGroupReturn" type="tns2:XincoCoreGroup"/>
+   <element name="in40" type="tns2:XincoCoreLanguage"/>
+   <element name="in41" type="tns2:XincoCoreUser"/>
+   <element name="setXincoCoreLanguageReturn" type="tns2:XincoCoreLanguage"/>
+   <element name="in42" type="tns2:XincoCoreDataTypeAttribute"/>
+   <element name="in43" type="tns2:XincoCoreUser"/>
+   <element name="getXincoCoreDataTypeAttributeReturn" type="tns2:XincoCoreDataTypeAttribute"/>
+   <element name="in44" type="tns3:XincoAddAttribute"/>
+   <element name="in45" type="tns2:XincoCoreUser"/>
+   <element name="getXincoAddAttributeReturn" type="tns3:XincoAddAttribute"/>
+   <element name="in46" type="xsd:string"/>
+   <element name="in47" type="xsd:string"/>
+   <element name="in48">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:byte"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="in49">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uploadFileReturn" type="xsd:boolean"/>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://xml.apache.org/xml-soap" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://core.xinco.bluecubs.com"/>
+   <import namespace="http://add.xinco.bluecubs.com"/>
+   <complexType name="Vector">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://add.xinco.bluecubs.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://core.xinco.bluecubs.com"/>
+   <complexType name="XincoAddAttribute">
+    <sequence>
+     <element name="attrib_datetime" type="xsd:dateTime"/>
+     <element name="attrib_double" type="xsd:double"/>
+     <element name="attrib_int" type="xsd:int"/>
+     <element name="attrib_text" type="xsd:string"/>
+     <element name="attrib_unsignedint" type="xsd:long"/>
+     <element name="attrib_varchar" type="xsd:string"/>
+     <element name="attribute_id" type="xsd:int"/>
+     <element name="xinco_core_data_id" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getXincoCoreNodeResponse">
+
+      <wsdl:part element="impl:getXincoCoreNodeReturn" name="getXincoCoreNodeReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findXincoCoreNodesRequest">
+
+      <wsdl:part element="impl:in20" name="in0"/>
+
+      <wsdl:part element="impl:in21" name="in1"/>
+
+      <wsdl:part element="impl:in22" name="in2"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreACEResponse">
+
+      <wsdl:part element="impl:setXincoCoreACEReturn" name="setXincoCoreACEReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeXincoCoreACEResponse">
+
+      <wsdl:part element="impl:removeXincoCoreACEReturn" name="removeXincoCoreACEReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllXincoCoreGroupsResponse">
+
+      <wsdl:part element="impl:getAllXincoCoreGroupsReturn" name="getAllXincoCoreGroupsReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreGroupRequest">
+
+      <wsdl:part element="impl:in38" name="in0"/>
+
+      <wsdl:part element="impl:in39" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreLanguageRequest">
+
+      <wsdl:part element="impl:in40" name="in0"/>
+
+      <wsdl:part element="impl:in41" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoCoreDataTypeAttributeResponse">
+
+      <wsdl:part element="impl:getXincoCoreDataTypeAttributeReturn" name="getXincoCoreDataTypeAttributeReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllXincoCoreGroupsRequest">
+
+      <wsdl:part element="impl:in2" name="in0"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="doXincoCoreDataCheckoutResponse">
+
+      <wsdl:part element="impl:doXincoCoreDataCheckoutReturn" name="doXincoCoreDataCheckoutReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoCoreNodeRequest">
+
+      <wsdl:part element="impl:in5" name="in0"/>
+
+      <wsdl:part element="impl:in6" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoServerVersionRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoCoreDataResponse">
+
+      <wsdl:part element="impl:getXincoCoreDataReturn" name="getXincoCoreDataReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreGroupResponse">
+
+      <wsdl:part element="impl:setXincoCoreGroupReturn" name="setXincoCoreGroupReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uploadFileRequest">
+
+      <wsdl:part element="impl:in46" name="in0"/>
+
+      <wsdl:part element="impl:in47" name="in1"/>
+
+      <wsdl:part element="impl:in48" name="in2"/>
+
+      <wsdl:part element="impl:in49" name="in3"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uploadXincoCoreDataResponse">
+
+      <wsdl:part element="impl:uploadXincoCoreDataReturn" name="uploadXincoCoreDataReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="doXincoCoreDataCheckinRequest">
+
+      <wsdl:part element="impl:in13" name="in0"/>
+
+      <wsdl:part element="impl:in14" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoCoreDataRequest">
+
+      <wsdl:part element="impl:in7" name="in0"/>
+
+      <wsdl:part element="impl:in8" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoServerVersionResponse">
+
+      <wsdl:part element="impl:getXincoServerVersionReturn" name="getXincoServerVersionReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findXincoCoreNodesResponse">
+
+      <wsdl:part element="impl:findXincoCoreNodesReturn" name="findXincoCoreNodesReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoCoreDataTypeAttributeRequest">
+
+      <wsdl:part element="impl:in42" name="in0"/>
+
+      <wsdl:part element="impl:in43" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllXincoCoreDataTypesRequest">
+
+      <wsdl:part element="impl:in4" name="in0"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreACERequest">
+
+      <wsdl:part element="impl:in30" name="in0"/>
+
+      <wsdl:part element="impl:in31" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="doXincoCoreDataCheckinResponse">
+
+      <wsdl:part element="impl:doXincoCoreDataCheckinReturn" name="doXincoCoreDataCheckinReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="undoXincoCoreDataCheckoutRequest">
+
+      <wsdl:part element="impl:in11" name="in0"/>
+
+      <wsdl:part element="impl:in12" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="downloadXincoCoreDataResponse">
+
+      <wsdl:part element="impl:downloadXincoCoreDataReturn" name="downloadXincoCoreDataReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllXincoCoreLanguagesRequest">
+
+      <wsdl:part element="impl:in3" name="in0"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreNodeRequest">
+
+      <wsdl:part element="impl:in26" name="in0"/>
+
+      <wsdl:part element="impl:in27" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="doXincoCoreDataCheckoutRequest">
+
+      <wsdl:part element="impl:in9" name="in0"/>
+
+      <wsdl:part element="impl:in10" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreDataResponse">
+
+      <wsdl:part element="impl:setXincoCoreDataReturn" name="setXincoCoreDataReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreUserResponse">
+
+      <wsdl:part element="impl:setXincoCoreUserReturn" name="setXincoCoreUserReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCurrentXincoCoreUserRequest">
+
+      <wsdl:part element="impl:in0" name="in0"/>
+
+      <wsdl:part element="impl:in1" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreLogResponse">
+
+      <wsdl:part element="impl:setXincoCoreLogReturn" name="setXincoCoreLogReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoAddAttributeRequest">
+
+      <wsdl:part element="impl:in44" name="in0"/>
+
+      <wsdl:part element="impl:in45" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uploadXincoCoreDataRequest">
+
+      <wsdl:part element="impl:in17" name="in0"/>
+
+      <wsdl:part element="impl:in18" name="in1"/>
+
+      <wsdl:part element="impl:in19" name="in2"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="undoXincoCoreDataCheckoutResponse">
+
+      <wsdl:part element="impl:undoXincoCoreDataCheckoutReturn" name="undoXincoCoreDataCheckoutReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeXincoCoreACERequest">
+
+      <wsdl:part element="impl:in32" name="in0"/>
+
+      <wsdl:part element="impl:in33" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getXincoAddAttributeResponse">
+
+      <wsdl:part element="impl:getXincoAddAttributeReturn" name="getXincoAddAttributeReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreDataRequest">
+
+      <wsdl:part element="impl:in28" name="in0"/>
+
+      <wsdl:part element="impl:in29" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllXincoCoreLanguagesResponse">
+
+      <wsdl:part element="impl:getAllXincoCoreLanguagesReturn" name="getAllXincoCoreLanguagesReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findXincoCoreDataRequest">
+
+      <wsdl:part element="impl:in23" name="in0"/>
+
+      <wsdl:part element="impl:in24" name="in1"/>
+
+      <wsdl:part element="impl:in25" name="in2"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreUserRequest">
+
+      <wsdl:part element="impl:in36" name="in0"/>
+
+      <wsdl:part element="impl:in37" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCurrentXincoCoreUserResponse">
+
+      <wsdl:part element="impl:getCurrentXincoCoreUserReturn" name="getCurrentXincoCoreUserReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findXincoCoreDataResponse">
+
+      <wsdl:part element="impl:findXincoCoreDataReturn" name="findXincoCoreDataReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreNodeResponse">
+
+      <wsdl:part element="impl:setXincoCoreNodeReturn" name="setXincoCoreNodeReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="downloadXincoCoreDataRequest">
+
+      <wsdl:part element="impl:in15" name="in0"/>
+
+      <wsdl:part element="impl:in16" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreLogRequest">
+
+      <wsdl:part element="impl:in34" name="in0"/>
+
+      <wsdl:part element="impl:in35" name="in1"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setXincoCoreLanguageResponse">
+
+      <wsdl:part element="impl:setXincoCoreLanguageReturn" name="setXincoCoreLanguageReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllXincoCoreDataTypesResponse">
+
+      <wsdl:part element="impl:getAllXincoCoreDataTypesReturn" name="getAllXincoCoreDataTypesReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uploadFileResponse">
+
+      <wsdl:part element="impl:uploadFileReturn" name="uploadFileReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="XincoWrapper">
+
+      <wsdl:operation name="getXincoServerVersion">
+
+         <wsdl:input message="impl:getXincoServerVersionRequest" name="getXincoServerVersionRequest"/>
+
+         <wsdl:output message="impl:getXincoServerVersionResponse" name="getXincoServerVersionResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCurrentXincoCoreUser" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:getCurrentXincoCoreUserRequest" name="getCurrentXincoCoreUserRequest"/>
+
+         <wsdl:output message="impl:getCurrentXincoCoreUserResponse" name="getCurrentXincoCoreUserResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllXincoCoreGroups" parameterOrder="in0">
+
+         <wsdl:input message="impl:getAllXincoCoreGroupsRequest" name="getAllXincoCoreGroupsRequest"/>
+
+         <wsdl:output message="impl:getAllXincoCoreGroupsResponse" name="getAllXincoCoreGroupsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllXincoCoreLanguages" parameterOrder="in0">
+
+         <wsdl:input message="impl:getAllXincoCoreLanguagesRequest" name="getAllXincoCoreLanguagesRequest"/>
+
+         <wsdl:output message="impl:getAllXincoCoreLanguagesResponse" name="getAllXincoCoreLanguagesResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllXincoCoreDataTypes" parameterOrder="in0">
+
+         <wsdl:input message="impl:getAllXincoCoreDataTypesRequest" name="getAllXincoCoreDataTypesRequest"/>
+
+         <wsdl:output message="impl:getAllXincoCoreDataTypesResponse" name="getAllXincoCoreDataTypesResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoCoreNode" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:getXincoCoreNodeRequest" name="getXincoCoreNodeRequest"/>
+
+         <wsdl:output message="impl:getXincoCoreNodeResponse" name="getXincoCoreNodeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoCoreData" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:getXincoCoreDataRequest" name="getXincoCoreDataRequest"/>
+
+         <wsdl:output message="impl:getXincoCoreDataResponse" name="getXincoCoreDataResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="doXincoCoreDataCheckout" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:doXincoCoreDataCheckoutRequest" name="doXincoCoreDataCheckoutRequest"/>
+
+         <wsdl:output message="impl:doXincoCoreDataCheckoutResponse" name="doXincoCoreDataCheckoutResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="undoXincoCoreDataCheckout" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:undoXincoCoreDataCheckoutRequest" name="undoXincoCoreDataCheckoutRequest"/>
+
+         <wsdl:output message="impl:undoXincoCoreDataCheckoutResponse" name="undoXincoCoreDataCheckoutResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="doXincoCoreDataCheckin" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:doXincoCoreDataCheckinRequest" name="doXincoCoreDataCheckinRequest"/>
+
+         <wsdl:output message="impl:doXincoCoreDataCheckinResponse" name="doXincoCoreDataCheckinResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="downloadXincoCoreData" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:downloadXincoCoreDataRequest" name="downloadXincoCoreDataRequest"/>
+
+         <wsdl:output message="impl:downloadXincoCoreDataResponse" name="downloadXincoCoreDataResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uploadXincoCoreData" parameterOrder="in0 in1 in2">
+
+         <wsdl:input message="impl:uploadXincoCoreDataRequest" name="uploadXincoCoreDataRequest"/>
+
+         <wsdl:output message="impl:uploadXincoCoreDataResponse" name="uploadXincoCoreDataResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findXincoCoreNodes" parameterOrder="in0 in1 in2">
+
+         <wsdl:input message="impl:findXincoCoreNodesRequest" name="findXincoCoreNodesRequest"/>
+
+         <wsdl:output message="impl:findXincoCoreNodesResponse" name="findXincoCoreNodesResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findXincoCoreData" parameterOrder="in0 in1 in2">
+
+         <wsdl:input message="impl:findXincoCoreDataRequest" name="findXincoCoreDataRequest"/>
+
+         <wsdl:output message="impl:findXincoCoreDataResponse" name="findXincoCoreDataResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreNode" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:setXincoCoreNodeRequest" name="setXincoCoreNodeRequest"/>
+
+         <wsdl:output message="impl:setXincoCoreNodeResponse" name="setXincoCoreNodeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreData" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:setXincoCoreDataRequest" name="setXincoCoreDataRequest"/>
+
+         <wsdl:output message="impl:setXincoCoreDataResponse" name="setXincoCoreDataResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreACE" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:setXincoCoreACERequest" name="setXincoCoreACERequest"/>
+
+         <wsdl:output message="impl:setXincoCoreACEResponse" name="setXincoCoreACEResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeXincoCoreACE" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:removeXincoCoreACERequest" name="removeXincoCoreACERequest"/>
+
+         <wsdl:output message="impl:removeXincoCoreACEResponse" name="removeXincoCoreACEResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreLog" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:setXincoCoreLogRequest" name="setXincoCoreLogRequest"/>
+
+         <wsdl:output message="impl:setXincoCoreLogResponse" name="setXincoCoreLogResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreUser" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:setXincoCoreUserRequest" name="setXincoCoreUserRequest"/>
+
+         <wsdl:output message="impl:setXincoCoreUserResponse" name="setXincoCoreUserResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreGroup" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:setXincoCoreGroupRequest" name="setXincoCoreGroupRequest"/>
+
+         <wsdl:output message="impl:setXincoCoreGroupResponse" name="setXincoCoreGroupResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreLanguage" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:setXincoCoreLanguageRequest" name="setXincoCoreLanguageRequest"/>
+
+         <wsdl:output message="impl:setXincoCoreLanguageResponse" name="setXincoCoreLanguageResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoCoreDataTypeAttribute" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:getXincoCoreDataTypeAttributeRequest" name="getXincoCoreDataTypeAttributeRequest"/>
+
+         <wsdl:output message="impl:getXincoCoreDataTypeAttributeResponse" name="getXincoCoreDataTypeAttributeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoAddAttribute" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:getXincoAddAttributeRequest" name="getXincoAddAttributeRequest"/>
+
+         <wsdl:output message="impl:getXincoAddAttributeResponse" name="getXincoAddAttributeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uploadFile" parameterOrder="in0 in1 in2 in3">
+
+         <wsdl:input message="impl:uploadFileRequest" name="uploadFileRequest"/>
+
+         <wsdl:output message="impl:uploadFileResponse" name="uploadFileResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ForwardManagerSoapBinding" type="impl:XincoWrapper">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getXincoServerVersion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getXincoServerVersionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getXincoServerVersionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCurrentXincoCoreUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCurrentXincoCoreUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCurrentXincoCoreUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllXincoCoreGroups">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAllXincoCoreGroupsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAllXincoCoreGroupsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllXincoCoreLanguages">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAllXincoCoreLanguagesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAllXincoCoreLanguagesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllXincoCoreDataTypes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAllXincoCoreDataTypesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAllXincoCoreDataTypesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoCoreNode">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getXincoCoreNodeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getXincoCoreNodeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoCoreData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getXincoCoreDataRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getXincoCoreDataResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="doXincoCoreDataCheckout">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="doXincoCoreDataCheckoutRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="doXincoCoreDataCheckoutResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="undoXincoCoreDataCheckout">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="undoXincoCoreDataCheckoutRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="undoXincoCoreDataCheckoutResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="doXincoCoreDataCheckin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="doXincoCoreDataCheckinRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="doXincoCoreDataCheckinResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="downloadXincoCoreData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="downloadXincoCoreDataRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="downloadXincoCoreDataResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uploadXincoCoreData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="uploadXincoCoreDataRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="uploadXincoCoreDataResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findXincoCoreNodes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findXincoCoreNodesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findXincoCoreNodesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findXincoCoreData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findXincoCoreDataRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findXincoCoreDataResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreNode">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setXincoCoreNodeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setXincoCoreNodeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setXincoCoreDataRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setXincoCoreDataResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreACE">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setXincoCoreACERequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setXincoCoreACEResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeXincoCoreACE">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeXincoCoreACERequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeXincoCoreACEResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreLog">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setXincoCoreLogRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setXincoCoreLogResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setXincoCoreUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setXincoCoreUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreGroup">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setXincoCoreGroupRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setXincoCoreGroupResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setXincoCoreLanguage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setXincoCoreLanguageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setXincoCoreLanguageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoCoreDataTypeAttribute">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getXincoCoreDataTypeAttributeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getXincoCoreDataTypeAttributeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getXincoAddAttribute">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getXincoAddAttributeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getXincoAddAttributeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uploadFile">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="uploadFileRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="uploadFileResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="XincoWrapperService">
+
+      <wsdl:port binding="impl:ForwardManagerSoapBinding" name="ForwardManager">
+
+         <wsdlsoap:address location="http://localhost:80/eMayor/ForwardManager"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
