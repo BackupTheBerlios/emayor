@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+<archive destination="" exploded="false" name="xinco.war" used="true">
+<file location="src/WEB-INF/web.xml" name="web.xml" prefix="WEB-INF" project="" projectLocation="/src/WEB-INF/web.xml" used="true"/>
+<folder excludes="" includes="**/*.class" location="src/WEB-INF/classes" name="classes" prefix="WEB-INF/classes" project="" projectLocation="src/WEB-INF/classes" used="true"/>
+<file location="src/WEB-INF/users.lst" name="users.lst" prefix="WEB-INF" project="" projectLocation="src/WEB-INF/users.lst" used="true"/>
+<file location="src/WEB-INF/server-config.wsdd" name="server-config.wsdd" prefix="WEB-INF" project="" projectLocation="src/WEB-INF/server-config.wsdd" used="true"/>
+<folder excludes="" includes="" location="src/WEB-INF/lib" name="lib" prefix="WEB-INF/lib" project="" projectLocation="src/WEB-INF/lib" used="true"/>
+<folder excludes="" includes="" location="src/client" name="client" prefix="client" project="" projectLocation="src/client" used="true"/>
+<folder excludes="" includes="" location="src/WebRoot" name="WebRoot" prefix="" project="" projectLocation="src/WebRoot" used="true"/>
+<folder excludes="" includes="" location="src/META-INF" name="META-INF" prefix="META-INF" project="" projectLocation="src/META-INF" used="true"/>
+</archive>
+</configurations>

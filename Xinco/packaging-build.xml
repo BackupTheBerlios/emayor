@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_packaging_generation_" name="Packaging Generator">
+<target name="_packaging_generation_" depends="N10004"/>
+<target name="N10004" description="xinco.war">
+<jar destfile="xinco.war">
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="web.xml"/>
+</zipfileset>
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="users.lst"/>
+</zipfileset>
+<zipfileset dir="src/WEB-INF" prefix="WEB-INF">
+<include name="server-config.wsdd"/>
+</zipfileset>
+<zipfileset dir="src/WEB-INF/classes" prefix="WEB-INF/classes" includes="**/*.class"/>
+<zipfileset dir="src/WEB-INF/lib" prefix="WEB-INF/lib"/>
+<zipfileset dir="src/client" prefix="client"/>
+<zipfileset dir="src/WebRoot"/>
+<zipfileset dir="src/META-INF" prefix="META-INF"/>
+</jar>
+</target>
+</project>

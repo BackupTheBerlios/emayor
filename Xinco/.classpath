@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/WEB-INF/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
+	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
+	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.axis-1.2"/>
+	<classpathentry kind="lib" path="src/WEB-INF/lib/lucene-1.4-final.jar"/>
+	<classpathentry kind="lib" path="src/WEB-INF/lib/lucene-demos-1.4-final.jar"/>
+	<classpathentry kind="lib" path="src/WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
+	<classpathentry kind="lib" path="src/WEB-INF/lib/tm-extractors-0.4.jar"/>
+	<classpathentry kind="lib" path="src/WEB-INF/lib/PDFBox-0.6.7a.jar"/>
+	<classpathentry kind="output" path="src/WEB-INF/classes"/>
+</classpath>
