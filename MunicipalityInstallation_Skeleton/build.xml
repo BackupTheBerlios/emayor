@@ -191,7 +191,7 @@
 		  <input
 		    message="Make sure the MySQL service is running an press [enter]!"
 		  />
-		<exec dir="${install}/tmp/${emayor.MUNICIPALITY}/sql" executable="cmd">
+		<exec dir="${install}/tmp/${emayor.MUNICIPALITY}/sql" failonerror="true" executable="cmd">
 			<arg line="/c run.bat"/>
 			<env key="MYSQL_HOME" value="${emayor.MYSQL}/bin/mysql.exe"/>
 			<env key="MYSQL_USER" value="${emayor.MYSQL_USER}"/>
@@ -216,12 +216,32 @@
 		    message="Make sure the BPEL PM Server is running (and finished loading the domain without errors: ${emayor.BPEL_DOMAIN}). Press [enter] to continue!"
 		  />
 		<property name="deploy" id="deploy" value="${emayor.BPEL_DOMAIN}"/>
+		<!--ant dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" antfile="build.xml" target="eMayor">
+			<reference refid="deploy"/>
+		</ant>
+		<ant dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" antfile="build.xml" target="beans">
+		</ant-->
+		<exec dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" failonerror="true" executable="cmd">
+			<arg line="/c ${emayor.ORABPEL}/bin/obant.bat -Ddeploy=${deploy}"/>
+		</exec>
+		<exec dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" failonerror="true" executable="cmd">
+			<arg line="/c ${emayor.ORABPEL}/bin/obant.bat beans"/>
+		</exec>
+	</target>
+	
+	<!--target name="deployBPELServices">
+    	<echo message="Deploying BPEL processes and beans ..."/>
+		<property file="${install}/municipality.properties"/>
+		  <input
+		    message="Make sure the BPEL PM Server is running (and finished loading the domain without errors: ${emayor.BPEL_DOMAIN}). Press [enter] to continue!"
+		  />
+		<property name="deploy" id="deploy" value="${emayor.BPEL_DOMAIN}"/>
 		<ant dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" antfile="build.xml" target="eMayor">
 			<reference refid="deploy"/>
 		</ant>
 		<ant dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" antfile="build.xml" target="beans">
 		</ant>
-	</target>
+	</target-->
 	
 	<target name="setupNotification" depends="compile">
     	<java classname="org.emayor.install.MessageTutorial" failonerror="true">
