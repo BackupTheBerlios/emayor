@@ -1,0 +1,193 @@
+History
+-------
+
+Changes from version 4.4 to 4.5:
+--------------------------------
+All examples have been updated.
+
+Missing Bolzano examples have been created and added.
+
+
+*** File: BusinessDocument-v0.2g.xsd ***
+- Enumeration for MunicipalityDetailsType added.
+
+*** File: BusinessDocument-v0.2i.xsd ***
+- Enumeration for MunicipalityDetailsType added.
+
+*** File: BusinessDocument-v0.2s.xsd ***
+- Enumeration for MunicipalityDetailsType added.
+
+*** File: BusinessDocument-v0.3.xsd ***
+
+- Signature element position has been corrected.
+- Enumeration for MunicipalityDetailsType added.
+
+
+Changes from version 4.3 to 4.4:
+--------------------------------
+All examples have been updated!
+Minimum version of the ResidenceCertificationRequestDocument
+contains also Requester details.
+
+eMayor main schemas
+
+*** File: BusinessDocument-v0.3.xsd ***
+
+CertificationDocumentStructure
+- removed Signature element
+- added Timestamp element
+- added AcknowledgementStamp element
+
+ResidenceCertificationDocumentStructure:
+- added a Signature element (in the end) 
+
+NegativeResponseCertificationDocumentStructure
+- added AcknowledgementStamp element
+- removed Signature element
+
+NegativeResponseResidenceCertificationDocumentStructure
+- added Signature element (in the end)
+
+NotificationDocumentStructure
+- added AcknowledgementStamp element
+
+Added the AcknowledgmentStampType type
+
+RequestDocumentStructure
+- added AcknowledgmentStamp element
+- removed Signature element
+
+ResidenceCertificationRequestDocumentStructure
+- removed Timestamp element
+- added Signature element (in the end)
+
+*** File: BusinessDocument-v0.2s.xsd ***
+
+CertificationDocumentStructure
+- removed Signature element
+- added Timestamp element
+- added AcuseDeRecibo element
+
+ResidenceCertificationDocumentStructure
+- added Signature element (in the end)
+
+NegativeResponseCertificationDocumentStructure
+- added AcuseDeRecibo element
+- removed Signature element
+
+NegativeResponseResidenceCertificationDocumentStructure
+- added Signature element (in the end)
+
+*** BusinessDocument-v0.2i.xsd ***
+
+CertificationDocumentStructure
+- removed Signature element
+- added Timestamp element
+- added TimbroDiAccettazione element
+
+ResidenceCertificationDocumentStructure
+- added Signature element (in the end)
+
+NegativeResponseCertificationDocumentStructure
+- added TimbroDiAccettazione element
+- removed Signature element
+
+NegativeResponseResidenceCertificationDocumentStructure
+- added Signature element (in the end)
+
+*** BusinessDocument-v0.2g.xsd ***
+
+CertificationDocumentStructure
+- removed Signature element
+- added Timestamp element
+- added Bestatigungsstempel element
+
+ResidenceCertificationDocumentStructure
+- added Signature element (in the end)
+
+NegativeResponseCertificationDocumentStructure
+- added Bestatigungsstempel element
+- removed Signature element
+
+NegativeResponseResidenceCertificationDocumentStructure
+- added Signature element (in the end)
+
+
+XML digital signature schemas
+*** xmldsig-core-schema.xsd ***
+Commented out the initial DOCTYPE section (so that there is no connection over the internet for a dtd)
+
+e-Gif schemas
+*** PersonalDetailsTypes-v1-3.xsd
+
+CitizenNameFornameType
+Specific characters restriction has been removed.
+
+CitizenNameSurnameType
+Specific characters restriction has been removed.
+
+
+Changes from version 4.2 to 4.3:
+--------------------------------
+
+
+File: BusinessDocument-v0.3.xsd
+
+The following changes have been applied to the ResidenceCertificationRequestDocument
+
+- The element Observations has been made optional (minOccurs=0).
+- The element RequesterAddress has been made optional (minOccurs=0).
+
+
+File: e-document-v0.3.xsd
+
+The following changes have been applied to the CitizenBirthDetailsStructure
+
+- The element CityName has been made optional (minOccurs=0).
+
+File: e-document-v0.2i.xsd
+
+The following changes have been applied to the CitizenBirthDetailsStructure
+
+- The element CityName has been made optional (minOccurs=0).
+
+File: e-document-v0.1g.xsd
+
+The following changes have been applied to the CitizenBirthDetailsStructure
+
+- The element CityName has been made optional (minOccurs=0).
+
+File: e-document-v0.1s.xsd
+
+The following changes have been applied to the CitizenBirthDetailsStructure
+
+- The element CityName has been made optional (minOccurs=0).
+
+
+
+Changes from version 4.1 to 4.2:
+--------------------------------
+
+
+- The type of RequestDate in BusinessDocument-v0.3.xsd has been changed to dateTime.
+- The type of IssuanceDateType in e-document-v0.3.xsd has been changed to dateTime.
+
+- A set of namespaces have been added to BusinessDocument-v0.1bi.xsd.
+- The element RispostaNegativaCertificatoDiResidenza-NegativeMeldebescheinigungMeldung has been added to BusinessDocument-v0.1bi.xsd.
+- The structure BilingualNegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.1bi.xsd.
+
+- A set of namespaces have been added to BusinessDocument-v0.2g.xsd.
+- The element NegativeMeldebescheinigungMeldung has been added to BusinessDocument-v0.2g.xsd.
+- The structure NegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.2g.xsd.
+- The structure NegativeResponseResidenceCertificationDocumentStructure has been added to BusinessDocument-v0.2g.xsd.
+
+- A set of namespaces have been added to BusinessDocument-v0.2i.xsd.
+- The element RispostaNegativaCertificatoDiResidenza has been added to BusinessDocument-v0.2i.xsd.
+- The structure NegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.2i.xsd.
+- The structure NegativeResponseResidenceCertificationDocumentStructure has been added to BusinessDocument-v0.2i.xsd.
+
+- A set of namespaces have been added to BusinessDocument-v0.2s.xsd.
+- The element RespuestaNegativaCertificadoInscripcionPadronal has been added to BusinessDocument-v0.2s.xsd.
+- The structure NegativeResponseCertificationDocumentStructure has been added to BusinessDocument-v0.2s.xsd.
+- The structure NegativeResponseResidenceCertificationDocumentStructure has been added to BusinessDocument-v0.2s.xsd.
+

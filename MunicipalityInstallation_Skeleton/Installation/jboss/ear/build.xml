@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project name="JBossEAR" default="createEAR" basedir=".">
+
+<target name="createEAR" description="eMayorApp.ear">
+
+	
+	<delete includeemptydirs="true" failonerror="false">
+	    <fileset dir ="." includes="eMayorApp.war,TransformerEJB.jar"/>
+	</delete>
+	
+	<copy todir=".">
+				<fileset dir="./${emayor.MUNICIPALITY}/">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+	<jar destfile="eMayorApp.ear">
+		<zipfileset dir="META-INF" prefix="META-INF">
+			<include name="application.xml"/>
+		</zipfileset>
+		<zipfileset dir=".">
+			<include name="eMayorEJB.jar"/>
+			<include name="eMayorWeb.war"/>
+			<include name="eMayorRepresentationLayer.war"/>
+			<include name="eMayor_PolicyEnforcementEJB.jar"/>
+			<include name="WorklistManager-client.jar"/>
+			<include name="PrinterEJB.jar"/>
+			<include name="NotificationEJB.jar"/>
+			<include name="NotificationWrapperEJB.jar"/>
+			<include name="TransformerEJB.jar"/>
+			<include name="ContentRouting-ejb.jar"/>
+			<include name="ForwardMgrBPEL-client.jar"/>
+			<include name="eMayorBPELServiceStarter.jar"/>
+			<include name="ForwardManager-client.jar"/>
+			<include name="PlatformTest-client.jar"/>
+			<include name="E2MEJB.jar"/>
+			<include name="eMayorWebTier.war"/>
+			<include name="M2EWrapperClient.jar"/>
+		</zipfileset>
+	</jar>
+	
+</target>
+</project>

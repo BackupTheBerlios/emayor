@@ -1,0 +1,65 @@
+# test comment
+# :file:lineNr:mode:string:string
+#
+# <file> should be a valid location
+# <mode> is e/r/i (edit,replace,insert)
+#
+# :file::r:string1:string2			# replace every occurrence of string1 with string2
+# :file:lineNr:e:string1:string2	# replace at line <lineNr> string1 with string2
+# :file:lineNr:r:string:			# replace line <lineNr> with string
+# :file:linrNr:i:string:			# insert string at <lineNr>
+#
+:${emayor.JBOSS}/server/default/conf/policies/AuthenticationPolicy.policy:12:e:MUNICIPALITY:${emayor.MUNICIPALITY}
+:${emayor.JBOSS}/server/default/conf/policies/AuthenticationPolicy.policy:75:e:EMAYOR_COUNTRY:${emayor.LANGUAGE_TAG}
+:${emayor.JBOSS}/server/default/conf/policies/AuthenticationPolicy.policy:113:e:EMAYOR_COUNTRY:${emayor.LANGUAGE_TAG}
+:${emayor.JBOSS}/server/default/conf/policies/AuthenticationPolicy.policy:154:e:EMAYOR_COUNTRY:${emayor.LANGUAGE_TAG}
+:${emayor.JBOSS}/server/default/deploy/mysql-ds.xml:4:e:MUNICIPALITY:${emayor.MUNICIPALITY_DB_NAME}
+:${emayor.JBOSS}/server/default/deploy/jbossweb-tomcat50.sar/server.xml::e:JBOSS_1_HTTP:${emayor.JBOSS_HTTP}
+:${emayor.JBOSS}/server/default/deploy/jbossweb-tomcat50.sar/server.xml::e:JBOSS_2_HTTPS:${emayor.JBOSS_HTTPS}
+:${emayor.JBOSS}/server/default/deploy/jboss-ws4ee.sar/META-INF/jboss-service.xml::e:JBOSS_1_HTTP:${emayor.JBOSS_HTTP}
+:${emayor.JBOSS}/server/default/deploy/jboss-ws4ee.sar/META-INF/jboss-service.xml::e:JBOSS_2_HTTPS:${emayor.JBOSS_HTTPS}
+:${emayor.JBOSS}/server/default/conf/jboss-service.xml::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${emayor.JBOSS}/bin/run.bat:5:i:set JAVA_HOME=${emayor.JDK}:
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/PolicyEnforcer_v10/BPELPolicyEnforcerService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/PrintingUtility_v10/PrintingUtilityService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/MunicipalityAdaptationLayer_v10/M2EService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/FormatTransformation_v10/FormatTransformationService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/NotificationRequest/NotificationRequest.bpel::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/MunicipalityAdaptationLayer_v10/MunicipalityAdaptationLayer_v10.bpel::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/FormatTransformation_v10/FormatTransformation_v10.bpel::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ForwardRequest_v10/ForwardManagerBPEL.wsdl::e:JBOSS_HTTP:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ForwardResponse_v10/ForwardManagerBPEL.wsdl::e:JBOSS_HTTP:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ResidenceCertifcationRequest_v10/services/ServiceCallbackManager.wsdl::e:JBOSS_HTTP:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ResidenceCertifcationRequest_v10/src/org/emayor/rcs/forward/municipality.properties::e:MUNICIPALITY:${emayor.MUNICIPALITY}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:EMAIL_MODE:${emayor.EMAIL_MODE}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:EMAIL_USER:${emayor.EMAIL_USER}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:EMAIL_AUTH:${emayor.EMAIL_AUTH}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:EMAIL_PASS:${emayor.EMAIL_PASS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:EMAIL_TEST_ADDRESS:${emayor.EMAIL_TEST_ADDRESS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:MUNICIPALITY_DB_NAME:${emayor.MUNICIPALITY_DB_NAME}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:MUNICIPALITY_ID_NAME:${emayor.MUNICIPALITY}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:JBOSS_1_HTTP:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:MAILHOST:${emayor.MAILHOST}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:BPEL_PASSWORD:${emayor.BPEL_PASSWORD}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:BPEL_DOMAIN:${emayor.BPEL_DOMAIN}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:E2MSERVER:${emayor.E2MSERVER}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:SIGNATURE_CHECK:${emayor.USESMARTCARDS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:REPLYTO_ADDRESS:${emayor.MAIL_REPLYTO}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/jboss.sql::e:UDDI_HOST:${emayor.UDDI_HOST}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_AACHEN_HOST:${emayor.UDDI_AACHEN_HOST}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_AACHEN_PORT:${emayor.UDDI_AACHEN_PORT}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_BOZEN_HOST:${emayor.UDDI_BOZEN_HOST}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_BOZEN_PORT:${emayor.UDDI_BOZEN_PORT}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_SIENA_HOST:${emayor.UDDI_SIENA_HOST}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_SIENA_PORT:${emayor.UDDI_SIENA_PORT}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_SEVILLE_HOST:${emayor.UDDI_SEVILLE_HOST}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/sql/juddi.sql::e:EMAYOR_SEVILLE_PORT:${emayor.UDDI_SEVILLE_PORT}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config.xml:68:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config.xml:69:e:8443:${emayor.JBOSS_HTTPS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config-modulefoo.xml:95:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config-modulefoo.xml:96:e:8443:${emayor.JBOSS_HTTPS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config.xml:68:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config.xml:69:e:8443:${emayor.JBOSS_HTTPS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config-modulefoo.xml:95:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config-modulefoo.xml:96:e:8443:${emayor.JBOSS_HTTPS}

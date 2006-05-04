@@ -1,0 +1,30 @@
+# test comment
+# :file:lineNr:mode:string:string
+#
+# <file> should be a valid location
+# <mode> is e/r/i (edit,replace,insert)
+#
+# :file::r:string1:string2			# replace every occurrence of string1 with string2
+# :file:lineNr:e:string1:string2	# replace at line <lineNr> string1 with string2
+# :file:lineNr:r:string:			# replace line <lineNr> with string
+# :file:linrNr:i:string:			# insert string at <lineNr>
+#
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/PolicyEnforcer_v10/BPELPolicyEnforcerService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/PrintingUtility_v10/PrintingUtilityService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/MunicipalityAdaptationLayer_v10/M2EService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/FormatTransformation_v10/FormatTransformationService.wsdl::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/NotificationRequest/NotificationRequest.bpel::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/MunicipalityAdaptationLayer_v10/MunicipalityAdaptationLayer_v10.bpel::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/FormatTransformation_v10/FormatTransformation_v10.bpel::e:JBOSS_JNDI:${emayor.JBOSS_JNDI}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ForwardRequest_v10/ForwardManagerBPEL.wsdl::e:JBOSS_HTTP:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ForwardResponse_v10/ForwardManagerBPEL.wsdl::e:JBOSS_HTTP:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ResidenceCertifcationRequest_v10/services/ServiceCallbackManager.wsdl::e:JBOSS_HTTP:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/bpel/services/ResidenceCertifcationRequest_v10/src/org/emayor/rcs/forward/municipality.properties::e:MUNICIPALITY:${emayor.MUNICIPALITY}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config.xml:68:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config.xml:69:e:8443:${emayor.JBOSS_HTTPS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config-modulefoo.xml:95:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier/WEB-INF/struts-config-modulefoo.xml:96:e:8443:${emayor.JBOSS_HTTPS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config.xml:68:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config.xml:69:e:8443:${emayor.JBOSS_HTTPS}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config-modulefoo.xml:95:e:8080:${emayor.JBOSS_HTTP}
+:${INSTALLATION_PATH}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer/WEB-INF/struts-config-modulefoo.xml:96:e:8443:${emayor.JBOSS_HTTPS}

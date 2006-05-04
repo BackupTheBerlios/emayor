@@ -1,0 +1,1 @@
+The main place for configuration files used by the installer. All subdirectories are used for the several stages of installation.

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Policy PolicyId="PEAdminServiceAuthorizationPolicy"
+    RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides">
+    <Target>
+        <Subjects>
+            <AnySubject/>
+        </Subjects>
+        <Resources>
+            <Resource>
+                <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PEAdminService_v10</AttributeValue>
+                    <ResourceAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                        AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"/>
+                </ResourceMatch>
+            </Resource>
+        </Resources>
+        <Actions>
+            <AnyAction/>
+        </Actions>
+    </Target>
+   <Rule RuleId="StartCitizen" Effect="Deny">
+      <Target>
+        <Subjects>
+          <AnySubject/>
+        </Subjects>
+        <Resources>
+          <AnyResource/>
+        </Resources>
+        <Actions>
+          <Action>
+            <ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Start</AttributeValue>
+              <ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                         AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+            </ActionMatch>
+          </Action>
+        </Actions>
+      </Target>
+      <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+          <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                      AttributeId="role"/>
+        </Apply>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Citizen</AttributeValue>
+        
+      </Condition>
+    </Rule>
+
+   <Rule RuleId="StartCivilServant" Effect="Permit">
+      <Target>
+        <Subjects>
+          <AnySubject/>
+        </Subjects>
+        <Resources>
+          <AnyResource/>
+        </Resources>
+        <Actions>
+          <Action>
+            <ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Start</AttributeValue>
+              <ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                         AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+            </ActionMatch>
+          </Action>
+        </Actions>
+      </Target>
+      <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+          <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                      AttributeId="role"/>
+        </Apply>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Civil Servant</AttributeValue>
+        
+      </Condition>
+    </Rule>
+
+   <Rule RuleId="StartAdministrator" Effect="Permit">
+      <Target>
+        <Subjects>
+          <AnySubject/>
+        </Subjects>
+        <Resources>
+          <AnyResource/>
+        </Resources>
+        <Actions>
+          <Action>
+            <ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Start</AttributeValue>
+              <ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                         AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+            </ActionMatch>
+          </Action>
+        </Actions>
+      </Target>
+      <Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+          <SubjectAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
+                                      AttributeId="role"/>
+        </Apply>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Administrator</AttributeValue>
+        
+      </Condition>
+    </Rule>
+
+    <Rule RuleId="DefaultDeny" Effect="Deny"/>
+</Policy>

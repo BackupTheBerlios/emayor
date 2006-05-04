@@ -1,0 +1,1 @@
+Place a copy of the ClientInstaller if this is eMayor < 2.0

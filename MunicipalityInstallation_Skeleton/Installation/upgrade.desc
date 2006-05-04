@@ -1,0 +1,5 @@
+emayor-01.MUNICIPALITY=Municipality ID (Aachen,Bolzano-Bozen,Siena or Seville)
+emayor-02.BPEL_DOMAIN=BPEL Domain
+emayor-03.JBOSS_HTTP=JBoss HTTP port
+emayor-04.JBOSS_HTTPS=JBoss HTTPS port
+emayor-05.JBOSS_JNDI=JBoss JNDI port

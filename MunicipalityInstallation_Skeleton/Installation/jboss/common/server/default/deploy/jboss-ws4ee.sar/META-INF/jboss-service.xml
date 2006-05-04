@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id: jboss-service.xml,v 1.1 2006/05/04 07:20:06 kazcor Exp $ -->
+
+<server>
+
+  <!-- ==================================================================== -->
+  <!-- JBoss Webservice                                                     -->
+  <!-- ==================================================================== -->
+
+  <mbean code="org.jboss.webservice.AxisService"
+    name="jboss.ws4ee:service=AxisService">
+    <depends>jboss:service=WebService</depends>
+    <attribute name="WebServiceHost">localhost</attribute>
+    <attribute name="WebServiceSecurePort">JBOSS_2_HTTPS</attribute>
+    <attribute name="WebServicePort">JBOSS_1_HTTP</attribute>
+    <attribute name="ValidateWsdlRequest">false</attribute>
+  </mbean>
+
+  <mbean code="org.jboss.webservice.ServiceDeployerEJB"
+    name="jboss.ws4ee:service=ServiceDeployerEJB">
+    <depends optional-attribute-name="EJBDeployer">jboss.ejb:service=EJBDeployer</depends>
+    <depends optional-attribute-name="MainDeployer">jboss.system:service=MainDeployer</depends>
+  </mbean>
+
+  <mbean code="org.jboss.webservice.ServiceDeployerJSE"
+    name="jboss.ws4ee:service=ServiceDeployerJSE">
+    <depends optional-attribute-name="WARDeployer">jboss.web:service=WebServer</depends>
+  </mbean>
+
+  <mbean code="org.jboss.webservice.ServiceClientDeployer"
+    name="jboss.ws4ee:service=ServiceClientDeployer">
+  </mbean>
+
+  <mbean code="org.jboss.webservice.jaf.JAFConfigService"
+    name="jboss.ws4ee:service=JAFConfigService"
+    xmbean-dd="">
+    <xmbean>
+      <description>A Service which installs JAF mailcap strings into the
+            default MailcapCommandMap. The default behavior adds mappings for
+            text/xml, application/xml content types.
+      </description>
+      <operation>
+        <description>The service start lifecycle method</description>
+        <name>start</name>
+      </operation>
+      <operation>
+        <description>The service stop lifecycle method</description>
+        <name>stop</name>
+      </operation>
+    </xmbean>
+  </mbean>
+</server>

@@ -1,0 +1,1 @@
+Jboss files common to all municipalities can be found here. They will be simply copied to the root of JBoss.

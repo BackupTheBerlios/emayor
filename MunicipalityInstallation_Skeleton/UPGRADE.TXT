@@ -1,0 +1,18 @@
+What you need installed:
+ - BPEL PM
+ - MySQL
+ - JBoss 4.0.0
+ - JDK 1.4.2
+ - eMayor <= 2.0
+
+1. Run "obant upgrade" 
+	- enter your current configuration
+	- start BPEL if not already running
+2. Stop BPEL (+ JBoss if currently running)
+3. Start JBoss
+4. Start BPEL
+
+Notes
+-----
+MAKE BACKUPS!
+In case of failure, use the normal installation - there´s no support for that upgrade functionality.

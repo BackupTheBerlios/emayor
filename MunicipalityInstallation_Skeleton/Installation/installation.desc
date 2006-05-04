@@ -1,0 +1,10 @@
+emayor-01.JBOSS_HTTP=JBoss HTTP port
+emayor-02.JBOSS_HTTPS=JBoss HTTPS port
+emayor-03.JBOSS_JNDI=JBoss JNDI port
+emayor-04.BPEL_DOMAIN=BPEL Domain name
+emayor-05.BPEL_PASSWORD=BPEL Domain password
+emayor-06.MYSQL_USER=MySQL administrator name
+emayor-07.MYSQL_PASS=MySQL administrator password
+emayor-08.E2MSERVER=E2M Server URL
+emayor-09.MAILHOST=Mail Server
+emayor-10.MAIL_REPLYTO=From/ReplyTo Address for outgoing notifications

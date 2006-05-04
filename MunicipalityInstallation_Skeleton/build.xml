@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<project name="MunicipalityInstall" default="main" basedir=".">
+
+	<property name="src" value="src/"/>
+    <property name="build" value="bin/"/>
+	<property name="lib" value="lib/"/>
+	<property name="install" value="Installation/"/>
+
+    <target name="init">
+         <mkdir dir="${build}"/>
+    </target>
+	
+	<target name="upgrade" depends="compile">
+		<java classname="org.emayor.install.Main" failonerror="true">
+			    	<classpath>
+			        	<pathelement location="${build}"/>
+				        <pathelement path="${java.class.path}"/>
+			    	      <fileset dir="lib">
+			    	        <include name="**/*.jar"/>
+			    	      </fileset>
+				    </classpath>
+		    		<arg value="upgrade"/>
+			    </java>
+		    	<antcall target="copyFilesUpgrade"/>
+		    	
+		    	<java classname="org.emayor.install.Main" failonerror="true">
+			    	<classpath>
+			        	<pathelement location="${build}"/>
+				        <pathelement path="${java.class.path}"/>
+				    </classpath>
+		    		<arg value="editUpgrade"/>
+			    </java>
+		    	
+		    	<antcall target="createEAR"/>
+		    	<antcall target="copyEAR"/>
+		    	<antcall target="deployBPELServices"/>
+		    	<antcall target="displayHelpUpgrade"/>
+	</target>
+
+    <target name="compile" depends="init" >
+          <!-- Compile the java code -->
+          
+         <javac srcdir="${src}" destdir="${build}">
+           <classpath>
+             <fileset dir="${lib}">
+               <include name="*.jar"/>
+             </fileset>
+           </classpath>
+     	</javac>
+       	<copy todir="${build}/org/emayor/install" overwrite="true">
+			<fileset dir="${src}/org/emayor/install">
+				<include name="*.properties" />
+				<include name="*.map" />
+			</fileset>
+		</copy>
+    </target>
+	
+    <target name="main" depends="compile">
+
+    	<java classname="org.emayor.install.Main" failonerror="true">
+	    	<classpath>
+	        	<pathelement location="${build}"/>
+		        <pathelement path="${java.class.path}"/>
+		    </classpath>
+    		<arg value="configure"/>
+	    </java>
+    	<antcall target="copyFilesInstall"/>
+    	
+    	<java classname="org.emayor.install.Main" failonerror="true">
+	    	<classpath>
+	        	<pathelement location="${build}"/>
+		        <pathelement path="${java.class.path}"/>
+		    </classpath>
+    		<arg value="editInstall"/>
+	    </java>
+    	
+    	<antcall target="createEAR"/>
+    	<antcall target="copyEAR"/>
+    	<antcall target="editMySQLData"/>
+    	<antcall target="insertCertificates"/>
+    	<!--antcall target="setupNotification"/-->
+    	<antcall target="deployBPELServices"/>
+    	<antcall target="displayHelp"/>
+    </target>
+	
+	<target name="copyFilesInstall">
+   		<property file="${install}/municipality.properties"/>
+    	<echo message="Copying eMayor files to JBOSS/BPEL installation ..."/>
+		  <input
+		    message="Make sure the BPEL PM Server is down and the domain ${emayor.BPEL_DOMAIN} exists. Press [enter] to continue!"
+		  />
+		
+		<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}"/>
+		<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}/jboss"/>
+		<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier"/>
+		<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}/sql"/>
+		<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel"/>
+		<copy todir="${install}/tmp/${emayor.MUNICIPALITY}/sql" overwrite="true">
+			<fileset dir="${install}/sql/"/>
+		</copy>
+		<copy todir="${install}/tmp/${emayor.MUNICIPALITY}/bpel" overwrite="true">
+			<fileset dir="${install}/bpel/"/>
+		</copy>
+	
+		<unjar src="${install}/jboss/ear/eMayorWebTier.war" dest="${install}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier"></unjar>
+		<unjar src="${install}/jboss/ear/eMayorRepresentationLayer.war" dest="${install}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer"></unjar>
+		
+		<delete includeemptydirs="true" failonerror="false">
+		    <fileset dir="${emayor.JBOSS}/server/default/conf/MunicipalityInformation"/>
+		    <fileset dir="${emayor.JBOSS}/server/default/conf/policies"/>
+		    <fileset dir="${emayor.JBOSS}/server/default/tmp/emayor"/>
+		    <fileset dir="${emayor.JBOSS}/server/default/tmp/deploy"/>
+		    <fileset dir="${emayor.JBOSS}/server/default/tmp/sessions"/>
+		</delete>
+		<delete includeemptydirs="true" failonerror="false">
+		    <fileset dir="${install}/bpel/domain/deploy" includes="**/*"/>
+		</delete>
+		
+		<copy file="${emayor.ORABPEL}/domains/${emayor.BPEL_DOMAIN}/deploy/bpel_TaskActionHandler_1.0.jar" tofile="${install}/bpel/domain/deploy/bpel_TaskActionHandler_1.0.jar" overwrite="true"/>
+		<copy file="${emayor.ORABPEL}/domains/${emayor.BPEL_DOMAIN}/deploy/bpel_TaskManager_1.0.jar" tofile="${install}/bpel/domain/deploy/bpel_TaskManager_1.0.jar" overwrite="true"/>
+		
+
+		<delete includeemptydirs="true" failonerror="false">
+		    <fileset dir="${emayor.ORABPEL}/domains/${emayor.BPEL_DOMAIN}/deploy" includes="**/*"/>
+		    <fileset dir="${emayor.ORABPEL}/domains/${emayor.BPEL_DOMAIN}/tmp" includes="**/*"/>
+		    <fileset dir="${emayor.ORABPEL}/system/appserver/oc4j/j2ee/home/applib" includes="**/*.jar"/>
+		</delete>
+		
+		<copy todir="${emayor.JBOSS}" overwrite="true">
+		    <fileset dir="${install}/jboss/common"/>
+		</copy>
+		
+		<copy todir="${emayor.JBOSS}" overwrite="true">
+		    <fileset dir="${install}/jboss/${emayor.MUNICIPALITY}"/>
+		</copy>
+		<copy tofile="${emayor.ORABPEL}/domains/${emayor.BPEL_DOMAIN}/deploy/bpel_TaskActionHandler_1.0.jar" file="${install}/bpel/domain/deploy/bpel_TaskActionHandler_1.0.jar" overwrite="true"/>
+		<copy tofile="${emayor.ORABPEL}/domains/${emayor.BPEL_DOMAIN}/deploy/bpel_TaskManager_1.0.jar" file="${install}/bpel/domain/deploy/bpel_TaskManager_1.0.jar" overwrite="true"/>
+	</target>
+	
+		<target name="copyFilesUpgrade">
+	   		<property file="${install}/municipality.properties"/>
+			<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}"/>
+			<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}/jboss"/>
+			<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier"/>
+			<mkdir dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel"/>
+			<copy todir="${install}/tmp/${emayor.MUNICIPALITY}/bpel" overwrite="true">
+				<fileset dir="${install}/bpel/"/>
+			</copy>
+		
+			<unjar src="${install}/jboss/ear/eMayorWebTier.war" dest="${install}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier"></unjar>
+			<unjar src="${install}/jboss/ear/eMayorRepresentationLayer.war" dest="${install}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer"></unjar>
+									
+			<copy todir="${emayor.JBOSS}" overwrite="true">
+			    <fileset dir="${install}/jboss/upgrade"/>
+			</copy>
+		</target>
+	
+	<target name="createEAR">
+			<property file="${install}/municipality.properties"/>
+			<delete includeemptydirs="true" failonerror="false">
+			    <fileset dir="${install}/jboss/ear/" includes="eMayorWebTier.war"/>
+			</delete>
+			<jar destfile="${install}/jboss/ear/eMayorWebTier.war">
+				<zipfileset dir="${install}/tmp/${emayor.MUNICIPALITY}/jboss/WebTier">
+					<include name="**/*"/>
+				</zipfileset>
+			</jar>
+			<jar destfile="${install}/jboss/ear/eMayorRepresentationLayer.war">
+				<zipfileset dir="${install}/tmp/${emayor.MUNICIPALITY}/jboss/eMayorRepresentationLayer">
+					<include name="**/*"/>
+				</zipfileset>
+			</jar>
+			<ant dir="${install}/jboss/ear" antfile="build.xml" target="createEAR" />
+	</target>
+
+	<target name="copyEAR">
+			<property file="${install}/municipality.properties"/>
+			<copy file="${install}/jboss/ear/eMayorApp.ear" tofile="${emayor.JBOSS}/server/default/deploy/eMayorApp.ear" overwrite="true"/>
+	</target>
+	
+	<target name="cleanup">	
+		<property file="${install}/municipality.properties"/>
+		<delete includeemptydirs="true" failonerror="false">
+		    <fileset dir="${install}/tmp/${emayor.MUNICIPALITY}" includes="**/*"/>
+		</delete>
+	</target>	
+	
+	<target name="editMySQLData">
+    	<echo message="Installing eMayor environment on MySQL database ..."/>
+		<property file="${install}/municipality.properties"/>
+		  <input
+		    message="Make sure the MySQL service is running an press [enter]!"
+		  />
+		<exec dir="${install}/tmp/${emayor.MUNICIPALITY}/sql" executable="cmd">
+			<arg line="/c run.bat"/>
+			<env key="MYSQL_HOME" value="${emayor.MYSQL}/bin/mysql.exe"/>
+			<env key="MYSQL_USER" value="${emayor.MYSQL_USER}"/>
+			<env key="MYSQL_PASS" value="${emayor.MYSQL_PASS}"/>
+		</exec>
+	</target>
+	
+	<target name="insertCertificates">
+    	<echo message="Installing certificates to JDK/JRE ..."/>
+    	<property file="${install}/municipality.properties"/>
+		<exec dir="${install}/certs" executable="cmd">
+			<arg line="/c import-certs.cmd"/>
+			<env key="JAVA_HOME" value="${emayor.JDK}"/>
+			<env key="JRE_HOME" value="${emayor.JRE_CERTS}"/>
+		</exec>
+	</target>
+
+	<target name="deployBPELServices">
+    	<echo message="Deploying BPEL processes and beans ..."/>
+		<property file="${install}/municipality.properties"/>
+		  <input
+		    message="Make sure the BPEL PM Server is running (and finished loading the domain without errors: ${emayor.BPEL_DOMAIN}). Press [enter] to continue!"
+		  />
+		<property name="deploy" id="deploy" value="${emayor.BPEL_DOMAIN}"/>
+		<ant dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" antfile="build.xml" target="eMayor">
+			<reference refid="deploy"/>
+		</ant>
+		<ant dir="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/eMayor-BPEL" antfile="build.xml" target="beans">
+		</ant>
+	</target>
+	
+	<target name="setupNotification" depends="compile">
+    	<java classname="org.emayor.install.MessageTutorial" failonerror="true">
+	    	<classpath>
+	        	<pathelement location="${build}"/>
+		        <pathelement path="${java.class.path}"/>
+		    </classpath>
+    		<arg value="${install}/tmp/${emayor.MUNICIPALITY}/bpel/services/ResidenceCertifcationRequest_v10/src/org/emayor/bpel/tools"/>
+	    </java>
+	</target>
+	
+	<target name="displayHelp">
+		<property file="${install}/municipality.properties"/>
+    	<echo message="!! If you got an error on the BPEL deployment, please retry 'obant deployBPELServices' !!"/>
+    	<echo message="Please restart your BPEL and JBoss services once more and be sure your legacy system is running."/>
+	</target>
+	
+	<target name="displayHelpUpgrade">
+		<property file="${install}/municipality.properties"/>
+    	<echo message="!! If you got an error on the BPEL deployment, please retry 'obant deployBPELServices' !!"/>
+    	<echo message="Please restart JBoss and BPEL (in this order) when you´re done."/>
+	</target>
+
+	
+	
+</project>

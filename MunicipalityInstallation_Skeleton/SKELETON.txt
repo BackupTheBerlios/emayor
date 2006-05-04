@@ -1,0 +1,4 @@
+The module represents the raw structure of a usual MunicipalityInstallation. 
+There are all files missing that depend on a specific version of eMayor. Also it has more
+informational character than being a full documentation - there are a few README.txt´s
+around to explain the core structure.

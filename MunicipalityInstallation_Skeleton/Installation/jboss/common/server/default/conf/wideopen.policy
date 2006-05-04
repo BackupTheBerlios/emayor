@@ -1,0 +1,8 @@
+grant codeBase "file:e:/working/eMayor/dev/TestLegacyAachen/classes/*" {
+	permission java.security.AllPermission;
+}; 
+
+grant {
+	// Allow everything for now
+	permission java.security.AllPermission;
+};
